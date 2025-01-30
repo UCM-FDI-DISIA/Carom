@@ -11,22 +11,77 @@
 *.gch
 *.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
 # Fortran module files
 *.mod
 *.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
 # Executables
 *.exe
 *.out
 *.app
+
+# Compilación y objetos generados
+Debug/
+Release/
+**/x64/
+**/out/build/**
+*.pdb
+*.ilk
+*.idb
+*.ipch
+*.log
+*.tlog
+
+# Visual Studio files
+.vs/
+*.sln.docstates
+*.vcxproj.user
+*.vcxproj.filters
+*.pidb
+
+# CMake files
+**/build/compile_commands.json
+cmake-build-*
+CMakeFiles
+.cmake
+Makefile
+CMakeCache.txt
+cmake_install.cmake
+CMakePresets.json
+
+# VSCode Config
+.vscode/
+
+# MonoDevelop/Xamarin Studio
+*.userprefs
+
+# Build results
+[Oo]bj/
+[Ll]og/
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# Node.js
+node_modules/
+
+# Python Tools
+__pycache__/
+*.pyc
+
+# Cake
+.fake/
+
+# Binarios y logs de MSBuild
+*.binlog
+
+# Otros temporales
+~$*
+*.tmp
+*.bak
+*.dbmdl
+*.publishsettings
+*.rptproj.bak
