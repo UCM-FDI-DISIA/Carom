@@ -12,4 +12,5 @@ Todas las rondas que no sean de "boss" tienen asociada una recompensa si son com
 	- *Picardía:* Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras
 	- ...
 
-Los nombres están categorizados en ***"situaciones"*** o **"cualidades"** respectivamente como elemento estético.
+>[!Leyenda]
+>Los nombres están categorizados en ***"situaciones"*** o **"cualidades"** respectivamente como elemento estético.

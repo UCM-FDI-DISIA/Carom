@@ -6,6 +6,8 @@ Para jugar una ronda, el jugador hará click en una bola o agujero, entonces la 
 
 La única ronda que estás obligado a jugar es la del boss de la planta. Para todas las otras, puedes simplemente no jugarlas, ya que esto supondrá un cierto beneficio. En particular:
 - Cada ronda que juegues (y ganes) te otorgará una de las [[Recompensas]] posibles. Esta recompensa se podrá consultar antes de jugar si se pasa el cursor sobre el agujero
-- Por cada ronda que se quede sin jugar tras completar el boss, recibirás la bola que daba pie al comienzo de la ronda.
+- Tras derrotar al boss, recibirás las bolas restantes de la mesa, que representan todas las rondas que se han quedado sin jugar.
 
-La idea de esto es que le jugador tenga que sopesar constantemente si necesita la recompensa inmediata por falta de poder o si prefiere obtener la ventaja material de añadir una bola a su kit.
+>[!Justificación dinámica]
+>Esto supone que, dado que las recompensas son *inmediatas* y las bolas se recogen *tras completar el piso*, en ocasiones se tendrán que sacrificar bolas con efectos muy poderosos en favor del impulso necesario para derrotar al boss.
+
