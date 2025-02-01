@@ -1,7 +1,9 @@
 ---
-title: Billatro wiki
+title: Carom Wiki
 ---
+# Índice
 
-Hay que cocinar Jesse
+## Gestión general de grupo
 
-link de prueba [[prueba]]
+- [[Virtudes y defectos]]
+- [[Convención de código]]
