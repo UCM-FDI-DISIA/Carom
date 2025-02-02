@@ -1,12 +1,12 @@
-|                              | Facilidad                                | Neutral                                               | Dificultades             |
-| ---------------------------- | ---------------------------------------- | ----------------------------------------------------- | ------------------------ |
-| **Diseño**                   | Carmen, Diego, Hugo, Javi                | Guille, Marco, Mika, Jordi                            | Andrea                   |
-| **Arte visual**              | Carmen, Guille, Javi, Andrea             | Jordi                                                 | Marco, Mika, Diego, Hugo |
-| **Narrativa**                | Carmen                                   | Guille, Javi, Andrea, Jordi, Marco, Mika, Diego, Hugo |                          |
-| **Arquitectura de código**   | Guille, Diego, Jordi, Javi, Andrea       | Marco, Hugo                                           | Carmen, Mika             |
-| **Implementación de código** | Guille, Marco, Mika, Diego, Javi, Andrea | Hugo                                                  | Carmen, Jordi            |
-| **Revisión de Código**       | Marco, Mika, Diego, Andrea               | Guille, Hugo                                          | Carmen Jordi, Javi       |
-| **Gestión de proyecto**      | Carmen, Marco, Mika                      | Diego, Jordi, Andrea                                  | Guille Hugo, Javi        | 
+|                              | Facilidad                                | Neutral                                               | Dificultades             |     |
+| ---------------------------- | ---------------------------------------- | ----------------------------------------------------- | ------------------------ | --- |
+| **Diseño**                   | Carmen, Diego, Hugo, Javi                | Guille, Marco, Mika, Jordi                            | Andrea                   |     |
+| **Arte visual**              | Carmen, Guille, Javi, Andrea             | Jordi                                                 | Marco, Mika, Diego, Hugo |     |
+| **Narrativa**                | Carmen                                   | Guille, Javi, Andrea, Jordi, Marco, Mika, Diego, Hugo |                          |     |
+| **Arquitectura de código**   | Guille, Diego, Jordi, Javi, Andrea       | Marco, Hugo                                           | Carmen, Mika             |     |
+| **Implementación de código** | Guille, Marco, Mika, Diego, Javi, Andrea | Hugo                                                  | Carmen, Jordi            |     |
+| **Revisión de Código**       | Marco, Mika, Diego, Andrea               | Guille, Hugo                                          | Carmen Jordi, Javi       |     |
+| **Gestión de proyecto**      | Carmen, Marco, Mika                      | Diego, Jordi, Andrea                                  | Guille Hugo, Javi        |     |
 
 # Música
 

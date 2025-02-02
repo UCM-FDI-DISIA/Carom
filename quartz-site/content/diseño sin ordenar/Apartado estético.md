@@ -1,4 +1,4 @@
-Se ha optado por una estética oscura, en la que se busca que el jugador se sienta inquieto en todo momento, ya que no sabe qué es lo que puede pasar. 
+Se ha optado por una estética oscura y siniestra, en la que se busca transmitir al jugador una sensación de intranquilidad en todo momento, ya que no sabe qué es lo que puede pasar. 
 
 Esto se consigue con un apartado visual *desenfadado*, en el que parece que todo es indefenso pero que en realidad el jugador nota que *hay algo que está mal*. 
 
