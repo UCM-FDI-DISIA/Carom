@@ -21,14 +21,14 @@ if (CMAKE_HOST_WIN32)
 	# Utiliza las bibliotecas compiladas que van incluidas
 	# en el paquete con el proyecto de Visual Studio
 	include_directories(
-		external/SDL2-2.30.11/include
+		external/SDL2-2.30.12/include
 		external/SDL2_image-2.8.4/include
         external/SDL2_mixer-2.8.0/include
 		external/SDL2_ttf-2.24.0/include
 	)
 
 	link_directories(
-		SDL2-2.30.11/lib/x64
+		SDL2-2.30.12/lib/x64
 		SDL2_image-2.8.4/lib/x64
         SDL2_mixer-2.8.0/lib/x64
 		SDL2_ttf-2.24.0/lib/x64
@@ -88,4 +88,15 @@ if (CMAKE_HOST_WIN32)
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${DLL_DIR} $<TARGET_FILE_DIR:Carom>
     )
+
+	if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+
+		set(PDB_DIR ${CMAKE_SOURCE_DIR}/pdbs)
+
+		add_custom_command(TARGET Carom POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory
+		${PDB_DIR} $<TARGET_FILE_DIR:Carom>
+	)
+	endif()
+
 endif()
