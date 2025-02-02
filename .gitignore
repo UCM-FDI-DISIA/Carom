@@ -23,7 +23,6 @@
 # Compilación y objetos generados
 Debug/
 Release/
-**/x64/
 **/out/build/**
 *.pdb
 *.ilk
