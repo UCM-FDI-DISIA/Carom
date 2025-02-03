@@ -19,4 +19,4 @@ Si el jugador alcanza la puntuación dada, superará la ronda. Si no, **perderá
 Por último, aclarar que existen dos tipos de ronda:
 - **Ronda estándar:** Superar una puntuación en un número de tiradas sobre un tablero con la mecánica propia del piso. Al finalizar una de estas rondas obtienes una de las [[Recompensas]]
 
-- **Ronda de Boss(por determinar):** Superar una puntuación mayor a la de una ronda estándar, con la mecánica única del piso llevada a su máximo esplendor y con la aleatoriedad de las bolas inmunes (ver [[Progreso por pisos]]). Al finalizar una de estas rondas pasas al siguiente piso.
+- **Ronda de Boss:** Superar una puntuación mayor a la de una ronda estándar, con la mecánica única del piso en uso y con la trampa introducida por el boss (ver [[Progreso por pisos]]). Al finalizar una de estas rondas pasas al siguiente piso.
