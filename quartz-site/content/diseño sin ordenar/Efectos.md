@@ -15,7 +15,7 @@ Los siguientes son ***TODOS LOS EFECTOS QUE PUEDE TENER UNA BOLA:***
 
 | **Nombre del Efecto** | **Ventaja**                                                                                        | **Desventaja**                                                         |
 | --------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| *Bola de cristal*     | Puedes ver con una línea su trayectoria durante los próximos *3* rebotes antes de golpearla        | *5%* de posibilidades de romperse cuando choca con otra bola           |
+| *Bola de cristal*     | Extiende la línea de guía de la bola blanca hasta 3 rebotes si se está apuntando hacia ella        | *5%* de posibilidades de romperse cuando choca con otra bola           |
 | *Bola de bolos*       | Tiene más fuerza al golpear y se mueve menos al ser golpeada, ambas en un factor de *$\times1.5$*  | Ocupa *2* espacios de bola de color en el [[Kit de juego]]             |
 | *Pokèball*            | Absorbe todos los efectos de otra bola al golpearla                                                | Hace desaparecer dicha bola inmediatamente. Solo se puede usar una vez |
 | *X2*                  | Todos los otros efectos de esta bola que contengan *números* afectan el doble.                     | También duplica los números de las desventajas                         |

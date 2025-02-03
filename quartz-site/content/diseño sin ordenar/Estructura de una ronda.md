@@ -6,7 +6,7 @@ Además, una mesa puede tener *obstáculos* o *elementos propios de piso*, que t
 > Los entornos generados proceduralmente o pseudo-aleatoriamente nos sirven para que cada ronda sea diferente para el jugador y requiera de decisiones distintas.
 >>Además son un *flex* importante.
 
-Por cada ronda, tienes una puntuación a superar y un número de golpes para alcanzarla. 
+Por cada ronda, tienes una puntuación a superar y un número de golpes para alcanzarla. El jugador solo podrá golpear de nuevo una vez todas las bolas del tablero se hayan quedado quietas.
 
 La forma de alcanzar dicha puntuación es golpeando la bola blanca para desatar una cadena de golpes físicos entre las bolas de color. Los puntos se calculan en función del [[Sistema de puntuación]].
 

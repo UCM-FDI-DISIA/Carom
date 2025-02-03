@@ -4,4 +4,4 @@
 	Existen dos tipos de bolas: *bola blanca y bola de color.* La bola blanca no puede tener efectos, mientras que las de color pueden tener un número indefinido de efectos (0 incluido).
 
 
-- Un *palo* es una herramienta que le otorga a la bola blanca *un efecto particular al ser golpeada*. Cada palo tiene *un único efecto.*
+- Un *palo* es una herramienta que le otorga a la bola blanca *un efecto particular al ser golpeada*. Cada palo tiene *un único efecto.* (ver [[Habilidades de palo]])
