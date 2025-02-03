@@ -28,10 +28,10 @@ if (CMAKE_HOST_WIN32)
 	)
 
 	link_directories(
-		SDL2-2.30.12/lib/x64
-		SDL2_image-2.8.4/lib/x64
-        SDL2_mixer-2.8.0/lib/x64
-		SDL2_ttf-2.24.0/lib/x64
+		external/SDL2-2.30.12/lib/x64
+		external/SDL2_image-2.8.4/lib/x64
+        	external/SDL2_mixer-2.8.0/lib/x64
+		external/SDL2_ttf-2.24.0/lib/x64
 	)
 
 	link_libraries(
