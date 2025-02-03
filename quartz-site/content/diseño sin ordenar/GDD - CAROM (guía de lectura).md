@@ -27,6 +27,10 @@ El jugador posee un inventario propio que le acompañará a lo largo de la _run_
 El juego funciona por rondas:
 - [[Estructura de una ronda]]
 
+## *Controles*
+Por uso del ratón:
+- [[Controles y Feedback]]
+
 ## *Progresión*
 Entre rondas, el jugador se encuentra en un _lobby_ para elegir partida:
 - [[Mesa de Pool]]
