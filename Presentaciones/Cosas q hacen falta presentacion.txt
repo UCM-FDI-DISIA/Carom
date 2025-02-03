@@ -1,0 +1,12 @@
+-Resumen: Roguelike(boss, pisos, etc...), billar frances
+-Inspiracion: Balatro, Isac, Inscriptyon
+-Descripcion dinamica/mecanica: Mecanicas de puntuacion (nuestra version del billar frances), Piso tematicos (bosses acordes al piso),
+ powerups (bolas, efectos...), loby de cada piso (mesa e billar "pool")
+
+-Arte: Plastilina, Prerrenderizados blender, Tetrico
+-Sonido? ???
+
+-Equipo trabajo, herramientas: Cmake, Github Proyects, Wiki quartz, Metodoogia agil (odiamos scrum y a pilar)
+-Cosa unity Javi.
+-Poyeccion a futuro
+https://www.canva.com/design/DAGeDqgF3os/i4jTw3Ulo8GeMa9LdUJfQA/edit?utm_content=DAGeDqgF3os&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
