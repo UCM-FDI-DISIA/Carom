@@ -8,10 +8,10 @@ El jugador siempre estará obligado a tener, como mínimo, una bola blanca, una 
 **Acciones**
 Entre rondas, el jugador tendrá acceso a este inventario para *consultar y ordenar sus bolas* si lo desea, aunque no es necesario. Esto se puede hacer colocando el cursor sobre una de estas (para leer sus efectos) o arrastrándola con el ratón. 
 
-También podrá *destruir bolas* a voluntad, usando el click derecho, siempre que tenga más bolas del mínimo establecido. 
+También podrá *destruir bolas* a voluntad, usando el click derecho, siempre que tenga más bolas del mínimo establecido y no esté en medio de una ronda. 
 
->[!Dinámica]
->Creas una sensación de control en el jugador de cara a las bolas que llegan a partida
+>[!Justificación dinámica]
+>Dando siempre la opción de destruir, creas una *sensación de control* en el jugador de cara a las bolas que llegan a partida. Además, invitas a jugar *builds de pocas bolas, pero de gran valor*
 
 **Recibir material**
 - Al *recibir una bola nueva* se añade automáticamente a tu kit, si tiene espacio. Si no queda espacio para bolas, se le dará a elegir al jugador si quiere destruir una bola que ya tiene para recoger la nueva.

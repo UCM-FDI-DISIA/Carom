@@ -7,3 +7,5 @@ title: Carom Wiki
 
 - [[Virtudes y defectos]]
 - [[Convención de código]]
+- [[Convención de tasks]]
+- [[Metodología de trabajo]]
