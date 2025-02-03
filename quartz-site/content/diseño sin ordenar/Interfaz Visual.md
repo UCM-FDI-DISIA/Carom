@@ -1,4 +1,4 @@
-Se va a intentar integrar la UI de una forma *mínima* y *diegética*. Esto quiere decir que son pocos elementos en pantalla aparte de la zona de juego, y además los elementos están integrados como si fueran parte del mundo del juego.
+Se creará una UI con una forma *mínima* y *diegética*. Esto quiere decir que habrá pocos elementos en pantalla aparte de la zona de juego y, además, que los elementos estarán integrados como si fueran parte del mundo del juego.
 
 ## Durante el juego
 Se va a buscar una disposición parecida a la siguiente imagen:
