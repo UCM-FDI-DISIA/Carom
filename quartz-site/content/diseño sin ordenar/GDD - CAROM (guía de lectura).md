@@ -7,9 +7,9 @@ Al jugarlo, el jugador estará delante de una mesa de billar vista desde arriba 
 
 ## *Estética*
 En tono siniestro, Carom se pasa en una torre misteriosa:
-[[Contexto y Lore]]
+- [[Contexto y Lore]]
 La sensación de intranquilidad es pasada por la estética:
-[[Apartado estético]]
+- [[Apartado estético]]
 
 ## *Mecánica y dinámica*
 
