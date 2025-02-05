@@ -2,7 +2,7 @@ Cuando entras a una ronda, *se colocan en posiciones aleatorias todas las bolas*
 
 Además, una mesa puede tener *obstáculos* o *elementos propios de piso*, que también se colocan al azar (Ver [[Progreso por pisos]])
 
->[!Justificación dinámica]
+>[!Dinámica]
 > Los entornos generados proceduralmente o pseudo-aleatoriamente nos sirven para que cada ronda sea diferente para el jugador y requiera de decisiones distintas.
 >>Además son un *flex* importante.
 
@@ -12,7 +12,7 @@ La forma de alcanzar dicha puntuación es golpeando la bola blanca para desatar 
 
 Si el jugador alcanza la puntuación dada, superará la ronda. Si no, **perderá la partida** y con ello todo su progreso.
 
->[!Justificación dinámica]
+>[!Dinámica]
 >La razón por la que se pierde todo el progreso de una partida con perder una única ronda es para que **cada ronda importe**. Se crea una tensión inicial que va aumentando a lo largo de la partida y mantiene al jugador atento a cada jugada.
 >>Queremos que se vuelvan adictos.
 

@@ -5,7 +5,7 @@ Una bola de color puede verse afectada por un número indefinido de efectos. Est
 
 Todos los efectos pueden ir acompañados (o no) de una pequeña desventaja para compensar su poder. 
 
->[!Justificación dinámica]
+>[!Dinámica]
 >Esto se hace para que el jugador tenga a veces que descartar determinadas bolas de su build, a pesar de que el efecto positivo sea beneficioso, para conservar sus sinergias estables.
 
 Las bolas que aparecen naturalmente en la [[Mesa de Pool]] o la recompensa de "Máquina de chicles" de un piso pueden tener efectos. 

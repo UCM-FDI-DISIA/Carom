@@ -10,7 +10,7 @@ Entre rondas, el jugador tendrá acceso a este inventario para *consultar y orde
 
 También podrá *destruir bolas* a voluntad, usando el click derecho, siempre que tenga más bolas del mínimo establecido y no esté en medio de una ronda. 
 
->[!Justificación dinámica]
+>[!Dinámica]
 >Dando siempre la opción de destruir, creas una *sensación de control* en el jugador de cara a las bolas que llegan a partida. Además, invitas a jugar *builds de pocas bolas, pero de gran valor*
 
 **Recibir material**

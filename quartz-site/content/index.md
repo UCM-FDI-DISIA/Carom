@@ -3,6 +3,9 @@ title: Carom Wiki
 ---
 # Índice
 
+## Game Design Document 
+* [[GDD - CAROM (guía de lectura)]]
+
 ## Gestión general de grupo
 
 - [[Virtudes y defectos]]
