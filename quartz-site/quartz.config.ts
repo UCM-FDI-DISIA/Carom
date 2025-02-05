@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🎱 Carom",
+    pageTitle: "🎱 CAROM",
     pageTitleSuffix: "El juego de la carambola",
     enableSPA: true,
     enablePopovers: true,
