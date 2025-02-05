@@ -26,6 +26,9 @@ Los distintos tipos de golpe, las habilidades de las bolas y el cambio de normas
 ## *Controles*
 - Fundamentalmente, se empleará el ratón para todo:  [[Controles y Feedback]]
 
+## *Interfaz Visual*
+* Se implementa una interfaz limpia y diegética: [[Interfaz Visual]]
+
 ## *Progresión en las runs*
 - Entre rondas, el jugador se encuentra en un _lobby_ para elegir partida:  [[Mesa de Pool]]
 - La progresión es típica de Rogue-Likes como Dead Cells o The Binding of Isaac donde hay pisos separados por _bosses_:  [[Progreso por pisos]]
