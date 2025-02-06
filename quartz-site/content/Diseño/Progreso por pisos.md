@@ -2,7 +2,7 @@ La forma de progresar por el juego es derrotar al "boss" de cada piso. Cuando el
 
 Completar una bossfight e ir a un piso nuevo no sólo supone aumentar la puntuación a superar. Cada piso tendrá una **mecánica única** que cambiará la forma de jugar cada ronda. Estas mecánicas únicas son esencialmente *obstáculos evitables, que actúan cuando una bola las toca*. 
 
->[!Dinámica]
+>[!Dinamica]
 >La razón cada obstáculo está asociado a un tipo concreto de piso es para que el jugador sienta que está *descifrando una cierta parte del juego* y creando *conocimiento que servirá para partidas futuras.* Además, hace más interesante el progreso.
 >> "Joder, qué bueno soy" -El jugador, probablemente
 
@@ -19,7 +19,7 @@ A continuación se describen, por pisos, el obstáculo único y la bossfight.
 | Crazy-8         | Cada ronda se usa el obstáculo de un piso distinto                                                                            | El boss es aleatorio entre todos los de los otros pisos                                                                                                                                                             |
 |                 |                                                                                                                               |                                                                                                                                                                                                                     |
 
->[!Estética]
+>[!Estetica]
 >Cada piso recibe el nombre de una variante distinta de billar. Así todo está más cohesionado alrededor del juego
 
 

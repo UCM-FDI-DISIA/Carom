@@ -8,6 +8,6 @@ La única ronda que estás obligado a jugar es la del boss de la planta. Para to
 - Cada ronda que juegues (y ganes) te otorgará una de las [[Recompensas]] posibles. Esta recompensa se podrá consultar antes de jugar si se pasa el cursor sobre el agujero
 - Tras derrotar al boss, recibirás las bolas restantes de la mesa, que representan todas las rondas que se han quedado sin jugar.
 
->[!Dinámica]
+>[!Dinamica]
 >Esto supone que, dado que las recompensas son *inmediatas* y las bolas se recogen *tras completar el piso*, en ocasiones se tendrán que sacrificar bolas con efectos muy poderosos en favor del impulso necesario para derrotar al boss.
 
