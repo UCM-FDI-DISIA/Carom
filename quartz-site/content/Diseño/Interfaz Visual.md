@@ -21,3 +21,6 @@ El jugador almacena un maletín de juego, donde están representadas las bolas c
 ### Menú de configuración
 ![[interfaz-opciones.png]]
 Se podrá ir a la configuración del juego o salir al menú principal, además de todo tipo de funcionalidades extra que se necesiten añadir.
+
+## Efectos visuales durante la ronda
+
