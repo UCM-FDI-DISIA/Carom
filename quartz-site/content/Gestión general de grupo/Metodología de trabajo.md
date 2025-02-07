@@ -31,16 +31,17 @@ Se definirá el tiempo en el que se desarrollará cada tarea. Esto se hará con 
 - Cuando terminas con la task, se mueve en el *projects* y se hace pull request
 ## Testing
 
-Entre medias del bucle de trabajo o entre bucles, los miembros del equipo harán **testing**. Se hará un seguimiento del número de testings exitosos que ha llevado a cabo cada miembro del equipo. La idea es que todos los miembros del equipo tengamos un número de testings parecido. Los testings se deben hacer siguiendo esta metodología:
+Entre medias del bucle de trabajo o entre bucles, los miembros del equipo harán **testing**. Se hará un seguimiento de los testings exitosos que ha llevado a cabo cada miembro del equipo. La idea es que todos los miembros del equipo testeen de forma equitativa. Los testings se deben hacer siguiendo esta metodología:
 
 - Miras en las Pull Request a ver si hay alguna
 - Si la hay y tienes un número de testings parecido o por debajo al resto, se avisa y se coge
 - Se testea siguiendo las indicaciones del definition of done
 - Si la tarea se puede aprobar se avisa y se mueve a done
 - Si la tarea no se puede aprobar se avisa, se escribe en la descripción por qué no se puede aprobar y se devuelve a TODO para que **lo arregle la persona responsable de la tarea**
-- Si la tarea se ha aprobado sumas 1 a tu número de testings, si no tendrás que revirsarla cuando se arreglé el error
+- Si la tarea se ha aprobado sumas selecciona el check de tu nombre en el draft superior de testing
 
 Nota: *Si no estás seguro de si lo que has testeado está bien, pide ayuda a un tercero.*
+
 ## Bucle de trabajo grupal
 
 **Reunión de estatus**: Viernes a las 11. 15 minutos de hablar del estado del juego con los cambios relevantes de cada uno.
