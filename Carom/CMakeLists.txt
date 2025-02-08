@@ -35,6 +35,7 @@ if (CMAKE_HOST_WIN32)
 		external/SDL2_image-2.8.4/lib/x64
         external/SDL2_mixer-2.8.0/lib/x64
 		external/SDL2_ttf-2.24.0/lib/x64
+		external/box2d/build/src/Release
 	)
 
 	link_libraries(
@@ -43,6 +44,7 @@ if (CMAKE_HOST_WIN32)
 		SDL2_image.lib
         SDL2_mixer.lib
 		SDL2_ttf.lib
+		box2d.lib
 	)
 else()
 	# En otros sistemas operativos utiliza find_package
@@ -69,6 +71,8 @@ include_directories(
 add_executable(Carom
     src/main.cpp
 
+	external/sdlutils/src/JSON.cpp
+	external/sdlutils/src/JSONValue.cpp
     external/sdlutils/src/SDLUtils.cpp
     external/sdlutils/src/SDLUtilsError.cpp
     external/sdlutils/src/SoundEffect.cpp
@@ -83,10 +87,9 @@ target_link_libraries(Carom PRIVATE box2d)
 
 # Definir directorios de salida
 set_target_properties(Carom PROPERTIES 
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin/Debug
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin/Release
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/$<CONFIG>
 )
+
 
 if (CMAKE_HOST_WIN32)
     set(DLL_DIR ${CMAKE_SOURCE_DIR}/dlls)
