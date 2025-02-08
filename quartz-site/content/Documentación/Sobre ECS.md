@@ -8,6 +8,8 @@ Lógica que ocurre de forma global (o no, pero normalmente si) fuera del sistema
 
 Llamamos sistema ECS al contexto sobre el que existen entidades, componentes y sistemas (si, es redundante). Tenemos que determinar que existe este concepto porque tenemos cosas en nuestro juego fuera de esta arquitectura (AKA managers)
 
+---
+
 ### Entidad
 
 Una entidad es simple y llanamente un contenedor de componentes. Suelen existir dentro de escenas y estar agrupados. También deberían tener métodos para instanciarlos de forma prefabricada (AKA JSONs), para agregar y eliminar componentes y para activar y desactivar la entidad (es decir hacerla "inexistente" en la ejecución)
