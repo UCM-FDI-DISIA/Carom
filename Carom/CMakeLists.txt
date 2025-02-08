@@ -16,6 +16,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(json)
 
+# box2D
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
+
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
 	# Utiliza las bibliotecas compiladas que van incluidas
@@ -30,7 +33,7 @@ if (CMAKE_HOST_WIN32)
 	link_directories(
 		external/SDL2-2.30.12/lib/x64
 		external/SDL2_image-2.8.4/lib/x64
-        	external/SDL2_mixer-2.8.0/lib/x64
+        external/SDL2_mixer-2.8.0/lib/x64
 		external/SDL2_ttf-2.24.0/lib/x64
 	)
 
@@ -74,6 +77,10 @@ add_executable(Carom
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
 )
+
+# Link box2D
+target_link_libraries(Carom PRIVATE box2d)
+
 # Definir directorios de salida
 set_target_properties(Carom PROPERTIES 
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
