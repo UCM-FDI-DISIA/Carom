@@ -2,7 +2,7 @@
 
 int main (int, char**)
 {
-    //testBox();
+    testBox();
 
     return 0;
 }

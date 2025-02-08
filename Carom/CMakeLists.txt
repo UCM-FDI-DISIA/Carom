@@ -2,9 +2,15 @@ cmake_minimum_required(VERSION 3.15...3.30)
 
 project(Carom VERSION 0.1 LANGUAGES CXX)
 
+# Force dynamic runtime (/MD for Release, /MDd for Debug)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL" CACHE STRING "" FORCE)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Fix runtime conflicts between static and dynamic linking
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 include(FetchContent)
 
@@ -18,6 +24,9 @@ FetchContent_MakeAvailable(json)
 
 # Box2D
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
+
+# Force Box2D (if needed) to use dynamic runtime:
+set_target_properties(box2d PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
