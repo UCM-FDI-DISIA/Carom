@@ -5,6 +5,8 @@ class Entity;
 class HandleEventComponent : public Component
 {
 public:
+    virtual ~HandleEventComponent(){}
+
     virtual void update(Entity* e) {}
     void render(Entity* e) {}
     void handleEvent(Entity* e) = 0;
