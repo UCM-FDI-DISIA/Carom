@@ -5,7 +5,7 @@
 
 class Component;
 
-namespace ecs{
+namespace ecs {
 
     enum ComponentID {
         NUM_COMPONENTS
@@ -28,7 +28,7 @@ namespace ecs{
     
         bool removeComponent(ComponentID);
 
-        Component* getComponent(ComponentID);
+        bool tryGetComponent(ComponentID, Component*&);
     
         void update();
         void render();
