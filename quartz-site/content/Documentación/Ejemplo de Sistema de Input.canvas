@@ -1,0 +1,25 @@
+{
+	"nodes":[
+		{"id":"de984e8e4777b3d2","x":280,"y":-200,"width":299,"height":420,"color":"3","type":"group","label":"SDL_Events"},
+		{"id":"c5c78270efb8bbb5","x":-480,"y":-140,"width":290,"height":320,"color":"5","type":"group","label":"Eventos propios de Input"},
+		{"id":"5fa9e23226ddc22d","x":300,"y":-180,"width":250,"height":60,"type":"text","text":"SDLK_RIGHT_DOWN"},
+		{"id":"2e699c52d50efde3","type":"text","text":"SDLK_W_DOWN","x":300,"y":-80,"width":250,"height":60},
+		{"id":"cc2e0d8f81067815","x":300,"y":40,"width":250,"height":60,"type":"text","text":"JOYSTICK_RIGHT"},
+		{"id":"70ddb77bf6391636","x":300,"y":140,"width":259,"height":60,"type":"text","text":"GAMEPAD_RIGHT_TRIGGER"},
+		{"id":"99acde609edeee7a","x":-100,"y":-20,"width":260,"height":60,"type":"text","text":"# Convertidor de Input"},
+		{"id":"c285c3110f4fb408","x":-460,"y":-120,"width":250,"height":60,"type":"text","text":"MoveRightEvent"},
+		{"id":"e5d5138609e92220","x":-460,"y":-20,"width":250,"height":60,"type":"text","text":"OpenInventoryEvent"},
+		{"id":"18aaa941f7cfbdbc","x":-460,"y":100,"width":250,"height":60,"type":"text","text":"Select"},
+		{"id":"90a623d261331d98","x":-812,"y":-10,"width":250,"height":60,"type":"text","text":"Acción de la Entidad"}
+	],
+	"edges":[
+		{"id":"41cda24d94982dbe","fromNode":"5fa9e23226ddc22d","fromSide":"left","toNode":"99acde609edeee7a","toSide":"right","color":"3"},
+		{"id":"aa8965e0e8e19787","fromNode":"2e699c52d50efde3","fromSide":"left","toNode":"99acde609edeee7a","toSide":"right","color":"3"},
+		{"id":"590b8015cba7f650","fromNode":"cc2e0d8f81067815","fromSide":"left","toNode":"99acde609edeee7a","toSide":"right","color":"3"},
+		{"id":"913fd0c1aee1fc3b","fromNode":"70ddb77bf6391636","fromSide":"left","toNode":"99acde609edeee7a","toSide":"right","color":"3"},
+		{"id":"3860b5487e73a9d9","fromNode":"99acde609edeee7a","fromSide":"left","toNode":"c285c3110f4fb408","toSide":"right"},
+		{"id":"66bce8f978528241","fromNode":"99acde609edeee7a","fromSide":"left","toNode":"e5d5138609e92220","toSide":"right"},
+		{"id":"5e62c3a958153337","fromNode":"99acde609edeee7a","fromSide":"left","toNode":"18aaa941f7cfbdbc","toSide":"right"},
+		{"id":"92ecd8875fa9f0fc","fromNode":"c5c78270efb8bbb5","fromSide":"left","toNode":"90a623d261331d98","toSide":"right","color":"6"}
+	]
+}
