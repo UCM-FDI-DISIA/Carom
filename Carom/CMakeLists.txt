@@ -12,17 +12,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Fix runtime conflicts between static and dynamic linking
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
-include(FetchContent)
-
-# JSON library
-
-#FetchContent_Declare(
-#    json
-#    GIT_REPOSITORY https://github.com/nlohmann/json.git
-#    GIT_TAG v3.11.3
-#)
-#FetchContent_MakeAvailable(json)
-
 # Box2D
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
 
@@ -43,7 +32,7 @@ if (CMAKE_HOST_WIN32)
 	link_directories(
 		external/SDL2-2.30.12/lib/x64
 		external/SDL2_image-2.8.4/lib/x64
-        	external/SDL2_mixer-2.8.0/lib/x64
+        external/SDL2_mixer-2.8.0/lib/x64
 		external/SDL2_ttf-2.24.0/lib/x64
 	)
 
@@ -73,6 +62,8 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
 	${CMAKE_SOURCE_DIR}/external/json/include
+
+	${CMAKE_SOURCE_DIR}/src/ECS
 )
 
 
@@ -91,6 +82,8 @@ add_executable(Carom
 	external/json/src/json_demo.cpp
 	external/json/src/JSON.cpp
 	external/json/src/JSONValue.cpp
+
+	src/ECS/Entity.cpp
 )
 
 # Link Box2D
