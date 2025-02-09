@@ -6,7 +6,6 @@ En este ejemplo que sigue tenemos la creación de un mundo con un objeto (ball) 
 >[!important] Coordenadas
 >Las coordenadas de box2d son las cartesianas, así que hay que convertirlas a las de la pantalla a la hora de renderizar.
 ## Inicialización de mundo
-
  ```cpp
 // Setup mundo ("The world definition is a temporary object that you can create on the stack")
 b2WorldDef worldDef = b2DefaultWorldDef();
@@ -17,7 +16,6 @@ b2WorldId worldId = b2CreateWorld(&worldDef);
 ```
 
 ## Inicialización de objeto 
-
 ```cpp
 // Se crea un objeto de definición de body (bodyDef)
 b2BodyDef bodyDef_ball = b2DefaultBodyDef();
@@ -44,7 +42,6 @@ b2CreateCircleShape(ball, &shapeDef_ball, &circle_ball);
 ```
 
 ## Simulación
-
 ```cpp
 // Definición de del FPS (60)
 float timeStep = 1.0f / 60.0f;
