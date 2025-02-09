@@ -15,12 +15,13 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 include(FetchContent)
 
 # JSON library
-FetchContent_Declare(
-    json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.3
-)
-FetchContent_MakeAvailable(json)
+
+#FetchContent_Declare(
+#    json
+#    GIT_REPOSITORY https://github.com/nlohmann/json.git
+#    GIT_TAG v3.11.3
+#)
+#FetchContent_MakeAvailable(json)
 
 # Box2D
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
@@ -71,6 +72,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/include
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
+	${CMAKE_SOURCE_DIR}/external/json/include
 )
 
 
@@ -85,6 +87,10 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
+
+	external/json/src/json_demo.cpp
+	external/json/src/JSON.cpp
+	external/json/src/JSONValue.cpp
 )
 
 # Link Box2D
