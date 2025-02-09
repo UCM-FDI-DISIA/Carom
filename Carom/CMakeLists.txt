@@ -9,12 +9,13 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 include(FetchContent)
 
 # JSON library
-FetchContent_Declare(
-    json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.3
-)
-FetchContent_MakeAvailable(json)
+
+#FetchContent_Declare(
+#    json
+#    GIT_REPOSITORY https://github.com/nlohmann/json.git
+#    GIT_TAG v3.11.3
+#)
+#FetchContent_MakeAvailable(json)
 
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
@@ -59,6 +60,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/include
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
+	${CMAKE_SOURCE_DIR}/external/json/include
 )
 
 
@@ -73,6 +75,10 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
+
+	external/json/src/json_demo.cpp
+	external/json/src/JSON.cpp
+	external/json/src/JSONValue.cpp
 )
 # Definir directorios de salida
 set_target_properties(Carom PROPERTIES 
