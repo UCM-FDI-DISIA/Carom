@@ -1,52 +1,61 @@
-#include "Entity.h"
 
 #include "Component.h"
+#include "Entity.h"
+
+#include <algorithm>
 
 using namespace std;
 
-ecs::Entity::Entity() : _alive(true)
-{
-    
-}
+namespace ecs {
 
-ecs::Entity::~Entity(){
-    for(Component* component : _currentComponents) delete component;
-}
+    Entity::Entity() : _alive(true)
+    {
+        
+    }
 
-bool ecs::Entity::addComponent(Component* component, ComponentID ID){
-    if(_components[ID] != nullptr) return false;
+    Entity::~Entity(){
 
-    _components[ID] = component;
-    _currentComponents.push_back(component);
+        for(Component* component : _currentComponents) 
+            delete component;
+    }
 
-    return true;
-}
+    bool Entity::addComponent(Component* component, ComponentID ID){
+        if(_components[ID] != nullptr) return false;
 
-bool ecs::Entity::removeComponent(ComponentID ID){
-    if(_components[ID] == nullptr) return false;
+        _components[ID] = component;
+        _currentComponents.push_back(component);
 
-    auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[ID]);
-    _currentComponents.erase(it);
-    _components[ID] = nullptr;
+        return true;
+    }
 
-    return true;
-}
+    bool Entity::removeComponent(ComponentID ID){
 
-bool ecs::Entity::tryGetComponent(ComponentID ID, Component*& component){
-    if(_components[ID] == nullptr) return false;
+        if(_components[ID] == nullptr) return false;
 
-    component = _components[ID];
-    return true;
-}
+        auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[ID]);
+        _currentComponents.erase(it);
+        _components[ID] = nullptr;
 
-void ecs::Entity::update(){
-    for(Component* component : _currentComponents) component->update(this);
-}
+        return true;
+    }
 
-void ecs::Entity::render(){
-    for(Component* component : _currentComponents) component->render(this);
-}
+    bool Entity::tryGetComponent(ComponentID ID, Component*& component){
+        if(_components[ID] == nullptr) return false;
 
-void ecs::Entity::handleEvents(){
-    for(Component* component : _currentComponents) component->handleEvent(this);
+        component = _components[ID];
+        return true;
+    }
+
+    void Entity::update(){
+        for(Component* component : _currentComponents) 
+            component->update(this);
+    }
+
+    void Entity::render(){
+        for(Component* component : _currentComponents) component->render(this);
+    }
+
+    void Entity::handleEvents(){
+        for(Component* component : _currentComponents) component->handleEvent(this);
+    }
 }

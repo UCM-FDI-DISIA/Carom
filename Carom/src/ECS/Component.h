@@ -1,8 +1,9 @@
 #pragma once
-class Entity;
 
 namespace ecs
 {
+    class Entity;
+    
     class Component
     {
     public:
