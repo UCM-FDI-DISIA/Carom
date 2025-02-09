@@ -73,6 +73,8 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
+
+	src/ECS/entity.cpp
 )
 # Definir directorios de salida
 set_target_properties(Carom PROPERTIES 

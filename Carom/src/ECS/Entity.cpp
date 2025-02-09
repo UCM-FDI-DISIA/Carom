@@ -14,7 +14,7 @@ ecs::Entity::~Entity(){
 }
 
 bool ecs::Entity::addComponent(Component* component, ComponentID ID){
-    if(_components[ID] == nullptr) return false;
+    if(_components[ID] != nullptr) return false;
 
     _components[ID] = component;
     _currentComponents.push_back(component);
