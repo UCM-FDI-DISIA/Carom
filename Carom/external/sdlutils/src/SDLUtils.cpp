@@ -5,7 +5,7 @@
 #include <cassert>
 #include <memory>
 
-//#include "JSON.h"
+#include "JSON.h"
 
 SDLUtils::SDLUtils() :
 		_windowTitle("SDL2 Demo"), //
@@ -43,7 +43,7 @@ bool SDLUtils::init(std::string windowTitle, int width, int height,
 		std::string filename) {
 	init(windowTitle, width, height);
 	
-	//loadReasources(filename);
+	loadReasources(filename);
 
 	// we always return true, because this class either exit or throws an
 	// exception on error. If you want to avoid using exceptions you should
@@ -131,11 +131,6 @@ void SDLUtils::initSDLExtensions() {
 #endif
 
 }
-
-/*
-
-Esto esta desactivado porque usa una librería propia de Samir, habría que ver si nos interesa
-implementarlo con el json genérico
 
 void SDLUtils::loadReasources(std::string filename) {
 	// TODO check the correctness of values and issue a corresponding
@@ -297,7 +292,6 @@ void SDLUtils::loadReasources(std::string filename) {
 	}
 
 }
-*/
 
 void SDLUtils::closeSDLExtensions() {
 
