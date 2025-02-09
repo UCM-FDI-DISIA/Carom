@@ -13,8 +13,8 @@ using namespace std;
 void sdlutils_basic_demo() {
 
 	// Initialize the SDLGame singleton
-	if (!SDLUtils::Init("SDLGame Demo!", 800, 600,
-			"resources/config/sdlutilsdemo.resources.json")) {
+	if (!SDLUtils::Init("CAROM", 800, 600,
+			"../../resources/config/sdlutilsdemo.resources.json")) {
 		std::cerr << "Something went wrong while initializing SDLUtils!"
 				<< std::endl;
 		return;
