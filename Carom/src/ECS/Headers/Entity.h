@@ -28,6 +28,10 @@ namespace ecs {
     
         bool removeComponent(ComponentID);
 
+        /// @brief GetComponent de Unity
+        /// @param  ComponentID Id del componente solicitado
+        /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
+        /// @return true si la entidad tiene el componente, false si no
         bool tryGetComponent(ComponentID, Component*&);
     
         void update();
@@ -35,7 +39,7 @@ namespace ecs {
         void handleEvents();
     
     private:
-        bool _alive;
+        bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
     
         std::vector<Component*> _currentComponents;
         std::array<Component*, NUM_COMPONENTS> _components;

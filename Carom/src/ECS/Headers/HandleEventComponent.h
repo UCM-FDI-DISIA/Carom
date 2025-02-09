@@ -2,12 +2,12 @@
 #include "Component.h"
 class Entity;
 
-class HandleEventComponent : public Component
+class HandleEventComponent : public ecs::Component
 {
 public:
     virtual ~HandleEventComponent(){}
 
-    virtual void update(Entity* e) {}
-    void render(Entity* e) {}
+    void update(Entity* e) override {}
+    void render(Entity* e) override {}
     void handleEvent(Entity* e) = 0;
 };
