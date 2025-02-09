@@ -75,6 +75,7 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
+	external/sdlutils/src/sdlutils_demo.cpp
 
 	external/json/src/json_demo.cpp
 	external/json/src/JSON.cpp
