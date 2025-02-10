@@ -8,9 +8,11 @@ namespace ecs{
         virtual ~InfoComponent(){}
     
     private:
-        void update(Entity* e) override {}
-        void render(Entity* e) override {}
-        void handleEvent(Entity* e) override {}
+        void init(Entity*) override {}
+        
+        void update(Entity*) override {}
+        void render(Entity*) override {}
+        void handleEvent(Entity*) override {}
     };
 
 }

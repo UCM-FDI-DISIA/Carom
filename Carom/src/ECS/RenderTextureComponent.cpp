@@ -9,8 +9,11 @@ namespace ecs {
 
     }
 
+    void RenderTextureComponent::init(Entity* entity){
+        _transform = entity->getComponent<TransformComponent>(TRANSFORM);
+    }
+
     void RenderTextureComponent::render(Entity* entity) {
-        if(_transform = nullptr) entity->tryGetComponent(ecs::TRANSFORM, static_cast<Component*>(_transform));
         _texture->render(_transform->getPosition()->getX(), _transform->getPosition()->getY());
     }
 }

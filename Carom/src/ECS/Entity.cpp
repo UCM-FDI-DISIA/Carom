@@ -41,13 +41,6 @@ namespace ecs {
         return true;
     }
 
-    bool Entity::tryGetComponent(ComponentID ID, Component*& component){
-        if(_components[ID] == nullptr) return false;
-
-        component = _components[ID];
-        return true;
-    }
-
     void Entity::update(){
         for(Component* component : _currentComponents) 
             component->update(this);

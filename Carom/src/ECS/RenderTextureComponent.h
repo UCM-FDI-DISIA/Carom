@@ -11,6 +11,8 @@ namespace ecs {
     public:
         RenderTextureComponent(Texture*);
         ~RenderTextureComponent();
+
         void render(Entity*) override;
+        void init(Entity*) override;
     };
 }

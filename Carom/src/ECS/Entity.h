@@ -34,8 +34,19 @@ namespace ecs {
         /// @param  ComponentID Id del componente solicitado
         /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
         /// @return true si la entidad tiene el componente, false si no
-        bool tryGetComponent(ComponentID, Component*&);
-    
+        template<typename T>
+        bool tryGetComponent(ComponentID ID, T*& component){
+            if(_components[ID] == nullptr) return false;
+
+            component = _components[ID];
+            return true;
+        }
+
+        template<typename T>
+        T* getComponent(ComponentID ID){
+            return _components[ID];
+        }
+
         void update();
         void render();
         void handleEvents();
