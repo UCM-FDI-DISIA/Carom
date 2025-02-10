@@ -16,6 +16,8 @@ El InputHandler de Samir de TPV2 nos puede servir para esto.
 Uso (ejercicio 1 TPV2):
 
 ```
+// FighterCtrl.h:
+
 #include "../sdlutils/InputHandler.h"
 
 void FighterCtrl::handleInput(Container* o){
@@ -41,7 +43,120 @@ void FighterCtrl::handleInput(Container* o){
 ```
 
 La traducción de los eventos según el diseño del juego podría ser de esta forma:
-- Al hacer clic sobre UI u otro objeto clicable (ya sea con clic izquierdo o derecho).
 
-- Arrastrar el ratón mientras haces clic, para la mecánica de darle a la bola con el palo (valdría también en caso de querer meterle un cursor a nuestro juego, ya que captura la posición del ratón).
+- Al hacer clic sobre UI u otro objeto clicable. Habría que especificar si es con **clic izquierdo** o **derecho**
+```
+[...]
+
+// InputHandler.h
+
+// Si el ratón se clica o deja de clicarse.
+inline bool mouseButtonEvent() {
+	return _isMouseButtonUpEvent || _isMouseButtonDownEvent;
+}
+
+// Si el ratón deja de clicarse
+inline bool mouseButtonUpEvent() {
+	return _isMouseButtonUpEvent;
+}
+
+// Si el ratón se clica.
+inline bool mouseButtonDownEvent() {
+	return _isMouseButtonDownEvent;
+}
+
+[...]
+
+// Aplicado:
+#include "../sdlutils/InputHandler.h"
+
+void Cosa::handleInput(Container* o){
+	InputHandler& ihdlr = ih();
+
+	if (ihdlr.mouseButtonDownEvent()) {
+		// Al presionar el ratón.
+		if(ihdlr.isKeyDown(SDL_BUTTON_RIGHT)){
+			// Clic derecho.
+		}
+		else if(ihdlr.isKeyDown(SDL_BUTTON_LEFT)){
+			// Clic izquierdo.
+		}
+	}
+}
+```
+
+- **Arrastrar el ratón** mientras haces clic, para la mecánica de darle a la bola con el palo (valdría también en caso de querer meterle un cursor a nuestro juego, ya que captura la posición del ratón).
+```
+[...]
+
+// InputHandler.h
+
+// Si el ratón se mueve.
+inline bool mouseMotionEvent() {
+	return _isMouseMotionEvent;
+}
+
+// Si el ratón se clica.
+inline bool mouseButtonDownEvent() {
+	return _isMouseButtonDownEvent;
+}
+
+// Posición del ratón.
+inline const std::pair<Sint32, Sint32>& getMousePos() {
+	return _mousePos;
+}
+
+[...]
+
+// Aplicado:
+#include "../sdlutils/InputHandler.h"
+
+void Cosa::handleInput(Container* o){
+	InputHandler& ihdlr = ih();
+	if (ihdlr.mouseMotionEvent() && mouseButtonDownEvent()) {
+		// Si se mueve y se clica a la vez cuenta como arrastrando (?).
+	}
+}
+```
+
 - Teclas para habilidades, cosas del inventario (esto es en caso de necesitar otra tecla).
+```
+[...]
+
+// InputHandler.h
+
+// Se ha presionado tecla.
+inline bool keyDownEvent() {
+	return _isKeyDownEvent;
+}
+
+// Se ha soltado tecla.
+inline bool keyUpEvent() {
+	return _isKeyUpEvent;
+}
+
+// Qué tecla se ha presionado.
+inline bool isKeyDown(SDL_Keycode key) {
+	return isKeyDown(SDL_GetScancodeFromKey(key));
+}
+
+// Qué tecla se ha soltado.
+inline bool isKeyUp(SDL_Keycode key) {
+	return isKeyUp(SDL_GetScancodeFromKey(key));
+}
+
+[...]
+
+// Aplicado:
+#include "../sdlutils/InputHandler.h"
+
+void Cosa::handleInput(Container* o){
+	InputHandler& ihdlr = ih();
+	if (ihdlr.isKeyDown(SDLK_ESCAPE)) {
+		// Se presiona la tecla Esc para salir o lo que se asigne.
+	}
+}
+```
+
+- Todo lo referente a los [joysticks](https://docviewer.xdocs.net/view_v2.php). Capítulo 4.
+
