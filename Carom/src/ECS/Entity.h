@@ -8,6 +8,8 @@ class Component;
 namespace ecs {
 
     enum ComponentID {
+        TRANSFORM,
+        RENDER_TEXTURE,
         NUM_COMPONENTS
     };
 
