@@ -88,6 +88,8 @@ add_executable(Carom
 	external/json/src/JSON.cpp
 	external/json/src/JSONValue.cpp
 
+	src/Game.cpp;
+
 	src/ECS/Entity.cpp
 )
 
