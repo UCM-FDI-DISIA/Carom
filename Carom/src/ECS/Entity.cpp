@@ -24,6 +24,8 @@ namespace ecs {
         _components[ID] = component;
         _currentComponents.push_back(component);
 
+        _components[ID]->init(this);
+
         return true;
     }
 
@@ -35,13 +37,6 @@ namespace ecs {
         _currentComponents.erase(it);
         _components[ID] = nullptr;
 
-        return true;
-    }
-
-    bool Entity::tryGetComponent(ComponentID ID, Component*& component){
-        if(_components[ID] == nullptr) return false;
-
-        component = _components[ID];
         return true;
     }
 
