@@ -30,9 +30,9 @@ protected:
 public:
 	virtual ~GameScene();
 
-	virtual void render() const;
-	virtual void update();
-	virtual void handleEvent();
+    void render() const;
+    void update();
+    void handleEvent();
 
 	/// Obtiene el juego al que pertenece el estado
 	Game* getGame() const;
