@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "TransformComponent.h"
 
-namespace ecs{
+namespace ecs {
     RenderTextureComponent::RenderTextureComponent(Texture* texture) : RenderComponent(), _texture(texture), _transform(nullptr)
     {
 

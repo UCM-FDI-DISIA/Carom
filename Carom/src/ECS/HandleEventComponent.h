@@ -10,6 +10,5 @@ namespace ecs {
     
         void update(Entity*) override {}
         void render(Entity*) override {}
-        void handleEvent(Entity*) = 0;
     };
 }

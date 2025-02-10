@@ -25,6 +25,8 @@ namespace ecs {
         _components[ID] = component;
         _currentComponents.push_back(component);
 
+        _components[ID]->init(this);
+
         return true;
     }
 

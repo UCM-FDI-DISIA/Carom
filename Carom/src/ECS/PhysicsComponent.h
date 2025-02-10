@@ -8,7 +8,6 @@ namespace ecs {
     public:
         virtual ~PhysicsComponent(){}
     
-        virtual void update(Entity*) = 0;
         void render(Entity*) override {}
         void handleEvent(Entity*) override {}
     };

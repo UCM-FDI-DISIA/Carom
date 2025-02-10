@@ -10,8 +10,10 @@ namespace ecs
         Component() {}
         virtual ~Component() = 0;
 
-        virtual void update(Entity* e) = 0;
-        virtual void render(Entity* e) = 0;
-        virtual void handleEvent(Entity* e) = 0;
+        virtual void init(Entity*) = 0;
+
+        virtual void update(Entity*) = 0;
+        virtual void render(Entity*) = 0;
+        virtual void handleEvent(Entity*) = 0;
     };
 }

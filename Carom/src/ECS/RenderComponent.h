@@ -7,9 +7,8 @@ namespace ecs{
     {
     public:
         virtual ~RenderComponent(){}
-    
+
         void update(Entity*) override {}
-        virtual void render(Entity*) = 0;
         void handleEvent(Entity*) override {}
     };
 }
