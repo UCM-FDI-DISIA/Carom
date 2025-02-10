@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9538DD6C-ED34-3D2B-A037-B0686089DDB2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>Carom</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">U:\hlocal\Carom\Carom\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Carom.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">U:\hlocal\Carom\Carom\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Carom.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">U:\hlocal\Carom\Carom\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Carom.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">U:\hlocal\Carom\Carom\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Carom.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E copy_directory U:/hlocal/Carom/Carom/dlls U:/hlocal/Carom/Carom/bin/Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;U:\hlocal\Carom\Carom\external\box2d\build\src\Debug\box2dd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64;U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>U:/hlocal/Carom/Carom/build/Debug/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>U:/hlocal/Carom/Carom/bin/Debug/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E copy_directory U:/hlocal/Carom/Carom/dlls U:/hlocal/Carom/Carom/bin/Release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;U:\hlocal\Carom\Carom\external\box2d\build\src\Release\box2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64;U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>U:/hlocal/Carom/Carom/build/Release/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>U:/hlocal/Carom/Carom/bin/Release/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E copy_directory U:/hlocal/Carom/Carom/dlls U:/hlocal/Carom/Carom/bin/MinSizeRel
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;U:\hlocal\Carom\Carom\external\box2d\build\src\MinSizeRel\box2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64;U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>U:/hlocal/Carom/Carom/build/MinSizeRel/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>U:/hlocal/Carom/Carom/bin/MinSizeRel/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;B2_ENABLE_ASSERT;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;B2_ENABLE_ASSERT;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\SDL2-2.30.12\include;U:\hlocal\Carom\Carom\external\SDL2_image-2.8.4\include;U:\hlocal\Carom\Carom\external\SDL2_mixer-2.8.0\include;U:\hlocal\Carom\Carom\external\SDL2_ttf-2.24.0\include;U:\hlocal\Carom\Carom\include;U:\hlocal\Carom\Carom\external\sdlutils\include;U:\hlocal\Carom\Carom\external\utils\include;U:\hlocal\Carom\Carom\external\json\include;U:\hlocal\Carom\Carom\src\ECS;U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -E copy_directory U:/hlocal/Carom/Carom/dlls U:/hlocal/Carom/Carom/bin/RelWithDebInfo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;U:\hlocal\Carom\Carom\external\box2d\build\src\RelWithDebInfo\box2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64;U:/hlocal/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;U:/hlocal/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>U:/hlocal/Carom/Carom/build/RelWithDebInfo/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>U:/hlocal/Carom/Carom/bin/RelWithDebInfo/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="U:\hlocal\Carom\Carom\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule U:/hlocal/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCXXInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeCXXCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeRCCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">U:\hlocal\Carom\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule U:/hlocal/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCXXInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeCXXCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeRCCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">U:\hlocal\Carom\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule U:/hlocal/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCXXInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeCXXCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeRCCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">U:\hlocal\Carom\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule U:/hlocal/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCXXInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeCommonLanguageInclude.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeGenericSystem.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeInitializeConfigs.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeLanguageInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeRCInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInformation.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakeSystemSpecificInitialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Compiler\MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-Initialize.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC-CXX.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows-MSVC.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\Windows.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\Platform\WindowsPaths.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeCXXCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeRCCompiler.cmake;U:\hlocal\Carom\Carom\build\CMakeFiles\3.29.5-msvc4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">U:\hlocal\Carom\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="U:\hlocal\Carom\Carom\src\main.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\sdlutils\src\SDLUtils.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\sdlutils\src\SDLUtilsError.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\sdlutils\src\SoundEffect.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\sdlutils\src\Texture.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\utils\src\Collisions.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\utils\src\Vector2D.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\sdlutils\src\sdlutils_demo.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\json\src\json_demo.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\json\src\JSON.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\external\json\src\JSONValue.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\src\Game.cpp" />
+    <ClCompile Include="U:\hlocal\Carom\Carom\src\ECS\Entity.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="U:\hlocal\Carom\Carom\build\ZERO_CHECK.vcxproj">
+      <Project>{6B26D254-2714-396A-AEFC-278284E7A770}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="U:\hlocal\Carom\Carom\build\external\box2d\src\box2d.vcxproj">
+      <Project>{A837F345-B1CD-39DE-A6F9-7BA0CCA80466}</Project>
+      <Name>box2d</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
