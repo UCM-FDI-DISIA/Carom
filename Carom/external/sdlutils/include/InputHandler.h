@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <array>
 #include <cassert>
+#include "Vector2D.h"
 
 #include "Singleton.h"
 
@@ -55,6 +56,10 @@ public:
 		case SDL_WINDOWEVENT:
 			handleWindowEvent(event);
 			break;
+
+			/*
+			AÑADIR CASOS PARA LLAMAR A METODOS
+			*/
 		default:
 			break;
 		}
@@ -127,6 +132,27 @@ public:
 
 	// TODO add support for Joystick, see Chapter 4 of
 	// the book 'SDL Game Development'
+
+	//EVENTOS QUE SE USARAN EN EL JUEGO
+	inline bool isKeySubmitting(){
+		return _submitKeyEvent;
+	}
+
+	inline bool isKeyCancelling(){
+		return _cancelKeyEvent;
+	}
+
+	inline bool isKeyPausing(){
+		return _pausedKeyEvent;
+	}
+
+	inline bool isKeyInventoryPressed(){
+		return _inventoryKeyEvent;
+	}
+
+	inline Vector2D getNavigationDirection(){
+		return _navigateVectorEvent;
+	}
 
 private:
 	InputHandler() {
@@ -211,6 +237,13 @@ private:
 	std::pair<Sint32, Sint32> _mousePos;
 	std::array<bool, 3> _mbState;
 	const Uint8 *_kbState;
+
+	//esto ya son eventos mios (Guillermo)
+	bool _submitKeyEvent;
+	bool _cancelKeyEvent;
+	bool _pausedKeyEvent;
+	bool _inventoryKeyEvent;
+	Vector2D _navigateVectorEvent;
 }
 ;
 
