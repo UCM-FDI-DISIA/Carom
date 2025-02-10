@@ -10,7 +10,6 @@ namespace ecs {
 
     Entity::Entity() : _alive(true)
     {
-        
     }
 
     Entity::~Entity(){
