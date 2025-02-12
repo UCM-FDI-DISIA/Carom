@@ -19,6 +19,10 @@ namespace ecs {
             delete component;
     }
 
+    void Entity::setListAnchor(GameList<Entity>::anchor&& anchor){
+        this->_anchor = std::move(anchor);
+    }
+
     bool Entity::addComponent(Component* component, ComponentID ID){
         if(_components[ID] != nullptr) return false;
 

@@ -2,6 +2,7 @@
 
 #include<array>
 #include<vector>
+#include "gameList.h"
 
 class Component;
 
@@ -33,6 +34,7 @@ namespace ecs {
         /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
         /// @return true si la entidad tiene el componente, false si no
         bool tryGetComponent(ComponentID, Component*&);
+        void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
         void render();
@@ -43,5 +45,6 @@ namespace ecs {
     
         std::vector<Component*> _currentComponents;
         std::array<Component*, NUM_COMPONENTS> _components;
+        GameList<Entity>::anchor _anchor;
     };
 }
