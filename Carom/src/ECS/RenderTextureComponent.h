@@ -9,10 +9,10 @@ namespace ecs {
         Texture* _texture;
         TransformComponent* _transform;
     public:
-        RenderTextureComponent(Texture*);
+        RenderTextureComponent(Entity*, Texture*);
         ~RenderTextureComponent();
 
-        void render(Entity*) override;
-        void init(Entity*) override;
+        void render() override;
+        void init() override;
     };
 }

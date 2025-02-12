@@ -6,9 +6,10 @@ namespace ecs {
     class PhysicsComponent : public ecs::Component
     {
     public:
+        PhysicsComponent(Entity* ent) : Component(ent) {}
         virtual ~PhysicsComponent(){}
     
-        void render(Entity*) override {}
-        void handleEvent(Entity*) override {}
+        void render() override {}
+        void handleEvent() override {}
     };
 }
