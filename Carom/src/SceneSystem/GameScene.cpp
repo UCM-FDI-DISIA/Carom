@@ -3,6 +3,7 @@
 
 namespace ecs{
     GameScene::GameScene(Game* game): game(game){}
+    GameScene::~GameScene(){};
 
 void GameScene::addObject(ecs::Entity* entity){
     entities.push_back(entity);

@@ -24,23 +24,23 @@
 class ScenesManager
 {
 	// Pila (como las de EDA) de punteros inteligentes a estados del juego
-	std::stack<std::shared_ptr<GameScene>> GameScenes;
+	std::stack<std::shared_ptr<ecs::GameScene>> GameScenes;
 
 public:
 	~ScenesManager();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
-	void pushState(std::shared_ptr<GameScene> state);
+	void pushState(std::shared_ptr<ecs::GameScene> state);
 	// Reemplaza el estado actual por el nuevo estado
-	void replaceState(std::shared_ptr<GameScene> state);
+	void replaceState(std::shared_ptr<ecs::GameScene> state);
 	// Desapila el estado actual y pasa al siguiente en la pila
 	// (no hace nada si no la pila es vacía)
 	void popState();
 
 	// Sobrecargas que reciben un puntero normal
-	void pushState(GameScene* state);
-	void replaceState(GameScene* state);
+	void pushState(ecs::GameScene* state);
+	void replaceState(ecs::GameScene* state);
 
 	bool empty() const;
 	operator bool() const;
@@ -53,15 +53,15 @@ public:
 };
 
 inline void
-ScenesManager::pushState(GameScene* state)
+ScenesManager::pushState(ecs::GameScene* state)
 {
-	pushState(std::shared_ptr<GameScene>(state));
+	pushState(std::shared_ptr<ecs::GameScene>(state));
 }
 
 inline void
-ScenesManager::replaceState(GameScene* state)
+ScenesManager::replaceState(ecs::GameScene* state)
 {
-	replaceState(std::shared_ptr<GameScene>(state));
+	replaceState(std::shared_ptr<ecs::GameScene>(state));
 }
 
 #endif // GAME_STATE_MACHINE_H
