@@ -42,6 +42,7 @@ bool SDLUtils::init(std::string windowTitle, int width, int height) {
 bool SDLUtils::init(std::string windowTitle, int width, int height,
 		std::string filename) {
 	init(windowTitle, width, height);
+	
 	loadReasources(filename);
 
 	// we always return true, because this class either exit or throws an

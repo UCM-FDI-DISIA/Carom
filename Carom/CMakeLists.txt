@@ -2,19 +2,21 @@ cmake_minimum_required(VERSION 3.15...3.30)
 
 project(Carom VERSION 0.1 LANGUAGES CXX)
 
+# Force dynamic runtime (/MD for Release, /MDd for Debug)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL" CACHE STRING "" FORCE)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(FetchContent)
+# Fix runtime conflicts between static and dynamic linking
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
-# JSON library
-FetchContent_Declare(
-    json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.11.3
-)
-FetchContent_MakeAvailable(json)
+# Box2D
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
+
+# Force Box2D (if needed) to use dynamic runtime:
+set_target_properties(box2d PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
@@ -30,7 +32,7 @@ if (CMAKE_HOST_WIN32)
 	link_directories(
 		external/SDL2-2.30.12/lib/x64
 		external/SDL2_image-2.8.4/lib/x64
-        	external/SDL2_mixer-2.8.0/lib/x64
+        external/SDL2_mixer-2.8.0/lib/x64
 		external/SDL2_ttf-2.24.0/lib/x64
 	)
 
@@ -59,6 +61,9 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/include
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
+	${CMAKE_SOURCE_DIR}/external/json/include
+
+	${CMAKE_SOURCE_DIR}/src/ECS
 )
 
 
@@ -73,7 +78,24 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
+	external/sdlutils/src/sdlutils_demo.cpp
+	external/sdlutils/src/SDLUtils.cpp
+	external/sdlutils/src/SDLUtilsError.cpp
+	external/sdlutils/src/SoundEffect.cpp
+	external/sdlutils/src/Texture.cpp
+
+	external/json/src/json_demo.cpp
+	external/json/src/JSON.cpp
+	external/json/src/JSONValue.cpp
+
+	src/ECS/Entity.cpp
 )
+
+# Link Box2D
+target_link_libraries(Carom PRIVATE box2d)
+
+set_target_properties(box2d PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/external/box2d/build/src/$<CONFIG>)
+
 # Definir directorios de salida
 set_target_properties(Carom PROPERTIES 
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
