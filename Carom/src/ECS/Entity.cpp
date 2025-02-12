@@ -24,7 +24,7 @@ namespace ecs {
         _components[ID] = component;
         _currentComponents.push_back(component);
 
-        _components[ID]->init(this);
+        _components[ID]->init();
 
         return true;
     }
@@ -42,14 +42,14 @@ namespace ecs {
 
     void Entity::update(){
         for(Component* component : _currentComponents) 
-            component->update(this);
+            component->update();
     }
 
     void Entity::render(){
-        for(Component* component : _currentComponents) component->render(this);
+        for(Component* component : _currentComponents) component->render();
     }
 
     void Entity::handleEvents(){
-        for(Component* component : _currentComponents) component->handleEvent(this);
+        for(Component* component : _currentComponents) component->handleEvent();
     }
 }
