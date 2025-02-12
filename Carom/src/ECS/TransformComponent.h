@@ -5,7 +5,7 @@
 
 namespace ecs{
     class TransformComponent : public InfoComponent{
-        const b2Transform* _b2Transform = nullptr;
+        //const b2Transform _b2Transform;
         Vector2D _position;
         struct Scale{
             double x;
@@ -15,7 +15,7 @@ namespace ecs{
         double _rotation; //In radians
 
     public:
-        TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {}
+        TransformComponent(Entity* ent);
         virtual ~TransformComponent(){}
 
         inline Vector2D* getPosition(){return &_position;}
