@@ -47,9 +47,9 @@ public:
 
 	// Métodos que delegan en los métodos homónimos de GameScene
 	// sobre el estado actual (no hacen nada si la pila es vacía)
-	virtual void update();
-	virtual void render() const;
-	virtual void handleEvent();
+	void update();
+	void render() const;
+	void handleEvent();
 };
 
 inline void
