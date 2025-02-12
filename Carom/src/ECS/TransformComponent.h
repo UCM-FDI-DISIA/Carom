@@ -5,7 +5,7 @@
 
 namespace ecs{
     class TransformComponent : public InfoComponent{
-        //const b2Transform _b2Transform;
+
         Vector2D _position;
         struct Scale{
             double x;
