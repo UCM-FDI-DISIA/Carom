@@ -1,26 +1,28 @@
 #include "GameScene.h"
+#include "Entity.h"
 
-GameScene::GameScene(Game* game): game(game){}
+namespace ecs{
+    GameScene::GameScene(Game* game): game(game){}
 
-void GameScene::addObject(Entity* entity){
+void GameScene::addObject(ecs::Entity* entity){
     entities.push_back(entity);
 }
 
-void GameScene::render() const{
+void GameScene::render(){
     for (auto entity : entities) {
-        entity.render();
+        entity->render();
     }
 }
 
-void GameScene::update() const{
-    for (auto entity : entities) {
-        entity.update();
+void GameScene::update(){
+    for (Entity* entity : entities) {
+        entity->update();
     }
 }
 
-void GameScene::handleEvent() const{
+void GameScene::handleEvent(){
     for (auto entity : entities) {
-        entity.handleEvent();
+        entity->handleEvents();
     }
 }
 
@@ -29,3 +31,5 @@ void GameScene::clear(){
         delete entity;
     }
 }
+};
+

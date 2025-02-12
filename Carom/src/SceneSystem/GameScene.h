@@ -5,11 +5,13 @@
 
 #include "GameList.h"
 
-// Declaraciones anticipadas
-class Entity;
 class Game;
 
-/**
+// Declaraciones anticipadas
+namespace ecs{
+	class Entity;
+
+	/**
  * Estado abstracto del juego.
  *
  * Mantiene una lista de objetos del juego de los que se hace
@@ -18,19 +20,19 @@ class Game;
  */
 class GameScene
 {
-	GameList<Entity> entities;
+	GameList<ecs::Entity> entities;
 
 protected:
 	Game* game;
 
 	GameScene(Game* game);
 
-	void addObject(Entity* obj);
+	void addObject(ecs::Entity* obj);
 
 public:
 	virtual ~GameScene();
 
-    virtual void render() const;
+    virtual void render();
     virtual void update();
     virtual void handleEvent();
 
@@ -45,5 +47,10 @@ GameScene::getGame() const
 {
 	return game;
 }
+
+}
+
+
+
 
 #endif // GAME_Scene_H
