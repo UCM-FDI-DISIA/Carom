@@ -2,6 +2,7 @@
 
 #include<array>
 #include<vector>
+#include "gameList.h"
 
 class Component;
 
@@ -56,5 +57,6 @@ namespace ecs {
     
         std::vector<Component*> _currentComponents;
         std::array<Component*, NUM_COMPONENTS> _components;
+        GameList<Entity>::anchor _anchor;
     };
 }
