@@ -91,6 +91,8 @@ add_executable(Carom
 
 	src/Game.cpp;
 
+	scr/SceneSystem/GameScene.cpp
+
 	src/ECS/Entity.cpp
 )
 
