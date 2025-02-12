@@ -13,6 +13,7 @@
 // Instead of a Singleton class, we could make it part of
 // SDLUtils as well.
 
+// COMO NO HAY OBJETOS QUE TESTEAR QUE MUESTRE POR CONSOLA COSAS CUANDO SE ACCIONEN LAS MOVIDAS.
 class InputHandler: public Singleton<InputHandler> {
 
 	friend Singleton<InputHandler> ;
@@ -57,9 +58,7 @@ public:
 			handleWindowEvent(event);
 			break;
 
-			/*
-			AÑADIR CASOS PARA LLAMAR A METODOS
-			*/
+			
 		default:
 			break;
 		}
@@ -73,7 +72,7 @@ public:
 		while (SDL_PollEvent(&event))
 			update(event);
 	}
-
+ 
 	// close window event
 	inline bool closeWindowEvent() {
 		return _isCloseWindoEvent;
@@ -82,6 +81,9 @@ public:
 	// keyboard
 	inline bool keyDownEvent() {
 		return _isKeyDownEvent;
+		/*
+			AÑADIR CASOS PARA LLAMAR A METODOS
+			*/
 	}
 
 	inline bool keyUpEvent() {
@@ -93,6 +95,19 @@ public:
 	}
 
 	inline bool isKeyDown(SDL_Keycode key) {
+		switch (key)
+		{
+		case SDLK_e: // añadir caso de clic cuando haya botón de inventario.
+			_inventoryEvent = true; // abre inventario
+			break;
+
+		case SDLK_ESCAPE: // añadir caso de clic cuando haya botón de pausa. Caso 
+			_pauseMenuEvent = true; // abre inventario
+			break;
+		
+		default:
+			break;
+		}
 		return isKeyDown(SDL_GetScancodeFromKey(key));
 	}
 
@@ -130,11 +145,15 @@ public:
 		return _mbState[b];
 	}
 
-	// TODO add support for Joystick, see Chapter 4 of
-	// the book 'SDL Game Development'
+	// TODO add support for Joystick, see Chapter 4 of the book 'SDL Game Development'
 
-	//EVENTOS QUE SE USARAN EN EL JUEGO
-	inline bool isKeySubmitting(){
+	// ---- Eventos creados de cara al juego (fijándome en los que ha creado Guillermo).
+	inline bool isInventoryActivated(){ return _inventoryEvent; }
+	inline bool isPauseMenuActivated(){ return _pauseMenuEvent; }
+
+
+	
+	/*inline bool isKeySubmitting(){
 		return _submitKeyEvent;
 	}
 
@@ -146,15 +165,37 @@ public:
 		return _pausedKeyEvent;
 	}
 
-	inline bool isKeyInventoryPressed(){
-		return _inventoryKeyEvent;
-	}
-
 	inline Vector2D getNavigationDirection(){
 		return _navigateVectorEvent;
-	}
+	}*/
 
 private:
+	// ---- vars de InputHandler.
+	bool _isCloseWindoEvent;
+	bool _isKeyUpEvent;
+	bool _isKeyDownEvent;
+	bool _isMouseMotionEvent;
+	bool _isMouseButtonUpEvent;
+	bool _isMouseButtonDownEvent;
+
+	std::pair<Sint32, Sint32> _mousePos;
+	std::array<bool, 3> _mbState;
+	const Uint8 *_kbState;
+
+	// ---- vars handmade (reciclando los que ha creado Guillermo).
+	bool _inventoryEvent; // cuando se acciona el inventario.
+	bool _pauseMenuEvent; // cuando se acciona menú de pausa
+
+	/*//esto ya son eventos mios (Guillermo).
+	// Hola soy Carmen lo he comentado porque voy a renamearlo.
+	bool _submitKeyEvent;
+	bool _cancelKeyEvent;
+	bool _pausedKeyEvent;
+	
+	Vector2D _navigateVectorEvent;*/
+
+
+
 	InputHandler() {
 		_kbState = nullptr;
 		clearState();
@@ -169,7 +210,7 @@ private:
 		return true;
 	}
 
-	inline void onKeyDown(const SDL_Event&) {
+	inline void onKeyDown(const SDL_Event& event) {
 		_isKeyDownEvent = true;
 	}
 
@@ -218,6 +259,7 @@ private:
 		}
 	}
 
+	// ---- No tocar de momento..
 	inline void handleWindowEvent(const SDL_Event &event) {
 		switch (event.window.event) {
 		case SDL_WINDOWEVENT_CLOSE:
@@ -227,23 +269,6 @@ private:
 			break;
 		}
 	}
-
-	bool _isCloseWindoEvent;
-	bool _isKeyUpEvent;
-	bool _isKeyDownEvent;
-	bool _isMouseMotionEvent;
-	bool _isMouseButtonUpEvent;
-	bool _isMouseButtonDownEvent;
-	std::pair<Sint32, Sint32> _mousePos;
-	std::array<bool, 3> _mbState;
-	const Uint8 *_kbState;
-
-	//esto ya son eventos mios (Guillermo)
-	bool _submitKeyEvent;
-	bool _cancelKeyEvent;
-	bool _pausedKeyEvent;
-	bool _inventoryKeyEvent;
-	Vector2D _navigateVectorEvent;
 }
 ;
 
