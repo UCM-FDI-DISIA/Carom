@@ -26,6 +26,6 @@ void GameScene::handleEvent() const{
 
 void GameScene::clear(){
      for (auto entity : entities) {
-        entity.;
+        delete entity;
     }
 }
