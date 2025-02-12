@@ -92,6 +92,7 @@ add_executable(Carom
 	src/Game.cpp
 
 	src/SceneSystem/GameScene.cpp
+	src/SceneSystem/ScenesManager.cpp
 
 	src/ECS/Entity.cpp
 	src/Physics/B2Manager.cpp
