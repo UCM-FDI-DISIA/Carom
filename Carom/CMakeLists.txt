@@ -89,6 +89,8 @@ add_executable(Carom
 	external/json/src/JSONValue.cpp
 
 	src/ECS/Entity.cpp
+	src/Physics/B2Manager.cpp
+
 )
 
 # Link Box2D
