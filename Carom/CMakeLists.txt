@@ -65,6 +65,7 @@ include_directories(
 
 	${CMAKE_SOURCE_DIR}/src/ECS
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
+	${CMAKE_SOURCE_DIR}/src/StateMachine
 )
 
 
