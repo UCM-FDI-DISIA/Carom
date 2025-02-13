@@ -6,7 +6,7 @@
 #include <array>
 #include <cassert>
 
-#include "../external/sdlutils/include/SDLUtils.h"
+#include <SDLUtils.h>
 
 #include "ecs.h"
 #include "Component.h"
@@ -19,12 +19,12 @@ namespace ecs {
 /*
  * A class for managing the list of entities, groups, etc.
  */
-// ! BÁSICO
-class Manager {
+// ! 
+class EntityManager {
 
 public:
-	Manager();
-	virtual ~Manager();
+	EntityManager();
+	virtual ~EntityManager();
 
 	// Add a game entity
 	//
@@ -62,20 +62,12 @@ public:
 		// the component id
 		static_assert(cmpId<T> < ecs::maxComponentId);
 
-		// delete the current component, if any
-		//TODO necesario?
-		// removeComponent<T>(e);
-
 		// create, initialise and install the new component
-		//
-		Component *c = new T(e, std::forward<Ts>(args)...);
-		c->setContext(e);
-		// c->initComponent(); // TODO
-		e->_components[cmpId<T>] = c;
-		e->_currentComponents.push_back(c);
+		T *c = new T(e, std::forward<Ts>(args)...);
 
-		// // return it to the user so i can be initialised if needed
-		// return static_cast<T*>(c);
+		if (!e->addComponent<T>(c)) {
+			delete c;
+		}
 	}
 
 	// Removes the component T, if any, from the entity.
@@ -101,10 +93,10 @@ public:
 	}
 
 	// update all entities
-	void update(); // TODO
+	void update();
 
 	// render all entities
-	void render(); // TODO
+	void render();
 
 
 private:

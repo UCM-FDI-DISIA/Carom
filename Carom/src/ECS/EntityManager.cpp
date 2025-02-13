@@ -1,26 +1,24 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
-#include "Manager.h"
+#include "EntityManager.h"
 
 namespace ecs {
 
-Manager::Manager()
+EntityManager::EntityManager()
 {
 }
 
-Manager::~Manager() 
+EntityManager::~EntityManager() 
 {
 }
 
 void
-Manager::update(){
+EntityManager::update(){
     for (auto* e : entities){
         e->update();
     }
 }
 
 void
-Manager::render(){
+EntityManager::render(){
     for (auto* e : entities){
         e->render();
     }
