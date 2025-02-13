@@ -6,6 +6,7 @@
 namespace std {
     template <>
     struct hash<b2BodyId> {
+        // Funcion hash para poder usar bodyId como key de un map
         size_t operator()(const b2BodyId& bodyId) const {
             size_t hash_value = 0;
 
@@ -23,13 +24,17 @@ namespace std {
     };
 }
 
+bool operator==(const b2BodyId& first, const b2BodyId& second) {
+    return (first.index1 == second.index1) && 
+           (first.world0 == second.world0) && 
+           (first.generation == second.generation);
+}
+
 class B2Manager : public Singleton<B2Manager> {
 private:
     friend Singleton<B2Manager>;
-    B2Manager();
+    B2Manager(float timeStep = 1.0f / 60.0f, float subStepCound = 4);
     virtual ~B2Manager();
-
-    bool init();
 
     // en caso de necesitar acceder a la entidad de un componente con el que se ha colisionado
     // se puede usar este mapa para acceder
@@ -37,9 +42,27 @@ private:
 
     b2WorldId _worldId;
 
-public:
-    void addBody();
-    void removeBody();
+    bool init();
 
-    ecs::Entity* getEntity();
+    std::tuple<b2BodyId&, b2ShapeDef&> generateBodyAndShape(ecs::Entity* entity, b2BodyType bodyType, float density, float friction, float restitution);
+
+    float _timeStep;
+    int _subStepCount;
+
+protected:
+
+    void stepWorld();
+
+    // declaracion de friend del manager de escenas o game loop o lo que sea para que acceda a esto
+    void reloadWorld();
+
+public:
+
+    void addRigidbody(ecs::Entity* entity, b2BodyType bodyType, b2Circle& circle, float density, float friction, float restitution);
+    void addRigidbody(ecs::Entity* entity, b2BodyType bodyType, b2Polygon& polygon, float density, float friction, float restitution);
+    void addRigidbody(ecs::Entity* entity, b2BodyType bodyType, b2Capsule& capsule, float density, float friction, float restitution);
+
+    void removeBody(const b2BodyId& id);
+
+    ecs::Entity* getEntity(const b2BodyId& id) const;
 };
