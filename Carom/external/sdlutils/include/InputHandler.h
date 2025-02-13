@@ -186,6 +186,20 @@ private:
 
 	// ---- VARS HANDMADE (reciclando los que ha creado Guillermo) ----.
 
+	/*
+	+-----------------------------+-----------------------------------------------------+---------------------------+
+	| Acción  					  | Input teclado y ratón 								| Contexto     				| 
+	+-----------------------------+-----------------------------------------------------+---------------------------+
+	| Reordenar bolas             | Clic izquierdo y arrastrar a una casilla            | Inventario       	   	    |
+	| Destruir bolas              | Clic derecho sobre la bola                          | Inventario 				|
+	| Consultar bolas             | Pasar el ratón por encima de la bola			    | Inventario y partida		|
+	| Lanzar bola                 | Clic izquierdo sobre la bola, arrastrar y soltar	| Partida					|
+	| Abrir inventario            | Clic izquierdo sobre botón de inventario o tecla e	| Partida (UI)				|
+	| Abrir menú de pausa         | Clic izquierdo sobre botón de pausa o tecla esc		| Inventario y partida (UI) |
+	| Aceptar botón / avanzar	  | Clic izquierdo sobre él								| UI						|
+	| Cancelar botón / retroceder | Presionar tecla esc								    | UI			            |
+	+-----------------------------+-----------------------------------------------------+---------------------------+
+    */
 	// cuando te encuentras o se trata de algo referente a la UI (no en partida).
 	bool _isOnUI = false; // inicialmente false hasta que se abra algo de UI.
 
@@ -201,9 +215,9 @@ private:
 						   isKeyDown(SDLK_e)		      // se apreta la tecla E.			
 						   && !_isOnUI;					  // no se ha abierto la UI.
 
-	// cuando se acciona menú de pausa
-	bool _pauseMenuEvent = mouseButtonDownEvent()
-						   && getMouseButtonState(LEFT)
+	// cuando se acciona menú de pausa.
+	bool _pauseMenuEvent = mouseButtonDownEvent()         // se apreta el mouse.
+						   && getMouseButtonState(LEFT)	  // en concreto el botón izquierdo.
 						   && (getMousePos() == a_prueba) // la posición donde hace clic es la del botón de pausa.		
 						   && !_isOnUI					  // no se ha abierto la UI.		
 						   ||							  // --- OR ---
@@ -211,18 +225,31 @@ private:
 						   && !_isOnUI;					  // no se ha abierto la UI.
 
 	// se destruye la bola.
-	bool _isBallDestroyed = mouseButtonDownEvent()  			// se apreta el mouse.
-							&& getMouseButtonState(RIGHT) 		// en concreto el boton derecho.
-							&& (getMousePos() == a_prueba)		// la posición donde hace clic es la de la bola.
-							&& _isOnUI;							// además está en UI.
+	bool _isBallDestroyed = mouseButtonDownEvent()  	   // se apreta el mouse.
+							&& getMouseButtonState(RIGHT)  // en concreto el boton derecho.
+							&& (getMousePos() == a_prueba) // la posición donde hace clic es la de la bola.
+							&& _isOnUI;					   // además está en UI.
 
-	/*//esto ya son eventos mios (Guillermo).
-	// Hola soy Carmen lo he comentado porque voy a renamearlo.
-	bool _submitKeyEvent;
-	bool _cancelKeyEvent;
-	bool _pausedKeyEvent;
+	// aceptar boton / avanzar.						
+	bool _submitKeyEvent = mouseButtonDownEvent()  	       // se apreta el mouse.
+						   && getMouseButtonState(RIGHT)   // en concreto el boton derecho.
+	                       && (getMousePos() == a_prueba); // la posición donde hace clic es la del botón a aceptar.
+
+	// cancelar boton / retroceder.
+	bool _cancelKeyEvent = isKeyDown(SDLK_ESCAPE) // le das al escape.
+						   && _isOnUI; // con una ventana de UI abierta para cancelar.
+
+	// para golpear la bola en partida.
+	bool _hitBall;
+
+	// para lo de consultar las estadisticas de cada bola.
+	bool _checkBall;
+
+
 	
-	Vector2D _navigateVectorEvent;*/
+	
+	
+	//Vector2D _navigateVectorEvent;
 
 
 
