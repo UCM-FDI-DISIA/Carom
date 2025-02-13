@@ -152,7 +152,112 @@ public:
 	// TODO add support for Joystick, see Chapter 4 of the book 'SDL Game Development'
 
 	// ---- EVENTOS HANDMADE (fijándome en los que ha creado Guillermo) ----.
-	// ---- UI.
+
+	// seleccionar bola del inventario.
+	inline bool isBallSelectedUI() {
+		_isBallSelectedUI = mouseButtonDownEvent()  	   // se apreta el mouse.
+							&& getMouseButtonState(LEFT)   // en concreto el boton izquierdo.
+							&& (getMousePos() == a_prueba) // la posición donde hace clic es la de la bola.
+							&& _isOnUI;					   // además está en UI.
+
+		return _isBallSelectedUI;
+	}
+
+	// arrastar bola del inventario.
+	inline bool isBallMovingUI(){
+		_isBallMovingUI = _isBallSelectedUI      // ademas de estar seleccionada.
+						  && mouseMotionEvent(); // se mueve el raton.
+
+		return _isBallMovingUI;					
+	}
+
+	// se destruye la bola.
+	inline bool isBallDestroyedUI(){
+		_isBallDestroyedUI = mouseButtonDownEvent()  	    // se apreta el mouse.
+							 && getMouseButtonState(RIGHT)  // en concreto el boton derecho.
+							 && (getMousePos() == a_prueba) // la posición donde hace clic es la de la bola.
+							 && _isOnUI;					// además está en UI.
+
+		return _isBallDestroyedUI;
+	}
+
+    // para lo de consultar las estadisticas de cada bola.
+	inline bool isBallChecked(){
+		_checkBall = !mouseMotionEvent()             // si no se mueve el ratón.
+					 && (getMousePos() == a_prueba); // y está sobre la pelota (no importa que esté en UI o no porque en los dos se comprueba).
+					 
+		return _checkBall;
+	}
+
+	// para seleccionar la bola en partida para arrastrar.
+	inline bool isBallPickedIngame(){
+		_isBallPickedIngame = mouseButtonDownEvent()          // se apreta el mouse.
+						      && getMouseButtonState(LEFT)    // en concreto el botón izquierdo.
+						 	  && (getMousePos() == a_prueba)  // en la posición donde está la bola.
+						 	  && !_isOnUI;                    // no ocurre en ventana de UI sino en partida.
+
+		return _isBallPickedIngame;
+	}
+
+	// para arrastrar la bola.	
+	inline bool isBallDraggingIngame(){
+		_isBallDraggingIngame = _isBallPickedIngame		  // si has seleccionado una bola.
+						   	    && mouseMotionEvent();    // y además el ratón se está moviendo.
+
+		return _isBallDraggingIngame;
+	}
+
+	// para soltar la bola.	
+	inline bool isBallThrowingIngame(){
+		_isBallThrowingIngame = _isBallDraggingIngame	  // si se está arrastrando.
+						   		&& mouseButtonUpEvent();  // y además se suelta la tecla del raton.
+
+		return _isBallThrowingIngame;
+	}
+
+	// cuando se acciona el inventario.
+	inline bool isInventoryOpened(){
+		_inventoryEvent = mouseButtonDownEvent() 		  // se apreta el mouse.
+						  && getMouseButtonState(LEFT)    // en concreto el boton izquierdo.
+					      && (getMousePos() == a_prueba)  // la posicion donde hace clic es la del botón del inventario.
+						  && !_isOnUI				      // no se ha abierto la UI.
+					      ||							  // --- OR ---
+				          isKeyDown(SDLK_e)		          // se apreta la tecla E.			
+					      && !_isOnUI;					  // no se ha abierto la UI.
+
+		return _inventoryEvent;
+	}
+
+	// cuando se acciona menú de pausa.
+	inline bool isPauseMenuOpened(){
+		_pauseMenuEvent = mouseButtonDownEvent()          // se apreta el mouse.
+						  && getMouseButtonState(LEFT)	  // en concreto el botón izquierdo.
+					      && (getMousePos() == a_prueba)  // la posición donde hace clic es la del botón de pausa.		
+					      && !_isOnUI					  // no se ha abierto la UI.		
+						  ||							  // --- OR ---
+					      isKeyDown(SDLK_ESCAPE)		  // se apreta la tecla ESC (¡¡¡OJO!!! igual esto hay que cambiarlo porque coincide con lo de "Cancelar botón" de la wiki).
+						  && !_isOnUI;					  // no se ha abierto la UI.
+
+		return _pauseMenuEvent;
+	}
+
+	// aceptar boton / avanzar.
+	inline bool isSubmitEvent(){
+		_submitKeyEvent = mouseButtonDownEvent()  	       // se apreta el mouse.
+						  && getMouseButtonState(LEFT)     // en concreto el boton izquierdo.
+					      && (getMousePos() == a_prueba);  // la posición donde hace clic es la del botón a aceptar.
+
+		return _submitKeyEvent;
+	}
+
+	// // cancelar boton / retroceder.
+	inline bool isCancelEvent(){
+		_cancelKeyEvent = isKeyDown(SDLK_ESCAPE) // le das al escape.
+					      && _isOnUI;            // con una ventana de UI abierta para cancelar.
+
+		return _cancelKeyEvent;
+	}
+	
 
 	/*inline bool isInventoryActivated(){ return _inventoryEvent; }
 	inline bool isPauseMenuActivated(){ return _pauseMenuEvent; }
@@ -188,7 +293,6 @@ private:
 	const Uint8 *_kbState;
 
 	// ---- VARS HANDMADE (reciclando los que ha creado Guillermo) ----.
-
 	/*
 	+-----------------------------+-----------------------------------------------------+---------------------------+
 	| Acción  					  | Input teclado y ratón 								| Contexto     				| 
@@ -208,61 +312,20 @@ private:
 
 	// posición de ejemplo (no sirve para nada ahora).
 	std::pair<Sint32, Sint32> a_prueba = {1, 1};
-	
-	// se destruye la bola.
-	bool _isBallDestroyed = mouseButtonDownEvent()  	   // se apreta el mouse.
-							&& getMouseButtonState(RIGHT)  // en concreto el boton derecho.
-							&& (getMousePos() == a_prueba) // la posición donde hace clic es la de la bola.
-							&& _isOnUI;					   // además está en UI.
-							
-	// cuando se acciona el inventario.
-	bool _inventoryEvent = mouseButtonDownEvent() 		  // se apreta el mouse.
-						   && getMouseButtonState(LEFT)   // en concreto el boton izquierdo.
-						   && (getMousePos() == a_prueba) // la posicion donde hace clic es la del botón del inventario.
-						   && !_isOnUI				      // no se ha abierto la UI.
-						   ||							  // --- OR ---
-						   isKeyDown(SDLK_e)		      // se apreta la tecla E.			
-						   && !_isOnUI;					  // no se ha abierto la UI.
 
-	// cuando se acciona menú de pausa.
-	bool _pauseMenuEvent = mouseButtonDownEvent()         // se apreta el mouse.
-						   && getMouseButtonState(LEFT)	  // en concreto el botón izquierdo.
-						   && (getMousePos() == a_prueba) // la posición donde hace clic es la del botón de pausa.		
-						   && !_isOnUI					  // no se ha abierto la UI.		
-						   ||							  // --- OR ---
-						   isKeyDown(SDLK_ESCAPE)		  // se apreta la tecla ESC (¡¡¡OJO!!! igual esto hay que cambiarlo porque coincide con lo de "Cancelar botón" de la wiki).
-						   && !_isOnUI;					  // no se ha abierto la UI.
-
-
-	// aceptar boton / avanzar.						
-	bool _submitKeyEvent = mouseButtonDownEvent()  	       // se apreta el mouse.
-						   && getMouseButtonState(LEFT)    // en concreto el boton izquierdo.
-	                       && (getMousePos() == a_prueba); // la posición donde hace clic es la del botón a aceptar.
-
-	// cancelar boton / retroceder.
-	bool _cancelKeyEvent = isKeyDown(SDLK_ESCAPE) // le das al escape.
-						   && _isOnUI;            // con una ventana de UI abierta para cancelar.
-
-	// para seleccionar la bola en partida para arrastrar.
-	bool _isBallPicked = mouseButtonDownEvent()            // se apreta el mouse.
-					       && getMouseButtonState(LEFT)    // en concreto el botón izquierdo.
-						   && (getMousePos() == a_prueba)  // en la posición donde está la bola.
-						   && !_isOnUI;                    // no ocurre en ventana de UI sino en partida.
-
-	// para arrastrar la bola.					   
-	bool _isBallDragging = _isBallPicked		  // si has seleccionado una bola.
-						   && mouseMotionEvent(); // y además el ratón se está moviendo.
-		
-	// para soltar la bola.					   
-	bool _isBallThrowing = _isBallDragging			// si se está arrastrando.
-						   && mouseButtonUpEvent();  // y además se suelta la tecla del raton.
-
-	// para lo de consultar las estadisticas de cada bola.
-	bool _checkBall = !mouseMotionEvent()            // si no se mueve el ratón.
-					  && (getMousePos() == a_prueba); // y está sobre la pelota (no importa que esté en UI o no porque en los dos se comprueba).
+	bool _isBallSelectedUI; 	// seleccionar bola del inventario.
+	bool _isBallMovingUI; 		// arrastar bola del inventario.
+	bool _isBallDestroyedUI;    // se destruye la bola.
+	bool _checkBall; 			// para lo de consultar las estadisticas de cada bola.
+	bool _isBallPickedIngame;   // para seleccionar la bola en partida para arrastrar. 
+	bool _isBallDraggingIngame; // para arrastrar la bola.	
+	bool _isBallThrowingIngame; // para soltar la bola.	
+	bool _inventoryEvent; 		// cuando se acciona el inventario.
+	bool _pauseMenuEvent; 		// cuando se acciona menú de pausa. 
+	bool _submitKeyEvent; 		// aceptar boton / avanzar.	
+	bool _cancelKeyEvent; 		// cancelar boton / retroceder.
 
 	//Vector2D _navigateVectorEvent;
-
 
 
 	InputHandler() {
