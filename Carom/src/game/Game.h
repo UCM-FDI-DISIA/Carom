@@ -1,13 +1,8 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
 #pragma once
 
 #include <vector>
 #include <box2D/box2D.h>
-#include "Manager.h"
-
-// class Container;
-// class Entity;
+#include "EntityManager.h"
 
 class Game {
 public:
@@ -17,10 +12,6 @@ public:
 	void start();
 
 private:
-
-	ecs::Manager *_mngr;
+	ecs::EntityManager *_enttmngr;
 	b2WorldId _worldId;
-
-	// std::vector<Entity*> _objs;
 };
-
