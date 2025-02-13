@@ -147,9 +147,11 @@ public:
 
 	// TODO add support for Joystick, see Chapter 4 of the book 'SDL Game Development'
 
-	// ---- Eventos creados de cara al juego (fijándome en los que ha creado Guillermo).
+	// ---- Eventos creados de cara al juego (fijándome en los que ha creado Guillermo) ----.
+	// ---- UI.
 	inline bool isInventoryActivated(){ return _inventoryEvent; }
 	inline bool isPauseMenuActivated(){ return _pauseMenuEvent; }
+	inline bool isBallDestroyed(){ return _isBallDestroyed; }
 
 
 	
@@ -170,7 +172,7 @@ public:
 	}*/
 
 private:
-	// ---- vars de InputHandler.
+	// ---- VARS DE INPUTHANDLER ----.
 	bool _isCloseWindoEvent;
 	bool _isKeyUpEvent;
 	bool _isKeyDownEvent;
@@ -182,9 +184,37 @@ private:
 	std::array<bool, 3> _mbState;
 	const Uint8 *_kbState;
 
-	// ---- vars handmade (reciclando los que ha creado Guillermo).
-	bool _inventoryEvent; // cuando se acciona el inventario.
-	bool _pauseMenuEvent; // cuando se acciona menú de pausa
+	// ---- VARS HANDMADE (reciclando los que ha creado Guillermo) ----.
+
+	// cuando te encuentras o se trata de algo referente a la UI (no en partida).
+	bool _isOnUI = false; // inicialmente false hasta que se abra algo de UI.
+
+	// posición de ejemplo (no sirve para nada ahora).
+	std::pair<Sint32, Sint32> a_prueba = {1, 1};
+
+	// cuando se acciona el inventario.
+	bool _inventoryEvent = mouseButtonDownEvent() 		  // se apreta el mouse.
+						   && getMouseButtonState(LEFT)   // en concreto el boton izquierdo.
+						   && (getMousePos() == a_prueba) // la posicion donde hace clic es la del botón del inventario.
+						   && !_isOnUI				      // no se ha abierto la UI.
+						   ||							  // --- OR ---
+						   isKeyDown(SDLK_e)		      // se apreta la tecla E.			
+						   && !_isOnUI;					  // no se ha abierto la UI.
+
+	// cuando se acciona menú de pausa
+	bool _pauseMenuEvent = mouseButtonDownEvent()
+						   && getMouseButtonState(LEFT)
+						   && (getMousePos() == a_prueba) // la posición donde hace clic es la del botón de pausa.		
+						   && !_isOnUI					  // no se ha abierto la UI.		
+						   ||							  // --- OR ---
+						   isKeyDown(SDLK_ESCAPE)		  // se apreta la tecla ESC (¡¡¡OJO!!! igual esto hay que cambiarlo porque coincide con lo de "Cancelar botón" de la wiki).
+						   && !_isOnUI;					  // no se ha abierto la UI.
+
+	// se destruye la bola.
+	bool _isBallDestroyed = mouseButtonDownEvent()  			// se apreta el mouse.
+							&& getMouseButtonState(RIGHT) 		// en concreto el boton derecho.
+							&& (getMousePos() == a_prueba)		// la posición donde hace clic es la de la bola.
+							&& _isOnUI;							// además está en UI.
 
 	/*//esto ya son eventos mios (Guillermo).
 	// Hola soy Carmen lo he comentado porque voy a renamearlo.
