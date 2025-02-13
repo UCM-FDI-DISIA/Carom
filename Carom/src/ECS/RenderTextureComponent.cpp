@@ -4,16 +4,16 @@
 #include "TransformComponent.h"
 
 namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Texture* texture) : RenderComponent(), _texture(texture), _transform(nullptr)
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture) : RenderComponent(ent), _texture(texture), _transform(nullptr)
     {
 
     }
 
-    void RenderTextureComponent::init(Entity* entity){
-        _transform = entity->getComponent<TransformComponent>(TRANSFORM);
+    void RenderTextureComponent::init(){
+        _transform = _myEntity->getComponent<TransformComponent>(TRANSFORM);
     }
 
-    void RenderTextureComponent::render(Entity* entity) {
+    void RenderTextureComponent::render() {
         _texture->render(_transform->getPosition()->getX(), _transform->getPosition()->getY());
     }
 }

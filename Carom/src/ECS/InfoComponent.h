@@ -5,14 +5,15 @@ class Entity;
 namespace ecs{
     class InfoComponent : public Component{
     public:
+        InfoComponent(Entity* ent) : Component(ent) {}
         virtual ~InfoComponent(){}
     
     private:
-        void init(Entity*) override {}
+        void init() override {}
         
-        void update(Entity*) override {}
-        void render(Entity*) override {}
-        void handleEvent(Entity*) override {}
+        void update() override {}
+        void render() override {}
+        void handleEvent() override {}
     };
 
 }
