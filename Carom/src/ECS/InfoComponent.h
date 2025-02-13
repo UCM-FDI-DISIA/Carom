@@ -5,6 +5,7 @@ class Entity;
 namespace ecs{
     class InfoComponent : public Component{
     public:
+        InfoComponent(Entity* e) : Component(e) {}
         virtual ~InfoComponent(){}
     
     private:

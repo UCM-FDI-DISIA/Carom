@@ -2,16 +2,11 @@
 
 #include<array>
 #include<vector>
+#include "ecs.h"
 
 class Component;
 
 namespace ecs {
-
-    enum ComponentID {
-        TRANSFORM,
-        RENDER_TEXTURE,
-        NUM_COMPONENTS
-    };
 
     class Entity{
     public:
@@ -26,25 +21,44 @@ namespace ecs {
             _alive = alive;
         }
     
-        bool addComponent(Component*, ComponentID);
+        template<typename T>
+        bool addComponent(T* component){
+            if(_components[cmpId<T>] != nullptr) return false;
     
-        bool removeComponent(ComponentID);
+            _components[cmpId<T>] = component;
+            _currentComponents.push_back(component);
+    
+            _components[cmpId<T>]->init(this);
+    
+            return true;
+        }
+    
+        template<typename T>
+        bool removeComponent(){
+            if(_components[cmpId<T>] == nullptr) return false;
+    
+            auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
+            _currentComponents.erase(it);
+            _components[cmpId<T>] = nullptr;
+    
+            return true;
+        }
 
         /// @brief GetComponent de Unity
-        /// @param  ComponentID Id del componente solicitado
+        /// @param  ID Id del componente solicitado
         /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
         /// @return true si la entidad tiene el componente, false si no
         template<typename T>
-        bool tryGetComponent(ComponentID ID, T*& component){
-            if(_components[ID] == nullptr) return false;
+        bool tryGetComponent(T*& component){
+            if(_components[cmpId<T>] == nullptr) return false;
 
-            component = _components[ID];
+            component = _components[cmpId<T>];
             return true;
         }
 
         template<typename T>
-        T* getComponent(ComponentID ID){
-            return _components[ID];
+        T* getComponent(){
+            return static_cast<T*>(_components[cmpId<T>]);
         }
 
         void update();
@@ -52,9 +66,11 @@ namespace ecs {
         void handleEvents();
     
     private:
+        friend Manager; // TODO
+        Manager *_mngr;
+
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
-    
         std::vector<Component*> _currentComponents;
-        std::array<Component*, NUM_COMPONENTS> _components;
+        std::array<Component*, cmp::_LAST_CMP_ID> _components;
     };
 }

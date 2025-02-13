@@ -1,18 +1,24 @@
 #pragma once
 #include "RenderComponent.h"
 
+
 class Texture;
-class TransformComponent;
+
 namespace ecs {
+
+class TransformComponent;
+
     class RenderTextureComponent : public RenderComponent {
     private:
         Texture* _texture;
         TransformComponent* _transform;
     public:
-        RenderTextureComponent(Texture*);
-        ~RenderTextureComponent();
+        __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
-        void render(Entity*) override;
-        void init(Entity*) override;
+        RenderTextureComponent(Entity* e, Texture* texture);
+        ~RenderTextureComponent() {};
+
+        void render(Entity* entity) override; // !
+        void init(Entity* entity) override; // !
     };
 }

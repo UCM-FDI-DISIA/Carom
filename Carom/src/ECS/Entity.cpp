@@ -1,6 +1,7 @@
 
 #include "Component.h"
 #include "Entity.h"
+#include "ecs.h"
 
 #include <algorithm>
 
@@ -8,7 +9,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity() : _alive(true)
+    Entity::Entity() : _alive(true), _mngr(nullptr)
     {
     }
 
@@ -18,27 +19,28 @@ namespace ecs {
             delete component;
     }
 
-    bool Entity::addComponent(Component* component, ComponentID ID){
-        if(_components[ID] != nullptr) return false;
+    // bool Entity::addComponent(Component* component){
+    //     if(_components[cmpId<Component>] != nullptr) return false;
 
-        _components[ID] = component;
-        _currentComponents.push_back(component);
+    //     _components[ID] = component;
+    //     _currentComponents.push_back(component);
 
-        _components[ID]->init(this);
+    //     _components[ID]->init(this);
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    bool Entity::removeComponent(ComponentID ID){
+    // bool Entity::removeComponent(){
 
-        if(_components[ID] == nullptr) return false;
+    //     cmp::cmpId ID = cmpId<T>;
+    //     if(_components[ID] == nullptr) return false;
 
-        auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[ID]);
-        _currentComponents.erase(it);
-        _components[ID] = nullptr;
+    //     auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[ID]);
+    //     _currentComponents.erase(it);
+    //     _components[ID] = nullptr;
 
-        return true;
-    }
+    //     return true;
+    // }
 
     void Entity::update(){
         for(Component* component : _currentComponents) 
