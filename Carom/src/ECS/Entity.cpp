@@ -1,4 +1,3 @@
-
 #include "Component.h"
 #include "Entity.h"
 #include "ecs.h"
@@ -9,7 +8,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity() : _alive(true), _mngr(nullptr)
+    Entity::Entity() : _alive(true), _enttmngr(nullptr)
     {
     }
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include<array>
-#include<vector>
+#include <array>
+#include <vector>
 #include "ecs.h"
 
 class Component;
@@ -10,7 +10,6 @@ namespace ecs {
 
     class Entity{
     public:
-        Entity();
         ~Entity();
     
         inline bool isAlive() {
@@ -66,11 +65,13 @@ namespace ecs {
         void handleEvents();
     
     private:
-        friend Manager; // TODO
-        Manager *_mngr;
+        friend EntityManager;
+        Entity();
+
+        EntityManager *_enttmngr;
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
         std::vector<Component*> _currentComponents;
-        std::array<Component*, cmp::_LAST_CMP_ID> _components;
+        std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
     };
 }
