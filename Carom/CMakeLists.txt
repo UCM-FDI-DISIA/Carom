@@ -64,6 +64,9 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/json/include
 
 	${CMAKE_SOURCE_DIR}/src/ECS
+	${CMAKE_SOURCE_DIR}/src/SceneSystem
+	${CMAKE_SOURCE_DIR}/src/StateMachine
+	${CMAKE_SOURCE_DIR}/src/Scenes
 )
 
 
@@ -88,9 +91,19 @@ add_executable(Carom
 	external/json/src/JSON.cpp
 	external/json/src/JSONValue.cpp
 
+	src/Game.cpp
+
+	src/SceneSystem/GameScene.cpp
+	src/SceneSystem/ScenesManager.cpp
+
 	src/ECS/Entity.cpp
+
+<<<<<<< HEAD
 	src/Physics/B2Manager.cpp
 
+=======
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+	src/Scenes/MainScene.cpp
 )
 
 # Link Box2D
