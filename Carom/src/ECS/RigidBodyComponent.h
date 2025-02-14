@@ -8,25 +8,17 @@ class B2Manager;
 namespace ecs{
     class RigidBodyComponent : public PhysicsComponent
     {
-        b2BodyId _body; //Cuerpo como tal
-        TransformComponent* _transform;
-        B2Manager* _manager;
+        b2BodyId _body; // b2 Body ID
+        TransformComponent* _transform; // Our transform component
+        B2Manager* _manager; // Physics Manager Singleton
 
         public:
 
-        enum shape{
-            CIRCLE,
-            POLYGON,
-            CAPSULE
-        };
-
-        RigidBodyComponent(Entity*, b2BodyId, float, float, float, shape, float);
+        RigidBodyComponent(Entity* ent);
+        virtual ~RigidBodyComponent(){}
 
         inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
         inline b2BodyId* getB2Body(){return &_body;}
-
-        void updateB2Transform(); //Facilita las conversiones al cambiar los updates
-        void changeBodyType();
     };
 
 }
