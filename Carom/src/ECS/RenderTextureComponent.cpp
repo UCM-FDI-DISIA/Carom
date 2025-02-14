@@ -5,18 +5,19 @@
 #include "TransformComponent.h"
 
 namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Entity* e, Texture* texture) : RenderComponent(e), _texture(texture), _transform(nullptr)
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture) : RenderComponent(ent), _texture(texture), _transform(nullptr)
     {
-        init(_e);
+        // init(); // ! Test
     }
 
-    void RenderTextureComponent::init(Entity* entity){
-        _transform = entity->getComponent<TransformComponent>();
+    void RenderTextureComponent::init(){
+        _transform = _myEntity->getComponent<TransformComponent>();
     }
 
-    void RenderTextureComponent::render(Entity* entity) {
-        // _texture->render(_transform->getPosition().getX(), _transform->getPosition().getY());
-        SDL_Rect dest = build_sdlrect(_transform->getPosition(), _transform->getWidth(), _transform->getHeight());
-        _texture->render(dest, _transform->getRotation());
+    void RenderTextureComponent::render() {
+        _texture->render(_transform->getPosition()->getX(), _transform->getPosition()->getY());
+        // ! Test
+        // SDL_Rect dest = build_sdlrect(_transform->getPosition(), _transform->getWidth(), _transform->getHeight());
+        // _texture->render(dest, _transform->getRotation());
     }
 }

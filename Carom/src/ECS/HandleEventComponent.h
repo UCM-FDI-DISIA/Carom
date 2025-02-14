@@ -6,9 +6,10 @@ namespace ecs {
     class HandleEventComponent : public ecs::Component
     {
     public:
+        HandleEventComponent(Entity* ent) : Component(ent) {}
         virtual ~HandleEventComponent(){}
     
-        void update(Entity*) override {}
-        void render(Entity*) override {}
+        void update() override {}
+        void render() override {}
     };
 }

@@ -8,7 +8,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity() : _alive(true), _enttmngr(nullptr)
+    Entity::Entity() : _alive(true)
     {
     }
 
@@ -18,19 +18,22 @@ namespace ecs {
             delete component;
     }
 
+    void Entity::setListAnchor(GameList<Entity>::anchor&& anchor){
+        this->_anchor = std::move(anchor);
+    }
+
     // bool Entity::addComponent(Component* component){
     //     if(_components[cmpId<Component>] != nullptr) return false;
 
     //     _components[ID] = component;
     //     _currentComponents.push_back(component);
 
-    //     _components[ID]->init(this);
+        //_components[ID]->init(this);
 
     //     return true;
     // }
 
     // bool Entity::removeComponent(){
-
     //     cmp::cmpId ID = cmpId<T>;
     //     if(_components[ID] == nullptr) return false;
 
@@ -43,14 +46,14 @@ namespace ecs {
 
     void Entity::update(){
         for(Component* component : _currentComponents) 
-            component->update(this);
+            component->update();
     }
 
     void Entity::render(){
-        for(Component* component : _currentComponents) component->render(this);
+        for(Component* component : _currentComponents) component->render();
     }
 
     void Entity::handleEvents(){
-        for(Component* component : _currentComponents) component->handleEvent(this);
+        for(Component* component : _currentComponents) component->handleEvent();
     }
 }

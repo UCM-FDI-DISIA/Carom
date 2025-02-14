@@ -2,6 +2,7 @@
 
 #include <array>
 #include <vector>
+#include "gameList.h"
 #include "ecs.h"
 
 class Component;
@@ -27,7 +28,7 @@ namespace ecs {
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
     
-            _components[cmpId<T>]->init(this);
+            _components[cmpId<T>]->init();
     
             return true;
         }
@@ -60,6 +61,8 @@ namespace ecs {
             return static_cast<T*>(_components[cmpId<T>]);
         }
 
+        void setListAnchor(GameList<Entity>::anchor&& anchor);
+    
         void update();
         void render();
         void handleEvents();
@@ -68,10 +71,9 @@ namespace ecs {
         friend EntityManager;
         Entity();
 
-        EntityManager *_enttmngr;
-
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
+        GameList<Entity>::anchor _anchor;
     };
 }

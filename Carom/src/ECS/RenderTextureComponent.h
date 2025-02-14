@@ -15,10 +15,10 @@ class TransformComponent;
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
-        RenderTextureComponent(Entity* e, Texture* texture);
-        ~RenderTextureComponent() {};
+        RenderTextureComponent(Entity* ent, Texture* texture);
+        ~RenderTextureComponent() {}; // TODO: delete tex?
 
-        void render(Entity* entity) override; // !
-        void init(Entity* entity) override; // !
+        void render() override;
+        void init() override;
     };
 }
