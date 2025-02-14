@@ -1,5 +1,6 @@
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
+#include "B2Manager.h"
 
 using namespace ecs;
 
