@@ -13,15 +13,12 @@ namespace ecs{
 
         public:
 
-        static enum bodyType {
-            STATIC,
-            DYNAMIC,
-            KINEMATIC
-        };
+        RigidBodyComponent(Entity*, b2BodyId, TransformComponent*);
 
-        RigidBodyComponent(Entity*, b2WorldId, TransformComponent*, bodyType);
-        ~RigidBodyComponent() {}
+        inline b2Transform* getB2Transform(){return &_b2Transform;}
+        inline b2BodyId* getB2Body(){return &_body;}
 
-
+        void updateB2Transform(); //Facilita las conversiones al cambiar los updates
+        void changeBodyType();
     };
 }
