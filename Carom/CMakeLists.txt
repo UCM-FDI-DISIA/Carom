@@ -98,11 +98,8 @@ add_executable(Carom
 
 	src/ECS/Entity.cpp
 
-<<<<<<< HEAD
 	src/Physics/B2Manager.cpp
 
-=======
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
 	src/Scenes/MainScene.cpp
 )
 
