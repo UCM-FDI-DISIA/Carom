@@ -1,7 +1,7 @@
-Consiste principalmente en un script que centraliza todo el input que recibe **tanto de teclado, ratón, y mando**, y lo traduce a SDL_Events nuevos, que van a ser leídos por los componentes de input. Se va a usar el **handleEvent()** de la clase **Component**.
+Consiste principalmente en un script que centraliza todo el input que recibe **tanto de teclado, ratón, y mando**, y lo traduce parámetros genéricos que el juego puede usar para hacer acciones concretas.
 # Por qué esto es útil
 
-Básicamente para facilitar la cantidad de controladores que se aceptan, ya que se usa un intermediario que traduce acciones individuales de input de distintos dispositivos a SDL_Events que son interpretados por el juego.
+Básicamente para facilitar la cantidad de controladores que se aceptan, ya que se usa un intermediario que traduce acciones individuales de input de distintos dispositivos parámetros que pueden obtenerse de forma remota, para saber si se ha presionado una acción.
 
 # Input resumido según GDD
 
