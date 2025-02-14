@@ -1,10 +1,11 @@
 #include <iostream>
 #include "sdlutils_demo.h"
+#include "inputTest.h"
 
 int main (int, char**)
 {
     try {
-        sdlutils_basic_demo();
+        inputTest_basic_demo();
     } catch (const std::string &e) { // catch exceptions thrown as strings
         std::cerr << e << std::endl;
     } catch (const char *e) { // catch exceptions thrown as char*

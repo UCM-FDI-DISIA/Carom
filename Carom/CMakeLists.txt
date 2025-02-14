@@ -90,6 +90,7 @@ add_executable(Carom
 
 	src/ECS/Entity.cpp
 	src/Physics/B2Manager.cpp
+	src/inputTest.cpp
 
 )
 
