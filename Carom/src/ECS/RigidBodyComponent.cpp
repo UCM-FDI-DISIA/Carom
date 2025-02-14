@@ -25,6 +25,7 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent, b2WorldId world,TransformCom
     //Posicion
     Vector2D* position = _transform->getPosition();
     a_bodyDef.position = {position->getX(), position->getY()};
+    position = nullptr;
 
     //Creación del body
     _body = b2CreateBody(world, &a_bodyDef);
