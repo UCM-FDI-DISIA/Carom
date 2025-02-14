@@ -35,7 +35,6 @@ namespace ecs {
         /// @param  ComponentID Id del componente solicitado
         /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
         /// @return true si la entidad tiene el componente, false si no
-<<<<<<< HEAD
         template<typename T>
         bool tryGetComponent(ComponentID ID, T*& component){
             if(_components[ID] == nullptr) return false;
@@ -49,11 +48,8 @@ namespace ecs {
             return _components[ID];
         }
 
-=======
-        bool tryGetComponent(ComponentID, Component*&);
         void setListAnchor(GameList<Entity>::anchor&& anchor);
-    
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+
         void update();
         void render();
         void handleEvents();
