@@ -4,6 +4,8 @@
 
 #include "Game.h"
 #include "EntityManager.h"
+#include "TransformComponent.h"
+#include "RenderTextureComponent.h"
 
 Game::Game() : _enttmngr(nullptr)
 { 
@@ -37,7 +39,11 @@ void Game::init() {
 
     // ! MANAGER
 	_enttmngr = new ecs::EntityManager();
-	_enttmngr->addEntity(ecs::obj::WHITEBALL);
+	// _enttmngr->addEntity(ecs::obj::WHITEBALL);
+
+	int id_0 = _enttmngr->addEntity();
+	_enttmngr->addComponent<ecs::TransformComponent>(id_0);
+	_enttmngr->addComponent<ecs::RenderTextureComponent>(id_0, &sdlutils().images().at("tennis_ball"));
 
     // ! WORLD
     b2WorldDef worldDef = b2DefaultWorldDef();
@@ -69,7 +75,6 @@ void Game::start() {
 		}
 
         // ! WORLD
-        // _b2World->update();
         static constexpr float _timeStep = 1.0f / 60.0f;
         static constexpr int _subStepCount = 4;
         b2World_Step(_worldId, _timeStep, _subStepCount);

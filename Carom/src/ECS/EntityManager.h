@@ -1,5 +1,3 @@
-// This file is part of the course TPV2@UCM - Samir Genaim
-
 #pragma once
 #include <iostream>
 #include <vector>
@@ -19,40 +17,58 @@ namespace ecs {
 /*
  * A class for managing the list of entities, groups, etc.
  */
-// ! 
 class EntityManager {
 
 public:
 	EntityManager();
 	virtual ~EntityManager();
 
-	// Add a game entity
-	//
-	inline void addEntity(obj::objId objId) {
+	// Adds empty entity and returns its position in _entities vector
+	int addEntity();
 
-		switch (objId){
-			case (obj::WHITEBALL): {
-				entity_t e = new Entity();
-				addComponent<TransformComponent>(e);
-				addComponent<RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"));
-				entities.push_back(std::move(e));
-				break;
-			}
-			// TODO
-		}
-	}
+	// Add a game entity of objId
+	// Returns the position in the _entities array
+	int addEntity(obj::objId objId);
+
+	inline std::vector<entity_t>& getEntities() { return _entities; }
 
 	// Setting the state of the entity (alive or dead)
 	//
-	inline void setAlive(entity_t e, bool alive) {
+	inline void setAlive(int id, bool alive) {
+		entity_t e = getEntities()[id];
 		e->setAlive(alive);
 	}
 
 	// Returns the state of the entity (alive o dead)
 	//
-	inline bool isAlive(entity_t e) {
+	inline bool isAlive(int id) {
+		entity_t e = getEntities()[id];
 		return e->isAlive();
 	}
+
+	template<typename T, typename ...Ts>
+	inline void addComponent(int id, Ts &&... args){
+		addComponent<T>(_entities[id], std::forward<Ts>(args)...);
+	}
+
+	template<typename T>
+	inline bool removeComponent(int id) {
+		return removeComponent(_entities[id]);
+	}
+
+	// update all entities
+	void update();
+
+	// render all entities
+	void render();
+
+private:
+	// TODO groups
+	// for now:
+	std::vector<entity_t> _entities;
+
+	// Entity counting
+	int _id;
 
 	// Adds a component to an entity. It receives the type T (to be created),
 	// and the list of arguments (if any) to be passed to the constructor.
@@ -91,18 +107,6 @@ public:
 	inline bool hasComponent(entity_t e) {
 		return e->tryGetComponent(cmpId<T>);
 	}
-
-	// update all entities
-	void update();
-
-	// render all entities
-	void render();
-
-
-private:
-	// TODO groups
-	// for now:
-	std::vector<entity_t> entities;
 };
 
 } // end of namespace
