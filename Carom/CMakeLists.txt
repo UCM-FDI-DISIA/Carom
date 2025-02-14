@@ -89,7 +89,7 @@ add_executable(Carom
 	external/json/src/JSONValue.cpp
 
 	src/ECS/Entity.cpp
-	src/ECS/Manager.cpp
+	src/ECS/EntityManager.cpp
 	src/ECS/RenderTextureComponent.cpp
 
 	src/game/Game.cpp
