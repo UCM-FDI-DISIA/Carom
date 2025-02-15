@@ -101,6 +101,7 @@ add_executable(Carom
 	src/ECS/RenderTextureComponent.cpp
 
 	src/Physics/B2Manager.cpp
+	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/MainScene.cpp
 )
