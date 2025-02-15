@@ -46,7 +46,13 @@ DummyGame::start() {
     std::cout << "Tiene transform: " << white_ball->tryGetComponent<ecs::TransformComponent>() << std::endl;
     _enttmngr->removeComponent<ecs::TransformComponent>(white_ball);
     std::cout << "Tiene transform: " << white_ball->tryGetComponent<ecs::TransformComponent>() << std::endl;
-    
+    _enttmngr->getEntities(ecs::grp::WHITEBALL)[0]->addComponent<ecs::TransformComponent>(new ecs::TransformComponent(white_ball));
+    std::cout << "Tiene transform: " << white_ball->tryGetComponent<ecs::TransformComponent>() << std::endl;
+    white_ball->setAlive(false);
+    _enttmngr->refresh();
+    std::cout << _enttmngr->getEntities(ecs::grp::WHITEBALL).empty() << std::endl;
+
+
     // recoger input
 
     while(!exit) {
