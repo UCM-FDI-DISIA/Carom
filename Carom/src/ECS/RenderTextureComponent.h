@@ -3,8 +3,10 @@
 #include "RenderComponent.h"
 
 class Texture;
-class TransformComponent;
+
 namespace ecs {
+    class TransformComponent;
+    
     class RenderTextureComponent : public RenderComponent {
     private:
         Texture* _texture;
