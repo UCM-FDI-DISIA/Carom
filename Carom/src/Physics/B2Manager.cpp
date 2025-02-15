@@ -75,7 +75,7 @@ B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Polyg
     return bId;
 }
 
-b2BodyId 
+b2BodyId
 B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Capsule& capsule, 
     float density, float friction, float restitution) {
 
