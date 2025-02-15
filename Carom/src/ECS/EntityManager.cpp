@@ -15,21 +15,23 @@ EntityManager::~EntityManager()
 }
 
 void
-EntityManager::createWhiteBall(Vector2D pos /*, restitution etc*/) {
+EntityManager::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
     entity_t e = new Entity();
     addComponent<TransformComponent>(e);
     // TODO: other components
     _entities.push_back(e);
     _entsByGroup[grp::WHITEBALL].push_back(e);
+    _GS_entities->push_back(e);
 }
 
 void
-EntityManager::createEffectBall(effect::effectId effectId, Vector2D pos /*, restitution etc*/) {
+EntityManager::createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
     entity_t e = new Entity();
     addComponent<TransformComponent>(e);
     // TODO: other components
     _entities.push_back(e);
     _entsByGroup[grp::EFFECTBALLS].push_back(e);
+    _GS_entities->push_back(e);
 }
 
 void
@@ -38,6 +40,7 @@ EntityManager::createTable(/* type */) {
     // TODO: components
     _entities.push_back(e);
     _entsByGroup[grp::TABLE].push_back(e);
+    _GS_entities->push_back(e);
 }
 
 void

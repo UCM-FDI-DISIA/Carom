@@ -23,9 +23,9 @@ public:
 	EntityManager(GameList<Entity> *entities);
 	~EntityManager();
 
-	void createWhiteBall(Vector2D pos /*, restitution etc*/);
+	void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
 
-	void createEffectBall(effect::effectId effectId, Vector2D pos /*, restitution etc*/);
+	void createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
 
 	void createTable(/* type */);
 
