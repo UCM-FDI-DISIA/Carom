@@ -22,7 +22,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{084E1193-F6D5-35A8-AC90-7677AD6112D8}</ProjectGuid>
+<<<<<<< HEAD
+    <ProjectGuid>{063CC355-6E99-3066-B7DA-C9E14F83F49D}</ProjectGuid>
+=======
+    <ProjectGuid>{E790C490-B4B0-3604-BDEB-A831690068A4}</ProjectGuid>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -125,7 +129,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\CMakeFiles\f22046b9418c6d9327d7c37392c15d38\INSTALL_force.rule">
+<<<<<<< HEAD
+    <CustomBuild Include="U:\hlocal\Carom\Carom\build\CMakeFiles\b6bcf7cc9bc9e26f0225784a8ba9e27e\INSTALL_force.rule">
+=======
+    <CustomBuild Include="C:\hlocal\Carom\Carom\build\CMakeFiles\0f30070bbf2befb975306244d374ee09\INSTALL_force.rule">
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
@@ -138,7 +146,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+<<<<<<< HEAD
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">U:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
@@ -153,7 +165,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+<<<<<<< HEAD
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">U:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</BuildInParallel>
@@ -168,7 +184,11 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+<<<<<<< HEAD
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">U:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</BuildInParallel>
@@ -183,20 +203,34 @@ exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+<<<<<<< HEAD
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">U:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+=======
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\hlocal\Carom\Carom\build\external\box2d\CMakeFiles\INSTALL_force</Outputs>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\ZERO_CHECK.vcxproj">
-      <Project>{ED0A2B91-9FDF-37F0-814D-A78CDB8A4B9A}</Project>
+<<<<<<< HEAD
+    <ProjectReference Include="U:\hlocal\Carom\Carom\build\ZERO_CHECK.vcxproj">
+      <Project>{6B26D254-2714-396A-AEFC-278284E7A770}</Project>
+=======
+    <ProjectReference Include="C:\hlocal\Carom\Carom\build\ZERO_CHECK.vcxproj">
+      <Project>{E86BC232-6E15-3834-8204-19A667F2F8FE}</Project>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\usuario_local\Documents\GitHub\Carom\Carom\build\external\box2d\ALL_BUILD.vcxproj">
-      <Project>{CC3134C5-C6FA-361C-8F0B-409102B04606}</Project>
+<<<<<<< HEAD
+    <ProjectReference Include="U:\hlocal\Carom\Carom\build\external\box2d\ALL_BUILD.vcxproj">
+      <Project>{B48D3C6D-19F7-3491-B549-80D094B5CBD4}</Project>
+=======
+    <ProjectReference Include="C:\hlocal\Carom\Carom\build\external\box2d\ALL_BUILD.vcxproj">
+      <Project>{BFAC24C8-0494-30D9-A0EF-A7C276757A67}</Project>
+>>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
