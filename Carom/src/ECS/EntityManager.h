@@ -67,8 +67,8 @@ public:
 
 	// returns the vector of all entities
 	//
-	inline const auto& getEntities(grpId_t gId) {
-		return _entsByGroup[gId];;
+	inline auto& getEntities(grpId_t gId) {
+		return _entsByGroup[gId];
 	}
 
 	// return true if there is a component with identifier T::id in the entity

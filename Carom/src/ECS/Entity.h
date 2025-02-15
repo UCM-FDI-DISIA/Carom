@@ -49,10 +49,9 @@ namespace ecs {
         /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
         /// @return true si la entidad tiene el componente, false si no
         template<typename T>
-        bool tryGetComponent(T*& component){
+        bool tryGetComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
 
-            component = _components[cmpId<T>];
             return true;
         }
 
