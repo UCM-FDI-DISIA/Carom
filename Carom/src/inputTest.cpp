@@ -10,11 +10,11 @@
 
 using namespace std;
 
-void inputTest_basic_demo() {
+void input_basic_demo() {
 
 	// Initialize the SDLGame singleton
-	if (!SDLUtils::Init("InputTest", 800, 600,
-			"../../resources/config/test.resources.json")) {
+	if (!SDLUtils::Init("Carom Input Test", 800, 600,
+			"../../resources/config/sdlutilsdemo.resources.json")) {
 		std::cerr << "Something went wrong while initializing SDLUtils!"
 				<< std::endl;
 		return;
@@ -46,9 +46,18 @@ void inputTest_basic_demo() {
 	// we can take textures from the predefined ones, and we can create a custom one as well
 	auto &sdlLogo = sdl.images().at("sdl_logo");
 	auto &helloSDL = sdl.msgs().at("HelloSDL");
-	Texture pressAnyKey(renderer, "Press any key to exit",
+	Texture pressAnyKey(renderer, "Press cancel key <<esc>> to exit",
 			sdl.fonts().at("ARIAL24"), build_sdlcolor(0x112233ff),
 			build_sdlcolor(0xffffffff));
+	auto &ball = sdl.images().at("star"); // la bola
+
+	SDL_Rect ballRect;
+	ballRect.x = 500;
+	ballRect.y = 500;
+	ballRect.w = ball.width();
+	ballRect.h = ball.height();
+
+	std::pair<Sint32, Sint32> ballPos = {500, 500};
 
 	// some coordinates
 	auto winWidth = sdl.width();
@@ -61,7 +70,7 @@ void inputTest_basic_demo() {
 	auto y2 = y0 + 2 * pressAnyKey.height();
 
 	// start the music in a loop
-	//sdl.musics().at("beat").play();
+	sdl.musics().at("beat").play();
 
 	// reference to the input handler (we could use a pointer, I just . rather than ->).
 	// you can also use the inline method ih() that is defined in InputHandler.h
@@ -73,21 +82,45 @@ void inputTest_basic_demo() {
 	while (!exit_) {
 		Uint32 startTime = sdl.currRealTime();
 
+		// NOTA: DIGAMOS QUE LA ESTRELLA ES LA BOLA.
+
 		// update the event handler
 		ih.refresh();
 
-		// exit when any key is down
-		if (ih.keyDownEvent())
+		// si se presiona la u (además comprueba que se ha presionado tecla para que no se haga muy rápido y toglee varias veces...)
+		if (ih.keyDownEvent() && ih.isKeyDown(SDLK_u) ){
+			ih.toggleUI(); // activa o desactiva la UI.
+			if(ih.isOnUI()) std::cout << "Modo UI activado." << std::endl;
+			else std::cout << "Modo UI desactivado" << std::endl;	
+		}
+
+		// cancelar evento: en este caso cierra la ventana si la UI está activada.
+		if(ih.isCancelEvent()){
+			std::cout << "Evento de cancelar activado." << std::endl;
 			exit_ = true;
+		}
+
+		// Con el UI activado seleccionar bola.
+		if(ih.isBallSelectedUI(ballPos)){
+			std::cout << "Se ha seleccionado una bola del inventario." << std::endl;
+		}
+
+		// Con el UI activado mover ratón a la vez que seleccionsa bola.
+		if(ih.isBallMovingUI()){
+			std::cout << "Se está arrastrando / reorganizando una bola del inventario." << std::endl;
+		}
 
 		// clear screen
 		sdl.clearRenderer();
 
+		// star render.
+		ball.render(500, 500);
+
 		// render Hello SDL
-		/*helloSDL.render(x1, y1);
+		helloSDL.render(x1, y1);
 		if (x1 + helloSDL.width() > winWidth)
 			helloSDL.render(x1 - winWidth, y1);
-		x1 = (x1 + 5) % winWidth;*/
+		x1 = (x1 + 5) % winWidth;
 
 		// render Press Any Key
 		pressAnyKey.render(x0, y0);

@@ -153,12 +153,32 @@ public:
 
 	// ---- EVENTOS HANDMADE (fijándome en los que ha creado Guillermo) ----.
 
+	// para ver si el ratón hace clic sobre un rectángulo SDL.
+	inline bool isMouseInRect(const std::pair<Sint32, Sint32>& mousePos, SDL_Rect& rect) {
+		
+		// NOTA: LAS COORDENADAS EN SDL VAN AL REVES.
+		// derecha +x izquierda -x
+		// abajo +y arriba -y
+		
+		Sint32 mouseX = mousePos.first;
+		Sint32 mouseY = mousePos.second;
+
+		return 
+		// El mouse hace clic dentro de la coordenada x.
+		mouseX >= rect.x  // está entre el origen.
+		&& mouseX <= rect.x + rect.w // y el ancho.
+
+		// El mouse hace clic dentro de la coordenada y.
+		&& mouseY >= rect.y // está entre el origen
+		&& mouseY <= rect.y + rect.h; // y el alto.
+	}
+
 	// seleccionar bola del inventario.
-	inline bool isBallSelectedUI() {
+	inline bool isBallSelectedUI(SDL_Rect ball) {
 		_isBallSelectedUI = mouseButtonDownEvent()  	   // se apreta el mouse.
 							&& getMouseButtonState(LEFT)   // en concreto el boton izquierdo.
-							&& (getMousePos() == a_prueba) // la posición donde hace clic es la de la bola.
-							&& _isOnUI;					   // además está en UI.
+							&& (isMouseInRect(getMousePos(), ball)) // la posición donde hace clic es la de la bola.
+							&& isOnUI();					   // además está en UI.
 
 		return _isBallSelectedUI;
 	}
@@ -172,29 +192,29 @@ public:
 	}
 
 	// se destruye la bola.
-	inline bool isBallDestroyedUI(){
+	inline bool isBallDestroyedUI(SDL_Rect ball){
 		_isBallDestroyedUI = mouseButtonDownEvent()  	    // se apreta el mouse.
 							 && getMouseButtonState(RIGHT)  // en concreto el boton derecho.
-							 && (getMousePos() == a_prueba) // la posición donde hace clic es la de la bola.
-							 && _isOnUI;					// además está en UI.
+							 && (isMouseInRect(getMousePos(), ball)) // la posición donde hace clic es la de la bola.
+							 && isOnUI();					// además está en UI.
 
 		return _isBallDestroyedUI;
 	}
 
     // para lo de consultar las estadisticas de cada bola.
-	inline bool isBallChecked(){
+	inline bool isBallChecked(SDL_Rect ball){
 		_checkBall = !mouseMotionEvent()             // si no se mueve el ratón.
-					 && (getMousePos() == a_prueba); // y está sobre la pelota (no importa que esté en UI o no porque en los dos se comprueba).
+					 && (isMouseInRect(getMousePos(), ball)); // y está sobre la pelota (no importa que esté en UI o no porque en los dos se comprueba).
 					 
 		return _checkBall;
 	}
 
 	// para seleccionar la bola en partida para arrastrar.
-	inline bool isBallPickedIngame(){
+	inline bool isBallPickedIngame(SDL_Rect ball){
 		_isBallPickedIngame = mouseButtonDownEvent()          // se apreta el mouse.
 						      && getMouseButtonState(LEFT)    // en concreto el botón izquierdo.
-						 	  && (getMousePos() == a_prueba)  // en la posición donde está la bola.
-						 	  && !_isOnUI;                    // no ocurre en ventana de UI sino en partida.
+						 	  && (isMouseInRect(getMousePos(), ball))  // en la posición donde está la bola.
+						 	  && !isOnUI();                    // no ocurre en ventana de UI sino en partida.
 
 		return _isBallPickedIngame;
 	}
@@ -216,36 +236,36 @@ public:
 	}
 
 	// cuando se acciona el inventario.
-	inline bool isInventoryOpened(){
+	inline bool isInventoryOpened(SDL_Rect inventoryButton){
 		_inventoryEvent = mouseButtonDownEvent() 		  // se apreta el mouse.
 						  && getMouseButtonState(LEFT)    // en concreto el boton izquierdo.
-					      && (getMousePos() == a_prueba)  // la posicion donde hace clic es la del botón del inventario.
-						  && !_isOnUI				      // no se ha abierto la UI.
+					      && (isMouseInRect(getMousePos(), inventoryButton))  // la posicion donde hace clic es la del botón del inventario.
+						  && !isOnUI()				      // no se ha abierto la UI.
 					      ||							  // --- OR ---
 				          isKeyDown(SDLK_e)		          // se apreta la tecla E.			
-					      && !_isOnUI;					  // no se ha abierto la UI.
+					      && !isOnUI();					  // no se ha abierto la UI.
 
 		return _inventoryEvent;
 	}
 
 	// cuando se acciona menú de pausa.
-	inline bool isPauseMenuOpened(){
+	inline bool isPauseMenuOpened(SDL_Rect pauseButton){
 		_pauseMenuEvent = mouseButtonDownEvent()          // se apreta el mouse.
 						  && getMouseButtonState(LEFT)	  // en concreto el botón izquierdo.
-					      && (getMousePos() == a_prueba)  // la posición donde hace clic es la del botón de pausa.		
-					      && !_isOnUI					  // no se ha abierto la UI.		
+					      && (isMouseInRect(getMousePos(), pauseButton))  // la posición donde hace clic es la del botón de pausa.		
+					      && !isOnUI()					  // no se ha abierto la UI.		
 						  ||							  // --- OR ---
 					      isKeyDown(SDLK_ESCAPE)		  // se apreta la tecla ESC (¡¡¡OJO!!! igual esto hay que cambiarlo porque coincide con lo de "Cancelar botón" de la wiki).
-						  && !_isOnUI;					  // no se ha abierto la UI.
+						  && !isOnUI();					  // no se ha abierto la UI.
 
 		return _pauseMenuEvent;
 	}
 
 	// aceptar boton / avanzar.
-	inline bool isSubmitEvent(){
+	inline bool isSubmitEvent(SDL_Rect acceptButton){
 		_submitKeyEvent = mouseButtonDownEvent()  	       // se apreta el mouse.
 						  && getMouseButtonState(LEFT)     // en concreto el boton izquierdo.
-					      && (getMousePos() == a_prueba);  // la posición donde hace clic es la del botón a aceptar.
+					      && (isMouseInRect(getMousePos(), acceptButton));  // la posición donde hace clic es la del botón a aceptar.
 
 		return _submitKeyEvent;
 	}
@@ -253,9 +273,19 @@ public:
 	// // cancelar boton / retroceder.
 	inline bool isCancelEvent(){
 		_cancelKeyEvent = isKeyDown(SDLK_ESCAPE) // le das al escape.
-					      && _isOnUI;            // con una ventana de UI abierta para cancelar.
+					      && isOnUI();            // con una ventana de UI abierta para cancelar.
 
 		return _cancelKeyEvent;
+	}
+
+	// para activar/desactivar el modo UI (estás en/sobre interfaz o no).
+	inline void toggleUI(){
+		_isOnUI = !_isOnUI;
+	}
+
+	// ¿esta la ui activada?
+	inline bool isOnUI(){
+		return _isOnUI;
 	}
 	
 
@@ -308,10 +338,7 @@ private:
 	+-----------------------------+-----------------------------------------------------+---------------------------+
     */
 	// cuando te encuentras o se trata de algo referente a la UI (no en partida).
-	bool _isOnUI = false; // inicialmente false hasta que se abra algo de UI.
-
-	// posición de ejemplo (no sirve para nada ahora).
-	std::pair<Sint32, Sint32> a_prueba = {1, 1};
+	bool _isOnUI = false; // inicialmente false hasta que se abra algo de UI.	
 
 	bool _isBallSelectedUI; 	// seleccionar bola del inventario.
 	bool _isBallMovingUI; 		// arrastar bola del inventario.

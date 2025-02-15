@@ -7,7 +7,8 @@
   ],
   
   "images" : [
-    { "id" : "sdl_logo", "file" : "../../resources/images/SDL_logo.png" }
+    { "id" : "sdl_logo", "file" : "../../resources/images/SDL_logo.png" },
+    { "id" : "star", "file" : "../../resources/images/star.png"}
   ],
   
   "messages" : [
