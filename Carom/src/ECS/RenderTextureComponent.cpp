@@ -10,7 +10,8 @@ namespace ecs {
     }
 
     void RenderTextureComponent::init(){
-        _transform = _myEntity->getComponent<TransformComponent>(TRANSFORM);
+        _transform = _myEntity->getComponent<TransformComponent>();
+
     }
 
     void RenderTextureComponent::render() {
