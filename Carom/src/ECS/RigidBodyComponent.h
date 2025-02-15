@@ -14,11 +14,38 @@ namespace ecs{
 
         public:
 
-        RigidBodyComponent(Entity* ent);
+        RigidBodyComponent(Entity* ent, b2BodyType type, float density, float friction, float restitution, Shape shape);
         virtual ~RigidBodyComponent(){}
 
         inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
         inline b2BodyId* getB2Body(){return &_body;}
+    };
+
+    class Shape{
+    public:
+        Shape() {}
+        virtual ~Shape() {}
+    };
+
+    class CircleShape : public Shape{
+        b2Circle _circle;
+
+    public:
+        CircleShape(float radius);
+    };
+
+    class CapsuleShape : public Shape{
+        b2Capsule _capsule;
+
+    public:
+        CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter); // We use Vector2D to avoid having multiple representations of vectors
+    };
+
+    class PolygonShape : public Shape{
+        b2Polygon _polygon;
+
+        public:
+        PolygonShape(b2Vec2 vertex[], int size, float radius);
     };
 
 }
