@@ -22,9 +22,22 @@ namespace ecs{
     };
 
     class Shape{
-    public:
+        friend RigidBodyComponent;
+        
+        protected:
+        enum shapeType{
+            CIRCLE,
+            CAPSULE,
+            POLYGON
+        };
+        
+        shapeType _shapeType;
+
+        inline shapeType getType() {return _shapeType;}
+        
         Shape() {}
         virtual ~Shape() {}
+        
     };
 
     class CircleShape : public Shape{
@@ -32,6 +45,7 @@ namespace ecs{
 
     public:
         CircleShape(float radius);
+        inline b2Circle* getCircle() {return &_circle;}
     };
 
     class CapsuleShape : public Shape{
@@ -39,6 +53,7 @@ namespace ecs{
 
     public:
         CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter); // We use Vector2D to avoid having multiple representations of vectors
+        inline b2Capsule* getCapsule() {return &_capsule;}
     };
 
     class PolygonShape : public Shape{

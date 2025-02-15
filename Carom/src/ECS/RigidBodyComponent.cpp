@@ -12,6 +12,16 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, float densi
     try {assert(ent->tryGetComponent<TransformComponent>(ecs::TRANSFORM, _transform));}
     catch(std::exception) { throw std::exception("Trying to attach a RigidBody to an Entity without Transform"); }
     _myEntity = ent;
+
+    switch(shape.getType()){
+        case (Shape::CIRCLE):
+            Shape* a_circleShape = &shape;
+            //_body = _manager->addRigidbody(ent, type, *static_cast<CircleShape*>(a_circleShape)->getCircle(), density, friction, restitution);
+            break;
+        case (Shape::CAPSULE):
+            Shape* a_capsuleShape = &shape;
+            //_body = _manager->addRigidbody(ent, type, *static_cast<CapsuleShape*>(a_circleShape)->getCapsule(), density, friction, restitution);
+    }
 }
 
 /*
@@ -20,6 +30,7 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, float densi
 CircleShape::CircleShape(float radius){
     _circle.center = {0.0, 0.0};
     _circle.radius = radius;
+    _shapeType = CIRCLE;
 }
 
 /*
@@ -31,6 +42,7 @@ CapsuleShape::CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter
     _capsule.center1 = firstCenter;
     _capsule.center2 = secondCenter;
     _capsule.radius = radius;
+    _shapeType = CAPSULE;
 }
 
 /// @brief Generates the shape of a Polygon. If there's an error making it, will throw an exception. Common causes for errors are:
@@ -45,4 +57,5 @@ PolygonShape::PolygonShape(b2Vec2 vertex[], int size, float radius){
     b2Hull a_hull = b2ComputeHull(vertex, size);
     if(a_hull.count == 0) throw std::exception("Something went wrong making the hull");
     _polygon = b2MakePolygon(&a_hull, radius);
+    _shapeType = POLYGON;
 }
