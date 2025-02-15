@@ -10,6 +10,7 @@ class Game;
 // Declaraciones anticipadas
 namespace ecs{
 	class Entity;
+	class EntityManager;
 
 	/**
  * Estado abstracto del juego.
