@@ -17,8 +17,14 @@ namespace ecs{
         RigidBodyComponent(Entity* ent, b2BodyType type, float density, float friction, float restitution, Shape shape);
         virtual ~RigidBodyComponent(){}
 
+        // Getters
         inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
         inline b2BodyId* getB2Body(){return &_body;}
+
+        void updatePosition();
+        void changeBodyType(b2BodyType newType);
+
+
     };
 
     class Shape{
@@ -61,6 +67,7 @@ namespace ecs{
 
         public:
         PolygonShape(b2Vec2 vertex[], int size, float radius);
+        inline b2Polygon* getPolygon() {return &_polygon;}
     };
 
 }

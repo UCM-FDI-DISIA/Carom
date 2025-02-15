@@ -13,17 +13,34 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, float densi
     catch(std::exception) { throw std::exception("Trying to attach a RigidBody to an Entity without Transform"); }
     _myEntity = ent;
 
+    Shape* a_targetShape = &shape;
+
     switch(shape.getType()){
         case (Shape::CIRCLE):
-            Shape* a_circleShape = &shape;
-            //_body = _manager->addRigidbody(ent, type, *static_cast<CircleShape*>(a_circleShape)->getCircle(), density, friction, restitution);
+            _body = _manager->addRigidbody(ent, type, *static_cast<CircleShape*>(a_targetShape)->getCircle(), density, friction, restitution);
             break;
         case (Shape::CAPSULE):
-            Shape* a_capsuleShape = &shape;
-            //_body = _manager->addRigidbody(ent, type, *static_cast<CapsuleShape*>(a_circleShape)->getCapsule(), density, friction, restitution);
+            _body = _manager->addRigidbody(ent, type, *static_cast<CapsuleShape*>(a_targetShape)->getCapsule(), density, friction, restitution);
+            break;
+        case(Shape::POLYGON):
+            _body = _manager->addRigidbody(ent, type, *static_cast<PolygonShape*>(a_targetShape)->getPolygon(), density, friction, restitution);
+            break;
     }
 }
 
+/// @brief Use only if is necessary moving an object that has a RigidBody without physics involved.
+/// Will move to its transformComponent position.
+void
+RigidBodyComponent::updatePosition(){
+    // TODO
+}
+
+/// @brief Changes the body type.
+/// @param newType New type of the RigidBody.
+void
+RigidBodyComponent::changeBodyType(b2BodyType newType){
+    b2Body_SetType(_body, newType);
+}
 /*
 * Generates the shape of a circle. The center of the circle will be at the center of the object
 */
