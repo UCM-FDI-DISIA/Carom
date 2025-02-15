@@ -7,7 +7,16 @@
 
 Game::Game() {}
 
-Game::~Game() {}
+Game::~Game() {
+
+    // release InputHandler if the instance was created correctly.
+    if (InputHandler::HasInstance())
+        InputHandler::Release();
+
+    // release SLDUtil if the instance was created correctly.
+    if (SDLUtils::HasInstance())
+        SDLUtils::Release();
+}
 
 // TODO
 void
@@ -37,8 +46,24 @@ Game::start() {
 
     bool exit = false;
 
+    auto &ihdlr = ih();
+
+	// reset the time before starting - so we calculate correct delta-time in the first iteration
+	sdlutils().resetTime();
+
     while(!exit) {
-        ih().refresh();
+        // store the current time -- all game objects should use this time when
+		// then need to the current time. They also have accessed to the time elapsed
+		// between the last two calls to regCurrTime().
+		Uint32 startTime = sdlutils().regCurrTime();
+
+		// refresh the input handler
+		ihdlr.refresh();
+
+		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
+			exit = true;
+			continue;
+		}
 
         _sceneManager->handleEvent();
         _sceneManager->update();
