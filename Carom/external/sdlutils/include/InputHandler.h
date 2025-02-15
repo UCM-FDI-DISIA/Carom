@@ -175,26 +175,26 @@ public:
 
 	// seleccionar bola del inventario.
 	inline bool isBallSelectedUI(SDL_Rect ball) {
-		_isBallSelectedUI = mouseButtonDownEvent()  	   // se apreta el mouse.
-							&& getMouseButtonState(LEFT)   // en concreto el boton izquierdo.
+		_isBallSelectedUI = getMouseButtonState(LEFT)	   // se apreta el botón izquierdo
+						    && mouseButtonDownEvent()   // se comprueba que se ha apretado
 							&& (isMouseInRect(getMousePos(), ball)) // la posición donde hace clic es la de la bola.
 							&& isOnUI();					   // además está en UI.
 
 		return _isBallSelectedUI;
 	}
 
-	// arrastar bola del inventario.
+	/*// arrastar bola del inventario.
 	inline bool isBallMovingUI(){
 		_isBallMovingUI = _isBallSelectedUI      // ademas de estar seleccionada.
 						  && mouseMotionEvent(); // se mueve el raton.
 
 		return _isBallMovingUI;					
-	}
+	}*/
 
 	// se destruye la bola.
 	inline bool isBallDestroyedUI(SDL_Rect ball){
-		_isBallDestroyedUI = mouseButtonDownEvent()  	    // se apreta el mouse.
-							 && getMouseButtonState(RIGHT)  // en concreto el boton derecho.
+		_isBallDestroyedUI = getMouseButtonState(RIGHT)  // se apreta el botón derecho.
+							 && mouseButtonDownEvent()  	    // se comprueba que se ha apretado
 							 && (isMouseInRect(getMousePos(), ball)) // la posición donde hace clic es la de la bola.
 							 && isOnUI();					// además está en UI.
 
@@ -219,21 +219,21 @@ public:
 		return _isBallPickedIngame;
 	}
 
-	// para arrastrar la bola.	
+	/*// para arrastrar la bola.	
 	inline bool isBallDraggingIngame(){
 		_isBallDraggingIngame = _isBallPickedIngame		  // si has seleccionado una bola.
 						   	    && mouseMotionEvent();    // y además el ratón se está moviendo.
 
 		return _isBallDraggingIngame;
-	}
+	}*/
 
-	// para soltar la bola.	
+	/*// para soltar la bola.	
 	inline bool isBallThrowingIngame(){
 		_isBallThrowingIngame = _isBallDraggingIngame	  // si se está arrastrando.
 						   		&& mouseButtonUpEvent();  // y además se suelta la tecla del raton.
 
 		return _isBallThrowingIngame;
-	}
+	}*/
 
 	// cuando se acciona el inventario.
 	inline bool isInventoryOpened(SDL_Rect inventoryButton){
@@ -242,7 +242,8 @@ public:
 					      && (isMouseInRect(getMousePos(), inventoryButton))  // la posicion donde hace clic es la del botón del inventario.
 						  && !isOnUI()				      // no se ha abierto la UI.
 					      ||							  // --- OR ---
-				          isKeyDown(SDLK_e)		          // se apreta la tecla E.			
+						  keyDownEvent()				  // se comprueba que se presiona
+				          && isKeyDown(SDLK_e)		      // se apreta la tecla E.			
 					      && !isOnUI();					  // no se ha abierto la UI.
 
 		return _inventoryEvent;
@@ -254,8 +255,9 @@ public:
 						  && getMouseButtonState(LEFT)	  // en concreto el botón izquierdo.
 					      && (isMouseInRect(getMousePos(), pauseButton))  // la posición donde hace clic es la del botón de pausa.		
 					      && !isOnUI()					  // no se ha abierto la UI.		
-						  ||							  // --- OR ---
-					      isKeyDown(SDLK_ESCAPE)		  // se apreta la tecla ESC (¡¡¡OJO!!! igual esto hay que cambiarlo porque coincide con lo de "Cancelar botón" de la wiki).
+						  ||						      // --- OR ---
+						  keyDownEvent()				  // se comprueba que se presiona
+					      && isKeyDown(SDLK_ESCAPE)		  // se apreta la tecla ESC (¡¡¡OJO!!! igual esto hay que cambiarlo porque coincide con lo de "Cancelar botón" de la wiki).
 						  && !isOnUI();					  // no se ha abierto la UI.
 
 		return _pauseMenuEvent;
@@ -288,7 +290,6 @@ public:
 		return _isOnUI;
 	}
 	
-
 	/*inline bool isInventoryActivated(){ return _inventoryEvent; }
 	inline bool isPauseMenuActivated(){ return _pauseMenuEvent; }
 	inline bool isBallDestroyed(){ return _isBallDestroyed; }*/

@@ -50,6 +50,8 @@ void input_basic_demo() {
 			sdl.fonts().at("ARIAL24"), build_sdlcolor(0x112233ff),
 			build_sdlcolor(0xffffffff));
 	auto &ball = sdl.images().at("star"); // la bola
+	auto &inventory = sdl.images().at("pacman"); // boton de inventario.
+	auto &pause = sdl.images().at("heart"); // boton de pausa.
 
 	SDL_Rect ballRect;
 	ballRect.x = 500;
@@ -57,7 +59,17 @@ void input_basic_demo() {
 	ballRect.w = ball.width();
 	ballRect.h = ball.height();
 
-	std::pair<Sint32, Sint32> ballPos = {500, 500};
+	SDL_Rect inventoryRect;
+	inventoryRect.x = 100;
+	inventoryRect.y = 100;
+	inventoryRect.w = inventory.width();
+	inventoryRect.h = inventory.height();
+
+	SDL_Rect pauseRect;
+	pauseRect.x = 300;
+	pauseRect.y = 100;
+	pauseRect.w = pause.width();
+	pauseRect.h = pause.height();
 
 	// some coordinates
 	auto winWidth = sdl.width();
@@ -101,13 +113,34 @@ void input_basic_demo() {
 		}
 
 		// Con el UI activado seleccionar bola.
-		if(ih.isBallSelectedUI(ballPos)){
+		if(ih.isBallSelectedUI(ballRect)){
 			std::cout << "Se ha seleccionado una bola del inventario." << std::endl;
 		}
 
-		// Con el UI activado mover ratón a la vez que seleccionsa bola.
-		if(ih.isBallMovingUI()){
-			std::cout << "Se está arrastrando / reorganizando una bola del inventario." << std::endl;
+		// Con el UI activado seleccionar bola.
+		if(ih.isBallDestroyedUI(ballRect)){
+			std::cout << "Se ha destruido una bola del inventario." << std::endl;
+		}
+
+		// Comprueba las estadísticas de la bola
+		if(ih.isBallChecked(ballRect)){
+			if(ih.isOnUI()) std::cout << "Se comprueban las estadísticas de la bola (en UI)." << std::endl;
+			else std::cout << "Se comprueban las estadísticas de la bola (sin UI)." << std::endl;
+		}
+
+		// Se selecciona la bola blanca en partida
+		if(ih.isBallPickedIngame(ballRect)){
+			std::cout << "Se ha seleccionado la bola en partida." << std::endl;
+		}
+
+		// Abre el inventario cuando no esta abierto (no esta UI activada).
+		if(ih.isInventoryOpened(inventoryRect)){
+			std::cout << "Se ha abierto el inventario." << std::endl;
+		}
+
+		// Abre el menu de pausa cuando no esta abierto (no esta UI activada).
+		if(ih.isPauseMenuOpened(pauseRect)){
+			std::cout << "Se ha abierto el menú de pausa." << std::endl;
 		}
 
 		// clear screen
@@ -115,6 +148,8 @@ void input_basic_demo() {
 
 		// star render.
 		ball.render(500, 500);
+		inventory.render(100, 100);
+		pause.render(300, 100);
 
 		// render Hello SDL
 		helloSDL.render(x1, y1);
