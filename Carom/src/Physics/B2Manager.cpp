@@ -55,28 +55,34 @@ B2Manager::generateBodyAndShape (ecs::Entity* entity, b2BodyType bodyType,
     return {bodyId, shapeDef};
 }
 
-void 
-B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, b2Circle& circle, 
+b2BodyId 
+B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Circle& circle, 
     float density, float friction, float restitution) {
 
     auto [bId, bDef] = generateBodyAndShape(entity, bodyType, density, friction, restitution);
     b2CreateCircleShape(bId, &bDef, &circle);
+
+    return bId;
 }
 
-void 
-B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, b2Polygon& polygon, 
+b2BodyId 
+B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Polygon& polygon, 
     float density, float friction, float restitution) {
 
     auto [bId, bDef] = generateBodyAndShape(entity, bodyType, density, friction, restitution);
     b2CreatePolygonShape(bId, &bDef, &polygon);
+
+    return bId;
 }
 
-void 
-B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, b2Capsule& capsule, 
+b2BodyId 
+B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Capsule& capsule, 
     float density, float friction, float restitution) {
 
     auto [bId, bDef] = generateBodyAndShape(entity, bodyType, density, friction, restitution);
     b2CreateCapsuleShape(bId, &bDef, &capsule);
+
+    return bId;
 }
 
 void
