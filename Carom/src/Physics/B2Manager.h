@@ -58,9 +58,9 @@ protected:
 
 public:
 
-    void addRigidbody(ecs::Entity* entity, b2BodyType bodyType, b2Circle& circle, float density, float friction, float restitution);
-    void addRigidbody(ecs::Entity* entity, b2BodyType bodyType, b2Polygon& polygon, float density, float friction, float restitution);
-    void addRigidbody(ecs::Entity* entity, b2BodyType bodyType, b2Capsule& capsule, float density, float friction, float restitution);
+    b2BodyId addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Circle& circle, float density, float friction, float restitution);
+    b2BodyId addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Polygon& polygon, float density, float friction, float restitution);
+    b2BodyId addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Capsule& capsule, float density, float friction, float restitution);
 
     void removeBody(const b2BodyId& id);
 
