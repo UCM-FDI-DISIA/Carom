@@ -13,6 +13,7 @@ Game::~Game() {}
 void
 Game::init() {
     // initialize SDL singleton
+    // TODO: cargar los recursos correspondientes
 	if (!SDLUtils::Init("Ping Pong", 800, 600,
 			"resources/config/test.resources.json")) {
 
@@ -36,9 +37,9 @@ Game::start() {
 
     bool exit = false;
 
-    // recoger input
-
     while(!exit) {
+        ih().refresh();
+
         _sceneManager->handleEvent();
         _sceneManager->update();
         _sceneManager->render();
