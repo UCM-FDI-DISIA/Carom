@@ -21,13 +21,14 @@ namespace ecs{
 class GameScene
 {
 	GameList<ecs::Entity> entities;
+	EntityManager* _enttmngr;
 
 protected:
 	Game* game;
 
 	GameScene(Game* game);
 
-	void addObject(ecs::Entity* obj);
+	// void addObject(ecs::Entity* obj);
 
 public:
 	virtual ~GameScene();

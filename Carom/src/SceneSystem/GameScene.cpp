@@ -1,13 +1,17 @@
 #include "GameScene.h"
-#include "Entity.h"
+#include "EntityManager.h"
 
 namespace ecs{
-    GameScene::GameScene(Game* game): game(game){}
-    GameScene::~GameScene(){};
 
-void GameScene::addObject(ecs::Entity* entity){
-    entities.push_back(entity);
+GameScene::GameScene(Game* game): game(game){
+    _enttmngr = new EntityManager(&entities);
 }
+
+GameScene::~GameScene(){};
+
+// void GameScene::addObject(Entity* entity){
+//     entities.push_back(entity);
+// }
 
 void GameScene::render(){
     for (auto entity : entities) {
