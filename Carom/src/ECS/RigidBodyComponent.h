@@ -6,24 +6,29 @@ class TransformComponent;
 class B2Manager;
 
 namespace ecs{
-    class RigidBodyComponent : public PhysicsComponent
+    class RigidBodyComponent : public InfoComponent
     {
         b2BodyId _body; // b2 Body ID
-        TransformComponent* _transform; // Our transform component
         B2Manager* _manager; // Physics Manager Singleton
 
         public:
 
-        RigidBodyComponent(Entity* ent, b2BodyType type, float density, float friction, float restitution, Shape shape);
+        RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape, float density = 1, float friction = 0.2, float restitution = 0.5);
         virtual ~RigidBodyComponent(){}
 
         // Getters
         inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
         inline b2BodyId* getB2Body(){return &_body;}
 
-        void updatePosition();
+        // Setters
         void changeBodyType(b2BodyType newType);
+        void setDensity(float density, int nShapes = 1);
+        void setFriction(float friction, int nShapes = 1);
+        void setRestitution(float restitution, int nShapes = 1);
 
+        // Force appliers
+        void applyForce(b2Vec2 force, b2Vec2 origin);
+        void applyForceToCenter(b2Vec2 force);
 
     };
 

@@ -12,12 +12,10 @@ using namespace ecs;
 /// @param friction The friction of the object
 /// @param restitution The restitution of the object
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
-RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, float density, float friction, float restitution, Shape shape) : PhysicsComponent(ent) 
+RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape, float density, float friction, float restitution) : InfoComponent(ent) 
 {
     // Initialitation of Manager, Transform and entity
     _manager = B2Manager::Instance();
-    try {assert(ent->tryGetComponent<TransformComponent>(ecs::TRANSFORM, _transform));}
-    catch(std::exception) { throw std::exception("Trying to attach a RigidBody to an Entity without Transform"); }
     _myEntity = ent;
 
     Shape* a_targetShape = &shape;
@@ -35,19 +33,67 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, float densi
     }
 }
 
-/// @brief Use only if is necessary moving an object that has a RigidBody without physics involved.
-/// Will move to its transformComponent position.
-void
-RigidBodyComponent::updatePosition(){
-    // TODO
-}
-
 /// @brief Changes the body type.
 /// @param newType New type of the RigidBody.
 void
 RigidBodyComponent::changeBodyType(b2BodyType newType){
     b2Body_SetType(_body, newType);
 }
+
+/// @brief Applies force at the specified offset origin point
+/// @param force the vector force to apply
+/// @param origin the offset. {0,0} is the center of the object
+void
+RigidBodyComponent::applyForce(b2Vec2 force, b2Vec2 origin){
+    b2Body_ApplyForce(_body, force, origin, false);
+}
+
+/// @brief Applies force at the center of the object
+/// @param force the vector force to aplly
+void
+RigidBodyComponent::applyForceToCenter(b2Vec2 force){
+    b2Body_ApplyForceToCenter(_body, force, false);
+}
+
+/// @brief Changes the density of every Shape of the object
+/// @param density the new density for the shapes
+/// @param nShapes the number of shapes the object has (Will throw an error if there's no match)
+void
+RigidBodyComponent::setDensity(float density, int nShapes){
+    b2ShapeId shapes[10];
+    b2Body_GetShapes(_body, shapes, nShapes);
+    
+    for(int i = 0; 9 < nShapes; ++i){
+        b2Shape_SetDensity(shapes[i], density, true);
+    }
+}
+
+/// @brief Changes the friction of every Shape of the object
+/// @param density the new friction for the shapes
+/// @param nShapes the number of shapes the object has (Will throw an error if there's no match)
+void
+RigidBodyComponent::setFriction(float friction, int nShapes){
+    b2ShapeId shapes[10];
+    b2Body_GetShapes(_body, shapes, nShapes);
+    
+    for(int i = 0; 9 < nShapes; ++i){
+        b2Shape_SetFriction(shapes[i], friction);
+    }
+}
+
+/// @brief Changes the restitution of every Shape of the object
+/// @param density the new restitution for the shapes
+/// @param nShapes the number of shapes the object has (Will throw an error if there's no match)
+void
+RigidBodyComponent::setRestitution(float restitution, int nShapes){
+    b2ShapeId shapes[10];
+    b2Body_GetShapes(_body, shapes, nShapes);
+    
+    for(int i = 0; 9 < nShapes; ++i){
+        b2Shape_SetRestitution(shapes[i], restitution);
+    }
+}
+
 /*
 * Generates the shape of a circle. The center of the circle will be at the center of the object
 */
