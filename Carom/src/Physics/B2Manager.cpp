@@ -1,7 +1,9 @@
 #include "B2Manager.h"
 #include "TransformComponent.cpp"
+
 #include <functional>
 #include <exception>
+#include <cmath>
 
 /// @brief Creación de manager y mundo de la simulación física
 B2Manager::B2Manager(){
@@ -27,8 +29,33 @@ B2Manager::init(){
     return true;
 }
 
+/// @brief Sincroniza el transform y b2transform y simula las físicas
 void
-B2Manager::stepWorld() { b2World_Step(_worldId, _timeStep, _subStepCount); }
+B2Manager::stepWorld() { 
+
+    TransformComponent* t;
+    Vector2D* pos;
+
+    for (auto e : _bodyEntityMap)
+    { 
+        t = e.second->getComponent<TransformComponent>();
+        pos = t->getPosition();
+        b2Body_SetTransform(e.first, {pos->getX(), pos->getY()}, b2MakeRot(*t->getRotation()));
+    }
+
+    b2World_Step(_worldId, _timeStep, _subStepCount); 
+
+    for (auto e : _bodyEntityMap)
+    {
+        b2Transform physicsVector = b2Body_GetTransform(e.first);
+        Vector2D updatedPos = {physicsVector.p.x, physicsVector.p.y};
+        double updatedRot = atan2(physicsVector.q.s, physicsVector.q.c);
+
+        t = e.second->getComponent<TransformComponent>();
+        t->setPosition(updatedPos);
+        t->setRotation(updatedRot);
+    }
+}
 
 /// @brief Destruye la simulación física y crea una nueva generando un mundo vacío
 void
@@ -45,7 +72,7 @@ B2Manager::reloadWorld(){
 /// @brief Función interna para generar un body y las propiedades de forma de una manera centralizada
 /// @param entity Entidad a la que pertenecen estas definiciones
 /// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
-/// @param density (0.0-1.0)La masa del cuerpo
+/// @param density (>= 0.0) La masa del cuerpo
 /// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
 /// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
 /// @return 
@@ -85,7 +112,7 @@ B2Manager::generateBodyAndShape (ecs::Entity* entity, b2BodyType bodyType,
 /// @param entity Entidad a la que pertenecen estas definiciones
 /// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
 /// @param circle Definición geométrica del círculo
-/// @param density (0.0-1.0)La masa del cuerpo
+/// @param density (>= 0.0) La masa del cuerpo
 /// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
 /// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
 /// @return 
@@ -103,7 +130,7 @@ B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Circl
 /// @param entity Entidad a la que pertenecen estas definiciones
 /// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
 /// @param polygon Definición geométrica del un polígono según sus vértices (loop)
-/// @param density (0.0-1.0)La masa del cuerpo
+/// @param density (>= 0.0) La masa del cuerpo
 /// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
 /// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
 /// @return 
@@ -121,7 +148,7 @@ B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Polyg
 /// @param entity Entidad a la que pertenecen estas definiciones
 /// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
 /// @param capsule Definición de la cápsula
-/// @param density (0.0-1.0)La masa del cuerpo
+/// @param density (>= 0.0) La masa del cuerpo
 /// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
 /// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
 /// @return 
