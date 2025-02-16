@@ -1,6 +1,6 @@
 #pragma once
 
-class ScenesManager; // TODO
+class ScenesManager;
 
 class Game {
 public:

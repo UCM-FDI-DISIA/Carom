@@ -100,6 +100,7 @@ add_executable(Carom
 	src/ECS/RenderTextureComponent.cpp
 
 	src/Physics/B2Manager.cpp
+	src/inputTest.cpp
 
 	src/Scenes/MainScene.cpp
 )
