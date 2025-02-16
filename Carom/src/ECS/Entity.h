@@ -2,12 +2,15 @@
 
 #include<array>
 #include<vector>
+#include "gameList.h"
 
 class Component;
 
 namespace ecs {
 
     enum ComponentID {
+        TRANSFORM,
+        RENDER_TEXTURE,
         NUM_COMPONENTS
     };
 
@@ -32,8 +35,21 @@ namespace ecs {
         /// @param  ComponentID Id del componente solicitado
         /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
         /// @return true si la entidad tiene el componente, false si no
-        bool tryGetComponent(ComponentID, Component*&);
-    
+        template<typename T>
+        bool tryGetComponent(ComponentID ID, T*& component){
+            if(_components[ID] == nullptr) return false;
+
+            component = _components[ID];
+            return true;
+        }
+
+        template<typename T>
+        T* getComponent(ComponentID ID){
+            return _components[ID];
+        }
+
+        void setListAnchor(GameList<Entity>::anchor&& anchor);
+
         void update();
         void render();
         void handleEvents();
@@ -43,5 +59,6 @@ namespace ecs {
     
         std::vector<Component*> _currentComponents;
         std::array<Component*, NUM_COMPONENTS> _components;
+        GameList<Entity>::anchor _anchor;
     };
 }

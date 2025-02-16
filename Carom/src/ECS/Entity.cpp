@@ -18,11 +18,17 @@ namespace ecs {
             delete component;
     }
 
+    void Entity::setListAnchor(GameList<Entity>::anchor&& anchor){
+        this->_anchor = std::move(anchor);
+    }
+
     bool Entity::addComponent(Component* component, ComponentID ID){
         if(_components[ID] != nullptr) return false;
 
         _components[ID] = component;
         _currentComponents.push_back(component);
+
+        _components[ID]->init();
 
         return true;
     }
@@ -38,23 +44,16 @@ namespace ecs {
         return true;
     }
 
-    bool Entity::tryGetComponent(ComponentID ID, Component*& component){
-        if(_components[ID] == nullptr) return false;
-
-        component = _components[ID];
-        return true;
-    }
-
     void Entity::update(){
         for(Component* component : _currentComponents) 
-            component->update(this);
+            component->update();
     }
 
     void Entity::render(){
-        for(Component* component : _currentComponents) component->render(this);
+        for(Component* component : _currentComponents) component->render();
     }
 
     void Entity::handleEvents(){
-        for(Component* component : _currentComponents) component->handleEvent(this);
+        for(Component* component : _currentComponents) component->handleEvent();
     }
 }
