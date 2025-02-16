@@ -9,7 +9,6 @@ namespace ecs{
     class RigidBodyComponent : public InfoComponent
     {
         b2BodyId _body; // b2 Body ID
-        B2Manager* _manager; // Physics Manager Singleton
 
         public:
 

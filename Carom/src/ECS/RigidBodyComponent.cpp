@@ -15,21 +15,17 @@ using namespace ecs;
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
 RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape, float density, float friction, float restitution) : InfoComponent(ent) 
 {
-    // Initialitation of Manager, Transform and entity
-    _manager = B2Manager::Instance();
-    _myEntity = ent;
-
     Shape* a_targetShape = &shape;
 
     switch(shape.getType()){
         case (Shape::CIRCLE):
-            _body = _manager->addRigidbody(ent, type, *static_cast<CircleShape*>(a_targetShape)->getCircle(), density, friction, restitution);
+            _body = B2Manager::Instance()->addRigidbody(ent, type, *static_cast<CircleShape*>(a_targetShape)->getCircle(), density, friction, restitution);
             break;
         case (Shape::CAPSULE):
-            _body = _manager->addRigidbody(ent, type, *static_cast<CapsuleShape*>(a_targetShape)->getCapsule(), density, friction, restitution);
+            _body = B2Manager::Instance()->addRigidbody(ent, type, *static_cast<CapsuleShape*>(a_targetShape)->getCapsule(), density, friction, restitution);
             break;
         case(Shape::POLYGON):
-            _body = _manager->addRigidbody(ent, type, *static_cast<PolygonShape*>(a_targetShape)->getPolygon(), density, friction, restitution);
+            _body = B2Manager::Instance()->addRigidbody(ent, type, *static_cast<PolygonShape*>(a_targetShape)->getPolygon(), density, friction, restitution);
             break;
     }
 }
