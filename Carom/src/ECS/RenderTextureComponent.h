@@ -1,9 +1,9 @@
 #pragma once
 #include "RenderComponent.h"
 
+namespace ecs {
 class Texture;
 class TransformComponent;
-namespace ecs {
     class RenderTextureComponent : public RenderComponent {
     private:
         Texture* _texture;

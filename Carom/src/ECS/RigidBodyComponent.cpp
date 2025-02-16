@@ -5,6 +5,13 @@
 
 using namespace ecs;
 
+/// @brief Constructor of RigidBody. Receives a Shape class as a parameter depending on which shape is needed (circle, capsule or polygon)
+/// @param ent The owner of the component
+/// @param type The type of the component (kinematic, dynamic or static)
+/// @param density The density of the object
+/// @param friction The friction of the object
+/// @param restitution The restitution of the object
+/// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
 RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, float density, float friction, float restitution, Shape shape) : PhysicsComponent(ent) 
 {
     // Initialitation of Manager, Transform and entity
@@ -72,7 +79,7 @@ CapsuleShape::CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter
 /// @param radius The radius that will have the curved angles. If no curve is needed set it to 0
 PolygonShape::PolygonShape(b2Vec2 vertex[], int size, float radius){
     b2Hull a_hull = b2ComputeHull(vertex, size);
-    if(a_hull.count == 0) throw std::exception("Something went wrong making the hull");
+    if(a_hull.count == 0) throw std::exception("Something went wrong with the vertex");
     _polygon = b2MakePolygon(&a_hull, radius);
     _shapeType = POLYGON;
 }
