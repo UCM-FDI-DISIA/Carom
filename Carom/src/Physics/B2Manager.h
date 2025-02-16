@@ -33,7 +33,7 @@ bool operator==(const b2BodyId& first, const b2BodyId& second) {
 class B2Manager : public Singleton<B2Manager> {
 private:
     friend Singleton<B2Manager>;
-    B2Manager(float timeStep = 1.0f / 60.0f, float subStepCound = 4);
+    B2Manager();
     virtual ~B2Manager();
 
     // en caso de necesitar acceder a la entidad de un componente con el que se ha colisionado
@@ -53,7 +53,7 @@ protected:
 
     void stepWorld();
 
-    // declaracion de friend del manager de escenas o game loop o lo que sea para que acceda a esto
+    friend GameScene;
     void reloadWorld();
 
 public:

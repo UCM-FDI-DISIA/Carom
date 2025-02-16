@@ -38,6 +38,8 @@ B2Manager::reloadWorld(){
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = {0.0f, 0.0f};
     _worldId = b2CreateWorld(&worldDef);
+
+    _bodyEntityMap.clear();
 }
 
 /// @brief Función interna para generar un body y las propiedades de forma de una manera centralizada
