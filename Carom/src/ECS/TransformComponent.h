@@ -18,8 +18,14 @@ namespace ecs{
         TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {}
         virtual ~TransformComponent(){}
 
-        inline Vector2D* getPosition(){return &_position;}
-        inline Scale* getScale(){return &_scale;}
-        inline double* getRotation(){return &_rotation;}
+        // Getters
+        inline Vector2D getPosition(){return _position;}
+        inline Scale getScale(){return _scale;}
+        inline double getRotation(){return _rotation;}
+
+        // Setters
+        inline void setPosition(Vector2D newPos){_position = newPos;}
+        inline void setScale(Scale newScale){_scale = newScale;}
+        inline void setRotation(double newRot){_rotation = newRot;}
     };
 }

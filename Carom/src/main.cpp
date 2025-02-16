@@ -1,5 +1,5 @@
 #include <iostream>
-#include "sdlutils_demo.h"
+#include "DeltaTimeTest.cpp"
 #include "inputTest.h"
 
 #include "Game.h"
