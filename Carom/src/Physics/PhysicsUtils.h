@@ -3,7 +3,7 @@
 #include "Vector2D.h"
 
 class b2Vec2;
-static class PhysicsConverter{
+class PhysicsConverter{
 public:
     static const int PIXELS_PER_METER = 75;
 
