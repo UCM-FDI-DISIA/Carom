@@ -3,6 +3,7 @@
 
 class Texture;
 class TransformComponent;
+
 namespace ecs {
     class RenderTextureComponent : public RenderComponent {
     private:
