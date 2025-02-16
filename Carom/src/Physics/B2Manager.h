@@ -1,7 +1,9 @@
 #include <box2D/box2D.h>
-#include "Singleton.h"
 #include <unordered_map>
+
+#include "Singleton.h"
 #include "Entity.h"
+#include "ScenesManager.h"
 
 namespace std {
     template <>
@@ -53,7 +55,9 @@ protected:
 
     void stepWorld();
 
-    friend GameScene;
+    // esto está aquí para que al cambiar de escena si se requiere ScenesManager reinicie el mundo
+    // al cambiar entre escenas
+    friend ScenesManager;
     void reloadWorld();
 
 public:
