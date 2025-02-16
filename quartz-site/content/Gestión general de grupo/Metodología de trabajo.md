@@ -38,7 +38,7 @@ Entre medias del bucle de trabajo o entre bucles, los miembros del equipo harán
 - Se testea siguiendo las indicaciones del definition of done
 - Si la tarea se puede aprobar se avisa y se mueve a done
 - Si la tarea no se puede aprobar se avisa, se escribe en la descripción por qué no se puede aprobar y se devuelve a TODO para que **lo arregle la persona responsable de la tarea**
-- Si la tarea se ha aprobado sumas selecciona el check de tu nombre en el draft superior de testing
+- Si la tarea se ha aprobado selecciona el check de tu nombre en el draft superior de testing yapruebas la pull request mergeando a develop.
 
 Nota: *Si no estás seguro de si lo que has testeado está bien, pide ayuda a un tercero.*
 
