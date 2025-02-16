@@ -1,6 +1,7 @@
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
 #include "B2Manager.h"
+
 #include <exception>
 
 using namespace ecs;
@@ -125,7 +126,7 @@ CapsuleShape::CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter
 /// @param radius The radius that will have the curved angles. If no curve is needed set it to 0
 PolygonShape::PolygonShape(b2Vec2 vertex[], int size, float radius){
     b2Hull a_hull = b2ComputeHull(vertex, size);
-    if(a_hull.count == 0) throw std::exception("Something went wrong with the vertex");
+    if(a_hull.count == 0) throw std::invalid_argument("Something went wrong with the vertex");
     _polygon = b2MakePolygon(&a_hull, radius);
     _shapeType = POLYGON;
 }
