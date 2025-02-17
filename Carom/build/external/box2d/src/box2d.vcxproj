@@ -22,11 +22,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-<<<<<<< HEAD
-    <ProjectGuid>{A837F345-B1CD-39DE-A6F9-7BA0CCA80466}</ProjectGuid>
-=======
-    <ProjectGuid>{6398299B-EA9D-3165-B11B-32ED27AA3841}</ProjectGuid>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+    <ProjectGuid>{F5D00558-9847-338D-A7E1-28AA3FFC7AC2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
     <Platform>x64</Platform>
@@ -63,46 +59,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-<<<<<<< HEAD
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">U:\hlocal\Carom\Carom\external\box2d\build\src\Debug\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\build\src\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">box2d.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">box2dd</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">U:\hlocal\Carom\Carom\external\box2d\build\src\Release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\build\src\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">box2d.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">box2d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">U:\hlocal\Carom\Carom\external\box2d\build\src\MinSizeRel\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\build\src\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">box2d.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">box2d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">U:\hlocal\Carom\Carom\external\box2d\build\src\RelWithDebInfo\</OutDir>
-=======
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\hlocal\Carom\Carom\external\box2d\build\src\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">box2d.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">box2dd</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\hlocal\Carom\Carom\external\box2d\build\src\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">box2d.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">box2d</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\hlocal\Carom\Carom\external\box2d\build\src\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">box2d.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">box2d</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\hlocal\Carom\Carom\external\box2d\build\src\RelWithDebInfo\</OutDir>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\build\src\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">box2d.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">box2d</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -110,9 +86,11 @@
       </ExceptionHandling>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <SuppressStartupBanner></SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -123,17 +101,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BOX2D_ENABLE_SIMD;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -146,19 +117,18 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>
       </ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <SuppressStartupBanner></SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -171,17 +141,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOX2D_ENABLE_SIMD;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -194,19 +157,18 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <ExceptionHandling>
       </ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <SuppressStartupBanner></SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -219,17 +181,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOX2D_ENABLE_SIMD;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -242,20 +197,19 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>
       </ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MinimalRebuild></MinimalRebuild>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
       <SuppressStartupBanner></SuppressStartupBanner>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
@@ -266,17 +220,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BOX2D_ENABLE_SIMD;B2_ENABLE_ASSERT;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-<<<<<<< HEAD
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>U:\hlocal\Carom\Carom\external\box2d\src\..\include;U:\hlocal\Carom\Carom\build\external\box2d\src;U:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-=======
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ResourceCompile>
-    <Midl>
-      <AdditionalIncludeDirectories>C:\hlocal\Carom\Carom\external\box2d\src\..\include;C:\hlocal\Carom\Carom\build\external\box2d\src;C:\hlocal\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalIncludeDirectories>C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\..\include;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src;C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -288,19 +235,11 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <CustomBuild Include="U:\hlocal\Carom\Carom\external\box2d\src\CMakeLists.txt">
+    <CustomBuild Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule U:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
-=======
-    <CustomBuild Include="C:\hlocal\Carom\Carom\external\box2d\src\CMakeLists.txt">
-      <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SC:/hlocal/Carom/Carom -BC:/hlocal/Carom/Carom/build --check-stamp-file C:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom -BC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build --check-stamp-file C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -308,20 +247,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">U:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule U:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SC:/hlocal/Carom/Carom -BC:/hlocal/Carom/Carom/build --check-stamp-file C:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom -BC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build --check-stamp-file C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -329,20 +260,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">U:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule U:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SC:/hlocal/Carom/Carom -BC:/hlocal/Carom/Carom/build --check-stamp-file C:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom -BC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build --check-stamp-file C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -350,20 +273,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">U:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule U:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SU:/hlocal/Carom/Carom -BU:/hlocal/Carom/Carom/build --check-stamp-file U:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/hlocal/Carom/Carom/external/box2d/src/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
-C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe -SC:/hlocal/Carom/Carom -BC:/hlocal/Carom/Carom/build --check-stamp-file C:/hlocal/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom -BC:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build --check-stamp-file C:/Users/hugod/GitHub/0_Ramas_Carom/LIMPIO/Carom/Carom/build/external/box2d/src/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -371,155 +286,81 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\CMakePackageConfigHelpers.cmake;C:\software\programacion\MSVStudio2022\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.29\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
-<<<<<<< HEAD
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">U:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
-=======
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\hlocal\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.31\Modules\BasicConfigVersion-SameMajorVersion.cmake.in;C:\Program Files\CMake\share\cmake-3.31\Modules\CMakePackageConfigHelpers.cmake;C:\Program Files\CMake\share\cmake-3.31\Modules\WriteBasicConfigVersionFile.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\external\box2d\src\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\aabb.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\aabb.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\arena_allocator.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\arena_allocator.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\array.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\array.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\atomic.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\bitset.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\bitset.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\body.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\body.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\broad_phase.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\broad_phase.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\constants.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\constraint_graph.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\constraint_graph.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\contact.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\contact.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\contact_solver.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\contact_solver.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\core.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\core.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\ctz.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\distance.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\distance_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\dynamic_tree.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\geometry.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\hull.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\id_pool.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\id_pool.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\island.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\island.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\joint.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\joint.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\manifold.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\math_functions.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\motor_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\mouse_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\prismatic_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\revolute_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\sensor.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\sensor.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\shape.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\shape.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\solver.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\solver.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\solver_set.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\solver_set.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\table.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\table.h" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\timer.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\types.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\weld_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\wheel_joint.c" />
-    <ClCompile Include="U:\hlocal\Carom\Carom\external\box2d\src\world.c" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\src\world.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\include\box2d\base.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\include\box2d\box2d.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\include\box2d\collision.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\include\box2d\id.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\include\box2d\math_functions.h" />
-    <ClInclude Include="U:\hlocal\Carom\Carom\external\box2d\include\box2d\types.h" />
-    <Natvis Include="U:\hlocal\Carom\Carom\external\box2d\src\box2d.natvis">
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\aabb.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\aabb.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\arena_allocator.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\arena_allocator.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\array.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\array.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\atomic.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\bitset.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\bitset.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\body.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\body.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\broad_phase.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\broad_phase.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\constants.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\constraint_graph.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\constraint_graph.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\contact.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\contact.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\contact_solver.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\contact_solver.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\core.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\core.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\ctz.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\distance.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\distance_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\dynamic_tree.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\geometry.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\hull.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\id_pool.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\id_pool.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\island.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\island.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\joint.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\joint.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\manifold.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\math_functions.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\motor_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\mouse_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\prismatic_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\revolute_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\sensor.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\sensor.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\shape.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\shape.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\solver.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\solver.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\solver_set.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\solver_set.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\table.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\table.h" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\timer.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\types.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\weld_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\wheel_joint.c" />
+    <ClCompile Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\world.c" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\world.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\include\box2d\base.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\include\box2d\box2d.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\include\box2d\collision.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\include\box2d\id.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\include\box2d\math_functions.h" />
+    <ClInclude Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\include\box2d\types.h" />
+    <Natvis Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\external\box2d\src\box2d.natvis">
     </Natvis>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="U:\hlocal\Carom\Carom\build\ZERO_CHECK.vcxproj">
-      <Project>{6B26D254-2714-396A-AEFC-278284E7A770}</Project>
-=======
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\aabb.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\aabb.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\arena_allocator.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\arena_allocator.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\array.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\array.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\atomic.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\bitset.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\bitset.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\body.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\body.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\broad_phase.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\broad_phase.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\constants.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\constraint_graph.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\constraint_graph.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\contact.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\contact.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\contact_solver.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\contact_solver.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\core.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\core.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\ctz.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\distance.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\distance_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\dynamic_tree.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\geometry.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\hull.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\id_pool.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\id_pool.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\island.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\island.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\joint.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\joint.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\manifold.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\math_functions.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\motor_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\mouse_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\prismatic_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\revolute_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\sensor.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\sensor.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\shape.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\shape.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\solver.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\solver.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\solver_set.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\solver_set.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\table.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\table.h" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\timer.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\types.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\weld_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\wheel_joint.c" />
-    <ClCompile Include="C:\hlocal\Carom\Carom\external\box2d\src\world.c" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\src\world.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\include\box2d\base.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\include\box2d\box2d.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\include\box2d\collision.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\include\box2d\id.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\include\box2d\math_functions.h" />
-    <ClInclude Include="C:\hlocal\Carom\Carom\external\box2d\include\box2d\types.h" />
-    <Natvis Include="C:\hlocal\Carom\Carom\external\box2d\src\box2d.natvis">
-    </Natvis>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="C:\hlocal\Carom\Carom\build\ZERO_CHECK.vcxproj">
-      <Project>{E86BC232-6E15-3834-8204-19A667F2F8FE}</Project>
->>>>>>> bd01b51ecc6fd77a88cf290c00e3bc2bb9e3c7b2
+    <ProjectReference Include="C:\Users\hugod\GitHub\0_Ramas_Carom\LIMPIO\Carom\Carom\build\ZERO_CHECK.vcxproj">
+      <Project>{A3AA41B6-6F36-37F9-80AD-EB341AE35073}</Project>
       <Name>ZERO_CHECK</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
