@@ -2,12 +2,14 @@
 
 #include "State.h"
 
-class EndMatchState : public State {
+class WinMatchState : public State {
 public:
+    WinMatchState(CaromScene* scene);
+
     void update() override {}
 
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;
-    void onStateExit() override;
+    void onStateExit() override;  
 };

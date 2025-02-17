@@ -31,16 +31,16 @@ public:
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
-	void pushState(std::shared_ptr<ecs::GameScene> state);
+	void pushScene(std::shared_ptr<ecs::GameScene> scene);
 	// Reemplaza el estado actual por el nuevo estado
-	void replaceState(std::shared_ptr<ecs::GameScene> state);
+	void replaceScene(std::shared_ptr<ecs::GameScene> scene);
 	// Desapila el estado actual y pasa al siguiente en la pila
 	// (no hace nada si no la pila es vacía)
-	void popState();
+	void popScene();
 
 	// Sobrecargas que reciben un puntero normal
-	void pushState(ecs::GameScene* state);
-	void replaceState(ecs::GameScene* state);
+	void pushScene(ecs::GameScene* scene);
+	void replaceScene(ecs::GameScene* scene);
 
 	bool empty() const;
 	operator bool() const;
@@ -53,15 +53,15 @@ public:
 };
 
 inline void
-ScenesManager::pushState(ecs::GameScene* state)
+ScenesManager::pushScene(ecs::GameScene* scene)
 {
-	pushState(std::shared_ptr<ecs::GameScene>(state));
+	pushScene(std::shared_ptr<ecs::GameScene>(scene));
 }
 
 inline void
-ScenesManager::replaceState(ecs::GameScene* state)
+ScenesManager::replaceScene(ecs::GameScene* scene)
 {
-	replaceState(std::shared_ptr<ecs::GameScene>(state));
+	replaceScene(std::shared_ptr<ecs::GameScene>(scene));
 }
 
 #endif // GAME_STATE_MACHINE_H
