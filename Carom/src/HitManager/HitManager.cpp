@@ -11,7 +11,7 @@ namespace ecs{
     }
 
     bool HitManager::checkForHitPosition(Vector2D hitPos){
-        if(_positionsRegistered.contains(hitPos)) return false;
+        if(_positionsRegistered.find(hitPos)!=_positionsRegistered.end()) return false;
 
         //si no se ha registrado el hit en esta posicion hacer cosas que se necesiten
         //-instanciar UI de puntuaje
