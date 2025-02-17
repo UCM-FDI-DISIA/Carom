@@ -92,7 +92,6 @@ add_executable(Carom
 	external/json/src/JSONValue.cpp
 
 	src/Game.cpp
-	src/DummyGame.cpp
 
 	src/SceneSystem/GameScene.cpp
 	src/SceneSystem/ScenesManager.cpp
