@@ -12,6 +12,10 @@ namespace ecs {
 
     void RenderTextureComponent::init(){
         _transform = _myEntity->getComponent<TransformComponent>();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 04dbc1c412ab1772c4caca4ca7f9d585dc4c96c3
     }
 
     void RenderTextureComponent::render() {

@@ -3,7 +3,7 @@
 class Entity;
 
 namespace ecs{
-    class RenderComponent : public ecs::Component
+    class RenderComponent : public Component
     {
     public:
         RenderComponent(Entity* ent) : Component(ent) {}
