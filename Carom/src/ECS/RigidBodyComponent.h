@@ -13,7 +13,7 @@ namespace ecs{
         public:
 
         RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape, float density = 1, float friction = 0.2, float restitution = 0.5);
-        virtual ~RigidBodyComponent();
+        virtual ~RigidBodyComponent(){}
 
         // Getters
         inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
@@ -26,8 +26,7 @@ namespace ecs{
         void setRestitution(float restitution, int nShapes = 1);
 
         // Force appliers
-        void applyForceToObject(b2Vec2 force, b2Vec2 origin);
-        void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
+        void applyForce(b2Vec2 force, b2Vec2 origin);
         void applyForceToCenter(b2Vec2 force);
 
     };
@@ -72,8 +71,6 @@ namespace ecs{
 
         public:
         PolygonShape(b2Vec2 vertex[], int size, float radius);
-        PolygonShape(float side);
-        PolygonShape(float sizex, float sizey);
         inline b2Polygon* getPolygon() {return &_polygon;}
     };
 

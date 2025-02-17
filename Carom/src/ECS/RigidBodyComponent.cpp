@@ -30,10 +30,6 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape
     }
 }
 
-RigidBodyComponent::~RigidBodyComponent(){
-    B2Manager::Instance()->removeBody(_body);
-}
-
 /// @brief Changes the body type.
 /// @param newType New type of the RigidBody.
 void
@@ -45,16 +41,7 @@ RigidBodyComponent::changeBodyType(b2BodyType newType){
 /// @param force the vector force to apply
 /// @param origin the offset. {0,0} is the center of the object
 void
-RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
-    b2Vec2 a_b2t = b2Body_GetPosition(_body);
-    b2Body_ApplyForce(_body, force, origin + a_b2t, false);
-}
-
-/// @brief Applies force at the specified world origin point
-/// @param force the vector force to apply
-/// @param origin the world point. {0,0} is the point {0,0} of the world
-void
-RigidBodyComponent::applyForceToWorld(b2Vec2 force, b2Vec2 origin){
+RigidBodyComponent::applyForce(b2Vec2 force, b2Vec2 origin){
     b2Body_ApplyForce(_body, force, origin, false);
 }
 
@@ -137,20 +124,5 @@ PolygonShape::PolygonShape(b2Vec2 vertex[], int size, float radius){
     b2Hull a_hull = b2ComputeHull(vertex, size);
     if(a_hull.count == 0) throw std::invalid_argument("Something went wrong with the vertex");
     _polygon = b2MakePolygon(&a_hull, radius);
-    _shapeType = POLYGON;
-}
-
-/// @brief Makes a Square
-/// @param size Size of square
-PolygonShape::PolygonShape(float size){
-    _polygon = b2MakeSquare(size);
-    _shapeType = POLYGON;
-}
-
-/// @brief Makes a rectangle
-/// @param sizex Horizontal size of the rectangle
-/// @param sizey Vertical size of the rectangle
-PolygonShape::PolygonShape(float sizex, float sizey){
-    _polygon = b2MakeBox(sizex, sizey);
     _shapeType = POLYGON;
 }
