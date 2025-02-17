@@ -30,6 +30,11 @@ namespace ecs{
         void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
         void applyForceToCenter(b2Vec2 force);
 
+        // Impulse appliers
+        void applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin);
+        void applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin);
+        void applyImpulseToCenter(b2Vec2 impulse);
+
     };
 
     class Shape{

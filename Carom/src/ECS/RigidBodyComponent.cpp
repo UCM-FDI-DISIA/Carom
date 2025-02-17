@@ -65,6 +65,30 @@ RigidBodyComponent::applyForceToCenter(b2Vec2 force){
     b2Body_ApplyForceToCenter(_body, force, false);
 }
 
+/// @brief Applies impulse at the specified offset origin point
+/// @param impulse the vector impulse to apply
+/// @param origin the offset. {0,0} is the center of the object
+void
+RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
+    b2Vec2 a_b2t = b2Body_GetPosition(_body);
+    b2Body_ApplyLinearImpulse(_body, impulse, origin + a_b2t, false);
+}
+
+/// @brief Applies impulse at the specified world origin point
+/// @param impulse the vector impulse to apply
+/// @param origin the world point. {0,0} is the point {0,0} of the world
+void
+RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
+    b2Body_ApplyLinearImpulse(_body, impulse, origin, false);
+}
+
+/// @brief Applies impulse at the center of the object
+/// @param impulse the vector impulse to aplly
+void
+RigidBodyComponent::applyImpulseToCenter(b2Vec2 impulse){
+    b2Body_ApplyLinearImpulseToCenter(_body, impulse, false);
+}
+
 /// @brief Changes the density of every Shape of the object
 /// @param density the new density for the shapes
 /// @param nShapes the number of shapes the object has (Will throw an error if there's no match)
