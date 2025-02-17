@@ -187,7 +187,7 @@ public:
 	//
 	inline Uint32 regCurrTime() {
 		Uint32 currTime = currRealTime();
-		_deltaTime = _currTime - currTime;
+		_deltaTime = currTime - _currTime;
 		return _currTime = currTime;
 	}
 

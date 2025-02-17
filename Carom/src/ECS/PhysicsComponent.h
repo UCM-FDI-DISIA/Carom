@@ -3,7 +3,7 @@
 class Entity;
 
 namespace ecs {
-    class PhysicsComponent : public ecs::Component
+    class PhysicsComponent : public Component
     {
     public:
         PhysicsComponent(Entity* ent) : Component(ent) {}

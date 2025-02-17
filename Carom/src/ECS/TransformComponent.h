@@ -1,7 +1,11 @@
 #pragma once
-#include "InfoComponent.h"
-#include "Vector2D.h"
+
 #include <box2D/box2D.h>
+#include "ecs.h"
+#include "Vector2D.h"
+
+#include "InfoComponent.h"
+
 
 namespace ecs{
     class TransformComponent : public InfoComponent{
@@ -15,11 +19,23 @@ namespace ecs{
         double _rotation; //In radians
 
     public:
+<<<<<<< HEAD
         TransformComponent(Entity* ent);
+=======
+        __CMPID_DECL__(cmp::TRANSFORM);
+
+        TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {}
+>>>>>>> 2425fccc605626d92f6da6cbdb270c719588af23
         virtual ~TransformComponent(){}
 
-        inline Vector2D* getPosition(){return &_position;}
-        inline Scale* getScale(){return &_scale;}
-        inline double* getRotation(){return &_rotation;}
+        // Getters
+        inline Vector2D getPosition(){return _position;}
+        inline Scale getScale(){return _scale;}
+        inline double getRotation(){return _rotation;}
+
+        // Setters
+        inline void setPosition(Vector2D newPos){_position = newPos;}
+        inline void setScale(Scale newScale){_scale = newScale;}
+        inline void setRotation(double newRot){_rotation = newRot;}
     };
 }
