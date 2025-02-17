@@ -56,7 +56,7 @@ CMakePresets.json
 # Build results
 [Oo]bj/
 [Ll]og/
-[Bb]uild/
+[Cc]arom/[Bb]uild
 
 # NuGet Packages
 *.nupkg
