@@ -9,7 +9,7 @@ EntityManager::EntityManager(GameList<Entity> *entities)
 
 EntityManager::~EntityManager() 
 {
-    // ! POR LA GAMELIST ES NECESARIO???
+    // TODO: decidir ciclo de los objectos
     for (auto* e : _entities)
         delete e;
 }
@@ -61,6 +61,7 @@ EntityManager::handleEvents(){
         e->handleEvents();
 }
 
+// TODO: decidir ciclo de los objectos. Quitar esto por la lista inteligente?
 void
 EntityManager::refresh() {
 

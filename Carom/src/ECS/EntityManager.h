@@ -103,7 +103,7 @@ public:
 
 private:
 
-	GameList<Entity> *_GS_entities;
+	GameList<Entity> *_GS_entities; // TODO: decidir ciclo de los objectos
 	std::vector<entity_t> _entities;
 	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
 };

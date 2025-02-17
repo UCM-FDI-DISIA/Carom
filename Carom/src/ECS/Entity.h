@@ -73,6 +73,6 @@ namespace ecs {
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
-        GameList<Entity>::anchor _anchor;
+        GameList<Entity>::anchor _anchor; // TODO: se vamos utilizar lista inteligente
     };
 }

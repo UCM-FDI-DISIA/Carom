@@ -22,14 +22,14 @@ namespace ecs{
 class GameScene
 {
 	GameList<ecs::Entity> entities;
-	EntityManager* _enttmngr;
+	EntityManager* _enttmngr; // TODO: decidir ciclo de los objectos
 
 protected:
 	Game* game;
 
 	GameScene(Game* game);
 
-	// void addObject(ecs::Entity* obj);
+	// void addObject(ecs::Entity* obj); // TODO: decidir ciclo de los objectos
 
 public:
 	virtual ~GameScene();
