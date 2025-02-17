@@ -68,6 +68,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Physics
+	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
 
@@ -105,6 +106,9 @@ add_executable(Carom
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/MainScene.cpp
+
+	src/RNG/RandomItem.h
+	src/RNG/RNG_Manager.h
 )
 
 # Link Box2D
