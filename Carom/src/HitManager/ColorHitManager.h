@@ -6,13 +6,13 @@
 class GameScene;
 
 namespace ecs{
-    class HitManager : public Singleton<HitManager>{
+    class ColorHitManager : public Singleton<ColorHitManager>{
     protected:
         GameScene* _mainScene;
         std::unordered_set<Vector2D> _positionsRegistered;
     public:
         //Recibe un puntero a la mainScene, que es la que lo crea
-        HitManager(GameScene* mainScene);
+        ColorHitManager(GameScene* mainScene);
         //Reinicia todo el set de posiciones, normalmente se llama al principio del nuevo frame de la escena para registrar los nuevos choques
         void clearAllPositions();
         //Comprueba que la posicion de hit que se le pasa está o no en el set de posiciones

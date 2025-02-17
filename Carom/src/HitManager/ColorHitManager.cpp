@@ -1,16 +1,16 @@
-#include "HitManager.h"
+#include "ColorHitManager.h"
 #include "GameScene.h"
 
 namespace ecs{
-    HitManager::HitManager(GameScene* mainScene) : Singleton(){
+    ColorHitManager::ColorHitManager(GameScene* mainScene) : Singleton(){
         _mainScene = mainScene;
     };
 
-    void HitManager::clearAllPositions(){
+    void ColorHitManager::clearAllPositions(){
         _positionsRegistered.clear();
     }
 
-    bool HitManager::checkForHitPosition(Vector2D hitPos){
+    bool ColorHitManager::checkForHitPosition(Vector2D hitPos){
         if(_positionsRegistered.find(hitPos)!=_positionsRegistered.end()) return false;
 
         //si no se ha registrado el hit en esta posicion hacer cosas que se necesiten
