@@ -67,6 +67,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
+	${CMAKE_SOURCE_DIR}/src/Physics
 )
 
 
@@ -102,6 +103,8 @@ add_executable(Carom
 	src/ECS/RenderTextureComponent.cpp
 
 	src/Physics/B2Manager.cpp
+	src/inputTest.cpp
+	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/MainScene.cpp
 )
