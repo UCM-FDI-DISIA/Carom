@@ -1,13 +1,19 @@
 #pragma once
 #include "PhysicsComponent.h"
 #include <box2D/box2D.h>
+#include "ecs.h"
 
-class TransformComponent;
+
 class B2Manager;
 
 namespace ecs{
+
+class TransformComponent;
+
     class RigidBodyComponent : public InfoComponent
     {
+        __CMPID_DECL__(cmp::RIGIDBODY);
+
         b2BodyId _body; // b2 Body ID
 
         public:

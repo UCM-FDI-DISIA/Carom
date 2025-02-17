@@ -1,4 +1,4 @@
-#include "RenderTextureComponent.h"
+/*#include "RenderTextureComponent.h"
 #include "Texture.h"
 #include "Entity.h"
 #include "TransformComponent.h"
@@ -8,10 +8,11 @@ namespace ecs {
     {}
 
     void RenderTextureComponent::init(){
-        _transform = _myEntity->getComponent<TransformComponent>(TRANSFORM);
+        _transform = _myEntity->getComponent<TransformComponent>();
+
     }
 
     void RenderTextureComponent::render() {
         _texture->render(_transform->getPosition()->getX(), _transform->getPosition()->getY());
     }
-}
+}*/

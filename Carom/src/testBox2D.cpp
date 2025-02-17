@@ -48,7 +48,4 @@ void testBox() {
     std::cout << "FIN";
     int i;
     std::cin >> i;
-
-
-    b2DestroyWorld(worldId);
 }
