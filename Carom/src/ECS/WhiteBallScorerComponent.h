@@ -21,4 +21,7 @@ class WhiteBallScorerComponent : ecs::Component{
             previouslyHit = false;
             }
     */
+
+    //setea cushions a 0 y previously hit a false al comienzo del turno
+    void refreshOnNewTurn();
 };
