@@ -2,6 +2,7 @@
 
 #include "State.h"
 
+//Este estado se llama cuando se ha ganado una partida de carambola
 class WinMatchState : public State {
 public:
     WinMatchState(CaromScene* scene);

@@ -1,6 +1,7 @@
 #include "WinMatchState.h"
 #include "CaromScene.h"
 #include "ScenesManager.h"
+#include "NullState.h"
 
 WinMatchState::WinMatchState(CaromScene* scene) : State(scene) 
 {
@@ -16,5 +17,6 @@ void WinMatchState::onStateExit() {
 }
 
 bool WinMatchState::checkCondition(State*& state) {
-
+    state = new NullState(_scene);
+    return true;
 }
