@@ -78,7 +78,7 @@ RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
 /// @param impulse the vector impulse to apply
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
-RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
+RigidBodyComponent::applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin){
     b2Body_ApplyLinearImpulse(_body, impulse, origin, false);
 }
 

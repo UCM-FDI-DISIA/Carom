@@ -9,6 +9,7 @@
 #include "ecs.h"
 #include "Component.h"
 #include "TransformComponent.h"
+#include "RigidBodyComponent.h"
 #include "RenderTextureComponent.h"
 #include "Entity.h"
 

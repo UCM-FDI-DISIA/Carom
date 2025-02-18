@@ -9,42 +9,43 @@ class B2Manager;
 namespace ecs{
 
 class TransformComponent;
+class Shape;
 
-    class RigidBodyComponent : public InfoComponent
-    {
-        __CMPID_DECL__(cmp::RIGIDBODY);
+class RigidBodyComponent : public InfoComponent
+{
+    __CMPID_DECL__(cmp::RIGIDBODY);
 
-        b2BodyId _body; // b2 Body ID
+    b2BodyId _body; // b2 Body ID
 
-        public:
+    public:
 
-        RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape, float density = 1, float friction = 0.2, float restitution = 0.5);
-        virtual ~RigidBodyComponent();
+    RigidBodyComponent(Entity* ent, b2BodyType type, Shape shape, float density = 1, float friction = 0.2, float restitution = 0.5);
+    virtual ~RigidBodyComponent();
 
-        // Getters
-        inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
-        inline b2BodyId* getB2Body(){return &_body;}
+    // Getters
+    inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
+    inline b2BodyId* getB2Body(){return &_body;}
 
-        // Setters
-        void changeBodyType(b2BodyType newType);
-        void setDensity(float density, int nShapes = 1);
-        void setFriction(float friction, int nShapes = 1);
-        void setRestitution(float restitution, int nShapes = 1);
+    // Setters
+    void changeBodyType(b2BodyType newType);
+    void setDensity(float density, int nShapes = 1);
+    void setFriction(float friction, int nShapes = 1);
+    void setRestitution(float restitution, int nShapes = 1);
 
-        // Force appliers
-        void applyForceToObject(b2Vec2 force, b2Vec2 origin);
-        void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
-        void applyForceToCenter(b2Vec2 force);
+    // Force appliers
+    void applyForceToObject(b2Vec2 force, b2Vec2 origin);
+    void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
+    void applyForceToCenter(b2Vec2 force);
 
-        // Impulse appliers
-        void applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin);
-        void applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin);
-        void applyImpulseToCenter(b2Vec2 impulse);
+    // Impulse appliers
+    void applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin);
+    void applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin);
+    void applyImpulseToCenter(b2Vec2 impulse);
 
     };
 
     class Shape{
-        friend RigidBodyComponent;
+    friend RigidBodyComponent;
         
         protected:
         enum shapeType{
@@ -87,5 +88,7 @@ class TransformComponent;
         PolygonShape(float sizex, float sizey);
         inline b2Polygon* getPolygon() {return &_polygon;}
     };
+
+
 
 }

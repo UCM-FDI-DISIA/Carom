@@ -18,6 +18,8 @@ void
 EntityManager::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
     entity_t e = new Entity();
     addComponent<TransformComponent>(e);
+    // Shape sh = CircleShape(radius);
+    // addComponent<RigidBodyComponent>(e, b2_dynamicBody, );
     // TODO: other components
     _entities.push_back(e);
     _entsByGroup[grp::WHITEBALL].push_back(e);
