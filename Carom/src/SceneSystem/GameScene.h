@@ -32,13 +32,11 @@ protected:
 
 	GameScene(Game* game);
 
-	// ! fusion EM
+	void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
 
-	void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO
+	void createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
 
-	void createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO
-
-	void createTable(/* type */); // TODO
+	void createTable(/* type */); // TODO: provisory definition
 
 	inline GameList<Entity>& getEntities() { return _entities; }
 
@@ -56,49 +54,49 @@ protected:
 
 	// Adds a component to an entity. It receives the type T (to be created),
 	// and the list of arguments (if any) to be passed to the constructor.
+	// NOTE: If the entity already has this component no component is added!
 	//
 	template<typename T, typename ...Ts>
 	inline void addComponent(entity_t e, Ts &&... args) {
-		// the component id
+		// the component id exists
 		static_assert(cmpId<T> < ecs::maxComponentId);
 
-		// create, initialise and install the new component
+		// create component
 		T *c = new T(e, std::forward<Ts>(args)...);
 
+		// install the new component if entity doesn't have one of the type
 		if (!e->addComponent<T>(c)) {
 			delete c;
 		}
 	}
 
 	// Removes the component T, if any, from the entity.
+	// Returns true if succeded, false if didn't existed.
+	//
 	template<typename T>
 	inline bool removeComponent(entity_t e) {
 		return e->removeComponent<T>();
 	}
 
-	// returns the vector of all entities
-	//
-	inline auto& getEntities(grpId_t gId) {
-		return _entsByGroup[gId];
-	}
-
-	// return true if there is a component with identifier T::id in the entity
+	// Return true if there is a component with identifier T::id in the entity.
 	//
 	template<typename T>
 	inline bool hasComponent(entity_t e) {
 		return e->tryGetComponent(cmpId<T>);
 	}
 
-	// Returns the component, of the entity, that corresponds to position T,
-	// casting it to T*. The casting is done just for ease of use, to avoid casting
-	// outside.
+	// Returns pointer to the component <T> of the entity.
 	//
 	template<typename T>
 	inline T* getComponent(entity_t e) {
 		return e->getComponent<T>(cmpId<T>);
 	}
 
-	// ! fusion
+	// Returns the vector of all entities of a group ID.
+	//
+	inline auto& getEntitiesOfGroup(grpId_t gId) {
+		return _entsByGroup[gId];
+	}
 
 public:
 	virtual ~GameScene();

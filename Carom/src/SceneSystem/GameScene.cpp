@@ -10,9 +10,7 @@ GameScene::GameScene(Game* game): game(game){}
 
 GameScene::~GameScene(){};
 
-// ! doing
-
-void // TODO
+void // TODO: provisory definition
 GameScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
     entity_t e = new Entity();
     addComponent<TransformComponent>(e);
@@ -21,7 +19,7 @@ GameScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float f
     _entsByGroup[grp::WHITEBALL].push_back(e);
 }
 
-void // TODO
+void // TODO: provisory definition
 GameScene::createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
     entity_t e = new Entity();
     addComponent<TransformComponent>(e);
@@ -30,15 +28,13 @@ GameScene::createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType 
     _entsByGroup[grp::EFFECTBALLS].push_back(e);
 }
 
-void // TODO
+void // TODO: provisory definition
 GameScene::createTable(/* type */) {
     entity_t e = new Entity();
     // TODO: components
     _entities.push_back(e);
     _entsByGroup[grp::TABLE].push_back(e);
 }
-
-//  ! doing
 
 void GameScene::render(){
     for (auto entity : _entities) {
