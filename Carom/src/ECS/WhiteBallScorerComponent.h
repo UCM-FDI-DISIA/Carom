@@ -5,4 +5,20 @@
 class WhiteBallScorerComponent : ecs::Component{
     int cushions = 0;
     bool previouslyHit = false;
+
+    /*
+    ON HIT ENTER
+
+    if (isCushion) cushions++
+    else if (isBall) {
+        if(!previouslyHit) {
+            scorer.add(1);
+            previouslyHit = true;
+            }
+        else if (isBall && previouslyHit){
+            scorer.add(4*2^cushions);
+            cushions =0;
+            previouslyHit = false;
+            }
+    */
 };

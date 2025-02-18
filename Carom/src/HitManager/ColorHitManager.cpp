@@ -15,7 +15,7 @@ namespace ecs{
 
         //si no se ha registrado el hit en esta posicion hacer cosas que se necesiten
         //-instanciar UI de puntuaje
-        //añadir la puntuación al puntuaje final
+        //scorer.add(2);
         //reproducir un sonido
         //...
 
