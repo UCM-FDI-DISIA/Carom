@@ -23,7 +23,7 @@ class RigidBodyComponent : public InfoComponent
     virtual ~RigidBodyComponent();
 
     // Getters
-    inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
+    b2Transform* getB2Transform();
     inline b2BodyId* getB2Body(){return &_body;}
 
     // Setters

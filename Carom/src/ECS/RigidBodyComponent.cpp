@@ -34,6 +34,14 @@ RigidBodyComponent::~RigidBodyComponent(){
     B2Manager::Instance()->removeBody(_body);
 }
 
+/// @brief Returns a pointer to b2Transform BE CAREFUL
+/// @return 
+b2Transform*
+RigidBodyComponent::getB2Transform(){
+    b2Transform* a_b2t = &b2Body_GetTransform(_body);
+    return a_b2t;
+}
+
 /// @brief Changes the body type.
 /// @param newType New type of the RigidBody.
 void
