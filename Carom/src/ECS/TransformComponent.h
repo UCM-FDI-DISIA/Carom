@@ -19,9 +19,10 @@ namespace ecs{
         double _rotation; //In radians
 
     public:
+        // TransformComponent(Entity* ent);
         __CMPID_DECL__(cmp::TRANSFORM);
 
-        TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {} // TODO TEMPORARIO?
+        TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {}
         virtual ~TransformComponent(){}
 
         // Getters
