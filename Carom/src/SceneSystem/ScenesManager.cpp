@@ -17,13 +17,13 @@ ScenesManager::~ScenesManager()
 }
 
 void
-ScenesManager::pushState(shared_ptr<ecs::GameScene> state)
+ScenesManager::pushScene(shared_ptr<ecs::GameScene> scene)
 {
-	GameScenes.push(std::move(state));
+	GameScenes.push(std::move(scene));
 }
 
 void
-ScenesManager::popState()
+ScenesManager::popScene()
 {
 	// Si el estado final existe y se deja eliminar
 	if (!GameScenes.empty())
@@ -42,10 +42,10 @@ ScenesManager::operator bool() const
 }
 
 void
-ScenesManager::replaceState(shared_ptr<ecs::GameScene> state)
+ScenesManager::replaceScene(shared_ptr<ecs::GameScene> scene)
 {
 	if (!GameScenes.empty())
-		GameScenes.top() = std::move(state);
+		GameScenes.top() = std::move(scene);
 }
 
 void
