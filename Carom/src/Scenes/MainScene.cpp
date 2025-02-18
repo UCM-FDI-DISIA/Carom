@@ -1,24 +1,23 @@
-#include "CaromScene.h"
+#include "MainScene.h"
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
-{
+MainScene::MainScene(State* s, Game* g): GameScene(g){
     setNewState(s);
 }
 
-void CaromScene::setNewState(State* s){
+void MainScene::setNewState(State* s){
     _currentState->onStateExit();
     delete _currentState;
     _currentState = s;
     _currentState->onStateEnter();
 }
 
-State* CaromScene::getCurrentState(){ return _currentState;}
+State* MainScene::getCurrentState(){ return _currentState;}
 
-CaromScene::~CaromScene(){
+MainScene::~MainScene(){
     if(_currentState != nullptr) delete _currentState;
 }
 
-void CaromScene::update(){
+void MainScene::update(){
     State* a_stateToChange = nullptr;
     if(_currentState->checkCondition(a_stateToChange)){
         setNewState(a_stateToChange);

@@ -107,9 +107,7 @@ add_executable(Carom
 	src/inputTest.cpp
 	src/Physics/PhysicsUtils.cpp
 
-	src/Scenes/CaromScene.cpp
-	
-	src/StateMachine/WinMatchState.cpp
+	src/Scenes/MainScene.cpp
 )
 
 # Link Box2D
