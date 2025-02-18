@@ -84,3 +84,5 @@ __pycache__/
 *.dbmdl
 *.publishsettings
 *.rptproj.bak
+
+.obsidian/
