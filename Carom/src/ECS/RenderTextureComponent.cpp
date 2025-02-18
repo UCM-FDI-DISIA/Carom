@@ -6,9 +6,7 @@
 
 namespace ecs {
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture) : RenderComponent(ent), _texture(texture), _transform(nullptr)
-    {
-
-    }
+    {}
 
     void RenderTextureComponent::init(){
         _transform = _myEntity->getComponent<TransformComponent>();

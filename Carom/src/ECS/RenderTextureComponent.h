@@ -3,6 +3,10 @@
 #include "RenderComponent.h"
 
 class Texture;
+<<<<<<< HEAD
+class TransformComponent;
+=======
+>>>>>>> 2425fccc605626d92f6da6cbdb270c719588af23
 
 namespace ecs {
     class TransformComponent;
