@@ -9,6 +9,8 @@ class Component;
 
 namespace ecs {
 
+    class GameScene;
+
     class Entity{
     public:
         virtual ~Entity();
@@ -44,10 +46,6 @@ namespace ecs {
             return true;
         }
 
-        /// @brief GetComponent de Unity
-        /// @param  ID Id del componente solicitado
-        /// @param  Component Referencia donde se devuelve el componente solicitado o el puntero a nulo si no existe
-        /// @return true si la entidad tiene el componente, false si no
         template<typename T>
         bool tryGetComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
@@ -67,12 +65,12 @@ namespace ecs {
         void handleEvents();
     
     private:
-        friend EntityManager;
+        friend GameScene;
         Entity();
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
-        GameList<Entity>::anchor _anchor; // TODO: se vamos utilizar lista inteligente
+        GameList<Entity>::anchor _anchor;
     };
 }

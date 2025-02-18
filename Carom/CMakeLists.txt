@@ -98,7 +98,6 @@ add_executable(Carom
 	src/SceneSystem/ScenesManager.cpp
 
 	src/ECS/Entity.cpp
-	src/ECS/EntityManager.cpp
 	src/ECS/Component.cpp
 	src/ECS/RenderTextureComponent.cpp
 
