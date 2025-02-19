@@ -1,6 +1,7 @@
 #pragma once
 #include "GameScene.h"
 #include "State.h"
+#include "ecs.h"
 
 class MainScene: public ecs::GameScene {
 protected:
@@ -9,6 +10,12 @@ protected:
 public:
     MainScene(State* s, Game* g);
     ~MainScene();
+
+    void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
+
+	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
+
+	void createTable(/* type */); // TODO: provisory definition
 
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
