@@ -12,7 +12,6 @@ namespace ecs {
     }
 
     Entity::~Entity(){
-
         for(Component* component : _currentComponents) 
             delete component;
     }
@@ -27,10 +26,12 @@ namespace ecs {
     }
 
     void Entity::render(){
-        for(Component* component : _currentComponents) component->render();
+        for(Component* component : _currentComponents) 
+            component->render();
     }
 
     void Entity::handleEvents(){
-        for(Component* component : _currentComponents) component->handleEvent();
+        for(Component* component : _currentComponents) 
+            component->handleEvent();
     }
 }

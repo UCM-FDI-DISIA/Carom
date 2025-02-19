@@ -16,4 +16,5 @@ ScoringState::onStateExit() {
 bool
 ScoringState::checkCondition(State*& state) {
     // comprobar si todas las bolas han dejado de moverse
+    return true; // ! placeholder
 }

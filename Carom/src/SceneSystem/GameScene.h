@@ -1,15 +1,18 @@
 #pragma once
 
+#include <SDLUtils.h>
 #include <list>
-
+#include <vector>
+#include <array>
+#include <box2d/box2d.h>
 #include "GameList.h"
+#include "ecs.h"
+#include "Entity.h"
 
 class Game;
 
 // Declaraciones anticipadas
 namespace ecs{
-	class Entity;
-	class EntityManager;
 
 	/**
  * Estado abstracto del juego.
@@ -18,35 +21,93 @@ namespace ecs{
  * responsable (se encarga de eliminarlos). También mantiene una
  * lista de manejadores de eventos, pero no los elimina.
  */
-	class GameScene
-	{
-		GameList<ecs::Entity> entities;
-		EntityManager* _enttmngr; // TODO: decidir ciclo de los objectos
+class GameScene
+{
+protected:
+	GameList<Entity> _entities;
+	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
 
-	protected:
-		Game* game;
+	Game* game;
 
-		GameScene(Game* game);
+	GameScene(Game* game);
 
-		// void addObject(ecs::Entity* obj); // TODO: decidir ciclo de los objectos
+	inline GameList<Entity>& getEntities() { return _entities; }
 
-	public:
-		virtual ~GameScene();
-
-		virtual void render();
-		virtual void update();
-		virtual void handleEvent();
-
-		/// Obtiene el juego al que pertenece el estado
-		Game* getGame() const;
-		/// Elimina los objetos
-		virtual void clear();
-	};
-
-	inline Game*
-	GameScene::getGame() const
-	{
-		return game;
+	// Setting the state of the entity (alive or dead)
+	//
+	inline void setAlive(entity_t e, bool alive) {
+		e->setAlive(alive);
 	}
+
+	// Returns the state of the entity (alive o dead)
+	//
+	inline bool isAlive(entity_t e){
+		return e->isAlive();
+	}
+
+	// Adds a component to an entity. It receives the type T (to be created),
+	// and the list of arguments (if any) to be passed to the constructor.
+	// NOTE: If the entity already has this component no component is added!
+	//
+	template<typename T, typename ...Ts>
+	inline void addComponent(entity_t e, Ts &&... args) {
+		// the component id exists
+		static_assert(cmpId<T> < ecs::maxComponentId);
+
+		// create component
+		T *c = new T(e, std::forward<Ts>(args)...);
+
+		// install the new component if entity doesn't have one of the type
+		if (!e->addComponent<T>(c)) {
+			delete c;
+		}
+	}
+
+	// Removes the component T, if any, from the entity.
+	// Returns true if succeded, false if didn't existed.
+	//
+	template<typename T>
+	inline bool removeComponent(entity_t e) {
+		return e->removeComponent<T>();
+	}
+
+	// Return true if there is a component with identifier T::id in the entity.
+	//
+	template<typename T>
+	inline bool hasComponent(entity_t e) {
+		return e->tryGetComponent(cmpId<T>);
+	}
+
+	// Returns pointer to the component <T> of the entity.
+	//
+	template<typename T>
+	inline T* getComponent(entity_t e) {
+		return e->getComponent<T>(cmpId<T>);
+	}
+
+	// Returns the vector of all entities of a group ID.
+	//
+	inline auto& getEntitiesOfGroup(grpId_t gId) {
+		return _entsByGroup[gId];
+	}
+
+public:
+	virtual ~GameScene();
+
+    virtual void render();
+    virtual void update();
+    virtual void handleEvent();
+
+	/// Obtiene el juego al que pertenece el estado
+	Game* getGame() const;
+	/// Elimina los objetos
+	virtual void clear();
+};
+
+inline Game*
+GameScene::getGame() const
+{
+	return game;
+}
 
 }

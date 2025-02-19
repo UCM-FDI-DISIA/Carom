@@ -99,15 +99,14 @@ add_executable(Carom
 	src/SceneSystem/ScenesManager.cpp
 
 	src/ECS/Entity.cpp
-	src/ECS/EntityManager.cpp
 	src/ECS/Component.cpp
 	src/ECS/RenderTextureComponent.cpp
-	scr/ECS/TransformComponent.cpp
+	src/ECS/TransformComponent.cpp
+	src/ECS/RigidBodyComponent.cpp
 
 	src/Physics/B2Manager.cpp
 	src/inputTest.cpp
 	src/Physics/PhysicsUtils.cpp
-
 
 	src/Scenes/CaromScene.cpp
 	
