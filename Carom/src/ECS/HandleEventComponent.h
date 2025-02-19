@@ -3,7 +3,7 @@
 class Entity;
 
 namespace ecs {
-    class HandleEventComponent : public ecs::Component
+    class HandleEventComponent : public Component
     {
     public:
         HandleEventComponent(Entity* ent) : Component(ent) {}

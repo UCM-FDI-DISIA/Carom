@@ -5,11 +5,14 @@
 #include "Vector2D.h"
 
 #include "InfoComponent.h"
+#include "RigidBodyComponent.h"
+#include "Entity.h"
 
 
 namespace ecs{
+
     class TransformComponent : public InfoComponent{
-        const b2Transform* _b2Transform = nullptr;
+
         Vector2D _position;
         struct Scale{
             double x;
@@ -19,6 +22,7 @@ namespace ecs{
         double _rotation; //In radians
 
     public:
+        // TransformComponent(Entity* ent);
         __CMPID_DECL__(cmp::TRANSFORM);
 
         TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {}
@@ -33,5 +37,13 @@ namespace ecs{
         inline void setPosition(Vector2D newPos){_position = newPos;}
         inline void setScale(Scale newScale){_scale = newScale;}
         inline void setRotation(double newRot){_rotation = newRot;}
+
+        // ! test
+        inline void update() {
+            setPosition(Vector2D(
+                _myEntity->getComponent<RigidBodyComponent>()->getB2Transform().p.x,
+                _myEntity->getComponent<RigidBodyComponent>()->getB2Transform().p.y
+            ));
+        }
     };
 }
