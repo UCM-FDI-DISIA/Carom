@@ -64,6 +64,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/json/include
 
 	${CMAKE_SOURCE_DIR}/src/ECS
+	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
