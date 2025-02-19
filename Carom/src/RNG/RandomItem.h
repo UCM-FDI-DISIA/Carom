@@ -5,5 +5,5 @@ struct RandomItem{
     T item;
     float probability;
 
-    RandomItem<T>(T item, float probability) : item(item), probability(probability) {};
+    RandomItem(T item, float probability) : item(item), probability(probability) {};
 };

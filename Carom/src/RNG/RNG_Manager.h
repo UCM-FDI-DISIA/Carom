@@ -4,7 +4,6 @@
 #include "RandomNumberGenerator.h"
 #include "RandomItem.h"
 
-template<typename T>
 class RNG_Manager
 {
     RandomNumberGenerator _rng;
@@ -14,10 +13,11 @@ class RNG_Manager
     ~RNG_Manager() {}
 
     void inseminate(unsigned seed) {
-        // _rng(RandomNumberGenerator(seed));
+        _rng.Inseminate(seed);
     }
     
-    RandomItem getRandomItem(std::vector<RandomItem>& itemsVector)
+    template<typename T>
+    RandomItem<T> getRandomItem(std::vector<RandomItem<T>>& itemsVector)
     {
         float totalProbability = 0;
 
@@ -27,8 +27,10 @@ class RNG_Manager
         float randomValue = _rng.nextFloat(0, totalProbability);
 
         for(auto item : itemsVector){
+            currentProbability += item.probability;
             if (randomValue <= currentProbability) return item;
         }
+        return itemsVector[itemsVector.size() - 1];
     }
 
     private:

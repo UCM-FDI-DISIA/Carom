@@ -22,7 +22,9 @@ public:
 			_gen(seed), _dist(), _ins() {
 	}
 
-	// inline void Inseminate(unsigned seed) : _gen(seed) {}
+	inline void Inseminate(unsigned seed) {
+		_gen = std::mt19937(seed);
+	}
 
 	virtual ~RandomNumberGenerator() {
 	}
