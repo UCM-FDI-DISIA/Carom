@@ -112,7 +112,8 @@ add_executable(Carom
 	
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/ScoringState.cpp
-
+	
+	src/ScoreContainer.cpp
 )
 
 # Link Box2D
