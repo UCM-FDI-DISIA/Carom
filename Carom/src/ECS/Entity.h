@@ -76,6 +76,5 @@ namespace ecs {
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
         GameList<Entity>::anchor _anchor;
-        GameList<Entity>::anchor _anchor;
     };
 }
