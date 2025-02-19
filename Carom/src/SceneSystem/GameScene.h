@@ -7,7 +7,6 @@
 #include <box2d/box2d.h>
 #include "GameList.h"
 #include "ecs.h"
-
 #include "Entity.h"
 
 class Game;
@@ -24,19 +23,13 @@ namespace ecs{
  */
 class GameScene
 {
+protected:
 	GameList<Entity> _entities;
 	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
 
-protected:
 	Game* game;
 
 	GameScene(Game* game);
-
-	void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
-
-	void createEffectBall(effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
-
-	void createTable(/* type */); // TODO: provisory definition
 
 	inline GameList<Entity>& getEntities() { return _entities; }
 
