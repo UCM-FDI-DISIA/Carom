@@ -1,6 +1,7 @@
 #pragma once
 
 class ScenesManager;
+class B2Manager;
 
 class Game {
 public:
@@ -12,4 +13,5 @@ public:
 
 protected:
     ScenesManager* _sceneManager;
+    B2Manager* _b2World;
 };
