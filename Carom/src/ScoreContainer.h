@@ -2,7 +2,7 @@
 
 class ScoreUI;
 
-//Clase que contiene la puntuación a superar en una ronda y la puntuación acumulada del jugador
+///Clase que contiene la puntuación a superar en una ronda y la puntuación acumulada del jugador
 class ScoreContainer {
 protected:
     double _currentScore;
