@@ -6,6 +6,7 @@
 #include "ecs.h"
 
 class Component;
+class MainScene;
 
 namespace ecs {
 
@@ -66,6 +67,7 @@ namespace ecs {
     
     private:
         friend GameScene;
+        friend MainScene;
         Entity();
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
