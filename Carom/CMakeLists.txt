@@ -102,7 +102,7 @@ add_executable(Carom
 	src/ECS/EntityManager.cpp
 	src/ECS/Component.cpp
 	src/ECS/RenderTextureComponent.cpp
-	scr/ECS/TransformComponent.cpp
+	src/ECS/TransformComponent.cpp
 
 	src/Physics/B2Manager.cpp
 	src/inputTest.cpp
