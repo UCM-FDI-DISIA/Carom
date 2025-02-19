@@ -19,6 +19,7 @@ using entity_t = Entity*;
 using cmpId_t = uint8_t;
 using grpId_t = uint8_t;
 using effectId_t = uint8_t;
+using shapeId_t = uint8_t;
 
 
 namespace cmp {
@@ -49,6 +50,17 @@ namespace effect {
 	// first number is 0 in C/C++ standard
 	enum effectId : effectId_t {
 		_EFFECT_LIST_, /* taken from ecs_defs.h */
+	
+		// do not remove this
+		_LAST_EFFECT_ID
+	};
+}
+
+namespace shape {
+	// list of game object identifiers - note that we rely on that the
+	// first number is 0 in C/C++ standard
+	enum shapeId : shapeId_t {
+		_SHAPE_LIST_, /* taken from ecs_defs.h */
 	
 		// do not remove this
 		_LAST_EFFECT_ID

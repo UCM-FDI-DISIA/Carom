@@ -1,9 +1,7 @@
 #include <box2D/box2D.h>
-#include <unordered_map>
-
 #include "Singleton.h"
+#include <unordered_map>
 #include "Entity.h"
-#include "ScenesManager.h"
 
 namespace std {
     template <>
@@ -26,7 +24,9 @@ namespace std {
     };
 }
 
-bool operator==(const b2BodyId& first, const b2BodyId& second) {
+// TODO mirar si se puede comparar solo los dos punteros e ya esta
+// TODO problema por la mierda del b2bodyId
+inline bool operator==(const b2BodyId& first, const b2BodyId& second) {
     return (first.index1 == second.index1) && 
            (first.world0 == second.world0) && 
            (first.generation == second.generation);
@@ -35,38 +35,43 @@ bool operator==(const b2BodyId& first, const b2BodyId& second) {
 class B2Manager : public Singleton<B2Manager> {
 private:
     friend Singleton<B2Manager>;
-    B2Manager();
+    B2Manager(float timeStep = 1.0f / 60.0f, float subStepCound = 4);
     virtual ~B2Manager();
 
     // en caso de necesitar acceder a la entidad de un componente con el que se ha colisionado
     // se puede usar este mapa para acceder
     std::unordered_map<b2BodyId, ecs::Entity*> _bodyEntityMap;
 
-    b2WorldId _worldId;
+    b2WorldId* _worldId;
 
     bool init();
 
-    std::tuple<b2BodyId&, b2ShapeDef&> generateBodyAndShape(ecs::Entity* entity, b2BodyType bodyType, float density, float friction, float restitution);
+    std::tuple<b2BodyId*, b2ShapeDef&> generateBodyAndShape(ecs::Entity* entity, b2BodyType bodyType, float density, float friction, float restitution);
 
     float _timeStep;
     int _subStepCount;
 
 protected:
+    friend class Game; // TODO: Verificar con Marco si está bien esto
 
     void stepWorld();
 
-    // esto está aquí para que al cambiar de escena si se requiere ScenesManager reinicie el mundo
-    // al cambiar entre escenas
-    friend ScenesManager;
+    // declaracion de friend del manager de escenas o game loop o lo que sea para que acceda a esto
     void reloadWorld();
 
 public:
 
-    b2BodyId addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Circle& circle, float density, float friction, float restitution);
-    b2BodyId addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Polygon& polygon, float density, float friction, float restitution);
-    b2BodyId addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Capsule& capsule, float density, float friction, float restitution);
+    b2BodyId* addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Circle& circle, float density, float friction, float restitution);
+    b2BodyId* addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Polygon& polygon, float density, float friction, float restitution);
+    b2BodyId* addRigidbody(ecs::Entity* entity, b2BodyType bodyType, const b2Capsule& capsule, float density, float friction, float restitution);
 
-    void removeBody(const b2BodyId& id);
+    void removeBody(b2BodyId* id);
 
-    ecs::Entity* getEntity(const b2BodyId& id) const;
+    ecs::Entity* getEntity(b2BodyId* id) const;
+
 };
+
+// macro para B2Manager::Instance();
+inline B2Manager& b2mngr() {
+    return *B2Manager::Instance();
+}

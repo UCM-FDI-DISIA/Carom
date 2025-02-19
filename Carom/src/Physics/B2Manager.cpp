@@ -1,24 +1,19 @@
 #include "B2Manager.h"
-#include "TransformComponent.cpp"
-
 #include <functional>
-#include <exception>
-#include <cmath>
 
-/// @brief Creación de manager y mundo de la simulación física
-B2Manager::B2Manager(){
+B2Manager::B2Manager(float timeStep, float subStepCount)
+: _timeStep(timeStep), 
+  _subStepCount(subStepCount),
+  _worldId(new b2WorldId())
+ {
 
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = {0.0f, 0.0f};
-    _worldId = b2CreateWorld(&worldDef);
-
-    _timeStep = 1.0f / 60.0f; 
-    _subStepCount = 4;
+    *_worldId = b2CreateWorld(&worldDef);
 }
 
-/// @brief Destruye la simulación
 B2Manager::~B2Manager() {
-    b2DestroyWorld(_worldId);
+    b2DestroyWorld(*_worldId);
 }
 
 bool
@@ -29,152 +24,78 @@ B2Manager::init(){
     return true;
 }
 
-/// @brief Sincroniza el transform y b2transform y simula las físicas
 void
-B2Manager::stepWorld() { 
+B2Manager::stepWorld() { b2World_Step(*_worldId, _timeStep, _subStepCount); }
 
-    TransformComponent* t;
-    Vector2D* pos;
-
-    for (auto e : _bodyEntityMap)
-    { 
-        t = e.second->getComponent<TransformComponent>();
-        pos = t->getPosition();
-        b2Body_SetTransform(e.first, {pos->getX(), pos->getY()}, b2MakeRot(*t->getRotation()));
-    }
-
-    b2World_Step(_worldId, _timeStep, _subStepCount); 
-
-    for (auto e : _bodyEntityMap)
-    {
-        b2Transform physicsVector = b2Body_GetTransform(e.first);
-        Vector2D updatedPos = {physicsVector.p.x, physicsVector.p.y};
-        double updatedRot = atan2(physicsVector.q.s, physicsVector.q.c);
-
-        t = e.second->getComponent<TransformComponent>();
-        t->setPosition(updatedPos);
-        t->setRotation(updatedRot);
-    }
-}
-
-/// @brief Destruye la simulación física y crea una nueva generando un mundo vacío
 void
 B2Manager::reloadWorld(){
-    b2DestroyWorld(_worldId);
+    b2DestroyWorld(*_worldId);
 
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = {0.0f, 0.0f};
-    _worldId = b2CreateWorld(&worldDef);
-
-    _bodyEntityMap.clear();
+    *_worldId = b2CreateWorld(&worldDef);
 }
 
-/// @brief Función interna para generar un body y las propiedades de forma de una manera centralizada
-/// @param entity Entidad a la que pertenecen estas definiciones
-/// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
-/// @param density (>= 0.0) La masa del cuerpo
-/// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
-/// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
-/// @return 
-std::tuple<b2BodyId&, b2ShapeDef&> 
+std::tuple<b2BodyId*, b2ShapeDef&> 
 B2Manager::generateBodyAndShape (ecs::Entity* entity, b2BodyType bodyType, 
     float density, float friction, float restitution){
 
-    b2BodyDef bodyDef = b2DefaultBodyDef();
-    bodyDef.type = bodyType;
-    bodyDef.gravityScale = 0.0f;
-    TransformComponent* transform;
-    if (entity->tryGetComponent<TransformComponent>(transform))
-    {
-        throw std::invalid_argument("RUNTIME ERROR: Entity does not contain a TransformComponent");
-    }
-    else
-    {
-        Vector2D* pos = transform->getPosition();
-        bodyDef.position.x = pos->getX();
-        bodyDef.position.x = pos->getY();
+    b2BodyDef *bodyDef = new b2BodyDef(b2DefaultBodyDef());
+    bodyDef->type = bodyType;
+    bodyDef->gravityScale = 0.0f;
+    // bodyDef.position = getComponent del transform;
+    // bodyDef.angle = lo mismo;
+    // si el transform no es fijo en cada entitydad aquí hay que generar excepción
+    b2BodyId* bodyId = new b2BodyId(b2CreateBody(*_worldId, bodyDef));
 
-        bodyDef.rotation = b2MakeRot(*transform->getRotation());
-    }
-    b2BodyId bodyId = b2CreateBody(_worldId, &bodyDef);
+    b2ShapeDef *shapeDef = new b2ShapeDef(b2DefaultShapeDef());
+    shapeDef->density = density;
+    shapeDef->friction = friction;
+    shapeDef->restitution = restitution;
 
-    b2ShapeDef shapeDef = b2DefaultShapeDef();
-    shapeDef.density = density;
-    shapeDef.friction = friction;
-    shapeDef.restitution = restitution;
+    _bodyEntityMap[*bodyId] = entity;
 
-    _bodyEntityMap[bodyId] = entity;
-
-    return {bodyId, shapeDef};
+    return {bodyId, *shapeDef};
 }
 
-/// @brief Añade al mundo de la simulación un rigidbody circular
-/// @param entity Entidad a la que pertenecen estas definiciones
-/// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
-/// @param circle Definición geométrica del círculo
-/// @param density (>= 0.0) La masa del cuerpo
-/// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
-/// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
-/// @return 
-b2BodyId 
+b2BodyId* 
 B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Circle& circle, 
     float density, float friction, float restitution) {
 
     auto [bId, bDef] = generateBodyAndShape(entity, bodyType, density, friction, restitution);
-    b2CreateCircleShape(bId, &bDef, &circle);
+    b2CreateCircleShape(*bId, &bDef, &circle);
 
     return bId;
 }
 
-/// @brief Añade al mundo de la simulación un rigidbody poligonal
-/// @param entity Entidad a la que pertenecen estas definiciones
-/// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
-/// @param polygon Definición geométrica del un polígono según sus vértices (loop)
-/// @param density (>= 0.0) La masa del cuerpo
-/// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
-/// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
-/// @return 
-b2BodyId 
+b2BodyId*
 B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Polygon& polygon, 
     float density, float friction, float restitution) {
 
     auto [bId, bDef] = generateBodyAndShape(entity, bodyType, density, friction, restitution);
-    b2CreatePolygonShape(bId, &bDef, &polygon);
+    b2CreatePolygonShape(*bId, &bDef, &polygon);
 
     return bId;
 }
 
-/// @brief Añade al mundo de la simulación un rigidbody cápsula
-/// @param entity Entidad a la que pertenecen estas definiciones
-/// @param bodyType Tipo de cuerpo (dinámico, estático o kinemático)
-/// @param capsule Definición de la cápsula
-/// @param density (>= 0.0) La masa del cuerpo
-/// @param friction (0.0-1.0) La cancelación de fuerza al arrastrarse con otros objetos
-/// @param restitution (0.0-1.0) El rebote o elasticidad el objeto
-/// @return 
-b2BodyId
+b2BodyId* 
 B2Manager::addRigidbody (ecs::Entity* entity, b2BodyType bodyType, const b2Capsule& capsule, 
     float density, float friction, float restitution) {
 
     auto [bId, bDef] = generateBodyAndShape(entity, bodyType, density, friction, restitution);
-    b2CreateCapsuleShape(bId, &bDef, &capsule);
+    b2CreateCapsuleShape(*bId, &bDef, &capsule);
 
     return bId;
 }
 
-/// @brief Elimina un cuerpo de la simulación del mundo
-/// @param id id del cuerpo en el mundo
 void
-B2Manager::removeBody(const b2BodyId& id) {
-    b2DestroyBody(id);
-    _bodyEntityMap.erase(id);
+B2Manager::removeBody(b2BodyId* id) {
+    b2DestroyBody(*id);
+    _bodyEntityMap.erase(*id);
 }
 
-/// @brief Devuelve la entidad a la que pertenece el id
-/// @param id id del cuerpo asociado a la entidad
-/// @return 
 ecs::Entity*
-B2Manager::getEntity(const b2BodyId& id) const {
-    auto a = _bodyEntityMap.at(id);
+B2Manager::getEntity(b2BodyId* id) const {
+    auto a = _bodyEntityMap.at(*id);
     return a;    
 }

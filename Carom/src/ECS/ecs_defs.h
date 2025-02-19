@@ -19,3 +19,9 @@
 // TODO completar	
 #define _EFFECT_LIST_ \
 	CRISTAL
+
+// Shape list
+#define _SHAPE_LIST_ \
+	CIRCLE, \
+	CAPSULE, \
+	POLYGON

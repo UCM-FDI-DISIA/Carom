@@ -1,41 +1,59 @@
 #pragma once
 #include "PhysicsComponent.h"
+#include "InfoComponent.h"
 #include <box2D/box2D.h>
+#include "ecs.h"
 
-class TransformComponent;
+
 class B2Manager;
 
 namespace ecs{
-    class RigidBodyComponent : public PhysicsComponent
-    {
-        b2BodyId _body; // b2 Body ID
-        TransformComponent* _transform; // Our transform component
-        B2Manager* _manager; // Physics Manager Singleton
 
-        public:
+class Shape;
+class Entity;
 
-        RigidBodyComponent(Entity* ent, b2BodyType type, float density, float friction, float restitution, Shape shape);
-        virtual ~RigidBodyComponent(){}
+class RigidBodyComponent : public InfoComponent
+{
+    b2BodyId *_bodyId;
 
-        inline b2Transform* getB2Transform(){return &b2Body_GetTransform(_body);}
-        inline b2BodyId* getB2Body(){return &_body;}
+    public:
+    __CMPID_DECL__(cmp::RIGIDBODY);
+
+    RigidBodyComponent(Entity* ent, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
+    virtual ~RigidBodyComponent();
+
+    // Getters
+    inline b2Transform getB2Transform(){return b2Body_GetTransform(*_bodyId);}
+    inline b2BodyId* getB2Body(){return _bodyId;}
+
+    // Setters
+    void changeBodyType(b2BodyType newType);
+    void setDensity(float density, int nShapes = 1);
+    void setFriction(float friction, int nShapes = 1);
+    void setRestitution(float restitution, int nShapes = 1);
+
+    // Force appliers
+    void applyForceToObject(b2Vec2 force, b2Vec2 origin);
+    void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
+    void applyForceToCenter(b2Vec2 force);
+
+    // Impulse appliers
+    void applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin);
+    void applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin);
+    void applyImpulseToCenter(b2Vec2 impulse);
+
     };
 
     class Shape{
-        friend RigidBodyComponent;
+    friend RigidBodyComponent;
         
-        protected:
-        enum shapeType{
-            CIRCLE,
-            CAPSULE,
-            POLYGON
-        };
-        
-        shapeType _shapeType;
+    protected:
+        shape::shapeId _shapeType;
 
-        inline shapeType getType() {return _shapeType;}
+        inline shape::shapeId getType() {return _shapeType;}
         
         Shape() {}
+    public:
         virtual ~Shape() {}
         
     };
@@ -61,6 +79,11 @@ namespace ecs{
 
         public:
         PolygonShape(b2Vec2 vertex[], int size, float radius);
+        PolygonShape(float side);
+        PolygonShape(float sizex, float sizey);
+        inline b2Polygon* getPolygon() {return &_polygon;}
     };
+
+
 
 }
