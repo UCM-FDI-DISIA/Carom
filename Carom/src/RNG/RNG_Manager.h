@@ -17,7 +17,7 @@ class RNG_Manager
     }
     
     template<typename T>
-    RandomItem<T> getRandomItem(std::vector<RandomItem<T>>& itemsVector)
+    T getRandomItem(std::vector<RandomItem<T>>& itemsVector, bool deleteFromVector = false)
     {
         float totalProbability = 0;
 
@@ -26,11 +26,34 @@ class RNG_Manager
         float currentProbability = 0;
         float randomValue = _rng.nextFloat(0, totalProbability);
 
-        for(auto item : itemsVector){
-            currentProbability += item.probability;
-            if (randomValue <= currentProbability) return item;
+        for(auto it = itemsVector.begin(); it < itemsVector.end(); it++){
+            currentProbability += it->probability;
+            if (randomValue <= currentProbability)
+            {
+                T returned = it->item;
+                if(deleteFromVector) itemsVector.erase(it);
+                return returned;
+            }
         }
-        return itemsVector[itemsVector.size() - 1];
+        return itemsVector[0].item;
+    }
+
+    template<typename T>
+    std::vector<T> getRandomItems(std::vector<RandomItem<T>>& const itemsVector, int quantity, bool replacement = true)
+    {
+        std::vector<T> result;
+
+        if(quantity > itemsVector.size())
+        {
+            for(auto c : itemsVector) result.push_back(c.item);
+            return result;
+        }
+
+        std::vector<RandomItem<T>> a_vector = itemsVector;
+
+        for(auto c = 0; c < quantity; c++) result.push_back(getRandomItem(a_vector, !replacement));
+
+        return result;
     }
 
     private:
