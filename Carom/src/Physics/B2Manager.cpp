@@ -1,5 +1,6 @@
 #include "B2Manager.h"
 #include <functional>
+#include "TransformComponent.h"
 
 B2Manager::B2Manager(float timeStep, float subStepCount)
 : _timeStep(timeStep), 
@@ -43,8 +44,11 @@ B2Manager::generateBodyAndShape (ecs::Entity* entity, b2BodyType bodyType,
     b2BodyDef *bodyDef = new b2BodyDef(b2DefaultBodyDef());
     bodyDef->type = bodyType;
     bodyDef->gravityScale = 0.0f;
-    // bodyDef.position = getComponent del transform;
-    // bodyDef.angle = lo mismo;
+    bodyDef->position = {entity->getComponent<ecs::TransformComponent>()->getPosition().getX(), 
+                         entity->getComponent<ecs::TransformComponent>()->getPosition().getY()};
+                   
+    // TODO: rotation
+    // bodyDef->rotation = entity->getComponent<ecs::TransformComponent>()->getRotation();
     // si el transform no es fijo en cada entitydad aquí hay que generar excepción
     b2BodyId* bodyId = new b2BodyId(b2CreateBody(*_worldId, bodyDef));
 

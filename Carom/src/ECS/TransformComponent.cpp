@@ -1,7 +1,13 @@
 #include "TransformComponent.h"
+#include <iostream>
 
 namespace ecs{
 
-    TransformComponent::TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) 
-    {}
+    TransformComponent::TransformComponent(entity_t ent, const Vector2D& pos) 
+        : InfoComponent(ent), 
+        _position(pos), 
+        _scale({1,1}),
+        _rotation(0) 
+    {
+    }
 }
