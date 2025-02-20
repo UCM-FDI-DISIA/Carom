@@ -13,7 +13,8 @@
 #define _GRPS_LIST_ \
 	WHITEBALL, \
 	EFFECTBALLS, \
-	TABLE
+	TABLE, \
+	PALO
 
 // Effect list
 // TODO completar	
