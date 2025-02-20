@@ -8,6 +8,7 @@ public:
     int x =0;
     int y =0;
 
+    Camera(int nX, int nY);
     //setea la posicion de la camara con una linea
     void setPos(int newX, int newY);
     //convierte la posicion fisica en posicion en la pantalla DEPENDIENTE de la posicion de la camara

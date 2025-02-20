@@ -3,6 +3,9 @@
 #include "Entity.h"
 #include "TransformComponent.h"
 #include "PhysicsUtils.h"
+#include "Camera.h"
+
+#include "GameScene.h"
 
 namespace ecs {
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture) : RenderComponent(ent), _texture(texture), _transform(nullptr)
@@ -16,8 +19,8 @@ namespace ecs {
 
     void RenderTextureComponent::render() {
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
-        auto [coordinateX, coordinateY] = PhysicsConverter::meter2pixel({_transform->getPosition().getX(), 
-                                                                        _transform->getPosition().getY()}); 
+        auto [coordinateX, coordinateY] = _myEntity->getScene().getCurrentCamera()->
+        getRenderPos({_transform->getPosition().getX(),_transform->getPosition().getY()});
         
         //Adapta el rect para que el objeto apareca en el centro de este
         coordinateX += _texture->width() / 2;

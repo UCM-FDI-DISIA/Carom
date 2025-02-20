@@ -34,4 +34,8 @@ namespace ecs {
         for(Component* component : _currentComponents) 
             component->handleEvent();
     }
+
+    GameScene& Entity::getScene(){
+        return _myScene;
+    }
 }

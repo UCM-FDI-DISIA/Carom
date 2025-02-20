@@ -13,3 +13,7 @@ void Camera::setPos(int newX, int newY){
     x = newX;
     y = newY;
 }
+
+Camera::Camera(int nX, int nY){
+    setPos(nX,nY);
+}

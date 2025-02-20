@@ -1,10 +1,11 @@
 #include <SDLUtils.h>
 
 #include "GameScene.h"
+#include "Camera.h"
 
 namespace ecs{
 
-GameScene::GameScene(Game* game): game(game){}
+GameScene::GameScene(Game* game): game(game), _currentCamera(new Camera(0,0)){}
 
 GameScene::~GameScene(){};
 
@@ -30,6 +31,10 @@ void GameScene::clear(){
      for (auto entity : _entities) {
         delete entity;
     }
+}
+
+Camera* GameScene::getCurrentCamera() const{
+    return _currentCamera;
 }
 };
 

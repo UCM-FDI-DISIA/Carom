@@ -63,6 +63,8 @@ namespace ecs {
         void update();
         void render();
         void handleEvents();
+
+        GameScene& getScene();
     
     private:
         friend GameScene;
