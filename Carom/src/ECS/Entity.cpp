@@ -16,6 +16,16 @@ namespace ecs {
             delete component;
     }
 
+    void Entity::enable() {
+        for(auto& cmp: _currentComponents)
+            cmp->setEnable(true);
+    }
+
+    void Entity::disable() {
+        for(auto& cmp: _currentComponents)
+            cmp->setEnable(false);
+    }
+
     void Entity::setListAnchor(GameList<Entity>::anchor&& anchor){
         this->_anchor = std::move(anchor);
     }

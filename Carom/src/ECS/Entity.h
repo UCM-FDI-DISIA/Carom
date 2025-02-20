@@ -64,17 +64,11 @@ namespace ecs {
 
         // Enables all entity's components
 	    //
-        // void enable() {
-        //     for(auto& cmp: _currentComponents)
-        //         cmp->enable();
-        // }
+        void enable();
 
         // Disables all entity's components
         //
-        // inline void disable() {
-        //     for(auto& cmp: _currentComponents)
-        //         cmp->disable();
-        // }
+        inline void disable();
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
