@@ -1,5 +1,5 @@
 #include <SDLUtils.h>
-#include "RenderComponent.h"
+#include "RenderTextureComponent.h"
 #include "TransformComponent.h"
 
 #include "GameScene.h"
@@ -20,7 +20,7 @@ void GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture*
     entity_t e_marco = new Entity(*this);
     Vector2D pos_marco = {};
     addComponent<TransformComponent>(e_marco, pos_marco);
-    addComponent<RenderComponent>(e_marco, tx_marco);
+    addComponent<RenderTextureComponent>(e_marco, tx_marco);
     _entsByGroup[grp::TABLE].push_back(e_marco);
     _entities.push_back(e_marco);
 
@@ -28,7 +28,7 @@ void GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture*
     entity_t e_sombraMarco = new Entity(*this);
     Vector2D pos_sombraMarco = {};
     addComponent<TransformComponent>(e_sombraMarco, pos_sombraMarco);
-    addComponent<RenderComponent>(e_sombraMarco, tx_sombraMarco);
+    addComponent<RenderTextureComponent>(e_sombraMarco, tx_sombraMarco);
     _entsByGroup[grp::TABLE].push_back(e_sombraMarco);
     _entities.push_back(e_sombraMarco);
 
@@ -36,7 +36,7 @@ void GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture*
     entity_t e_suelo = new Entity(*this);
     Vector2D pos_suelo = {};
     addComponent<TransformComponent>(e_suelo, pos_suelo);
-    addComponent<RenderComponent>(e_suelo, tx_suelo);
+    addComponent<RenderTextureComponent>(e_suelo, tx_suelo);
     _entsByGroup[grp::TABLE].push_back(e_suelo);
     _entities.push_back(e_suelo);
 
