@@ -3,9 +3,8 @@
 #include "RenderTextureComponent.h"
 #include "RigidBodyComponent.h"
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
+CaromScene::CaromScene(Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
 {
-    setNewState(s);
 }
 
 void // TODO: provisory definition

@@ -10,7 +10,7 @@ protected:
     ScenesManager* _manager;
     GameScene* _reward;
 public:
-    CaromScene(State* s, Game* g, GameScene* reward);
+    CaromScene(Game* g, GameScene* reward);
     ~CaromScene();
 
     void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
