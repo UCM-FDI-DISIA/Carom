@@ -6,6 +6,7 @@
 #include "ecs.h"
 
 class CaromScene;
+class Component;
 
 namespace ecs {
 

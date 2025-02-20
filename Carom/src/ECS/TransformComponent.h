@@ -38,5 +38,12 @@ namespace ecs{
         inline void setScale(Scale newScale){_scale = newScale;}
         inline void setRotation(double newRot){_rotation = newRot;}
 
+        // ! test
+        inline void update() {
+            setPosition(Vector2D(
+                _myEntity->getComponent<RigidBodyComponent>()->getB2Transform().p.x,
+                _myEntity->getComponent<RigidBodyComponent>()->getB2Transform().p.y
+            ));
+        }
     };
 }
