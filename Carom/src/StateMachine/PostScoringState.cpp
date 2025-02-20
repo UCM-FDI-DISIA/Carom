@@ -11,7 +11,8 @@ void
 PostScoringState::onStateExit() {
 }
 
-// bool
-// ScoringState::checkCondition(State*& state) {
-//     return true;
-// }
+bool
+PostScoringState::checkCondition(State*& state) {
+    // TODO
+    return true;
+}

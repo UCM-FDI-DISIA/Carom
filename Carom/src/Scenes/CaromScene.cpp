@@ -60,6 +60,5 @@ void CaromScene::update(){
     if(_currentState->checkCondition(a_stateToChange)){
         setNewState(a_stateToChange);
     }
-    _currentState->update();
     GameScene::update();
 }

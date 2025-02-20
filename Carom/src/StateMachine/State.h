@@ -5,8 +5,6 @@ class CaromScene;
 class State{
 public:
     inline State(CaromScene* scene) : _scene(scene) {}
-    //update en caso de que se quiera hacer algo en especifico en el estado
-    virtual void update()=0;
 
     //checkea la condicion
     //Si no ha encontrado ninguna condicion valida, devuelve false
