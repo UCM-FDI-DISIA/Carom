@@ -5,12 +5,9 @@
 #include "gameList.h"
 #include "ecs.h"
 
-class Component;
 class CaromScene;
 
 namespace ecs {
-
-    class GameScene;
 
     class GameScene;
 
