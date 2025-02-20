@@ -10,7 +10,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
 void // TODO: provisory definition
 CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
-    ecs::entity_t e = new ecs::Entity();
+    ecs::entity_t e = new ecs::Entity(*this);
     addComponent<ecs::TransformComponent>(e, pos);
 
     addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"));
@@ -26,7 +26,7 @@ CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float 
 
 void // TODO: provisory definition
 CaromScene::createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
-    ecs::entity_t e = new ecs::Entity();
+    ecs::entity_t e = new ecs::Entity(*this);
     addComponent<ecs::TransformComponent>(e, pos);
     // TODO: other components
     _entities.push_back(e);
@@ -35,7 +35,7 @@ CaromScene::createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2Bod
 
 void // TODO: provisory definition
 CaromScene::createTable(/* type */) {
-    ecs::entity_t e = new ecs::Entity();
+    ecs::entity_t e = new ecs::Entity(*this);
     // TODO: components
     _entities.push_back(e);
     _entsByGroup[ecs::grp::TABLE].push_back(e);

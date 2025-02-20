@@ -7,7 +7,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity() : _alive(true)
+    Entity::Entity(GameScene& scene) : _myScene(scene), _alive(true)
     {
     }
 

@@ -67,9 +67,10 @@ namespace ecs {
     private:
         friend GameScene;
         friend CaromScene;
-        Entity();
+        Entity(GameScene& scene);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
+        GameScene& _myScene;
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
         GameList<Entity>::anchor _anchor;
