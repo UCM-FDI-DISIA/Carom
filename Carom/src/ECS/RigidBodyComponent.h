@@ -85,7 +85,4 @@ class RigidBodyComponent : public InfoComponent
         PolygonShape(float sizex, float sizey);
         inline b2Polygon* getPolygon() {return &_polygon;}
     };
-
-
-
 }
