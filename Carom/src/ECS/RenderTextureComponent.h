@@ -14,7 +14,11 @@ namespace ecs {
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
-        RenderTextureComponent(Entity*, Texture*);
+        // The lower the further (for example: 0 = Background, 1 = Foreground)
+        // Mesa: suelo = 0, marco = 1, sombra marco = 2
+        int renderOrder;
+
+        RenderTextureComponent(Entity*, Texture*, int renderOrder);
         ~RenderTextureComponent() {};
 
         void render() override;

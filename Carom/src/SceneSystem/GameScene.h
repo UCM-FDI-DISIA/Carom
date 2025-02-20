@@ -26,6 +26,7 @@ class GameScene
 protected:
 	GameList<Entity> _entities;
 	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
+	std::vector<entity_t> _entsRenderable;
 
 	Game* game;
 
@@ -105,6 +106,8 @@ public:
 	Game* getGame() const;
 	/// Elimina los objetos
 	virtual void clear();
+	// Set rendering order. Called by render texture component on init.
+	void sortRenderOrder();
 };
 
 inline Game*

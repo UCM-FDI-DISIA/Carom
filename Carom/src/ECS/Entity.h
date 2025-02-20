@@ -59,6 +59,10 @@ namespace ecs {
             return static_cast<T*>(_components[cmpId<T>]);
         }
 
+        inline GameScene& getScene(){
+            return _myScene;
+        }
+
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();

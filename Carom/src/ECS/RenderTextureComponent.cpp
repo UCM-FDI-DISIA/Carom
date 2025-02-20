@@ -3,15 +3,21 @@
 #include "Entity.h"
 #include "TransformComponent.h"
 #include "PhysicsUtils.h"
+#include "GameScene.h"
 
 namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture) : RenderComponent(ent), _texture(texture), _transform(nullptr)
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder) 
+    : RenderComponent(ent),
+    _texture(texture),
+    _transform(nullptr),
+    renderOrder(renderOrder)
     {
 
     }
 
     void RenderTextureComponent::init(){
         _transform = _myEntity->getComponent<TransformComponent>();
+        _myEntity->getScene().sortRenderOrder();
     }
 
     void RenderTextureComponent::render() {

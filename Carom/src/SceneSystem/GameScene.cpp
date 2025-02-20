@@ -1,4 +1,5 @@
 #include <SDLUtils.h>
+#include <algorithm>
 #include "RenderTextureComponent.h"
 #include "TransformComponent.h"
 
@@ -15,12 +16,25 @@ GameScene::~GameScene(){};
 // Creates a table composed by 3 entities for textures and 4 entities that are the colliders of each side of the table.
 // The table is not an entity per se, is represented by a group of entities.
 // Those entities are grouped here -> _entsByGroup[grp::TABLE]
-void GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture* tx_suelo){
+void
+GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture* tx_suelo){
+    // Entidad suelo
+    entity_t e_suelo = new Entity(*this);
+    Vector2D pos_suelo = {};
+    addComponent<TransformComponent>(e_suelo, pos_suelo);
+    // Must be pushed back into renderable vector before adding the component for proper sort!
+    _entsRenderable.push_back(e_suelo);
+    addComponent<RenderTextureComponent>(e_suelo, tx_suelo, 0);
+    _entsByGroup[grp::TABLE].push_back(e_suelo);
+    _entities.push_back(e_suelo);
+    
     // Entidad marco
     entity_t e_marco = new Entity(*this);
     Vector2D pos_marco = {};
     addComponent<TransformComponent>(e_marco, pos_marco);
-    addComponent<RenderTextureComponent>(e_marco, tx_marco);
+    // Must be pushed back into renderable vector before adding the component for proper sort!
+    _entsRenderable.push_back(e_marco);
+    addComponent<RenderTextureComponent>(e_marco, tx_marco, 1);
     _entsByGroup[grp::TABLE].push_back(e_marco);
     _entities.push_back(e_marco);
 
@@ -28,17 +42,11 @@ void GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture*
     entity_t e_sombraMarco = new Entity(*this);
     Vector2D pos_sombraMarco = {};
     addComponent<TransformComponent>(e_sombraMarco, pos_sombraMarco);
-    addComponent<RenderTextureComponent>(e_sombraMarco, tx_sombraMarco);
+    // Must be pushed back into renderable vector before adding the component for proper sort!
+    _entsRenderable.push_back(e_sombraMarco);
+    addComponent<RenderTextureComponent>(e_sombraMarco, tx_sombraMarco, 2);
     _entsByGroup[grp::TABLE].push_back(e_sombraMarco);
     _entities.push_back(e_sombraMarco);
-
-    // Entidad suelo
-    entity_t e_suelo = new Entity(*this);
-    Vector2D pos_suelo = {};
-    addComponent<TransformComponent>(e_suelo, pos_suelo);
-    addComponent<RenderTextureComponent>(e_suelo, tx_suelo);
-    _entsByGroup[grp::TABLE].push_back(e_suelo);
-    _entities.push_back(e_suelo);
 
     //---- BODIES ----//
     // Create an entity for each cushion (border) of the table
@@ -52,8 +60,14 @@ void GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture*
 
 }
 
+void GameScene::sortRenderOrder(){
+    std::sort(_entsRenderable.begin(), _entsRenderable.end(), [](entity_t a, entity_t b) {
+        return a->getComponent<RenderTextureComponent>()->renderOrder < b->getComponent<RenderTextureComponent>()->renderOrder;
+    });
+}
+
 void GameScene::render(){
-    for (auto entity : _entities) {
+    for (auto entity : _entsRenderable) {
         entity->render();
     }
 }

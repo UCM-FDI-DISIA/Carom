@@ -13,12 +13,12 @@ public:
     CaromScene(State* s, Game* g, GameScene* reward);
     ~CaromScene();
 
-    void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
+    // TODO: provisory definition
+    void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
 
-	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
-
-	void createTable(/* type, etc */); // TODO: provisory definition
-
+    // TODO: provisory definition
+	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
+    
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
     //- Cambia el estado por el nuevo
