@@ -99,10 +99,10 @@ add_executable(Carom
 	src/SceneSystem/ScenesManager.cpp
 
 	src/ECS/Entity.cpp
-	src/ECS/EntityManager.cpp
 	src/ECS/Component.cpp
 	src/ECS/RenderTextureComponent.cpp
 	src/ECS/TransformComponent.cpp
+	src/ECS/RigidBodyComponent.cpp
 
 	src/Physics/B2Manager.cpp
 	src/inputTest.cpp
@@ -113,6 +113,8 @@ add_executable(Carom
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/PostScoringState.cpp
+	
+	src/ScoreContainer.cpp
 )
 
 # Link Box2D

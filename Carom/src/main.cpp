@@ -4,12 +4,12 @@
 
 #include "Game.h"
 
-/*void start() {
+void start() {
     Game g;
 
     g.init();
     g.start();
-}*/
+}
 
 int main (int, char**)
 {
