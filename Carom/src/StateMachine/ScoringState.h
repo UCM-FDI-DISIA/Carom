@@ -4,8 +4,6 @@
 class ScoringState: public State {
 public:
 
-    virtual void update() override;
-
     bool checkCondition(State*& state) override;
 
 

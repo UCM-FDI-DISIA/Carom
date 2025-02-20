@@ -71,6 +71,7 @@ protected:
 		return e->removeComponent<T>();
 	}
 
+public:
 	// Return true if there is a component with identifier T::id in the entity.
 	//
 	template<typename T>
@@ -90,6 +91,18 @@ protected:
 	inline auto& getEntitiesOfGroup(grpId_t gId) {
 		return _entsByGroup[gId];
 	}
+
+	// // Enables all entity's components
+	// //
+	// inline void enableEntity(entity_t e) {
+	// 	e->enable();
+	// }
+
+	// // Disables all entity's components
+	// //
+	// inline void disableEntity(entity_t e) {
+	// 	e->disable();
+	// }
 
 public:
 	virtual ~GameScene();

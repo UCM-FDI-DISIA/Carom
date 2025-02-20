@@ -58,6 +58,24 @@ namespace ecs {
             return static_cast<T*>(_components[cmpId<T>]);
         }
 
+        std::vector<Component*> getAllComponents(){
+            return _currentComponents;
+        }
+
+        // Enables all entity's components
+	    //
+        // void enable() {
+        //     for(auto& cmp: _currentComponents)
+        //         cmp->enable();
+        // }
+
+        // Disables all entity's components
+        //
+        // inline void disable() {
+        //     for(auto& cmp: _currentComponents)
+        //         cmp->disable();
+        // }
+
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
