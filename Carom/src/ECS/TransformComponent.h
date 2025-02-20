@@ -24,7 +24,7 @@ namespace ecs{
     public:
         __CMPID_DECL__(cmp::TRANSFORM);
 
-        TransformComponent(Entity* ent) : InfoComponent(ent), _position(Vector2D(0, 0)), _scale({1,1}), _rotation(0) {}
+        TransformComponent(Entity* ent, const Vector2D& pos);
         virtual ~TransformComponent(){}
 
         // Getters
