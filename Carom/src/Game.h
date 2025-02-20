@@ -5,6 +5,8 @@ class B2Manager;
 
 class Game {
 public:
+    static constexpr int nCushions = 4;
+
     Game();
     virtual ~Game();
 

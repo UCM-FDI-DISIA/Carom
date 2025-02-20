@@ -31,6 +31,9 @@ protected:
 
 	GameScene(Game* game);
 
+	// Create entities that represent and compose the table. The table as a whole is a group.
+	void createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture* tx_suelo);
+
 	inline GameList<Entity>& getEntities() { return _entities; }
 
 	// Setting the state of the entity (alive or dead)
