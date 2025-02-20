@@ -1,0 +1,16 @@
+{
+    "entityPrefab" : [
+        {
+            "componentName" : "TransformComponent", 
+            "atributes" :{"Vector2D" : {"x" : 0, "y" : 0}}
+        },
+        {
+            "componentName" : "RigidBodyComponent", 
+            "atributes" : {"b2BodyType" : "static", "CircleShape": {"radius" : 2}, "density": 1, "friction" : 0.2, "restitution" : 0.5}
+        },
+        {
+            "componentName" : "RenderTextureComponent",
+            "atributes" : {"Texture" : {"id" : "tennis_ball"}}
+        }
+    ]
+}

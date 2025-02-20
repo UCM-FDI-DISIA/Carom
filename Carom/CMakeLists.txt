@@ -103,6 +103,7 @@ add_executable(Carom
 	src/ECS/RenderTextureComponent.cpp
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
+	src/ECS/JsonEntityParser.cpp
 
 	src/Physics/B2Manager.cpp
 	src/inputTest.cpp
