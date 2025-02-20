@@ -21,17 +21,17 @@ namespace ecs {
     }
 
     void Entity::update(){
-        for(Component* component : _currentComponents) 
-            component->update();
+        for(Component* component : _currentComponents)
+            if (component->isEnable()) component->update();
     }
 
     void Entity::render(){
         for(Component* component : _currentComponents) 
-            component->render();
+            if (component->isEnable()) component->render();
     }
 
     void Entity::handleEvents(){
         for(Component* component : _currentComponents) 
-            component->handleEvent();
+            if (component->isEnable()) component->handleEvent();
     }
 }
