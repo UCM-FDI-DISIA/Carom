@@ -39,7 +39,7 @@ class RNG_Manager
     }
 
     template<typename T>
-    std::vector<T> getRandomItems(std::vector<RandomItem<T>>& const itemsVector, int quantity, bool replacement = true)
+    std::vector<T> getRandomItems(std::vector<RandomItem<T>> const itemsVector, int quantity, bool replacement = true)
     {
         std::vector<T> result;
 
@@ -55,6 +55,15 @@ class RNG_Manager
 
         return result;
     }
+
+    inline int randomRange(int x, int y) {return _rng.nextInt(x,y);};
+    inline float randomRange(float x, float y){return _rng.nextFloat(x,y);};
+
+    inline bool result(float probability){
+        float r = _rng.nextFloat();
+        std::cout << r << std::endl;
+        return r < probability;
+    };
 
     private:
 };

@@ -7,6 +7,8 @@
 #include "InputHandler.h"
 #include "macros.h"
 #include "SDLUtils.h"
+#include "RNG_Manager.h"
+#include <vector>
 
 using namespace std;
 
@@ -36,6 +38,23 @@ void input_basic_demo() {
 	// of *SDLUtils::instance() --- it is defined at the end of SDLUtils.h
 	//
 	auto &sdl = *SDLUtils::Instance();
+	RNG_Manager rng = RNG_Manager();
+	rng.inseminate(1);
+	vector<RandomItem<int>> vec;
+	RandomItem<int> item1(1, 0.5f);
+	RandomItem<int> item2(2, 0.5f);
+	RandomItem<int> item3(3, 0.5f);
+	RandomItem<int> item4(4, 0.5f);
+	vec.push_back(item1);
+	vec.push_back(item2);
+	vec.push_back(item3);
+	vec.push_back(item4);
+	vector<int> selectedItems = rng.getRandomItems(vec, 13, false);
+
+	for(auto item : selectedItems)
+	{
+		cout << "Item: " << item << endl;
+	}
 
 	//show the cursor
 	sdl.showCursor();
@@ -183,3 +202,52 @@ void input_basic_demo() {
 
 }
 
+void rng_basic_demo() 
+{
+	//RNG_Manager es la clase que contiene todas las funcione de Rng pertinentes
+	RNG_Manager rng = RNG_Manager();
+
+	//Inseminate para setear la semilla, los resultados deben ser los mismos siempre si la semilla es la misma
+	//Si no se usa entonces la semilla es aleatoria es decir, no se sabe quien es el padre
+	rng.inseminate(1);
+
+	//Creamos un vector al que le añadimos RandomItem, RandomItem es un struct que guarda una clase
+	//o struct del tipo especificado y un float que es el peso de dicho item a la hora de ser elegido entre
+	//un vector de varios RandomItemss
+	vector<RandomItem<string>> vec;
+	//Notese que item1 e item4 tienen mayor peso que el resto por lo tanto es más probable que salgan
+
+	vec.push_back(RandomItem<string>("Joker", 0.5f));
+	vec.push_back(RandomItem<string>("Makoto", 1.5f));
+	vec.push_back(RandomItem<string>("Skibidi Toilet", 0.5f));
+	vec.push_back(RandomItem<string>("Persona", 2.5f));
+
+	//getRandomItems elige de forma aleatoria de un vector de items
+	//una cantidad especificada, siendo el primer parámetro el vector
+	//el segundo la cantidad y el tercero un booleano para indicar si hay remplazamiento o no (por defecto está en verdadero)
+	vector<string> selectedItems = rng.getRandomItems(vec, 13, false);
+
+	cout << "Elegidos: ";
+	for(string item : selectedItems)
+	{
+		cout << item << ", ";
+	}
+	cout << endl;
+
+	//getRandomItem devuelve un solo item en vez de varios, posee un segundo parámetro que permite eliminar del
+	//vector dado el item devuelto
+	string selectedItem = rng.getRandomItem(vec);
+	cout << "Item unico seleccionado: " << selectedItem << endl;
+
+	//randomRange devuelve un valor en un rango definido, tiene sobrecarga para float e int
+	float f = rng.randomRange(3.0f, 15.0f);
+	int n = rng.randomRange(3, 10);
+
+	cout << "float aleatorio: " << f << endl << "int aleatorio: " << n << endl;
+
+	//result devuelve verdadero o falso según la probabilidad dada, a más
+	//probabilidad más probable que devuelva verdadero e viceversa
+	float probability = 0.3f;
+	bool result(probability);
+	cout << "Resultado aleatorio: " << probability << endl;
+}

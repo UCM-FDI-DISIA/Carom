@@ -3,4 +3,5 @@
 #pragma once
 
 // declaration of functions defined in demo.cpp
-void  input_basic_demo(void);
+void input_basic_demo(void);
+void rng_basic_demo(void);
