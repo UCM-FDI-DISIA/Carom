@@ -5,7 +5,7 @@
 
 namespace ecs{
 
-GameScene::GameScene(Game* game): game(game), _currentCamera(new Camera(0,0)){}
+GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
 
 GameScene::~GameScene(){};
 
@@ -33,8 +33,20 @@ void GameScene::clear(){
     }
 }
 
-Camera* GameScene::getCurrentCamera() const{
-    return _currentCamera;
+Camera* GameScene::getWorldCamera(){
+    return &_worldCamera;
 }
+
+Camera* GameScene::getUICamera() {
+    return &_UICamera;
+}
+
+void GameScene::setWorldCamera(b2Vec2 pos){
+
+}
+
+void GameScene::setUICamera(b2Vec2 pos){
+}
+
 };
 

@@ -8,9 +8,9 @@
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
+#include "Camera.h"
 
 class Game;
-class Camera;
 
 // Declaraciones anticipadas
 namespace ecs{
@@ -29,7 +29,8 @@ protected:
 	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
 
 	Game* game;
-	Camera* _currentCamera = nullptr;
+	Camera _worldCamera;
+	Camera _UICamera;
 
 	GameScene(Game* game);
 
@@ -102,7 +103,10 @@ public:
 
 	/// Obtiene el juego al que pertenece el estado
 	Game* getGame() const;
-	Camera* getCurrentCamera() const;
+	Camera* getWorldCamera();
+	Camera* getUICamera();
+	void setWorldCamera(b2Vec2 pos);
+	void setUICamera(b2Vec2 pos);
 	/// Elimina los objetos
 	virtual void clear();
 };

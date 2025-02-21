@@ -19,7 +19,7 @@ namespace ecs {
 
     void RenderTextureComponent::render() {
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
-        auto [coordinateX, coordinateY] = _myEntity->getScene().getCurrentCamera()->
+        auto [coordinateX, coordinateY] = _myEntity->getScene().getWorldCamera()->
         getRenderPos({_transform->getPosition().getX(),_transform->getPosition().getY()});
         
         //Adapta el rect para que el objeto apareca en el centro de este
