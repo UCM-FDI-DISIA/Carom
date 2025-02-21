@@ -63,6 +63,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/utils/include
 	${CMAKE_SOURCE_DIR}/external/json/include
 
+	${CMAKE_SOURCE_DIR}/src
 	${CMAKE_SOURCE_DIR}/src/ECS
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
@@ -102,10 +103,10 @@ add_executable(Carom
 	src/ECS/Entity.cpp
 	src/ECS/Component.cpp
 	src/ECS/RenderTextureComponent.cpp
-	src/ECS/RigidBodyComponent.cpp
-	src/ECS/TransformComponent.cpp
 
-	src/Physics/B2Manager.cpp
+	src/ECS/TransformComponent.cpp
+	src/ECS/RigidBodyComponent.cpp
+
 	src/inputTest.cpp
 	src/Physics/PhysicsUtils.cpp
 

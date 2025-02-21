@@ -1,8 +1,17 @@
+#pragma once
+
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
-#include "B2Manager.h"
+
+#include "Entity.h"
+#include "CaromScene.h"
+
+#include "ITransform.h"
+
+#include "Vector2D.h"
 
 #include <exception>
+#include <typeinfo>
 
 using namespace ecs;
 
@@ -13,39 +22,92 @@ using namespace ecs;
 /// @param friction The friction of the object
 /// @param restitution The restitution of the object
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
-RigidBodyComponent::RigidBodyComponent(entity_t ent, b2BodyType type, Shape *shape, float density, float friction, float restitution) 
-    : InfoComponent(ent)
+RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2BodyType type, Shape *shape, float density, float friction, float restitution) 
+    : InfoComponent(ent), ITransform()
 {
-    _bodyId = new b2BodyId();
+
+    CaromScene* scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
+
+    if (scene == nullptr) { throw "La escena no es de tipo CaromScene"; }
+
+    std::pair<b2BodyId, b2ShapeDef*> bodyShapeTuple = scene->generateBodyAndShape(pos, type, density, friction, restitution);
+
+    _myB2BodyId = bodyShapeTuple.first;
 
     switch (shape->getType()) {
         case shape::CIRCLE: {
             CircleShape* circle = static_cast<CircleShape*>(shape);
-            _bodyId = b2mngr().addRigidbody(ent, type, *circle->getCircle(), density, friction, restitution);
+            b2CreateCircleShape(_myB2BodyId, bodyShapeTuple.second, circle->getCircle());
             break;
         }
         case shape::CAPSULE: {
             CapsuleShape* capsule = static_cast<CapsuleShape*>(shape);
-            _bodyId = b2mngr().addRigidbody(ent, type, *capsule->getCapsule(), density, friction, restitution);
+            b2CreateCapsuleShape(_myB2BodyId, bodyShapeTuple.second, capsule->getCapsule());
             break;
         }
         case shape::POLYGON: {
             PolygonShape* polygon = static_cast<PolygonShape*>(shape);
-            _bodyId = b2mngr().addRigidbody(ent, type, *polygon->getPolygon(), density, friction, restitution);
+            b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, polygon->getPolygon());
             break;
         }
     }
+    
 }
 
 RigidBodyComponent::~RigidBodyComponent(){
-    B2Manager::Instance()->removeBody(_bodyId);
+    b2DestroyBody(_myB2BodyId);
+}
+
+/// @brief Accesor de posición
+/// @return Vector posición en el mundo físico
+Vector2D
+RigidBodyComponent::getPosition() const {
+    b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
+    return {a_b2t.x , a_b2t.y};
+}
+
+/// @brief Accesor de escala
+/// @return Escala en x y en Y como multiplicadores
+ITransform::Scale
+RigidBodyComponent::getScale() const {
+    return _myScale;
+    
+}
+
+/// @brief Accesor de rotación
+/// @return Rotación en radianes
+double
+RigidBodyComponent::getRotation() const {
+    b2Rot a_b2r = b2Body_GetRotation(_myB2BodyId);
+    return b2Atan2(a_b2r.s, a_b2r.c);
+}
+
+/// @brief Recoloca el objeto físico
+/// @param newPos Posición cartesiana
+void
+RigidBodyComponent::setPosition(const Vector2D& newPos) {
+    b2Body_SetTransform(_myB2BodyId, {newPos.getX(), newPos.getY()}, b2Body_GetRotation(_myB2BodyId));
+}
+
+/// @brief Modifica la escala del objeto
+/// @param newScale Multiplicadores de escala
+void
+RigidBodyComponent::setScale(const Scale& newScale) {
+    _myScale = newScale;
+}
+
+/// @brief Asigna la rotación del objeto físico
+/// @param newRot 
+void
+RigidBodyComponent::setRotation(const double& newRot) {
+    b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {std::cosf(newRot), std::sinf(newRot)});
 }
 
 /// @brief Changes the body type.
 /// @param newType New type of the RigidBody.
 void
 RigidBodyComponent::changeBodyType(b2BodyType newType){
-    b2Body_SetType(*_bodyId, newType);
+    b2Body_SetType(_myB2BodyId, newType);
 }
 
 /// @brief Applies force at the specified offset origin point
@@ -53,8 +115,8 @@ RigidBodyComponent::changeBodyType(b2BodyType newType){
 /// @param origin the offset. {0,0} is the center of the object
 void
 RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
-    b2Vec2 a_b2t = b2Body_GetPosition(*_bodyId);
-    b2Body_ApplyForce(*_bodyId, force, origin + a_b2t, false);
+    b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
+    b2Body_ApplyForce(_myB2BodyId, force, origin + a_b2t, false);
 }
 
 /// @brief Applies force at the specified world origin point
@@ -62,14 +124,14 @@ RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
 RigidBodyComponent::applyForceToWorld(b2Vec2 force, b2Vec2 origin){
-    b2Body_ApplyForce(*_bodyId, force, origin, false);
+    b2Body_ApplyForce(_myB2BodyId, force, origin, false);
 }
 
 /// @brief Applies force at the center of the object
 /// @param force the vector force to aplly
 void
 RigidBodyComponent::applyForceToCenter(b2Vec2 force){
-    b2Body_ApplyForceToCenter(*_bodyId, force, false);
+    b2Body_ApplyForceToCenter(_myB2BodyId, force, false);
 }
 
 /// @brief Applies impulse at the specified offset origin point
@@ -77,8 +139,8 @@ RigidBodyComponent::applyForceToCenter(b2Vec2 force){
 /// @param origin the offset. {0,0} is the center of the object
 void
 RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
-    b2Vec2 a_b2t = b2Body_GetPosition(*_bodyId);
-    b2Body_ApplyLinearImpulse(*_bodyId, impulse, origin + a_b2t, false);
+    b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
+    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin + a_b2t, false);
 }
 
 /// @brief Applies impulse at the specified world origin point
@@ -86,14 +148,14 @@ RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
 RigidBodyComponent::applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin){
-    b2Body_ApplyLinearImpulse(*_bodyId, impulse, origin, false);
+    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin, false);
 }
 
 /// @brief Applies impulse at the center of the object
 /// @param impulse the vector impulse to aplly
 void
 RigidBodyComponent::applyImpulseToCenter(b2Vec2 impulse){
-    b2Body_ApplyLinearImpulseToCenter(*_bodyId, impulse, false);
+    b2Body_ApplyLinearImpulseToCenter(_myB2BodyId, impulse, false);
 }
 
 /// @brief Changes the density of every Shape of the object
@@ -102,7 +164,7 @@ RigidBodyComponent::applyImpulseToCenter(b2Vec2 impulse){
 void
 RigidBodyComponent::setDensity(float density, int nShapes){
     b2ShapeId shapes[10];
-    b2Body_GetShapes(*_bodyId, shapes, nShapes);
+    b2Body_GetShapes(_myB2BodyId, shapes, nShapes);
     
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetDensity(shapes[i], density, true);
@@ -115,7 +177,7 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 void
 RigidBodyComponent::setFriction(float friction, int nShapes){
     b2ShapeId shapes[10];
-    b2Body_GetShapes(*_bodyId, shapes, nShapes);
+    b2Body_GetShapes(_myB2BodyId, shapes, nShapes);
     
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetFriction(shapes[i], friction);
@@ -128,7 +190,7 @@ RigidBodyComponent::setFriction(float friction, int nShapes){
 void
 RigidBodyComponent::setRestitution(float restitution, int nShapes){
     b2ShapeId shapes[10];
-    b2Body_GetShapes(*_bodyId, shapes, nShapes);
+    b2Body_GetShapes(_myB2BodyId, shapes, nShapes);
     
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetRestitution(shapes[i], restitution);

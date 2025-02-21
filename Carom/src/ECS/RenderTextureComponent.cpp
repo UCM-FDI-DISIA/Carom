@@ -16,7 +16,13 @@ namespace ecs {
     }
 
     void RenderTextureComponent::init(){
-        _transform = _myEntity->getComponent<TransformComponent>();
+
+        // Chapucilla para que el render funcione siempre
+        if (_myEntity->tryGetComponent<RigidBodyComponent>()) 
+            _transform = _myEntity->getComponent<RigidBodyComponent>();
+        else
+            _transform = _myEntity->getComponent<TransformComponent>();
+
         _myEntity->getScene().sortRenderOrder();
     }
 

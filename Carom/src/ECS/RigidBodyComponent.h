@@ -4,6 +4,8 @@
 #include <box2D/box2D.h>
 #include "ecs.h"
 
+#include "ITransform.h"
+
 
 class B2Manager;
 
@@ -12,21 +14,31 @@ namespace ecs{
 class Shape;
 class Entity;
 
-class RigidBodyComponent : public InfoComponent
+class RigidBodyComponent : public InfoComponent, public ITransform
 {
-    b2BodyId *_bodyId;
+private:
+    b2BodyId _myB2BodyId;
 
-    public:
+    Scale _myScale = {1.0, 1.0};
+
+public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
-    RigidBodyComponent(Entity* ent, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
+    RigidBodyComponent(entity_t ent, const Vector2D& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
     virtual ~RigidBodyComponent();
 
     // Getters
-    inline b2Transform getB2Transform(){return b2Body_GetTransform(*_bodyId);}
-    inline b2BodyId* getB2Body(){return _bodyId;}
+    Vector2D getPosition() const override;
+    Scale getScale() const override;
+    double getRotation() const override;
+    inline b2BodyId getB2Body() const {return _myB2BodyId;}
 
     // Setters
+
+    void setPosition(const Vector2D& newPos) override;
+    void setScale(const Scale& newScale) override;
+    void setRotation(const double& newRot) override;
+
     void changeBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes = 1);
     void setFriction(float friction, int nShapes = 1);

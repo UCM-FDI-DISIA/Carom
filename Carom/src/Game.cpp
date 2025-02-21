@@ -7,7 +7,6 @@
 #include "GameScene.h" // ! test
 #include "CaromScene.h" // ! test
 #include "PL_State.h" // ! test
-#include "B2Manager.h" // ! test
 
 
 Game::Game() {}
@@ -21,10 +20,6 @@ Game::~Game() {
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
-
-    // release B2Manager if the instance was created correctly.
-    if (B2Manager::HasInstance())
-        B2Manager::Release();
 }
 
 // TODO
@@ -42,13 +37,6 @@ Game::init() {
 	// initialize InputHandler singleton
     if (!InputHandler::Init()) {
         std::cerr << "Something went wrong while initializing SDLHandler"
-                << std::endl;
-        return;
-    }
-
-    // Initialize B2Manager singleton
-    if (!B2Manager::Init()) {
-        std::cerr << "Something went wrong while initializing B2Manager"
                 << std::endl;
         return;
     }
@@ -72,7 +60,7 @@ Game::start() {
 
     while(!exit) {
         // store the current time -- all game objects should use this time when
-		// then need to the current time. They also have accessed to the time elapsed
+		// they need to get the current time. They also have accesse to the time elapsed
 		// between the last two calls to regCurrTime().
 		Uint32 startTime = sdlutils().regCurrTime();
 
@@ -86,14 +74,17 @@ Game::start() {
         
         sdlutils().clearRenderer();
 
-        b2mngr().stepWorld(); 
-
         _sceneManager->handleEvent();
         _sceneManager->update();
         _sceneManager->render();
 
 		sdlutils().presentRenderer();
 
+        Uint32 elapsed = startTime - sdlutils().currRealTime();
+
+        // Forzado a que el juego no vaya mas rápido que 60 fps
+        if (elapsed < FIXED_TIME_STEP)
+			SDL_Delay(FIXED_TIME_STEP - elapsed);
     }
 
 }

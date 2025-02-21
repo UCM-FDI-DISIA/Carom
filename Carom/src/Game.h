@@ -1,11 +1,14 @@
 #pragma once
 
 class ScenesManager;
-class B2Manager;
+
+#include "SDL.h"
 
 class Game {
 public:
     static constexpr int nCushions = 4;
+
+    static constexpr Uint32 FIXED_TIME_STEP = 1000/60;
 
     Game();
     virtual ~Game();
@@ -15,5 +18,4 @@ public:
 
 protected:
     ScenesManager* _sceneManager;
-    B2Manager* _b2World;
 };

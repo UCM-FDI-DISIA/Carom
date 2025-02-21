@@ -5,19 +5,16 @@
 #include "Vector2D.h"
 
 #include "InfoComponent.h"
+#include "ITransform.h"
 #include "RigidBodyComponent.h"
 #include "Entity.h"
 
 
 namespace ecs{
 
-    class TransformComponent : public InfoComponent{
+    class TransformComponent : public InfoComponent, public ITransform{
 
         Vector2D _position;
-        struct Scale{
-            double x;
-            double y;
-        };
         Scale _scale;
         double _rotation; //In radians
 
@@ -28,20 +25,20 @@ namespace ecs{
         virtual ~TransformComponent(){}
 
         // Getters
-        inline Vector2D getPosition(){return _position;}
-        inline Scale getScale(){return _scale;}
-        inline double getRotation(){return _rotation;}
+        inline Vector2D getPosition() const override {return _position;}
+        inline Scale getScale() const override {return _scale;}
+        inline double getRotation() const override {return _rotation;}
 
         // Setters
-        inline void setPosition(Vector2D newPos){_position = newPos;}
-        inline void setScale(Scale newScale){_scale = newScale;}
-        inline void setRotation(double newRot){_rotation = newRot;}
+        inline void setPosition(const Vector2D& newPos) override {_position = newPos;}
+        inline void setScale(const Scale& newScale) override {_scale = newScale;}
+        inline void setRotation(const double& newRot) override {_rotation = newRot;}
 
         // ! test
         inline void update() {
             setPosition(Vector2D(
-                _myEntity->getComponent<RigidBodyComponent>()->getB2Transform().p.x,
-                _myEntity->getComponent<RigidBodyComponent>()->getB2Transform().p.y
+                _myEntity->getComponent<RigidBodyComponent>()->getPosition().getX(),
+                _myEntity->getComponent<RigidBodyComponent>()->getPosition().getY()
             ));
         }
     };
