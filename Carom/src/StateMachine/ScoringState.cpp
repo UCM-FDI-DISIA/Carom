@@ -22,18 +22,17 @@ ScoringState::onStateExit() {
 
 bool
 ScoringState::checkCondition(State*& state) {
-    // TODO: comprobar si todas las bolas han dejado de moverse
-    // auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
-    // for(auto& e : whiteBall) {
-    //     if(!_scene->getComponent<RigidBodyComponent>(e).isNotMoving())
-    //     return false;
-    // }
+    auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
+    for(auto& e : whiteBall) {
+        if(_scene->getComponent<ecs::RigidBodyComponent>(e)->isMoving())
+        return false;
+    }
 
-    // auto effectBalls = _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
-    // for(auto& e : effectBalls) {
-    //     if(!_scene->getComponent<RigidBodyComponent>(e).isNotMoving())
-    //     return false;
-    // }
+    auto effectBalls = _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+    for(auto& e : effectBalls) {
+        if(_scene->getComponent<ecs::RigidBodyComponent>(e)->isMoving())
+        return false;
+    }
 
     return true;
 }

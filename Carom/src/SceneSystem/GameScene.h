@@ -76,14 +76,14 @@ public:
 	//
 	template<typename T>
 	inline bool hasComponent(entity_t e) {
-		return e->tryGetComponent(cmpId<T>);
+		return e->tryGetComponent();
 	}
 
 	// Returns pointer to the component <T> of the entity.
 	//
 	template<typename T>
 	inline T* getComponent(entity_t e) {
-		return e->getComponent<T>(cmpId<T>);
+		return e->getComponent<T>();
 	}
 
 	// Returns the vector of all entities of a group ID.
