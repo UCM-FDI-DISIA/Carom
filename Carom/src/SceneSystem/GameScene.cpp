@@ -42,11 +42,11 @@ Camera* GameScene::getUICamera() {
 }
 
 void GameScene::setWorldCamera(b2Vec2 pos){
-
+    _worldCamera = Camera(pos.x, pos.y);
 }
 
 void GameScene::setUICamera(b2Vec2 pos){
+    _UICamera = Camera(pos.x, pos.y);
 }
-
 };
 
