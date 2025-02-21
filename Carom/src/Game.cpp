@@ -79,6 +79,8 @@ Game::start() {
 		// refresh the input handler
 		ihdlr.refresh();
 
+        sdlutils().showCursor();
+
 		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
 			exit = true;
 			continue;

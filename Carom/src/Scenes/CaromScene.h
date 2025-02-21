@@ -13,12 +13,15 @@ public:
     CaromScene(State* s, Game* g, GameScene* reward);
     ~CaromScene();
 
-    // TODO: provisory definition
-    void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+    void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
 
-    // TODO: provisory definition
-	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
-    
+	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius); // TODO: provisory definition
+
+    // Bola sin físicas para probar cosas del StickInputComponent.
+    void createTesteableBall(Vector2D pos);
+
+	void createTable(/* type, etc */); // TODO: provisory definition
+
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
     //- Cambia el estado por el nuevo
