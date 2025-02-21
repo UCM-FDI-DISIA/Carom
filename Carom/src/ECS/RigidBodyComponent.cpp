@@ -3,6 +3,8 @@
 #include "B2Manager.h"
 
 #include <exception>
+#include <cmath>
+#include <math.h>
 
 using namespace ecs;
 
@@ -39,6 +41,13 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent, b2BodyType type, Shape *sha
 
 RigidBodyComponent::~RigidBodyComponent(){
     B2Manager::Instance()->removeBody(_bodyId);
+}
+
+/// @brief Returns a bool indicating whether the body is moving
+bool
+RigidBodyComponent::isMoving() {
+    b2Vec2 vel = getVelocity();
+    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y,2)) < 0.01f;
 }
 
 /// @brief Changes the body type.

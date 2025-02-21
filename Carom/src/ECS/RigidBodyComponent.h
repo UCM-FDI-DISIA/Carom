@@ -25,6 +25,8 @@ class RigidBodyComponent : public InfoComponent
     // Getters
     inline b2Transform getB2Transform(){return b2Body_GetTransform(*_bodyId);}
     inline b2BodyId* getB2Body(){return _bodyId;}
+    inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(*_bodyId);}
+    bool isMoving();
 
     // Setters
     void changeBodyType(b2BodyType newType);
