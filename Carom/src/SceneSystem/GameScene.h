@@ -27,7 +27,7 @@ protected:
 	GameList<Entity> _entities;
 	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
 
-	Game* game;
+	Game* _game;
 
 	GameScene(Game* game);
 
@@ -92,17 +92,17 @@ public:
 		return _entsByGroup[gId];
 	}
 
-	// // Enables all entity's components
-	// //
-	// inline void enableEntity(entity_t e) {
-	// 	e->enable();
-	// }
+	// Enables all entity's components
+	//
+	inline void enableEntity(entity_t e) {
+		e->enable();
+	}
 
-	// // Disables all entity's components
-	// //
-	// inline void disableEntity(entity_t e) {
-	// 	e->disable();
-	// }
+	// Disables all entity's components
+	//
+	inline void disableEntity(entity_t e) {
+		e->disable();
+	}
 
 public:
 	virtual ~GameScene();
@@ -120,7 +120,7 @@ public:
 inline Game*
 GameScene::getGame() const
 {
-	return game;
+	return _game;
 }
 
 }
