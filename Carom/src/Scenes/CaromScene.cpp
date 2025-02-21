@@ -27,6 +27,8 @@ CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float 
 
     ecs::CircleShape *cs = new ecs::CircleShape(radius);
     addComponent<ecs::RigidBodyComponent>(e, b2_dynamicBody, cs, density, friction, restitution);
+    addComponent<ecs::
+    
 
     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
     _entities.push_back(e);

@@ -6,7 +6,8 @@
 	TRANSFORM, \
 	RENDER_TEXTURE, \
 	RIGIDBODY, \
-	SHAPE
+	SHAPE, \
+	STICK_INPUT
 
 // Groups list - must have at least one element
 //
