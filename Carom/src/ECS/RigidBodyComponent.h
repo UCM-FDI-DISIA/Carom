@@ -48,7 +48,7 @@ public:
 
     // Setters
     void setPosition(const Vector2D& newPos) override;
-    void setScale(const Scale& newScale) override;
+    void setScale(const Scale& newScale) override; //! not working
     void setRotation(const double& newRot) override;
 
     void setBodyType(b2BodyType newType);
