@@ -21,6 +21,12 @@ private:
 
     Scale _myScale = {1.0, 1.0};
 
+    // * La unica forma de escalar es rompiendo la shape y haciendo otra, se guardan estos parámetros con ese objetivo
+    Shape* _myShape;
+    float _density;
+    float _friction;
+    float _restitution;
+
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
@@ -34,12 +40,11 @@ public:
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
 
     // Setters
-
     void setPosition(const Vector2D& newPos) override;
     void setScale(const Scale& newScale) override;
     void setRotation(const double& newRot) override;
 
-    void changeBodyType(b2BodyType newType);
+    void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes = 1);
     void setFriction(float friction, int nShapes = 1);
     void setRestitution(float restitution, int nShapes = 1);
@@ -63,6 +68,7 @@ public:
         shape::shapeId _shapeType;
 
         inline shape::shapeId getType() {return _shapeType;}
+        virtual void setScale(Vector2D newScale) = 0;
         
         Shape() {}
     public:
@@ -75,15 +81,19 @@ public:
 
     public:
         CircleShape(float radius);
+
         inline b2Circle* getCircle() {return &_circle;}
+        void setScale(Vector2D newScale) override;
     };
 
     class CapsuleShape : public Shape{
         b2Capsule _capsule;
 
     public:
-        CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter); // We use Vector2D to avoid having multiple representations of vectors
+        CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter);
+
         inline b2Capsule* getCapsule() {return &_capsule;}
+        void setScale(Vector2D newScale) override;
     };
 
     class PolygonShape : public Shape{
@@ -93,7 +103,9 @@ public:
         PolygonShape(b2Vec2 vertex[], int size, float radius);
         PolygonShape(float side);
         PolygonShape(float sizex, float sizey);
+
         inline b2Polygon* getPolygon() {return &_polygon;}
+        void setScale(Vector2D newScale) override;
     };
 
 

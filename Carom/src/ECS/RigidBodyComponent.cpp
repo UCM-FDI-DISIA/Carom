@@ -51,7 +51,11 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2Body
             break;
         }
     }
-    
+
+    _myShape = shape;
+    _density = density;
+    _friction = friction;
+    _restitution = restitution;
 }
 
 RigidBodyComponent::~RigidBodyComponent(){
@@ -89,11 +93,42 @@ RigidBodyComponent::setPosition(const Vector2D& newPos) {
     b2Body_SetTransform(_myB2BodyId, {newPos.getX(), newPos.getY()}, b2Body_GetRotation(_myB2BodyId));
 }
 
-/// @brief Modifica la escala del objeto
+/// @brief Modifica la escala del objeto. En el caso de formas que tengan radios, el valor que modifica el radio es la y por conveniencia
 /// @param newScale Multiplicadores de escala
 void
 RigidBodyComponent::setScale(const Scale& newScale) {
     _myScale = newScale;
+
+    // TODO Hacer que pueda asumir más de una shape, solo si es necesario
+    b2ShapeId shape[1];
+    b2Body_GetShapes(_myB2BodyId, shape, 1); // * Suponemos 1 sola shape por body
+
+    b2DestroyShape(shape[0], false);
+
+    _myShape->setScale({newScale.x, newScale.y});
+
+    b2ShapeDef* a_shapeDef = new b2ShapeDef(b2DefaultShapeDef());
+    a_shapeDef->density = _density;
+    a_shapeDef->friction = _friction;
+    a_shapeDef->restitution = _restitution;
+
+    switch (_myShape->getType()) {
+        case shape::CIRCLE: {
+            CircleShape* circle = static_cast<CircleShape*>(_myShape);
+            b2CreateCircleShape(_myB2BodyId, a_shapeDef, circle->getCircle());
+            break;
+        }
+        case shape::CAPSULE: {
+            CapsuleShape* capsule = static_cast<CapsuleShape*>(_myShape);
+            b2CreateCapsuleShape(_myB2BodyId, a_shapeDef, capsule->getCapsule());
+            break;
+        }
+        case shape::POLYGON: {
+            PolygonShape* polygon = static_cast<PolygonShape*>(_myShape);
+            b2CreatePolygonShape(_myB2BodyId, a_shapeDef, polygon->getPolygon());
+            break;
+        }
+    }
 }
 
 /// @brief Asigna la rotación del objeto físico
@@ -106,7 +141,7 @@ RigidBodyComponent::setRotation(const double& newRot) {
 /// @brief Changes the body type.
 /// @param newType New type of the RigidBody.
 void
-RigidBodyComponent::changeBodyType(b2BodyType newType){
+RigidBodyComponent::setBodyType(b2BodyType newType){
     b2Body_SetType(_myB2BodyId, newType);
 }
 
@@ -169,6 +204,8 @@ RigidBodyComponent::setDensity(float density, int nShapes){
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetDensity(shapes[i], density, true);
     }
+
+    _density = density;
 }
 
 /// @brief Changes the friction of every Shape of the object
@@ -182,6 +219,8 @@ RigidBodyComponent::setFriction(float friction, int nShapes){
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetFriction(shapes[i], friction);
     }
+
+    _friction = friction;
 }
 
 /// @brief Changes the restitution of every Shape of the object
@@ -195,6 +234,8 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetRestitution(shapes[i], restitution);
     }
+
+    _restitution = restitution;
 }
 
 /*
@@ -204,6 +245,14 @@ CircleShape::CircleShape(float radius){
     _circle.center = {0.0, 0.0};
     _circle.radius = radius;
     _shapeType = shape::CIRCLE;
+}
+
+/// @brief Sets the scale of a circle to y times its scale
+/// @param newScale The y value of this parameter is the multiplier
+void
+CircleShape::setScale(Vector2D newScale){
+
+    _circle.radius *= newScale.getY();
 }
 
 /*
@@ -216,6 +265,37 @@ CapsuleShape::CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter
     _capsule.center2 = secondCenter;
     _capsule.radius = radius;
     _shapeType = shape::CAPSULE;
+}
+
+/// @brief Changes the scale of a capsule
+/// @param newScale The y value sets how much is going to increase the radius, the centers of the capsule are calculated normally
+void
+CapsuleShape::setScale(Vector2D newScale){
+    _capsule.radius = newScale.getY();
+
+    // We look where to put the new centers
+    // first the x
+    if(_capsule.center1.x > _capsule.center2.x){
+        _capsule.center1.x += _capsule.center1.x * (newScale.getX() - 1);
+        _capsule.center2.x -= _capsule.center2.x * (newScale.getX() - 1);
+    }
+    else if (_capsule.center2.x > _capsule.center1.x){
+        _capsule.center1.x -= _capsule.center1.x * (newScale.getX() - 1);
+        _capsule.center2.x += _capsule.center2.x * (newScale.getX() - 1);
+    }
+
+    // then the y
+    if(_capsule.center1.y > _capsule.center2.y){
+        _capsule.center1.y += _capsule.center1.y * (newScale.getY() - 1);
+        _capsule.center2.y -= _capsule.center2.y * (newScale.getY() - 1);
+    }
+    else if (_capsule.center2.y > _capsule.center1.y){
+        _capsule.center1.y -= _capsule.center1.y * (newScale.getY() - 1);
+        _capsule.center2.y += _capsule.center2.y * (newScale.getY() - 1);
+    }
+
+    // finally, the radius
+    _capsule.radius = newScale.getY();
 }
 
 /// @brief Generates the shape of a Polygon. If there's an error making it, will throw an exception. Common causes for errors are:
@@ -246,4 +326,15 @@ PolygonShape::PolygonShape(float size){
 PolygonShape::PolygonShape(float sizex, float sizey){
     _polygon = b2MakeBox(sizex, sizey);
     _shapeType = shape::POLYGON;
+}
+
+/// @brief Scales a polygon using its centroid
+/// @param newScale the variation in scale
+void
+PolygonShape::setScale(Vector2D newScale){
+
+    for(b2Vec2 vertex : _polygon.vertices){
+        b2Vec2 distanceVerCen = {vertex.x - _polygon.centroid.x, vertex.y - _polygon.centroid.y};
+        vertex += {distanceVerCen.x * (newScale.getX() - 1), distanceVerCen.y * (newScale.getY() - 1)};
+    }
 }
