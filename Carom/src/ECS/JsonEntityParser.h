@@ -6,7 +6,7 @@
 
 class JsonEntityParser{
 public:
-    static ecs::Entity* Parse(ecs::GameScene* gameScene, std::string file);
+    static ecs::Entity* Parse(ecs::GameScene& gameScene, std::string JSONfile);
 private:
     void transformComponent(const JSONObject& atributes);
     void rigidBodyComponent(JSONObject* atributes);
