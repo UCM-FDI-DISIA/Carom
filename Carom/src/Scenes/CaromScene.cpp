@@ -21,6 +21,9 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
     createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
+
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
+    
 }
 
 void // TODO: provisory definition, add components
@@ -108,6 +111,8 @@ CaromScene::generateBodyAndShape (
     shapeDef->density = density;
     shapeDef->friction = friction;
     shapeDef->restitution = restitution;
+    shapeDef->enableContactEvents = true;
+    shapeDef->userData = ent;
 
     return {bodyId, shapeDef};
 }

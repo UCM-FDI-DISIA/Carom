@@ -23,10 +23,10 @@ private:
     Scale _myScale = {1.0, 1.0};
 
     // Collision functions
-    std::function<void(Entity*)> _collisionEnterFunc = {};
-    std::function<void(Entity*)> _collisionExitFunc = {};
-    std::function<void(Entity*)> _triggerEnterFunc = {};
-    std::function<void(Entity*)> _triggerExitFunc = {};
+    std::function<void(Entity*)> _collisionEnterFunc;
+    std::function<void(Entity*)> _collisionExitFunc;
+    std::function<void(Entity*)> _triggerEnterFunc;
+    std::function<void(Entity*)> _triggerExitFunc;
 
     // * La unica forma de escalar es rompiendo la shape y haciendo otra, se guardan estos parámetros con ese objetivo
     Shape* _myShape;

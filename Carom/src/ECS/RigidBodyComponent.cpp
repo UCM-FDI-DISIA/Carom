@@ -56,6 +56,12 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2Body
     _density = density;
     _friction = friction;
     _restitution = restitution;
+
+    _triggerEnterFunc = [](entity_t ent){};
+    _triggerExitFunc = [](entity_t ent){};
+    _collisionExitFunc = [](entity_t ent){};
+    _collisionEnterFunc = [](entity_t ent){};
+
 }
 
 RigidBodyComponent::~RigidBodyComponent(){
@@ -111,6 +117,8 @@ RigidBodyComponent::setScale(const Scale& newScale) {
     a_shapeDef->density = _density;
     a_shapeDef->friction = _friction;
     a_shapeDef->restitution = _restitution;
+    a_shapeDef->enableContactEvents = true;
+    a_shapeDef->userData = _myEntity;
 
     switch (_myShape->getType()) {
         case shape::CIRCLE: {
