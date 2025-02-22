@@ -2,9 +2,9 @@
 #include "JSON.h"
 #include <iostream>
 
-ecs::Entity* JsonEntityParser::Parse(ecs::GameScene* gameScene,std::string file){
+ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file){
 
-    ecs::Entity entity(gameScene);
+    ecs::Entity* entity = new ecs::Entity(gameScene);
     JSONValue* entityElements = JSON::ParseFromFile(file);
     std::cout<<JSON::Stringify(entityElements);
 

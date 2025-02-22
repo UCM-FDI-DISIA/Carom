@@ -3,6 +3,7 @@
 #include <array>
 #include <vector>
 #include "gameList.h"
+#include "JsonEntityParser.h"
 #include "ecs.h"
 
 class CaromScene;
@@ -75,10 +76,11 @@ namespace ecs {
         void update();
         void render();
         void handleEvents();
-    
-    private:
+        
+        private:
         friend GameScene;
         friend CaromScene;
+        friend JsonEntityParser;
         Entity(GameScene& scene);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
