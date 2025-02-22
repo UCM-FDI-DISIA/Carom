@@ -3,6 +3,7 @@
 #include "InfoComponent.h"
 #include <box2D/box2D.h>
 #include "ecs.h"
+#include <functional>
 
 #include "ITransform.h"
 
@@ -20,6 +21,12 @@ private:
     b2BodyId _myB2BodyId;
 
     Scale _myScale = {1.0, 1.0};
+
+    // Collision functions
+    std::function<void(Entity*)> _collisionEnterFunc = {};
+    std::function<void(Entity*)> _collisionExitFunc = {};
+    std::function<void(Entity*)> _triggerEnterFunc = {};
+    std::function<void(Entity*)> _triggerExitFunc = {};
 
     // * La unica forma de escalar es rompiendo la shape y haciendo otra, se guardan estos parámetros con ese objetivo
     Shape* _myShape;
@@ -59,6 +66,18 @@ public:
     void applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin);
     void applyImpulseToCenter(b2Vec2 impulse);
 
+    // Collision events, only called from the scene
+    void onCollisionEnter(entity_t ent);
+    void onCollisionExit(entity_t ent);
+    void onTriggerEnter(entity_t ent); // Used for sensors
+    void onTriggerExit(entity_t ent);
+
+    // Collision events setters
+    void setOnCollisionEnter(std::function<void(entity_t)> newFunc);
+    void setOnCollisionExit(std::function<void(entity_t)> newFunc);
+    void setOnTriggerEnter(std::function<void(entity_t)> newFunc);
+    void setOnTriggerExit(std::function<void(entity_t)> newFunc);
+
     };
 
     class Shape{
@@ -68,7 +87,7 @@ public:
         shape::shapeId _shapeType;
 
         inline shape::shapeId getType() {return _shapeType;}
-        virtual void setScale(Vector2D newScale) = 0;
+        virtual void setScale(double X, double Y) = 0;
         
         Shape() {}
     public:
@@ -83,7 +102,7 @@ public:
         CircleShape(float radius);
 
         inline b2Circle* getCircle() {return &_circle;}
-        void setScale(Vector2D newScale) override;
+        void setScale(double X, double Y) override;
     };
 
     class CapsuleShape : public Shape{
@@ -93,7 +112,7 @@ public:
         CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter);
 
         inline b2Capsule* getCapsule() {return &_capsule;}
-        void setScale(Vector2D newScale) override;
+        void setScale(double X, double Y) override;
     };
 
     class PolygonShape : public Shape{
@@ -105,7 +124,7 @@ public:
         PolygonShape(float sizex, float sizey);
 
         inline b2Polygon* getPolygon() {return &_polygon;}
-        void setScale(Vector2D newScale) override;
+        void setScale(double X, double Y) override;
     };
 
 

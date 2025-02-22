@@ -75,6 +75,11 @@ void CaromScene::update(){
     // tal vez en el futuro esto se podria delegar a una clase padre PhysicsScene o algo así
     b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/1000.0, _b2Substeps);
 
+    b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
+    manageCollisions(a_contactEvents);
+
+    b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+
     State* a_stateToChange = nullptr;
     if(_currentState->checkCondition(a_stateToChange)){
         setNewState(a_stateToChange);
@@ -85,12 +90,13 @@ void CaromScene::update(){
 
 std::pair<b2BodyId, b2ShapeDef*> 
 CaromScene::generateBodyAndShape (
-    const Vector2D& vec, b2BodyType bodyType, float density, float friction, float restitution){
+    ecs::entity_t ent, const Vector2D& vec, b2BodyType bodyType, float density, float friction, float restitution){
 
     b2BodyDef bodyDef = b2DefaultBodyDef();
     bodyDef.type = bodyType;
     bodyDef.gravityScale = 0.0f;
     bodyDef.position = {vec.getX(), vec.getY()};
+    bodyDef.userData = ent;
 
     // TODO: rotation
     // bodyDef->rotation = entity->getComponent<ecs::TransformComponent>()->getRotation();
@@ -104,4 +110,50 @@ CaromScene::generateBodyAndShape (
     shapeDef->restitution = restitution;
 
     return {bodyId, shapeDef};
+}
+
+void
+CaromScene::manageCollisions(b2ContactEvents contactEvents){
+    
+    for(int i = 0; i < contactEvents.beginCount; ++i){
+        b2ContactBeginTouchEvent* a_enter = contactEvents.beginEvents + i;
+
+        ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
+        ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
+
+        ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
+        ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
+    }
+
+    for(int i = 0; i < contactEvents.endCount; ++i){
+        b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
+
+        ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
+        ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
+
+        ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
+        ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+    }
+}
+
+void
+CaromScene::manageTriggers(b2SensorEvents sensorEvents){
+
+    for(int i = 0; i < sensorEvents.beginCount; ++i){
+        b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
+
+        ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->sensorShapeId));
+        ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
+
+        sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+    }
+
+    for(int i = 0; i < sensorEvents.endCount; ++i){
+        b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;
+
+        ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
+        ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
+
+        sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+    }
 }

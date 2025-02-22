@@ -30,7 +30,7 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2Body
 
     if (scene == nullptr) { throw "La escena no es de tipo CaromScene"; }
 
-    std::pair<b2BodyId, b2ShapeDef*> bodyShapeTuple = scene->generateBodyAndShape(pos, type, density, friction, restitution);
+    std::pair<b2BodyId, b2ShapeDef*> bodyShapeTuple = scene->generateBodyAndShape(ent, pos, type, density, friction, restitution);
 
     _myB2BodyId = bodyShapeTuple.first;
 
@@ -93,7 +93,7 @@ RigidBodyComponent::setPosition(const Vector2D& newPos) {
     b2Body_SetTransform(_myB2BodyId, {newPos.getX(), newPos.getY()}, b2Body_GetRotation(_myB2BodyId));
 }
 
-/// @brief Modifica la escala del objeto. En el caso de formas que tengan radios, el valor que modifica el radio es la y por conveniencia
+/// @brief Modifica la escala del objeto. En el caso de formas que tengan radios, el valor que modifica el radio es la Y por conveniencia
 /// @param newScale Multiplicadores de escala
 void
 RigidBodyComponent::setScale(const Scale& newScale) {
@@ -105,7 +105,7 @@ RigidBodyComponent::setScale(const Scale& newScale) {
 
     b2DestroyShape(shape[0], false);
 
-    _myShape->setScale({newScale.x, newScale.y});
+    _myShape->setScale(newScale.x, newScale.y);
 
     b2ShapeDef* a_shapeDef = new b2ShapeDef(b2DefaultShapeDef());
     a_shapeDef->density = _density;
@@ -238,6 +238,61 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
     _restitution = restitution;
 }
 
+/// @brief Function called everytime object enters a collision
+/// @param ent object that collides with this rigidbody
+void 
+RigidBodyComponent::onCollisionEnter(entity_t ent){
+    _collisionEnterFunc(ent);
+}
+
+/// @brief Function called everytime object exits a collision
+/// @param ent object that collides with this rigidbody
+void 
+RigidBodyComponent::onCollisionExit(entity_t ent){
+    _collisionExitFunc(ent);
+}
+
+/// @brief Function called everytime object enters a sensor
+/// @param ent object that collides with this rigidbody
+void 
+RigidBodyComponent::onTriggerEnter(entity_t ent){
+    _triggerEnterFunc(ent);
+}
+
+/// @brief Function called everytime object exits a sensor
+/// @param ent object that collides with this rigidbody
+void 
+RigidBodyComponent::onTriggerExit(entity_t ent){
+    _triggerExitFunc(ent);
+}
+
+/// @brief sets the behaviour of the object on a collision enter
+/// @param newFunc new behaviour
+void 
+RigidBodyComponent::setOnCollisionEnter(std::function<void(entity_t)> newFunc){
+    _collisionEnterFunc = newFunc;
+}
+
+/// @brief sets the behaviour of the object on a collision exit
+/// @param newFunc new behaviour
+void 
+RigidBodyComponent::setOnCollisionExit(std::function<void(entity_t)> newFunc){
+    _collisionExitFunc = newFunc;
+}
+
+/// @brief sets the behaviour of the object on a trigger enter
+/// @param newFunc new behaviour
+void 
+RigidBodyComponent::setOnTriggerEnter(std::function<void(entity_t)> newFunc){
+    _triggerEnterFunc = newFunc;
+}
+
+/// @brief sets the behaviour of the object on a trigger exit
+/// @param newFunc new behaviour
+void 
+RigidBodyComponent::setOnTriggerExit(std::function<void(entity_t)> newFunc){
+    _triggerExitFunc = newFunc;
+}
 /*
 * Generates the shape of a circle. The center of the circle will be at the center of the object
 */
@@ -250,9 +305,9 @@ CircleShape::CircleShape(float radius){
 /// @brief Sets the scale of a circle to y times its scale
 /// @param newScale The y value of this parameter is the multiplier
 void
-CircleShape::setScale(Vector2D newScale){
+CircleShape::setScale(double X, double Y){
 
-    _circle.radius *= newScale.getY();
+    _circle.radius *= Y;
 }
 
 /*
@@ -270,32 +325,30 @@ CapsuleShape::CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter
 /// @brief Changes the scale of a capsule
 /// @param newScale The y value sets how much is going to increase the radius, the centers of the capsule are calculated normally
 void
-CapsuleShape::setScale(Vector2D newScale){
-    _capsule.radius = newScale.getY();
-
+CapsuleShape::setScale(double X, double Y){
     // We look where to put the new centers
     // first the x
     if(_capsule.center1.x > _capsule.center2.x){
-        _capsule.center1.x += _capsule.center1.x * (newScale.getX() - 1);
-        _capsule.center2.x -= _capsule.center2.x * (newScale.getX() - 1);
+        _capsule.center1.x += _capsule.center1.x * (X - 1);
+        _capsule.center2.x -= _capsule.center2.x * (X - 1);
     }
     else if (_capsule.center2.x > _capsule.center1.x){
-        _capsule.center1.x -= _capsule.center1.x * (newScale.getX() - 1);
-        _capsule.center2.x += _capsule.center2.x * (newScale.getX() - 1);
+        _capsule.center1.x -= _capsule.center1.x * (X - 1);
+        _capsule.center2.x += _capsule.center2.x * (X - 1);
     }
 
     // then the y
     if(_capsule.center1.y > _capsule.center2.y){
-        _capsule.center1.y += _capsule.center1.y * (newScale.getY() - 1);
-        _capsule.center2.y -= _capsule.center2.y * (newScale.getY() - 1);
+        _capsule.center1.y += _capsule.center1.y * (Y - 1);
+        _capsule.center2.y -= _capsule.center2.y * (Y - 1);
     }
     else if (_capsule.center2.y > _capsule.center1.y){
-        _capsule.center1.y -= _capsule.center1.y * (newScale.getY() - 1);
-        _capsule.center2.y += _capsule.center2.y * (newScale.getY() - 1);
+        _capsule.center1.y -= _capsule.center1.y * (Y - 1);
+        _capsule.center2.y += _capsule.center2.y * (Y - 1);
     }
 
     // finally, the radius
-    _capsule.radius = newScale.getY();
+    _capsule.radius = Y;
 }
 
 /// @brief Generates the shape of a Polygon. If there's an error making it, will throw an exception. Common causes for errors are:
@@ -331,10 +384,10 @@ PolygonShape::PolygonShape(float sizex, float sizey){
 /// @brief Scales a polygon using its centroid
 /// @param newScale the variation in scale
 void
-PolygonShape::setScale(Vector2D newScale){
+PolygonShape::setScale(double X, double Y){
 
     for(b2Vec2 vertex : _polygon.vertices){
         b2Vec2 distanceVerCen = {vertex.x - _polygon.centroid.x, vertex.y - _polygon.centroid.y};
-        vertex += {distanceVerCen.x * (newScale.getX() - 1), distanceVerCen.y * (newScale.getY() - 1)};
+        vertex += {distanceVerCen.x * (float)(X - 1), distanceVerCen.y * (float)(Y - 1)};
     }
 }

@@ -20,6 +20,10 @@ protected:
     const float _b2timeSteps = Game::FIXED_TIME_STEP / 1000;
     // Esto de momento se inicializa en 4, no manipular
     int _b2Substeps = 4;
+
+    // Métodos hechos por claridad, puedes meter los 4 bucles for a pelo en el update si eres un terrorista
+    void manageCollisions(b2ContactEvents contactEvents);
+    void manageTriggers(b2SensorEvents sensorEvents);
 public:
     CaromScene(State* s, Game* g, GameScene* reward);
     ~CaromScene();
@@ -51,6 +55,6 @@ public:
     /// @param friction Roce (0.0 , 1.0)
     /// @param restitution Rebote/Elasticidad (0.0, 1.0)
     /// @return 
-    std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape (const Vector2D& vec, b2BodyType bodyType, 
+    std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const Vector2D& vec, b2BodyType bodyType, 
         float density, float friction, float restitution);
 };
