@@ -8,10 +8,10 @@ protected:
     double _currentScore;
     double _scoreToBeat;
 
-    ScoreUI* _scoreUI;
+    //ScoreUI* _scoreUI;
 
 public:
-    ScoreContainer(ScoreUI* scoreUI, double scoreToBeat, double baseScore = 0);
+    ScoreContainer(/*ScoreUI* scoreUI, */double scoreToBeat, double baseScore = 0);
 
     inline bool roundWins() {return _currentScore >= _scoreToBeat; }
 

@@ -7,6 +7,9 @@ class ScenesManager;
 class b2WorldId;
 class Vector2D;
 class ColorHitManager;
+class ScoreContainer;
+
+namespace ecs{
 
 class CaromScene: public ecs::GameScene {
 protected:
@@ -15,6 +18,7 @@ protected:
     ScenesManager* _manager;
     GameScene* _reward;
     ColorHitManager* _hitManager;
+    ScoreContainer* _scoreContainer;
 
     b2WorldId _myB2WorldId;
 
@@ -48,6 +52,7 @@ public:
     //devuelve el estado en el que se encuentra la escena principal
     State* getCurrentState();
     ColorHitManager* getColorHitManager();
+    ScoreContainer* getScoreContainer();
 
     inline ScenesManager* getScenesManager() const {return _manager;}
     inline GameScene* getRewardScene() const {return _reward;}
@@ -60,3 +65,4 @@ public:
     std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const Vector2D& vec, b2BodyType bodyType, 
         float density, float friction, float restitution);
 };
+}
