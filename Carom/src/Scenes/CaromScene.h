@@ -6,12 +6,14 @@
 class ScenesManager;
 class b2WorldId;
 class Vector2D;
-class ColorHitManager;
 class ScoreContainer;
+
 
 namespace ecs{
 
-class CaromScene: public ecs::GameScene {
+    class ColorHitManager;
+
+class CaromScene: public GameScene {
 protected:
 //el estado en el que se encuentra la escena actualmente
     State* _currentState = nullptr;

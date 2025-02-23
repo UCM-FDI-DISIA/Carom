@@ -178,4 +178,6 @@ CaromScene::manageTriggers(b2SensorEvents sensorEvents){
 }
 
 ScoreContainer* CaromScene::getScoreContainer() {return _scoreContainer;}
+
+ColorHitManager* CaromScene::getColorHitManager() {return _hitManager; }
 }

@@ -52,7 +52,7 @@ Game::start() {
     auto &ihdlr = ih();
 
     PL_State *plst = new PL_State(nullptr); // ! tst 
-    ecs::GameScene *ms = new CaromScene(plst, this, nullptr); // ! tst  
+    ecs::GameScene *ms = new ecs::CaromScene(plst, this, nullptr); // ! tst  
     _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration

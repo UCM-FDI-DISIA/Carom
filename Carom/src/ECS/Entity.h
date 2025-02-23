@@ -4,8 +4,8 @@
 #include <vector>
 #include "gameList.h"
 #include "ecs.h"
+#include <iostream>
 
-class CaromScene;
 
 class Camera;
 namespace ecs {
@@ -13,6 +13,7 @@ namespace ecs {
     class GameScene;
     class Component;
     class ITransform;
+    class CaromScene;
 
     class Entity{
     public:
@@ -30,15 +31,17 @@ namespace ecs {
         bool addComponent(T* component, Ts &&... args){
             if(_components[cmpId<T>] != nullptr) return false;
 
-            // Asigna el transform de la entidad en caso de que no exista ninguno
-            if (dynamic_cast<ITransform*>(component) != nullptr)
-            {
-                if (_myTransform == nullptr)
-                    _myTransform = component;
-                else
-                    return false;
-            }
+            // std::cout << "addcompo" << std::endl;
+            // // Asigna el transform de la entidad en caso de que no exista ninguno
+            // if (dynamic_cast<ITransform*>(component) != nullptr)
+            // {
+            //     if (_myTransform == nullptr)
+            //         _myTransform = component;
+            //     else
+            //         return false;
+            // }
 
+            // ! tengo que mirar eso
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
     
@@ -70,14 +73,7 @@ namespace ecs {
             return static_cast<T*>(_components[cmpId<T>]);
         }
 
-        inline GameScene& getScene(){
-            return _myScene;
-        }
-
-        inline ITransform* getTransform()
-        {
-            return _myTransform;
-        }
+        ITransform* getTransform();
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     

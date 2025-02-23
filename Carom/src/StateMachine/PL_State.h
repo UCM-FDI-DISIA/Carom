@@ -1,9 +1,13 @@
 #include "State.h"
 
+namespace ecs{
+    class CaromScene;
+}
+
 class PL_State : public State
 {
 public: 
-    PL_State(CaromScene* scene): State(scene){}
+    PL_State(ecs::CaromScene* scene): State(scene){}
 
     void update() override {}
 

@@ -3,12 +3,12 @@
 #include "Singleton.h"
 #include <unordered_set>
 
-class Entity;
 
 namespace ecs{
 
 
 class CaromScene;
+class Entity;
 
     class ColorHitManager {
     protected:

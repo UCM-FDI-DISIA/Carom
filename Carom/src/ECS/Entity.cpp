@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "Entity.h"
+#include "ITransform.h"
 
 #include <algorithm>
 
@@ -33,6 +34,11 @@ namespace ecs {
     void Entity::handleEvents(){
         for(Component* component : _currentComponents) 
             component->handleEvent();
+    }
+
+    ITransform* Entity::getTransform()
+    {
+        return dynamic_cast<ITransform*>(_components[cmp::TRANSFORM]);
     }
 
     GameScene& Entity::getScene(){
