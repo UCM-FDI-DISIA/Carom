@@ -8,6 +8,7 @@
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
+#include "Camera.h"
 
 class Game;
 
@@ -29,6 +30,8 @@ protected:
 	std::vector<entity_t> _entsRenderable;
 
 	Game* game;
+	Camera _worldCamera;
+	Camera _UICamera;
 
 	GameScene(Game* game);
 
@@ -104,6 +107,10 @@ public:
 
 	/// Obtiene el juego al que pertenece el estado
 	Game* getGame() const;
+	Camera* getWorldCamera();
+	Camera* getUICamera();
+	void setWorldCamera(b2Vec2 pos);
+	void setUICamera(b2Vec2 pos);
 	/// Elimina los objetos
 	virtual void clear();
 	// Set rendering order. Called by render texture component on init.

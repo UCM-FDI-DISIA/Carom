@@ -5,10 +5,11 @@
 
 #include "GameScene.h"
 #include "../Game.h"
+#include "Camera.h"
 
 namespace ecs{
 
-GameScene::GameScene(Game* game): game(game){}
+GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
 
 GameScene::~GameScene(){};
 
@@ -67,8 +68,8 @@ void GameScene::sortRenderOrder(){
 }
 
 void GameScene::render(){
-    for (auto entity : _entsRenderable) {
-        entity->render();
+    for (auto entity : _entities) {
+        entity->render(&_worldCamera);
     }
 }
 
@@ -88,6 +89,22 @@ void GameScene::clear(){
      for (auto entity : _entities) {
         delete entity;
     }
+}
+
+Camera* GameScene::getWorldCamera(){
+    return &_worldCamera;
+}
+
+Camera* GameScene::getUICamera() {
+    return &_UICamera;
+}
+
+void GameScene::setWorldCamera(b2Vec2 pos){
+    _worldCamera = Camera(pos.x, pos.y);
+}
+
+void GameScene::setUICamera(b2Vec2 pos){
+    _UICamera = Camera(pos.x, pos.y);
 }
 };
 

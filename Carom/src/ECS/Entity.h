@@ -7,6 +7,7 @@
 
 class CaromScene;
 
+class Camera;
 namespace ecs {
 
     class GameScene;
@@ -81,8 +82,10 @@ namespace ecs {
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
-        void render();
+        void render(Camera* camera); //En posición relativa a la cámara
         void handleEvents();
+
+        GameScene& getScene();
     
     private:
         friend GameScene;

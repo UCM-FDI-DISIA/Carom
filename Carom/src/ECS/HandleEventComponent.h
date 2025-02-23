@@ -10,6 +10,6 @@ namespace ecs {
         virtual ~HandleEventComponent(){}
     
         void update() override {}
-        void render() override {}
+        void render(Camera*) override {}
     };
 }

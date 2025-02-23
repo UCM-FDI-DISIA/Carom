@@ -25,13 +25,17 @@ namespace ecs {
             component->update();
     }
 
-    void Entity::render(){
+    void Entity::render(Camera* camera){
         for(Component* component : _currentComponents) 
-            component->render();
+            component->render(camera);
     }
 
     void Entity::handleEvents(){
         for(Component* component : _currentComponents) 
             component->handleEvent();
+    }
+
+    GameScene& Entity::getScene(){
+        return _myScene;
     }
 }

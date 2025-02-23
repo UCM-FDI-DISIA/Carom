@@ -9,7 +9,7 @@ namespace ecs {
         PhysicsComponent(Entity* ent) : Component(ent) {}
         virtual ~PhysicsComponent(){}
     
-        void render() override {}
+        void render(Camera*) override {}
         void handleEvent() override {}
     };
 }
