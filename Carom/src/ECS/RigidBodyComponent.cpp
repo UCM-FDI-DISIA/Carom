@@ -15,6 +15,8 @@
 
 using namespace ecs;
 
+namespace ecs {
+
 /// @brief Constructor of RigidBody. Receives a Shape class as a parameter depending on which shape is needed (circle, capsule or polygon)
 /// @param ent The owner of the component
 /// @param type The type of the component (kinematic, dynamic or static)
@@ -398,4 +400,6 @@ PolygonShape::setScale(double X, double Y){
         b2Vec2 distanceVerCen = {vertex.x - _polygon.centroid.x, vertex.y - _polygon.centroid.y};
         vertex += {distanceVerCen.x * (float)(X - 1), distanceVerCen.y * (float)(Y - 1)};
     }
+}
+
 }

@@ -6,11 +6,12 @@
 #include "ecs.h"
 
 class CaromScene;
-class Component;
 
 namespace ecs {
 
     class GameScene;
+    class Component;
+    class ITransform;
 
     class Entity{
     public:
@@ -27,7 +28,16 @@ namespace ecs {
         template<typename T, typename ...Ts>
         bool addComponent(T* component, Ts &&... args){
             if(_components[cmpId<T>] != nullptr) return false;
-    
+
+            // Asigna el transform de la entidad en caso de que no exista ninguno
+            if (dynamic_cast<ITransform*>(component) != nullptr)
+            {
+                if (_myTransform == nullptr)
+                    _myTransform = component;
+                else
+                    return false;
+            }
+
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
     
@@ -63,6 +73,11 @@ namespace ecs {
             return _myScene;
         }
 
+        inline ITransform* getTransform()
+        {
+            return _myTransform;
+        }
+
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
@@ -79,5 +94,7 @@ namespace ecs {
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
         GameList<Entity>::anchor _anchor;
+
+        ITransform* _myTransform;
     };
 }
