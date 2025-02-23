@@ -8,7 +8,8 @@
 	RIGIDBODY, \
 	SHAPE, \
 	WHITEBALLSCORER, \
-	COLORBALLSCORER
+	COLORBALLSCORER, \
+	WALL
 
 // Groups list - must have at least one element
 //

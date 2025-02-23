@@ -2,8 +2,8 @@
 // #include "ScoreUI.h"
 
 
-ScoreContainer::ScoreContainer(ScoreUI* scoreUI, double scoreToBeat, double baseScore) 
-: _scoreUI(scoreUI), _scoreToBeat(scoreToBeat), _currentScore(baseScore) 
+ScoreContainer::ScoreContainer(/*ScoreUI* scoreUI,*/ double scoreToBeat, double baseScore) 
+: /*_scoreUI(scoreUI), */_scoreToBeat(scoreToBeat), _currentScore(baseScore) 
 {
     
 }

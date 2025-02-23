@@ -3,10 +3,15 @@
 #include "RenderTextureComponent.h"
 #include "RigidBodyComponent.h"
 #include "ColorHitManager.h"
+#include "ScoreContainer.h"
 
 #include "Game.h"
 #include "Vector2D.h"
 #include <box2d/box2d.h>
+
+namespace ecs{
+
+
 
 CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
 {
@@ -26,6 +31,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
     
     _hitManager = new ColorHitManager(this);
+    _scoreContainer = new ScoreContainer(200,0);
 }
 
 void // TODO: provisory definition, add components
@@ -72,6 +78,7 @@ CaromScene::~CaromScene(){
     b2DestroyWorld(_myB2WorldId);
 
     delete _hitManager;
+    delete _scoreContainer;
 }
 
 void CaromScene::update(){
@@ -92,6 +99,9 @@ void CaromScene::update(){
         setNewState(a_stateToChange);
     }
     _currentState->update();
+
+    _hitManager->clearAllHits();
+
     GameScene::update();
 }
 
@@ -165,4 +175,7 @@ CaromScene::manageTriggers(b2SensorEvents sensorEvents){
 
         sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
     }
+}
+
+ScoreContainer* CaromScene::getScoreContainer() {return _scoreContainer;}
 }
