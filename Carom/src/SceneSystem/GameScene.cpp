@@ -11,7 +11,7 @@ GameScene::~GameScene(){};
 
 void GameScene::render(){
     for (auto entity : _entities) {
-        entity->render();
+        entity->render(&_worldCamera);
     }
 }
 

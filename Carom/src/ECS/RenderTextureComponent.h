@@ -17,7 +17,7 @@ namespace ecs {
         RenderTextureComponent(Entity*, Texture*);
         ~RenderTextureComponent() {};
 
-        void render() override;
+        void render(Camera*) override;
         void init() override;
     };
 }
