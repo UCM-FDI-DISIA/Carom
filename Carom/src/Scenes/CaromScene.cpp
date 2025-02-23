@@ -2,6 +2,7 @@
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "RigidBodyComponent.h"
+#include "ColorHitManager.h"
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -24,6 +25,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
     
+    _hitManager = new ColorHitManager(this);
 }
 
 void // TODO: provisory definition, add components
@@ -68,6 +70,8 @@ CaromScene::~CaromScene(){
 
     // el mundo debe destruirse aquí, recordad que los ids son punteros con sombrero y gabardina
     b2DestroyWorld(_myB2WorldId);
+
+    delete _hitManager;
 }
 
 void CaromScene::update(){

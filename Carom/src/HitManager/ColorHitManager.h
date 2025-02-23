@@ -5,15 +5,15 @@
 
 class Entity;
 
-class GameScene;
+class CaromScene;
 
-    class ColorHitManager : public Singleton<ColorHitManager>{
+    class ColorHitManager {
     protected:
-        GameScene* _mainScene;
+        CaromScene* _mainScene;
         std::unordered_map<Entity*, std::unordered_set<Entity*>> _positionsRegistered;
     public:
         //Recibe un puntero a la mainScene, que es la que lo crea
-        ColorHitManager(GameScene* mainScene);
+        ColorHitManager(CaromScene* mainScene);
         //Reinicia todo el set de posiciones, normalmente se llama al principio del nuevo frame de la escena para registrar los nuevos choques
         void clearAllPositions();
         //Comprueba que la posicion de hit que se le pasa está o no en el set de posiciones

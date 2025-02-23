@@ -108,6 +108,7 @@ add_executable(Carom
 	src/ECS/RigidBodyComponent.cpp
 
 	src/ECS/WhiteBallScorerComponent.cpp
+	src/ECS/ColorBallScorerComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 

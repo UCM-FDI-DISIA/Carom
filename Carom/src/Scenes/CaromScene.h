@@ -6,6 +6,7 @@
 class ScenesManager;
 class b2WorldId;
 class Vector2D;
+class ColorHitManager;
 
 class CaromScene: public ecs::GameScene {
 protected:
@@ -13,6 +14,7 @@ protected:
     State* _currentState = nullptr;
     ScenesManager* _manager;
     GameScene* _reward;
+    ColorHitManager* _hitManager;
 
     b2WorldId _myB2WorldId;
 
@@ -45,10 +47,10 @@ public:
     void update() override;
     //devuelve el estado en el que se encuentra la escena principal
     State* getCurrentState();
+    ColorHitManager* getColorHitManager();
 
     inline ScenesManager* getScenesManager() const {return _manager;}
     inline GameScene* getRewardScene() const {return _reward;}
-
     /// @brief Método para que rigidbody component reciba el id del body
     /// @param bodyType kinematic, static, dynamic
     /// @param density Kg/m2 >= 0
