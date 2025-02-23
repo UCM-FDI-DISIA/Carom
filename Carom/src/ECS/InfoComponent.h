@@ -15,5 +15,4 @@ namespace ecs{
         void render(Camera*) override {}
         void handleEvent() override {}
     };
-
 }
