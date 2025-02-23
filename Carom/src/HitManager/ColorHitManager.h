@@ -1,15 +1,16 @@
 #pragma once
-#include <unordered_set>
+#include <unordered_map>
 #include "Singleton.h"
-#include "Vector2D.h"
+#include <unordered_set>
+
+class Entity;
 
 class GameScene;
 
-namespace ecs{
     class ColorHitManager : public Singleton<ColorHitManager>{
     protected:
         GameScene* _mainScene;
-        std::unordered_set<Vector2D> _positionsRegistered;
+        std::unordered_map<Entity*, std::unordered_set<Entity*>> _positionsRegistered;
     public:
         //Recibe un puntero a la mainScene, que es la que lo crea
         ColorHitManager(GameScene* mainScene);
@@ -18,6 +19,5 @@ namespace ecs{
         //Comprueba que la posicion de hit que se le pasa está o no en el set de posiciones
         //- Si no está, hace acciones determinadas y lo añade al set
         //- Si está, no hace nada ya que quiere decir que la otra bola ya ha hecho la acción que debería pasar
-        bool checkForHitPosition(Vector2D hitPos);
+        bool checkForHitPosition(Entity* first, Entity* second);
     };
-}

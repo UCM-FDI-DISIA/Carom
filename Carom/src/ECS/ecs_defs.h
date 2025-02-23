@@ -6,7 +6,9 @@
 	TRANSFORM, \
 	RENDER_TEXTURE, \
 	RIGIDBODY, \
-	SHAPE
+	SHAPE, \
+	WHITEBALLSCORER, \
+	COLORBALLSCORER
 
 // Groups list - must have at least one element
 //
