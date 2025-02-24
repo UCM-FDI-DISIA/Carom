@@ -3,7 +3,7 @@
 
 class HitState: public State {
 public:
-
+    HitState(CaromScene* scene);
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;

@@ -2,6 +2,10 @@
 
 // #include "StickInputComponent.h"
 #include "CaromScene.h"
+HitState::HitState(CaromScene* scene) : State(scene) 
+{
+
+}
 
 void
 HitState::onStateEnter() {
@@ -24,5 +28,5 @@ HitState::onStateExit() {
 bool 
 HitState::checkCondition(State*& state) {
     // TODO: comprobar si la bola blanca ya ha sido golpeada
-    return true;
+    return false;
 }
