@@ -9,7 +9,8 @@
 	SHAPE, \
 	WHITEBALLSCORER, \
 	COLORBALLSCORER, \
-	WALL
+	WALL, \
+	STICK_INPUT
 
 // Groups list - must have at least one element
 //
