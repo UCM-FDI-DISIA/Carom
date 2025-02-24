@@ -110,9 +110,10 @@ add_executable(Carom
 
 	src/Scenes/CaromScene.cpp
 	
-	src/StateMachine/WinMatchState.cpp
+	src/StateMachine/HitState.cpp
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/PostScoringState.cpp
+	src/StateMachine/WinMatchState.cpp
 	
 	src/ScoreContainer.cpp
 )
