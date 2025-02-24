@@ -17,7 +17,7 @@ namespace ecs {
         _b = e;
         _bTransform = t;
         _isBallPicked = false; // inicialmente la bola está deseleccionada.
-        _radius = (_bTransform->getScale().x/2) + 20.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
+        _r = (_bTransform->getScale().x/2) + 20.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
         _center = _bTransform->getPosition(); // como la pos del transform es en el centro, el centro de la bola es el radius.>
     }
 
@@ -28,13 +28,20 @@ namespace ecs {
     }
 
     void StickInputComponent::handleEvent(){
+        
         // NOTA: pasar luego todas estas variables al h para que no sean auxiliares.
         auto& a_ih = ih();
         Sint32 a_mouseX = a_ih.getMousePos().first;
 		Sint32 a_mouseY = a_ih.getMousePos().second;
-
+        
         bool a_isInRadius = false; // inicialmente no esta dentro del radio.
+        
+        // ---- Circunferencia de centro (x0,y0) y radio r un punto (x,y) está en el interior de la circunferencia si ((x−x0)^2)+((y−y0)^2) < r^2.
+        int a_x = std::pow(a_mouseX - _center.getX(), 2); // x: ((x−x0)^2)
+        int a_y = std::pow(a_mouseY - _center.getY(), 2); // y: ((y−y0)^2)
 
+        // ---- (a+b < r^2) -> se cumple
+        if(a_x + a_y < std::pow(_r, 2)) a_isInRadius = true;
 
 
         if(a_ih.mouseButtonDownEvent()  	       // se apreta el mouse.

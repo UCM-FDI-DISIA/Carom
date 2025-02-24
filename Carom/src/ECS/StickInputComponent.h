@@ -26,7 +26,7 @@ namespace ecs{
         //Entity* _palo; // referencia al palo.
 
         // Cosas de la circunferencia (area).
-        double _radius; // radio.
+        double _r; // radio.
         Vector2D _center; // centro.
     };
 }
