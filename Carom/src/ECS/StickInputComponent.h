@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "HandleEventComponent.h"
 #include <SDL.h>
 #include "ecs.h"
 #include "Vector2D.h"
@@ -8,16 +8,16 @@
 class Entity;
 
 namespace ecs{
-    class StickInputComponent : public ecs::Component
+    class StickInputComponent : public ecs::HandleEventComponent
     {
     public:
         __CMPID_DECL__(cmp::STICK_INPUT);
 
         StickInputComponent(Entity* e, ITransform* t); 
         virtual ~StickInputComponent();
-
-        void update() override;
+        void init() override;
         void handleEvent() override;
+
     private:
         bool _isBallPicked; // booleano de si se ha pickeado la bola.
 

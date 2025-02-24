@@ -50,6 +50,8 @@ Game::start() {
     bool exit = false;
 
     auto &ihdlr = ih();
+    
+    sdlutils().showCursor();
 
     PL_State *plst = new PL_State(nullptr); // ! tst 
     ecs::GameScene *ms = new ecs::CaromScene(plst, this, nullptr); // ! tst  
