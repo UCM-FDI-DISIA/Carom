@@ -17,7 +17,7 @@ namespace ecs {
         _b = e;
         _bTransform = t;
         _isBallPicked = false; // inicialmente la bola está deseleccionada.
-        _r = (_bTransform->getScale().x/2) + 2.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
+        _r = (_bTransform->getScale().x/2) + 4.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
         _center = _bTransform->getPosition(); // como la pos del transform es en el centro, el centro de la bola es el radius.>
     }
 
@@ -32,14 +32,15 @@ namespace ecs {
     {
         // NOTA: pasar luego todas estas variables al h para que no sean auxiliares.
         auto& a_ih = ih();
-        Sint32 a_mouseX = a_ih.getMousePos().first;
-		Sint32 a_mouseY = a_ih.getMousePos().second;
+        PhysicsConverter a_pu; // para meter2pixel converter.
+        Sint32 a_mouseX = a_pu.pixel2meter(a_ih.getMousePos().first);
+		Sint32 a_mouseY = a_pu.pixel2meter(a_ih.getMousePos().second);
         
         bool a_isInRadius; // booleano para saber si esta dentro del radio.
         
-        std::cout << "pos raton: (" << a_mouseX << ", " << a_mouseY << ")" << std::endl;
-        std::cout << "centro bola: (" << _center.getX() << ", " << _center.getY() << ")" << std::endl;
-        std::cout << "radio: " << _r << std::endl;
+        //std::cout << "pos raton: (" << a_mouseX << ", " << a_mouseY << ")" << std::endl;
+       // std::cout << "centro bola: (" << _center.getX() << ", " << _center.getY() << ")" << std::endl;
+        //std::cout << "radio: " << _r << std::endl;
 
         // ---- Circunferencia de centro (x0,y0) y radio r un punto (x,y) está en el interior de la circunferencia si ((x−x0)^2)+((y−y0)^2) < r^2.
         int a_x = std::pow(a_mouseX - _center.getX(), 2); // x: ((x−x0)^2)
@@ -53,10 +54,12 @@ namespace ecs {
         if(a_ih.mouseButtonDownEvent()  	       // se apreta el mouse.
 			&& a_ih.getMouseButtonState(a_ih.LEFT) // en concreto el boton izquierdo.
 			&& a_isInRadius){                      // y esta dentro del radio.
-                //std::cout << "Se ha clicado dentro del radio" << std::endl;
+                std::cout << "Se ha clicado dentro del radio" << std::endl;
         }
-        else{
-            //std::cout << "Se ha clicado fuera del radio" << std::endl;
+        else if(a_ih.mouseButtonDownEvent() 
+        && a_ih.getMouseButtonState(a_ih.LEFT)
+        && !a_isInRadius){
+            std::cout << "Se ha clicado fuera del radio" << std::endl;
         }
     }
 }

@@ -4,6 +4,7 @@
 #include "ecs.h"
 #include "Vector2D.h"
 #include "ITransform.h"
+#include "PhysicsUtils.h"
 
 class Entity;
 
@@ -17,6 +18,10 @@ namespace ecs{
         virtual ~StickInputComponent();
         void init() override;
         void handleEvent() override;
+
+        // getters.
+        inline double getRadius() { return _r; }
+        inline Vector2D getCenter() { return _center; }
 
     private:
         bool _isBallPicked; // booleano de si se ha pickeado la bola.
