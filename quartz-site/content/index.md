@@ -8,7 +8,7 @@ title: Carom Wiki
 
 ## Documentación
 
-- [[Sobre ECS]]
+- [[Sobre EC]]
 - [[Índice box2D]]
 - [[Sistema de representación]]
 
