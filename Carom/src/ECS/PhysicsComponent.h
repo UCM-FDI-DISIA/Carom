@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "ecs.h"
 
+class Camera;
 // * Heredar de esta clase para implementar onCollision y onTrigger
 namespace ecs{
 
@@ -19,4 +20,4 @@ namespace ecs{
         virtual void onTriggerEnter(entity_t target) {}
         virtual void onTriggerExit(entity_t target) {}
     };
-};
+}

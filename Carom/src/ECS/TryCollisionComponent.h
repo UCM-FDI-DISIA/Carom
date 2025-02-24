@@ -4,12 +4,11 @@
 
 namespace ecs{
     class TryCollisionComponent : public PhysicsComponent{
-    public:
-    __CMPID_DECL__(cmp::TRYCOLLISION);
-        
-        TryCollisionComponent(entity_t ent);
-        ~TryCollisionComponent(){}
+        public:
+        __CMPID_DECL__(cmp::TRYCOLLISION);
 
-        void onCollisionEnter(entity_t other) override;
+        TryCollisionComponent(entity_t ent);
+
+        void onCollisionEnter(entity_t other);
     };
 }

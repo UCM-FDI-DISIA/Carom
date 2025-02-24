@@ -5,6 +5,7 @@
 #include "ColorHitManager.h"
 #include "ScoreContainer.h"
 #include "TryCollisionComponent.h"
+#include "WhiteBallScorerComponent.h"
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -28,8 +29,8 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
     createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
-    //addComponent<TryCollisionComponent>(getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]);
-    
+    addComponent<ecs::TryCollisionComponent>(getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]);
+
     _hitManager = new ColorHitManager(this);
     _scoreContainer = new ScoreContainer(200,0);
 }
@@ -93,7 +94,7 @@ void CaromScene::update(){
     manageEnterCollisions(a_enterContactEvents);
 
     b2ContactEvents a_exitContactEvents = b2World_GetContactEvents(_myB2WorldId);
-    manageEnterCollisions(a_exitContactEvents);
+    manageExitCollisions(a_exitContactEvents);
 
     b2SensorEvents a_enterSensorEvents = b2World_GetSensorEvents(_myB2WorldId);
     manageEnterTriggers(a_enterSensorEvents);
