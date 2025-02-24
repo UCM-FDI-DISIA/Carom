@@ -1,6 +1,4 @@
 #include "HitState.h"
-
-// #include "StickInputComponent.h"
 #include "CaromScene.h"
 HitState::HitState(CaromScene* scene) : State(scene) 
 {
@@ -9,20 +7,14 @@ HitState::HitState(CaromScene* scene) : State(scene)
 
 void
 HitState::onStateEnter() {
-    // for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
-    //     if (e->tryGetComponent<StickInputComponent>()){
-    //         e->enable();
-    //     }
-    // }
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO))
+        e->enable();
 }
 
 void
 HitState::onStateExit() {
-    // for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
-    //     if (e->tryGetComponent<StickInputComponent>()){
-    //         e->disable();
-    //     }
-    // }
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO))
+        e->disable();
 }
 
 bool 

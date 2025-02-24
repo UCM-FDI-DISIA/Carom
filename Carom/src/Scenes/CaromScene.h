@@ -9,6 +9,8 @@ protected:
     State* _currentState = nullptr;
     ScenesManager* _manager;
     GameScene* _reward;
+
+    int _remainingHits = 3;
 public:
     CaromScene(Game* g, GameScene* reward);
     ~CaromScene();
@@ -33,4 +35,5 @@ public:
 
     inline ScenesManager* getScenesManager() const {return _manager;}
     inline GameScene* getRewardScene() const {return _reward;}
+    inline int getRemainingHits() { return _remainingHits; }
 };

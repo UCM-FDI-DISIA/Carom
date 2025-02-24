@@ -50,6 +50,9 @@ public:
 	void update();
 	void render() const;
 	void handleEvent();
+
+	//Método que crea la escena de derrota, se puede llamar en cualquier momento
+	void invokeLose();
 };
 
 inline void
