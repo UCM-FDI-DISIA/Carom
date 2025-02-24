@@ -23,12 +23,13 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     setNewState(s);
 
-    createWhiteBall(Vector2D(-3.5f, 0.0), b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
-    createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
+    createStickInputBall(Vector2D(3.5f, 0.0), b2_staticBody, 1, 1, 1, 1, 1);
+    //createWhiteBall(Vector2D(-3.5f, 0.0), b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
+    //getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
+    //createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
+    //getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
 
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
+    //getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
     
     _hitManager = new ColorHitManager(this);
     _scoreContainer = new ScoreContainer(200,0);
@@ -57,6 +58,21 @@ CaromScene::createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2Bod
     _entsRenderable.push_back(e);
     // add components
     _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
+    _entities.push_back(e);
+}
+
+void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
+{
+    ecs::entity_t e = new ecs::Entity(*this);
+
+    ecs::CircleShape *cs = new ecs::CircleShape(radius);
+    addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+
+    // Must be pushed back into renderable vector before adding the component for proper sort!
+    _entsRenderable.push_back(e);
+    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"), capa);
+
+    _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
     _entities.push_back(e);
 }
 
