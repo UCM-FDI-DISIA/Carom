@@ -8,7 +8,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity(GameScene& scene) : _myScene(scene), _alive(true)
+    Entity::Entity(GameScene& scene) : _myScene(scene), _alive(true), _myTransform(nullptr)
     {
     }
 

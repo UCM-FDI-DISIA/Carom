@@ -18,7 +18,6 @@ namespace ecs {
     }
 
     void RenderTextureComponent::init(){
-
         _transform = _myEntity->getTransform();
         _myEntity->getScene().sortRenderOrder();
     }
