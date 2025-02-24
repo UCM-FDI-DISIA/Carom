@@ -30,8 +30,11 @@ protected:
     int _b2Substeps = 4;
 
     // Métodos hechos por claridad, puedes meter los 4 bucles for a pelo en el update si eres un terrorista
-    void manageCollisions(b2ContactEvents contactEvents);
-    void manageTriggers(b2SensorEvents sensorEvents);
+    void manageEnterCollisions(b2ContactEvents enterContactEvents);
+    void manageExitCollisions(b2ContactEvents exitContactEvents);
+    void manageEnterTriggers(b2SensorEvents enterSensorEvents);
+    void manageExitTriggers(b2SensorEvents exitSensorEvents);
+    
 public:
     CaromScene(State* s, Game* g, GameScene* reward);
     ~CaromScene();
