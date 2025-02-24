@@ -31,17 +31,11 @@ namespace ecs {
         bool addComponent(T* component, Ts &&... args){
             if(_components[cmpId<T>] != nullptr) return false;
 
-            // std::cout << "addcompo" << std::endl;
-            // // Asigna el transform de la entidad en caso de que no exista ninguno
-            // if (dynamic_cast<ITransform*>(component) != nullptr)
-            // {
-            //     if (_myTransform == nullptr)
-            //         _myTransform = component;
-            //     else
-            //         return false;
-            // }
+            // Asigna el transform de la entidad en caso de que no exista ninguno
+            if (dynamic_cast<ITransform*>(component) != nullptr) {
+                    _myTransform = dynamic_cast<ITransform*>(component);
+            }
 
-            // ! tengo que mirar eso
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
     
@@ -73,7 +67,7 @@ namespace ecs {
             return static_cast<T*>(_components[cmpId<T>]);
         }
 
-        ITransform* getTransform();
+        inline ITransform* getTransform() {return _myTransform;}
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     

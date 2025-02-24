@@ -36,11 +36,6 @@ namespace ecs {
             component->handleEvent();
     }
 
-    ITransform* Entity::getTransform()
-    {
-        return dynamic_cast<ITransform*>(_components[cmp::TRANSFORM]);
-    }
-
     GameScene& Entity::getScene(){
         return _myScene;
     }
