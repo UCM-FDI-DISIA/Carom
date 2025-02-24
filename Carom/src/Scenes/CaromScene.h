@@ -24,6 +24,8 @@ protected:
 
     b2WorldId _myB2WorldId;
 
+    bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
+
     // Dividido /1000 porque b2 trabaja en segundos con float
     const float _b2timeSteps = Game::FIXED_TIME_STEP / 1000;
     // Esto de momento se inicializa en 4, no manipular
@@ -38,6 +40,9 @@ protected:
 public:
     CaromScene(State* s, Game* g, GameScene* reward);
     ~CaromScene();
+
+    inline void enablePhysics(){_updatePhysics = true;}
+    inline void disablePhysics(){_updatePhysics = false;}
 
     // TODO: provisory definition
     void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 

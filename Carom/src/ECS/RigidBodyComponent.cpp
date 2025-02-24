@@ -134,6 +134,8 @@ RigidBodyComponent::setScale(const Scale& newScale) {
             break;
         }
     }
+
+    static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics(); // * RIGHT NOW IT ONLY WORKS WITH CAROMSCENE, if other scene is using this method talk to Mika
 }
 
 /// @brief Asigna la rotación del objeto físico

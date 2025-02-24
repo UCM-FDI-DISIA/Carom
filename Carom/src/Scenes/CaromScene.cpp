@@ -15,7 +15,7 @@ namespace ecs{
 
 
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
+CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) 
 {
 
     // Creación del mundo físico
@@ -90,17 +90,15 @@ void CaromScene::update(){
     // tal vez en el futuro esto se podria delegar a una clase padre PhysicsScene o algo así
     b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/1000.0, _b2Substeps);
 
-    b2ContactEvents a_enterContactEvents = b2World_GetContactEvents(_myB2WorldId);
-    manageEnterCollisions(a_enterContactEvents);
+    b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
+    manageEnterCollisions(a_contactEvents);
+    manageExitCollisions(a_contactEvents);
 
-    b2ContactEvents a_exitContactEvents = b2World_GetContactEvents(_myB2WorldId);
-    manageExitCollisions(a_exitContactEvents);
+    b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+    manageEnterTriggers(a_sensorEvents);
+    manageExitTriggers(a_sensorEvents);
 
-    b2SensorEvents a_enterSensorEvents = b2World_GetSensorEvents(_myB2WorldId);
-    manageEnterTriggers(a_enterSensorEvents);
-
-    b2SensorEvents a_exitSensorEvents = b2World_GetSensorEvents(_myB2WorldId);
-    manageExitTriggers(a_exitSensorEvents);
+    enablePhysics();
 
     State* a_stateToChange = nullptr;
     if(_currentState->checkCondition(a_stateToChange)){
@@ -156,6 +154,8 @@ CaromScene::manageEnterCollisions(b2ContactEvents contactEvents){
 
 void
 CaromScene::manageExitCollisions(b2ContactEvents contactEvents){
+
+    if(!_updatePhysics) return;
     
     for(int i = 0; i < contactEvents.endCount; ++i){
         b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
@@ -172,6 +172,8 @@ CaromScene::manageExitCollisions(b2ContactEvents contactEvents){
 void
 CaromScene::manageEnterTriggers(b2SensorEvents sensorEvents){
 
+    if(!_updatePhysics) return;
+
     for(int i = 0; i < sensorEvents.beginCount; ++i){
         b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
 
@@ -185,6 +187,8 @@ CaromScene::manageEnterTriggers(b2SensorEvents sensorEvents){
 
 void
 CaromScene::manageExitTriggers(b2SensorEvents sensorEvents){
+
+    if(!_updatePhysics) return;
 
     for(int i = 0; i < sensorEvents.endCount; ++i){
         b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;

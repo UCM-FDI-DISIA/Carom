@@ -1,4 +1,6 @@
 #include "TryCollisionComponent.h"
+#include "Entity.h"
+#include "RigidBodyComponent.h"
 #include <iostream>
 
 using namespace ecs;
@@ -9,5 +11,5 @@ TryCollisionComponent::TryCollisionComponent(entity_t ent) : PhysicsComponent(en
 
 void
 TryCollisionComponent::onCollisionEnter(entity_t other){
-    std::cout << "Colision" << std::endl;
+    //other->getComponent<RigidBodyComponent>()->setScale({1.2, 1.2});
 }

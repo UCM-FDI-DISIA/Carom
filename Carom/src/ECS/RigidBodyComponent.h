@@ -56,7 +56,7 @@ public:
 
     // Setters
     void setPosition(const Vector2D& newPos) override;
-    void setScale(const Scale& newScale) override; //! not working
+    void setScale(const Scale& newScale) override; //! doesn`t work if used in onCollision or onTrigger
     void setRotation(const double& newRot) override;
 
     void setBodyType(b2BodyType newType);

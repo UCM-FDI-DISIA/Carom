@@ -99,6 +99,8 @@ protected:
 	}
 
 public:
+
+
 	virtual ~GameScene();
 
     virtual void render();
