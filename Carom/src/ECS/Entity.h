@@ -3,10 +3,10 @@
 #include <array>
 #include <vector>
 #include "gameList.h"
-#include "JsonEntityParser.h"
 #include "ecs.h"
 
 class CaromScene;
+class JsonEntityParser;
 
 namespace ecs {
 

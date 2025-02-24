@@ -7,7 +7,6 @@
 #include "InputHandler.h"
 #include "macros.h"
 #include "SDLUtils.h"
-#include "JsonEntityParser.h"
 
 using namespace std;
 
@@ -91,8 +90,6 @@ void input_basic_demo() {
 
 	// a boolean to exit the loop
 	bool exit_ = false;
-
-	JsonEntityParser::Parse("/resources/prefabs/examplePrefab.json");
 
 	while (!exit_) {
 		Uint32 startTime = sdl.currRealTime();

@@ -1,5 +1,7 @@
 #include "JsonEntityParser.h"
 #include "JSON.h"
+#include "TransformComponent.h"
+
 #include <iostream>
 
 ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file){
@@ -10,7 +12,8 @@ ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file)
 
     for(auto element : entityElements->AsArray()){
         if(element->Child("componentName")->AsString() == "TransformComponent"){
-            transformComponent(element->Child("atributes")->AsObject());
+            JSONObject atributes = element->Child("atributes")->AsObject();
+            transformComponent(atributes, entity);
         }
         else if(element->Child("componentName")->AsString() == "RigidBodyComponent"){
 
@@ -20,4 +23,9 @@ ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file)
         }
     }
    return nullptr;
+}
+
+void JsonEntityParser::transformComponent(const JSONObject& atributes,  ecs::Entity* entity){
+    
+    ecs::TransformComponent component = new ecs::TransformComponent(entity, {atributes.at("x"),atributes.at("y")});
 }
