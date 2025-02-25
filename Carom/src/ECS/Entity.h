@@ -27,8 +27,8 @@ namespace ecs {
             _alive = alive;
         }
     
-        template<typename T, typename ...Ts>
-        bool addComponent(T* component, Ts &&... args){
+        template<typename T>
+        bool addComponent(T* component){
             if(_components[cmpId<T>] != nullptr) return false;
 
             // Asigna el transform de la entidad en caso de que no exista ninguno

@@ -31,7 +31,7 @@ GameScene::createTable(){
 
     Vector2D scale = {0.85f, 0.85f};
     addComponent<TransformComponent>(e_marco, pos);
-    e_marco->getComponent<TransformComponent>()->setScale(scale.getX(), scale.getY());
+    // e_marco->getComponent<TransformComponent>()->setScale
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_marco);
     addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("marco2"), 2);
@@ -41,7 +41,7 @@ GameScene::createTable(){
     // Entidad suelo
     entity_t e_suelo = new Entity(*this);
     addComponent<TransformComponent>(e_suelo, pos);
-    e_suelo->getComponent<TransformComponent>()->setScale(scale.getX(), scale.getY());
+    // e_suelo->getComponent<TransformComponent>();
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_suelo);
     addComponent<RenderTextureComponent>(e_suelo, &sdlutils().images().at("fondo"), 1);
@@ -51,7 +51,7 @@ GameScene::createTable(){
     // Entidad sombraMarco
     entity_t e_sombraMarco = new Entity(*this);
     addComponent<TransformComponent>(e_sombraMarco, pos);
-    e_sombraMarco->getComponent<TransformComponent>()->setScale(scale.getX(), scale.getY());
+    // e_sombraMarco->getComponent<TransformComponent>();
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_sombraMarco);
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0);
