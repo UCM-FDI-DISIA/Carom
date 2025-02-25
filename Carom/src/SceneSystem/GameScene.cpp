@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "RenderTextureComponent.h"
 #include "TransformComponent.h"
+#include "PhysicsUtils.h"
 
 #include "GameScene.h"
 #include "../Game.h"
@@ -18,34 +19,42 @@ GameScene::~GameScene(){};
 // The table is not an entity per se, is represented by a group of entities.
 // Those entities are grouped here -> _entsByGroup[grp::TABLE]
 void
-GameScene::createTable(Texture* tx_marco, Texture* tx_sombraMarco, Texture* tx_suelo){
-    // Entidad suelo
-    entity_t e_suelo = new Entity(*this);
-    Vector2D pos_suelo = {};
-    addComponent<TransformComponent>(e_suelo, pos_suelo);
-    // Must be pushed back into renderable vector before adding the component for proper sort!
-    _entsRenderable.push_back(e_suelo);
-    addComponent<RenderTextureComponent>(e_suelo, tx_suelo, 0);
-    _entsByGroup[grp::TABLE].push_back(e_suelo);
-    _entities.push_back(e_suelo);
+GameScene::createTable(){
     
     // Entidad marco
     entity_t e_marco = new Entity(*this);
-    Vector2D pos_marco = {};
-    addComponent<TransformComponent>(e_marco, pos_marco);
+    // Vector2D pos = {288, 81};
+    // Vector2D pos = {PhysicsConverter::pixel2meter(288), PhysicsConverter::pixel2meter(81)};
+    Vector2D pos = {0,0};
+    // Vector2D pos = {10,10};
+
+
+    Vector2D scale = {0.85f, 0.85f};
+    addComponent<TransformComponent>(e_marco, pos);
+    e_marco->getComponent<TransformComponent>()->setScale(scale.getX(), scale.getY());
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_marco);
-    addComponent<RenderTextureComponent>(e_marco, tx_marco, 1);
+    addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("marco2"), 2);
     _entsByGroup[grp::TABLE].push_back(e_marco);
     _entities.push_back(e_marco);
 
+    // Entidad suelo
+    entity_t e_suelo = new Entity(*this);
+    addComponent<TransformComponent>(e_suelo, pos);
+    e_suelo->getComponent<TransformComponent>()->setScale(scale.getX(), scale.getY());
+    // Must be pushed back into renderable vector before adding the component for proper sort!
+    _entsRenderable.push_back(e_suelo);
+    addComponent<RenderTextureComponent>(e_suelo, &sdlutils().images().at("fondo"), 1);
+    _entsByGroup[grp::TABLE].push_back(e_suelo);
+    _entities.push_back(e_suelo);
+
     // Entidad sombraMarco
     entity_t e_sombraMarco = new Entity(*this);
-    Vector2D pos_sombraMarco = {};
-    addComponent<TransformComponent>(e_sombraMarco, pos_sombraMarco);
+    addComponent<TransformComponent>(e_sombraMarco, pos);
+    e_sombraMarco->getComponent<TransformComponent>()->setScale(scale.getX(), scale.getY());
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_sombraMarco);
-    addComponent<RenderTextureComponent>(e_sombraMarco, tx_sombraMarco, 2);
+    addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0);
     _entsByGroup[grp::TABLE].push_back(e_sombraMarco);
     _entities.push_back(e_sombraMarco);
 
@@ -68,7 +77,7 @@ void GameScene::sortRenderOrder(){
 }
 
 void GameScene::render(){
-    for (auto entity : _entities) {
+    for (auto entity : _entsRenderable) {
         entity->render(&_worldCamera);
     }
 }

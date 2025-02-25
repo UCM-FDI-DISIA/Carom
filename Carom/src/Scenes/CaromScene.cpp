@@ -5,6 +5,7 @@
 #include "ColorHitManager.h"
 #include "ScoreContainer.h"
 
+#include "PhysicsUtils.h"
 #include "Game.h"
 #include "Vector2D.h"
 #include <box2d/box2d.h>
@@ -23,30 +24,40 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     setNewState(s);
 
-    createWhiteBall(Vector2D(-3.5f, 0.0), b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
-    createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
+    Vector2D pos_1 = {PhysicsConverter::pixel2meter(0),  PhysicsConverter::pixel2meter(0)};
+    // Vector2D pos_1 = {0,  0};
 
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
+    entity_t wb = createWhiteBall(pos_1, b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
+    createTable();
+
+
+    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
+    // createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
+    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
+
+    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
     
     _hitManager = new ColorHitManager(this);
     _scoreContainer = new ScoreContainer(200,0);
 }
 
-void // TODO: provisory definition, add components
+entity_t // TODO: provisory definition, add components
 CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa) {
     ecs::entity_t e = new ecs::Entity(*this);
 
     ecs::CircleShape *cs = new ecs::CircleShape(radius);
     addComponent<ecs::RigidBodyComponent>(e, pos, b2_dynamicBody, cs, density, friction, restitution);
+    e->getComponent<ecs::RigidBodyComponent>()->setScale(0.14f, 0.14f);
 
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e);
-    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"), capa);
+    // addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_sombra"), capa-1);
+    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa);
 
     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
     _entities.push_back(e);
+
+    return e;
 }
 
 void // TODO: provisory definition, add components

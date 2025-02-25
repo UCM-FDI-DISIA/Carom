@@ -37,7 +37,7 @@ public:
     ~CaromScene();
 
     // TODO: provisory definition
-    void createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+    entity_t createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
 
     // TODO: provisory definition
 	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
