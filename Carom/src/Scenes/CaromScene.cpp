@@ -35,12 +35,12 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     createWhiteBall(wb_pos, b2_dynamicBody, 1, 0, 1, 1, 10); // ! tst
     getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.001f, 0.0f});
 
-    // b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
-    //     *&sdlutils().svgElements().at("bola_blanca").x + 290,
-    //     *&sdlutils().svgElements().at("bola_blanca").y
-    // );
-    // createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.1, 1, 1, 10); // ! tst
-    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.1f, 0});
+    b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgElements().at("bola_blanca").x + 290,
+        *&sdlutils().svgElements().at("bola_blanca").y
+    );
+    createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.1, 1, 1, 10); // ! tst
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.1f, 0});
 
     createTable();
 
@@ -105,7 +105,10 @@ void CaromScene::update(){
 
     // Como las físicas se suelen querer ejecutar antes del update esto se hace aquí mismo
     // tal vez en el futuro esto se podria delegar a una clase padre PhysicsScene o algo así
-    b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/1000.0, _b2Substeps);
+    b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+    b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+    b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+
 
     b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
     manageEnterCollisions(a_contactEvents);
