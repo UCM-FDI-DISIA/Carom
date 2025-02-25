@@ -63,7 +63,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e);
-    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, 0.14); // scale atera a posicao
+    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, 0.15); // scale atera a posicao
 
     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
     _entities.push_back(e);
