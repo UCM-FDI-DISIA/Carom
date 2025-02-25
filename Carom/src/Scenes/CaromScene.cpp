@@ -36,7 +36,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     // Create white ball with the previous defined vector
     createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
     // Apply impulse
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.01f});
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
     // Second ball
     b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
@@ -44,7 +44,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
         *&sdlutils().svgElements().at("bola_blanca").y
     );
     createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.05f, 0.01});
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
     // ! ball test
 
     // Create table with texture and colliders
