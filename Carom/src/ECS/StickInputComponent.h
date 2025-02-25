@@ -5,6 +5,7 @@
 #include "Vector2D.h"
 #include "ITransform.h"
 #include "PhysicsUtils.h"
+#include "InputHandler.h"
 
 class Entity;
 
@@ -14,7 +15,7 @@ namespace ecs{
     public:
         __CMPID_DECL__(cmp::STICK_INPUT);
 
-        struct Stick: public Entity {
+        /*struct Stick: public ecs::Entity {
             bool active = false;
             Vector2D pos;
             Vector2D vel;
@@ -30,7 +31,7 @@ namespace ecs{
             inline void setStickPos(Vector2D position) { pos = position; }
             inline void setStickVel(Vector2D velocity) { vel = velocity; }
             inline void setStickRot(float rotation) { rot = rotation; }
-        };
+        };*/
 
         StickInputComponent(Entity* e, ITransform* t); 
         virtual ~StickInputComponent();
@@ -42,7 +43,11 @@ namespace ecs{
         inline Vector2D getCenter() { return _center; }
 
     private:
-    
+        // --- Métodos del HandleEvents.
+        bool clickOnCircleRadius(InputHandler& ih, PhysicsConverter pc);
+        // método para el seleccionamiento de la bola
+        // método para soltar la bola.
+
         // --- Bola.
         Entity* _b; // entidad bola.
         ITransform* _bTransform; // transform de la bola
@@ -54,6 +59,6 @@ namespace ecs{
         bool _isInRadius; // para saber si está dentro del radio de la bola.
 
         // --- Palo.
-        Stick* s;
+        //Stick* s;
     };
 }

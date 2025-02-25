@@ -1,5 +1,5 @@
 #include "StickInputComponent.h"
-#include "InputHandler.h"
+
 
 // El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRect para pasarselo a este componente para que pueda funcionar.
 
@@ -30,13 +30,31 @@ namespace ecs {
         auto& a_ih = ih(); // input handler.
         PhysicsConverter a_pu; // para meter2pixel converter.
 
+        _isInRadius = clickOnCircleRadius(a_ih, a_pu);
+
+        // si se clica en el radio y no se levanta el raton izquierdo, es que se esta seleccionando.
+        if(_isInRadius && a_ih.mouseButtonDownEvent() && a_ih.getMouseButtonState(a_ih.LEFT)){
+            _isBallPicked = true;
+            std::cout << "Se esta SELECCIONANDO la bola" << std::endl;
+        }
+        // si se había pickeado la bola y se levanta el raton...
+        else if(_isBallPicked && a_ih.mouseButtonUpEvent()){
+            _isBallPicked = false;
+            std::cout << "Se ha SOLTADO la bola" << std::endl;
+
+            // !!!! al soltar se aplicaria la fuerza del palo.
+        }
+    }
+
+    bool StickInputComponent::clickOnCircleRadius(InputHandler& ih, PhysicsConverter pc)
+    {
         // --- Posiciones del raton (x, y).
-        Sint32 a_mouseX = a_pu.pixel2meter(a_ih.getMousePos().first);
-		Sint32 a_mouseY = a_pu.pixel2meter(a_ih.getMousePos().second);
+        Sint32 a_mouseX = pc.pixel2meter(ih.getMousePos().first);
+		Sint32 a_mouseY = pc.pixel2meter(ih.getMousePos().second);
         
-        std::cout << "pos raton: (" << a_mouseX << ", " << a_mouseY << ")" << std::endl;
-        std::cout << "centro bola: (" << _center.getX() << ", " << _center.getY() << ")" << std::endl;
-        std::cout << "radio: " << _r << std::endl;
+        //std::cout << "pos raton: (" << a_mouseX << ", " << a_mouseY << ")" << std::endl;
+        //std::cout << "centro bola: (" << _center.getX() << ", " << _center.getY() << ")" << std::endl;
+        //std::cout << "radio: " << _r << std::endl;
 
         // --- Circunferencia de centro (x0,y0) y radio r un punto (x,y) está en el interior de la circunferencia si ((x−x0)^2)+((y−y0)^2) < r^2.
         int a_x = std::pow(a_mouseX - _center.getX(), 2); // x: ((x−x0)^2)
@@ -51,16 +69,18 @@ namespace ecs {
         } 
 
         // Se apreta el mouse && en concreto el boton izquierdo (LEFT).
-        bool a_leftClick =  a_ih.mouseButtonDownEvent() && a_ih.getMouseButtonState(a_ih.LEFT);
+        bool a_leftClick =  ih.mouseButtonDownEvent() && ih.getMouseButtonState(ih.LEFT);
 
-        // clic izquierdo + esta dentro del radio.
+        /*// clic izquierdo + esta dentro del radio.
         if(a_leftClick && _isInRadius){
-            s->active = true; // activas el palo.
+            //s->active = true; // activas el palo.
             std::cout << "Se ha clicado DENTRO del radio." << std::endl;
         }
         else if(a_leftClick && !_isInRadius){
-            s->active = false; // el palo permanece inactivo.
+            //s->active = false; // el palo permanece inactivo.
             std::cout << "Se ha clicado FUERA del radio." << std::endl;
-        }
+        }*/
+
+        return a_leftClick && _isInRadius;
     }
 }
