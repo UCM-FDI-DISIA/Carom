@@ -44,6 +44,7 @@ public:
 	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
 
     void createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+    void createStickInputStick(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
     
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
