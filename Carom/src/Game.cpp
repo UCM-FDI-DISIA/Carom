@@ -32,6 +32,8 @@ Game::init() {
 				<< std::endl;
 		return;
 	}
+    auto utils = SDLUtils::Instance();
+    utils->toggleFullScreen();
 
 	// initialize InputHandler singleton
     if (!InputHandler::Init()) {
