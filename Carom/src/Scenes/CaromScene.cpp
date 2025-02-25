@@ -26,11 +26,24 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     setNewState(s);
 
-    createWhiteBall(Vector2D(-3.5f, 0.0), b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
-    createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
-    addComponent<ecs::TryCollisionComponent>(getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]);
+    // posicion pixel -> meter
+    b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgElements().at("bola_blanca").x,
+        *&sdlutils().svgElements().at("bola_blanca").y
+    );
+    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.5, 1, 1, 10); // ! tst
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0005f, 0.0005f});
+
+    createTable();
+
+
+
+    // b2Vec2 wb2_pos = {wb_pos.x - 0.1f, wb_pos.y - 0.1f};
+    // createWhiteBall(wb2_pos, b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
+    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.1f, 0.0f});
+    // createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
+    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
+    // addComponent<ecs::TryCollisionComponent>(getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]);
 
     _hitManager = new ColorHitManager(this);
     _scoreContainer = new ScoreContainer(200,0);
@@ -40,8 +53,10 @@ entity_t // TODO: provisory definition, add components
 CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa) {
     ecs::entity_t e = new ecs::Entity(*this);
 
-    ecs::CircleShape *cs = new ecs::CircleShape(radius);
+    float real_radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
+    ecs::CircleShape *cs = new ecs::CircleShape(real_radius);
     addComponent<ecs::RigidBodyComponent>(e, pos, b2_dynamicBody, cs, density, friction, restitution);
+    e->getComponent<RigidBodyComponent>()->setScale({0.14, 0.14});
 
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e);

@@ -46,8 +46,6 @@ Game::init() {
 void
 Game::start() {
 
-    std::cout << "x do svg : " << sdlutils().svgElements().at("elemento1").x << std::endl;
-
     bool exit = false;
 
     auto &ihdlr = ih();
