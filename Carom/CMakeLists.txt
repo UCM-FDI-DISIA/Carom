@@ -62,6 +62,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
 	${CMAKE_SOURCE_DIR}/external/json/include
+	${CMAKE_SOURCE_DIR}/external/svg/include
 
 	${CMAKE_SOURCE_DIR}/src
 	${CMAKE_SOURCE_DIR}/src/ECS

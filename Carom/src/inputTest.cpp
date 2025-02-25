@@ -14,7 +14,7 @@ void input_basic_demo() {
 
 	// Initialize the SDLGame singleton
 	if (!SDLUtils::Init("Carom Input Test", 800, 600,
-			"../../resources/config/sdlutilsdemo.resources.json")) {
+			"../../resources/config/sdlutilsdemo.resources.json", "../../resources/svg/Game.svg")) {
 		std::cerr << "Something went wrong while initializing SDLUtils!"
 				<< std::endl;
 		return;

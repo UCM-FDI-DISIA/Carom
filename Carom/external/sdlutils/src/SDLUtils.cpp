@@ -7,6 +7,13 @@
 
 #include "JSON.h"
 
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#define NANOSVG_IMPLEMENTATION	// Expands implementation
+#include "nanosvg.h"
+#include "nanosvgrast.h"
+
 SDLUtils::SDLUtils() :
 		_windowTitle("SDL2 Demo"), //
 		_width(600), //
@@ -15,6 +22,7 @@ SDLUtils::SDLUtils() :
 		_renderer(nullptr), //
 		_fontsAccessWrapper(_fonts, "Fonts Table"), //
 		_imagesAccessWrapper(_images, "Images Table"), //
+		_svgAccessWrapper(_svgs, "SVG"), //
 		_msgsAccessWrapper(_msgs, "Messages Table"), //
 		_soundsAccessWrapper(_sounds, "Sounds Table"), //
 		_musicsAccessWrapper(_musics, "Musics Table"), //
@@ -39,11 +47,11 @@ bool SDLUtils::init(std::string windowTitle, int width, int height) {
 	return true;
 }
 
-bool SDLUtils::init(std::string windowTitle, int width, int height,
-		std::string filename) {
+bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename) {
 	init(windowTitle, width, height);
 	
 	loadReasources(filename);
+	loadSVG(svgFilename);
 
 	// we always return true, because this class either exit or throws an
 	// exception on error. If you want to avoid using exceptions you should
@@ -290,6 +298,38 @@ void SDLUtils::loadReasources(std::string filename) {
 			throw "'musics' is not an array";
 		}
 	}
+
+}
+
+void SDLUtils::loadSVG(const char* filename){
+	struct NSVGimage* image = nsvgParseFromFile(filename, "px", 96.0f);
+    if (!image) {
+        std::cerr << "Failed to load SVG: " << filename << std::endl;
+        return;
+    }
+	
+	// Clear the existing SVG elements (if any)
+	_svgs.clear();
+
+	// Iterate through the shapes in the SVG
+	for (NSVGshape* shape = image->shapes; shape != nullptr; shape = shape->next) {
+		// Create an svgElem structure for the current shape
+		svgElem elem;
+		elem.x = static_cast<int>(shape->bounds[0]);      // X position
+		elem.y = static_cast<int>(shape->bounds[1]);      // Y position
+		elem.width = static_cast<int>(shape->bounds[2] - shape->bounds[0]);  // Width
+		elem.height = static_cast<int>(shape->bounds[3] - shape->bounds[1]); // Height
+
+		// Use the shape's ID as the key in the map
+		std::string id = shape->id;
+		_svgs.emplace(id, elem);
+	}
+
+	// Free the SVG image
+	nsvgDelete(image);
+
+	std::cout << "SVG loaded and parsed successfully!" << std::endl;
+
 
 }
 
