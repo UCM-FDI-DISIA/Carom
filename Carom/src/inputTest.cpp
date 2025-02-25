@@ -7,6 +7,7 @@
 #include "InputHandler.h"
 #include "macros.h"
 #include "SDLUtils.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -183,3 +184,6 @@ void input_basic_demo() {
 
 }
 
+void click_basic_demo()
+{
+}

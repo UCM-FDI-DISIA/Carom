@@ -14,7 +14,8 @@ void start() {
 int main (int, char**)
 {
     try {
-        input_basic_demo();
+        // input_basic_demo();
+        click_basic_demo();
         //start();
     } catch (const std::string &e) { // catch exceptions thrown as strings
         std::cerr << e << std::endl;

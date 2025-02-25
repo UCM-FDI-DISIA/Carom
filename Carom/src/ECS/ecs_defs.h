@@ -6,7 +6,8 @@
 	TRANSFORM, \
 	RENDER_TEXTURE, \
 	RIGIDBODY, \
-	SHAPE
+	SHAPE, \
+	BUTTON
 
 // Groups list - must have at least one element
 //
