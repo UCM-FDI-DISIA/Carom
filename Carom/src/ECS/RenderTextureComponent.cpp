@@ -8,11 +8,12 @@
 #include "GameScene.h"
 
 namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder) 
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
     : RenderComponent(ent),
     _texture(texture),
     _transform(nullptr),
-    renderOrder(renderOrder)
+    renderOrder(renderOrder),
+    _scale(scale)
     {
 
     }
@@ -31,7 +32,7 @@ namespace ecs {
         coordinateX -= _transform->getScale().x*_texture->width() / 2;
         coordinateY -= _transform->getScale().y*_texture->height() / 2;
 
-        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_transform->getScale().x), (int)(_texture->height()*_transform->getScale().y)};
+        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
         _texture->render(dest, _transform->getRotation());
     }
 } 

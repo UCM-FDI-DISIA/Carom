@@ -23,6 +23,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = {0.0f, 0.0f};
     _myB2WorldId = b2CreateWorld(&worldDef);
+    b2World_SetRestitutionThreshold(_myB2WorldId, 0.01);
 
     setNewState(s);
 
@@ -31,19 +32,17 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
         *&sdlutils().svgElements().at("bola_blanca").x,
         *&sdlutils().svgElements().at("bola_blanca").y
     );
-    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.5, 1, 1, 10); // ! tst
-    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0005f, 0.0005f});
+    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0, 1, 1, 10); // ! tst
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.001f, 0.0f});
+
+    // b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
+    //     *&sdlutils().svgElements().at("bola_blanca").x + 290,
+    //     *&sdlutils().svgElements().at("bola_blanca").y
+    // );
+    // createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.1, 1, 1, 10); // ! tst
+    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.1f, 0});
 
     createTable();
-
-
-
-    // b2Vec2 wb2_pos = {wb_pos.x - 0.1f, wb_pos.y - 0.1f};
-    // createWhiteBall(wb2_pos, b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
-    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.1f, 0.0f});
-    // createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
-    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
-    // addComponent<ecs::TryCollisionComponent>(getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]);
 
     _hitManager = new ColorHitManager(this);
     _scoreContainer = new ScoreContainer(200,0);
@@ -55,13 +54,12 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 
     float real_radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
     ecs::CircleShape *cs = new ecs::CircleShape(real_radius);
-    addComponent<ecs::RigidBodyComponent>(e, pos, b2_dynamicBody, cs, density, friction, restitution);
-    e->getComponent<RigidBodyComponent>()->setScale({0.14, 0.14});
+    addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
 
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e);
     // addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_sombra"), capa-1);
-    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa);
+    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, 0.14);
 
     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
     _entities.push_back(e);
@@ -128,6 +126,8 @@ void CaromScene::update(){
     _hitManager->clearAllHits();
 
     GameScene::update();
+
+    std::cout << b2Body_IsAwake(getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<RigidBodyComponent>()->getB2Body()) << std::endl;
 }
 
 std::pair<b2BodyId, b2ShapeDef*> 
@@ -139,6 +139,8 @@ CaromScene::generateBodyAndShape (
     bodyDef.gravityScale = 0.0f;
     bodyDef.position = {vec.x, vec.y};
     bodyDef.userData = ent;
+    bodyDef.sleepThreshold = 0.001;
+    bodyDef.isBullet = true;
 
     // TODO: rotation
     // bodyDef->rotation = entity->getComponent<ecs::TransformComponent>()->getRotation();
@@ -152,6 +154,7 @@ CaromScene::generateBodyAndShape (
     shapeDef->restitution = restitution;
     shapeDef->enableContactEvents = true;
     shapeDef->userData = ent;
+
 
     return {bodyId, shapeDef};
 }

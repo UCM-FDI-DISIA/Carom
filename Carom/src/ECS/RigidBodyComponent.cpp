@@ -196,7 +196,7 @@ RigidBodyComponent::applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin){
 /// @param impulse the vector impulse to aplly
 void
 RigidBodyComponent::applyImpulseToCenter(b2Vec2 impulse){
-    b2Body_ApplyLinearImpulseToCenter(_myB2BodyId, impulse, false);
+    b2Body_ApplyLinearImpulseToCenter(_myB2BodyId, impulse, true);
 }
 
 /// @brief Changes the density of every Shape of the object

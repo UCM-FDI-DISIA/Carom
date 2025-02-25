@@ -45,7 +45,7 @@ protected:
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
-    RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
+    RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0, float restitution = 1);
     virtual ~RigidBodyComponent();
 
     // Getters

@@ -11,6 +11,7 @@ namespace ecs {
     private:
         Texture* _texture;
         ITransform* _transform;
+        float _scale;
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
@@ -18,7 +19,7 @@ namespace ecs {
         // Mesa: suelo = 0, sombra marco = 1, marco = 2
         int renderOrder;
 
-        RenderTextureComponent(Entity*, Texture*, int renderOrder);
+        RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale);
         ~RenderTextureComponent() {};
 
         void render(Camera*) override;

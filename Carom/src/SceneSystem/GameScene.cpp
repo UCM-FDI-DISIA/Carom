@@ -20,7 +20,7 @@ GameScene::~GameScene(){};
 // Those entities are grouped here -> _entsByGroup[grp::TABLE]
 void
 GameScene::createTable(){
-    
+    float scale = 0.85;
     // Entidad marco
     entity_t e_marco = new Entity(*this);
     b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("mesa_marco").x, *&sdlutils().svgElements().at("mesa_marco").y);
@@ -29,7 +29,7 @@ GameScene::createTable(){
     e_marco->getComponent<TransformComponent>()->setScale({0.85f, 0.85f});
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_marco);
-    addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("marco2"), 2);
+    addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("marco2"), 2, scale);
     _entsByGroup[grp::TABLE].push_back(e_marco);
     _entities.push_back(e_marco);
 
@@ -40,7 +40,7 @@ GameScene::createTable(){
     e_fondo->getComponent<TransformComponent>()->setScale({0.85f, 0.85f});
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_fondo);
-    addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), 1);
+    addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), 1, scale);
     _entsByGroup[grp::TABLE].push_back(e_fondo);
     _entities.push_back(e_fondo);
 
@@ -51,19 +51,11 @@ GameScene::createTable(){
     e_sombraMarco->getComponent<TransformComponent>()->setScale({0.85f, 0.85f});
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e_sombraMarco);
-    addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0);
+    addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0, scale);
     _entsByGroup[grp::TABLE].push_back(e_sombraMarco);
     _entities.push_back(e_sombraMarco);
 
-    //---- BODIES ----//
-    // Create an entity for each cushion (border) of the table
-    // for (int i = 0; i < game->nCushions; ++i){
-    //     entity_t e_coll = new Entity(*this);
-    //     b2Vec2 pos_coll = {};
-    //     addComponent<TransformComponent>(e_coll, pos_coll); // TODO: cambiar a transform físico
-    //     _entsByGroup[grp::TABLE].push_back(e_coll);
-    //     _entities.push_back(e_coll);
-    // }
+    // !---- BODIES ----//
 
     // Left cushion coll
     entity_t e_coll = new Entity(*this);
