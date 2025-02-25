@@ -45,10 +45,10 @@ public:
     inline void disablePhysics(){_updatePhysics = false;}
 
     // TODO: provisory definition
-    entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+    entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa); 
 
     // TODO: provisory definition
-	void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius);
+	void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
     
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar

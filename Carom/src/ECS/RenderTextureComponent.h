@@ -11,7 +11,7 @@ namespace ecs {
     private:
         Texture* _texture;
         ITransform* _transform;
-        float _scale;
+        float _scale; // scale de la textura (no su physical body)
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
