@@ -4,6 +4,8 @@
 #include "RigidBodyComponent.h"
 #include "ColorHitManager.h"
 #include "ScoreContainer.h"
+#include "TryCollisionComponent.h"
+#include "WhiteBallScorerComponent.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -14,7 +16,7 @@ namespace ecs{
 
 
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
+CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) 
 {
 
     // Creación del mundo físico
@@ -24,19 +26,12 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     setNewState(s);
 
-    Vector2D pos_1 = {PhysicsConverter::pixel2meter(0),  PhysicsConverter::pixel2meter(0)};
-    // Vector2D pos_1 = {0,  0};
+    createWhiteBall(Vector2D(-3.5f, 0.0), b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
+    createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
+    getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
+    addComponent<ecs::TryCollisionComponent>(getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]);
 
-    entity_t wb = createWhiteBall(pos_1, b2_dynamicBody, 1, 1, 1, 1, 1); // ! tst
-    createTable();
-
-
-    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({5.0f, 0.0f});
-    // createWhiteBall(Vector2D(1, 0), b2_dynamicBody, 2, 1, 1, 1, 10); // ! tst
-    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-1.0f, 1.0f});
-
-    // getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->setOnCollisionEnter([](ecs::entity_t ent){std::cout << "Colision" << std::endl;});
-    
     _hitManager = new ColorHitManager(this);
     _scoreContainer = new ScoreContainer(200,0);
 }
@@ -47,7 +42,6 @@ CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float 
 
     ecs::CircleShape *cs = new ecs::CircleShape(radius);
     addComponent<ecs::RigidBodyComponent>(e, pos, b2_dynamicBody, cs, density, friction, restitution);
-    e->getComponent<ecs::RigidBodyComponent>()->setScale(0.14f, 0.14f);
 
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e);
@@ -101,9 +95,14 @@ void CaromScene::update(){
     b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/1000.0, _b2Substeps);
 
     b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
-    manageCollisions(a_contactEvents);
+    manageEnterCollisions(a_contactEvents);
+    manageExitCollisions(a_contactEvents);
 
     b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+    manageEnterTriggers(a_sensorEvents);
+    manageExitTriggers(a_sensorEvents);
+
+    enablePhysics();
 
     State* a_stateToChange = nullptr;
     if(_currentState->checkCondition(a_stateToChange)){
@@ -143,7 +142,7 @@ CaromScene::generateBodyAndShape (
 }
 
 void
-CaromScene::manageCollisions(b2ContactEvents contactEvents){
+CaromScene::manageEnterCollisions(b2ContactEvents contactEvents){
     
     for(int i = 0; i < contactEvents.beginCount; ++i){
         b2ContactBeginTouchEvent* a_enter = contactEvents.beginEvents + i;
@@ -155,19 +154,29 @@ CaromScene::manageCollisions(b2ContactEvents contactEvents){
         ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
     }
 
-    for(int i = 0; i < contactEvents.endCount; ++i){
-        b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
-
-        ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
-        ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
-
-        ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
-        ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
-    }
 }
 
 void
-CaromScene::manageTriggers(b2SensorEvents sensorEvents){
+CaromScene::manageExitCollisions(b2ContactEvents contactEvents){
+
+    if(!_updatePhysics) return;
+    
+    for(int i = 0; i < contactEvents.endCount; ++i){
+        b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
+    
+        ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
+        ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
+    
+        ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
+        ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+    }
+    
+}
+
+void
+CaromScene::manageEnterTriggers(b2SensorEvents sensorEvents){
+
+    if(!_updatePhysics) return;
 
     for(int i = 0; i < sensorEvents.beginCount; ++i){
         b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
@@ -178,14 +187,22 @@ CaromScene::manageTriggers(b2SensorEvents sensorEvents){
         sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
     }
 
+}
+
+void
+CaromScene::manageExitTriggers(b2SensorEvents sensorEvents){
+
+    if(!_updatePhysics) return;
+
     for(int i = 0; i < sensorEvents.endCount; ++i){
         b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;
-
+    
         ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
         ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
-
+    
         sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
-    }
+    } 
+
 }
 
 ScoreContainer* CaromScene::getScoreContainer() {return _scoreContainer;}

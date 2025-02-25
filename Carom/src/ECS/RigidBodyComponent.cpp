@@ -59,11 +59,6 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2Body
     _friction = friction;
     _restitution = restitution;
 
-    _triggerEnterFunc = [](entity_t ent){};
-    _triggerExitFunc = [](entity_t ent){};
-    _collisionExitFunc = [](entity_t ent){};
-    _collisionEnterFunc = [](entity_t ent){};
-
 }
 
 RigidBodyComponent::~RigidBodyComponent(){
@@ -139,6 +134,8 @@ RigidBodyComponent::setScale(const Scale& newScale) {
             break;
         }
     }
+
+    static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics(); // * RIGHT NOW IT ONLY WORKS WITH CAROMSCENE, if other scene is using this method talk to Mika
 }
 
 /// @brief Asigna la rotación del objeto físico
@@ -252,57 +249,46 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onCollisionEnter(entity_t ent){
-    _collisionEnterFunc(ent);
+    for(PhysicsComponent* PC : _collisionEnter){
+        PC->onCollisionEnter(ent);
+    }
 }
 
 /// @brief Function called everytime object exits a collision
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onCollisionExit(entity_t ent){
-    _collisionExitFunc(ent);
+    for(PhysicsComponent* PC : _collisionExit){
+        PC->onCollisionExit(ent);
+    }
 }
 
 /// @brief Function called everytime object enters a sensor
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onTriggerEnter(entity_t ent){
-    _triggerEnterFunc(ent);
+    for(PhysicsComponent* PC : _triggerEnter){
+        PC->onTriggerEnter(ent);
+    }
 }
 
 /// @brief Function called everytime object exits a sensor
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onTriggerExit(entity_t ent){
-    _triggerExitFunc(ent);
+    for(PhysicsComponent* PC : _triggerExit){
+        PC->onTriggerExit(ent);
+    }
 }
 
-/// @brief sets the behaviour of the object on a collision enter
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnCollisionEnter(std::function<void(entity_t)> newFunc){
-    _collisionEnterFunc = newFunc;
+void
+RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
+    _triggerExit.push_back(PC);
+    _triggerEnter.push_back(PC);
+    _collisionExit.push_back(PC);
+    _collisionEnter.push_back(PC);
 }
 
-/// @brief sets the behaviour of the object on a collision exit
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnCollisionExit(std::function<void(entity_t)> newFunc){
-    _collisionExitFunc = newFunc;
-}
-
-/// @brief sets the behaviour of the object on a trigger enter
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnTriggerEnter(std::function<void(entity_t)> newFunc){
-    _triggerEnterFunc = newFunc;
-}
-
-/// @brief sets the behaviour of the object on a trigger exit
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnTriggerExit(std::function<void(entity_t)> newFunc){
-    _triggerExitFunc = newFunc;
-}
 /*
 * Generates the shape of a circle. The center of the circle will be at the center of the object
 */

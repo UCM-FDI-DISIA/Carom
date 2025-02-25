@@ -17,22 +17,30 @@ class Entity;
 
 class RigidBodyComponent : public InfoComponent, public ITransform
 {
+    friend class PhysicsComponent;
 private:
     b2BodyId _myB2BodyId;
 
     Scale _myScale = {1.0, 1.0};
 
     // Collision functions
-    std::function<void(Entity*)> _collisionEnterFunc;
-    std::function<void(Entity*)> _collisionExitFunc;
-    std::function<void(Entity*)> _triggerEnterFunc;
-    std::function<void(Entity*)> _triggerExitFunc;
+    std::vector<PhysicsComponent*> _collisionEnter = {};
+    std::vector<PhysicsComponent*> _collisionExit = {};
+    std::vector<PhysicsComponent*> _triggerEnter = {};
+    std::vector<PhysicsComponent*> _triggerExit = {};
+
 
     // * La unica forma de escalar es rompiendo la shape y haciendo otra, se guardan estos parámetros con ese objetivo
     Shape* _myShape;
     float _density;
     float _friction;
     float _restitution;
+
+protected:
+
+    // Collision suscribers
+    void suscribePhysicsComponent(PhysicsComponent* PC);
+
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
@@ -48,7 +56,7 @@ public:
 
     // Setters
     void setPosition(const Vector2D& newPos) override;
-    void setScale(const Scale& newScale) override; //! not working
+    void setScale(const Scale& newScale) override; //! doesn`t work if used in onCollision or onTrigger
     void setRotation(const double& newRot) override;
 
     void setBodyType(b2BodyType newType);
@@ -66,17 +74,11 @@ public:
     void applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin);
     void applyImpulseToCenter(b2Vec2 impulse);
 
-    // Collision events, only called from the scene
+    //onCollision and onTrigger Methods
     void onCollisionEnter(entity_t ent);
     void onCollisionExit(entity_t ent);
-    void onTriggerEnter(entity_t ent); // Used for sensors
+    void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);
-
-    // Collision events setters
-    void setOnCollisionEnter(std::function<void(entity_t)> newFunc);
-    void setOnCollisionExit(std::function<void(entity_t)> newFunc);
-    void setOnTriggerEnter(std::function<void(entity_t)> newFunc);
-    void setOnTriggerExit(std::function<void(entity_t)> newFunc);
 
     };
 

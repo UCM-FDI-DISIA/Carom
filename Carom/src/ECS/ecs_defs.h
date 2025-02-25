@@ -9,7 +9,8 @@
 	SHAPE, \
 	WHITEBALLSCORER, \
 	COLORBALLSCORER, \
-	WALL
+	WALL, \
+	TRYCOLLISION
 
 // Groups list - must have at least one element
 //

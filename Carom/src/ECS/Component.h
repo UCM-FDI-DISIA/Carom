@@ -1,15 +1,15 @@
 #pragma once
+#include "ecs.h"
 
 class Camera;
 namespace ecs
 {
-    class Entity;
     class Component
     {
     protected:
-        Entity* _myEntity;
+        entity_t _myEntity;
     public:
-        inline Component(Entity* ent) : _myEntity(ent) {}
+        inline Component(entity_t ent) : _myEntity(ent) {}
         virtual ~Component() = 0;
 
         virtual void init() = 0;
