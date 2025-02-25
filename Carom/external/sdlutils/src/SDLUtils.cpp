@@ -315,10 +315,11 @@ void SDLUtils::loadSVG(const char* filename){
 	for (NSVGshape* shape = image->shapes; shape != nullptr; shape = shape->next) {
 		// Create an svgElem structure for the current shape
 		svgElem elem;
-		elem.x = static_cast<int>(shape->bounds[0]);      // X position
-		elem.y = static_cast<int>(shape->bounds[1]);      // Y position
+
 		elem.width = static_cast<int>(shape->bounds[2] - shape->bounds[0]);  // Width
 		elem.height = static_cast<int>(shape->bounds[3] - shape->bounds[1]); // Height
+		elem.x = static_cast<int>(shape->bounds[0]) + elem.width/2;      // X position
+		elem.y = static_cast<int>(shape->bounds[1]) + elem.height/2;      // Y position
 
 		// Use the shape's ID as the key in the map
 		std::string id = shape->id;

@@ -28,8 +28,8 @@ namespace ecs {
         auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.x, physicalPosition.y});
         
         //Adapta el rect para que el objeto apareca en el centro de este
-        // coordinateX -= _texture->width() / 2;
-        // coordinateY -= _texture->height() / 2;
+        coordinateX -= _transform->getScale().x*_texture->width() / 2;
+        coordinateY -= _transform->getScale().y*_texture->height() / 2;
 
         SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_transform->getScale().x), (int)(_texture->height()*_transform->getScale().y)};
         _texture->render(dest, _transform->getRotation());
