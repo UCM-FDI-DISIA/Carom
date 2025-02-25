@@ -37,7 +37,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 }
 
 entity_t // TODO: provisory definition, add components
-CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa) {
+CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa) {
     ecs::entity_t e = new ecs::Entity(*this);
 
     ecs::CircleShape *cs = new ecs::CircleShape(radius);
@@ -55,7 +55,7 @@ CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float 
 }
 
 void // TODO: provisory definition, add components
-CaromScene::createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
+CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius) {
     ecs::entity_t e = new ecs::Entity(*this);
     addComponent<ecs::TransformComponent>(e, pos);
     // Must be pushed back into renderable vector before adding the component for proper sort!
@@ -117,12 +117,12 @@ void CaromScene::update(){
 
 std::pair<b2BodyId, b2ShapeDef*> 
 CaromScene::generateBodyAndShape (
-    ecs::entity_t ent, const Vector2D& vec, b2BodyType bodyType, float density, float friction, float restitution){
+    ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution){
 
     b2BodyDef bodyDef = b2DefaultBodyDef();
     bodyDef.type = bodyType;
     bodyDef.gravityScale = 0.0f;
-    bodyDef.position = {vec.getX(), vec.getY()};
+    bodyDef.position = {vec.x, vec.y};
     bodyDef.userData = ent;
 
     // TODO: rotation

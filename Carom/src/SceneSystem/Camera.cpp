@@ -1,6 +1,5 @@
 #include "Camera.h"
 #include "PhysicsUtils.h"
-#include <box2D/box2D.h>
 
 std::pair<int,int> Camera::getRenderPos(b2Vec2 physicalPos){
     float resX,resY;

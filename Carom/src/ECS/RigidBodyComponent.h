@@ -45,17 +45,17 @@ protected:
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
-    RigidBodyComponent(entity_t ent, const Vector2D& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
+    RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
     virtual ~RigidBodyComponent();
 
     // Getters
-    Vector2D getPosition() const override;
+    b2Vec2 getPosition() const override;
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
 
     // Setters
-    void setPosition(const Vector2D& newPos) override;
+    void setPosition(const b2Vec2& newPos) override;
     void setScale(const Scale& newScale) override; //! doesn`t work if used in onCollision or onTrigger
     void setRotation(const double& newRot) override;
 

@@ -23,9 +23,9 @@ namespace ecs {
     }
 
     void RenderTextureComponent::render(Camera* camera) {
-        Vector2D physicalPosition = _transform->getPosition();
+        b2Vec2 physicalPosition = _transform->getPosition();
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
-        auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.getX(), physicalPosition.getY()});
+        auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.x, physicalPosition.y});
         
         //Adapta el rect para que el objeto apareca en el centro de este
         // coordinateX -= _texture->width() / 2;

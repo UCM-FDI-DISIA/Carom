@@ -24,7 +24,7 @@ namespace ecs {
 /// @param friction The friction of the object
 /// @param restitution The restitution of the object
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
-RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2BodyType type, Shape *shape, float density, float friction, float restitution) 
+RigidBodyComponent::RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density, float friction, float restitution) 
     : InfoComponent(ent), ITransform()
 {
 
@@ -67,10 +67,9 @@ RigidBodyComponent::~RigidBodyComponent(){
 
 /// @brief Accesor de posición
 /// @return Vector posición en el mundo físico
-Vector2D
+b2Vec2
 RigidBodyComponent::getPosition() const {
-    b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
-    return {a_b2t.x , a_b2t.y};
+    return b2Body_GetPosition(_myB2BodyId);
 }
 
 /// @brief Accesor de escala
@@ -92,8 +91,8 @@ RigidBodyComponent::getRotation() const {
 /// @brief Recoloca el objeto físico
 /// @param newPos Posición cartesiana
 void
-RigidBodyComponent::setPosition(const Vector2D& newPos) {
-    b2Body_SetTransform(_myB2BodyId, {newPos.getX(), newPos.getY()}, b2Body_GetRotation(_myB2BodyId));
+RigidBodyComponent::setPosition(const b2Vec2& newPos) {
+    b2Body_SetTransform(_myB2BodyId, {newPos.x, newPos.y}, b2Body_GetRotation(_myB2BodyId));
 }
 
 /// @brief Modifica la escala del objeto. En el caso de formas que tengan radios, el valor que modifica el radio es la Y por conveniencia

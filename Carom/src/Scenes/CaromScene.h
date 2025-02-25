@@ -45,10 +45,10 @@ public:
     inline void disablePhysics(){_updatePhysics = false;}
 
     // TODO: provisory definition
-    entity_t createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+    entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
 
     // TODO: provisory definition
-	void createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius);
+	void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, float radius);
     
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
@@ -72,7 +72,7 @@ public:
     /// @param friction Roce (0.0 , 1.0)
     /// @param restitution Rebote/Elasticidad (0.0, 1.0)
     /// @return 
-    std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const Vector2D& vec, b2BodyType bodyType, 
+    std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, 
         float density, float friction, float restitution);
 };
 }

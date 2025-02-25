@@ -14,32 +14,29 @@ namespace ecs{
 
     class TransformComponent : public InfoComponent, public ITransform{
 
-        Vector2D _position;
+        b2Vec2 _position;
         Scale _scale;
         double _rotation; //In radians
 
     public:
         __CMPID_DECL__(cmp::TRANSFORM);
 
-        TransformComponent(Entity* ent, const Vector2D& pos);
+        TransformComponent(Entity* ent, const b2Vec2& pos);
         virtual ~TransformComponent(){}
 
         // Getters
-        inline Vector2D getPosition() const override {return _position;}
+        inline b2Vec2 getPosition() const override {return _position;}
         inline Scale getScale() const override {return _scale;}
         inline double getRotation() const override {return _rotation;}
 
         // Setters
-        inline void setPosition(const Vector2D& newPos) override {_position = newPos;}
+        inline void setPosition(const b2Vec2& newPos) override {_position = newPos;}
         inline void setScale(const Scale& newScale) override {_scale = newScale;}
         inline void setRotation(const double& newRot) override {_rotation = newRot;}
 
         // ! test
-        inline void update() {
-            setPosition(Vector2D(
-                _myEntity->getComponent<RigidBodyComponent>()->getPosition().getX(),
-                _myEntity->getComponent<RigidBodyComponent>()->getPosition().getY()
-            ));
-        }
+        // inline void update() {
+        //     setPosition(_myEntity->getComponent<RigidBodyComponent>()->getPosition());
+        // }
     };
 }

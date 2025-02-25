@@ -3,7 +3,7 @@
 
 namespace ecs{
 
-    TransformComponent::TransformComponent(Entity* ent, const Vector2D& pos) 
+    TransformComponent::TransformComponent(Entity* ent, const b2Vec2& pos) 
         : InfoComponent(ent), 
         _position(pos), 
         _scale({1,1}),
