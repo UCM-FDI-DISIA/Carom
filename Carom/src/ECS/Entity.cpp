@@ -17,23 +17,33 @@ namespace ecs {
             delete component;
     }
 
+    void Entity::enable() {
+        for(auto& cmp: _currentComponents)
+            cmp->setEnable(true);
+    }
+
+    void Entity::disable() {
+        for(auto& cmp: _currentComponents)
+            cmp->setEnable(false);
+    }
+
     void Entity::setListAnchor(GameList<Entity>::anchor&& anchor){
         this->_anchor = std::move(anchor);
     }
 
     void Entity::update(){
-        for(Component* component : _currentComponents) 
-            component->update();
+        for(Component* component : _currentComponents)
+            if (component->isEnable()) component->update();
     }
 
     void Entity::render(Camera* camera){
         for(Component* component : _currentComponents) 
-            component->render(camera);
+            if (component->isEnable()) component->render(camera);
     }
 
     void Entity::handleEvents(){
         for(Component* component : _currentComponents) 
-            component->handleEvent();
+            if (component->isEnable()) component->handleEvent();
     }
 
     GameScene& Entity::getScene(){

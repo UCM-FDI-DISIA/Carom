@@ -3,6 +3,7 @@
 #include "RenderComponent.h"
 #include "ITransform.h"
 
+class SDL_Rect;
 class Texture;
 
 namespace ecs {
@@ -24,5 +25,7 @@ namespace ecs {
 
         void render(Camera*) override;
         void init() override;
+        Texture* getTexture() {return _texture;};
+        SDL_Rect getRect();
     };
 }

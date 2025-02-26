@@ -108,6 +108,7 @@ add_executable(Carom
 
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
+	src/ECS/Button.cpp
 
 	src/ECS/WhiteBallScorerComponent.cpp
 	src/ECS/ColorBallScorerComponent.cpp
@@ -122,8 +123,10 @@ add_executable(Carom
 
 	src/Scenes/CaromScene.cpp
 	
-	src/StateMachine/WinMatchState.cpp
+	src/StateMachine/HitState.cpp
 	src/StateMachine/ScoringState.cpp
+	src/StateMachine/WinMatchState.cpp
+	src/StateMachine/LoseMatchState.cpp
 	
 	src/ScoreContainer.cpp
 )

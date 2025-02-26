@@ -69,6 +69,17 @@ namespace ecs {
         }
 
         inline ITransform* getTransform() {return _myTransform;}
+        std::vector<Component*> getAllComponents(){
+            return _currentComponents;
+        }
+
+        // Enables all entity's components
+	    //
+        void enable();
+
+        // Disables all entity's components
+        //
+        void disable();
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     

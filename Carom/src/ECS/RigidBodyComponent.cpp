@@ -12,6 +12,8 @@
 
 #include <exception>
 #include <typeinfo>
+#include <cmath>
+#include <math.h>
 
 using namespace ecs;
 

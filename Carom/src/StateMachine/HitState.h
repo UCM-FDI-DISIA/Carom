@@ -1,9 +1,9 @@
 #pragma once
 #include "State.h"
 
-class ScoringState: public State {
+class HitState: public State {
 public:
-    ScoringState(ecs::CaromScene* scene);
+    HitState(ecs::CaromScene* scene);
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;

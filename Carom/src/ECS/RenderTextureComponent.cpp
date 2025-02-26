@@ -35,4 +35,16 @@ namespace ecs {
         SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
         _texture->render(dest, _transform->getRotation());
     }
+
+    SDL_Rect RenderTextureComponent::getRect()
+    {
+        auto [coordinateX, coordinateY] = PhysicsConverter::meter2pixel({_transform->getPosition().x, 
+            _transform->getPosition().y}); 
+
+        //Adapta el rect para que el objeto apareca en el centro de este
+        coordinateX += _texture->width() / 2;
+        coordinateY += _texture->height() / 2;
+
+        return _texture->getRect(coordinateX, coordinateY);
+    }
 } 

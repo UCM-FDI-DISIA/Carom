@@ -10,7 +10,8 @@
 	WHITEBALLSCORER, \
 	COLORBALLSCORER, \
 	WALL, \
-	TRYCOLLISION
+	TRYCOLLISION, \
+	BUTTON
 
 // Groups list - must have at least one element
 //
