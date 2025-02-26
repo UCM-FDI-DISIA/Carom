@@ -1,3 +1,5 @@
+#pragma once
+
 #include "State.h"
 
 //Estado a devolver en un checkCondition como alternativa a no devolver nada, para no romper el flujo
