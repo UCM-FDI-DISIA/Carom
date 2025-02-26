@@ -54,10 +54,11 @@ namespace ecs{
         bool _isBallPicked = false; // booleano de si se ha pickeado la bola.
 
         // --- Area de clic de la bola.
-        double _r; // radio.
         Vector2D _center; // centro.
+        double _r; // radio.
         bool _isInRadius; // para saber si está dentro del radio de la bola.
         double _maxR; // radio maximo hasta donde puede llegar la bola.
+        bool _isInMaxRadius; // para saber que no se ha salido del maximo permitido para soltar la bola.
 
         // --- Palo.
         //Stick* s;

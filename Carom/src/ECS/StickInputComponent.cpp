@@ -42,6 +42,7 @@ namespace ecs {
         _center = _bRB->getPosition();
 
         _isInRadius = isOnCircleRadius(a_ih, a_pu, _r);
+        _isInMaxRadius = isOnCircleRadius(a_ih, a_pu, _maxR);
 
         // si se clica en el radio y no se levanta el raton izquierdo, es que se esta seleccionando.
         if(_isInRadius && a_ih.mouseButtonDownEvent() && a_ih.getMouseButtonState(a_ih.LEFT)){
@@ -51,16 +52,34 @@ namespace ecs {
         // si se había pickeado la bola y se levanta el raton...
         else if(_isBallPicked && a_ih.mouseButtonUpEvent()){
             _isBallPicked = false;
-            std::cout << "Se ha SOLTADO la bola" << std::endl;
+        
+            // si se suelta dentro del radio permitido...
+            if(_isInMaxRadius){
+                std::cout << "Se ha SOLTADO la bola dentro del RADIO PERMITIDO." << std::endl;
 
-            //if()
+                /*
+                Nota de Carmen: la idea de esto es pillar el punto donde se hace clic al principio y luego al soltar pillar el releasePoint, y 
+                haciendo la resta se saca el vector dirección para aplicarselo a la bola (para que se mueva en dicha dirección), con una fuerza determinada, según cuánto se haya
+                alejado del clickPoint.
+                
+                Vector2D clickPoint; // posicion donde se clica.
+                Vector2D releasePoint; // posicion donde se suelta.
+                Vector2D v = clickPoint - releasePoint;
+                auto vx = v.getX();
+                auto vy = v.getY();
+                */
+
+                
+                
+                // Condicion de si esta moviendose no puede lanzar la bola de nuevo. Solo puedes lanzar el impulso si no se mueve.
+                if (b2Body_GetLinearVelocity( _bRB->getB2Body()).x == 0 && b2Body_GetLinearVelocity( _bRB->getB2Body()).y == 0){
+                    _bRB->applyImpulseToCenter({10, 0}); // (10, 0), por ejemplo
+                }
+            } 
+            else std::cout << "Se ha SOLTADO la bola FUERA del RADIO PERMITIDO." << std::endl;
             
             // !!!! al soltar se aplicaria la fuerza del palo.
 
-            // Condicion de si esta moviendose no puede lanzar la bola de nuevo. Solo puedes lanzar el impulso si no se mueve.
-            if (b2Body_GetLinearVelocity( _bRB->getB2Body()).x == 0 && b2Body_GetLinearVelocity( _bRB->getB2Body()).y == 0){
-                _bRB->applyImpulseToCenter({10, 0});
-            }
         }
     }
     
