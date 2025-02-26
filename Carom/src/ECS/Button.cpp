@@ -5,7 +5,7 @@
 
 namespace ecs
 {
-    Button::Button(Entity* ent) : Component(ent), _onHover(), _onClick(), _onExit(), _isInside() {}
+    Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside() {}
     
     void Button::init()
     {

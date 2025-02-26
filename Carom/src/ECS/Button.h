@@ -5,7 +5,7 @@
 #include <functional>
 
 namespace ecs {
-    class Button : public ecs::Component
+    class Button : public ecs::HandleEventComponent
     {
     private:
         RenderTextureComponent* _targetRenderer;
