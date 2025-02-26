@@ -27,8 +27,8 @@ namespace ecs {
         // ! ball test
         // Converts (x, y) from screen(svg) to meters and to meter coordinates
         b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca").x,
-            *&sdlutils().svgElements().at("bola_blanca").y
+            *&sdlutils().svgElements_table().at("bola_blanca").x,
+            *&sdlutils().svgElements_table().at("bola_blanca").y
         );
         // Create white ball with the previous defined vector
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
@@ -37,8 +37,8 @@ namespace ecs {
 
         // Second ball
         b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca").x + 290,
-            *&sdlutils().svgElements().at("bola_blanca").y
+            *&sdlutils().svgElements_table().at("bola_blanca").x + 290,
+            *&sdlutils().svgElements_table().at("bola_blanca").y
         );
         createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
@@ -55,12 +55,12 @@ namespace ecs {
     CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
     {
         // Scale
-        float svgSize = *&sdlutils().svgElements().at("bola_blanca").width;
+        float svgSize = *&sdlutils().svgElements_table().at("bola_blanca").width;
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
         ecs::entity_t e = new ecs::Entity(*this);
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
         ecs::CircleShape *cs = new ecs::CircleShape(radius);
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
