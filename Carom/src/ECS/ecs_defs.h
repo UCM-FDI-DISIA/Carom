@@ -10,7 +10,7 @@
 	WHITEBALLSCORER, \
 	COLORBALLSCORER, \
 	WALL, \
-	TRYCOLLISION
+	EVENT_ON_COLLISION
 
 // Groups list - must have at least one element
 //
