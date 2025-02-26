@@ -3,13 +3,13 @@
 #include <SDL.h>
 #include "ecs.h"
 #include "Vector2D.h"
-#include "ITransform.h"
 #include "PhysicsUtils.h"
 #include "InputHandler.h"
 
-class Entity;
 
 namespace ecs{
+    class Entity;
+    class RigidBodyComponent;
     class StickInputComponent : public ecs::HandleEventComponent
     {
     public:
@@ -33,9 +33,9 @@ namespace ecs{
             inline void setStickRot(float rotation) { rot = rotation; }
         };*/
 
-        StickInputComponent(Entity* e, ITransform* t); 
+        StickInputComponent(Entity* e); 
         virtual ~StickInputComponent();
-        void init() override {}
+        void init() override;
         void handleEvent() override;
 
         // getters.
@@ -50,7 +50,7 @@ namespace ecs{
 
         // --- Bola.
         Entity* _b; // entidad bola.
-        ITransform* _bTransform; // transform de la bola
+        RigidBodyComponent* _bRB; // transform de la bola
         bool _isBallPicked = false; // booleano de si se ha pickeado la bola.
 
         // --- Area de clic de la bola.

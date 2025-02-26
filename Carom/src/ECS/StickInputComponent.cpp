@@ -1,4 +1,6 @@
 #include "StickInputComponent.h"
+#include "Entity.h"
+#include "RigidBodyComponent.h"
 
 
 // El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRect para pasarselo a este componente para que pueda funcionar.
@@ -13,16 +15,21 @@
 namespace ecs { 
 
     // Hay que pasarle el rectangulo para la deteccion de clics.
-    StickInputComponent::StickInputComponent(Entity* e, ITransform* t) : HandleEventComponent(e){
+    StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e){
         _b = e;
-        _bTransform = t;
         _isBallPicked = false; // inicialmente la bola está deseleccionada.
-        _r = (_bTransform->getScale().x/2) + 4.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
-        _center = _bTransform->getPosition(); // como la pos del transform es en el centro, el centro de la bola es el radius.
         _isInRadius = false; // inicialmente no se ha clicado el radio.
     }
-
+    
     StickInputComponent::~StickInputComponent(){
+        
+    }
+    
+    // Rigidbody hereda de transform. Rigidbody es un transform.
+    void StickInputComponent::init(){
+        _bRB = _b->getComponent<RigidBodyComponent>(); 
+        _r = (_bRB->getScale().x/2) + 4.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
+        _center = _bRB->getPosition(); // como la pos del transform es en el centro, el centro de la bola es el radius.
     }
 
     void StickInputComponent::handleEvent()
@@ -43,6 +50,7 @@ namespace ecs {
             std::cout << "Se ha SOLTADO la bola" << std::endl;
 
             // !!!! al soltar se aplicaria la fuerza del palo.
+            _bRB->applyImpulseToCenter({500, 0});
         }
     }
 

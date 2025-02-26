@@ -75,10 +75,7 @@ void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float densi
 
     ecs::CircleShape *cs = new ecs::CircleShape(radius);
     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
-    addComponent<ecs::TransformComponent>(e, pos);
-
-    auto tf = e->getComponent<ecs::TransformComponent>();
-    addComponent<ecs::StickInputComponent>(e, tf);
+    addComponent<ecs::StickInputComponent>(e);
     
     // Must be pushed back into renderable vector before adding the component for proper sort!
     _entsRenderable.push_back(e);
