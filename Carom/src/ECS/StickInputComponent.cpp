@@ -30,6 +30,7 @@ namespace ecs {
         _bRB = _b->getComponent<RigidBodyComponent>(); 
         _r = (_bRB->getScale().x/2) + 4.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
         _center = _bRB->getPosition(); // como la pos del transform es en el centro, el centro de la bola es el radius.
+        _maxR = _r + 3.0f; 
     }
 
     void StickInputComponent::handleEvent()
@@ -37,7 +38,10 @@ namespace ecs {
         auto& a_ih = ih(); // input handler.
         PhysicsConverter a_pu; // para meter2pixel converter.
 
-        _isInRadius = clickOnCircleRadius(a_ih, a_pu);
+        // actualiza la posicion del centro de la bola.
+        _center = _bRB->getPosition();
+
+        _isInRadius = isOnCircleRadius(a_ih, a_pu, _r);
 
         // si se clica en el radio y no se levanta el raton izquierdo, es que se esta seleccionando.
         if(_isInRadius && a_ih.mouseButtonDownEvent() && a_ih.getMouseButtonState(a_ih.LEFT)){
@@ -49,12 +53,18 @@ namespace ecs {
             _isBallPicked = false;
             std::cout << "Se ha SOLTADO la bola" << std::endl;
 
+            //if()
+            
             // !!!! al soltar se aplicaria la fuerza del palo.
-            _bRB->applyImpulseToCenter({500, 0});
+
+            // Condicion de si esta moviendose no puede lanzar la bola de nuevo. Solo puedes lanzar el impulso si no se mueve.
+            if (b2Body_GetLinearVelocity( _bRB->getB2Body()).x == 0 && b2Body_GetLinearVelocity( _bRB->getB2Body()).y == 0){
+                _bRB->applyImpulseToCenter({10, 0});
+            }
         }
     }
-
-    bool StickInputComponent::clickOnCircleRadius(InputHandler& ih, PhysicsConverter pc)
+    
+    bool StickInputComponent::isOnCircleRadius(InputHandler& ih, PhysicsConverter pc, double r)
     {
         // --- Posiciones del raton (x, y).
         Sint32 a_mouseX = pc.pixel2meter(ih.getMousePos().first);
@@ -69,26 +79,6 @@ namespace ecs {
         int a_y = std::pow(a_mouseY - _center.getY(), 2); // y: ((y−y0)^2)
 
         // --- (a+b < r^2) -> se cumple
-        if(a_x + a_y < std::pow(_r, 2)){
-            _isInRadius = true;
-        } 
-        else{
-            _isInRadius = false;
-        } 
-
-        // Se apreta el mouse && en concreto el boton izquierdo (LEFT).
-        bool a_leftClick =  ih.mouseButtonDownEvent() && ih.getMouseButtonState(ih.LEFT);
-
-        /*// clic izquierdo + esta dentro del radio.
-        if(a_leftClick && _isInRadius){
-            //s->active = true; // activas el palo.
-            std::cout << "Se ha clicado DENTRO del radio." << std::endl;
-        }
-        else if(a_leftClick && !_isInRadius){
-            //s->active = false; // el palo permanece inactivo.
-            std::cout << "Se ha clicado FUERA del radio." << std::endl;
-        }*/
-
-        return a_leftClick && _isInRadius;
+        return a_x + a_y < std::pow(r, 2);
     }
 }

@@ -44,7 +44,7 @@ namespace ecs{
 
     private:
         // --- Métodos del HandleEvents.
-        bool clickOnCircleRadius(InputHandler& ih, PhysicsConverter pc);
+        bool isOnCircleRadius(InputHandler& ih, PhysicsConverter pc, double r);
         // método para el seleccionamiento de la bola
         // método para soltar la bola.
 
@@ -57,6 +57,7 @@ namespace ecs{
         double _r; // radio.
         Vector2D _center; // centro.
         bool _isInRadius; // para saber si está dentro del radio de la bola.
+        double _maxR; // radio maximo hasta donde puede llegar la bola.
 
         // --- Palo.
         //Stick* s;

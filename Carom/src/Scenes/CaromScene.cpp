@@ -24,7 +24,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     setNewState(s);
 
-    createStickInputBall(Vector2D(3.5f, 0.0), b2_staticBody, 1, 1, 1, 1, 1);
+    createStickInputBall(Vector2D(3.5f, 0.0), b2_dynamicBody, 1, 1, 1, 1, 1);
 
     //StickInputComponent* sic = getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<StickInputComponent>();
 
