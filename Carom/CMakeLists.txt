@@ -69,6 +69,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Physics
+	${CMAKE_SOURCE_DIR}/src/Tweening
 )
 
 
@@ -116,6 +117,8 @@ add_executable(Carom
 	src/StateMachine/LoseMatchState.cpp
 	
 	src/ScoreContainer.cpp
+
+	src/Tweening/Tweening.cpp
 )
 
 # Link Box2D
