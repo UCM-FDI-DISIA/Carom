@@ -26,7 +26,6 @@ namespace ecs
         std::cout <<"MousePos: " << input->getMousePos().first << ", " << input->getMousePos().second << std::endl;
 
         if(input->isMouseInRect(input->getMousePos(), rect)){
-
             if(!_isInside){
                 _isInside = true;
                 _onHover();
