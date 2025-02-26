@@ -44,12 +44,11 @@ namespace ecs{
 
     private:
         // --- Métodos del HandleEvents.
-        bool isOnCircleRadius(InputHandler& ih, PhysicsConverter pc, double r);
+        bool isOnCircleRadius(InputHandler& ih, double r);
         // método para el seleccionamiento de la bola
         // método para soltar la bola.
 
         // --- Bola.
-        Entity* _b; // entidad bola.
         RigidBodyComponent* _bRB; // transform de la bola
         bool _isBallPicked = false; // booleano de si se ha pickeado la bola.
 

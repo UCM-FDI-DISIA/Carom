@@ -1,6 +1,7 @@
 #include "StickInputComponent.h"
 #include "Entity.h"
 #include "RigidBodyComponent.h"
+#include "algorithm"
 
 
 // El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRect para pasarselo a este componente para que pueda funcionar.
@@ -16,7 +17,6 @@ namespace ecs {
 
     // Hay que pasarle el rectangulo para la deteccion de clics.
     StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e){
-        _b = e;
         _isBallPicked = false; // inicialmente la bola está deseleccionada.
         _isInRadius = false; // inicialmente no se ha clicado el radio.
     }
@@ -27,9 +27,8 @@ namespace ecs {
     
     // Rigidbody hereda de transform. Rigidbody es un transform.
     void StickInputComponent::init(){
-        _bRB = _b->getComponent<RigidBodyComponent>(); 
+        _bRB = _myEntity->getComponent<RigidBodyComponent>(); 
         _r = (_bRB->getScale().x/2) + 4.0f; // no importaria si fuese x o y, porque la bola es redonda por todos lados.
-        _center = _bRB->getPosition(); // como la pos del transform es en el centro, el centro de la bola es el radius.
         _maxR = _r + 3.0f; 
     }
 
@@ -39,10 +38,12 @@ namespace ecs {
         PhysicsConverter a_pu; // para meter2pixel converter.
 
         // actualiza la posicion del centro de la bola.
-        _center = _bRB->getPosition();
+        _center = {PhysicsConverter::meter2pixel(_bRB->getPosition()).first, 
+                   PhysicsConverter::meter2pixel(_bRB->getPosition()).second
+                };
 
-        _isInRadius = isOnCircleRadius(a_ih, a_pu, _r);
-        _isInMaxRadius = isOnCircleRadius(a_ih, a_pu, _maxR);
+        _isInRadius = isOnCircleRadius(a_ih, _r);
+        _isInMaxRadius = isOnCircleRadius(a_ih, _maxR);
 
         // si se clica en el radio y no se levanta el raton izquierdo, es que se esta seleccionando.
         if(_isInRadius && a_ih.mouseButtonDownEvent() && a_ih.getMouseButtonState(a_ih.LEFT)){
@@ -77,27 +78,20 @@ namespace ecs {
                 }
             } 
             else std::cout << "Se ha SOLTADO la bola FUERA del RADIO PERMITIDO." << std::endl;
-            
-            // !!!! al soltar se aplicaria la fuerza del palo.
-
         }
     }
     
-    bool StickInputComponent::isOnCircleRadius(InputHandler& ih, PhysicsConverter pc, double r)
+    bool StickInputComponent::isOnCircleRadius(InputHandler& ih, double r)
     {
         // --- Posiciones del raton (x, y).
-        Sint32 a_mouseX = pc.pixel2meter(ih.getMousePos().first);
-		Sint32 a_mouseY = pc.pixel2meter(ih.getMousePos().second);
+        Sint32 a_mouseX = ih.getMousePos().first;
+		Sint32 a_mouseY = ih.getMousePos().second;
         
-        //std::cout << "pos raton: (" << a_mouseX << ", " << a_mouseY << ")" << std::endl;
-        //std::cout << "centro bola: (" << _center.getX() << ", " << _center.getY() << ")" << std::endl;
-        //std::cout << "radio: " << _r << std::endl;
+        // Vector direccion
+        Vector2D dir = {a_mouseX - _center.getX(), a_mouseY - _center.getY()};
+        // Magnitud
+        float dirMag = std::sqrt(std::pow(dir.getX(), 2) + std::pow(dir.getY(), 2));
 
-        // --- Circunferencia de centro (x0,y0) y radio r un punto (x,y) está en el interior de la circunferencia si ((x−x0)^2)+((y−y0)^2) < r^2.
-        int a_x = std::pow(a_mouseX - _center.getX(), 2); // x: ((x−x0)^2)
-        int a_y = std::pow(a_mouseY - _center.getY(), 2); // y: ((y−y0)^2)
-
-        // --- (a+b < r^2) -> se cumple
-        return a_x + a_y < std::pow(r, 2);
+        return dirMag > r;
     }
 }
