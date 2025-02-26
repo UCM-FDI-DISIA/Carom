@@ -2,9 +2,9 @@
 
 #include "State.h"
 
-class ScoringState: public State {
+class StartMatchState: public State {
 public:
-    ScoringState(ecs::CaromScene* scene);
+    StartMatchState(CaromScene* scene);
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;
