@@ -6,7 +6,7 @@ int PhysicsConverter::meter2pixel(float meters){
     return meters * PIXELS_PER_METER;
 }
 
-float PhysicsConverter::pixel2meter(int pixel){
+float PhysicsConverter::pixel2meter(float pixel){
     return pixel/PIXELS_PER_METER;
 }
 

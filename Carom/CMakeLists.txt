@@ -62,6 +62,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
 	${CMAKE_SOURCE_DIR}/external/json/include
+	${CMAKE_SOURCE_DIR}/external/svg/include
 
 	${CMAKE_SOURCE_DIR}/src
 	${CMAKE_SOURCE_DIR}/src/ECS
@@ -71,6 +72,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
+	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
 
@@ -108,9 +110,13 @@ add_executable(Carom
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
 	src/ECS/StickInputComponent.cpp
+	src/ECS/Button.cpp
 
 	src/ECS/WhiteBallScorerComponent.cpp
 	src/ECS/ColorBallScorerComponent.cpp
+
+	src/ECS/EventOnCollision.cpp
+	src/ECS/PhysicsComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 
@@ -119,8 +125,10 @@ add_executable(Carom
 
 	src/Scenes/CaromScene.cpp
 	
-	src/StateMachine/WinMatchState.cpp
+	src/StateMachine/HitState.cpp
 	src/StateMachine/ScoringState.cpp
+	src/StateMachine/WinMatchState.cpp
+	src/StateMachine/LoseMatchState.cpp
 	
 	src/ScoreContainer.cpp
 )

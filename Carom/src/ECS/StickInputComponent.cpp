@@ -38,8 +38,8 @@ namespace ecs {
         PhysicsConverter a_pu; // para meter2pixel converter.
 
         // actualiza la posicion del centro de la bola.
-        _center = {PhysicsConverter::meter2pixel(_bRB->getPosition()).first, 
-                   PhysicsConverter::meter2pixel(_bRB->getPosition()).second
+        _center = {(float)PhysicsConverter::meter2pixel(_bRB->getPosition()).first, 
+                   (float)PhysicsConverter::meter2pixel(_bRB->getPosition()).second
                 };
 
         _isInRadius = isOnCircleRadius(a_ih, _r);

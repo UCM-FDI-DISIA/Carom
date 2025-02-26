@@ -8,7 +8,6 @@ class NullState : public State{
 public:
     inline NullState(ecs::CaromScene* scene) : State(scene) {}
 
-    inline void update() override {}
     inline bool checkCondition(State*& state) override {return false;}
     inline void onStateEnter() override {};
     inline void onStateExit() override {};

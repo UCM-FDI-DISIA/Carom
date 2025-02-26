@@ -8,8 +8,6 @@ namespace ecs {
 class State{
 public:
     inline State(ecs::CaromScene* scene) : _scene(scene) {}
-    //update en caso de que se quiera hacer algo en especifico en el estado
-    virtual void update()=0;
 
     //checkea la condicion
     //Si no ha encontrado ninguna condicion valida, devuelve false

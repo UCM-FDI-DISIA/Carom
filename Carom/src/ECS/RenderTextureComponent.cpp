@@ -8,11 +8,12 @@
 #include "GameScene.h"
 
 namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder) 
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
     : RenderComponent(ent),
     _texture(texture),
     _transform(nullptr),
-    renderOrder(renderOrder)
+    renderOrder(renderOrder),
+    _scale(scale)
     {
 
     }
@@ -23,15 +24,27 @@ namespace ecs {
     }
 
     void RenderTextureComponent::render(Camera* camera) {
-        Vector2D physicalPosition = _transform->getPosition();
+        b2Vec2 physicalPosition = _transform->getPosition();
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
-        auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.getX(), physicalPosition.getY()});
+        auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.x, physicalPosition.y});
         
+        //Adapta el rect para que el objeto apareca en el centro de este
+        coordinateX -= _scale*_texture->width() / 2;
+        coordinateY -= _scale*_texture->height() / 2;
+
+        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
+        _texture->render(dest, _transform->getRotation());
+    }
+
+    SDL_Rect RenderTextureComponent::getRect()
+    {
+        auto [coordinateX, coordinateY] = PhysicsConverter::meter2pixel({_transform->getPosition().x, 
+            _transform->getPosition().y}); 
+
         //Adapta el rect para que el objeto apareca en el centro de este
         coordinateX += _texture->width() / 2;
         coordinateY += _texture->height() / 2;
 
-        SDL_Rect dest = {coordinateX, coordinateY, _texture->width(), _texture->height()};
-        _texture->render(dest, _transform->getRotation());
+        return _texture->getRect(coordinateX, coordinateY);
     }
 } 

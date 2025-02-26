@@ -13,7 +13,14 @@
     { "id" : "pacman", "file" : "../../resources/images/pacman.png"},
     { "id" : "sprites", "file" : "../../resources/images/pacman_sprites.png"},
     { "id" : "heart", "file" : "../../resources/images/heart.png"},
-    { "id" : "fighter", "file" : "../../resources/images/fighter.png"}
+    { "id" : "fighter", "file" : "../../resources/images/fighter.png"},
+    { "id" : "fondo", "file" : "../../resources/images/fondo.png"},
+    { "id" : "marco2", "file" : "../../resources/images/marco2.png"},
+    { "id" : "mesa1", "file" : "../../resources/images/mesa1.png"},
+    { "id" : "mesa1_sombra", "file" : "../../resources/images/mesa1_sombra.png"},
+    { "id" : "bola_blanca", "file" : "../../resources/images/bola_blanca.png"},
+    { "id" : "bola_sombra", "file" : "../../resources/images/bola_sombra.png"}
+
   ],
   
   "messages" : [

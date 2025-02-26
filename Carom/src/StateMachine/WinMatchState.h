@@ -9,8 +9,6 @@ class WinMatchState : public State {
 public:
     WinMatchState(ecs::CaromScene* scene);
 
-    void update() override {}
-
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;

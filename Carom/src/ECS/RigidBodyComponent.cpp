@@ -12,6 +12,8 @@
 
 #include <exception>
 #include <typeinfo>
+#include <cmath>
+#include <math.h>
 
 using namespace ecs;
 
@@ -24,7 +26,7 @@ namespace ecs {
 /// @param friction The friction of the object
 /// @param restitution The restitution of the object
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
-RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2BodyType type, Shape *shape, float density, float friction, float restitution) 
+RigidBodyComponent::RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density, float friction, float restitution) 
     : InfoComponent(ent), ITransform()
 {
 
@@ -59,11 +61,6 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent, const Vector2D& pos, b2Body
     _friction = friction;
     _restitution = restitution;
 
-    _triggerEnterFunc = [](entity_t ent){};
-    _triggerExitFunc = [](entity_t ent){};
-    _collisionExitFunc = [](entity_t ent){};
-    _collisionEnterFunc = [](entity_t ent){};
-
 }
 
 RigidBodyComponent::~RigidBodyComponent(){
@@ -72,10 +69,9 @@ RigidBodyComponent::~RigidBodyComponent(){
 
 /// @brief Accesor de posición
 /// @return Vector posición en el mundo físico
-Vector2D
+b2Vec2
 RigidBodyComponent::getPosition() const {
-    b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
-    return {a_b2t.x , a_b2t.y};
+    return b2Body_GetPosition(_myB2BodyId);
 }
 
 /// @brief Accesor de escala
@@ -97,8 +93,8 @@ RigidBodyComponent::getRotation() const {
 /// @brief Recoloca el objeto físico
 /// @param newPos Posición cartesiana
 void
-RigidBodyComponent::setPosition(const Vector2D& newPos) {
-    b2Body_SetTransform(_myB2BodyId, {newPos.getX(), newPos.getY()}, b2Body_GetRotation(_myB2BodyId));
+RigidBodyComponent::setPosition(const b2Vec2& newPos) {
+    b2Body_SetTransform(_myB2BodyId, {newPos.x, newPos.y}, b2Body_GetRotation(_myB2BodyId));
 }
 
 /// @brief Modifica la escala del objeto. En el caso de formas que tengan radios, el valor que modifica el radio es la Y por conveniencia
@@ -139,6 +135,8 @@ RigidBodyComponent::setScale(const Scale& newScale) {
             break;
         }
     }
+
+    static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics(); // * RIGHT NOW IT ONLY WORKS WITH CAROMSCENE, if other scene is using this method talk to Mika
 }
 
 /// @brief Asigna la rotación del objeto físico
@@ -161,7 +159,7 @@ RigidBodyComponent::setBodyType(b2BodyType newType){
 void
 RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
     b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
-    b2Body_ApplyForce(_myB2BodyId, force, origin + a_b2t, false);
+    b2Body_ApplyForce(_myB2BodyId, force, origin + a_b2t, true);
 }
 
 /// @brief Applies force at the specified world origin point
@@ -169,14 +167,14 @@ RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
 RigidBodyComponent::applyForceToWorld(b2Vec2 force, b2Vec2 origin){
-    b2Body_ApplyForce(_myB2BodyId, force, origin, false);
+    b2Body_ApplyForce(_myB2BodyId, force, origin, true);
 }
 
 /// @brief Applies force at the center of the object
 /// @param force the vector force to aplly
 void
 RigidBodyComponent::applyForceToCenter(b2Vec2 force){
-    b2Body_ApplyForceToCenter(_myB2BodyId, force, false);
+    b2Body_ApplyForceToCenter(_myB2BodyId, force, true);
 }
 
 /// @brief Applies impulse at the specified offset origin point
@@ -185,7 +183,7 @@ RigidBodyComponent::applyForceToCenter(b2Vec2 force){
 void
 RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
     b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
-    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin + a_b2t, false);
+    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin + a_b2t, true);
 }
 
 /// @brief Applies impulse at the specified world origin point
@@ -193,7 +191,7 @@ RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
 RigidBodyComponent::applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin){
-    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin, false);
+    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin, true);
 }
 
 /// @brief Applies impulse at the center of the object
@@ -252,57 +250,53 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onCollisionEnter(entity_t ent){
-    _collisionEnterFunc(ent);
+    for(PhysicsComponent* PC : _collisionEnter){
+        PC->onCollisionEnter(ent);
+    }
 }
 
 /// @brief Function called everytime object exits a collision
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onCollisionExit(entity_t ent){
-    _collisionExitFunc(ent);
+    for(PhysicsComponent* PC : _collisionExit){
+        PC->onCollisionExit(ent);
+    }
 }
 
 /// @brief Function called everytime object enters a sensor
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onTriggerEnter(entity_t ent){
-    _triggerEnterFunc(ent);
+    for(PhysicsComponent* PC : _triggerEnter){
+        PC->onTriggerEnter(ent);
+    }
 }
 
 /// @brief Function called everytime object exits a sensor
 /// @param ent object that collides with this rigidbody
 void 
 RigidBodyComponent::onTriggerExit(entity_t ent){
-    _triggerExitFunc(ent);
+    for(PhysicsComponent* PC : _triggerExit){
+        PC->onTriggerExit(ent);
+    }
 }
 
-/// @brief sets the behaviour of the object on a collision enter
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnCollisionEnter(std::function<void(entity_t)> newFunc){
-    _collisionEnterFunc = newFunc;
+void
+RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
+    _triggerExit.push_back(PC);
+    _triggerEnter.push_back(PC);
+    _collisionExit.push_back(PC);
+    _collisionEnter.push_back(PC);
+
+    PC->setOnDestroy([this]() -> void {
+        _triggerExit.erase(--_triggerExit.end());
+        _triggerEnter.erase(--_triggerEnter.end());
+        _collisionExit.erase(--_collisionExit.end());
+        _collisionEnter.erase(--_collisionEnter.end());
+    });
 }
 
-/// @brief sets the behaviour of the object on a collision exit
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnCollisionExit(std::function<void(entity_t)> newFunc){
-    _collisionExitFunc = newFunc;
-}
-
-/// @brief sets the behaviour of the object on a trigger enter
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnTriggerEnter(std::function<void(entity_t)> newFunc){
-    _triggerEnterFunc = newFunc;
-}
-
-/// @brief sets the behaviour of the object on a trigger exit
-/// @param newFunc new behaviour
-void 
-RigidBodyComponent::setOnTriggerExit(std::function<void(entity_t)> newFunc){
-    _triggerExitFunc = newFunc;
-}
 /*
 * Generates the shape of a circle. The center of the circle will be at the center of the object
 */

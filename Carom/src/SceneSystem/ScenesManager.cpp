@@ -76,3 +76,8 @@ ScenesManager::handleEvent()
 		current->handleEvent();
 	}
 }
+
+void 
+ScenesManager::invokeLose(){
+	//TODO
+}

@@ -1,12 +1,14 @@
 #include "Camera.h"
 #include "PhysicsUtils.h"
-#include <box2D/box2D.h>
 
 std::pair<int,int> Camera::getRenderPos(b2Vec2 physicalPos){
-    std::pair<int,int> a_camScreenPos = PhysicsConverter::meter2pixel({x,y});
-    std::pair<int,int> a_objectPos = PhysicsConverter::meter2pixel(physicalPos);
+    float resX,resY;
+    resX = physicalPos.x - x;
+    resY = physicalPos.y - y;
 
-    return {a_objectPos.first - a_camScreenPos.first, a_objectPos.second - a_camScreenPos.second};
+    std::pair<int,int> res = PhysicsConverter::meter2pixel({resX,resY});
+
+    return res;
 }
 
 void Camera::setPos(float newX, float newY){

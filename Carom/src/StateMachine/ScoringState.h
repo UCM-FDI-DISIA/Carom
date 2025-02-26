@@ -3,12 +3,10 @@
 
 class ScoringState: public State {
 public:
-
-    virtual void update() override;
-
+    ScoringState(ecs::CaromScene* scene);
     bool checkCondition(State*& state) override;
-
 
     void onStateEnter() override;
     void onStateExit() override;
 };
+

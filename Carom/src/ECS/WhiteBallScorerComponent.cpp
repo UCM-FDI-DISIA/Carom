@@ -8,8 +8,7 @@
 #include <algorithm>
 
 namespace ecs{
-    void WhiteBallScorerComponent::init(){
-        _myEntity->getComponent<RigidBodyComponent>()->setOnCollisionEnter([this](entity_t other){
+    void WhiteBallScorerComponent::onCollisionEnter(entity_t other){
 
             //if is cushion
             if(_myEntity->tryGetComponent<WallComponent>()) cushions++;
@@ -30,6 +29,5 @@ namespace ecs{
                 }
                 
             }
-        });
     }
 }

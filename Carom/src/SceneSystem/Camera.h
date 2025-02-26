@@ -1,6 +1,7 @@
 #pragma once
-#include "Vector2D.h"
-class b2Vec2;
+
+#include <box2D/box2D.h>
+#include <utility>
 
 class Camera{
 public:

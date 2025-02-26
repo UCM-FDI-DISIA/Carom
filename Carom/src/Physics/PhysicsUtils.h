@@ -5,11 +5,11 @@
 class b2Vec2;
 class PhysicsConverter{
 public:
-    static const int PIXELS_PER_METER = 75;
+    static constexpr float PIXELS_PER_METER = 430.0f;
 
     static int meter2pixel(float meters);
 
-    static float pixel2meter(int pixel);
+    static float pixel2meter(float pixel);
 
     static std::pair<int,int> meter2pixel(b2Vec2 physicalVector);
 

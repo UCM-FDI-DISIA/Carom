@@ -81,6 +81,10 @@ public:
 		render(dest);
 	}
 
+	inline SDL_Rect getRect(int x, int y){
+		return { x, y, _width, _height };
+	}
+
 	// renders the complete texture at a destination rectangle (dest)
 	inline void render(const SDL_Rect &dest) {
 		SDL_Rect src = { 0, 0, _width, _height };
