@@ -31,7 +31,7 @@ namespace ecs {
     {
         if(_behaviourEnabled){
             //si dentro del comportamiento se ha soltado el boton izquierdo del raton
-            if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT)){
+            if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0){
                 std::cout << "Dejado de arrastrar" << std::endl;
                 _behaviourEnabled = false;
             }

@@ -22,8 +22,6 @@ namespace ecs
         InputHandler* input = InputHandler::Instance();
         SDL_Rect rect = _targetRenderer->getRect();
 
-        
-
         if(input->isMouseInRect(input->getMousePos(), rect)){
             if(!_isInside){
                 _isInside = true;
