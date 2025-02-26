@@ -72,6 +72,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
+	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
 
