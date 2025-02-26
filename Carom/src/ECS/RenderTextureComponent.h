@@ -1,7 +1,7 @@
 #pragma once
 #include "ecs.h"
 #include "RenderComponent.h"
-
+class SDL_Rect;
 class Texture;
 
 namespace ecs {
@@ -19,5 +19,7 @@ namespace ecs {
 
         void render() override;
         void init() override;
+        Texture* getTexture() {return _texture;};
+        SDL_Rect getRect();
     };
 }

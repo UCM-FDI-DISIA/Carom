@@ -4,6 +4,7 @@
 #include "InputHandler.h"
 
 #include "ScenesManager.h"
+#include "CaromScene.h"
 
 Game::Game() {}
 
@@ -39,6 +40,8 @@ Game::init() {
     }
 
     _sceneManager = new ScenesManager();
+    CaromScene* c = new CaromScene(this, nullptr);
+    _sceneManager->pushScene(c);
 }
 
 void

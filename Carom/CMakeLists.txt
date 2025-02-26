@@ -104,6 +104,7 @@ add_executable(Carom
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
 	src/ECS/JsonEntityParser.cpp
+	src/ECS/Button.cpp
 
 	src/Physics/B2Manager.cpp
 	src/inputTest.cpp
