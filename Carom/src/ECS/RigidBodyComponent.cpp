@@ -90,6 +90,13 @@ RigidBodyComponent::getRotation() const {
     return b2Atan2(a_b2r.s, a_b2r.c);
 }
 
+/// @brief Returns a bool indicating whether the body is moving
+bool
+RigidBodyComponent::isMoving() {
+    b2Vec2 vel = getVelocity();
+    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y,2)) < 0.01f;
+}
+
 /// @brief Recoloca el objeto físico
 /// @param newPos Posición cartesiana
 void
