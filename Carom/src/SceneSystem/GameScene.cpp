@@ -4,7 +4,9 @@
 
 namespace ecs{
 
-GameScene::GameScene(Game* game): _game(game){}
+GameScene::GameScene(Game* game): _game(game){
+    init();
+}
 
 GameScene::~GameScene(){};
 

@@ -1,6 +1,7 @@
 #include "JsonEntityParser.h"
 #include "JSON.h"
 #include "TransformComponent.h"
+#include "Vector2D.h"
 
 #include <iostream>
 
@@ -26,6 +27,7 @@ ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file)
 }
 
 void JsonEntityParser::transformComponent(const JSONObject& atributes,  ecs::Entity* entity){
-    
-    ecs::TransformComponent component = new ecs::TransformComponent(entity, {atributes.at("x"),atributes.at("y")});
+    std::cout<<"ha entrado";
+    Vector2D position(atributes.at("x")->AsNumber(), atributes.at("y")->AsNumber());
+    ecs::TransformComponent* component = new ecs::TransformComponent(entity, position);
 }

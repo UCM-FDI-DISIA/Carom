@@ -5,6 +5,7 @@
 
 #include "ScenesManager.h"
 #include "CaromScene.h"
+#include "PrefabTestScene.h"
 
 Game::Game() {}
 
@@ -25,7 +26,7 @@ Game::init() {
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
 	if (!SDLUtils::Init("Ping Pong", 800, 600,
-			"resources/config/test.resources.json")) {
+			"../../resources/config/test.resources.json")) {
 
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
@@ -40,7 +41,8 @@ Game::init() {
     }
 
     _sceneManager = new ScenesManager();
-    CaromScene* c = new CaromScene(this, nullptr);
+    PrefabTestScene* c = new PrefabTestScene(this);
+    //CaromScene* c = new CaromScene(this, nullptr);
     _sceneManager->pushScene(c);
 }
 

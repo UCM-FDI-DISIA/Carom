@@ -30,6 +30,12 @@ protected:
 	Game* _game;
 
 	GameScene(Game* game);
+	inline GameScene(){}
+
+	
+	// Este metodo permite un comportamiento de la escena al instanciarla
+	//
+	inline virtual void init(){}
 
 	inline GameList<Entity>& getEntities() { return _entities; }
 
