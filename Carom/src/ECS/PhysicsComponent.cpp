@@ -9,3 +9,5 @@ ecs::PhysicsComponent::PhysicsComponent(entity_t ent) : Component(ent){
 
     ent->getComponent<RigidBodyComponent>()->suscribePhysicsComponent(this);
 }
+
+ecs::PhysicsComponent::~PhysicsComponent() {_onDestroy();}

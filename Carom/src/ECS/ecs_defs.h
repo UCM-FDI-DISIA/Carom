@@ -11,7 +11,8 @@
 	COLORBALLSCORER, \
 	WALL, \
 	TRYCOLLISION, \
-	BUTTON
+	BUTTON, \
+	EVENT_ON_COLLISION
 
 // Groups list - must have at least one element
 //

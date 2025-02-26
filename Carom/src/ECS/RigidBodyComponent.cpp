@@ -288,6 +288,13 @@ RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
     _triggerEnter.push_back(PC);
     _collisionExit.push_back(PC);
     _collisionEnter.push_back(PC);
+
+    PC->setOnDestroy([this]() -> void {
+        _triggerExit.erase(--_triggerExit.end());
+        _triggerEnter.erase(--_triggerEnter.end());
+        _collisionExit.erase(--_collisionExit.end());
+        _collisionEnter.erase(--_collisionEnter.end());
+    });
 }
 
 /*

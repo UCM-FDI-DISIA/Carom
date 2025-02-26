@@ -113,7 +113,7 @@ add_executable(Carom
 	src/ECS/WhiteBallScorerComponent.cpp
 	src/ECS/ColorBallScorerComponent.cpp
 
-	src/ECS/TryCollisionComponent.cpp
+	src/ECS/EventOnCollision.cpp
 	src/ECS/PhysicsComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
