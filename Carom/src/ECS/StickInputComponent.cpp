@@ -33,22 +33,26 @@ namespace ecs {
             //si dentro del comportamiento se ha soltado el boton izquierdo del raton
             if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0){
                 std::cout << "Dejado de arrastrar" << std::endl;
+
+                if(!isMouseOnCircleRadius(_minRadiusToPull)){
+
+                }
+
                 _behaviourEnabled = false;
             }
         }
     }
     
-    bool StickInputComponent::isOnCircleRadius(double r)
+    bool StickInputComponent::isMouseOnCircleRadius(double r)
     {
         // --- Posiciones del raton (x, y).
-        Sint32 a_mouseX = _ih->getMousePos().first;
-		Sint32 a_mouseY = _ih->getMousePos().second;
+        b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
 
         // centro de la bola
         b2Vec2 _center = _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getPosition();
         
         // Vector direccion
-        Vector2D dir = {a_mouseX - _center.x, a_mouseY - _center.y};
+        Vector2D dir = {_mousePos.x - _center.x, _mousePos.y - _center.y};
         // Magnitud
         float dirMag = std::sqrt(std::pow(dir.getX(), 2) + std::pow(dir.getY(), 2));
 
