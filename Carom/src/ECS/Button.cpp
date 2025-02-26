@@ -22,11 +22,16 @@ namespace ecs
         InputHandler* input = InputHandler::Instance();
         SDL_Rect rect = _targetRenderer->getRect();
 
-        if(input->isMouseInRect(input->getMousePos(), rect)){
-            _isInside = true;
-            _onHover();
+        std::cout <<"RectPos: " << rect.x << ", " << rect.y << std::endl;
+        std::cout <<"MousePos: " << input->getMousePos().first << ", " << input->getMousePos().second << std::endl;
 
-            if(input->mouseButtonDownEvent()){
+        if(input->isMouseInRect(input->getMousePos(), rect)){
+
+            if(!_isInside){
+                _isInside = true;
+                _onHover();
+            }
+            if(input->mouseButtonDownEvent() && input->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT)){
                 _onClick();
             }
         }
