@@ -57,13 +57,17 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 entity_t // TODO: provisory definition, add components
 CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
 {
+    // Scale
+    float svgSize = *&sdlutils().svgElements().at("bola_blanca").width;
+    float textureSize = sdlutils().images().at("bola_blanca").width();
+    float scale = svgSize/textureSize;
+
     ecs::entity_t e = new ecs::Entity(*this);
     float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
     ecs::CircleShape *cs = new ecs::CircleShape(radius);
     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
-    // Must be pushed back into renderable vector before adding the component for proper sort!
-    _entsRenderable.push_back(e);
-    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, 0.15); // scale atera a posicao
+    _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale); // scale atera a posicao
 
     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
     _entities.push_back(e);

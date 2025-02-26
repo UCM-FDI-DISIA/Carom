@@ -17,18 +17,21 @@ GameScene::~GameScene(){};
 // TODO: componentes Transform físico y normal
 // Creates a table composed by 3 entities for textures and 4 entities that are the colliders of each side of the table.
 // The table is not an entity per se, is represented by a group of entities.
-// Those entities are grouped here -> _entsByGroup[grp::TABLE]
+// Those entities are grouped here -> _entsByGroup[ecs::grp::TABLE]
 void
 GameScene::createTable(){
-    float scale = 0.85;
+
+    // !---- TEXTURES ----//
+    // Set scale (same for all)
+    float svgSize = *&sdlutils().svgElements().at("mesa_marco").width;
+    float textureSize = sdlutils().images().at("marco2").width();
+    float scale = svgSize/textureSize;
+
     // Entidad marco
     entity_t e_marco = new Entity(*this);
     b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("mesa_marco").x, *&sdlutils().svgElements().at("mesa_marco").y);
-    
     addComponent<TransformComponent>(e_marco, pos_m);
-    e_marco->getComponent<TransformComponent>()->setScale({0.85f, 0.85f});
-    // Must be pushed back into renderable vector before adding the component for proper sort!
-    _entsRenderable.push_back(e_marco);
+    _entsRenderable.push_back(e_marco); // Must be pushed back into renderable vector before adding the component for proper sort!
     addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("marco2"), 2, scale);
     _entsByGroup[grp::TABLE].push_back(e_marco);
     _entities.push_back(e_marco);
@@ -37,9 +40,7 @@ GameScene::createTable(){
     entity_t e_fondo = new Entity(*this);
     b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("fondo_mesa").x, *&sdlutils().svgElements().at("fondo_mesa").y);
     addComponent<TransformComponent>(e_fondo, pos_f);
-    e_fondo->getComponent<TransformComponent>()->setScale({0.85f, 0.85f});
-    // Must be pushed back into renderable vector before adding the component for proper sort!
-    _entsRenderable.push_back(e_fondo);
+    _entsRenderable.push_back(e_fondo); // Must be pushed back into renderable vector before adding the component for proper sort!
     addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), 1, scale);
     _entsByGroup[grp::TABLE].push_back(e_fondo);
     _entities.push_back(e_fondo);
@@ -48,18 +49,15 @@ GameScene::createTable(){
     entity_t e_sombraMarco = new Entity(*this);
     b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("mesa_sombra").x, *&sdlutils().svgElements().at("mesa_sombra").y);
     addComponent<TransformComponent>(e_sombraMarco, pos_s);
-    e_sombraMarco->getComponent<TransformComponent>()->setScale({0.85f, 0.85f});
-    // Must be pushed back into renderable vector before adding the component for proper sort!
-    _entsRenderable.push_back(e_sombraMarco);
+    _entsRenderable.push_back(e_sombraMarco); // Must be pushed back into renderable vector before adding the component for proper sort!
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0, scale);
     _entsByGroup[grp::TABLE].push_back(e_sombraMarco);
     _entities.push_back(e_sombraMarco);
 
     // !---- BODIES ----//
-
     // Left cushion coll
-    entity_t e_coll = new Entity(*this);
-    b2Vec2 pos_coll = PhysicsConverter::pixel2meter(
+    entity_t e_coll_left = new Entity(*this);
+    b2Vec2 pos_coll_left = PhysicsConverter::pixel2meter(
         *&sdlutils().svgElements().at("left_cushion_coll").x,
         *&sdlutils().svgElements().at("left_cushion_coll").y
     );
@@ -67,9 +65,9 @@ GameScene::createTable(){
         PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("left_cushion_coll").width/2),
         PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("left_cushion_coll").height/2)
     );
-    addComponent<RigidBodyComponent>(e_coll, pos_coll, b2_staticBody, ps);
-    _entsByGroup[grp::TABLE].push_back(e_coll);
-    _entities.push_back(e_coll);
+    addComponent<RigidBodyComponent>(e_coll_left, pos_coll_left, b2_staticBody, ps);
+    _entsByGroup[grp::TABLE].push_back(e_coll_left);
+    _entities.push_back(e_coll_left);
 
     // Right cushion coll
     entity_t e_coll_right = new Entity(*this);
