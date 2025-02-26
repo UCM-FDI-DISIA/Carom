@@ -28,7 +28,11 @@ void
 Game::init() {
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
-	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/test.resources.json", "../../resources/svg/Game.svg")) {
+	if (!SDLUtils::Init("Carom", 1920, 1080, 
+            "../../resources/config/resources.json", 
+            "../../resources/svg/Game.svg", 
+            "../../resources/svg/position.svg"
+        )) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
 		return;

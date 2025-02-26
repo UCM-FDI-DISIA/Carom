@@ -14,7 +14,9 @@ void sdlutils_basic_demo() {
 
 	// Initialize the SDLGame singleton
 	if (!SDLUtils::Init("CAROM", 800, 600,
-			"../../resources/config/sdlutilsdemo.resources.json", "../../resources/svg/Game.svg")) {
+			"../../resources/config/sdlutilsdemo.resources.json", 
+			"../../resources/svg/Game.svg", 
+			"../../resources/svg/positions.svg")) {
 		std::cerr << "Something went wrong while initializing SDLUtils!"
 				<< std::endl;
 		return;
