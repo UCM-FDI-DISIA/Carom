@@ -1,4 +1,5 @@
 #pragma once
+
 #include "State.h"
 
 class HitState: public State {
