@@ -157,7 +157,7 @@ RigidBodyComponent::setBodyType(b2BodyType newType){
 void
 RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
     b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
-    b2Body_ApplyForce(_myB2BodyId, force, origin + a_b2t, false);
+    b2Body_ApplyForce(_myB2BodyId, force, origin + a_b2t, true);
 }
 
 /// @brief Applies force at the specified world origin point
@@ -165,14 +165,14 @@ RigidBodyComponent::applyForceToObject(b2Vec2 force, b2Vec2 origin){
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
 RigidBodyComponent::applyForceToWorld(b2Vec2 force, b2Vec2 origin){
-    b2Body_ApplyForce(_myB2BodyId, force, origin, false);
+    b2Body_ApplyForce(_myB2BodyId, force, origin, true);
 }
 
 /// @brief Applies force at the center of the object
 /// @param force the vector force to aplly
 void
 RigidBodyComponent::applyForceToCenter(b2Vec2 force){
-    b2Body_ApplyForceToCenter(_myB2BodyId, force, false);
+    b2Body_ApplyForceToCenter(_myB2BodyId, force, true);
 }
 
 /// @brief Applies impulse at the specified offset origin point
@@ -181,7 +181,7 @@ RigidBodyComponent::applyForceToCenter(b2Vec2 force){
 void
 RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
     b2Vec2 a_b2t = b2Body_GetPosition(_myB2BodyId);
-    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin + a_b2t, false);
+    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin + a_b2t, true);
 }
 
 /// @brief Applies impulse at the specified world origin point
@@ -189,7 +189,7 @@ RigidBodyComponent::applyImpulseToObject(b2Vec2 impulse, b2Vec2 origin){
 /// @param origin the world point. {0,0} is the point {0,0} of the world
 void
 RigidBodyComponent::applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin){
-    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin, false);
+    b2Body_ApplyLinearImpulse(_myB2BodyId, impulse, origin, true);
 }
 
 /// @brief Applies impulse at the center of the object
