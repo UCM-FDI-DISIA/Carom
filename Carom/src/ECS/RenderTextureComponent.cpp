@@ -48,6 +48,6 @@ namespace ecs {
 
         SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
 
-        return _texture->getRect(coordinateX, coordinateY);
+        return dest;
     }
 } 

@@ -160,17 +160,12 @@ public:
 		// derecha +x izquierda -x
 		// abajo +y arriba -y
 		
-		Sint32 mouseX = mousePos.first;
-		Sint32 mouseY = mousePos.second;
+		Sint32 mouseX = _mousePos.first;
+		Sint32 mouseY = _mousePos.second;
 
 		return 
-		// El mouse hace clic dentro de la coordenada x.
-		mouseX >= rect.x  // está entre el origen.
-		&& mouseX <= rect.x + rect.w // y el ancho.
-
-		// El mouse hace clic dentro de la coordenada y.
-		&& mouseY >= rect.y // está entre el origen
-		&& mouseY <= rect.y + rect.h; // y el alto.
+		mouseX >= rect.x  && mouseX <= rect.x + rect.w 
+		&& mouseY >= rect.y && mouseY <= rect.y + rect.h;
 	}
 
 	// seleccionar bola del inventario.
