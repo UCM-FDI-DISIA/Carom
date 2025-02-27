@@ -18,7 +18,7 @@ namespace ecs{
     public:
         __CMPID_DECL__(cmp::STICK_INPUT);
 
-        static constexpr float MAX_IMPULSE = 0.01f;
+        static constexpr float MAX_IMPULSE = 0.04f;
 
         StickInputComponent(Entity* e, float height); 
         void init() override;

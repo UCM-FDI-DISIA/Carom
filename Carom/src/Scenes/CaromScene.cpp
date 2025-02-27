@@ -78,8 +78,9 @@ namespace ecs {
         ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
         addComponent<ecs::Button>(e, rButton);
         e->getComponent<ecs::Button>()->setOnClick([this](){
-            _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->enableBehaviour(); // TODO FOR to get stick
+            _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(true);
         });
+        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(false);
         _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
 
         return e;

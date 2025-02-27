@@ -35,37 +35,54 @@ namespace ecs {
 
     void StickInputComponent::handleEvent()
     {
-        if(_behaviourEnabled){
-            //mousePos
-            b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
-            // centro de la bola
-            
-            b2Vec2 _center = _whiteBallRB->getPosition();
+        //mousePos
+        b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
+        
+        std::cout <<_mousePos.x << " " << _mousePos.y << " ::: ";
 
-            // Vector direccion
-            Vector2D dir = {_center.x - _mousePos.x, _center.y - _mousePos.y };
-            Vector2D dirNormalized = dir.normalize();
+        // centro de la bola
+        b2Vec2 _center = _whiteBallRB->getPosition();
 
-            enableRender(true, _mousePos, dirNormalized);
+        // Vector direccion
+        Vector2D dir = {_center.x - _mousePos.x, _center.y - _mousePos.y };
+        Vector2D dirNormalized = dir.normalize();
 
-            //si dentro del comportamiento se ha soltado el boton izquierdo del raton
-            if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0){
-                std::cout << "Dejado de arrastrar" << std::endl;
+        if (getMagFromMouseToCenter() > _maxRadiusToPull)
+        {
+            _mousePos.x = _center.x + (-dirNormalized.getX() * _maxRadiusToPull);
+            _mousePos.y = _center.y + (-dirNormalized.getY() * _maxRadiusToPull);
+        }
 
-                if(!isMouseOnCircleRadius(_minRadiusToPull)){
-                    float a_mag = getMagFromMouseToCenter();
-                    if(a_mag > _maxRadiusToPull) a_mag = _maxRadiusToPull;
+        std::cout <<_mousePos.x << " " << _mousePos.y << "\n";
 
-                    float impulseMag = MAX_IMPULSE * (dir.magnitude() - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
-                    b2Vec2 impulseVec = {dirNormalized.getX() * impulseMag, dirNormalized.getY() * impulseMag};
+        enableRender(true, _mousePos, dirNormalized);
 
-                    //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
-                    _whiteBallRB->applyImpulseToCenter(impulseVec);
-                }
+        //std::cout << getMagFromMouseToCenter() << "\n";
 
-                _behaviourEnabled = false;
-                enableRender(false, _mousePos, dirNormalized);
+        //si dentro del comportamiento se ha soltado el boton izquierdo del raton
+        if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0)
+        {
+            std::cout << "Dejado de arrastrar" << std::endl;
+
+            if(!isMouseOnCircleRadius(_minRadiusToPull)){
+
+                std::cout << "Golpe" << std::endl;
+
+                float a_mag = getMagFromMouseToCenter();
+                if(a_mag > _maxRadiusToPull) a_mag = _maxRadiusToPull;
+
+                float impulseMag = MAX_IMPULSE * (a_mag - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
+                b2Vec2 impulseVec = {dirNormalized.getX() * impulseMag, dirNormalized.getY() * impulseMag};
+
+                //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
+                _whiteBallRB->applyImpulseToCenter(impulseVec);
+
+                std::cout << "mI " << impulseMag << "\n"; 
+                std::cout << "impulso " << impulseVec.x << " " << impulseVec.y << "\n"; 
             }
+
+            _active = false;
+            enableRender(false, _mousePos, dirNormalized);
         }
     }
 
