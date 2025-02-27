@@ -29,6 +29,8 @@ namespace ecs {
 
     void StickInputComponent::handleEvent()
     {
+        if(isMouseOnCircleRadius(_minRadiusToPull)) std::cout << "dentro" << std::endl;
+        else std::cout << "fuera" << std::endl;
         if(_behaviourEnabled){
             //si dentro del comportamiento se ha soltado el boton izquierdo del raton
             if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0){
@@ -55,7 +57,6 @@ namespace ecs {
         Vector2D dir = {_mousePos.x - _center.x, _mousePos.y - _center.y};
         // Magnitud
         float dirMag = std::sqrt(std::pow(dir.getX(), 2) + std::pow(dir.getY(), 2));
-
         return dirMag <= r;
     }
 }

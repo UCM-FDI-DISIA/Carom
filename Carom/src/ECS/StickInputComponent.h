@@ -26,8 +26,8 @@ namespace ecs{
         // --- Métodos del HandleEvents.
         bool isMouseOnCircleRadius( double r);
         // --- Area de clic de la bola.
-        double _minRadiusToPull = 0.5f;
-        double _maxRadiusToPull = 4;
+        double _minRadiusToPull = 0.12f;
+        double _maxRadiusToPull = 0.8f;
 
         bool _behaviourEnabled = false;
     };
