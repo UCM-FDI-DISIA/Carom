@@ -7,13 +7,7 @@
   ],
   
   "images" : [
-    { "id" : "sdl_logo", "file" : "../../resources/images/SDL_logo.png" },
     { "id" : "tennis_ball", "file" : "../../resources/images/tennis_ball.png" },
-    { "id" : "star", "file" : "../../resources/images/star.png"},
-    { "id" : "pacman", "file" : "../../resources/images/pacman.png"},
-    { "id" : "sprites", "file" : "../../resources/images/pacman_sprites.png"},
-    { "id" : "heart", "file" : "../../resources/images/heart.png"},
-    { "id" : "fighter", "file" : "../../resources/images/fighter.png"},
     { "id" : "fondo", "file" : "../../resources/images/fondo.png"},
     { "id" : "marco2", "file" : "../../resources/images/marco2.png"},
     { "id" : "mesa1", "file" : "../../resources/images/mesa1.png"},
