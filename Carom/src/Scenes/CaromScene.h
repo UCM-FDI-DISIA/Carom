@@ -50,6 +50,8 @@ namespace ecs{
         // TODO: provisory definition
         entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa); 
 
+        entity_t createStick();
+
         // TODO: provisory definition
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
     

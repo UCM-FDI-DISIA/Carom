@@ -2,7 +2,10 @@
 #include "InputHandler.h"
 #include "Entity.h"
 #include "RigidBodyComponent.h"
+#include "TransformComponent.h"
+#include "RenderTextureComponent.h"
 #include "algorithm"
+#include <cmath>
 #include "GameScene.h"
 #include "ecs_defs.h"
 
@@ -19,17 +22,32 @@
 namespace ecs { 
 
     // Hay que pasarle el rectangulo para la deteccion de clics.
-    StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e){
+    StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight)
+    {
     }
     
     // Rigidbody hereda de transform. Rigidbody es un transform.
     void StickInputComponent::init(){
         _ih = InputHandler::Instance();
+        _myTransform = _myEntity->getComponent<TransformComponent>();
+        _myRender = _myEntity->getComponent<RenderTextureComponent>();
     }
 
     void StickInputComponent::handleEvent()
     {
         if(_behaviourEnabled){
+            //mousePos
+            b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
+            // centro de la bola
+            
+            b2Vec2 _center = _whiteBallRB->getPosition();
+
+            // Vector direccion
+            Vector2D dir = {_center.x - _mousePos.x, _center.y - _mousePos.y };
+            Vector2D dirNormalized = dir.normalize();
+
+            enableRender(true, _mousePos, dirNormalized);
+
             //si dentro del comportamiento se ha soltado el boton izquierdo del raton
             if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0){
                 std::cout << "Dejado de arrastrar" << std::endl;
@@ -37,26 +55,20 @@ namespace ecs {
                 if(!isMouseOnCircleRadius(_minRadiusToPull)){
                     float a_mag = getMagFromMouseToCenter();
                     if(a_mag > _maxRadiusToPull) a_mag = _maxRadiusToPull;
-                    //mousePos
-                    b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
-                    // centro de la bola
-                    Entity* a_ball = _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0];
-                    b2Vec2 _center = a_ball->getTransform()->getPosition();
-        
-                    // Vector direccion
-                    Vector2D dir = {_center.x - _mousePos.x, _center.y - _mousePos.y };
 
-                    b2Vec2 force = {dir.getX() / a_mag, dir.getY()/a_mag};
+                    float impulseMag = MAX_IMPULSE * (dir.magnitude() - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
+                    b2Vec2 impulseVec = {dirNormalized.getX() * impulseMag, dirNormalized.getY() * impulseMag};
 
                     //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
-                    a_ball->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter(force * 0.02* a_mag);
+                    _whiteBallRB->applyImpulseToCenter(impulseVec);
                 }
 
                 _behaviourEnabled = false;
+                enableRender(false, _mousePos, dirNormalized);
             }
         }
     }
-    
+
     bool StickInputComponent::isMouseOnCircleRadius(double r)
     {
         return getMagFromMouseToCenter() <= r;
@@ -67,13 +79,45 @@ namespace ecs {
         b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
     
         // centro de la bola
-        b2Vec2 _center = _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getPosition();
+        b2Vec2 _center = _whiteBallRB->getPosition();
         
         // Vector direccion
         Vector2D dir = {_mousePos.x - _center.x, _mousePos.y - _center.y};
-        // Magnitud
-        float dirMag = std::sqrt(std::pow(dir.getX(), 2) + std::pow(dir.getY(), 2));
     
-        return dirMag;
+        return dir.magnitude();
+    }
+
+    void StickInputComponent::enableRender(bool active, b2Vec2 _mousePos, Vector2D dirNormalized) {
+
+        // enable render
+        _myRender->setEnable(active);
+
+        if (active) {
+
+            float cosalpha = dirNormalized * Vector2D(1, 0);
+            float sinalpha = dirNormalized * Vector2D(0, 1);
+
+            float distX = PhysicsConverter::pixel2meter(_stickHeight/2) * cosalpha;
+            float distY = PhysicsConverter::pixel2meter(_stickHeight/2) * sinalpha;
+
+            float newRotation = rad2degrees(std::acos(cosalpha));
+            if (sinalpha > 0) newRotation = -newRotation;
+            newRotation = newRotation + 90.0f; // porque la imagen empiza de pie
+
+            b2Vec2 newPos = {_mousePos.x - distX, _mousePos.y - distY};
+
+            _myTransform->setPosition(newPos);
+            _myTransform->setRotation(newRotation);
+        }
+    }
+
+    double StickInputComponent::rad2degrees(double radians){
+        return radians * (180.0f / M_PI);
+    }
+
+    void StickInputComponent::registerWhiteBall(entity_t wb)
+    {
+        _whiteBall = wb;
+        _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
     }
 }

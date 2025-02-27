@@ -26,11 +26,12 @@ namespace ecs {
 
         setNewState(s);
 
+        createStick();
         // ! ball test
         // Converts (x, y) from screen(svg) to meters and to meter coordinates
         b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca").x,
-            *&sdlutils().svgElements().at("bola_blanca").y
+            *&sdlutils().svgElements().at("bola_blanca_2").x,
+            *&sdlutils().svgElements().at("bola_blanca_2").y
         );
         // Create white ball with the previous defined vector
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
@@ -38,10 +39,10 @@ namespace ecs {
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
         // Second ball
-        b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca").x + 290,
-            *&sdlutils().svgElements().at("bola_blanca").y
-        );
+        // b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
+        //     *&sdlutils().svgElements().at("bola_blanca").x + 290,
+        //     *&sdlutils().svgElements().at("bola_blanca").y
+        // );
         //createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
         //getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
         // ! ball test
@@ -57,25 +58,55 @@ namespace ecs {
     CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
     {
         // Scale
-        float svgSize = *&sdlutils().svgElements().at("bola_blanca").width;
+        float svgSize = *&sdlutils().svgElements().at("bola_blanca_2").width;
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
         ecs::entity_t e = new ecs::Entity(*this);
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
-        ecs::CircleShape *cs = new ecs::CircleShape(radius);
-        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale); // scale atera a posicao
-
-        addComponent<ecs::Button>(e);
-        addComponent<ecs::StickInputComponent>(e);
-        e->getComponent<ecs::Button>()->setOnClick([this](){
-            _entsByGroup[ecs::grp::WHITEBALL][0]->getComponent<ecs::StickInputComponent>()->enableBehaviour();
-        });
-
         _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
         _entities.push_back(e);
+
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
+        ecs::CircleShape *cs = new ecs::CircleShape(radius);
+        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
+
+        addComponent<ecs::Button>(e);
+        e->getComponent<ecs::Button>()->setOnClick([this](){
+            _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->enableBehaviour(); // TODO FOR to get stick
+        });
+        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
+
+        return e;
+    }
+
+    entity_t CaromScene::createStick()
+    {
+        // Scale
+        float svgSize = *&sdlutils().svgElements().at("palo1").width;
+        float textureSize = sdlutils().images().at("palo1").width();
+        float scale = svgSize/textureSize;
+
+        std::cout << "svgsize: " << svgSize <<std::endl;
+        std::cout << "textureSize: " << textureSize <<std::endl;
+
+        std::cout << "scale: " << scale <<std::endl;
+
+        ecs::entity_t e = new ecs::Entity(*this);
+        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsByGroup[ecs::grp::PALO].push_back(e);
+        _entities.push_back(e);
+
+        b2Vec2 pos = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements().at("palo1").x,
+            *&sdlutils().svgElements().at("palo1").y
+        );
+
+        addComponent<TransformComponent>(e, pos);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
+        addComponent<StickInputComponent>(e, *&sdlutils().svgElements().at("palo1").height);
+        e->getComponent<RenderTextureComponent>()->setEnable(false);
 
         return e;
     }
