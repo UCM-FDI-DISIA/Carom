@@ -8,13 +8,16 @@ namespace ecs{
 //cambiar todo esto con herencia del componente de Mika
 class WhiteBallScorerComponent : PhysicsComponent{
     
-    int cushions = 0;
-    bool previouslyHit = false;
+    int cushions = 0; // rebotes en paredes.
+    bool previouslyHit = false; // para ver si la whiteball ha tocado previamente una colorball.
 
 public:
 __CMPID_DECL__(cmp::WHITEBALLSCORER);
-    void onCollisionEnter(entity_t other);
+
+    // funcion q se activa al colisionar con "other".
+    void onCollisionEnter(entity_t other); 
+
     //setea cushions a 0 y previously hit a false al comienzo del turno
-    void refreshOnNewTurn();
+    //void refreshOnNewTurn();
 };
 }

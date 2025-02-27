@@ -9,7 +9,10 @@ class ColorBallScorerComponent : public PhysicsComponent{
     
 public:
     __CMPID_DECL__(cmp::COLORBALLSCORER);
+
+    // se activa al entrar en colision una bola de color con ent.
     void onCollisionEnter(entity_t ent) override;
+
     /*
         ON HIT ENTER
         if(isColorBall) ColorHitManager.checkColisions(pos de hit);
