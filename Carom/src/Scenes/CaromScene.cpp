@@ -6,6 +6,7 @@
 #include "ScoreContainer.h"
 #include "WhiteBallScorerComponent.h"
 #include "StickInputComponent.h"
+#include "Button.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -41,8 +42,8 @@ namespace ecs {
             *&sdlutils().svgElements().at("bola_blanca").x + 290,
             *&sdlutils().svgElements().at("bola_blanca").y
         );
-        createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
-        getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
+        //createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
+        //getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
         // ! ball test
 
         // Create table with texture and colliders
@@ -66,6 +67,12 @@ namespace ecs {
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale); // scale atera a posicao
+
+        addComponent<ecs::Button>(e);
+        addComponent<ecs::StickInputComponent>(e);
+        e->getComponent<ecs::Button>()->setOnClick([this](){
+            _entsByGroup[ecs::grp::WHITEBALL][0]->getComponent<ecs::StickInputComponent>()->enableBehaviour();
+        });
 
         _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
         _entities.push_back(e);

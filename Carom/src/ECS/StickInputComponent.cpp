@@ -29,15 +29,27 @@ namespace ecs {
 
     void StickInputComponent::handleEvent()
     {
-        if(isMouseOnCircleRadius(_minRadiusToPull)) std::cout << "dentro" << std::endl;
-        else std::cout << "fuera" << std::endl;
         if(_behaviourEnabled){
             //si dentro del comportamiento se ha soltado el boton izquierdo del raton
             if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0){
                 std::cout << "Dejado de arrastrar" << std::endl;
 
                 if(!isMouseOnCircleRadius(_minRadiusToPull)){
+                    float a_mag = getMagFromMouseToCenter();
+                    if(a_mag > _maxRadiusToPull) a_mag = _maxRadiusToPull;
+                    //mousePos
+                    b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
+                    // centro de la bola
+                    Entity* a_ball = _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0];
+                    b2Vec2 _center = a_ball->getTransform()->getPosition();
+        
+                    // Vector direccion
+                    Vector2D dir = {_center.x - _mousePos.x, _center.y - _mousePos.y };
 
+                    b2Vec2 force = {dir.getX() / a_mag, dir.getY()/a_mag};
+
+                    //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
+                    a_ball->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter(force * 0.02* a_mag);
                 }
 
                 _behaviourEnabled = false;
@@ -47,9 +59,13 @@ namespace ecs {
     
     bool StickInputComponent::isMouseOnCircleRadius(double r)
     {
+        return getMagFromMouseToCenter() <= r;
+    }
+
+    float StickInputComponent::getMagFromMouseToCenter(){
         // --- Posiciones del raton (x, y).
         b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
-
+    
         // centro de la bola
         b2Vec2 _center = _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getPosition();
         
@@ -57,6 +73,7 @@ namespace ecs {
         Vector2D dir = {_mousePos.x - _center.x, _mousePos.y - _center.y};
         // Magnitud
         float dirMag = std::sqrt(std::pow(dir.getX(), 2) + std::pow(dir.getY(), 2));
-        return dirMag <= r;
+    
+        return dirMag;
     }
 }

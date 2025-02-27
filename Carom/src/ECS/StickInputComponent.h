@@ -25,6 +25,7 @@ namespace ecs{
     InputHandler* _ih;
         // --- Métodos del HandleEvents.
         bool isMouseOnCircleRadius( double r);
+        float getMagFromMouseToCenter();
         // --- Area de clic de la bola.
         double _minRadiusToPull = 0.12f;
         double _maxRadiusToPull = 0.8f;
