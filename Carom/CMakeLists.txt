@@ -117,6 +117,8 @@ add_executable(Carom
 	src/ECS/EventOnCollision.cpp
 	src/ECS/PhysicsComponent.cpp
 
+	src/ECS/TextDisplayComponent.cpp
+	
 	src/HitManager/ColorHitManager.cpp
 
 	src/inputTest.cpp
