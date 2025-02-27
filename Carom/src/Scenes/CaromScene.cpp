@@ -75,7 +75,8 @@ namespace ecs {
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
 
-        addComponent<ecs::Button>(e);
+        ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
+        addComponent<ecs::Button>(e, rButton);
         e->getComponent<ecs::Button>()->setOnClick([this](){
             _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->enableBehaviour(); // TODO FOR to get stick
         });

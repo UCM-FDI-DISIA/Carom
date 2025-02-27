@@ -7,13 +7,18 @@
 
 namespace ecs
 {
-    Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside() 
+
+    Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside()
     {
-        _buttonArea = new TextureButton();
+        _buttonArea = new Button::TextureButton();
     }
 
-    Button::Button(Entity* ent, ButtonData* buttonType) : HandleEventComponent(ent), _buttonArea(_buttonArea), _onHover(), _onClick(), _onExit(), _isInside()
-    {}
+    Button::Button(Entity* ent, ButtonData& buttonType) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside()
+    {
+        _buttonArea = buttonType.clone();
+    }
+
+    Button::~Button() { delete _buttonArea; }
     
     void Button::init()
     {
@@ -49,16 +54,22 @@ namespace ecs
         _targetRenderer = targetRenderer;
     }
 
-    void Button::ExternalTorusButton::setTextureComponent(RenderTextureComponent* targetRenderer)
+    Button::RadialButton::RadialButton(float factor): _factor(factor){}
+
+    void Button::RadialButton::setTextureComponent(RenderTextureComponent* targetRenderer)
     {
         ButtonData::setTextureComponent(targetRenderer);
 
-        _internalRadius = std::max(_targetRenderer->getRect().w, _targetRenderer->getRect().h);
-
-        _externalRadius = _internalRadius + (_internalRadius*_externalRadiusFactor);
+        _radius = std::max(_targetRenderer->getRect().w, _targetRenderer->getRect().h) * _factor;
     }
 
-    bool Button::ExternalTorusButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
+    Button::ButtonData*
+    Button::RadialButton::clone()
+    {
+        return new RadialButton(_factor);
+    } 
+
+    bool Button::RadialButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
     {
         SDL_Rect a_textRect = _targetRenderer->getRect();
         std::pair<Sint32, Sint32> a_buttonCenter = {a_textRect.x+ a_textRect.w/2, a_textRect.y+ a_textRect.h/2};
@@ -69,11 +80,17 @@ namespace ecs
         };
         float a_vecDistance = a_mouseToButtonVec.magnitude();
 
-        if (a_vecDistance > _internalRadius && a_vecDistance < _internalRadius)
+        if (a_vecDistance < _radius)
             return true;
         else
             return false;
     }
+
+    Button::ButtonData*
+    Button::TextureButton::clone()
+    {
+        return new TextureButton();
+    } 
 
     bool Button::TextureButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
     {

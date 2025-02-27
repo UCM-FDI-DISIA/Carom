@@ -10,8 +10,14 @@ namespace ecs {
     {
     public:
 
-        struct ButtonData
+        class ButtonData
         {
+        public:
+
+            ButtonData() {}
+
+            virtual ButtonData* clone() = 0;
+
             virtual bool isMouseInButton(std::pair<Sint32, Sint32> mousePos) = 0;
 
             /// @brief Pensado para ser llamado dentro del init de Button
@@ -23,19 +29,24 @@ namespace ecs {
         };
 
         /// @brief Define un area toroidal a partir de la dimension mayor del objeto renderizable
-        struct ExternalTorusButton: public ButtonData
+        class RadialButton: public ButtonData
         {
-            double _externalRadiusFactor = 1.0;
+        public:
+            RadialButton(float factor = 1.0f);
 
+            ButtonData* clone();
             void setTextureComponent(RenderTextureComponent* targetRenderer) override;
             bool isMouseInButton(std::pair<Sint32, Sint32> mousePos) override;
         private:
-            float _internalRadius;
-            float _externalRadius;
+            float _radius;
+            float _factor;
         };
 
-        struct TextureButton: public ButtonData
+        class TextureButton: public ButtonData
         {
+        public:
+            TextureButton() {};
+            ButtonData* clone();
             bool isMouseInButton(std::pair<Sint32, Sint32> mousePos) override;
         };
 
@@ -51,8 +62,8 @@ namespace ecs {
 
     public:
         Button(Entity* ent);
-        Button(Entity* ent, ButtonData* buttonType);
-        virtual ~Button(){}
+        Button(Entity* ent, ButtonData& buttonType);
+        virtual ~Button();
 
         void handleEvent() override;
         void init() override;
