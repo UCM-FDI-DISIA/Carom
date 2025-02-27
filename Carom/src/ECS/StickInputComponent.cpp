@@ -67,11 +67,9 @@ namespace ecs {
             if(!isMouseOnCircleRadius(_minRadiusToPull)){
 
                 std::cout << "Golpe" << std::endl;
+                if(dir.magnitude() > _maxRadiusToPull) dir = dir.normalize() * _maxRadiusToPull;
 
-                float a_mag = getMagFromMouseToCenter();
-                if(a_mag > _maxRadiusToPull) a_mag = _maxRadiusToPull;
-
-                float impulseMag = MAX_IMPULSE * (a_mag - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
+                float impulseMag = MAX_IMPULSE * (dir.magnitude() - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
                 b2Vec2 impulseVec = {dirNormalized.getX() * impulseMag, dirNormalized.getY() * impulseMag};
 
                 //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
