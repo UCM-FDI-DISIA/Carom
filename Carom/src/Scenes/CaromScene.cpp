@@ -68,7 +68,10 @@ namespace ecs {
         _entities.push_back(e);
 
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
+        
+        // Posible memory leak
         ecs::CircleShape *cs = new ecs::CircleShape(radius);
+        
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
 
