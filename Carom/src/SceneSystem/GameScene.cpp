@@ -24,7 +24,7 @@ GameScene::createTable(){
     // !---- TEXTURES ----//
     // Set scale (same for all)
     float svgSize = *&sdlutils().svgElements().at("mesa_marco").width;
-    float textureSize = sdlutils().images().at("marco2").width();
+    float textureSize = sdlutils().images().at("mesa1").width();
     float scale = svgSize/textureSize;
 
     // Entidad marco
@@ -32,7 +32,7 @@ GameScene::createTable(){
     b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("mesa_marco").x, *&sdlutils().svgElements().at("mesa_marco").y);
     addComponent<TransformComponent>(e_marco, pos_m);
     _entsRenderable.push_back(e_marco); // Must be pushed back into renderable vector before adding the component for proper sort!
-    addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("marco2"), 2, scale);
+    addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), 2, scale);
     _entsByGroup[grp::TABLE].push_back(e_marco);
     _entities.push_back(e_marco);
 
@@ -48,7 +48,7 @@ GameScene::createTable(){
     // Entidad sombraMarco
     entity_t e_sombraMarco = new Entity(*this);
     b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("mesa_sombra").x, *&sdlutils().svgElements().at("mesa_sombra").y);
-    addComponent<TransformComponent>(e_sombraMarco, pos_s);
+    addComponent<TransformComponent>(e_sombraMarco, b2Vec2{pos_s.x - 0.2f, pos_s.y - 0.2f});
     _entsRenderable.push_back(e_sombraMarco); // Must be pushed back into renderable vector before adding the component for proper sort!
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0, scale);
     _entsByGroup[grp::TABLE].push_back(e_sombraMarco);
@@ -157,6 +157,16 @@ void GameScene::setWorldCamera(b2Vec2 pos){
 
 void GameScene::setUICamera(b2Vec2 pos){
     _UICamera = Camera(pos.x, pos.y);
+}
+
+void GameScene::createBackground(std::string key){
+    //sprite de suelo
+    Entity* a_suelo =new Entity(*this);
+    addComponent<TransformComponent>(a_suelo, b2Vec2{0,0});
+    _entsRenderable.push_back(a_suelo);
+    addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), -1, 1);
+    _entities.push_back(a_suelo);
+    _entsByGroup[grp::BACKGROUND].push_back(a_suelo);
 }
 };
 

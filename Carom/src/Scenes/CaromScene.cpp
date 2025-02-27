@@ -46,9 +46,12 @@ namespace ecs {
 
         // Create table with texture and colliders
         createTable();
+        createBackground("suelo");
 
         _hitManager = new ColorHitManager(this);
         _scoreContainer = new ScoreContainer(200,0);
+
+        
     }
 
     entity_t // TODO: provisory definition, add components

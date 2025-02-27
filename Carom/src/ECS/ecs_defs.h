@@ -20,7 +20,8 @@
 	WHITEBALL, \
 	EFFECTBALLS, \
 	TABLE, \
-	PALO
+	PALO, \
+	BACKGROUND
 
 // Effect list
 // TODO completar	
