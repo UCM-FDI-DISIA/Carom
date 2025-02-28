@@ -14,7 +14,10 @@
     { "id" : "mesa1_sombra", "file" : "../../resources/images/mesa1_sombra.png"},
     { "id" : "bola_blanca", "file" : "../../resources/images/bola_blanca.png"},
     { "id" : "bola_sombra", "file" : "../../resources/images/bola_sombra.png"},
-    { "id" : "suelo", "file" : "../../resources/images/suelo.png"}
+    {
+      "id": "suelo",
+      "file": "../../resources/images/suelo.png"
+    },
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"}
 
   ],
