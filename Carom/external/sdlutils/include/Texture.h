@@ -98,6 +98,10 @@ public:
 		render(src, dest, rotation);
 	}
 
+	inline void changeColorTint(int r, int g, int b){
+		SDL_SetTextureColorMod(_texture, r, g, b);
+	}
+
 private:
 
 	// Construct from text
