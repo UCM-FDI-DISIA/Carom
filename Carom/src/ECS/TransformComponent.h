@@ -34,9 +34,5 @@ namespace ecs{
         inline void setScale(const Scale& newScale) override {_scale = newScale;}
         inline void setRotation(const double& newRot) override {_rotation = newRot;}
 
-        // ! test
-        // inline void update() {
-        //     setPosition(_myEntity->getComponent<RigidBodyComponent>()->getPosition());
-        // }
     };
 }

@@ -5,6 +5,8 @@
 #include "ColorHitManager.h"
 #include "ScoreContainer.h"
 #include "WhiteBallScorerComponent.h"
+#include "StickInputComponent.h"
+#include "Button.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -24,11 +26,12 @@ namespace ecs {
 
         setNewState(s);
 
+        createStick();
         // ! ball test
         // Converts (x, y) from screen(svg) to meters and to meter coordinates
         b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca").x,
-            *&sdlutils().svgElements().at("bola_blanca").y
+            *&sdlutils().svgElements().at("bola_blanca_2").x,
+            *&sdlutils().svgElements().at("bola_blanca_2").y
         );
         // Create white ball with the previous defined vector
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
@@ -36,12 +39,12 @@ namespace ecs {
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
         // Second ball
-        b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca").x + 290,
-            *&sdlutils().svgElements().at("bola_blanca").y
-        );
-        createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
-        getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
+        // b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
+        //     *&sdlutils().svgElements().at("bola_blanca").x + 290,
+        //     *&sdlutils().svgElements().at("bola_blanca").y
+        // );
+        //createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
+        //getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
         // ! ball test
 
         // Create table with texture and colliders
@@ -58,19 +61,60 @@ namespace ecs {
     CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
     {
         // Scale
-        float svgSize = *&sdlutils().svgElements().at("bola_blanca").width;
+        float svgSize = *&sdlutils().svgElements().at("bola_blanca_2").width;
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
         ecs::entity_t e = new ecs::Entity(*this);
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
-        ecs::CircleShape *cs = new ecs::CircleShape(radius);
-        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale); // scale atera a posicao
-
         _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
         _entities.push_back(e);
+
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
+        
+        // Posible memory leak
+        ecs::CircleShape *cs = new ecs::CircleShape(radius);
+        
+        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
+
+        ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
+        addComponent<ecs::Button>(e, rButton);
+        e->getComponent<ecs::Button>()->setOnClick([this](){
+            _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(true);
+        });
+        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(false);
+        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
+
+        return e;
+    }
+
+    entity_t CaromScene::createStick()
+    {
+        // Scale
+        float svgSize = *&sdlutils().svgElements().at("palo1").width;
+        float textureSize = sdlutils().images().at("palo1").width();
+        float scale = svgSize/textureSize;
+
+        std::cout << "svgsize: " << svgSize <<std::endl;
+        std::cout << "textureSize: " << textureSize <<std::endl;
+
+        std::cout << "scale: " << scale <<std::endl;
+
+        ecs::entity_t e = new ecs::Entity(*this);
+        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsByGroup[ecs::grp::PALO].push_back(e);
+        _entities.push_back(e);
+
+        b2Vec2 pos = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements().at("palo1").x,
+            *&sdlutils().svgElements().at("palo1").y
+        );
+
+        addComponent<TransformComponent>(e, pos);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
+        addComponent<StickInputComponent>(e, *&sdlutils().svgElements().at("palo1").height);
+        e->getComponent<RenderTextureComponent>()->setEnable(false);
 
         return e;
     }
@@ -84,6 +128,22 @@ namespace ecs {
         _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
         _entities.push_back(e);
     }
+
+    // void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
+    // {
+    //     ecs::entity_t e = new ecs::Entity(*this);
+
+    //     ecs::CircleShape *cs = new ecs::CircleShape(radius);
+    //     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+    //     addComponent<ecs::StickInputComponent>(e);
+        
+    //     // Must be pushed back into renderable vector before adding the component for proper sort!
+    //     _entsRenderable.push_back(e);
+    //     addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"), capa);
+
+    //     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
+    //     _entities.push_back(e);
+    // }
 
     void CaromScene::setNewState(State* s){
         if (_currentState != nullptr) {
@@ -163,9 +223,46 @@ namespace ecs {
         shapeDef->restitution = restitution;
         shapeDef->enableContactEvents = true;
         shapeDef->userData = ent;
-
-
         return {bodyId, shapeDef};
+    }
+
+    void CaromScene::drawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius)
+    {
+        const int32_t diameter = (radius * 2);
+
+        int32_t x = (radius - 1);
+        int32_t y = 0;
+        int32_t tx = 1;
+        int32_t ty = 1;
+        int32_t error = (tx - diameter);
+
+        while (x >= y)
+        {
+            // Each of the following renders an octant of the circle
+            SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
+            SDL_RenderDrawPoint(renderer, centreX + x, centreY + y);
+            SDL_RenderDrawPoint(renderer, centreX - x, centreY - y);
+            SDL_RenderDrawPoint(renderer, centreX - x, centreY + y);
+            SDL_RenderDrawPoint(renderer, centreX + y, centreY - x);
+            SDL_RenderDrawPoint(renderer, centreX + y, centreY + x);
+            SDL_RenderDrawPoint(renderer, centreX - y, centreY - x);
+            SDL_RenderDrawPoint(renderer, centreX - y, centreY + x);
+
+            if (error <= 0)
+            {
+                ++y;
+                error += ty;
+                ty += 2;
+            }
+
+            if (error > 0)
+            {
+                --x;
+                tx += 2;
+                error += (tx - diameter);
+            }
+
+        }
     }
 
     void

@@ -3,6 +3,7 @@
 class ScenesManager;
 
 #include "SDL.h"
+#include "Texture.h"
 
 class Game {
 public:
@@ -16,6 +17,16 @@ public:
     void init();
     void start();
 
+    inline auto getRenderer() const{
+        return _t->getRenderer();
+    }
+
+
+
 protected:
     ScenesManager* _sceneManager;
+
+
+private:
+    Texture* _t;
 };

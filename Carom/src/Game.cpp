@@ -52,6 +52,8 @@ Game::start() {
     bool exit = false;
 
     auto &ihdlr = ih();
+    
+    sdlutils().showCursor();
 
     NullState* state = new NullState(nullptr);
     ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  

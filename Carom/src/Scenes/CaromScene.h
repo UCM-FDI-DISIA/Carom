@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "State.h"
 #include "Game.h"
+#include "Texture.h"
 
 class ScenesManager;
 class b2WorldId;
@@ -49,9 +50,13 @@ namespace ecs{
         // TODO: provisory definition
         entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa); 
 
+        entity_t createStick();
+
         // TODO: provisory definition
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
-        
+    
+        void createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+        void createStickInputStick(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
         //- Cambia el estado por el nuevo
@@ -78,5 +83,10 @@ namespace ecs{
             float density, float friction, float restitution);
 
         inline int getRemainingHits() { return _remainingHits; }
+
+    private:
+    // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
+    void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
     };
-};
+
+}

@@ -12,7 +12,8 @@
 	WALL, \
 	TRYCOLLISION, \
 	BUTTON, \
-	EVENT_ON_COLLISION
+	EVENT_ON_COLLISION, \
+	STICK_INPUT
 
 // Groups list - must have at least one element
 //
