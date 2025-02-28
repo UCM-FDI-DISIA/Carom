@@ -1,8 +1,11 @@
 #pragma once 
 #include <string>
+#include <SDL.h>
 #include "RenderComponent.h"
 #include "Font.h"
 
+
+class Font;
 class Texture;
 namespace ecs {
     class ITransform;
@@ -10,7 +13,7 @@ namespace ecs {
         //Atributos del texto
         std::string _text;
         SDL_Color _color;
-        Font _font;
+        std::string _key;
 
         //Necesidades de renderizado
         Texture* _texture;
@@ -25,13 +28,13 @@ namespace ecs {
         /// @param color El color del texto a mostrar
         /// @param fontSize El tamaño de la fuente
         /// @param fileName La ruta al archivo de la fuente
-        TextDisplayComponent(Entity* entity, std::string initialText, SDL_Color color, int fontSize, std::string fileName, float displayScale);
+        TextDisplayComponent(Entity* entity, std::string initialText, SDL_Color color, std::string key, float displayScale);
 
         void init() override;
         void render(Camera*) override;
 
-        void changeFont(std::string fileName, int size);
-        void setColor(SDL_Color color);
+        void changeFont(std::string key);
+        void setColor(SDL_Color);
         void setDisplayedText(std::string text);
     };
 }

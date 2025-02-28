@@ -8,8 +8,8 @@
 #include "SDLUtils.h"
 
 namespace ecs {
-    TextDisplayComponent::TextDisplayComponent(Entity* entity, std::string initialText, SDL_Color color, int fontSize, std::string fileName, float displayScale)
-        : RenderComponent(entity), _text(initialText), _color(color), _font(fileName, fontSize) , _scale(displayScale)
+    TextDisplayComponent::TextDisplayComponent(Entity* entity, std::string initialText, SDL_Color color, std::string key, float displayScale)
+        : RenderComponent(entity), _text(initialText), _color(color), _key(key), _scale(displayScale)
     {
     }
 
@@ -33,8 +33,8 @@ namespace ecs {
     }
 
     void 
-    TextDisplayComponent::changeFont(std::string fileName, int size) {
-        _font = Font(fileName, size);
+    TextDisplayComponent::changeFont(std::string key) {
+        _key = key;
         reGenerateTexture();
     }
 
@@ -52,6 +52,6 @@ namespace ecs {
 
     void 
     TextDisplayComponent::reGenerateTexture() {
-        _texture = new Texture(sdlutils().renderer(), _text, _font, _color);
+        _texture = new Texture(sdlutils().renderer(), _text, sdlutils().fonts().at(_key), _color);
     }
 }
