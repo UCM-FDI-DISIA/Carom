@@ -4,6 +4,7 @@
 #include "Game.h"
 
 class ScenesManager;
+class RNG_Manager;
 class b2WorldId;
 class Vector2D;
 class ScoreContainer;
@@ -17,7 +18,8 @@ namespace ecs{
     protected:
     //el estado en el que se encuentra la escena actualmente
         State* _currentState = nullptr;
-        ScenesManager* _manager;
+        ScenesManager* _sceneManager;
+        RNG_Manager* _rngManager;
         GameScene* _reward;
         ColorHitManager* _hitManager;
         ScoreContainer* _scoreContainer;
@@ -40,17 +42,18 @@ namespace ecs{
 
         int _remainingHits = 3;
     public:
-        CaromScene(State* state, Game* g, GameScene* reward);
+        CaromScene(State* state, Game* g, GameScene* reward, unsigned seed);
         ~CaromScene();
 
         inline void enablePhysics(){_updatePhysics = true;}
         inline void disablePhysics(){_updatePhysics = false;}
 
         // TODO: provisory definition
-        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa); 
+        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
 
         // TODO: provisory definition
-        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
+        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
+                                float density, float friction, float restitution, int layer);
         
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
@@ -66,7 +69,7 @@ namespace ecs{
         ColorHitManager* getColorHitManager();
         ScoreContainer* getScoreContainer();
 
-        inline ScenesManager* getScenesManager() const {return _manager;}
+        inline ScenesManager* getScenesManager() const {return _sceneManager;}
         inline GameScene* getRewardScene() const {return _reward;}
         /// @brief Método para que rigidbody component reciba el id del body
         /// @param bodyType kinematic, static, dynamic

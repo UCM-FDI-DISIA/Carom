@@ -5,6 +5,10 @@
 #include "ColorHitManager.h"
 
 namespace ecs{
+    ColorBallScorerComponent::ColorBallScorerComponent(entity_t ent): PhysicsComponent(ent) {
+        
+    }
+    
     void ColorBallScorerComponent::onCollisionEnter(entity_t other){
             if(other->tryGetComponent<ColorBallScorerComponent>()){
                 CaromScene* a_scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());

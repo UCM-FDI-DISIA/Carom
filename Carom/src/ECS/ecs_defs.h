@@ -25,6 +25,7 @@
 // Effect list
 // TODO completar	
 #define _EFFECT_LIST_ \
+	NULO, \
 	CRISTAL
 
 // Shape list

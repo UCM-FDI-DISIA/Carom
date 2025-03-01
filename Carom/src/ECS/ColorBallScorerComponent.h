@@ -9,6 +9,7 @@ class ColorBallScorerComponent : public PhysicsComponent{
     
 public:
     __CMPID_DECL__(cmp::COLORBALLSCORER);
+    ColorBallScorerComponent(entity_t ent);
     void onCollisionEnter(entity_t ent) override;
     /*
         ON HIT ENTER

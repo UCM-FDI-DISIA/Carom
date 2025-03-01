@@ -13,6 +13,7 @@ class WhiteBallScorerComponent : PhysicsComponent{
 
 public:
 __CMPID_DECL__(cmp::WHITEBALLSCORER);
+    WhiteBallScorerComponent(entity_t ent);
     void onCollisionEnter(entity_t other);
     //setea cushions a 0 y previously hit a false al comienzo del turno
     void refreshOnNewTurn();
