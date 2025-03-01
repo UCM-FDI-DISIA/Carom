@@ -56,9 +56,7 @@ namespace ecs{
 
         // TODO: provisory definition
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
-    
-        void createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
-        void createStickInputStick(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
         //- Cambia el estado por el nuevo
