@@ -4,13 +4,16 @@
 #include <vector>
 #include "gameList.h"
 #include "ecs.h"
+#include <iostream>
 
-class CaromScene;
-class JsonEntityParser;
 
+class Camera;
 namespace ecs {
 
     class GameScene;
+    class Component;
+    class ITransform;
+    class CaromScene;
 
     class Entity{
     public:
@@ -27,7 +30,12 @@ namespace ecs {
         template<typename T>
         bool addComponent(T* component){
             if(_components[cmpId<T>] != nullptr) return false;
-    
+
+            // Asigna el transform de la entidad en caso de que no exista ninguno
+            if (dynamic_cast<ITransform*>(component) != nullptr) {
+                    _myTransform = dynamic_cast<ITransform*>(component);
+            }
+
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
     
@@ -40,6 +48,7 @@ namespace ecs {
         bool removeComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
     
+            if(dynamic_cast<ITransform>(_components[cmpId<T>] != nullptr)) _myTransform = nullptr;
             auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
             _currentComponents.erase(it);
             _components[cmpId<T>] = nullptr;
@@ -59,6 +68,7 @@ namespace ecs {
             return static_cast<T*>(_components[cmpId<T>]);
         }
 
+        inline ITransform* getTransform() {return _myTransform;}
         std::vector<Component*> getAllComponents(){
             return _currentComponents;
         }
@@ -74,10 +84,12 @@ namespace ecs {
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
-        void render();
+        void render(Camera* camera); //En posición relativa a la cámara
         void handleEvents();
-        
-        private:
+
+        GameScene& getScene();
+    
+    private:
         friend GameScene;
         friend CaromScene;
         friend JsonEntityParser;
@@ -88,5 +100,7 @@ namespace ecs {
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
         GameList<Entity>::anchor _anchor;
+
+        ITransform* _myTransform;
     };
 }

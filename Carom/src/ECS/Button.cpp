@@ -3,13 +3,26 @@
 #include "InputHandler.h"
 #include "Texture.h"
 
+#include "PhysicsUtils.h"
+
 namespace ecs
 {
-    Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside() {}
+
+    Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside()
+    {
+        _buttonArea = new Button::TextureButton();
+    }
+
+    Button::Button(Entity* ent, ButtonData& buttonType) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside()
+    {
+        _buttonArea = buttonType.clone();
+    }
+
+    Button::~Button() { delete _buttonArea; }
     
     void Button::init()
     {
-        _targetRenderer = _myEntity->getComponent<RenderTextureComponent>();
+        _buttonArea->setTextureComponent(_myEntity->getComponent<RenderTextureComponent>());
         _transform = _myEntity->getComponent<TransformComponent>();
 
         setOnHover([this]() -> void {std::cout << "hover" << std::endl;});
@@ -20,13 +33,13 @@ namespace ecs
     void Button::handleEvent()
     {
         InputHandler* input = InputHandler::Instance();
-        SDL_Rect rect = _targetRenderer->getRect();
 
-        if(input->isMouseInRect(input->getMousePos(), rect)){
-            _isInside = true;
-            _onHover();
-
-            if(input->mouseButtonDownEvent()){
+        if(_buttonArea->isMouseInButton(input->getMousePos())){
+            if(!_isInside){
+                _isInside = true;
+                _onHover();
+            }
+            if(input->mouseButtonDownEvent() && input->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT)){
                 _onClick();
             }
         }
@@ -34,5 +47,54 @@ namespace ecs
             _isInside = false;
             _onExit();
         }
+    }
+
+    void Button::ButtonData::setTextureComponent(RenderTextureComponent* targetRenderer)
+    {
+        _targetRenderer = targetRenderer;
+    }
+
+    Button::RadialButton::RadialButton(float factor): _factor(factor){}
+
+    void Button::RadialButton::setTextureComponent(RenderTextureComponent* targetRenderer)
+    {
+        ButtonData::setTextureComponent(targetRenderer);
+
+        _radius = std::max(_targetRenderer->getRect().w, _targetRenderer->getRect().h) * _factor;
+    }
+
+    Button::ButtonData*
+    Button::RadialButton::clone()
+    {
+        return new RadialButton(_factor);
+    } 
+
+    bool Button::RadialButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
+    {
+        SDL_Rect a_textRect = _targetRenderer->getRect();
+        std::pair<Sint32, Sint32> a_buttonCenter = {a_textRect.x+ a_textRect.w/2, a_textRect.y+ a_textRect.h/2};
+        Vector2D a_mouseToButtonVec = 
+        {
+            (float)mousePos.first - (float)a_buttonCenter.first, 
+            (float)mousePos.second - (float)a_buttonCenter.second
+        };
+        float a_vecDistance = a_mouseToButtonVec.magnitude();
+
+        if (a_vecDistance < _radius)
+            return true;
+        else
+            return false;
+    }
+
+    Button::ButtonData*
+    Button::TextureButton::clone()
+    {
+        return new TextureButton();
+    } 
+
+    bool Button::TextureButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
+    {
+        SDL_Rect rect = _targetRenderer->getRect();
+        return InputHandler::Instance()->isMouseInRect(mousePos, rect);
     }
 }

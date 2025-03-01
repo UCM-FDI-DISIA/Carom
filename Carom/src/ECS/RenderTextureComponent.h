@@ -1,25 +1,36 @@
 #pragma once
 #include "ecs.h"
 #include "RenderComponent.h"
+#include "ITransform.h"
+
 class SDL_Rect;
 class Texture;
+class SDL_Color;
 
 namespace ecs {
-    class TransformComponent;
     
     class RenderTextureComponent : public RenderComponent {
     private:
         Texture* _texture;
-        TransformComponent* _transform;
+        ITransform* _transform;
+        float _scale; // scale de la textura (no su physical body)
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
-        RenderTextureComponent(Entity*, Texture*);
+        // The lower the further (for example: 0 = Background, 1 = Foreground)
+        // Mesa: suelo = 0, sombra marco = 1, marco = 2
+        int renderOrder;
+
+        RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale);
+        RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale, SDL_Color tint);
         ~RenderTextureComponent() {};
 
-        void render() override;
+        void render(Camera*) override;
         void init() override;
         Texture* getTexture() {return _texture;};
         SDL_Rect getRect();
+
+        void changeColorTint(int r, int g, int b);
+        void resetColorTint();
     };
 }

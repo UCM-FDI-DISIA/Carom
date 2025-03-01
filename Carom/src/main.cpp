@@ -4,7 +4,7 @@
 
 #include "Game.h"
 
-void start() {
+void start() { // ! tst
     Game g;
 
     g.init();
@@ -15,8 +15,9 @@ int main (int, char**)
 {
     try {
         // input_basic_demo();
-        // click_basic_demo();
-        start();
+        rng_basic_demo();
+        json_basic_demo();
+        start(); // ! tst
     } catch (const std::string &e) { // catch exceptions thrown as strings
         std::cerr << e << std::endl;
     } catch (const char *e) { // catch exceptions thrown as char*

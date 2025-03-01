@@ -4,6 +4,10 @@
 #include "InputHandler.h"
 
 #include "ScenesManager.h"
+#include "GameScene.h" // ! test
+#include "CaromScene.h" // ! test
+#include "NullState.h" // ! test
+
 #include "CaromScene.h"
 #include "PrefabTestScene.h"
 
@@ -25,13 +29,13 @@ void
 Game::init() {
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
-	if (!SDLUtils::Init("Ping Pong", 800, 600,
-			"../../resources/config/test.resources.json")) {
-
+	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/test.resources.json", "../../resources/svg/Game.svg")) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
 		return;
 	}
+    auto utils = SDLUtils::Instance();
+    utils->toggleFullScreen();
 
 	// initialize InputHandler singleton
     if (!InputHandler::Init()) {
@@ -40,10 +44,7 @@ Game::init() {
         return;
     }
 
-    _sceneManager = new ScenesManager();
-    PrefabTestScene* c = new PrefabTestScene(this);
-    //CaromScene* c = new CaromScene(this, nullptr);
-    _sceneManager->pushScene(c);
+    _sceneManager = new ScenesManager();    
 }
 
 void
@@ -52,13 +53,19 @@ Game::start() {
     bool exit = false;
 
     auto &ihdlr = ih();
+    
+    sdlutils().showCursor();
+
+    NullState* state = new NullState(nullptr);
+    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
+    _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
 
     while(!exit) {
         // store the current time -- all game objects should use this time when
-		// then need to the current time. They also have accessed to the time elapsed
+		// they need to get the current time. They also have accesse to the time elapsed
 		// between the last two calls to regCurrTime().
 		Uint32 startTime = sdlutils().regCurrTime();
 
@@ -69,10 +76,20 @@ Game::start() {
 			exit = true;
 			continue;
 		}
+        
+        sdlutils().clearRenderer();
 
         _sceneManager->handleEvent();
         _sceneManager->update();
         _sceneManager->render();
+
+		sdlutils().presentRenderer();
+
+        Uint32 elapsed = startTime - sdlutils().currRealTime();
+
+        // Forzado a que el juego no vaya mas rápido que 60 fps
+        if (elapsed < FIXED_TIME_STEP)
+			SDL_Delay(FIXED_TIME_STEP - elapsed);
     }
 
 }

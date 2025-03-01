@@ -1,5 +1,6 @@
 #include "Component.h"
 #include "Entity.h"
+#include "ITransform.h"
 
 #include <algorithm>
 
@@ -7,7 +8,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity(GameScene& scene) : _myScene(scene), _alive(true)
+    Entity::Entity(GameScene& scene) : _myScene(scene), _alive(true), _myTransform(nullptr)
     {
     }
 
@@ -35,13 +36,17 @@ namespace ecs {
             if (component->isEnable()) component->update();
     }
 
-    void Entity::render(){
+    void Entity::render(Camera* camera){
         for(Component* component : _currentComponents) 
-            if (component->isEnable()) component->render();
+            if (component->isEnable()) component->render(camera);
     }
 
     void Entity::handleEvents(){
         for(Component* component : _currentComponents) 
             if (component->isEnable()) component->handleEvent();
+    }
+
+    GameScene& Entity::getScene(){
+        return _myScene;
     }
 }

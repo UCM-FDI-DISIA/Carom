@@ -62,13 +62,17 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/external/sdlutils/include
 	${CMAKE_SOURCE_DIR}/external/utils/include
 	${CMAKE_SOURCE_DIR}/external/json/include
+	${CMAKE_SOURCE_DIR}/external/svg/include
 
+	${CMAKE_SOURCE_DIR}/src
 	${CMAKE_SOURCE_DIR}/src/ECS
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Physics
+	${CMAKE_SOURCE_DIR}/src/HitManager
+	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
 
@@ -97,16 +101,28 @@ add_executable(Carom
 
 	src/SceneSystem/GameScene.cpp
 	src/SceneSystem/ScenesManager.cpp
+	src/SceneSystem/Camera.cpp
 
 	src/ECS/Entity.cpp
 	src/ECS/Component.cpp
 	src/ECS/RenderTextureComponent.cpp
+
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
 	src/ECS/JsonEntityParser.cpp
+	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
 
-	src/Physics/B2Manager.cpp
+	src/ECS/WhiteBallScorerComponent.cpp
+	src/ECS/ColorBallScorerComponent.cpp
+
+	src/ECS/EventOnCollision.cpp
+	src/ECS/PhysicsComponent.cpp
+
+	src/ECS/TextDisplayComponent.cpp
+	
+	src/HitManager/ColorHitManager.cpp
+
 	src/inputTest.cpp
 	src/Physics/PhysicsUtils.cpp
 
@@ -117,8 +133,6 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
-	
-	src/ScoreContainer.cpp
 )
 
 # Link Box2D

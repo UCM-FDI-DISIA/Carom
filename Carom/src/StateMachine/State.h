@@ -1,10 +1,13 @@
 #pragma once
 
-class CaromScene;
+namespace ecs {
+    class CaromScene;
+}
+
 //Interfaz de State, que es usada por una maquina de estados para cambiar de estado
 class State{
 public:
-    inline State(CaromScene* scene) : _scene(scene) {}
+    inline State(ecs::CaromScene* scene) : _scene(scene) {}
 
     //checkea la condicion
     //Si no ha encontrado ninguna condicion valida, devuelve false
@@ -16,5 +19,5 @@ public:
     //se ejecuta cuando se sale del estado
     virtual void onStateExit()=0;
 protected:
-    CaromScene* _scene;
+    ecs::CaromScene* _scene;
 };

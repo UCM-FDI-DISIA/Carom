@@ -1,6 +1,6 @@
 #include "HitState.h"
 #include "CaromScene.h"
-HitState::HitState(CaromScene* scene) : State(scene) 
+HitState::HitState(ecs::CaromScene* scene) : State(scene) 
 {
 
 }

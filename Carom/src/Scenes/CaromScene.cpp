@@ -2,63 +2,353 @@
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "RigidBodyComponent.h"
+#include "ColorHitManager.h"
+#include "WhiteBallScorerComponent.h"
+#include "StickInputComponent.h"
+#include "Button.h"
+#include "TextDisplayComponent.h"
 
-CaromScene::CaromScene(Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
-{
-}
+#include "PhysicsUtils.h"
+#include "Game.h"
+#include "Vector2D.h"
+#include <box2d/box2d.h>
 
-void // TODO: provisory definition
-CaromScene::createWhiteBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
-    ecs::entity_t e = new ecs::Entity(*this);
-    addComponent<ecs::TransformComponent>(e, pos);
+namespace ecs {
 
-    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"));
+    CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) 
+    {
 
-    ecs::CircleShape *cs = new ecs::CircleShape(radius);
-    addComponent<ecs::RigidBodyComponent>(e, b2_dynamicBody, cs, density, friction, restitution);
+        // Creación del mundo físico
+        b2WorldDef worldDef = b2DefaultWorldDef();
+        worldDef.gravity = {0.0f, 0.0f};
+        _myB2WorldId = b2CreateWorld(&worldDef);
+        b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
 
-    // TODO: other components
-    // e->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({100, 100});
-    _entities.push_back(e);
-    _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
-}
+        setNewState(s);
 
-void // TODO: provisory definition
-CaromScene::createEffectBall(ecs::effect::effectId effectId, Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius) {
-    ecs::entity_t e = new ecs::Entity(*this);
-    addComponent<ecs::TransformComponent>(e, pos);
-    // TODO: other components
-    _entities.push_back(e);
-    _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
-}
+        createStick();
+        // ! ball test
+        // Converts (x, y) from screen(svg) to meters and to meter coordinates
+        b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements().at("bola_blanca_2").x,
+            *&sdlutils().svgElements().at("bola_blanca_2").y
+        );
+        // Create white ball with the previous defined vector
+        createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
+        // Apply impulse
+        getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
-void // TODO: provisory definition
-CaromScene::createTable(/* type */) {
-    ecs::entity_t e = new ecs::Entity(*this);
-    // TODO: components
-    _entities.push_back(e);
-    _entsByGroup[ecs::grp::TABLE].push_back(e);
-}
+        // Second ball
+        // b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
+        //     *&sdlutils().svgElements().at("bola_blanca").x + 290,
+        //     *&sdlutils().svgElements().at("bola_blanca").y
+        // );
+        //createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
+        //getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
+        // ! ball test
 
-void CaromScene::setNewState(State* s){
-    if (_currentState != nullptr) {
-        _currentState->onStateExit();
-        delete _currentState;
+        // Create table with texture and colliders
+        createTable();
+        createBackground("suelo");
+
+        createScoreEntity();
+
+        _hitManager = new ColorHitManager(this);
     }
-    _currentState = s;
-    _currentState->onStateEnter();
-}
 
-State* CaromScene::getCurrentState(){ return _currentState;}
+    entity_t // TODO: provisory definition, add components
+    CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
+    {
+        // Scale
+        float svgSize = *&sdlutils().svgElements().at("bola_blanca_2").width;
+        float textureSize = sdlutils().images().at("bola_blanca").width();
+        float scale = svgSize/textureSize;
 
-CaromScene::~CaromScene(){
-    if(_currentState != nullptr) delete _currentState;
-}
+        ecs::entity_t e = new ecs::Entity(*this);
+        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
+        _entities.push_back(e);
 
-void CaromScene::update(){
-    State* a_stateToChange = nullptr;
-    if(_currentState->checkCondition(a_stateToChange)){
-        setNewState(a_stateToChange);
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
+        
+        // Posible memory leak
+        ecs::CircleShape *cs = new ecs::CircleShape(radius);
+        
+        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
+
+        ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
+        addComponent<ecs::Button>(e, rButton);
+        e->getComponent<ecs::Button>()->setOnClick([this](){
+            _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(true);
+        });
+        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(false);
+        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
+
+        return e;
     }
-    GameScene::update();
+
+    entity_t CaromScene::createStick()
+    {
+        // Scale
+        float svgSize = *&sdlutils().svgElements().at("palo1").width;
+        float textureSize = sdlutils().images().at("palo1").width();
+        float scale = svgSize/textureSize;
+
+        std::cout << "svgsize: " << svgSize <<std::endl;
+        std::cout << "textureSize: " << textureSize <<std::endl;
+
+        std::cout << "scale: " << scale <<std::endl;
+
+        ecs::entity_t e = new ecs::Entity(*this);
+        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsByGroup[ecs::grp::PALO].push_back(e);
+        _entities.push_back(e);
+
+        b2Vec2 pos = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements().at("palo1").x,
+            *&sdlutils().svgElements().at("palo1").y
+        );
+
+        addComponent<TransformComponent>(e, pos);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
+        addComponent<StickInputComponent>(e, *&sdlutils().svgElements().at("palo1").height);
+        e->getComponent<RenderTextureComponent>()->setEnable(false);
+
+        return e;
+    }
+
+    void // TODO: provisory definition, add components
+    CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
+        ecs::entity_t e = new ecs::Entity(*this);
+        // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsRenderable.push_back(e);
+        // TODO: add components
+        _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
+        _entities.push_back(e);
+    }
+
+    entity_t CaromScene::createScoreEntity(){
+        entity_t e = new Entity(*this);
+        _entsRenderable.push_back(e);
+        _entsByGroup[ecs::grp::SCORE].push_back(e);
+        _entities.push_back(e);
+
+        addComponent<TransformComponent>(e, b2Vec2{0,0});
+        addComponent<ecs::TextDisplayComponent>(e, "Hola", SDL_Color{255, 0, 0, 255}, "ARIAL16", 1.0f);
+
+        return e;
+    }
+
+    // void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
+    // {
+    //     ecs::entity_t e = new ecs::Entity(*this);
+
+    //     ecs::CircleShape *cs = new ecs::CircleShape(radius);
+    //     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+    //     addComponent<ecs::StickInputComponent>(e);
+        
+    //     // Must be pushed back into renderable vector before adding the component for proper sort!
+    //     _entsRenderable.push_back(e);
+    //     addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"), capa);
+
+    //     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
+    //     _entities.push_back(e);
+    // }
+
+    void CaromScene::setNewState(State* s){
+        if (_currentState != nullptr) {
+            _currentState->onStateExit();
+            delete _currentState;
+        }
+        _currentState = s;
+        _currentState->onStateEnter();
+    }
+
+    CaromScene::~CaromScene(){
+        if(_currentState != nullptr) delete _currentState;
+
+        // el mundo debe destruirse aquí, recordad que los ids son punteros con sombrero y gabardina
+        b2DestroyWorld(_myB2WorldId);
+
+        delete _hitManager;
+    }
+
+    void CaromScene::update(){
+
+        auto a = Game::FIXED_TIME_STEP/1000.0;
+
+        // Como las físicas se suelen querer ejecutar antes del update esto se hace aquí mismo
+        // tal vez en el futuro esto se podria delegar a una clase padre PhysicsScene o algo así
+        // Hay 3 porque si no había tunneling y aumentar substeps no resolvía el problema
+        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+
+
+        b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
+        manageEnterCollisions(a_contactEvents);
+        manageExitCollisions(a_contactEvents);
+
+        b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+        manageEnterTriggers(a_sensorEvents);
+        manageExitTriggers(a_sensorEvents);
+
+        enablePhysics();
+
+        State* a_stateToChange = nullptr;
+        if(_currentState->checkCondition(a_stateToChange)){
+            setNewState(a_stateToChange);
+        }
+
+        _hitManager->clearAllHits();
+
+        GameScene::update();
+    }
+
+    std::pair<b2BodyId, b2ShapeDef*> 
+    CaromScene::generateBodyAndShape (
+        ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution){
+
+        b2BodyDef bodyDef = b2DefaultBodyDef();
+        bodyDef.type = bodyType;
+        bodyDef.gravityScale = 0.0f;
+        bodyDef.position = {vec.x, vec.y};
+        bodyDef.userData = ent;
+        bodyDef.sleepThreshold = 0.01; // velocidad mínima para dormir (aunque no funcione muy bien)
+        bodyDef.isBullet = true; // para collisiones rápidas
+        bodyDef.linearDamping = 0.4f; // friccíon con el suelo
+
+        // TODO: rotation
+        // bodyDef->rotation = entity->getComponent<ecs::TransformComponent>()->getRotation();
+        // si el transform no es fijo en cada entitydad aquí hay que generar excepción
+
+        b2BodyId bodyId = b2CreateBody(_myB2WorldId, &bodyDef);
+
+        b2ShapeDef* shapeDef = new b2ShapeDef(b2DefaultShapeDef());
+        shapeDef->density = density;
+        shapeDef->friction = friction;
+        shapeDef->restitution = restitution;
+        shapeDef->enableContactEvents = true;
+        shapeDef->userData = ent;
+        return {bodyId, shapeDef};
+    }
+
+    void CaromScene::drawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius)
+    {
+        const int32_t diameter = (radius * 2);
+
+        int32_t x = (radius - 1);
+        int32_t y = 0;
+        int32_t tx = 1;
+        int32_t ty = 1;
+        int32_t error = (tx - diameter);
+
+        while (x >= y)
+        {
+            // Each of the following renders an octant of the circle
+            SDL_RenderDrawPoint(renderer, centreX + x, centreY - y);
+            SDL_RenderDrawPoint(renderer, centreX + x, centreY + y);
+            SDL_RenderDrawPoint(renderer, centreX - x, centreY - y);
+            SDL_RenderDrawPoint(renderer, centreX - x, centreY + y);
+            SDL_RenderDrawPoint(renderer, centreX + y, centreY - x);
+            SDL_RenderDrawPoint(renderer, centreX + y, centreY + x);
+            SDL_RenderDrawPoint(renderer, centreX - y, centreY - x);
+            SDL_RenderDrawPoint(renderer, centreX - y, centreY + x);
+
+            if (error <= 0)
+            {
+                ++y;
+                error += ty;
+                ty += 2;
+            }
+
+            if (error > 0)
+            {
+                --x;
+                tx += 2;
+                error += (tx - diameter);
+            }
+
+        }
+    }
+
+    void
+    CaromScene::manageEnterCollisions(b2ContactEvents contactEvents){
+        
+        for(int i = 0; i < contactEvents.beginCount; ++i){
+            b2ContactBeginTouchEvent* a_enter = contactEvents.beginEvents + i;
+
+            ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
+            ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
+
+            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
+            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
+        }
+
+    }
+
+    void
+    CaromScene::manageExitCollisions(b2ContactEvents contactEvents){
+
+        if(!_updatePhysics) return;
+        
+        for(int i = 0; i < contactEvents.endCount; ++i){
+            b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
+        
+            ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
+            ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
+        
+            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
+            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+        }
+        
+    }
+
+    void
+    CaromScene::manageEnterTriggers(b2SensorEvents sensorEvents){
+
+        if(!_updatePhysics) return;
+
+        for(int i = 0; i < sensorEvents.beginCount; ++i){
+            b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
+
+            ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->sensorShapeId));
+            ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
+
+            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+        }
+    }
+
+    void
+    CaromScene::manageExitTriggers(b2SensorEvents sensorEvents){
+
+        if(!_updatePhysics) return;
+
+        for(int i = 0; i < sensorEvents.endCount; ++i){
+            b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;
+        
+            ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
+            ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
+        
+            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+        } 
+
+    }
+
+    //!Estos métodos asumen la existencia de una clase ScoreUI
+    void CaromScene::addScore(double score) {
+        _currentScore += score;
+        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+    }
+
+    void CaromScene::removeScore(double score) {
+        _currentScore -= score;
+        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+    }
+
+    void CaromScene::setScoreToBeat(double newScoreToBeat){
+        _scoreToBeat = newScoreToBeat;
+        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+    }
 }

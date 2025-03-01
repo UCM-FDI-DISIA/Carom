@@ -7,7 +7,14 @@
 	RENDER_TEXTURE, \
 	RIGIDBODY, \
 	SHAPE, \
-	BUTTON
+	WHITEBALLSCORER, \
+	COLORBALLSCORER, \
+	WALL, \
+	TRYCOLLISION, \
+	BUTTON, \
+	EVENT_ON_COLLISION, \
+	STICK_INPUT, \
+	TEXT_DISPLAY
 
 // Groups list - must have at least one element
 //
@@ -15,7 +22,10 @@
 	WHITEBALL, \
 	EFFECTBALLS, \
 	TABLE, \
-	PALO
+	PALO, \
+	BACKGROUND, \
+	SCORE, \
+	SHADOWS
 
 // Effect list
 // TODO completar	

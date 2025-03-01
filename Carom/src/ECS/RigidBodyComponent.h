@@ -1,8 +1,13 @@
 #pragma once
 #include "PhysicsComponent.h"
 #include "InfoComponent.h"
-#include <box2D/box2D.h>
 #include "ecs.h"
+#include <box2D/box2D.h>
+#include <functional>
+#include <cmath>
+#include <math.h>
+
+#include "ITransform.h"
 
 
 class B2Manager;
@@ -12,24 +17,53 @@ namespace ecs{
 class Shape;
 class Entity;
 
-class RigidBodyComponent : public InfoComponent
+class RigidBodyComponent : public InfoComponent, public ITransform
 {
-    b2BodyId *_bodyId;
+    friend class PhysicsComponent;
+private:
+    b2BodyId _myB2BodyId;
 
-    public:
+    Scale _myScale = {1.0, 1.0};
+
+    // Collision functions
+    std::vector<PhysicsComponent*> _collisionEnter = {};
+    std::vector<PhysicsComponent*> _collisionExit = {};
+    std::vector<PhysicsComponent*> _triggerEnter = {};
+    std::vector<PhysicsComponent*> _triggerExit = {};
+
+
+    // * La unica forma de escalar es rompiendo la shape y haciendo otra, se guardan estos parámetros con ese objetivo
+    Shape* _myShape;
+    float _density;
+    float _friction;
+    float _restitution;
+
+protected:
+
+    // Collision suscribers
+    void suscribePhysicsComponent(PhysicsComponent* PC);
+
+
+public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
-    RigidBodyComponent(Entity* ent, b2BodyType type, Shape *shape, float density = 1, float friction = 0.2, float restitution = 0.5);
+    RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0, float restitution = 1);
     virtual ~RigidBodyComponent();
 
     // Getters
-    inline b2Transform getB2Transform(){return b2Body_GetTransform(*_bodyId);}
-    inline b2BodyId* getB2Body(){return _bodyId;}
-    inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(*_bodyId);}
+    b2Vec2 getPosition() const override;
+    Scale getScale() const override;
+    double getRotation() const override;
+    inline b2BodyId getB2Body() const {return _myB2BodyId;}
+    inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     bool isMoving();
 
     // Setters
-    void changeBodyType(b2BodyType newType);
+    void setPosition(const b2Vec2& newPos) override;
+    void setScale(const Scale& newScale) override; //! doesn`t work if used in onCollision or onTrigger
+    void setRotation(const double& newRot) override;
+
+    void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes = 1);
     void setFriction(float friction, int nShapes = 1);
     void setRestitution(float restitution, int nShapes = 1);
@@ -44,6 +78,12 @@ class RigidBodyComponent : public InfoComponent
     void applyImpulseToWorld(b2Vec2 impulse, b2Vec2 origin);
     void applyImpulseToCenter(b2Vec2 impulse);
 
+    //onCollision and onTrigger Methods
+    void onCollisionEnter(entity_t ent);
+    void onCollisionExit(entity_t ent);
+    void onTriggerEnter(entity_t ent);
+    void onTriggerExit(entity_t ent);
+
     };
 
     class Shape{
@@ -53,6 +93,7 @@ class RigidBodyComponent : public InfoComponent
         shape::shapeId _shapeType;
 
         inline shape::shapeId getType() {return _shapeType;}
+        virtual void setScale(double X, double Y) = 0;
         
         Shape() {}
     public:
@@ -65,15 +106,19 @@ class RigidBodyComponent : public InfoComponent
 
     public:
         CircleShape(float radius);
+
         inline b2Circle* getCircle() {return &_circle;}
+        void setScale(double X, double Y) override;
     };
 
     class CapsuleShape : public Shape{
         b2Capsule _capsule;
 
     public:
-        CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter); // We use Vector2D to avoid having multiple representations of vectors
+        CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter);
+
         inline b2Capsule* getCapsule() {return &_capsule;}
+        void setScale(double X, double Y) override;
     };
 
     class PolygonShape : public Shape{
@@ -83,6 +128,8 @@ class RigidBodyComponent : public InfoComponent
         PolygonShape(b2Vec2 vertex[], int size, float radius);
         PolygonShape(float side);
         PolygonShape(float sizex, float sizey);
+
         inline b2Polygon* getPolygon() {return &_polygon;}
+        void setScale(double X, double Y) override;
     };
 }

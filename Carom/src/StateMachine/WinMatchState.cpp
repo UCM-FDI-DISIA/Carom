@@ -3,7 +3,7 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 
-WinMatchState::WinMatchState(CaromScene* scene) : State(scene) 
+WinMatchState::WinMatchState(ecs::CaromScene* scene) : State(scene) 
 {
 
 }

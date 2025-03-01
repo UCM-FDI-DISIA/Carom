@@ -46,6 +46,10 @@ public:
 		return _height;
 	}
 
+	inline auto getRenderer() const{
+		return _renderer;
+	}
+
 	// This rendering method corresponds to method SDL_RenderCopyEx.
 	//
 	// Renders part of the texture (src) to a destination rectangle (dest)
@@ -92,6 +96,10 @@ public:
 	inline void render(const SDL_Rect &dest, float rotation) {
 		SDL_Rect src = { 0, 0, _width, _height };
 		render(src, dest, rotation);
+	}
+
+	inline void changeColorTint(int r, int g, int b){
+		SDL_SetTextureColorMod(_texture, r, g, b);
 	}
 
 private:
