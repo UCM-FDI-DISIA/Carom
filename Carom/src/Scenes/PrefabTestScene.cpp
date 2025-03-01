@@ -1,8 +1,8 @@
 #include "PrefabTestScene.h"
 #include "JsonEntityParser.h"
 
-PrefabTestScene::PrefabTestScene(Game* game){
-    _game = game;
+PrefabTestScene::PrefabTestScene(Game* myGame){
+    game = myGame;
     init();
 }
 

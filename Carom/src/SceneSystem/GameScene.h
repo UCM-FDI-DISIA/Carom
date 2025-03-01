@@ -34,7 +34,7 @@ namespace ecs{
 		Camera _UICamera;
 
 	GameScene(Game* game);
-	inline GameScene(){}
+	GameScene();
 
 	
 	// Este metodo permite un comportamiento de la escena al instanciarla

@@ -1,7 +1,7 @@
 [
     {
         "componentName" : "TransformComponent", 
-        "atributes" :{"x" : 0, "y" : 0}
+        "atributes" :{"x" : 5, "y" : 3}
     },
     {
         "componentName" : "RigidBodyComponent", 

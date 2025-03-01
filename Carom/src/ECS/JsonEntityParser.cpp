@@ -9,7 +9,7 @@ ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file)
 
     ecs::Entity* entity = new ecs::Entity(gameScene);
     JSONValue* entityElements = JSON::ParseFromFile(file);
-    std::cout<<JSON::Stringify(entityElements);
+    //std::cout<<JSON::Stringify(entityElements);
 
     for(auto element : entityElements->AsArray()){
         if(element->Child("componentName")->AsString() == "TransformComponent"){
@@ -28,6 +28,7 @@ ecs::Entity* JsonEntityParser::Parse(ecs::GameScene& gameScene,std::string file)
 
 void JsonEntityParser::transformComponent(const JSONObject& atributes,  ecs::Entity* entity){
     std::cout<<"ha entrado";
-    Vector2D position(atributes.at("x")->AsNumber(), atributes.at("y")->AsNumber());
+    b2Vec2 position(atributes.at("x")->AsNumber(), atributes.at("y")->AsNumber());
+    addComponent<ecs::TransformComponent>(entity, position);
     ecs::TransformComponent* component = new ecs::TransformComponent(entity, position);
 }

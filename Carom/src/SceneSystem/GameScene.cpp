@@ -12,6 +12,8 @@ namespace ecs{
 
 GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
 
+GameScene::GameScene(): _worldCamera(0,0), _UICamera(0,0){ }
+
 GameScene::~GameScene(){};
 
 // TODO: componentes Transform físico y normal
