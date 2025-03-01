@@ -1,7 +1,6 @@
 #include "SDLUtils.h"
 #include <vector>
 #include <set>
-#include "testBox2D.cpp"
 
 void deltaTimeTest(){
     

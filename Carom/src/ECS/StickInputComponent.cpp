@@ -7,6 +7,7 @@
 #include "algorithm"
 #include <cmath>
 #include "GameScene.h"
+#include "CaromScene.h"
 #include "ecs_defs.h"
 
 
@@ -38,7 +39,7 @@ namespace ecs {
         //mousePos
         b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
         
-        std::cout <<_mousePos.x << " " << _mousePos.y << " ::: ";
+        // std::cout <<_mousePos.x << " " << _mousePos.y << " ::: ";
 
         // centro de la bola
         b2Vec2 _center = _whiteBallRB->getPosition();
@@ -53,7 +54,7 @@ namespace ecs {
             _mousePos.y = _center.y + (-dirNormalized.getY() * _maxRadiusToPull);
         }
 
-        std::cout <<_mousePos.x << " " << _mousePos.y << "\n";
+        // std::cout <<_mousePos.x << " " << _mousePos.y << "\n";
 
         enableRender(true, _mousePos, dirNormalized);
 
@@ -62,7 +63,7 @@ namespace ecs {
         //si dentro del comportamiento se ha soltado el boton izquierdo del raton
         if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0)
         {
-            std::cout << "Dejado de arrastrar" << std::endl;
+            // std::cout << "Dejado de arrastrar" << std::endl;
 
             if(!isMouseOnCircleRadius(_minRadiusToPull)){
 
@@ -74,12 +75,13 @@ namespace ecs {
 
                 //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
                 _whiteBallRB->applyImpulseToCenter(impulseVec);
+                _hasShot = true;
 
-                std::cout << "mI " << impulseMag << "\n"; 
-                std::cout << "impulso " << impulseVec.x << " " << impulseVec.y << "\n"; 
+                // std::cout << "mI " << impulseMag << "\n"; 
+                // std::cout << "impulso " << impulseVec.x << " " << impulseVec.y << "\n"; 
             }
 
-            _active = false;
+            _enabled = false;
             enableRender(false, _mousePos, dirNormalized);
         }
     }
@@ -105,7 +107,7 @@ namespace ecs {
     void StickInputComponent::enableRender(bool active, b2Vec2 _mousePos, Vector2D dirNormalized) {
 
         // enable render
-        _myRender->setEnable(active);
+        _myRender->setEnabled(active);
 
         if (active) {
 
@@ -130,8 +132,19 @@ namespace ecs {
         return radians * (180.0f / M_PI);
     }
 
-    void StickInputComponent::registerWhiteBall(entity_t wb)
-    {
+    bool StickInputComponent::hasShoot() {
+        return _hasShot;
+    }
+
+    void StickInputComponent::setEnabled(bool state) {
+        _enabled = state;
+
+        if (state) {
+            _hasShot = false;
+        }
+    }
+
+    void StickInputComponent::registerWhiteBall(entity_t wb) {
         _whiteBall = wb;
         _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
     }

@@ -11,6 +11,7 @@
 #include "Camera.h"
 
 class Game;
+class State;
 
 // Declaraciones anticipadas
 namespace ecs{
@@ -104,13 +105,13 @@ namespace ecs{
 		// Enables all entity's components
 		//
 		inline void enableEntity(entity_t e) {
-			e->enable();
+			e->activate();
 		}
 
 		// Disables all entity's components
 		//
 		inline void disableEntity(entity_t e) {
-			e->disable();
+			e->deactivate();
 		}
 
 	public:
@@ -118,6 +119,7 @@ namespace ecs{
 
 		virtual ~GameScene();
 
+		virtual void init(State *s) {} // ! no estoy seguro
 		virtual void render();
 		virtual void update();
 		virtual void handleEvent();

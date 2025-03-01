@@ -43,21 +43,26 @@ Game::init() {
         return;
     }
 
-    _sceneManager = new ScenesManager();    
 }
 
 void
-Game::start() {
+Game::start() 
+{
+    _sceneManager = new ScenesManager();  
+    
+    NullState* state = new NullState(nullptr);
+    ecs::GameScene *ms = new ecs::CaromScene(this, nullptr);
+    ms->init(state);
+    _sceneManager->pushScene(ms);
+}
 
+void Game::run()
+{
     bool exit = false;
 
     auto &ihdlr = ih();
     
     sdlutils().showCursor();
-
-    NullState* state = new NullState(nullptr);
-    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
-    _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
@@ -90,5 +95,4 @@ Game::start() {
         if (elapsed < FIXED_TIME_STEP)
 			SDL_Delay(FIXED_TIME_STEP - elapsed);
     }
-
 }

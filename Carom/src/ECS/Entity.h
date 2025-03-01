@@ -73,13 +73,14 @@ namespace ecs {
             return _currentComponents;
         }
 
-        // Enables all entity's components
+        // Activate entity and enables all entity's components
 	    //
-        void enable();
+        void activate();
+        bool isActivated();
 
-        // Disables all entity's components
+        // Deactivate entity and disables all entity's components
         //
-        void disable();
+        void deactivate();
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
@@ -95,6 +96,7 @@ namespace ecs {
         Entity(GameScene& scene);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
+        bool _activated = true;
         GameScene& _myScene;
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};

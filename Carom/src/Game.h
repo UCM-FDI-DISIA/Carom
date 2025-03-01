@@ -16,6 +16,7 @@ public:
 
     void init();
     void start();
+    void run();
 
     inline auto getRenderer() const{
         return _t->getRenderer();

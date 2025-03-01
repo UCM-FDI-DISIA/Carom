@@ -17,7 +17,7 @@ namespace ecs{
     class CaromScene: public GameScene {
     protected:
     //el estado en el que se encuentra la escena actualmente
-        State* _currentState = nullptr;
+        State* _currentState;
         ScenesManager* _manager;
         GameScene* _reward;
         ColorHitManager* _hitManager;
@@ -41,7 +41,8 @@ namespace ecs{
 
         int _remainingHits = 3;
     public:
-        CaromScene(State* state, Game* g, GameScene* reward);
+        CaromScene(Game* g, GameScene* reward);
+        void init(State *s) override;
         ~CaromScene();
 
         inline void enablePhysics(){_updatePhysics = true;}
@@ -57,6 +58,7 @@ namespace ecs{
     
         void createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
         void createStickInputStick(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa); 
+
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
         //- Cambia el estado por el nuevo

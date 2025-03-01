@@ -129,6 +129,8 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+	src/StateMachine/StartMatchState.cpp
+
 	
 	src/ScoreContainer.cpp
 )

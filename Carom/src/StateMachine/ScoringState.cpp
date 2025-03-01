@@ -4,6 +4,8 @@
 #include "CaromScene.h"
 #include "LoseMatchState.h"
 #include "RigidBodyComponent.h"
+#include "StickInputComponent.h"
+
 
 ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
 {
@@ -22,7 +24,7 @@ ScoringState::onStateExit() {
 
 bool
 ScoringState::checkCondition(State*& state) {
-    
+
     //Comprueba que ninguna bola se mueva
     auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
     for(auto& e : whiteBall) {
@@ -41,7 +43,7 @@ ScoringState::checkCondition(State*& state) {
     // else if(_scene->getRemainingHits() > 0) state = new HitState(_scene);
     // else state = new LoseMatchState(_scene);
 
-    return true;
+    // return true;
     
 
     return false; //Lo siento Andrea
