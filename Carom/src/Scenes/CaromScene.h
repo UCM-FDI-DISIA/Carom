@@ -88,16 +88,17 @@ namespace ecs{
         // ?Métodos para comprobar condiciones de estado 
         inline int getRemainingHits() { return _remainingHits; }
 
+                // ?Métodos para manejo de puntuación
+                void setScoreToBeat(double newScoreToBeat);
+
+                void addScore(double score);
+                void removeScore(double score);
+
     private:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
         inline bool roundWins() {return _currentScore >= _scoreToBeat; }
 
-        // ?Métodos para manejo de puntuación
-        void setScoreToBeat(double newScoreToBeat);
-
-        void addScore(double score);
-        void removeScore(double score);
     };
 
 }
