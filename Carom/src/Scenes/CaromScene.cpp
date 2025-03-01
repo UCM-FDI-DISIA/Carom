@@ -3,7 +3,6 @@
 #include "RenderTextureComponent.h"
 #include "RigidBodyComponent.h"
 #include "ColorHitManager.h"
-#include "ScoreContainer.h"
 #include "WhiteBallScorerComponent.h"
 #include "StickInputComponent.h"
 #include "Button.h"
@@ -63,8 +62,6 @@ namespace ecs {
 
         // Other
         _hitManager = new ColorHitManager(this);
-        _scoreContainer = new ScoreContainer(200,0);
-
     }
 
     entity_t // TODO: provisory definition, add components
@@ -156,7 +153,6 @@ namespace ecs {
         b2DestroyWorld(_myB2WorldId);
 
         delete _hitManager;
-        delete _scoreContainer;
     }
 
     void CaromScene::update(){
@@ -303,7 +299,6 @@ namespace ecs {
 
             sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
         }
-
     }
 
     void
@@ -322,7 +317,19 @@ namespace ecs {
 
     }
 
-    ScoreContainer* CaromScene::getScoreContainer() {return _scoreContainer;}
+    //!Estos métodos asumen la existencia de una clase ScoreUI
+    void CaromScene::addScore(double score) {
+        _currentScore += score;
+        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+    }
 
-    ColorHitManager* CaromScene::getColorHitManager() {return _hitManager; }
+    void CaromScene::removeScore(double score) {
+        _currentScore -= score;
+        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+    }
+
+    void CaromScene::setScoreToBeat(double newScoreToBeat){
+        _scoreToBeat = newScoreToBeat;
+        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+    }
 }

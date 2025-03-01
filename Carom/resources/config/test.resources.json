@@ -3,7 +3,13 @@
   "fonts" : [
     { "id" : "ARIAL16", "file" : "../../resources/fonts/ARIAL.ttf", "size": 16 },
     { "id" : "ARIAL24", "file" : "../../resources/fonts/ARIAL.ttf", "size": 24 },
-    { "id" : "ARIAL48", "file" : "../../resources/fonts/ARIAL.ttf", "size": 48 }
+    { "id" : "ARIAL48", "file" : "../../resources/fonts/ARIAL.ttf", "size": 48 },
+    { "id" : "CAPTURE16", "file" : "../../resources/fonts/Capture_it.ttf", "size": 16},
+    { "id" : "NES-CHIMERA16", "file" : "../../resources/fonts/NES-chimera.ttf", "size": 16},
+    { "id" : "CAPTURE24", "file" : "../../resources/fonts/Capture_it.ttf", "size": 24},
+    { "id" : "NES-CHIMERA24", "file" : "../../resources/fonts/NES-chimera.ttf", "size": 24},
+    { "id" : "CAPTURE48", "file" : "../../resources/fonts/Capture_it.ttf", "size": 48},
+    { "id" : "NES-CHIMERA48", "file" : "../../resources/fonts/NES-chimera.ttf", "size": 48}
   ],
   
   "images" : [
