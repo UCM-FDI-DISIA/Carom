@@ -7,6 +7,10 @@
 #include <algorithm>
 
 namespace ecs{
+    WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent) {
+        
+    }
+
     void WhiteBallScorerComponent::onCollisionEnter(entity_t other){
 
         if(other->tryGetComponent<WallComponent>()) cushions++;

@@ -12,7 +12,8 @@ class WhiteBallScorerComponent : PhysicsComponent{
     bool previouslyHit = false; // para ver si la whiteball ha tocado previamente una colorball.
 
 public:
-__CMPID_DECL__(cmp::WHITEBALLSCORER);
+    __CMPID_DECL__(cmp::WHITEBALLSCORER);
+    WhiteBallScorerComponent(entity_t ent);
 
     // funcion q se activa al colisionar con "other".
     void onCollisionEnter(entity_t other); 

@@ -23,7 +23,7 @@ SDLUtils::SDLUtils() :
 		_fontsAccessWrapper(_fonts, "Fonts Table"), //
 		_imagesAccessWrapper(_images, "Images Table"), //
 		_svgAccessWrapper_table(_svg_table, "SVG Table"), //
-		_svgAccessWrapper_ballPos(_svg_ballPos, "SVG Table"), //
+		_svgAccessWrapper_ballPos(_svg_ballPos, "SVG Ball Positions"), //
 		_msgsAccessWrapper(_msgs, "Messages Table"), //
 		_soundsAccessWrapper(_sounds, "Sounds Table"), //
 		_musicsAccessWrapper(_musics, "Musics Table"), //
@@ -332,7 +332,6 @@ void SDLUtils::loadSVG(auto& svgMap, const char* filename){
 	nsvgDelete(image);
 
 	std::cout << "SVG loaded and parsed successfully!" << std::endl;
-
 
 }
 

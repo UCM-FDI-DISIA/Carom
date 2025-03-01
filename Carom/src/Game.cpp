@@ -60,7 +60,7 @@ Game::start() {
     sdlutils().showCursor();
 
     NullState* state = new NullState(nullptr);
-    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
+    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr, 1); // ! tst  
     _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration

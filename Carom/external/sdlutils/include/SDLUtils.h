@@ -72,6 +72,10 @@ public:
 		inline T& operator[](const std::string &key) {
 			return at(key);
 		}
+
+		inline int size() const {
+			return map_.size();
+		}
 	};
 
 	virtual ~SDLUtils();

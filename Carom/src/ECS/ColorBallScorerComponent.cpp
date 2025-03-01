@@ -5,6 +5,10 @@
 #include "ColorHitManager.h"
 
 namespace ecs{
+    ColorBallScorerComponent::ColorBallScorerComponent(entity_t ent): PhysicsComponent(ent) {
+        
+    }
+    
     void ColorBallScorerComponent::onCollisionEnter(entity_t other){
             // si choca con una bola de color...
             if(other->tryGetComponent<ColorBallScorerComponent>()){
