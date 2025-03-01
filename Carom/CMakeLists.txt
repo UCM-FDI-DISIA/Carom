@@ -118,6 +118,8 @@ add_executable(Carom
 	src/ECS/EventOnCollision.cpp
 	src/ECS/PhysicsComponent.cpp
 
+	src/ECS/TextDisplayComponent.cpp
+	
 	src/HitManager/ColorHitManager.cpp
 
 	src/inputTest.cpp
@@ -129,8 +131,6 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
-	
-	src/ScoreContainer.cpp
 )
 
 # Link Box2D

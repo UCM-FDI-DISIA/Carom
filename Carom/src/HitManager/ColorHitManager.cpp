@@ -1,7 +1,6 @@
 #include "ColorHitManager.h"
 #include "CaromScene.h"
 #include "Entity.h"
-#include "ScoreContainer.h"
 
 namespace ecs{
 
@@ -20,7 +19,7 @@ namespace ecs{
 
         //si no se ha registrado el hit en esta posicion hacer cosas que se necesiten
         //scorer.add(2);
-        _mainScene->getScoreContainer()->addScore(2);
+        _mainScene->addScore(2);
         //reproducir un sonido
         //...
 
