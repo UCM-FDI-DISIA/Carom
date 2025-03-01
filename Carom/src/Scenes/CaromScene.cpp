@@ -17,10 +17,11 @@
 
 namespace ecs {
 
-    CaromScene::CaromScene(State* s, Game* g, GameScene* reward, unsigned seed) : GameScene(g), _reward(reward), _updatePhysics(true) 
+    CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) 
     {
         // SEEDING
         _rngManager = new RNG_Manager();
+        unsigned seed = _rngManager->randomRange(1, 1000000); 
         _rngManager->inseminate(seed);
 
 
@@ -39,6 +40,7 @@ namespace ecs {
             *&sdlutils().svgElements_table().at("bola_blanca").y
         );
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
+        std::cout << sdlutils().svgElements_table().size();
         // Apply impulse
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
@@ -57,7 +59,7 @@ namespace ecs {
         int n_eb = 3;
         int npos = sdlutils().svgElements_ballPos().size();
         assert(n_eb <= npos);
-        
+
         std::vector<RandomItem<int>> positions;
         for(int i = 1; i <= npos; ++i)
             positions.push_back(RandomItem(i, 1.0f));
