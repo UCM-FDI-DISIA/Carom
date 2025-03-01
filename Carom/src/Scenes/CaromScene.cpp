@@ -31,6 +31,12 @@ namespace ecs {
         _myB2WorldId = b2CreateWorld(&worldDef);
         b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
 
+        // TODO: Score
+        _scoreToBeat = 10;
+        _currentScore = 0;
+        _remainingHits = 10;
+
+
         // Set state
         State* startState = new StartMatchState(this);
         setNewState(startState);
@@ -140,10 +146,6 @@ namespace ecs {
         }
         _currentState = s;
         _currentState->onStateEnter();
-    }
-
-    State* CaromScene::getCurrentState(){ 
-        return _currentState;
     }
 
     CaromScene::~CaromScene(){
