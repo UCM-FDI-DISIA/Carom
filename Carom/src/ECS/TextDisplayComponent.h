@@ -22,6 +22,7 @@ namespace ecs {
 
         void reGenerateTexture();
     public:
+        __CMPID_DECL__(cmp::TEXT_DISPLAY);
         /// @brief Constructor del componente para mostrar texto
         /// @param entity La entidad a la que pertenece
         /// @param initialText El valor inicial del texto que renderiza

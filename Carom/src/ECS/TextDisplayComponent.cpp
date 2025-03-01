@@ -11,6 +11,7 @@ namespace ecs {
     TextDisplayComponent::TextDisplayComponent(Entity* entity, std::string initialText, SDL_Color color, std::string key, float displayScale)
         : RenderComponent(entity), _text(initialText), _color(color), _key(key), _scale(displayScale)
     {
+        reGenerateTexture();
     }
 
     void 

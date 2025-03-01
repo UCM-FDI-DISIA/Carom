@@ -57,6 +57,8 @@ namespace ecs{
         // TODO: provisory definition
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
 
+        entity_t createScoreEntity();
+
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
         //- Cambia el estado por el nuevo

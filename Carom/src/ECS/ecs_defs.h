@@ -13,7 +13,8 @@
 	TRYCOLLISION, \
 	BUTTON, \
 	EVENT_ON_COLLISION, \
-	STICK_INPUT
+	STICK_INPUT, \
+	TEXT_DISPLAY
 
 // Groups list - must have at least one element
 //
@@ -22,7 +23,9 @@
 	EFFECTBALLS, \
 	TABLE, \
 	PALO, \
-	BACKGROUND
+	BACKGROUND, \
+	SCORE, \
+	SHADOWS
 
 // Effect list
 // TODO completar	

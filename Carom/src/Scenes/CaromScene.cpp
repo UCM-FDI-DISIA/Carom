@@ -6,6 +6,7 @@
 #include "WhiteBallScorerComponent.h"
 #include "StickInputComponent.h"
 #include "Button.h"
+#include "TextDisplayComponent.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -49,6 +50,8 @@ namespace ecs {
         // Create table with texture and colliders
         createTable();
         createBackground("suelo");
+
+        createScoreEntity();
 
         _hitManager = new ColorHitManager(this);
     }
@@ -123,6 +126,18 @@ namespace ecs {
         // TODO: add components
         _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
         _entities.push_back(e);
+    }
+
+    entity_t CaromScene::createScoreEntity(){
+        entity_t e = new Entity(*this);
+        _entsRenderable.push_back(e);
+        _entsByGroup[ecs::grp::SCORE].push_back(e);
+        _entities.push_back(e);
+
+        addComponent<TransformComponent>(e, b2Vec2{0,0});
+        addComponent<ecs::TextDisplayComponent>(e, "Hola", SDL_Color{255, 0, 0, 255}, "ARIAL16", 1.0f);
+
+        return e;
     }
 
     // void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
