@@ -1,7 +1,7 @@
 #include "CaromScene.h"
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
-#include "RigidBodyComponent.h"
+#include "CircleRBComponent.h"
 #include "ColorHitManager.h"
 #include "ScoreContainer.h"
 #include "WhiteBallScorerComponent.h"
@@ -51,26 +51,22 @@ namespace ecs {
         _scoreContainer = new ScoreContainer(200,0);
     }
 
-    entity_t // TODO: provisory definition, add components
-    CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
-    {
-        // Scale
-        float svgSize = *&sdlutils().svgElements().at("bola_blanca").width;
-        float textureSize = sdlutils().images().at("bola_blanca").width();
-        float scale = svgSize/textureSize;
+ecs::entity_t // TODO: provisory definition, add components
+CaromScene::createWhiteBall(const b2Vec2 &pos, b2BodyType type, float density, float friction, float restitution, int capa) {
+    ecs::entity_t e = new ecs::Entity(*this);
 
-        ecs::entity_t e = new ecs::Entity(*this);
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
-        ecs::CircleShape *cs = new ecs::CircleShape(radius);
-        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
-        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale); // scale atera a posicao
+    addComponent<ecs::CircleRBComponent>(e, pos, b2_dynamicBody, 1, density, friction, restitution); //! I don't know how to get the radius of the ball
+
+    // Must be pushed back into renderable vector before adding the component for proper sort!
+    _entsRenderable.push_back(e);
+    addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"), capa);
 
         _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
         _entities.push_back(e);
 
-        return e;
-    }
+    return e;
+
+}
 
     void // TODO: provisory definition, add components
     CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
@@ -119,21 +115,21 @@ namespace ecs {
         manageEnterCollisions(a_contactEvents);
         manageExitCollisions(a_contactEvents);
 
-        b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
-        manageEnterTriggers(a_sensorEvents);
-        manageExitTriggers(a_sensorEvents);
+    b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+    manageEnterTriggers(a_sensorEvents);
+    manageExitTriggers(a_sensorEvents);
 
-        enablePhysics();
+    enablePhysics();
 
-        State* a_stateToChange = nullptr;
-        if(_currentState->checkCondition(a_stateToChange)){
-            setNewState(a_stateToChange);
-        }
-
-        _hitManager->clearAllHits();
-
-        GameScene::update();
+    State* a_stateToChange = nullptr;
+    if(_currentState->checkCondition(a_stateToChange)){
+        setNewState(a_stateToChange);
     }
+
+    _hitManager->clearAllHits();
+
+    GameScene::update();
+}
 
     std::pair<b2BodyId, b2ShapeDef*> 
     CaromScene::generateBodyAndShape (

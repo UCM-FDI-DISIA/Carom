@@ -12,15 +12,15 @@ class B2Manager;
 
 namespace ecs{
 
-class Shape;
 class Entity;
 
 class RigidBodyComponent : public InfoComponent, public ITransform
 {
     friend class PhysicsComponent;
-private:
-    b2BodyId _myB2BodyId;
+    friend class GameScene;
+protected:
 
+    b2BodyId _myB2BodyId;
     Scale _myScale = {1.0, 1.0};
 
     // Collision functions
@@ -28,13 +28,6 @@ private:
     std::vector<PhysicsComponent*> _collisionExit = {};
     std::vector<PhysicsComponent*> _triggerEnter = {};
     std::vector<PhysicsComponent*> _triggerExit = {};
-
-
-    // * La unica forma de escalar es rompiendo la shape y haciendo otra, se guardan estos parámetros con ese objetivo
-    Shape* _myShape;
-    float _density;
-    float _friction;
-    float _restitution;
 
 protected:
 
@@ -45,7 +38,7 @@ protected:
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
-    RigidBodyComponent(entity_t ent, const b2Vec2& pos, b2BodyType type, Shape *shape, float density = 1, float friction = 0, float restitution = 1);
+    RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
 
     // Getters
@@ -56,7 +49,6 @@ public:
 
     // Setters
     void setPosition(const b2Vec2& newPos) override;
-    void setScale(const Scale& newScale) override; //! doesn`t work if used in onCollision or onTrigger
     void setRotation(const double& newRot) override;
 
     void setBodyType(b2BodyType newType);
@@ -81,54 +73,4 @@ public:
     void onTriggerExit(entity_t ent);
 
     };
-
-    class Shape{
-    friend RigidBodyComponent;
-        
-    protected:
-        shape::shapeId _shapeType;
-
-        inline shape::shapeId getType() {return _shapeType;}
-        virtual void setScale(double X, double Y) = 0;
-        
-        Shape() {}
-    public:
-        virtual ~Shape() {}
-        
-    };
-
-    class CircleShape : public Shape{
-        b2Circle _circle;
-
-    public:
-        CircleShape(float radius);
-
-        inline b2Circle* getCircle() {return &_circle;}
-        void setScale(double X, double Y) override;
-    };
-
-    class CapsuleShape : public Shape{
-        b2Capsule _capsule;
-
-    public:
-        CapsuleShape(float radius, b2Vec2 firstCenter, b2Vec2 secondCenter);
-
-        inline b2Capsule* getCapsule() {return &_capsule;}
-        void setScale(double X, double Y) override;
-    };
-
-    class PolygonShape : public Shape{
-        b2Polygon _polygon;
-
-        public:
-        PolygonShape(b2Vec2 vertex[], int size, float radius);
-        PolygonShape(float side);
-        PolygonShape(float sizex, float sizey);
-
-        inline b2Polygon* getPolygon() {return &_polygon;}
-        void setScale(double X, double Y) override;
-    };
-
-
-
 }
