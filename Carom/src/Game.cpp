@@ -31,7 +31,7 @@ Game::init() {
 	if (!SDLUtils::Init("Carom", 1920, 1080, 
             "../../resources/config/resources.json", 
             "../../resources/svg/Game.svg", 
-            "../../resources/svg/position.svg"
+            "../../resources/svg/positions.svg"
         )) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
@@ -60,7 +60,7 @@ Game::start() {
     sdlutils().showCursor();
 
     NullState* state = new NullState(nullptr);
-    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr, 1); // ! tst  
+    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
     _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration

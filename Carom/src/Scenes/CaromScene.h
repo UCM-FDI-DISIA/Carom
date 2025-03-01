@@ -46,7 +46,7 @@ namespace ecs{
 
         int _remainingHits = 3;
     public:
-        CaromScene(State* state, Game* g, GameScene* reward, unsigned seed);
+        CaromScene(State* state, Game* g, GameScene* reward);
         ~CaromScene();
 
         inline void enablePhysics(){_updatePhysics = true;}
