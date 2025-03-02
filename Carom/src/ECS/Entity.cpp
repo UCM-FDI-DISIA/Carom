@@ -22,7 +22,7 @@ namespace ecs {
     }
 
     template<>
-    bool Entity::addComponent<RenderTextureComponent>(RenderTextureComponent* renderComp){
+    bool Entity::addComponent<RenderTextureComponent>(RenderTextureComponent* renderComp) {
         
         if(_components[cmpId<RenderTextureComponent>] != nullptr) return false;
 
@@ -32,6 +32,21 @@ namespace ecs {
         _currentComponents.push_back(renderComp);
         _components[cmpId<RenderTextureComponent>]->init();
 
+
+        return true;
+    }
+
+    template <>
+    bool Entity::removeComponent<RenderTextureComponent>() {
+        if(_components[cmpId<RenderTextureComponent>] == nullptr) return false;
+    
+        auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<RenderTextureComponent>]);
+        _currentComponents.erase(it);
+        _components[cmpId<RenderTextureComponent>] = nullptr;
+
+        auto& entsRenderable = _myScene.getRenderEntities();
+        auto itR = find(entsRenderable.begin(), entsRenderable.end(), this);
+        entsRenderable.erase(itR);
 
         return true;
     }

@@ -61,6 +61,10 @@ namespace ecs {
             return true;
         }
 
+        // Specialization for removing renderable entities to layer sort vector _entsRenderable
+        template<>
+        bool removeComponent<RenderTextureComponent>();
+
         template<typename T>
         bool tryGetComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
