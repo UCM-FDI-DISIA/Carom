@@ -390,10 +390,8 @@ namespace ecs {
     TextDisplayComponent*
     CaromScene::createScoreUI() {
         //CurrentScore
-        entity_t currentScoreObject = new Entity(*this);
+        entity_t currentScoreObject = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(currentScoreObject);
-        _entities.push_back(currentScoreObject);
-        _entsByGroup[ecs::grp::DEFAULT].push_back(currentScoreObject);
 
         b2Vec2 pos1 = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("scoreTextL").x,
@@ -405,10 +403,8 @@ namespace ecs {
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
-        entity_t scoreToBeatObject = new Entity(*this);
+        entity_t scoreToBeatObject = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(scoreToBeatObject);
-        _entities.push_back(scoreToBeatObject);
-        _entsByGroup[ecs::grp::DEFAULT].push_back(scoreToBeatObject);
 
         b2Vec2 pos2 = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("scoreTextR").x,
