@@ -62,6 +62,8 @@ namespace ecs{
                                 float density, float friction, float restitution, int layer);
         void createScoreEntity();
 
+        void createBallShadow(entity_t);
+
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
         //- Cambia el estado por el nuevo

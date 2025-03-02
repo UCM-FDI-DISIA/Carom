@@ -15,6 +15,7 @@ namespace ecs{
         FollowComponent(Entity* e, Entity* target, bool copyPosition, bool copyRotation, bool copyScale, 
             Vector2D relativeDistance);
         void update() override;
+        inline void init() override {};
 
         //getters
         inline Vector2D getRelativeDistance(){return _relativeDistance;}

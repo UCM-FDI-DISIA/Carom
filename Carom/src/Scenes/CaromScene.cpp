@@ -10,6 +10,7 @@
 #include "ColorBallScorerComponent.h"
 #include "RNG_Manager.h"
 #include "RandomItem.h"
+#include "FollowComponent.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -178,7 +179,21 @@ namespace ecs {
 
         _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
         _entities.push_back(e);
+
+        createBallShadow(e);
     }
+
+    void CaromScene::createBallShadow(entity_t entity){
+        //sombra de reflejo de la bola
+        Entity* a_reflejo = new Entity(*this);
+        _entsRenderable.push_back(a_reflejo);
+        _entsByGroup[ecs::grp::SHADOWS].push_back(a_reflejo);
+        _entities.push_back(a_reflejo);
+
+        addComponent<ecs::TransformComponent>(a_reflejo, b2Vec2{0,0});
+        addComponent<ecs::FollowComponent>(a_reflejo, entity, true, false, true, Vector2D(0,0));
+        addComponent<ecs::RenderTextureComponent>(a_reflejo, &sdlutils().images().at("bola_cast_sombra"), 3,0.5f, SDL_Color{0, 150, 100, 1});
+        }
 
     void CaromScene::createScoreEntity(){
         //primer score
