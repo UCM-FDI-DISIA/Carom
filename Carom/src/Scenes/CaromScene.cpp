@@ -102,24 +102,17 @@ namespace ecs {
 
         entity_t e = new Entity(*this, grp::WHITEBALL);
 
-        // _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        // _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
-        // _entities.push_back(e);
-
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
-        
         //! I don't know how to get the radius of the ball
         addComponent<ecs::CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
 
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);
-        //addComponent<ecs::WhiteBallScorerComponent>(e);
+        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
 
         ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
         addComponent<ecs::Button>(e, rButton);
         e->getComponent<ecs::Button>()->setOnClick([this](){
             _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(true);
         });
-        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(false); // TODO: esto no debería ir aquí
         _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
 
         createBallShadow(e);
@@ -134,15 +127,7 @@ namespace ecs {
         float textureSize = sdlutils().images().at("palo1").width();
         float scale = svgSize/textureSize;
 
-        // std::cout << "svgsize: " << svgSize <<std::endl;
-        // std::cout << "textureSize: " << textureSize <<std::endl;
-
-        // std::cout << "scale: " << scale <<std::endl;
-
         entity_t e = new Entity(*this, grp::PALO);
-        // _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        // _entsByGroup[ecs::grp::PALO].push_back(e);
-        // _entities.push_back(e);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("palo1").x,
