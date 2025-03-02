@@ -395,7 +395,12 @@ namespace ecs {
         _entities.push_back(currentScoreObject);
         _entsByGroup[ecs::grp::DEFAULT].push_back(currentScoreObject);
 
-        currentScoreObject->addComponent(new TransformComponent(currentScoreObject, {float(*&sdlutils().svgElements_table().at("scoreTextL").x), float(*&sdlutils().svgElements_table().at("scoreTextL").y)}));
+        b2Vec2 pos1 = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements_table().at("scoreTextL").x,
+            *&sdlutils().svgElements_table().at("scoreTextL").y
+        );
+
+        currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
         TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 100, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
         currentScoreObject->addComponent(currentDisplay);
 
@@ -405,8 +410,13 @@ namespace ecs {
         _entities.push_back(scoreToBeatObject);
         _entsByGroup[ecs::grp::DEFAULT].push_back(scoreToBeatObject);
 
-        scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, {float(*&sdlutils().svgElements_table().at("scoreTextR").x), float(*&sdlutils().svgElements_table().at("scoreTextR").y)}));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(currentScoreObject, 100, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+        b2Vec2 pos2 = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements_table().at("scoreTextR").x,
+            *&sdlutils().svgElements_table().at("scoreTextR").y
+        );
+
+        scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 100, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
 
         return currentDisplay;
     }
