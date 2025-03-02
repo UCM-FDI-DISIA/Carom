@@ -128,7 +128,8 @@ namespace ecs {
         _entities.push_back(e);
     }
 
-    entity_t CaromScene::createScoreEntity(){
+    void CaromScene::createScoreEntity(){
+        //primer score
         entity_t e = new Entity(*this);
         _entsRenderable.push_back(e);
         _entsByGroup[ecs::grp::SCORE].push_back(e);
@@ -143,10 +144,23 @@ namespace ecs {
 
 
         addComponent<TransformComponent>(e, pos);
-        addComponent<ecs::TextDisplayComponent>(e, "Hola", SDL_Color{255, 0, 0, 255}, "ARIAL16", 1.0f);
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), 20, scale);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), 0, scale);
 
-        return e;
+        //segundo score
+
+        entity_t e1 = new Entity(*this);
+        _entsRenderable.push_back(e1);
+        _entsByGroup[ecs::grp::SCORE].push_back(e1);
+        _entities.push_back(e1);
+
+        b2Vec2 pos1 = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements().at("scoreSpriteR").x,
+            *&sdlutils().svgElements().at("scoreSpriteR").y
+        );
+
+        addComponent<TransformComponent>(e1, pos1);
+        addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), 0, scale);
+
     }
 
     // void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
