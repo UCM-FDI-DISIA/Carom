@@ -1,4 +1,5 @@
 #include "CaromScene.h"
+
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
@@ -90,6 +91,8 @@ namespace ecs {
         createScoreEntity();
 
         _hitManager = new ColorHitManager(this);
+
+        _currentScoreDisplay = createScoreUI();
     }
 
     entity_t
@@ -238,21 +241,21 @@ namespace ecs {
         manageEnterCollisions(a_contactEvents);
         manageExitCollisions(a_contactEvents);
 
-    b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
-    manageEnterTriggers(a_sensorEvents);
-    manageExitTriggers(a_sensorEvents);
+        b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+        manageEnterTriggers(a_sensorEvents);
+        manageExitTriggers(a_sensorEvents);
 
-    enablePhysics();
+        enablePhysics();
 
-    State* a_stateToChange = nullptr;
-    if(_currentState->checkCondition(a_stateToChange)){
-        setNewState(a_stateToChange);
+        State* a_stateToChange = nullptr;
+        if(_currentState->checkCondition(a_stateToChange)){
+            setNewState(a_stateToChange);
+        }
+
+        _hitManager->clearAllHits();
+
+        GameScene::update();
     }
-
-    _hitManager->clearAllHits();
-
-    GameScene::update();
-}
 
     std::pair<b2BodyId, b2ShapeDef*> 
     CaromScene::generateBodyAndShape (
@@ -384,19 +387,47 @@ namespace ecs {
 
     }
 
-    //!Estos métodos asumen la existencia de una clase ScoreUI
+    TextDisplayComponent*
+    CaromScene::createScoreUI() {
+        //CurrentScore
+        entity_t currentScoreObject = new Entity(*this, ecs::grp::SCORE);
+        _entsRenderable.push_back(currentScoreObject);
+
+        b2Vec2 pos1 = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements_table().at("scoreTextL").x,
+            *&sdlutils().svgElements_table().at("scoreTextL").y
+        );
+
+        currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 100, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
+        currentScoreObject->addComponent(currentDisplay);
+
+        //Score to beat
+        entity_t scoreToBeatObject = new Entity(*this, ecs::grp::SCORE);
+        _entsRenderable.push_back(scoreToBeatObject);
+
+        b2Vec2 pos2 = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements_table().at("scoreTextR").x,
+            *&sdlutils().svgElements_table().at("scoreTextR").y
+        );
+
+        scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 100, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+
+        return currentDisplay;
+    }
+
     void CaromScene::addScore(double score) {
         _currentScore += score;
-        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+        _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
     }
 
     void CaromScene::removeScore(double score) {
         _currentScore -= score;
-        //_scoreUI->refresh(_currentScore, _scoreToBeat);
+        _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
     }
 
     void CaromScene::setScoreToBeat(double newScoreToBeat){
         _scoreToBeat = newScoreToBeat;
-        //_scoreUI->refresh(_currentScore, _scoreToBeat);
     }
 }

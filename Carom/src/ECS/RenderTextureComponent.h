@@ -10,7 +10,7 @@ class SDL_Color;
 namespace ecs {
     
     class RenderTextureComponent : public RenderComponent {
-    private:
+    protected:
         Texture* _texture;
         ITransform* _transform;
         float _scale; // scale de la textura (no su physical body)
@@ -28,7 +28,7 @@ namespace ecs {
         void render(Camera*) override;
         void init() override;
         Texture* getTexture() {return _texture;};
-        SDL_Rect getRect();
+        virtual SDL_Rect getRect() const;
 
         void changeColorTint(int r, int g, int b);
         void resetColorTint();

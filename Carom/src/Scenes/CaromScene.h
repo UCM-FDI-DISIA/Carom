@@ -14,7 +14,7 @@ class ScoreContainer;
 namespace ecs{
 
     class ColorHitManager;
-
+    class TextDisplayComponent;
     class CaromScene: public GameScene {
     protected:
         //el estado en el que se encuentra la escena actualmente
@@ -23,7 +23,7 @@ namespace ecs{
         RNG_Manager* _rngManager;
         GameScene* _reward; //La recompensa al completar la escena
         ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
-        ScoreContainer* _scoreContainer;
+        TextDisplayComponent* _currentScoreDisplay;
 
         //Los acumuladores de puntuación
         double _currentScore, _scoreToBeat; 
@@ -45,6 +45,7 @@ namespace ecs{
         
 
         int _remainingHits = 3;
+
     public:
         CaromScene(State* state, Game* g, GameScene* reward);
         ~CaromScene();
@@ -63,6 +64,8 @@ namespace ecs{
         void createScoreEntity();
 
         void createBallShadow(entity_t);
+
+        TextDisplayComponent* createScoreUI();
 
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
@@ -93,17 +96,16 @@ namespace ecs{
         // ?Métodos para comprobar condiciones de estado 
         inline int getRemainingHits() { return _remainingHits; }
 
-                // ?Métodos para manejo de puntuación
-                void setScoreToBeat(double newScoreToBeat);
+        // ?Métodos para manejo de puntuación
+        void setScoreToBeat(double newScoreToBeat);
 
-                void addScore(double score);
-                void removeScore(double score);
-
-    private:
-    // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
-    void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
+        void addScore(double score);
+        void removeScore(double score);
+        
         inline bool roundWins() {return _currentScore >= _scoreToBeat; }
-
+    private:
+        // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
+        void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
     };
 
 }
