@@ -6,7 +6,7 @@
 #include "ecs.h"
 #include <iostream>
 
-class JsonEntityParser;
+
 
 class Camera;
 namespace ecs {
@@ -15,7 +15,7 @@ namespace ecs {
     class Component;
     class ITransform;
     class CaromScene;
-    
+    class JsonEntityParser;
 
     class Entity{
     public:

@@ -7,5 +7,5 @@ PrefabTestScene::PrefabTestScene(Game* myGame){
 }
 
 void PrefabTestScene::init(){
-    JsonEntityParser::Parse(*this, "../../resources/prefabs/examplePrefab.json");
+    ecs::JsonEntityParser::Parse(*this, "../../resources/prefabs/examplePrefab.json");
 }

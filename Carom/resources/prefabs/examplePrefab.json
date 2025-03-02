@@ -5,7 +5,48 @@
     },
     {
         "componentName" : "RigidBodyComponent", 
-        "atributes" : {"b2BodyType" : "static", "CircleShape": {"radius" : 2}, "density": 1, "friction" : 0.2, "restitution" : 0.5}
+        "atributes" : {"b2BodyType" : "static", "pos": {"x": 2, "y": 1}, "density": 1, "friction" : 0.2, "restitution" : 0.5, "CircleShape" : {"radius" : 2}, 
+                                                                                                     "CapsuleShape" : "_",
+                                                                                                     "SquareShape" : "_",
+                                                                                                     "RectangleShape" : "_",
+                                                                                                     "PolygonShape" : "_"
+                      }
+    },
+    {
+        "componentName" : "RigidBodyComponent", 
+        "atributes" : {"b2BodyType" : "static", "pos": {"x": 2, "y": 1}, "density": 1, "friction" : 0.2, "restitution" : 0.5, "CircleShape" : "_",  
+                                                                                                     "CapsuleShape" : {"radius": 2, "firstCenter": {"x": 5, "y":3}, "secondCenter": {"x": 2, "y":1}},
+                                                                                                     "SquareShape" : "_",
+                                                                                                     "RectangleShape" : "_",
+                                                                                                     "PolygonShape" : "_"
+                      }
+    },
+    {
+        "componentName" : "RigidBodyComponent", 
+        "atributes" : {"b2BodyType" : "static", "pos": {"x": 2, "y": 1}, "density": 1, "friction" : 0.2, "restitution" : 0.5, "CircleShape" : "_",
+                                                                                                     "CapsuleShape" : "_",
+                                                                                                     "SquareShape" : {"side": 3},
+                                                                                                     "RectangleShape" : "_",
+                                                                                                     "PolygonShape" : "_"
+                      }
+    },
+    {
+        "componentName" : "RigidBodyComponent", 
+        "atributes" : {"b2BodyType" : "kinematic", "pos": {"x": 2, "y": 1}, "density": 1, "friction" : 0.2, "restitution" : 0.5, "CircleShape" : "_", 
+                                                                                                        "CapsuleShape" : "_",
+                                                                                                        "SquareShape" : "_",
+                                                                                                        "RectangleShape" : {"sizex": 3, "sizey": 5},
+                                                                                                        "PolygonShape" : "_"
+                      }
+    },
+    {
+        "componentName" : "RigidBodyComponent", 
+        "atributes" : {"b2BodyType" : "dynamic", "pos": {"x": 2, "y": 1}, "density": 1, "friction" : 0.2, "restitution" : 0.5, "CircleShape" : "_", 
+                                                                                                      "CapsuleShape" : "_",
+                                                                                                      "SquareShape" : "_",
+                                                                                                      "RectangleShape" : "_",
+                                                                                                      "PolygonShape" : {"vertex": [{"x": 2, "y": 3}, {"x": 0, "y": 3}, {"x": 2, "y": 1}, {"x": 5, "y": 3}], "size": 4, "radius": 4}
+                      }
     },
     {
         "componentName" : "RenderTextureComponent",
