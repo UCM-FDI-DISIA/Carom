@@ -40,8 +40,6 @@ namespace ecs{
 		//creates a background
 		void createBackground(std::string key);
 
-		inline GameList<Entity>& getEntities() { return _entities; }
-
 		// Setting the state of the entity (alive or dead)
 		//
 		inline void setAlive(entity_t e, bool alive) {
@@ -95,10 +93,18 @@ namespace ecs{
 			return e->getComponent<T>();
 		}
 
+		inline GameList<Entity>& getEntities() { 
+			return _entities; 
+		}
+
 		// Returns the vector of all entities of a group ID.
 		//
 		inline auto& getEntitiesOfGroup(grpId_t gId) {
 			return _entsByGroup[gId];
+		}
+
+		inline auto& getRenderEntities(){
+			return _entsRenderable;
 		}
 
 		// Enables all entity's components

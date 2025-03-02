@@ -100,11 +100,11 @@ namespace ecs {
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
-        ecs::entity_t e = new ecs::Entity(*this);
+        entity_t e = new Entity(*this, grp::WHITEBALL);
 
-        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
-        _entities.push_back(e);
+        // _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        // _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
+        // _entities.push_back(e);
 
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
         
@@ -139,10 +139,10 @@ namespace ecs {
 
         // std::cout << "scale: " << scale <<std::endl;
 
-        ecs::entity_t e = new ecs::Entity(*this);
-        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        _entsByGroup[ecs::grp::PALO].push_back(e);
-        _entities.push_back(e);
+        entity_t e = new Entity(*this, grp::PALO);
+        // _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        // _entsByGroup[ecs::grp::PALO].push_back(e);
+        // _entities.push_back(e);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("palo1").x,
@@ -164,8 +164,7 @@ namespace ecs {
         float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
         float scale = svgSize/textureSize;        
         
-        ecs::entity_t e = new ecs::Entity(*this);
-        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        entity_t e = new Entity(*this, grp::EFFECTBALLS);
         
         // RB
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
@@ -179,18 +178,12 @@ namespace ecs {
 
         // TODO: add components according to its id
 
-        _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
-        _entities.push_back(e);
-
         createBallShadow(e);
     }
 
     void CaromScene::createBallShadow(entity_t entity){
         //sombra de reflejo de la bola
-        Entity* a_reflejo = new Entity(*this);
-        _entsRenderable.push_back(a_reflejo);
-        _entsByGroup[ecs::grp::SHADOWS].push_back(a_reflejo);
-        _entities.push_back(a_reflejo);
+        entity_t a_reflejo = new Entity(*this, grp::SHADOWS);
 
         addComponent<ecs::TransformComponent>(a_reflejo, b2Vec2{0,0});
         addComponent<ecs::FollowComponent>(a_reflejo, entity, true, false, true, Vector2D(0,0));
@@ -199,10 +192,7 @@ namespace ecs {
 
     void CaromScene::createScoreEntity(){
         //primer score
-        entity_t e = new Entity(*this);
-        _entsRenderable.push_back(e);
-        _entsByGroup[ecs::grp::SCORE].push_back(e);
-        _entities.push_back(e);
+        entity_t e = new Entity(*this, grp::SCORE);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("scoreSpriteL").x,
@@ -217,10 +207,7 @@ namespace ecs {
 
         //segundo score
 
-        entity_t e1 = new Entity(*this);
-        _entsRenderable.push_back(e1);
-        _entsByGroup[ecs::grp::SCORE].push_back(e1);
-        _entities.push_back(e1);
+        entity_t e1 = new Entity(*this, grp::SCORE);
 
         b2Vec2 pos1 = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("scoreSpriteR").x,
@@ -231,22 +218,6 @@ namespace ecs {
         addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), 0, scale);
 
     }
-
-    // void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
-    // {
-    //     ecs::entity_t e = new ecs::Entity(*this);
-
-    //     ecs::CircleShape *cs = new ecs::CircleShape(radius);
-    //     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
-    //     addComponent<ecs::StickInputComponent>(e);
-        
-    //     // Must be pushed back into renderable vector before adding the component for proper sort!
-    //     _entsRenderable.push_back(e);
-    //     addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("tennis_ball"), capa);
-
-    //     _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
-    //     _entities.push_back(e);
-    // }
 
     void CaromScene::setNewState(State* s){
         if (_currentState != nullptr) {
