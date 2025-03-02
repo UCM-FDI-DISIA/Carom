@@ -25,11 +25,10 @@ namespace ecs
         _buttonArea->setTextureComponent(_myEntity->getComponent<RenderTextureComponent>());
         _transform = _myEntity->getComponent<TransformComponent>();
 
-        /*
+        // Si comento esto se muere el programa al hacer hover
         setOnHover([this]() -> void {std::cout << "hover" << std::endl;});
         setOnClick([this]() -> void {std::cout << "click" << std::endl;});
         setOnExit([this]() -> void {std::cout << "exit" << std::endl;});
-        */
     }
 
     void Button::handleEvent()
