@@ -14,7 +14,7 @@ using namespace ecs;
 /// @param restitution the restitution
 /// @param radius the radius of the vertices. If you don't want them to be rounded set it to 0
 PolygonRBComponent::PolygonRBComponent(
-    entity_t ent, const Vector2D& pos, b2BodyType type, const std::vector<b2Vec2> &vertices,
+    entity_t ent, const b2Vec2 &pos, b2BodyType type, const std::vector<b2Vec2> &vertices,
     float density, float friction , float restitution, float radius) : RigidBodyComponent(ent){
     
     CaromScene* scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
@@ -40,7 +40,7 @@ PolygonRBComponent::setScale(const Scale& newScale){
     b2ShapeId shapes[1];
     b2Body_GetShapes(_myB2BodyId, shapes, 1);
 
-    Vector2D pos = getPosition();
+    b2Vec2 pos = getPosition();
     b2BodyType type = b2Body_GetType(_myB2BodyId);
     float density = b2Shape_GetDensity(shapes[0]);
     float friction = b2Shape_GetFriction(shapes[0]);

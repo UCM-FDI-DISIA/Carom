@@ -3,7 +3,7 @@
 
 using namespace ecs;
 
-CapsuleRBComponent::CapsuleRBComponent(entity_t ent, const Vector2D& pos, b2BodyType type, float radius, b2Vec2 center1, b2Vec2 center2, float density, float friction , float restitution) : RigidBodyComponent(ent){
+CapsuleRBComponent::CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType type, float radius, b2Vec2 center1, b2Vec2 center2, float density, float friction , float restitution) : RigidBodyComponent(ent){
     CaromScene* scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
 
     if (scene == nullptr) { throw "La escena no es de tipo CaromScene"; }
@@ -29,7 +29,7 @@ CapsuleRBComponent::setScale(const Scale& newScale){
     b2ShapeId shapes[1];
     b2Body_GetShapes(_myB2BodyId, shapes, 1);
 
-    Vector2D pos = getPosition();
+    b2Vec2 pos = getPosition();
     b2BodyType type = b2Body_GetType(_myB2BodyId);
     float density = b2Shape_GetDensity(shapes[0]);
     float friction = b2Shape_GetFriction(shapes[0]);

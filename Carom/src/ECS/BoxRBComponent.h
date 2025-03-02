@@ -6,7 +6,7 @@ namespace ecs{
     {
         float _length;
     public:
-        BoxRBComponent(entity_t ent, const Vector2D& pos, b2BodyType type, float length, float density = 1, float friction = 0.2, float restitution = 0.5);
+        BoxRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType type, float length, float density = 1, float friction = 0.2, float restitution = 0.5);
 
         void setScale(const Scale& newScale) override;
     };
