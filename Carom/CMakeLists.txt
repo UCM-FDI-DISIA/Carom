@@ -124,6 +124,8 @@ add_executable(Carom
 	src/ECS/PhysicsComponent.cpp
 
 	src/ECS/TextDisplayComponent.cpp
+
+	src/ECS/FollowComponent.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 
