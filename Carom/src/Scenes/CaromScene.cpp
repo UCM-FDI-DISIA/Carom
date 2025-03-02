@@ -163,6 +163,7 @@ namespace ecs {
         float scale = svgSize/textureSize;        
         
         ecs::entity_t e = new ecs::Entity(*this);
+        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
         
         // RB
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
@@ -170,8 +171,7 @@ namespace ecs {
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
 
         // RENDER
-        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale); // TODO: cambiar a textura effect ball
+        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola"), layer, scale, SDL_Color{0, 150, 100, 1});
 
         // SCORE
         addComponent<ecs::ColorBallScorerComponent>(e);
