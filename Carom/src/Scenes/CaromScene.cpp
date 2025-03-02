@@ -122,6 +122,8 @@ namespace ecs {
         _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(false); // TODO: esto no debería ir aquí
         _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
 
+        createBallShadow(e);
+
         return e;
     }
 
@@ -192,7 +194,7 @@ namespace ecs {
 
         addComponent<ecs::TransformComponent>(a_reflejo, b2Vec2{0,0});
         addComponent<ecs::FollowComponent>(a_reflejo, entity, true, false, true, Vector2D(0,0));
-        addComponent<ecs::RenderTextureComponent>(a_reflejo, &sdlutils().images().at("bola_cast_sombra"), 3,0.5f, SDL_Color{0, 150, 100, 1});
+        addComponent<ecs::RenderTextureComponent>(a_reflejo, &sdlutils().images().at("bola_cast_sombra"), 11,0.1269f, SDL_Color{0, 150, 100, 1});
         }
 
     void CaromScene::createScoreEntity(){
