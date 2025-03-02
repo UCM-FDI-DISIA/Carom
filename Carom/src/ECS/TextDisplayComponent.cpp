@@ -8,29 +8,10 @@
 #include "SDLUtils.h"
 
 namespace ecs {
-    TextDisplayComponent::TextDisplayComponent(Entity* entity, std::string initialText, SDL_Color color, std::string key, float displayScale)
-        : RenderComponent(entity), _text(initialText), _color(color), _key(key), _scale(displayScale)
+    TextDisplayComponent::TextDisplayComponent(Entity* entity, int renderOrder, float displayScale, std::string initialText, SDL_Color color, std::string key)
+        : RenderTextureComponent(entity, _texture, renderOrder, displayScale), _text(initialText), _color(color), _key(key)
     {
         reGenerateTexture();
-    }
-
-    void 
-    TextDisplayComponent::init() {
-        _transform = _myEntity->getTransform();
-    }
-
-    void 
-    TextDisplayComponent::render(Camera* camera) {
-        b2Vec2 physicalPosition = _transform->getPosition();
-        //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
-        auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.x, physicalPosition.y});
-        
-        //Adapta el rect para que el objeto apareca en el centro de este
-        coordinateX -= _scale * _texture->width() / 2;
-        coordinateY -= _scale * _texture->height() / 2;
-
-        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
-        _texture->render(dest, _transform->getRotation());
     }
 
     void 

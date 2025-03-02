@@ -31,19 +31,10 @@ namespace ecs {
     }
 
     void RenderTextureComponent::render(Camera* camera) {
-        b2Vec2 physicalPosition = _transform->getPosition();
-        //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
-        auto [coordinateX, coordinateY] = camera->getRenderPos({physicalPosition.x, physicalPosition.y});
-        
-        //Adapta el rect para que el objeto apareca en el centro de este
-        coordinateX -= _scale*_texture->width() / 2;
-        coordinateY -= _scale*_texture->height() / 2;
-
-        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
-        _texture->render(dest, _transform->getRotation());
+        _texture->render(getRect(), _transform->getRotation());
     }
 
-    SDL_Rect RenderTextureComponent::getRect()
+    SDL_Rect RenderTextureComponent::getRect() const
     {
         b2Vec2 physicalPosition = _transform->getPosition();
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
