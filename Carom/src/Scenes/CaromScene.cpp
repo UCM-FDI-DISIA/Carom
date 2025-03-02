@@ -399,7 +399,7 @@ namespace ecs {
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 100, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 100, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
@@ -412,7 +412,7 @@ namespace ecs {
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 100, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 100, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
 
         return currentDisplay;
     }
