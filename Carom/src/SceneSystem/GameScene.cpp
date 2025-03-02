@@ -32,7 +32,7 @@ namespace ecs{
         entity_t e_marco = new Entity(*this, grp::TABLE);
         b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("mesa_marco").x, *&sdlutils().svgElements_table().at("mesa_marco").y);
         addComponent<TransformComponent>(e_marco, pos_m);
-        addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), 2, scale);
+        addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), 3, scale);
 
         // Entidad suelo
         entity_t e_fondo = new Entity(*this, grp::TABLE);
