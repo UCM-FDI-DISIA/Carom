@@ -30,8 +30,8 @@ namespace ecs {
         // ! ball test
         // Converts (x, y) from screen(svg) to meters and to meter coordinates
         b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements().at("bola_blanca_2").x,
-            *&sdlutils().svgElements().at("bola_blanca_2").y
+            *&sdlutils().svgElements().at("bola_blanca").x,
+            *&sdlutils().svgElements().at("bola_blanca").y
         );
         // Create white ball with the previous defined vector
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
@@ -60,7 +60,7 @@ namespace ecs {
     CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa) 
     {
         // Scale
-        float svgSize = *&sdlutils().svgElements().at("bola_blanca_2").width;
+        float svgSize = *&sdlutils().svgElements().at("bola_blanca").width;
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
@@ -69,7 +69,7 @@ namespace ecs {
         _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
         _entities.push_back(e);
 
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca").width/2);
         
         // Posible memory leak
         ecs::CircleShape *cs = new ecs::CircleShape(radius);
@@ -134,8 +134,17 @@ namespace ecs {
         _entsByGroup[ecs::grp::SCORE].push_back(e);
         _entities.push_back(e);
 
-        addComponent<TransformComponent>(e, b2Vec2{0,0});
+        b2Vec2 pos = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements().at("scoreSpriteL").x,
+            *&sdlutils().svgElements().at("scoreSpriteL").y
+        );
+
+        float scale = float(sdlutils().svgElements().at("scoreSpriteL").width) / float(sdlutils().images().at("scoreSprite").width());
+
+
+        addComponent<TransformComponent>(e, pos);
         addComponent<ecs::TextDisplayComponent>(e, "Hola", SDL_Color{255, 0, 0, 255}, "ARIAL16", 1.0f);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), 20, scale);
 
         return e;
     }
