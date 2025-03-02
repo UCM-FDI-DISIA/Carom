@@ -65,11 +65,11 @@ GameScene::createTable(){
         *&sdlutils().svgElements_table().at("left_cushion_coll").x,
         *&sdlutils().svgElements_table().at("left_cushion_coll").y
     );
-    ecs::PolygonShape *ps = new ecs::PolygonShape(
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("left_cushion_coll").width/2),
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("left_cushion_coll").height/2)
-    );
-    addComponent<RigidBodyComponent>(e_coll_left, pos_coll_left, b2_staticBody, ps);
+
+    addComponent<RectangleRBComponent>(e_coll_left, pos_coll_left, b2_staticBody, 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("left_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("left_cushion_coll").height));
+
     _entsByGroup[grp::TABLE].push_back(e_coll_left);
     _entities.push_back(e_coll_left);
 
@@ -79,11 +79,11 @@ GameScene::createTable(){
         *&sdlutils().svgElements_table().at("right_cushion_coll").x,
         *&sdlutils().svgElements_table().at("right_cushion_coll").y
     );
-    ecs::PolygonShape *ps_right = new ecs::PolygonShape(
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("right_cushion_coll").width/2),
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("right_cushion_coll").height/2)
-    );
-    addComponent<RigidBodyComponent>(e_coll_right, pos_coll_right, b2_staticBody, ps_right);
+
+    addComponent<RectangleRBComponent>(e_coll_right, pos_coll_right, b2_staticBody, 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("right_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("right_cushion_coll").height));
+
     _entsByGroup[grp::TABLE].push_back(e_coll_right);
     _entities.push_back(e_coll_right);
 
@@ -93,11 +93,11 @@ GameScene::createTable(){
         *&sdlutils().svgElements_table().at("top_cushion_coll").x,
         *&sdlutils().svgElements_table().at("top_cushion_coll").y
     );
-    ecs::PolygonShape *ps_top = new ecs::PolygonShape(
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("top_cushion_coll").width/2),
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("top_cushion_coll").height/2)
-    );
-    addComponent<RigidBodyComponent>(e_coll_top, pos_coll_top, b2_staticBody, ps_top);
+
+    addComponent<RectangleRBComponent>(e_coll_top, pos_coll_top, b2_staticBody, 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("top_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("top_cushion_coll").height));
+
     _entsByGroup[grp::TABLE].push_back(e_coll_top);
     _entities.push_back(e_coll_top);
 
@@ -107,11 +107,11 @@ GameScene::createTable(){
         *&sdlutils().svgElements_table().at("bottom_cushion_coll").x,
         *&sdlutils().svgElements_table().at("bottom_cushion_coll").y
     );
-    ecs::PolygonShape *ps_bottom = new ecs::PolygonShape(
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bottom_cushion_coll").width/2),
-        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bottom_cushion_coll").height/2)
-    );
-    addComponent<RigidBodyComponent>(e_coll_bottom, pos_coll_bottom, b2_staticBody, ps_bottom);
+
+    addComponent<RectangleRBComponent>(e_coll_bottom, pos_coll_bottom, b2_staticBody, 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bottom_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bottom_cushion_coll").height));
+
     _entsByGroup[grp::TABLE].push_back(e_coll_bottom);
     _entities.push_back(e_coll_bottom);
 

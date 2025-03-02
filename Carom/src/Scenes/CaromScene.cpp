@@ -107,10 +107,9 @@ namespace ecs {
 
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
         
-        // Posible memory leak
-        ecs::CircleShape *cs = new ecs::CircleShape(radius);
-        
-        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+        //! I don't know how to get the radius of the ball
+        addComponent<ecs::CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
+
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);
         //addComponent<ecs::WhiteBallScorerComponent>(e);
 
@@ -167,8 +166,7 @@ namespace ecs {
         
         // RB
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
-        ecs::CircleShape *cs = new ecs::CircleShape(radius);
-        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+        addComponent<ecs::CircleRBComponent>(e, pos, type, radius, density, friction, restitution);
 
         // RENDER
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola"), layer, scale, SDL_Color{0, 150, 100, 1});
