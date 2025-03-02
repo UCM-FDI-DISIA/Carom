@@ -26,8 +26,6 @@ namespace ecs {
         /// @param displayScale la escala del rect donde se crea el texto
         TextDisplayComponent(Entity* entity, int renderOrder, float displayScale, std::string initialText, SDL_Color color, std::string key);
 
-        void init() override;
-
         void changeFont(std::string key);
         void setColor(SDL_Color);
         void setDisplayedText(std::string text);
