@@ -39,7 +39,7 @@ class RNG_Manager
     }
 
     template<typename T>
-    std::vector<T> getRandomItems(std::vector<RandomItem<T>> const itemsVector, int quantity, bool replacement = true)
+    std::vector<T> getRandomItems(std::vector<RandomItem<T>>& itemsVector, int quantity, bool replacement = true)
     {
         std::vector<T> result;
 
