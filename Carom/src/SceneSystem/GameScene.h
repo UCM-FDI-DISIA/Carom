@@ -37,6 +37,8 @@ namespace ecs{
 
 		// Create entities that represent and compose the table. The table as a whole is a group.
 		void createTable();
+		//creates a background
+		void createBackground(std::string key);
 
 		inline GameList<Entity>& getEntities() { return _entities; }
 

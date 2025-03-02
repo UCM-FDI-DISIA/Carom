@@ -72,6 +72,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
+	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
 
@@ -108,6 +109,7 @@ add_executable(Carom
 
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
+	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
 	src/ECS/BoxRBComponent.cpp
 	src/ECS/RectangleRBComponent.cpp
@@ -121,6 +123,8 @@ add_executable(Carom
 	src/ECS/EventOnCollision.cpp
 	src/ECS/PhysicsComponent.cpp
 
+	src/ECS/TextDisplayComponent.cpp
+	
 	src/HitManager/ColorHitManager.cpp
 
 	src/inputTest.cpp
@@ -132,8 +136,6 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
-	
-	src/ScoreContainer.cpp
 )
 
 # Link Box2D

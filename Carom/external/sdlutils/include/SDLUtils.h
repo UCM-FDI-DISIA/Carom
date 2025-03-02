@@ -72,6 +72,10 @@ public:
 		inline T& operator[](const std::string &key) {
 			return at(key);
 		}
+
+		inline int size() const {
+			return map_.size();
+		}
 	};
 
 	virtual ~SDLUtils();
@@ -147,9 +151,14 @@ public:
 		return _imagesAccessWrapper;
 	}
 
-	// svg elements map
-	inline auto& svgElements() {
-		return _svgAccessWrapper;
+	// TABLE ITEMS svg elements map
+	inline auto& svgElements_table() {
+		return _svgAccessWrapper_table;
+	}
+
+	// BALL POSITION svg elements map
+	inline auto& svgElements_ballPos() {
+		return _svgAccessWrapper_ballPos;
 	}
 
 	// messages map
@@ -220,14 +229,14 @@ private:
 
 	SDLUtils();
 	bool init(std::string windowTitle, int width, int height);
-	bool init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename);
+	bool init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename1, const char* svgFilename2);
 
 	void initWindow();
 	void closeWindow();
 	void initSDLExtensions(); // initialize resources (fonts, textures, audio, etc.)
 	void closeSDLExtensions(); // free resources the
 	void loadReasources(std::string filename); // load resources from the json file
-	void loadSVG(const char* filename); // load resources from the svg file
+	void loadSVG(auto& svgMap, const char* filename); // load resources from the svg file
 
 	std::string _windowTitle; // window title
 	int _width; // window width
@@ -238,14 +247,16 @@ private:
 
 	sdl_resource_table<Font> _fonts; // fonts map (string -> font)
 	sdl_resource_table<Texture> _images; // textures map (string -> texture)
-	sdl_resource_table<svgElem> _svgs; // svg struct map (string(ID) -> struct)
+	sdl_resource_table<svgElem> _svg_table; // svg for TABLE ITEMS struct map (string(ID) -> struct)
+	sdl_resource_table<svgElem> _svg_ballPos; // svg for BALL POSITIONS struct map (string(ID) -> struct)
 	sdl_resource_table<Texture> _msgs; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> _sounds; // sounds map (string -> sound)
 	sdl_resource_table<Music> _musics; // musics map (string -> music)
 
 	map_access_wrapper<Font> _fontsAccessWrapper;
 	map_access_wrapper<Texture> _imagesAccessWrapper;
-	map_access_wrapper<svgElem> _svgAccessWrapper;
+	map_access_wrapper<svgElem> _svgAccessWrapper_table;
+	map_access_wrapper<svgElem> _svgAccessWrapper_ballPos;
 	map_access_wrapper<Texture> _msgsAccessWrapper;
 	map_access_wrapper<SoundEffect> _soundsAccessWrapper;
 	map_access_wrapper<Music> _musicsAccessWrapper;

@@ -19,7 +19,11 @@ public:
 	}
 
 	RandomNumberGenerator(unsigned seed) :
-			_gen(seed), _dist() {
+			_gen(seed), _dist(), _ins() {
+	}
+
+	inline void Inseminate(unsigned seed) {
+		_gen = std::mt19937(seed);
 	}
 
 	virtual ~RandomNumberGenerator() {
@@ -29,15 +33,24 @@ public:
 		return _dist(_gen);
 	}
 
+	inline float nextFloat() {
+		return _ins(_gen);
+	}
+
 	// return an integer between low (inclusive) and high (exclusive)
 	inline int nextInt(int low, int high) {
 		assert(low < high);
 		return low + (nextInt() % (high - low));
 	}
 
+	inline float nextFloat(float low, float high) {
+		assert(low < high);
+		return low + nextFloat() * (high-low);
+	}
+
 private:
 	std::mt19937 _gen;
 	std::uniform_int_distribution<int> _dist;
-
+	std::uniform_real_distribution<float> _ins;
 };
 

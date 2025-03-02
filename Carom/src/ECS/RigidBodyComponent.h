@@ -1,9 +1,11 @@
 #pragma once
 #include "PhysicsComponent.h"
 #include "InfoComponent.h"
-#include <box2D/box2D.h>
 #include "ecs.h"
+#include <box2D/box2D.h>
 #include <functional>
+#include <cmath>
+#include <math.h>
 
 #include "ITransform.h"
 
@@ -46,6 +48,8 @@ public:
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
+    inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
+    bool isMoving();
 
     // Setters
     void setPosition(const b2Vec2& newPos) override;

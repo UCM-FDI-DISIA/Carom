@@ -6,6 +6,7 @@
 #include "PhysicsUtils.h"
 #include "Camera.h"
 #include "GameScene.h"
+#include "SDL.h"
 
 namespace ecs {
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
@@ -16,6 +17,12 @@ namespace ecs {
     _scale(scale)
     {
 
+    }
+
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale, SDL_Color tint) 
+    : RenderTextureComponent(ent, texture, renderOrder, scale)
+    {
+        texture->changeColorTint(tint.r, tint.g, tint.b);
     }
 
     void RenderTextureComponent::init(){
@@ -38,13 +45,24 @@ namespace ecs {
 
     SDL_Rect RenderTextureComponent::getRect()
     {
-        auto [coordinateX, coordinateY] = PhysicsConverter::meter2pixel({_transform->getPosition().x, 
-            _transform->getPosition().y}); 
-
+        b2Vec2 physicalPosition = _transform->getPosition();
+        //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
+        auto [coordinateX, coordinateY] = _myEntity->getScene().getWorldCamera()->getRenderPos({physicalPosition.x, physicalPosition.y});
+        
         //Adapta el rect para que el objeto apareca en el centro de este
-        coordinateX += _texture->width() / 2;
-        coordinateY += _texture->height() / 2;
+        coordinateX -= _scale*_texture->width() / 2;
+        coordinateY -= _scale*_texture->height() / 2;
 
-        return _texture->getRect(coordinateX, coordinateY);
+        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
+
+        return dest;
+    }
+
+    void RenderTextureComponent::changeColorTint(int r, int g, int b){
+        _texture->changeColorTint(r,g,b);
+    }
+
+    void RenderTextureComponent::resetColorTint(){
+        _texture->changeColorTint(255,255,255);
     }
 } 

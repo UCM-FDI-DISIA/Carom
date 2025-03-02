@@ -2,8 +2,10 @@
 #include "GameScene.h"
 #include "State.h"
 #include "Game.h"
+#include "Texture.h"
 
 class ScenesManager;
+class RNG_Manager;
 class b2WorldId;
 class Vector2D;
 class ScoreContainer;
@@ -15,14 +17,18 @@ namespace ecs{
 
     class CaromScene: public GameScene {
     protected:
-    //el estado en el que se encuentra la escena actualmente
+        //el estado en el que se encuentra la escena actualmente
         State* _currentState = nullptr;
-        ScenesManager* _manager;
-        GameScene* _reward;
-        ColorHitManager* _hitManager;
+        ScenesManager* _sceneManager;
+        RNG_Manager* _rngManager;
+        GameScene* _reward; //La recompensa al completar la escena
+        ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
         ScoreContainer* _scoreContainer;
 
-        b2WorldId _myB2WorldId;
+        //Los acumuladores de puntuación
+        double _currentScore, _scoreToBeat; 
+
+        b2WorldId _myB2WorldId; //El mundo de box2D
 
         bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
 
@@ -47,27 +53,32 @@ namespace ecs{
         inline void disablePhysics(){_updatePhysics = false;}
 
         // TODO: provisory definition
-        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa); 
+        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
+
+        entity_t createStick();
 
         // TODO: provisory definition
-        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
-        
+        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
+                                float density, float friction, float restitution, int layer);
+        void createScoreEntity();
+
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
         //- Cambia el estado por el nuevo
         //- Llama a onStateEnter() del nuevo estado
         void setNewState(State* s);
-        //Reproduce:
-        //- update() del estado actual (si tuviera algun comportamiento especifico)
-        //- update() de todas las entidades de la escena
+        
+        //Llama al update de todas las entidades de escena y maneja las físicas
         void update() override;
-        //devuelve el estado en el que se encuentra la escena principal
-        State* getCurrentState();
-        ColorHitManager* getColorHitManager();
-        ScoreContainer* getScoreContainer();
 
-        inline ScenesManager* getScenesManager() const {return _manager;}
+        // ?Getters
+        inline State* getCurrentState() { return _currentState; }
+        inline ColorHitManager* getColorHitManager() { return _hitManager; }
+        inline double getCurrentScore() { return _currentScore; }
+        inline double getScoreToBeat() { return _scoreToBeat; }
+        inline ScenesManager* getScenesManager() const {return _sceneManager;}
         inline GameScene* getRewardScene() const {return _reward;}
+
         /// @brief Método para que rigidbody component reciba el id del body
         /// @param bodyType kinematic, static, dynamic
         /// @param density Kg/m2 >= 0
@@ -77,6 +88,20 @@ namespace ecs{
         std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, 
             float density, float friction, float restitution);
 
+        // ?Métodos para comprobar condiciones de estado 
         inline int getRemainingHits() { return _remainingHits; }
+
+                // ?Métodos para manejo de puntuación
+                void setScoreToBeat(double newScoreToBeat);
+
+                void addScore(double score);
+                void removeScore(double score);
+
+    private:
+    // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
+    void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
+        inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+
     };
-};
+
+}

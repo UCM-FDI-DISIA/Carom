@@ -5,6 +5,7 @@
 
 class SDL_Rect;
 class Texture;
+class SDL_Color;
 
 namespace ecs {
     
@@ -21,11 +22,15 @@ namespace ecs {
         int renderOrder;
 
         RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale);
+        RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale, SDL_Color tint);
         ~RenderTextureComponent() {};
 
         void render(Camera*) override;
         void init() override;
         Texture* getTexture() {return _texture;};
         SDL_Rect getRect();
+
+        void changeColorTint(int r, int g, int b);
+        void resetColorTint();
     };
 }
