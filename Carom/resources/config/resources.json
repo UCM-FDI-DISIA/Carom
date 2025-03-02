@@ -16,7 +16,7 @@
     { "id" : "Basteleur-Bold16", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 16},
     { "id" : "Basteleur-Bold24", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 24},
     { "id" : "Basteleur-Bold48", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 48},
-    { "id" : "Bocalupo-Regular16", "file" : "../../resources/fonts/Bocalupo-Regular.otf", "size": 16},
+    { "id" : "Bocalupo-Regular16", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 16},
     { "id" : "Bocalupo-Regular24", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 24},
     { "id" : "Bocalupo-Regular48", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 48},
     { "id" : "Bonbance-BoldCondensed16", "file" : "../../resources/fonts/Bonbance-BoldCondensed.ttf", "size": 16},
