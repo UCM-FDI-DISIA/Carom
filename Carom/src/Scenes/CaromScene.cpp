@@ -259,11 +259,11 @@ namespace ecs {
 
         b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
 
-        b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
+        a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
         manageEnterCollisions(a_contactEvents);
         manageExitCollisions(a_contactEvents);
 
-        b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+        a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
         manageEnterTriggers(a_sensorEvents);
         manageExitTriggers(a_sensorEvents);
 
