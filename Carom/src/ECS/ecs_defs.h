@@ -26,7 +26,8 @@
 	PALO, \
 	BACKGROUND, \
 	SCORE, \
-	SHADOWS
+	SHADOWS, \
+	POOL_HOLE
 
 // Effect list
 // TODO completar	
