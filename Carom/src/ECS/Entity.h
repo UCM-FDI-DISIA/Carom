@@ -84,11 +84,11 @@ namespace ecs {
 
         // Enables all entity's components
 	    //
-        void enable();
+        void activate();
 
         // Disables all entity's components
         //
-        void disable();
+        void deactivate();
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     

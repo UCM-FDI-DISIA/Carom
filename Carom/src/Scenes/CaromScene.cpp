@@ -107,16 +107,22 @@ namespace ecs {
 
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
         //! I don't know how to get the radius of the ball
-        addComponent<ecs::CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
+        addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
 
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
 
-        ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
-        addComponent<ecs::Button>(e, rButton);
-        e->getComponent<ecs::Button>()->setOnClick([this](){
-            _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->setEnable(true);
+        Button::RadialButton rButton = Button::RadialButton(2.0);
+        addComponent<Button>(e, rButton);
+        e->getComponent<Button>()->setOnClick([this](){
+            for (auto& e : getEntitiesOfGroup(grp::PALO))
+                e->activate();
         });
-        _entsByGroup[ecs::grp::PALO][0]->getComponent<ecs::StickInputComponent>()->registerWhiteBall(e);
+        e->getComponent<Button>()->setOnDisable([this](){
+            for (auto& e : getEntitiesOfGroup(grp::PALO))
+                e->deactivate();
+        });
+        
+        _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
         createBallShadow(e);
 
@@ -140,13 +146,12 @@ namespace ecs {
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
-        e->getComponent<RenderTextureComponent>()->setEnable(false);
 
         return e;
     }
 
     void
-    CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
+    CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
         // Scale
         float svgSize = *&sdlutils().svgElements_ballPos().at("bola").width;
         float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
@@ -156,13 +161,13 @@ namespace ecs {
         
         // RB
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
-        addComponent<ecs::CircleRBComponent>(e, pos, type, radius, density, friction, restitution);
+        addComponent<CircleRBComponent>(e, pos, type, radius, density, friction, restitution);
 
         // RENDER
-        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola"), layer, scale, SDL_Color{0, 150, 100, 1});
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola"), layer, scale, SDL_Color{0, 150, 100, 1});
 
         // SCORE
-        addComponent<ecs::ColorBallScorerComponent>(e);
+        addComponent<ColorBallScorerComponent>(e);
 
         // TODO: add components according to its id
 
@@ -178,9 +183,9 @@ namespace ecs {
         float a_svg_scale = sdlutils().svgElements_table().at("bola_cast_sombra 1").width;
         float cast_scale = a_svg_scale/a_imgScale;
 
-        addComponent<ecs::TransformComponent>(a_cast, b2Vec2{0,0});
-        addComponent<ecs::FollowComponent>(a_cast, entity, true, false, true, Vector2D(0,0));
-        addComponent<ecs::RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), 11, cast_scale);
+        addComponent<TransformComponent>(a_cast, b2Vec2{0,0});
+        addComponent<FollowComponent>(a_cast, entity, true, false, true, Vector2D(0,0));
+        addComponent<RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), 11, cast_scale);
 
         //sombra de la bola
         entity_t a_shadow = new Entity(*this, grp::SHADOWS);

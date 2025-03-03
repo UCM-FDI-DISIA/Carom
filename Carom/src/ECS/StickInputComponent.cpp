@@ -50,7 +50,8 @@ namespace ecs {
             _mousePos.y = _center.y + (-dirNormalized.getY() * _maxRadiusToPull);
         }
 
-        enableRender(true, _mousePos, dirNormalized);
+        // Controls position and rotation of the transform
+        transformControl(_mousePos, dirNormalized);
 
         //std::cout << getMagFromMouseToCenter() << "\n";
 
@@ -68,8 +69,7 @@ namespace ecs {
                 _whiteBallRB->applyImpulseToCenter(impulseVec);
             }
 
-            _active = false;
-            enableRender(false, _mousePos, dirNormalized);
+            _hasShot = true; // ! hasShot
         }
     }
 
@@ -91,28 +91,29 @@ namespace ecs {
         return dir.magnitude();
     }
 
-    void StickInputComponent::enableRender(bool active, b2Vec2 _mousePos, Vector2D dirNormalized) {
+    void StickInputComponent::setEnabled(bool state)
+    {
+        _hasShot = false;
+        _isEnable = true;
+    }
 
-        // enable render
-        _myRender->setEnable(active);
+    void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dirNormalized)
+    {
 
-        if (active) {
+        float cosalpha = dirNormalized * Vector2D(1, 0);
+        float sinalpha = dirNormalized * Vector2D(0, 1);
 
-            float cosalpha = dirNormalized * Vector2D(1, 0);
-            float sinalpha = dirNormalized * Vector2D(0, 1);
+        float distX = PhysicsConverter::pixel2meter(_stickHeight/2) * cosalpha;
+        float distY = PhysicsConverter::pixel2meter(_stickHeight/2) * sinalpha;
 
-            float distX = PhysicsConverter::pixel2meter(_stickHeight/2) * cosalpha;
-            float distY = PhysicsConverter::pixel2meter(_stickHeight/2) * sinalpha;
+        float newRotation = rad2degrees(std::acos(cosalpha));
+        if (sinalpha > 0) newRotation = -newRotation;
+        newRotation = newRotation + 90.0f; // porque la imagen empiza de pie
 
-            float newRotation = rad2degrees(std::acos(cosalpha));
-            if (sinalpha > 0) newRotation = -newRotation;
-            newRotation = newRotation + 90.0f; // porque la imagen empiza de pie
+        b2Vec2 newPos = {_mousePos.x - distX, _mousePos.y - distY};
 
-            b2Vec2 newPos = {_mousePos.x - distX, _mousePos.y - distY};
-
-            _myTransform->setPosition(newPos);
-            _myTransform->setRotation(newRotation);
-        }
+        _myTransform->setPosition(newPos);
+        _myTransform->setRotation(newRotation);
     }
 
     double StickInputComponent::rad2degrees(double radians){

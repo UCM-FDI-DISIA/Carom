@@ -7,6 +7,13 @@
 
 namespace ecs
 {
+    void Button::setEnabled(bool state)
+    {
+        _isEnable = state;
+        if (!state) {
+            _onDisable();
+        }
+    }
 
     Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside()
     {

@@ -110,13 +110,13 @@ namespace ecs{
 		// Enables all entity's components
 		//
 		inline void enableEntity(entity_t e) {
-			e->enable();
+			e->activate();
 		}
 
 		// Disables all entity's components
 		//
 		inline void disableEntity(entity_t e) {
-			e->disable();
+			e->deactivate();
 		}
 
 	public:

@@ -27,13 +27,13 @@ ScoringState::checkCondition(State*& state) {
     auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
     for(auto& e : whiteBall) {
         if(_scene->getComponent<ecs::RigidBodyComponent>(e)->isMoving())
-        return false;
+            return false;
     }
 
     auto effectBalls = _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
     for(auto& e : effectBalls) {
         if(_scene->getComponent<ecs::RigidBodyComponent>(e)->isMoving())
-        return false;
+            return false;
     }
 
     //Elige a qué estado cambiar en función del flujo (falta el getScoreContainer)
@@ -41,8 +41,8 @@ ScoringState::checkCondition(State*& state) {
     // else if(_scene->getRemainingHits() > 0) state = new HitState(_scene);
     // else state = new LoseMatchState(_scene);
 
-    return true;
+    // return true;
     
 
-    return false; //Lo siento Andrea
+    return false; // ! Lo siento Andrea
 }

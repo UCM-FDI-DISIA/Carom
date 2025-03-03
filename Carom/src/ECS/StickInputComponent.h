@@ -25,7 +25,9 @@ namespace ecs{
         void handleEvent() override;
 
         inline void enableBehaviour() {_behaviourEnabled = true;}
-        void enableRender(bool active, b2Vec2 _mousePos, Vector2D dirNormalized);
+        void setEnabled(bool state) override;
+        bool hasShot() { return _hasShot; }
+        void transformControl(b2Vec2 _mousePos, Vector2D dirNormalized);
         void registerWhiteBall(entity_t wb);
         double rad2degrees(double radians);
 
@@ -44,5 +46,6 @@ namespace ecs{
         float _stickHeight;
 
         bool _behaviourEnabled = false;
+        bool _hasShot = false;
     };
 }
