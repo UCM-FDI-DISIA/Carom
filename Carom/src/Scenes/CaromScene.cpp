@@ -171,12 +171,35 @@ namespace ecs {
 
     void CaromScene::createBallShadow(entity_t entity){
         //sombra de reflejo de la bola
-        entity_t a_reflejo = new Entity(*this, grp::SHADOWS);
+        entity_t a_cast = new Entity(*this, grp::SHADOWS);
 
-        addComponent<ecs::TransformComponent>(a_reflejo, b2Vec2{0,0});
-        addComponent<ecs::FollowComponent>(a_reflejo, entity, true, false, true, Vector2D(0,0));
-        addComponent<ecs::RenderTextureComponent>(a_reflejo, &sdlutils().images().at("bola_cast_sombra"), 11,0.1269f, SDL_Color{0, 150, 100, 1});
-        }
+        float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
+
+        float a_svg_scale = sdlutils().svgElements_table().at("bola_cast_sombra 1").width;
+        float cast_scale = a_svg_scale/a_imgScale;
+
+        addComponent<ecs::TransformComponent>(a_cast, b2Vec2{0,0});
+        addComponent<ecs::FollowComponent>(a_cast, entity, true, false, true, Vector2D(0,0));
+        addComponent<ecs::RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), 11, cast_scale);
+
+        //sombra de la bola
+        entity_t a_shadow = new Entity(*this, grp::SHADOWS);
+
+        a_imgScale = sdlutils().images().at("bola_sombra").width();
+        a_svg_scale = sdlutils().svgElements_table().at("bola_sombra 1").width;
+        cast_scale = a_svg_scale/a_imgScale;
+
+        Vector2D a_relPos{
+            PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").x - sdlutils().svgElements_table().at("bola_sombra 1").x - 10),
+            
+            PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").y - sdlutils().svgElements_table().at("bola_sombra 1").y)
+        };
+
+        addComponent<ecs::TransformComponent>(a_shadow, b2Vec2{0,0});
+        addComponent<ecs::FollowComponent>(a_shadow, entity, true, false, true, a_relPos);
+        addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), 2, cast_scale);
+
+    }
 
     void CaromScene::createScoreEntity(){
         //primer score
