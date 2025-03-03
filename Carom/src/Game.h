@@ -21,7 +21,7 @@ public:
         return _t->getRenderer();
     }
 
-
+    inline ScenesManager* getScenesManager() {return _sceneManager;}
 
 protected:
     ScenesManager* _sceneManager;

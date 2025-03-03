@@ -14,6 +14,7 @@ namespace ecs {
     class Component;
     class ITransform;
     class CaromScene;
+    class PoolScene;
     class RenderTextureComponent;
 
     class Entity{
@@ -101,6 +102,7 @@ namespace ecs {
     private:
         friend GameScene;
         friend CaromScene;
+        friend PoolScene;
         Entity(GameScene& scene, grpId_t gId);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
