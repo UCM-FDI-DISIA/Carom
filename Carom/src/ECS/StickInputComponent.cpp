@@ -95,7 +95,7 @@ namespace ecs {
     void StickInputComponent::setEnabled(bool state)
     {
         _hasShot = false;
-        _isEnable = true;
+        _isEnable = state;
     }
 
     void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dirNormalized)
