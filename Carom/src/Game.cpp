@@ -84,9 +84,12 @@ Game::start() {
 
         _sceneManager->handleEvent();
         _sceneManager->update();
-        _sceneManager->render();
 
-		sdlutils().presentRenderer();
+        if (ihdlr.isWindowsFocused()) {
+            _sceneManager->render();
+            sdlutils().presentRenderer();
+            sdlutils().clearRenderer();
+        }
 
         Uint32 elapsed = startTime - sdlutils().currRealTime();
 
