@@ -11,7 +11,7 @@ namespace ecs
     {
         _isEnable = state;
         if (!state) {
-            _onDisable();
+            //_onDisable();
         }
     }
 

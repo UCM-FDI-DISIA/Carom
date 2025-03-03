@@ -67,9 +67,10 @@ namespace ecs {
 
                 //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
                 _whiteBallRB->applyImpulseToCenter(impulseVec);
-            }
 
-            _hasShot = true; // ! hasShot
+                _hasShot = true; // ! hasShot
+            }
+           
         }
     }
 

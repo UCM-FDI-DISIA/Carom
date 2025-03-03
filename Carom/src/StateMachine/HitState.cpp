@@ -1,8 +1,10 @@
 #include "HitState.h"
+#include "ScoringState.h"
 #include "CaromScene.h"
 #include "StickInputComponent.h"
 #include "RenderTextureComponent.h"
 #include "Button.h"
+#include <iostream>
 
 
 HitState::HitState(ecs::CaromScene* scene) : State(scene) 
@@ -22,6 +24,7 @@ HitState::onStateEnter() {
 void
 HitState::onStateExit() {
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
+        std::cout << "Saliendo de Hit\n";
         e->deactivate();
     }
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
@@ -35,8 +38,11 @@ bool
 HitState::checkCondition(State*& state) {
     // TODO: comprobar si la bola blanca ya ha sido golpeada ARQUITECTURA MIRAR SI ESTO ESTÁ BIEN
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)){
-        if(e->tryGetComponent<ecs::StickInputComponent>() && e->getComponent<ecs::StickInputComponent>()->hasShot())
+        if(e->tryGetComponent<ecs::StickInputComponent>() && e->getComponent<ecs::StickInputComponent>()->hasShot()) {
+            std::cout << "Cambio a Scoring\n";
+            state = new ScoringState(_scene);
             return true;
+        }
     }
 
     return false;

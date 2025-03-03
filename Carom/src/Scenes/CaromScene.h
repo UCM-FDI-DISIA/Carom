@@ -26,7 +26,7 @@ namespace ecs{
         TextDisplayComponent* _currentScoreDisplay;
 
         //Los acumuladores de puntuación
-        int _currentScore, _scoreToBeat; 
+        int _currentScore = 0, _scoreToBeat = 10; 
 
         b2WorldId _myB2WorldId; //El mundo de box2D
 

@@ -12,6 +12,7 @@
 #include "RNG_Manager.h"
 #include "RandomItem.h"
 #include "FollowComponent.h"
+#include "StartMatchState.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -50,17 +51,6 @@ namespace ecs {
         // Apply impulse
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
-        /*
-        // Second ball
-        b2Vec2 wb_pos_2 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("bola_blanca").x + 290,
-            *&sdlutils().svgElements_table().at("bola_blanca").y
-        );
-        createWhiteBall(wb_pos_2, b2_dynamicBody, 1, 0.2, 1, 10);
-        getEntitiesOfGroup(ecs::grp::WHITEBALL)[1]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({-0.008, 0.0f});
-        !BALL TEST
-        */
-
         // EFFECT BALLS
         int n_eb = 3;
         int npos = sdlutils().svgElements_ballPos().size();
@@ -93,6 +83,9 @@ namespace ecs {
         _hitManager = new ColorHitManager(this);
 
         _currentScoreDisplay = createScoreUI();
+
+
+        setNewState(new StartMatchState(this));
     }
 
     entity_t

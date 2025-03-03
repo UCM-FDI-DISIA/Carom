@@ -4,6 +4,7 @@
 #include "CaromScene.h"
 #include "LoseMatchState.h"
 #include "RigidBodyComponent.h"
+#include <iostream>
 
 ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
 {
@@ -12,6 +13,7 @@ ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
 
 void
 ScoringState::onStateEnter() {
+        std::cout << "Entrando en Scoring\n";
 
 }
 
@@ -37,12 +39,15 @@ ScoringState::checkCondition(State*& state) {
     }
 
     //Elige a qué estado cambiar en función del flujo (falta el getScoreContainer)
-    // if(_scene->getScoreContainer()->roundWins()) state = new WinMatchState(_scene);
-    // else if(_scene->getRemainingHits() > 0) state = new HitState(_scene);
-    // else state = new LoseMatchState(_scene);
+    if(_scene->roundWins()) state = new WinMatchState(_scene);
+    else if(_scene->getRemainingHits() > 0) {
+        std::cout << "Cambio a HitState\n";
+        state = new HitState(_scene);
+    } 
+    else state = new LoseMatchState(_scene);
 
-    // return true;
+    return true;
     
 
-    return false; // ! Lo siento Andrea
+    // return false; // ! Lo siento Andrea
 }
