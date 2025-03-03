@@ -153,7 +153,7 @@ namespace ecs {
         addComponent<CircleRBComponent>(e, pos, type, radius, density, friction, restitution);
 
         // RENDER
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola"), layer, scale, SDL_Color{0, 150, 100, 1});
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale, SDL_Color{0, 150, 100, 1});
 
         // SCORE
         addComponent<ColorBallScorerComponent>(e);

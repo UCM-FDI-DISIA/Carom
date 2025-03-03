@@ -6,7 +6,7 @@
 #include "PhysicsUtils.h"
 #include "Camera.h"
 #include "GameScene.h"
-#include "SDL.h"
+
 
 namespace ecs {
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
@@ -22,7 +22,7 @@ namespace ecs {
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale, SDL_Color tint) 
     : RenderTextureComponent(ent, texture, renderOrder, scale)
     {
-        texture->changeColorTint(tint.r, tint.g, tint.b);
+        changeColorTint(tint.r, tint.g, tint.b);
     }
 
     void RenderTextureComponent::init(){
@@ -31,7 +31,9 @@ namespace ecs {
     }
 
     void RenderTextureComponent::render(Camera* camera) {
+        _texture->changeColorTint(_color.r, _color.g, _color.b);
         _texture->render(getRect(), _transform->getRotation());
+        _texture->changeColorTint(255,255,255);
     }
 
     SDL_Rect RenderTextureComponent::getRect() const
@@ -50,10 +52,14 @@ namespace ecs {
     }
 
     void RenderTextureComponent::changeColorTint(int r, int g, int b){
-        _texture->changeColorTint(r,g,b);
+        _color.r = r;
+        _color.g = g;
+        _color.b = b;
     }
 
     void RenderTextureComponent::resetColorTint(){
-        _texture->changeColorTint(255,255,255);
+        _color.r = 255;
+        _color.g = 255;
+        _color.b = 255;
     }
 } 

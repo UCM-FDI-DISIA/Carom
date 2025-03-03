@@ -2,10 +2,10 @@
 #include "ecs.h"
 #include "RenderComponent.h"
 #include "ITransform.h"
+#include "SDL.h"
 
 class SDL_Rect;
 class Texture;
-class SDL_Color;
 
 namespace ecs {
     
@@ -14,6 +14,8 @@ namespace ecs {
         Texture* _texture;
         ITransform* _transform;
         float _scale; // scale de la textura (no su physical body)
+
+        SDL_Color _color = {255,255,255,0};
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
