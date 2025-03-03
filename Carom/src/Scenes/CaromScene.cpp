@@ -246,13 +246,18 @@ namespace ecs {
 
         auto a = Game::FIXED_TIME_STEP/1000.0;
 
-        // Como las físicas se suelen querer ejecutar antes del update esto se hace aquí mismo
-        // tal vez en el futuro esto se podria delegar a una clase padre PhysicsScene o algo así
-        // Hay 3 porque si no había tunneling y aumentar substeps no resolvía el problema
-        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
-        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
-        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/3000.0, _b2Substeps);
+        // En efecto, esto se hace 2 veces, John Cleon no me pegues
+        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
 
+        b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
+        manageEnterCollisions(a_contactEvents);
+        manageExitCollisions(a_contactEvents);
+
+        b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
+        manageEnterTriggers(a_sensorEvents);
+        manageExitTriggers(a_sensorEvents);
+
+        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
 
         b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
         manageEnterCollisions(a_contactEvents);

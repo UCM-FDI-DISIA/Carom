@@ -10,8 +10,10 @@ namespace ecs{
     }
     
     void ColorBallScorerComponent::onCollisionEnter(entity_t other){
+        
         // si choca con una bola de color...
         if(other->tryGetComponent<ColorBallScorerComponent>()){
+            
             CaromScene* a_scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
             if(a_scene == nullptr) return;
             // procesa el hit de las entidades colisionadas por medio del getColorHitManager en la escena CaromScene.

@@ -17,6 +17,7 @@ namespace ecs{
 
         if(other->tryGetComponent<WallComponent>()) _cushions++;
         else if(other->tryGetComponent<ColorBallScorerComponent>()){
+            std::cout << "lol" << std::endl;
             CaromScene* a_scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
             if(a_scene == nullptr) return;
 
