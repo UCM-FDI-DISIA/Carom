@@ -1,1 +1,0 @@
-Recordatorio de que aquí hacen falta los DLLs, los puedes copiar de la carpeta /dll
