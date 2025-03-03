@@ -15,7 +15,7 @@ namespace ecs{
     //!ESTE MÉTODO NO SE LLAMA POR ALGÚN MOTIVO
     void WhiteBallScorerComponent::onCollisionEnter(entity_t other){
 
-        if(other->tryGetComponent<WallComponent>()) _cushions++;
+        if(other->tryGetComponent<WallComponent>() && _previouslyHit) _cushions++;
         else if(other->tryGetComponent<ColorBallScorerComponent>()){
             std::cout << "lol" << std::endl;
             CaromScene* a_scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
