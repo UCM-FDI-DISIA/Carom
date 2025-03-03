@@ -26,7 +26,9 @@
 	PALO, \
 	BACKGROUND, \
 	SCORE, \
-	SHADOWS
+	SHADOWS, \
+	POOLBOSS, \
+	POOLBALLS
 
 // Effect list
 // TODO completar	

@@ -133,6 +133,7 @@ add_executable(Carom
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/CaromScene.cpp
+	src/Scenes/PoolScene.cpp
 	
 	src/StateMachine/HitState.cpp
 	src/StateMachine/ScoringState.cpp
