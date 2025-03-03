@@ -17,6 +17,6 @@ namespace ecs{
         void onCollisionEnter(entity_t other) override; 
 
         //setea cushions a 0 y previously hit a false al comienzo del turno
-        //void refreshOnNewTurn();
+        void refreshOnNewTurn();
     };
 }

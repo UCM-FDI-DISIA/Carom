@@ -4,6 +4,7 @@
 #include "StickInputComponent.h"
 #include "RenderTextureComponent.h"
 #include "Button.h"
+#include "WhiteBallScorerComponent.h"
 #include <iostream>
 
 
@@ -19,6 +20,8 @@ HitState::onStateEnter() {
             e->getComponent<ecs::Button>()->setEnabled(true);
         }
     }
+
+    _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::WhiteBallScorerComponent>()->refreshOnNewTurn();
 }
 
 void

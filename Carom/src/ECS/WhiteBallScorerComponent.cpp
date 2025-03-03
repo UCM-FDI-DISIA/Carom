@@ -35,4 +35,9 @@ namespace ecs{
 
         }
     }
+
+    void WhiteBallScorerComponent::refreshOnNewTurn(){
+        _previouslyHit = false;
+        _cushions = 0;
+    }
 }
