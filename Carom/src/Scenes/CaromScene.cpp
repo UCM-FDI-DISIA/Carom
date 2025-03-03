@@ -21,7 +21,7 @@
 
 namespace ecs {
 
-    CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) 
+    CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0)
     {
         // SEEDING
         _rngManager = new RNG_Manager();
@@ -110,7 +110,7 @@ namespace ecs {
         addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
 
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
-
+        addComponent<WhiteBallScorerComponent>(e);
         Button::RadialButton rButton = Button::RadialButton(2.0);
         addComponent<Button>(e, rButton);
         e->getComponent<Button>()->setOnClick([this](){

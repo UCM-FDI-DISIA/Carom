@@ -7,7 +7,8 @@
 #include <algorithm>
 
 namespace ecs{
-    WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0) {
+    WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0)
+    {
         
     }
 

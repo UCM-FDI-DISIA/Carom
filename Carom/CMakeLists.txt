@@ -117,8 +117,8 @@ add_executable(Carom
 	src/ECS/CircleRBComponent.cpp
 	src/ECS/CapsuleRBComponent.cpp
 
-	src/ECS/WhiteBallScorerComponent.cpp
 	src/ECS/ColorBallScorerComponent.cpp
+	src/ECS/WhiteBallScorerComponent.cpp
 
 	src/ECS/EventOnCollision.cpp
 	src/ECS/PhysicsComponent.cpp
