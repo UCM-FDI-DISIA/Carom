@@ -63,7 +63,7 @@ namespace ecs{
             entity_t e = new ecs::Entity(*this, grp::POOL_HOLE);
             b2Vec2 pos = _poolPositions[i];
             addComponent<TransformComponent>(e, pos);
-            addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), 5, 0.2f);
+            addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), 5, 0.2f);
 
             ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
             addComponent<ecs::Button>(e, rButton);

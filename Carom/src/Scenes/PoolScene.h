@@ -18,7 +18,7 @@ namespace ecs{
             };
 
         const float W = 1.6;
-        const float H = 0.8f;
+        const float H = .7f;
         // Posiciones posibles de agujeros de mesa de pool(por el momento no es exacto).
         std::vector<b2Vec2> _poolPositions = {
             b2Vec2(-W, H), // arriba izquierda.
