@@ -94,7 +94,7 @@ namespace ecs{
 		}
 
 		inline GameList<Entity>& getEntities() { 
-			return _entities; 
+			return _entities;
 		}
 
 		// Returns the vector of all entities of a group ID.
