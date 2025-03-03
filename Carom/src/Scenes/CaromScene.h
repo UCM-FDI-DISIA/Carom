@@ -26,7 +26,7 @@ namespace ecs{
         TextDisplayComponent* _currentScoreDisplay;
 
         //Los acumuladores de puntuación
-        double _currentScore, _scoreToBeat; 
+        int _currentScore, _scoreToBeat; 
 
         b2WorldId _myB2WorldId; //El mundo de box2D
 
@@ -97,10 +97,10 @@ namespace ecs{
         inline int getRemainingHits() { return _remainingHits; }
 
         // ?Métodos para manejo de puntuación
-        void setScoreToBeat(double newScoreToBeat);
+        void setScoreToBeat(int newScoreToBeat);
 
-        void addScore(double score);
-        void removeScore(double score);
+        void addScore(int score);
+        void removeScore(int score);
         
         inline bool roundWins() {return _currentScore >= _scoreToBeat; }
     private:

@@ -440,17 +440,17 @@ namespace ecs {
         return currentDisplay;
     }
 
-    void CaromScene::addScore(double score) {
+    void CaromScene::addScore(int score) {
         _currentScore += score;
         _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
     }
 
-    void CaromScene::removeScore(double score) {
+    void CaromScene::removeScore(int score) {
         _currentScore -= score;
         _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
     }
 
-    void CaromScene::setScoreToBeat(double newScoreToBeat){
-        _scoreToBeat = newScoreToBeat;
+    void CaromScene::setScoreToBeat(int score){
+        _scoreToBeat = score; 
     }
 }

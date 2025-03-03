@@ -2,17 +2,17 @@
 
 namespace ecs
 {
-Component::Component(Entity* ent) : _myEntity(ent), _active(true) {}
+    Component::Component(Entity* ent) : _myEntity(ent), _active(true) {}
 
-Component::~Component() {}
+    Component::~Component() {}
 
-void
-Component::setEnable(bool state) {
-    _active = state;
-}
+    void
+    Component::setEnable(bool state) {
+        _active = state;
+    }
 
-bool
-Component::isEnable() {
-    return _active;
-}
+    bool
+    Component::isEnable() {
+        return _active;
+    }
 }
