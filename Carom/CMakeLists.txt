@@ -75,6 +75,12 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
+# Descomentar lo de abajo si se quiere que no haya ventana
+#if (MSVC)
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+#elseif (MINGW)
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mwindows")
+#endif()
 
 # Crear ejecutable
 add_executable(Carom
