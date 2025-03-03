@@ -319,8 +319,6 @@ private:
 	bool _isMouseButtonUpEvent;
 	bool _isMouseButtonDownEvent;
 
-	bool _isWindowFocused;
-
 	std::pair<Sint32, Sint32> _mousePos;
 	std::array<bool, 3> _mbState;
 	const Uint8 *_kbState;
@@ -355,6 +353,7 @@ private:
 	bool _submitKeyEvent; 		// aceptar boton / avanzar.	
 	bool _cancelKeyEvent; 		// cancelar boton / retroceder.
 
+	bool _isWindowFocused;
 	//Vector2D _navigateVectorEvent;
 
 
@@ -428,9 +427,6 @@ private:
 			_isCloseWindoEvent = true;
 			break;
 		case SDL_WINDOWEVENT_MINIMIZED:
-			_isWindowFocused = false;
-			break;
-		case SDL_WINDOWEVENT_LEAVE:
 			_isWindowFocused = false;
 			break;
 		case SDL_WINDOWEVENT_MAXIMIZED:
