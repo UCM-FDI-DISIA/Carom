@@ -1,7 +1,7 @@
 #include "StartMatchState.h"
 #include "HitState.h"
 
-StartMatchState::StartMatchState(CaromScene* scene): State(scene) {
+StartMatchState::StartMatchState(ecs::CaromScene* scene): State(scene) {
 
 }
 
