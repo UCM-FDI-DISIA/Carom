@@ -136,6 +136,12 @@ namespace ecs {
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
 
+        //!john cleon's stick shadow
+        entity_t stickShadow = new Entity(*this, grp::PALO);
+        addComponent<TransformComponent>(stickShadow, pos);
+        addComponent<RenderTextureComponent>(stickShadow, &sdlutils().images().at("palo1_sombra"), 4, scale);
+        addComponent<FollowComponent>(stickShadow, e, true,true,true, Vector2D{-0.05, -0.05});
+
         return e;
     }
 
@@ -421,7 +427,7 @@ namespace ecs {
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 100, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 1, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
@@ -434,7 +440,7 @@ namespace ecs {
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 100, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 1, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
 
         return currentDisplay;
     }

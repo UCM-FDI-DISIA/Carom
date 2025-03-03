@@ -37,6 +37,7 @@
     { "id" : "bola_cast_sombra", "file" : "../../resources/images/bola_cast_sombra.png"},
     {"id": "suelo", "file": "../../resources/images/suelo.png"},
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
+    { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"}
   ],
   
