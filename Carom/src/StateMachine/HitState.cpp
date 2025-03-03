@@ -12,8 +12,7 @@ HitState::HitState(ecs::CaromScene* scene) : State(scene)
 
 void
 HitState::onStateEnter() {
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
-        // e->activate();
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
         if(e->tryGetComponent<ecs::Button>()) {
             e->getComponent<ecs::Button>()->setEnabled(true);
         }
@@ -23,7 +22,9 @@ HitState::onStateEnter() {
 void
 HitState::onStateExit() {
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
-        // e->deactivate();
+        e->deactivate();
+    }
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
         if(e->tryGetComponent<ecs::Button>()) {
             e->getComponent<ecs::Button>()->setEnabled(false);
         }

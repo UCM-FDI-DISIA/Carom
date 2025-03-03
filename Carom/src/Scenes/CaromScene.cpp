@@ -117,10 +117,6 @@ namespace ecs {
             for (auto& e : getEntitiesOfGroup(grp::PALO))
                 e->activate();
         });
-        e->getComponent<Button>()->setOnDisable([this](){
-            for (auto& e : getEntitiesOfGroup(grp::PALO))
-                e->deactivate();
-        });
         
         _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
