@@ -118,7 +118,7 @@ namespace ecs {
         return e;
     }
 
-    void // TODO: provisory definition, add components
+    void // TODO: provisory definition, add components  
     CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
         ecs::entity_t e = new ecs::Entity(*this);
         // Must be pushed back into renderable vector before adding the component for proper sort!
