@@ -70,6 +70,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
+	${CMAKE_SOURCE_DIR}/src/Scenes/Gimmicks
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
@@ -146,6 +147,8 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+
+	src/Scenes/Gimmicks/CowboyPoolScene.cpp
 )
 
 # Link Box2D
