@@ -9,6 +9,7 @@
 #include "TextDisplayComponent.h"
 
 #include "BallHandler.h"
+#include "QuanticEffect.h"
 #include "BowlingEffect.h"
 
 #include "PhysicsUtils.h"
@@ -79,7 +80,8 @@ namespace ecs {
         
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
-        addComponent<BowlingEffect>(e);
+        addComponent<BallHandler>(e);
+        addComponent<QuanticEffect>(e);
 
         ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
         addComponent<ecs::Button>(e, rButton);

@@ -11,12 +11,11 @@ class BallEffect : public ecs::InfoComponent
 protected:
     std::string _name;
     std::string _description;
-    ecs::CaromScene* _scene;
 public:
     BallEffect(ecs::entity_t ent) : InfoComponent(ent) {}
     ~BallEffect() {}
 
-    void init() override;
+    virtual void init() override;
     virtual void onHit(ecs::entity_t ent) {};
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};

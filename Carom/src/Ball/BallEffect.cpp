@@ -5,7 +5,6 @@
 
 void BallEffect::init()
 {
-    _scene = dynamic_cast<ecs::CaromScene*>(&_myEntity->getScene());
-    assert(_scene != nullptr || "Se ha intentado agregar un componente de efecto en una escena que no es la de juego");
+    assert(_myEntity->tryGetComponent<BallHandler>() || "Se ha intentado añadir un efecto a una entidad sin administrador de efectos");
     _myEntity->getComponent<BallHandler>()->addEffect(this);
 }

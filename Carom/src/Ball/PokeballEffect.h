@@ -11,7 +11,6 @@ public:
     ~PokeballEffect() {}
 
     void onHit(ecs::entity_t ent) override;
-    void init() override;
 
     __CMPID_DECL__(ecs::cmp::POKEBALL_EFFECT);
 };

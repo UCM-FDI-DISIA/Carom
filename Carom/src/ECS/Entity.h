@@ -59,6 +59,18 @@ namespace ecs {
         }
 
         template<typename T>
+        bool removeComponent(T comp){
+            if(_components[cmpId<T>] == nullptr) return false;
+    
+            if(dynamic_cast<ITransform>(_components[cmpId<T>] != nullptr)) _myTransform = nullptr;
+            auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
+            _currentComponents.erase(it);
+            _components[cmpId<T>] = nullptr;
+    
+            return true;
+        }
+
+        template<typename T>
         bool deleteComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
     
