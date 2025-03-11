@@ -25,3 +25,11 @@ void BallHandler::onStrikeEnd()
         effect->onStrikeEnd();
     }
 }
+
+void BallHandler::onBeingTargeted()
+{
+    for(BallEffect* effect : _effects)
+    {
+        effect->onBeingTargeted();
+    }
+}

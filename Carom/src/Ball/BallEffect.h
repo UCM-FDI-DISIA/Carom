@@ -11,6 +11,7 @@ protected:
     ecs::CaromScene* _scene;
 public:
     void init() override;
-    void onHit(ecs::entity_t ent) {};
-    void onStrikeEnd() {};
+    virtual void onHit(ecs::entity_t ent) {};
+    virtual void onStrikeEnd() {};
+    virtual void onBeingTargeted() {};
 };
