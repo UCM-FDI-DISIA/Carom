@@ -13,6 +13,7 @@
 #include "RandomItem.h"
 #include "FollowComponent.h"
 #include "StartMatchState.h"
+#include "BallEffect.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"

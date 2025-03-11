@@ -1,7 +1,10 @@
 #pragma once
 #include "InfoComponent.h"
 #include <string>
-class CaromScene;
+
+namespace ecs{
+    class CaromScene;
+}
 
 class BallEffect : public ecs::InfoComponent
 {
@@ -11,6 +14,6 @@ protected:
     ecs::CaromScene* _scene;
 public:
     void init() override;
-    void onHit(ecs::entity_t ent) {};
+    void onHit(ecs::entity_t ent) {}
     void onStrikeEnd() {};
 };
