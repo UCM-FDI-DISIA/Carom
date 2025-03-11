@@ -15,4 +15,5 @@ void PokeballEffect::onHit(ecs::entity_t ent)
     }
 
     effects.clear();
+    ent->deleteComponent<PokeballEffect>();
 };
