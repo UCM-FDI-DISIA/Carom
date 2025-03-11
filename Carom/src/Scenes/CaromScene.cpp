@@ -8,6 +8,9 @@
 #include "Button.h"
 #include "TextDisplayComponent.h"
 
+#include "BallHandler.h"
+#include "BowlingEffect.h"
+
 #include "PhysicsUtils.h"
 #include "Game.h"
 #include "Vector2D.h"
@@ -68,7 +71,7 @@ namespace ecs {
         _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
         _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
         _entities.push_back(e);
-
+        
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
         
         // Posible memory leak
@@ -76,6 +79,7 @@ namespace ecs {
         
         addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
         addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
+        addComponent<BowlingEffect>(e);
 
         ecs::Button::RadialButton rButton = ecs::Button::RadialButton(2.0);
         addComponent<ecs::Button>(e, rButton);

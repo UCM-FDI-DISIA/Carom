@@ -7,6 +7,9 @@ class PokeballEffect : public BallEffect
 private:
     BallHandler* _handler;
 public:
+    PokeballEffect(ecs::entity_t ent) : BallEffect(ent) {}
+    ~PokeballEffect() {}
+
     void onHit(ecs::entity_t ent) override;
     void init() override;
 
