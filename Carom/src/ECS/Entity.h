@@ -5,6 +5,7 @@
 #include "gameList.h"
 #include "ecs.h"
 #include <iostream>
+#include <functional>
 
 
 class Camera;
@@ -16,6 +17,7 @@ namespace ecs {
     class CaromScene;
     class PoolScene;
     class RenderTextureComponent;
+    class JsonEntityParser;
 
     class Entity{
     public:
@@ -98,6 +100,7 @@ namespace ecs {
         void handleEvents();
 
         GameScene& getScene();
+        inline grp::grpId getID() const {return _id;};
     
     private:
         friend GameScene;
@@ -112,5 +115,6 @@ namespace ecs {
         GameList<Entity>::anchor _anchor;
         
         ITransform* _myTransform;
+        grp::grpId _id;
     };
 }

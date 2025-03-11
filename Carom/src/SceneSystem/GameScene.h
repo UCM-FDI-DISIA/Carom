@@ -33,7 +33,13 @@ namespace ecs{
 		Camera _worldCamera;
 		Camera _UICamera;
 
-		GameScene(Game* game);
+	GameScene(Game* game);
+	GameScene();
+
+	
+	// Este metodo permite un comportamiento de la escena al instanciarla
+	//
+	inline virtual void init(){}
 
 		// Create entities that represent and compose the table. The table as a whole is a group.
 		void createTable();

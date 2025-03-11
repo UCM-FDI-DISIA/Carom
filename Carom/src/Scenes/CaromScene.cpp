@@ -145,12 +145,44 @@ namespace ecs {
         return e;
     }
 
+<<<<<<< HEAD
     void
     CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
         // Scale
         float svgSize = *&sdlutils().svgElements_ballPos().at("bola").width;
         float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
         float scale = svgSize/textureSize;        
+=======
+    void // TODO: provisory definition, add components  
+    CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
+        ecs::entity_t e = new ecs::Entity(*this);
+        // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsRenderable.push_back(e);
+        // TODO: add components
+        _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
+        _entities.push_back(e);
+    }
+
+    entity_t CaromScene::createScoreEntity(){
+        entity_t e = new Entity(*this);
+        _entsRenderable.push_back(e);
+        _entsByGroup[ecs::grp::SCORE].push_back(e);
+        _entities.push_back(e);
+
+        addComponent<TransformComponent>(e, b2Vec2{0,0});
+        addComponent<ecs::TextDisplayComponent>(e, "Hola", SDL_Color{255, 0, 0, 255}, "ARIAL16", 1.0f);
+
+        return e;
+    }
+
+    // void CaromScene::createStickInputBall(Vector2D pos, b2BodyType type, float density, float friction, float restitution, float radius, int capa)
+    // {
+    //     ecs::entity_t e = new ecs::Entity(*this);
+
+    //     ecs::CircleShape *cs = new ecs::CircleShape(radius);
+    //     addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+    //     addComponent<ecs::StickInputComponent>(e);
+>>>>>>> 6e395290520a73c10871f97c0bae010a298bb504
         
         entity_t e = new Entity(*this, grp::EFFECTBALLS);
         

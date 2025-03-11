@@ -10,6 +10,7 @@
 #include "Camera.h"
 
 namespace ecs{
+    #include "Entity.h"
 
     GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
 

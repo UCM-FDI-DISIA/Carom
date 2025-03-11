@@ -10,6 +10,7 @@
 #include "NullState.h" // ! test
 
 #include "CaromScene.h"
+#include "PrefabTestScene.h"
 
 Game::Game() {}
 
