@@ -3,6 +3,8 @@
 #include "BallHandler.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
 void BallEffect::init()
 {
     _scene = dynamic_cast<ecs::CaromScene*>(&_myEntity->getScene());

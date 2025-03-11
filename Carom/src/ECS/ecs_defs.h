@@ -20,7 +20,8 @@
 	BOWLING_EFFECT, \
 	QUANTIC_EFFECT, \
 	POKEBALL_EFFECT, \
-	BALL_HANDLER
+	BALL_HANDLER, \
+	SUBDIVISION_EFFECT
 
 // Groups list - must have at least one element
 //

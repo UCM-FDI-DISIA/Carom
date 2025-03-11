@@ -1,7 +1,9 @@
 #pragma once
 #include "BallEffect.h"
-class BallHandler;
+namespace ecs{
+class BallHandler;}
 
+namespace ecs{
 class PokeballEffect : public BallEffect
 {
 private:
@@ -15,3 +17,4 @@ public:
 
     __CMPID_DECL__(ecs::cmp::POKEBALL_EFFECT);
 };
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "BallEffect.h"
 
+namespace ecs{
 class QuanticEffect : public BallEffect
 {
 private:
@@ -13,3 +14,4 @@ public:
     void onStrikeEnd() override;
     __CMPID_DECL__(ecs::cmp::QUANTIC_EFFECT)
 };
+}

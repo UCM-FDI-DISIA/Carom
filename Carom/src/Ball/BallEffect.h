@@ -6,6 +6,7 @@
 namespace ecs
 {class CaromScene;}
 
+namespace ecs{
 class BallEffect : public ecs::InfoComponent
 {
 protected:
@@ -22,4 +23,4 @@ public:
     virtual void onBeingTargeted() {};
 
     __CMPID_DECL__(ecs::cmp::BALL_EFFECT);
-};
+};}

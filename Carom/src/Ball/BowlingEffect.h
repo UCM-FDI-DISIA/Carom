@@ -1,6 +1,7 @@
 #pragma once
 #include "BallEffect.h"
 
+namespace ecs{
 class BowlingEffect : public BallEffect
 {
 private:
@@ -12,4 +13,4 @@ public:
 
     void init() override;
     __CMPID_DECL__(ecs::cmp::BOWLING_EFFECT);
-};
+};}

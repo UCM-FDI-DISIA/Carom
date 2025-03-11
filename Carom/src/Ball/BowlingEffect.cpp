@@ -2,6 +2,7 @@
 #include "BowlingEffect.h"
 #include "RigidBodyComponent.h"
 #include "Entity.h"
+using namespace ecs;
 
 void BowlingEffect::init()
 {

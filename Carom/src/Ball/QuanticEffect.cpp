@@ -1,6 +1,7 @@
 #pragma once
 #include "QuanticEffect.h"
 #include "CaromScene.h"
+using namespace ecs;
 
 void QuanticEffect::onHit(ecs::entity_t ent)
 {

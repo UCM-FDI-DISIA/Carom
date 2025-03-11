@@ -3,6 +3,8 @@
 #include "BallEffect.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
 void BallHandler::init()
 {
 }

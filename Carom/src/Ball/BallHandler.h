@@ -2,9 +2,12 @@
 #include "PhysicsComponent.h"
 #include "ecs.h"
 #include <vector>
-class CaromScene;
-class BallEffect;
 
+namespace ecs{
+class CaromScene;
+class BallEffect;}
+
+namespace ecs{
 class BallHandler : public ecs::PhysicsComponent
 {
 private:
@@ -17,4 +20,4 @@ public:
 
     inline void addEffect(BallEffect* effect) {_effects.push_back(effect);}
     __CMPID_DECL__(ecs::cmp::BALL_HANDLER);
-};
+};}
