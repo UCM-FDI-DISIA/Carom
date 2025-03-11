@@ -15,6 +15,9 @@
 #include "StartMatchState.h"
 #include "BallEffect.h"
 
+#include "BallHandler.h"
+#include "BowlingEffect.h"
+
 #include "PhysicsUtils.h"
 #include "Game.h"
 #include "Vector2D.h"

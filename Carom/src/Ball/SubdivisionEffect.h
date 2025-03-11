@@ -4,7 +4,7 @@
 
 namespace ecs{
     class SubdivisionEffect : public BallEffect{
-        SubdivisionEffect();
-        ~SubdivisionEffect() {}
+    public:
+        
     };
 }
