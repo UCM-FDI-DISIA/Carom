@@ -60,8 +60,8 @@ namespace ecs{
 
         // TODO: provisory definition
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                                float density, float friction, float restitution, int layer);
-        void createScoreEntity();
+                            float density, float friction, float restitution);
+        entity_t createScoreEntity();
 
         void createBallShadow(entity_t);
 
