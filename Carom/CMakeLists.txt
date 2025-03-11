@@ -149,6 +149,12 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+
+	src/Ball/BallEffect.cpp
+	src/Ball/BallHandler.cpp
+	src/Ball/QuanticEffect.cpp
+	src/Ball/PokeballEffect.cpp
+	src/Ball/BowlingEffect.cpp
 )
 
 # Link Box2D

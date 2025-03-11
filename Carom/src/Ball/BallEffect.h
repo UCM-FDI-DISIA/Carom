@@ -1,10 +1,10 @@
 #pragma once
 #include "InfoComponent.h"
+#include "ecs.h"
 #include <string>
 
-namespace ecs{
-    class CaromScene;
-}
+namespace ecs
+{class CaromScene;}
 
 class BallEffect : public ecs::InfoComponent
 {
@@ -14,6 +14,9 @@ protected:
     ecs::CaromScene* _scene;
 public:
     void init() override;
-    void onHit(ecs::entity_t ent) {}
-    void onStrikeEnd() {};
+    virtual void onHit(ecs::entity_t ent) {};
+    virtual void onStrikeEnd() {};
+    virtual void onBeingTargeted() {};
+
+    __CMPID_DECL__(ecs::cmp::BALL_EFFECT);
 };
