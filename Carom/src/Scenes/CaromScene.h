@@ -92,13 +92,7 @@ namespace ecs{
         inline void disablePhysics(){_updatePhysics = false;}
 
         /// @brief Método para que rigidbody component reciba el id del body
-        /// @param bodyType kinematic, static, dynamic
-        /// @param density Kg/m2 >= 0
-        /// @param friction Roce (0.0 , 1.0)
-        /// @param restitution Rebote/Elasticidad (0.0, 1.0)
-        /// @return 
-        std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, 
-            float density, float friction, float restitution);
+        b2BodyId addBodyToWorld(b2BodyDef bodyDef);
 
     //---------------------------ENTITY CREATION---------------------------------
     public:

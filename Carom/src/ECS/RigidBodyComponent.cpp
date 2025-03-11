@@ -29,8 +29,37 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITran
 
 }
 
-RigidBodyComponent::~RigidBodyComponent(){
+RigidBodyComponent::~RigidBodyComponent()
+{
+    if(_myProps.polyData)
+        delete _myProps.polyData;
     b2DestroyBody(_myB2BodyId);
+}
+
+void
+RigidBodyComponent::generateBodyAndShape(){
+    // ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
+
+    b2BodyDef bodyDef = b2DefaultBodyDef();
+    bodyDef.type = _myProps.bodyType;
+    bodyDef.gravityScale = 0.0f;
+    bodyDef.position = _myProps.initialPos;
+    bodyDef.userData = _myEntity;
+    bodyDef.sleepThreshold = _myProps.sleepThreshold; // velocidad mínima para dormir (aunque no funcione muy bien)
+    bodyDef.isBullet = _myProps.isBullet; // para collisiones rápidas
+    bodyDef.linearDamping = _myProps.linearDamping; // friccíon con el suelo
+    bodyDef.rotation = _myProps.rotation;
+
+    _myB2BodyId = dynamic_cast<CaromScene*>(&_myEntity->getScene())->addBodyToWorld(bodyDef);
+
+    _myB2ShapeDef = new b2ShapeDef(b2DefaultShapeDef());
+    _myB2ShapeDef->density = _myProps.density;
+    _myB2ShapeDef->friction = _myProps.friction;
+    _myB2ShapeDef->restitution = _myProps.restitution;
+    _myB2ShapeDef->enableContactEvents = _myProps.enableContactEvents;
+    _myB2ShapeDef->userData = _myEntity;
+    _myB2ShapeDef->isSensor = _myProps.isSensor;
+
 }
 
 /// @brief Accesor de posición
@@ -145,6 +174,13 @@ RigidBodyComponent::setDensity(float density, int nShapes){
     }
 }
 
+/// @brief Changes the density of an object
+/// @param density the new density for the shape
+void ecs::RigidBodyComponent::setDensity(float density)
+{
+    b2Shape_SetDensity(_myB2ShapeId, density, true);
+}
+
 /// @brief Changes the friction of every Shape of the object
 /// @param density the new friction for the shapes
 /// @param nShapes the number of shapes the object has (Will throw an error if there's no match)
@@ -159,6 +195,13 @@ RigidBodyComponent::setFriction(float friction, int nShapes){
 
 }
 
+/// @brief Changes the friction of an object
+/// @param density the new friction for the shape
+void ecs::RigidBodyComponent::setFriction(float friction)
+{
+    b2Shape_SetFriction(_myB2ShapeId, friction);
+}
+
 /// @brief Changes the restitution of every Shape of the object
 /// @param density the new restitution for the shapes
 /// @param nShapes the number of shapes the object has (Will throw an error if there's no match)
@@ -170,6 +213,13 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
     for(int i = 0; 9 < nShapes; ++i){
         b2Shape_SetRestitution(shapes[i], restitution);
     }
+}
+
+/// @brief Changes the restitution of an object
+/// @param density the new restitution for the shape
+void ecs::RigidBodyComponent::setRestitution(float restitution)
+{
+    b2Shape_SetRestitution(_myB2ShapeId, restitution);
 }
 
 /// @brief Function called everytime object enters a collision

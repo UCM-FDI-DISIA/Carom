@@ -3,39 +3,46 @@
 
 using namespace ecs;
 
+
 /// @brief Constructor for Polygon RB
 /// @param ent the entity
 /// @param pos the position
-/// @param type the type
+/// @param bodyType the type of body
 /// @param vertices the vertices of the polygon in order
-/// @param count the number of vertices
+/// @param radius the radius of the vertices. If you don't want them to be rounded set it to 0
 /// @param density the density
 /// @param friction the friction
 /// @param restitution the restitution
-/// @param radius the radius of the vertices. If you don't want them to be rounded set it to 0
-PolygonRBComponent::PolygonRBComponent(
-    entity_t ent, const b2Vec2 &pos, b2BodyType type, const std::vector<b2Vec2> &vertices,
-    float density, float friction , float restitution, float radius) : RigidBodyComponent(ent){
+/// @param linearDamping the friction with the ground
+/// @param sensor if is only a trigger collider
+PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, const std::vector<b2Vec2> &vertices, float radius, bool sensor, b2Rot rotation, float density, float friction, float restitution, float linearDamping, bool bullet) 
+    : RigidBodyComponent(ent)
+{
+    _myProps.bodyType = bodyType;
+    _myProps.initialPos = pos;
+    _myProps.polyData->radius = radius;
+    _myProps.polyData->vertices = vertices;
+    _myProps.density = density;
+    _myProps.friction = friction;
+    _myProps.density = density;
+    _myProps.restitution = restitution;
+    _myProps.isBullet = bullet;
+    _myProps.isSensor = sensor;
+    _myProps.linearDamping = linearDamping;
+    _myProps.rotation = rotation;
+
+    generateBodyAndShape();
     
-    CaromScene* scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
+    const b2Vec2* a_array = _myProps.polyData->vertices.data();
+    b2Hull a_hull = b2ComputeHull(a_array, _myProps.polyData->vertices.size());
+    b2Polygon a_polygon = b2MakePolygon(&a_hull, _myProps.polyData->radius);
 
-    if (scene == nullptr) { throw "La escena no es de tipo CaromScene"; }
-
-    std::pair<b2BodyId, b2ShapeDef*> bodyShapeTuple = scene->generateBodyAndShape(ent, pos, type, density, friction, restitution);
-    _myB2BodyId = bodyShapeTuple.first;
-    
-    const b2Vec2* a_array = vertices.data();
-    b2Hull a_hull = b2ComputeHull(a_array, vertices.size());
-    b2Polygon a_polygon = b2MakePolygon(&a_hull, radius);
-    _vertices = vertices;
-    _radius = radius;
-
-    b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, &a_polygon);
+    b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_polygon);
 }
 
 void
 PolygonRBComponent::setScale(const Scale& newScale){
-    _myScale = newScale;
+    /*_myScale = newScale;
 
     b2ShapeId shapes[1];
     b2Body_GetShapes(_myB2BodyId, shapes, 1);
@@ -53,6 +60,7 @@ PolygonRBComponent::setScale(const Scale& newScale){
 
     std::pair<b2BodyId, b2ShapeDef*> bodyShapeTuple = scene->generateBodyAndShape(_myEntity, pos, type, density, friction, restitution);
     _myB2BodyId = bodyShapeTuple.first;
+    _myB2ShapeDef = bodyShapeTuple.second;
 
     const b2Vec2* a_array = _vertices.data();
     b2Hull a_hull = b2ComputeHull(a_array, _vertices.size());
@@ -65,4 +73,19 @@ PolygonRBComponent::setScale(const Scale& newScale){
     }
 
     b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, &a_polygon);
+    */
+
+    _myScale = newScale;
+
+    const b2Vec2* a_array = _myProps.polyData->vertices.data();
+    b2Hull a_hull = b2ComputeHull(a_array, _myProps.polyData->vertices.size());
+    b2Polygon a_polygon = b2MakePolygon(&a_hull, _myProps.polyData->radius);
+    
+    for(int i = 0; i < _myProps.polyData->vertices.size(); ++i){
+        b2Vec2 vector = a_polygon.vertices[i] - a_polygon.centroid;
+        a_polygon.vertices[i].x += vector.x * (newScale.x - 1);
+        a_polygon.vertices[i].y += vector.y * (newScale.y - 1);
+    }
+
+    b2Shape_SetPolygon(_myB2ShapeId, &a_polygon);
 }

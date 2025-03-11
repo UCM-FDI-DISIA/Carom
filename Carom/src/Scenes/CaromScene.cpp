@@ -100,7 +100,7 @@ namespace ecs {
 
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
         //! I don't know how to get the radius of the ball
-        addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
+        addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
         addComponent<WhiteBallScorerComponent>(e);
@@ -156,7 +156,7 @@ namespace ecs {
         
         // RB
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
-        addComponent<CircleRBComponent>(e, pos, type, radius, density, friction, restitution);
+        addComponent<CircleRBComponent>(e, pos, type, radius);
 
         // RENDER
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale, SDL_Color{0, 150, 100, 1});
@@ -285,32 +285,8 @@ namespace ecs {
         GameScene::update();
     }
 
-    std::pair<b2BodyId, b2ShapeDef*> 
-    CaromScene::generateBodyAndShape (
-        ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution){
-
-        b2BodyDef bodyDef = b2DefaultBodyDef();
-        bodyDef.type = bodyType;
-        bodyDef.gravityScale = 0.0f;
-        bodyDef.position = {vec.x, vec.y};
-        bodyDef.userData = ent;
-        bodyDef.sleepThreshold = 0.01; // velocidad mínima para dormir (aunque no funcione muy bien)
-        bodyDef.isBullet = true; // para collisiones rápidas
-        bodyDef.linearDamping = 0.4f; // friccíon con el suelo
-
-        // TODO: rotation
-        // bodyDef->rotation = entity->getComponent<ecs::TransformComponent>()->getRotation();
-        // si el transform no es fijo en cada entitydad aquí hay que generar excepción
-
-        b2BodyId bodyId = b2CreateBody(_myB2WorldId, &bodyDef);
-
-        b2ShapeDef* shapeDef = new b2ShapeDef(b2DefaultShapeDef());
-        shapeDef->density = density;
-        shapeDef->friction = friction;
-        shapeDef->restitution = restitution;
-        shapeDef->enableContactEvents = true;
-        shapeDef->userData = ent;
-        return {bodyId, shapeDef};
+    b2BodyId CaromScene::addBodyToWorld(b2BodyDef bodyDef){
+        return b2CreateBody(_myB2WorldId, &bodyDef);
     }
 
     void CaromScene::drawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius)
