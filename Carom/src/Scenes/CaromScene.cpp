@@ -86,9 +86,6 @@ namespace ecs {
 
 
         setNewState(new StartMatchState(this));
-
-        //instanciar la gimmick del mapa
-        initGimmick();
     }
 
     entity_t
@@ -437,6 +434,4 @@ namespace ecs {
     void CaromScene::setScoreToBeat(int score){
         _scoreToBeat = score; 
     }
-
-    void CaromScene::initGimmick(){}
 }

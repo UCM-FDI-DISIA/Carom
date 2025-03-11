@@ -9,6 +9,7 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 #include "CaromScene.h"
+#include "CowboyPoolScene.h"
 //#include "ScoreContainer.h"
 //#include "StickInputComponent.h"
 
@@ -78,7 +79,7 @@ namespace ecs{
                 e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Carom" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    ecs::GameScene *ms = new ecs::CaromScene(state, game, nullptr); // ! tst  
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }
