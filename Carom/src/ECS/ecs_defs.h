@@ -14,7 +14,12 @@
 	BUTTON, \
 	EVENT_ON_COLLISION, \
 	STICK_INPUT, \
-	TEXT_DISPLAY
+	TEXT_DISPLAY, \
+	BALL_EFFECT, \
+	BOWLING_EFFECT, \
+	QUANTIC_EFFECT, \
+	POKEBALL_EFFECT, \
+	BALL_HANDLER
 
 // Groups list - must have at least one element
 //

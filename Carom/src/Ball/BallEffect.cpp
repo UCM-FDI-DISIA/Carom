@@ -9,8 +9,3 @@ void BallEffect::init()
     assert(_scene != nullptr || "Se ha intentado agregar un componente de efecto en una escena que no es la de juego");
     _myEntity->getComponent<BallHandler>()->addEffect(this);
 }
-
-void BallEffect::onHit(ecs::entity_t ent)
-{
-
-}

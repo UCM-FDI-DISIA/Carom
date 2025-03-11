@@ -73,6 +73,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
+	${CMAKE_SOURCE_DIR}/src/Ball
 )
 
 
@@ -133,6 +134,12 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+
+	src/Ball/BallEffect.cpp
+	src/Ball/BallHandler.cpp
+	src/Ball/QuanticEffect.cpp
+	src/Ball/PokeballEffect.cpp
+	src/Ball/BowlingEffect.cpp
 )
 
 # Link Box2D

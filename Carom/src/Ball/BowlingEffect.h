@@ -8,4 +8,5 @@ private:
     static constexpr float FRICTION = 0.4f;
 public:
     void init() override;
+    __CMPID_DECL__(ecs::cmp::BOWLING_EFFECT);
 };
