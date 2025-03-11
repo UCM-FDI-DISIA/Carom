@@ -6,7 +6,7 @@ using namespace ecs;
 
 void
 SubdivisionEffect::onStrikeEnd(){
-    _target->getTransform()->setPosition(_myEntity->getTransform()->getPosition());
     _target->activate();
+    _target->getTransform()->setPosition(_myEntity->getTransform()->getPosition());
     delete _myEntity;
 }
