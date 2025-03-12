@@ -3,10 +3,12 @@
 #include "BallEffect.h"
 
 namespace ecs {
+    class RigidBodyComponent;
+
     /// @brief Cambia el linear damping del objeto en un factor
     class FrictionMultiplierEffect : public BallEffect {
         float _frictionFactor;
-
+        RigidBodyComponent* _rigidBody;        
     public:
         FrictionMultiplierEffect(entity_t entity, float friction);
         ~FrictionMultiplierEffect();

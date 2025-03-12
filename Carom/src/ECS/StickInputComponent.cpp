@@ -71,7 +71,7 @@ namespace ecs {
                 _whiteBallRB->applyImpulseToCenter(impulseVec);
 
                 //aplicar el efecto del palo si lo tiene
-                if(_myEffect != nullptr) _myEffect->aplyEffect();
+                if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
 
                 _hasShot = true; // ! hasShot
             }
