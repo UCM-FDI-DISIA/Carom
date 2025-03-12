@@ -10,6 +10,7 @@ public:
     float y = 0;
 
     Camera(float nX, float nY);
+    Camera() { x = 0; y = 0; }
     //setea la posicion de la camara con una linea
     void setPos(float newX, float newY);
     //convierte la posicion fisica en posicion en la pantalla DEPENDIENTE de la posicion de la camara

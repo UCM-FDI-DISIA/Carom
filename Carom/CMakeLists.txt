@@ -134,6 +134,8 @@ add_executable(Carom
 	src/ECS/TextDisplayComponent.cpp
 
 	src/ECS/FollowComponent.cpp
+
+	src/ECS/BoxingGloveStickEffect.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 
@@ -155,6 +157,8 @@ add_executable(Carom
 	src/Ball/QuanticEffect.cpp
 	src/Ball/PokeballEffect.cpp
 	src/Ball/BowlingEffect.cpp
+	src/Ball/SubdivisionEffect.cpp
+	src/Ball/FrictionMultiplierEffect.cpp
 )
 
 # Link Box2D

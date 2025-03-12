@@ -6,14 +6,13 @@
 #include "ecs.h"
 #include <iostream>
 #include <functional>
-
+#include "ITransform.h"
 
 class Camera;
 namespace ecs {
 
     class GameScene;
     class Component;
-    class ITransform;
     class CaromScene;
     class PoolScene;
     class RenderTextureComponent;
@@ -36,9 +35,9 @@ namespace ecs {
             if(_components[cmpId<T>] != nullptr) return false;
 
             // Asigna el transform de la entidad en caso de que no exista ninguno
-            if (dynamic_cast<ITransform*>(component) != nullptr) {
-                    _myTransform = dynamic_cast<ITransform*>(component);
-            }
+            if (dynamic_cast<ITransform*>(component) != nullptr)
+                _myTransform = dynamic_cast<ITransform*>(component);
+            
 
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
@@ -56,7 +55,7 @@ namespace ecs {
         bool removeComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
     
-            if(dynamic_cast<ITransform>(_components[cmpId<T>] != nullptr)) _myTransform = nullptr;
+            if(dynamic_cast<ITransform*>(_components[cmpId<T>]) != nullptr) _myTransform = nullptr;
             auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
             _currentComponents.erase(it);
             _components[cmpId<T>] = nullptr;

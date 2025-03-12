@@ -33,8 +33,7 @@ namespace ecs{
 		Camera _worldCamera;
 		Camera _UICamera;
 
-	GameScene(Game* game);
-	GameScene();
+	
 
 	
 	// Este metodo permite un comportamiento de la escena al instanciarla
@@ -85,6 +84,8 @@ namespace ecs{
 		}
 
 	public:
+		GameScene(Game* game);
+		GameScene() {}
 		// Return true if there is a component with identifier T::id in the entity.
 		//
 		template<typename T>

@@ -21,6 +21,8 @@
 	QUANTIC_EFFECT, \
 	POKEBALL_EFFECT, \
 	BALL_HANDLER, \
+	BOXING_GLOVE_STICK, \
+	FRICTION_MULTIPLIER, \
 	SUBDIVISION_EFFECT
 
 // Groups list - must have at least one element

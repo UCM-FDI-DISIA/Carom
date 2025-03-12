@@ -6,7 +6,7 @@
     class StickEffectComponent : public Component {
     public:
         StickEffectComponent(entity_t entity) : Component(entity) {}
-        virtual ~StickEffectComponent();
+        virtual ~StickEffectComponent() {}
 
         virtual void applyEffect(entity_t target) = 0;
 
