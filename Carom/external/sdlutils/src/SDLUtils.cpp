@@ -22,7 +22,8 @@ SDLUtils::SDLUtils() :
 		_renderer(nullptr), //
 		_fontsAccessWrapper(_fonts, "Fonts Table"), //
 		_imagesAccessWrapper(_images, "Images Table"), //
-		_svgAccessWrapper(_svgs, "SVG"), //
+		_svgAccessWrapper_table(_svg_table, "SVG Table"), //
+		_svgAccessWrapper_ballPos(_svg_ballPos, "SVG Ball Positions"), //
 		_msgsAccessWrapper(_msgs, "Messages Table"), //
 		_soundsAccessWrapper(_sounds, "Sounds Table"), //
 		_musicsAccessWrapper(_musics, "Musics Table"), //
@@ -47,11 +48,12 @@ bool SDLUtils::init(std::string windowTitle, int width, int height) {
 	return true;
 }
 
-bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename) {
+bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename_table, const char* svgFilename_ballPos) {
 	init(windowTitle, width, height);
 	
 	loadReasources(filename);
-	loadSVG(svgFilename);
+	loadSVG(_svg_table, svgFilename_table);
+	loadSVG(_svg_ballPos, svgFilename_ballPos);
 
 	// we always return true, because this class either exit or throws an
 	// exception on error. If you want to avoid using exceptions you should
@@ -301,7 +303,7 @@ void SDLUtils::loadReasources(std::string filename) {
 
 }
 
-void SDLUtils::loadSVG(const char* filename){
+void SDLUtils::loadSVG(auto& svgMap, const char* filename){
 	struct NSVGimage* image = nsvgParseFromFile(filename, "px", 96.0f);
     if (!image) {
         std::cerr << "Failed to load SVG: " << filename << std::endl;
@@ -309,7 +311,7 @@ void SDLUtils::loadSVG(const char* filename){
     }
 	
 	// Clear the existing SVG elements (if any)
-	_svgs.clear();
+	svgMap.clear();
 
 	// Iterate through the shapes in the SVG
 	for (NSVGshape* shape = image->shapes; shape != nullptr; shape = shape->next) {
@@ -323,14 +325,13 @@ void SDLUtils::loadSVG(const char* filename){
 
 		// Use the shape's ID as the key in the map
 		std::string id = shape->id;
-		_svgs.emplace(id, elem);
+		svgMap.emplace(id, elem);
 	}
 
 	// Free the SVG image
 	nsvgDelete(image);
 
 	std::cout << "SVG loaded and parsed successfully!" << std::endl;
-
 
 }
 

@@ -8,7 +8,7 @@ namespace ecs
     {
     protected:
         entity_t _myEntity;
-        bool _active;
+        bool _isEnable;
     public:
         Component(entity_t ent);
         virtual ~Component() = 0;
@@ -19,7 +19,7 @@ namespace ecs
         virtual void render(Camera*) = 0;
         virtual void handleEvent() = 0;
 
-        void setEnable(bool state);
-        bool isEnable();
+        virtual void setEnabled(bool state);
+        bool isEnabled();
     };
 }

@@ -5,6 +5,7 @@
 #include "Texture.h"
 
 class ScenesManager;
+class RNG_Manager;
 class b2WorldId;
 class Vector2D;
 class ScoreContainer;
@@ -13,17 +14,19 @@ class ScoreContainer;
 namespace ecs{
 
     class ColorHitManager;
-
+    class TextDisplayComponent;
     class CaromScene: public GameScene {
     protected:
         //el estado en el que se encuentra la escena actualmente
         State* _currentState = nullptr;
-        ScenesManager* _manager;
+        ScenesManager* _sceneManager;
+        RNG_Manager* _rngManager;
         GameScene* _reward; //La recompensa al completar la escena
         ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
+        TextDisplayComponent* _currentScoreDisplay;
 
         //Los acumuladores de puntuación
-        double _currentScore, _scoreToBeat; 
+        int _currentScore = 0, _scoreToBeat = 10; 
 
         b2WorldId _myB2WorldId; //El mundo de box2D
 
@@ -42,6 +45,7 @@ namespace ecs{
         
 
         int _remainingHits = 3;
+
     public:
         CaromScene(State* state, Game* g, GameScene* reward);
         ~CaromScene();
@@ -50,14 +54,18 @@ namespace ecs{
         inline void disablePhysics(){_updatePhysics = false;}
 
         // TODO: provisory definition
-        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int capa); 
+        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
 
         entity_t createStick();
 
         // TODO: provisory definition
-        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution);
+        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
+                                float density, float friction, float restitution, int layer);
+        void createScoreEntity();
 
-        entity_t createScoreEntity();
+        void createBallShadow(entity_t);
+
+        TextDisplayComponent* createScoreUI();
 
         //Cambiar el estado actual por uno nuevo. Flujo sería:
         //- Llama a onStateExit() del estado a cambiar
@@ -73,7 +81,7 @@ namespace ecs{
         inline ColorHitManager* getColorHitManager() { return _hitManager; }
         inline double getCurrentScore() { return _currentScore; }
         inline double getScoreToBeat() { return _scoreToBeat; }
-        inline ScenesManager* getScenesManager() const {return _manager;}
+        inline ScenesManager* getScenesManager() const {return _sceneManager;}
         inline GameScene* getRewardScene() const {return _reward;}
 
         /// @brief Método para que rigidbody component reciba el id del body
@@ -88,17 +96,16 @@ namespace ecs{
         // ?Métodos para comprobar condiciones de estado 
         inline int getRemainingHits() { return _remainingHits; }
 
-                // ?Métodos para manejo de puntuación
-                void setScoreToBeat(double newScoreToBeat);
+        // ?Métodos para manejo de puntuación
+        void setScoreToBeat(int newScoreToBeat);
 
-                void addScore(double score);
-                void removeScore(double score);
-
-    private:
-    // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
-    void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
+        void addScore(int score);
+        void removeScore(int score);
+        
         inline bool roundWins() {return _currentScore >= _scoreToBeat; }
-
+    private:
+        // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
+        void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
     };
 
 }

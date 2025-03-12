@@ -1,0 +1,70 @@
+{
+
+  "fonts" : [
+    { "id" : "ARIAL16", "file" : "../../resources/fonts/ARIAL.ttf", "size": 16 },
+    { "id" : "ARIAL24", "file" : "../../resources/fonts/ARIAL.ttf", "size": 24 },
+    { "id" : "ARIAL48", "file" : "../../resources/fonts/ARIAL.ttf", "size": 48 },
+    { "id" : "CAPTURE16", "file" : "../../resources/fonts/Capture_it.ttf", "size": 16},
+    { "id" : "CAPTURE24", "file" : "../../resources/fonts/Capture_it.ttf", "size": 24},
+    { "id" : "CAPTURE48", "file" : "../../resources/fonts/Capture_it.ttf", "size": 48},
+    { "id" : "NES-CHIMERA16", "file" : "../../resources/fonts/NES-chimera.ttf", "size": 16},
+    { "id" : "NES-CHIMERA24", "file" : "../../resources/fonts/NES-chimera.ttf", "size": 24},
+    { "id" : "NES-CHIMERA48", "file" : "../../resources/fonts/NES-chimera.ttf", "size": 48}, 
+    { "id" : "Basteleur-Moonlight16", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 16},
+    { "id" : "Basteleur-Moonlight24", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 24},
+    { "id" : "Basteleur-Moonlight48", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 48},
+    { "id" : "Basteleur-Bold16", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 16},
+    { "id" : "Basteleur-Bold24", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 24},
+    { "id" : "Basteleur-Bold48", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 48},
+    { "id" : "Bocalupo-Regular16", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 16},
+    { "id" : "Bocalupo-Regular24", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 24},
+    { "id" : "Bocalupo-Regular48", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 48},
+    { "id" : "Bonbance-BoldCondensed16", "file" : "../../resources/fonts/Bonbance-BoldCondensed.ttf", "size": 16},
+    { "id" : "Bonbance-BoldCondensed24", "file" : "../../resources/fonts/Bonbance-BoldCondensed.ttf", "size": 24},
+    { "id" : "Bonbance-BoldCondensed48", "file" : "../../resources/fonts/Bonbance-BoldCondensed.ttf", "size": 48},
+    { "id" : "Aladin-Regular16", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 16},
+    { "id" : "Aladin-Regular24", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 24},
+    { "id" : "Aladin-Regular48", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 48}
+  ],
+  
+  "images" : [
+    { "id" : "fondo", "file" : "../../resources/images/fondo.png"},
+    { "id" : "marco2", "file" : "../../resources/images/marco2.png"},
+    { "id" : "mesa1", "file" : "../../resources/images/mesa1.png"},
+    { "id" : "mesa1_sombra", "file" : "../../resources/images/mesa1_sombra.png"},
+    { "id" : "bola_blanca", "file" : "../../resources/images/bola_blanca.png"},
+    { "id" : "bola_sombra", "file" : "../../resources/images/bola_sombra.png"},
+    { "id" : "bola_cast_sombra", "file" : "../../resources/images/bola_cast_sombra.png"},
+    {"id": "suelo", "file": "../../resources/images/suelo.png"},
+    { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
+    { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
+    { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
+    { "id" : "hole", "file" : "../../resources/images/hole.png"}
+  ],
+  
+  "messages" : [
+    { "id" : "PressAnyKey", "text" : "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
+    { "id" : "HelloSDL", "text" : "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" },
+    { "id" : "addstars", "text" : "Press SPACE to add stars to eat!", "font" : "ARIAL16", "color" : "0x00ff00ff" },
+    { "id" : "paused", "text" : "Press any key to continue", "font" : "ARIAL24", "color" : "0xffffffff" },
+    { "id" : "newgame", "text" : "Press any key to start a new Game", "font" : "ARIAL24", "color" : "0x0000ffff" },
+    { "id" : "newround", "text" : "Press ENTER to start a new Round", "font" : "ARIAL24", "color" : "0xffffffff" },
+    { "id" : "gameover", "text" : "GAME OVER", "font" : "ARIAL24", "color" : "0xff0000ff" }
+  ],
+
+    "sounds": [
+        {
+            "id": "gunshot",
+            "file": "../../resources/sound/gunshot.wav"
+        }
+    ],
+
+  "musics" : [
+    { "id" : "beat", "file" : "../../resources/sound/beat.wav" },
+    {
+        "id": "imperial_march",
+        "file": "../../resources/sound/imperial_march.wav"
+    }
+  ]
+
+}

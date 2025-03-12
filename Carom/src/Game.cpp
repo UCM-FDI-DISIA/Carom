@@ -6,6 +6,7 @@
 #include "ScenesManager.h"
 #include "GameScene.h" // ! test
 #include "CaromScene.h" // ! test
+#include "PoolScene.h"
 #include "NullState.h" // ! test
 
 #include "CaromScene.h"
@@ -29,7 +30,11 @@ void
 Game::init() {
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
-	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/test.resources.json", "../../resources/svg/Game.svg")) {
+	if (!SDLUtils::Init("Carom", 1920, 1080, 
+            "../../resources/config/resources.json", 
+            "../../resources/svg/Game.svg", 
+            "../../resources/svg/positions.svg"
+        )) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
 		return;
@@ -57,8 +62,8 @@ Game::start() {
     sdlutils().showCursor();
 
     NullState* state = new NullState(nullptr);
-    ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
-    // ecs::GameScene *ms = new PrefabTestScene(this); // ! tst  
+    // ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
+    ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr);
     _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
@@ -73,7 +78,7 @@ Game::start() {
 		// refresh the input handler
 		ihdlr.refresh();
 
-		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
+		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdlr.closeWindowEvent()) {
 			exit = true;
 			continue;
 		}
@@ -82,9 +87,12 @@ Game::start() {
 
         _sceneManager->handleEvent();
         _sceneManager->update();
-        _sceneManager->render();
 
-		sdlutils().presentRenderer();
+        if (ihdlr.isWindowsFocused()) {
+            _sceneManager->render();
+            sdlutils().presentRenderer();
+            sdlutils().clearRenderer();
+        }
 
         Uint32 elapsed = startTime - sdlutils().currRealTime();
 

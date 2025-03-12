@@ -16,6 +16,8 @@ namespace ecs {
     class ITransform;
     class CaromScene;
     class JsonEntityParser;
+    class PoolScene;
+    class RenderTextureComponent;
 
     class Entity{
     public:
@@ -45,6 +47,10 @@ namespace ecs {
     
             return true;
         }
+
+        // Specialization for adding renderable entities to layer sort vector _entsRenderable
+        template<>
+        bool addComponent<RenderTextureComponent>(RenderTextureComponent* renderComp);
     
         template<typename T>
         bool removeComponent(){
@@ -57,6 +63,10 @@ namespace ecs {
     
             return true;
         }
+
+        // Specialization for removing renderable entities to layer sort vector _entsRenderable
+        template<>
+        bool removeComponent<RenderTextureComponent>();
 
         template<typename T>
         bool tryGetComponent(){
@@ -83,11 +93,11 @@ namespace ecs {
 
         // Enables all entity's components
 	    //
-        void enable();
+        void activate();
 
         // Disables all entity's components
         //
-        void disable();
+        void deactivate();
 
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
@@ -101,15 +111,15 @@ namespace ecs {
     private:
         friend GameScene;
         friend CaromScene;
-        friend JsonEntityParser;
-        Entity(GameScene& scene);
+        friend PoolScene;
+        Entity(GameScene& scene, grpId_t gId);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
         GameScene& _myScene;
         std::vector<Component*> _currentComponents;
         std::array<Component*, cmp::_LAST_CMP_ID> _components = {};
         GameList<Entity>::anchor _anchor;
-
+        
         ITransform* _myTransform;
         grp::grpId _id;
     };

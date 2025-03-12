@@ -10,6 +10,8 @@ namespace ecs {
     {
     public:
 
+        void setEnabled(bool state) override;
+
         class ButtonData
         {
         public:
@@ -57,6 +59,7 @@ namespace ecs {
         std::function<void()> _onHover;
         std::function<void()> _onClick;
         std::function<void()> _onExit;
+        std::function<void()> _onDisable;
 
         bool _isInside;
 
@@ -71,6 +74,7 @@ namespace ecs {
         void setOnHover(std::function<void()> f) {_onHover = f;};
         void setOnClick(std::function<void()> f) {_onClick = f;};
         void setOnExit(std::function<void()> f) {_onExit = f;};
+        void setOnDisable(std::function<void()> f) {_onDisable = f;};
 
         __CMPID_DECL__(cmp::BUTTON);
     };

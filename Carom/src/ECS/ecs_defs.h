@@ -14,7 +14,8 @@
 	BUTTON, \
 	EVENT_ON_COLLISION, \
 	STICK_INPUT, \
-	TEXT_DISPLAY
+	TEXT_DISPLAY, \
+	FOLLOW
 
 // Groups list - must have at least one element
 //
@@ -25,11 +26,13 @@
 	PALO, \
 	BACKGROUND, \
 	SCORE, \
-	SHADOWS
+	SHADOWS, \
+	POOL_HOLE
 
 // Effect list
 // TODO completar	
 #define _EFFECT_LIST_ \
+	NULO, \
 	CRISTAL
 
 // Shape list

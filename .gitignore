@@ -22,7 +22,7 @@
 
 # Compilación y objetos generados
 Debug/
-Release/
+!Carom.exe
 **/out/build/**
 *.ilk
 *.idb

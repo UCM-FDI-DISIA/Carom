@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15...3.30)
+ cmake_minimum_required(VERSION 3.15...3.30)
 
 project(Carom VERSION 0.1 LANGUAGES CXX)
 
@@ -75,6 +75,12 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/RNG
 )
 
+# Descomentar lo de abajo si se quiere que no haya ventana
+#if (MSVC)
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
+#elseif (MINGW)
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mwindows")
+#endif()
 
 # Crear ejecutable
 add_executable(Carom
@@ -112,14 +118,21 @@ add_executable(Carom
 	src/ECS/JsonEntityParser.cpp
 	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
+	src/ECS/BoxRBComponent.cpp
+	src/ECS/RectangleRBComponent.cpp
+	src/ECS/PolygonRBComponent.cpp
+	src/ECS/CircleRBComponent.cpp
+	src/ECS/CapsuleRBComponent.cpp
 
-	src/ECS/WhiteBallScorerComponent.cpp
 	src/ECS/ColorBallScorerComponent.cpp
+	src/ECS/WhiteBallScorerComponent.cpp
 
 	src/ECS/EventOnCollision.cpp
 	src/ECS/PhysicsComponent.cpp
 
 	src/ECS/TextDisplayComponent.cpp
+
+	src/ECS/FollowComponent.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 
@@ -128,7 +141,9 @@ add_executable(Carom
 
 	src/Scenes/CaromScene.cpp
 	src/Scenes/PrefabTestScene.cpp
+	src/Scenes/PoolScene.cpp
 	
+	src/StateMachine/StartMatchState.cpp
 	src/StateMachine/HitState.cpp
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp

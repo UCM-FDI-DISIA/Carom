@@ -285,6 +285,11 @@ public:
 		return _isOnUI;
 	}
 	
+	inline bool isWindowsFocused()
+	{
+		return _isWindowFocused;
+	}
+
 	/*inline bool isInventoryActivated(){ return _inventoryEvent; }
 	inline bool isPauseMenuActivated(){ return _pauseMenuEvent; }
 	inline bool isBallDestroyed(){ return _isBallDestroyed; }*/
@@ -348,6 +353,7 @@ private:
 	bool _submitKeyEvent; 		// aceptar boton / avanzar.	
 	bool _cancelKeyEvent; 		// cancelar boton / retroceder.
 
+	bool _isWindowFocused;
 	//Vector2D _navigateVectorEvent;
 
 
@@ -419,6 +425,15 @@ private:
 		switch (event.window.event) {
 		case SDL_WINDOWEVENT_CLOSE:
 			_isCloseWindoEvent = true;
+			break;
+		case SDL_WINDOWEVENT_MINIMIZED:
+			_isWindowFocused = false;
+			break;
+		case SDL_WINDOWEVENT_MAXIMIZED:
+			_isWindowFocused = true;
+			break;
+		case SDL_WINDOWEVENT_ENTER:
+			_isWindowFocused = true;
 			break;
 		default:
 			break;

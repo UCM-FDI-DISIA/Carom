@@ -2,18 +2,20 @@
 #include "ecs.h"
 #include "RenderComponent.h"
 #include "ITransform.h"
+#include "SDL.h"
 
 class SDL_Rect;
 class Texture;
-class SDL_Color;
 
 namespace ecs {
     
     class RenderTextureComponent : public RenderComponent {
-    private:
+    protected:
         Texture* _texture;
         ITransform* _transform;
         float _scale; // scale de la textura (no su physical body)
+
+        SDL_Color _color = {255,255,255,0};
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
@@ -28,7 +30,7 @@ namespace ecs {
         void render(Camera*) override;
         void init() override;
         Texture* getTexture() {return _texture;};
-        SDL_Rect getRect();
+        virtual SDL_Rect getRect() const;
 
         void changeColorTint(int r, int g, int b);
         void resetColorTint();
