@@ -14,9 +14,8 @@ class Tween{
     bool _alive = true;
 
     //std::function<void> _onTweenExit;
-    TweenManager* _manager;
 public:
-    Tween(TweenManager* manager, float* start, float end, uint32_t duration): _manager(manager), _duration(duration){
+    Tween(float* start, float end, uint32_t duration):_duration(duration){
         value = start;
         _startValue = *start;
         _endValue = end;
@@ -29,6 +28,7 @@ public:
         if(currentTime > _duration) {
             //_onTweenExit;
             _alive = false;
+            *value = _endValue;
             return;
         }
         
@@ -48,7 +48,7 @@ public:
 
 class LinearTween: public Tween{
     public:
-    inline LinearTween(TweenManager* manager, float* start, float end, uint32_t duration) : Tween(manager, start, end, duration){}
+    inline LinearTween(float* start, float end, uint32_t duration) : Tween(start, end, duration){}
 
     inline float easingFunction(float t) override{
         return t;
@@ -57,7 +57,7 @@ class LinearTween: public Tween{
 
 class EaseInBackTween: public Tween{
     public:
-    inline EaseInBackTween(TweenManager* manager, float* start, float end, uint32_t duration) : Tween(manager, start, end, duration){}
+    inline EaseInBackTween(float* start, float end, uint32_t duration) : Tween(start, end, duration){}
 
     inline float easingFunction(float t) override{
         float c1 = 1.70158f;
@@ -65,3 +65,14 @@ class EaseInBackTween: public Tween{
         return c3 * t * t * t - c1 * t * t;
     }
 };
+
+class EaseOutQuintTween: public Tween{
+    public:
+    inline EaseOutQuintTween(float* start, float end, uint32_t duration) : Tween(start, end, duration){}
+
+    inline float easingFunction(float t) override{
+        float c1 = 1.70158f;
+        float c3 = c1 +1;
+        return c3 * t * t * t - c1 * t * t;
+    }
+}

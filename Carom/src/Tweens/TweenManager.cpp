@@ -37,18 +37,32 @@ void TweenManager::removeTween(Tween* t){
 void TweenManager::pauseTweening() { _paused = true;}
 void TweenManager::resumeTweening() { _paused = false;}
 
-void TweenManager::linearTransformMovement(ecs::TransformComponent* tr, Vector2D finalPos, float duration){
-    LinearTween* tX = new LinearTween(this, &tr->_position.x, finalPos.getX(), uint32_t(duration*1000));
-    LinearTween* tY = new LinearTween(this, &tr->_position.y, finalPos.getY(), uint32_t(duration*1000));
+void TweenManager::easeValue(float* value, float finalValue, float duration, tween::tweenType type){
+    uint32_t durationMS = duration * 1000;
+    Tween* t;
+    switch (type){
+        case tween::LINEAR:
+            t = new LinearTween(value, finalValue, durationMS);
+        break;
+        case tween::EASE_IN_EXPO:
 
-    _tweens.push_back(tX);
-    _tweens.push_back(tY);
+        break;
+        case tween::EASE_OUT_QUINT:
+
+        break;
+        case tween::EASE_IN_BACK:
+            t = new EaseInBackTween(value, finalValue, durationMS);
+        break;
+    }
+
+    _tweens.push_back(t);
 }
 
-void TweenManager::easeInBackTransformMovement(ecs::TransformComponent* tr, Vector2D finalPos, float duration){
-    EaseInBackTween* tX = new EaseInBackTween(this, &tr->_position.x, finalPos.getX(), uint32_t(duration*1000));
-    EaseInBackTween* tY = new EaseInBackTween(this, &tr->_position.y, finalPos.getY(), uint32_t(duration*1000));
+void TweenManager::easePosition(ecs::TransformComponent* tr, Vector2D finalPos, float duration, tween::tweenType type){
+    easeValue(&tr->_position.x, finalPos.getX(), duration, type);
+    easeValue(&tr->_position.y, finalPos.getY(), duration, type);
+}
 
-    _tweens.push_back(tX);
-    _tweens.push_back(tY);
+void TweenManager::easeRotation(ecs::TransformComponent* tr, float finalRot, float duration, tween::tweenType type){
+
 }
