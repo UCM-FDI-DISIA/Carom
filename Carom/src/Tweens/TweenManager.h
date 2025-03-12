@@ -25,7 +25,6 @@ public:
     TweenManager();
     ~TweenManager();
     void update();
-    void removeTween(Tween* t);
     void pauseTweening();
     void resumeTweening();
 
