@@ -148,6 +148,7 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+	src/StateMachine/BossState.cpp
 
 	src/Scenes/Gimmicks/CowboyPoolScene.cpp
 

@@ -15,24 +15,26 @@ namespace ecs{
 
     class ColorHitManager;
     class TextDisplayComponent;
+
+    
     class CaromScene: public GameScene {
     //--------------------BASIC SCENE FUNCTIONALITY------------------------
     protected:
-        int _remainingHits = 3;
         ScenesManager* _sceneManager;
         GameScene* _reward; //La recompensa al completar la escena
+        int _remainingHits = 3;
     public:
         CaromScene(State* state, Game* g, GameScene* reward);
         ~CaromScene();
 
-        inline ScenesManager* getScenesManager() const {return _sceneManager;}
         //Llama al update de todas las entidades de escena y maneja las físicas
         void update() override;
 
-        // ?Métodos para comprobar condiciones de estado 
-        inline int getRemainingHits() { return _remainingHits; }
-
+        inline ScenesManager* getScenesManager() const {return _sceneManager;}
         inline GameScene* getRewardScene() const {return _reward;}
+
+        // Métodos para comprobar condiciones de estado 
+        inline int getRemainingHits() { return _remainingHits; }
 
     //---------------------------STATE MACHINE-----------------------------
     protected:
@@ -59,9 +61,9 @@ namespace ecs{
         inline ColorHitManager* getColorHitManager() { return _hitManager; }
         inline double getCurrentScore() { return _currentScore; }
         inline double getScoreToBeat() { return _scoreToBeat; }
+
         // ?Métodos para manejo de puntuación
         void setScoreToBeat(int newScoreToBeat);
-
         void addScore(int score);
         void removeScore(int score);
         
@@ -70,6 +72,7 @@ namespace ecs{
     //------------------------------MANAGERS-------------------------------------
     protected:
         RNG_Manager* _rngManager;
+
     //------------------------------PHYSICS--------------------------------------
     protected:
         b2WorldId _myB2WorldId; //El mundo de box2D
@@ -96,22 +99,35 @@ namespace ecs{
 
     //---------------------------ENTITY CREATION---------------------------------
     public:
-
-        // TODO: provisory definition
-        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
-
         entity_t createStick();
 
-        // TODO: provisory definition
+        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
+
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
                                 float density, float friction, float restitution, int layer);
-        void createScoreEntity();
-
         void createBallShadow(entity_t);
+
+        void createScoreEntity();
 
     private:
         // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
         void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-    };
 
+    
+    //---------------------------BOSS---------------------------------
+    public:
+        enum Boss {
+            COWBOY_POOL = 0,
+            RUSSIAN_PYRAMID = 1,
+            NONE
+        };
+        Boss boss = Boss::NONE;
+
+        inline bool isBossMatch() {return boss != Boss::NONE; }
+        void playBossTurn();
+    protected:
+        void clearBossModifiers();
+        virtual void applyBossModifiers();
+
+    };
 }

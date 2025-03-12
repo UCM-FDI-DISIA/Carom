@@ -434,4 +434,21 @@ namespace ecs {
     void CaromScene::setScoreToBeat(int score){
         _scoreToBeat = score; 
     }
+
+    //---------------------------BOSS---------------------------------
+    void CaromScene::playBossTurn() {
+        clearBossModifiers();
+        applyBossModifiers(); // TODO: no se si esto llama al metodo de a subclase a ser virtual o no
+    }
+
+    void CaromScene::clearBossModifiers() {
+        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS))
+            disableEntity(e); // boss modifiers are disabled, not deleted
+    }
+
+    void CaromScene::applyBossModifiers() {
+        // Virtual method, subtypes of CaromScene must implement this method
+        // After this is done, _currentState->finish() should be called
+        std::cout << "aplicando modificador de boss desde CaromScene" << std::endl;
+    }
 }

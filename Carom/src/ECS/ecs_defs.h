@@ -27,7 +27,8 @@
 	BACKGROUND, \
 	SCORE, \
 	SHADOWS, \
-	POOL_HOLE
+	POOL_HOLE, \
+	BOSS_MODIFIERS
 
 // Effect list
 // TODO completar	

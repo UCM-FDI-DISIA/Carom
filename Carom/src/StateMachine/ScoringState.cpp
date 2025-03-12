@@ -1,5 +1,6 @@
 #include "ScoringState.h"
 #include "HitState.h"
+#include "BossState.h"
 #include "WinMatchState.h"
 #include "CaromScene.h"
 #include "LoseMatchState.h"
@@ -41,13 +42,11 @@ ScoringState::checkCondition(State*& state) {
     //Elige a qué estado cambiar en función del flujo (falta el getScoreContainer)
     if(_scene->roundWins()) state = new WinMatchState(_scene);
     else if(_scene->getRemainingHits() > 0) {
-        std::cout << "Cambio a HitState\n";
-        state = new HitState(_scene);
+        if(_scene->isBossMatch())
+            state = new BossState(_scene);
+        else state = new HitState(_scene);
     } 
     else state = new LoseMatchState(_scene);
 
     return true;
-    
-
-    // return false; // ! Lo siento Andrea
 }
