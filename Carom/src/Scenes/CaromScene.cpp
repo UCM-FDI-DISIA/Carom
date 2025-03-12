@@ -14,6 +14,10 @@
 #include "FollowComponent.h"
 #include "StartMatchState.h"
 
+#include "BallHandler.h"
+#include "QuanticEffect.h"
+#include "BowlingEffect.h"
+
 #include "PhysicsUtils.h"
 #include "Game.h"
 #include "Vector2D.h"
@@ -96,11 +100,20 @@ namespace ecs {
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
-        entity_t e = new Entity(*this, grp::WHITEBALL);
-
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
-        //! I don't know how to get the radius of the ball
-        addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius, density, friction, restitution); 
+        ecs::entity_t e = new ecs::Entity(*this);
+        _entsRenderable.push_back(e); // Must be pushed back into renderable vector before adding the component for proper sort!
+        _entsByGroup[ecs::grp::WHITEBALL].push_back(e);
+        _entities.push_back(e);
+        
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements().at("bola_blanca_2").width/2);
+        
+        // Posible memory leak
+        ecs::CircleShape *cs = new ecs::CircleShape(radius);
+        
+        addComponent<ecs::RigidBodyComponent>(e, pos, type, cs, density, friction, restitution);
+        addComponent<ecs::RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), capa, scale);
+        addComponent<BallHandler>(e);
+        addComponent<QuanticEffect>(e);
 
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
         addComponent<WhiteBallScorerComponent>(e);

@@ -7,5 +7,9 @@ private:
     static constexpr float DENSITY = 1.5f;
     static constexpr float FRICTION = 0.4f;
 public:
+    BowlingEffect(ecs::entity_t ent) : BallEffect(ent) {}
+    ~BowlingEffect() {}
+
     void init() override;
+    __CMPID_DECL__(ecs::cmp::BOWLING_EFFECT);
 };
