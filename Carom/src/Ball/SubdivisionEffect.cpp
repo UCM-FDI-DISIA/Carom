@@ -1,6 +1,7 @@
 #include "SubdivisionEffect.h"
 #include "Entity.h"
 #include "TransformComponent.h"
+#include "StickInputComponent.h"
 
 using namespace ecs;
 
