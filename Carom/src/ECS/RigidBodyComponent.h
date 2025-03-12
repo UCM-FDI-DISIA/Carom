@@ -48,6 +48,7 @@ protected:
         bool isBullet;
         bool isSensor;
         bool enableContactEvents;
+        bool enableSensorEvents;
 
         union {
             float radius;

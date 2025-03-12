@@ -28,6 +28,8 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
     _myProps.isSensor = sensor;
     _myProps.linearDamping = linearDamping;
     _myProps.rotation = rotation;
+    _myProps.enableContactEvents = !sensor;
+    _myProps.enableSensorEvents = sensor;
 
     generateBodyAndShape();
 
