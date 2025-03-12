@@ -3,25 +3,45 @@
 
 using namespace ecs;
 
-CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType type, float radius, float density, float friction , float restitution) : RigidBodyComponent(ent){
-    CaromScene* scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
 
-    if (scene == nullptr) { throw "La escena no es de tipo CaromScene"; }
+/// @brief Constructor for Circle RB
+/// @param ent the entity
+/// @param pos the position
+/// @param bodyType the type of body
+/// @param radius the radius
+/// @param density the density
+/// @param friction the friction
+/// @param restitution the restitution
+/// @param linearDamping the friction with the ground
+/// @param sensor if is only a trigger collider
+CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, float radius, bool sensor, b2Rot rotation, float density, float friction, float restitution, float linearDamping, bool bullet) 
+    : RigidBodyComponent(ent)
+{
+    _myProps.bodyType = bodyType;
+    _myProps.initialPos = pos;
+    _myProps.radius = radius;
+    _myProps.density = density;
+    _myProps.friction = friction;
+    _myProps.density = density;
+    _myProps.restitution = restitution;
+    _myProps.isBullet = bullet;
+    _myProps.isSensor = sensor;
+    _myProps.linearDamping = linearDamping;
+    _myProps.rotation = rotation;
+    _myProps.enableContactEvents = !sensor;
+    _myProps.enableSensorEvents = sensor;
 
-    std::pair<b2BodyId, b2ShapeDef*> bodyShapeTuple = scene->generateBodyAndShape(ent, pos, type, density, friction, restitution);
-    _myB2BodyId = bodyShapeTuple.first;
+    generateBodyAndShape();
 
     b2Circle a_circle;
-    a_circle.radius = radius;
-    _radius = radius;
+    a_circle.radius = _myProps.radius;
     a_circle.center = {0, 0};
-
-    b2CreateCircleShape(_myB2BodyId, bodyShapeTuple.second, &a_circle);
+    _myB2ShapeId = b2CreateCircleShape(_myB2BodyId, _myB2ShapeDef, &a_circle);
 }
 
 void
 CircleRBComponent::setScale(const Scale& newScale){
-    _myScale = newScale;
+    /*_myScale = newScale;
 
     b2ShapeId shapes[1];
     b2Body_GetShapes(_myB2BodyId, shapes, 1);
@@ -46,5 +66,13 @@ CircleRBComponent::setScale(const Scale& newScale){
 
     b2CreateCircleShape(_myB2BodyId, bodyShapeTuple.second, &a_circle);
 
-    static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics();
+    static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics();*/
+
+    _myScale = newScale;
+
+    b2Circle a_circle;
+    a_circle.radius = _myProps.radius * newScale.x;
+    a_circle.center = {0, 0};
+
+    b2Shape_SetCircle(_myB2ShapeId, &a_circle);
 }

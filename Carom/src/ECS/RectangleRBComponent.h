@@ -4,10 +4,8 @@
 namespace ecs{
     class RectangleRBComponent : public RigidBodyComponent
     {
-        float _width;
-        float _height;
     public:
-        RectangleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType type, float width, float height, float density = 1, float friction = 0.2, float restitution = 0.5);
+        RectangleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType typefloat, float width, float height, bool sensor = false, b2Rot rotation = defaultRotation, float density = 1, float friction = 0.2, float restitution = 1, float linearDamping = 0.45f, bool bullet = false);
 
         void setScale(const Scale& newScale) override;
     };
