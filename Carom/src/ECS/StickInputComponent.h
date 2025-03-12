@@ -12,7 +12,7 @@ namespace ecs{
     class RigidBodyComponent;
     class RenderTextureComponent;
     class TransformComponent;
-    
+    class StickEffectComponent;   
     class StickInputComponent : public ecs::HandleEventComponent
     {
     public:
@@ -29,6 +29,7 @@ namespace ecs{
         bool hasShot() { return _hasShot; }
         void transformControl(b2Vec2 _mousePos, Vector2D dirNormalized);
         void registerWhiteBall(entity_t wb);
+        void registerStickEffect(StickEffectComponent* effect);
         double rad2degrees(double radians);
 
     private:
@@ -37,6 +38,7 @@ namespace ecs{
         RigidBodyComponent* _whiteBallRB;
         TransformComponent* _myTransform;
         RenderTextureComponent* _myRender;
+        StickEffectComponent* _myEffect;
         // --- Métodos del HandleEvents.
         bool isMouseOnCircleRadius( double r);
         float getMagFromMouseToCenter();
