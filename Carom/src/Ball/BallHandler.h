@@ -18,9 +18,15 @@ public:
     ~BallHandler() {}
 
     void init() override;
+<<<<<<< Updated upstream
     void onCollisionEnter(ecs::entity_t collision) override; //Se ejecuta cuando ch
     void onBeingTargeted();
     void onStrikeEnd();
+=======
+    void onCollisionEnter(ecs::entity_t collision) override; //Se ejecuta cuando la bola golpea otra bola
+    void onBeingTargeted(); //Se ejecuta cuando esta siendo apuntado por una trayectoria de palo
+    void onStrikeEnd(); //Se ejecuta al final de un tiro
+>>>>>>> Stashed changes
 
     inline void addEffect(BallEffect* effect) {_effects.push_back(effect);}
     __CMPID_DECL__(ecs::cmp::BALL_HANDLER);
