@@ -5,11 +5,8 @@
 namespace ecs{
     class PolygonRBComponent : public RigidBodyComponent
     {
-        std::vector<b2Vec2> _vertices;
-        int _radius;
-
     public:
-        PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType type, const std::vector<b2Vec2> &vertices, float density = 1, float friction = 0.2, float restitution = 0.5, float radius = 0);
+        PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, const std::vector<b2Vec2> &vertices, float radius = 0, bool sensor = false, b2Rot rotation = defaultRotation, float density = 1, float friction = 0.2, float restitution = 1, float linearDamping = 0.45f, bool bullet = false);
 
         void setScale(const Scale& newScale) override;
     };

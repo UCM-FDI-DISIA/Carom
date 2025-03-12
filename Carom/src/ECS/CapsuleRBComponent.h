@@ -4,11 +4,8 @@
 namespace ecs{
     class CapsuleRBComponent : public RigidBodyComponent
     {
-        float _radius;
-        b2Vec2 _center1;
-        b2Vec2 _center2;
     public:
-        CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType type, float radius, b2Vec2 center1, b2Vec2 center2, float density = 1, float friction = 0.2, float restitution = 0.5);
+        CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, float width, float height, bool sensor = false, b2Rot rotation = defaultRotation, float density = 1, float friction = 0.2, float restitution = 1, float linearDamping = 0.45f, bool bullet = false);
 
         void setScale(const Scale& newScale) override;
     };
