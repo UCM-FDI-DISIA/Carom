@@ -16,18 +16,62 @@ namespace ecs{
     class ColorHitManager;
     class TextDisplayComponent;
     class CaromScene: public GameScene {
+    //--------------------BASIC SCENE FUNCTIONALITY------------------------
+    protected:
+        int _remainingHits = 3;
+        ScenesManager* _sceneManager;
+        GameScene* _reward; //La recompensa al completar la escena
+    public:
+        CaromScene(State* state, Game* g, GameScene* reward);
+        ~CaromScene();
+
+        inline ScenesManager* getScenesManager() const {return _sceneManager;}
+        //Llama al update de todas las entidades de escena y maneja las físicas
+        void update() override;
+
+        // ?Métodos para comprobar condiciones de estado 
+        inline int getRemainingHits() { return _remainingHits; }
+
+        inline GameScene* getRewardScene() const {return _reward;}
+
+    //---------------------------STATE MACHINE-----------------------------
     protected:
         //el estado en el que se encuentra la escena actualmente
         State* _currentState = nullptr;
-        ScenesManager* _sceneManager;
-        RNG_Manager* _rngManager;
-        GameScene* _reward; //La recompensa al completar la escena
-        ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
-        TextDisplayComponent* _currentScoreDisplay;
+    public:
+        //Cambiar el estado actual por uno nuevo. Flujo sería:
+        //- Llama a onStateExit() del estado a cambiar
+        //- Cambia el estado por el nuevo
+        //- Llama a onStateEnter() del nuevo estado
+        void setNewState(State* s);
 
+        inline State* getCurrentState() { return _currentState; }
+
+    //-------------------------------SCORE---------------------------------------
+    protected:
+        TextDisplayComponent* _currentScoreDisplay;
         //Los acumuladores de puntuación
         int _currentScore = 0, _scoreToBeat = 10; 
+        ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
+    public:
+        TextDisplayComponent* createScoreUI();
 
+        inline ColorHitManager* getColorHitManager() { return _hitManager; }
+        inline double getCurrentScore() { return _currentScore; }
+        inline double getScoreToBeat() { return _scoreToBeat; }
+        // ?Métodos para manejo de puntuación
+        void setScoreToBeat(int newScoreToBeat);
+
+        void addScore(int score);
+        void removeScore(int score);
+        
+        inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+
+    //------------------------------MANAGERS-------------------------------------
+    protected:
+        RNG_Manager* _rngManager;
+    //------------------------------PHYSICS--------------------------------------
+    protected:
         b2WorldId _myB2WorldId; //El mundo de box2D
 
         bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
@@ -42,16 +86,16 @@ namespace ecs{
         void manageExitCollisions(b2ContactEvents exitContactEvents);
         void manageEnterTriggers(b2SensorEvents enterSensorEvents);
         void manageExitTriggers(b2SensorEvents exitSensorEvents);
-        
-
-        int _remainingHits = 3;
 
     public:
-        CaromScene(State* state, Game* g, GameScene* reward);
-        ~CaromScene();
-
         inline void enablePhysics(){_updatePhysics = true;}
         inline void disablePhysics(){_updatePhysics = false;}
+
+        /// @brief Método para que rigidbody component reciba el id del body
+        b2BodyId addBodyToWorld(b2BodyDef bodyDef);
+
+    //---------------------------ENTITY CREATION---------------------------------
+    public:
 
         // TODO: provisory definition
         entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
@@ -65,44 +109,6 @@ namespace ecs{
 
         void createBallShadow(entity_t);
 
-        TextDisplayComponent* createScoreUI();
-
-        //Cambiar el estado actual por uno nuevo. Flujo sería:
-        //- Llama a onStateExit() del estado a cambiar
-        //- Cambia el estado por el nuevo
-        //- Llama a onStateEnter() del nuevo estado
-        void setNewState(State* s);
-        
-        //Llama al update de todas las entidades de escena y maneja las físicas
-        void update() override;
-
-        // ?Getters
-        inline State* getCurrentState() { return _currentState; }
-        inline ColorHitManager* getColorHitManager() { return _hitManager; }
-        inline double getCurrentScore() { return _currentScore; }
-        inline double getScoreToBeat() { return _scoreToBeat; }
-        inline ScenesManager* getScenesManager() const {return _sceneManager;}
-        inline GameScene* getRewardScene() const {return _reward;}
-
-        /// @brief Método para que rigidbody component reciba el id del body
-        /// @param bodyType kinematic, static, dynamic
-        /// @param density Kg/m2 >= 0
-        /// @param friction Roce (0.0 , 1.0)
-        /// @param restitution Rebote/Elasticidad (0.0, 1.0)
-        /// @return 
-        std::pair<b2BodyId, b2ShapeDef*> generateBodyAndShape ( ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, 
-            float density, float friction, float restitution);
-
-        // ?Métodos para comprobar condiciones de estado 
-        inline int getRemainingHits() { return _remainingHits; }
-
-        // ?Métodos para manejo de puntuación
-        void setScoreToBeat(int newScoreToBeat);
-
-        void addScore(int score);
-        void removeScore(int score);
-        
-        inline bool roundWins() {return _currentScore >= _scoreToBeat; }
     private:
         // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
         void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);

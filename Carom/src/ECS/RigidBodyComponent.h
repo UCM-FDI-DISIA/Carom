@@ -16,6 +16,8 @@ namespace ecs{
 
 class Entity;
 
+static const b2Rot defaultRotation = {1.0f, 0.0f};
+
 class RigidBodyComponent : public InfoComponent, public ITransform
 {
     friend class PhysicsComponent;
@@ -23,15 +25,46 @@ class RigidBodyComponent : public InfoComponent, public ITransform
 protected:
 
     b2BodyId _myB2BodyId;
+    b2ShapeDef* _myB2ShapeDef;
+    b2ShapeId _myB2ShapeId;
+    
     Scale _myScale = {1.0, 1.0};
+
+    // Data used for polygons
+    struct Polygon{
+        std::vector<b2Vec2> vertices;
+        float radius;
+    };
+
+    struct Props {
+        b2BodyType bodyType;
+        b2Vec2 initialPos;
+        b2Rot rotation;
+        float density;
+        float friction;
+        float restitution;
+        float linearDamping;
+        float sleepThreshold = 0.01;
+        bool isBullet;
+        bool isSensor;
+        bool enableContactEvents;
+        bool enableSensorEvents;
+
+        union {
+            float radius;
+            float length;
+            b2Vec2 dimensions;
+            Polygon *polyData = nullptr;
+        };
+    };
+
+    Props _myProps;
 
     // Collision functions
     std::vector<PhysicsComponent*> _collisionEnter = {};
     std::vector<PhysicsComponent*> _collisionExit = {};
     std::vector<PhysicsComponent*> _triggerEnter = {};
     std::vector<PhysicsComponent*> _triggerExit = {};
-
-protected:
 
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
@@ -42,6 +75,8 @@ public:
 
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
+
+    void generateBodyAndShape();
 
     // Getters
     b2Vec2 getPosition() const override;
@@ -56,9 +91,13 @@ public:
     void setRotation(const double& newRot) override;
 
     void setBodyType(b2BodyType newType);
-    void setDensity(float density, int nShapes = 1);
-    void setFriction(float friction, int nShapes = 1);
-    void setRestitution(float restitution, int nShapes = 1);
+    void setDensity(float density, int nShapes);
+    void setDensity(float density);
+    void setFriction(float friction, int nShapes);
+    void setFriction(float friction);
+    void setRestitution(float restitution, int nShapes);
+    void setRestitution(float restitution);
+    void setLinearDamping(float damping);
 
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);
@@ -75,6 +114,5 @@ public:
     void onCollisionExit(entity_t ent);
     void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);
-
     };
 }
