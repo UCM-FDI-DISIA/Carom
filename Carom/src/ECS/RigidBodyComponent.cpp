@@ -178,6 +178,7 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 /// @param density the new density for the shape
 void ecs::RigidBodyComponent::setDensity(float density)
 {
+    _myProps.density = density;
     b2Shape_SetDensity(_myB2ShapeId, density, true);
 }
 
@@ -199,6 +200,7 @@ RigidBodyComponent::setFriction(float friction, int nShapes){
 /// @param density the new friction for the shape
 void ecs::RigidBodyComponent::setFriction(float friction)
 {
+    _myProps.friction = friction;
     b2Shape_SetFriction(_myB2ShapeId, friction);
 }
 
@@ -219,11 +221,13 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
 /// @param density the new restitution for the shape
 void ecs::RigidBodyComponent::setRestitution(float restitution)
 {
+    _myProps.restitution = restitution;
     b2Shape_SetRestitution(_myB2ShapeId, restitution);
 }
 
 void ecs::RigidBodyComponent::setLinearDamping(float damping)
 {
+    _myProps.linearDamping = damping;
     b2Body_SetLinearDamping(_myB2BodyId, damping);
 }
 
