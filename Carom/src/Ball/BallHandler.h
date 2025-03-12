@@ -18,7 +18,7 @@ public:
     ~BallHandler() {}
 
     void init() override;
-    void onCollisionEnter(ecs::entity_t collision) override;
+    void onCollisionEnter(ecs::entity_t collision) override; //Se ejecuta cuando ch
     void onBeingTargeted();
     void onStrikeEnd();
 
