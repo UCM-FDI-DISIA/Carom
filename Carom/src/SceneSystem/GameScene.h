@@ -12,6 +12,8 @@
 
 class Game;
 
+class TweenManager;
+
 // Declaraciones anticipadas
 namespace ecs{
 
@@ -32,6 +34,8 @@ namespace ecs{
 		Game* game;
 		Camera _worldCamera;
 		Camera _UICamera;
+
+		TweenManager* _tweenManager;
 
 		GameScene(Game* game);
 
@@ -138,6 +142,8 @@ namespace ecs{
 		virtual void clear();
 		// Set rendering order. Called by render texture component on init.
 		void sortRenderOrder();
+
+		inline TweenManager* tweenManager() { return _tweenManager;}
 	};
 
 	inline Game*

@@ -8,6 +8,7 @@
 #include "ITransform.h"
 #include "RigidBodyComponent.h"
 #include "Entity.h"
+#include "TweenManager.h"
 
 
 namespace ecs{
@@ -18,6 +19,7 @@ namespace ecs{
         Scale _scale;
         double _rotation; //In radians
 
+        friend TweenManager;
     public:
         __CMPID_DECL__(cmp::TRANSFORM);
 

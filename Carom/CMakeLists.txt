@@ -74,7 +74,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
-	${CMAKE_SOURCE_DIR}/src/Tween
+	${CMAKE_SOURCE_DIR}/src/Tweens
 )
 
 # Descomentar lo de abajo si se quiere que no haya ventana
@@ -150,6 +150,8 @@ add_executable(Carom
 	src/StateMachine/LoseMatchState.cpp
 
 	src/Scenes/Gimmicks/CowboyPoolScene.cpp
+
+	src/Tweens/TweenManager.cpp
 )
 
 # Link Box2D

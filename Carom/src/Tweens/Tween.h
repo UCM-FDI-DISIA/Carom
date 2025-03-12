@@ -13,10 +13,10 @@ class Tween{
 
     bool _alive = true;
 
-    std::function<void> _onTweenExit;
+    //std::function<void> _onTweenExit;
     TweenManager* _manager;
 public:
-    Tween(TweenManager* manager, float* start, float end, uint32_t duration, std::function<void> onTweenExit): _manager(manager), _duration(duration), _onTweenExit(onTweenExit){
+    Tween(TweenManager* manager, float* start, float end, uint32_t duration): _manager(manager), _duration(duration){
         value = start;
         _startValue = *start;
         _endValue = end;
@@ -27,7 +27,7 @@ public:
     inline void update(){
         uint32_t currentTime =  sdlutils().currRealTime() - _startTime;
         if(currentTime > _duration) {
-            _onTweenExit;
+            //_onTweenExit;
             _alive = false;
             return;
         }
@@ -41,14 +41,27 @@ public:
     inline float interpolation(float a, float b, float t){ return a + t*(b-a); }
     virtual float easingFunction(float t) = 0;
     inline bool isAlive(){return _alive;}
-    inline bool setAlive(bool boolean) {_alive = boolean;}
+    inline void setAlive(bool boolean) {_alive = boolean;}
 };
 
 //------------------------------------------DIFFERENT TYPES OF TWEENS--------------------------------
 
 class LinearTween: public Tween{
     public:
+    inline LinearTween(TweenManager* manager, float* start, float end, uint32_t duration) : Tween(manager, start, end, duration){}
+
     inline float easingFunction(float t) override{
         return t;
+    }
+};
+
+class EaseInBackTween: public Tween{
+    public:
+    inline EaseInBackTween(TweenManager* manager, float* start, float end, uint32_t duration) : Tween(manager, start, end, duration){}
+
+    inline float easingFunction(float t) override{
+        float c1 = 1.70158f;
+        float c3 = c1 +1;
+        return c3 * t * t * t - c1 * t * t;
     }
 };

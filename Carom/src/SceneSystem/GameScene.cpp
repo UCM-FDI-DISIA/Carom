@@ -9,11 +9,13 @@
 #include "../Game.h"
 #include "Camera.h"
 
+#include "TweenManager.h"
+
 namespace ecs{
 
-    GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
+    GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0), _tweenManager(new TweenManager()){ }
 
-    GameScene::~GameScene(){};
+    GameScene::~GameScene(){delete _tweenManager;}
 
     // TODO: componentes Transform físico y normal
     // Creates a table composed by 3 entities for textures and 4 entities that are the colliders of each side of the table.
@@ -105,6 +107,8 @@ namespace ecs{
     }
 
     void GameScene::update(){
+        _tweenManager->update();
+
         for (Entity* entity : _entities) {
             entity->update();
         }

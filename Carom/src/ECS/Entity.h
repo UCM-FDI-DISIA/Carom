@@ -16,6 +16,7 @@ namespace ecs {
     class CaromScene;
     class PoolScene;
     class RenderTextureComponent;
+    class CowboyPoolScene;
 
     class Entity{
     public:
@@ -102,6 +103,7 @@ namespace ecs {
     private:
         friend GameScene;
         friend CaromScene;
+        friend CowboyPoolScene;
         friend PoolScene;
         Entity(GameScene& scene, grpId_t gId);
 
