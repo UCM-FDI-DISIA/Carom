@@ -222,6 +222,11 @@ void ecs::RigidBodyComponent::setRestitution(float restitution)
     b2Shape_SetRestitution(_myB2ShapeId, restitution);
 }
 
+void ecs::RigidBodyComponent::setLinearDamping(float damping)
+{
+    b2Body_SetLinearDamping(_myB2BodyId, damping);
+}
+
 /// @brief Function called everytime object enters a collision
 /// @param ent object that collides with this rigidbody
 void 
