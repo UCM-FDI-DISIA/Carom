@@ -83,6 +83,10 @@ public:
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
+    inline b2BodyType getBodyType() const {return b2Body_GetType(_myB2BodyId);}
+    inline float getDensity() const {return b2Shape_GetDensity(_myB2ShapeId);}
+    inline float getFriction() const {return b2Shape_GetFriction(_myB2ShapeId);}
+    inline float getRestitution() const {return b2Shape_GetRestitution(_myB2ShapeId);}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
     bool isMoving();

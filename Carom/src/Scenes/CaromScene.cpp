@@ -149,7 +149,7 @@ namespace ecs {
         return e;
     }
 
-    void
+    entity_t
     CaromScene::createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
         ecs::entity_t e = new ecs::Entity(*this, ecs::grp::EFFECTBALLS);
         // Must be pushed back into renderable vector before adding the component for proper sort!
@@ -157,6 +157,8 @@ namespace ecs {
         // TODO: add components
         _entsByGroup[ecs::grp::EFFECTBALLS].push_back(e);
         _entities.push_back(e);
+
+        return e;
     }
 
     entity_t CaromScene::createScoreEntity(){
@@ -227,7 +229,6 @@ namespace ecs {
         addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), 2, cast_scale);
 
     }
-
     /*entity_t
     CaromScene::createScoreEntity(){
         //primer score
