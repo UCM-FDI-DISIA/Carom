@@ -30,10 +30,6 @@ void TweenManager::update(){
     
 }
 
-void TweenManager::removeTween(Tween* t){
-    t->setAlive(false);
-}
-
 void TweenManager::pauseTweening() { _paused = true;}
 void TweenManager::resumeTweening() { _paused = false;}
 
@@ -64,5 +60,5 @@ void TweenManager::easePosition(ecs::TransformComponent* tr, Vector2D finalPos, 
 }
 
 void TweenManager::easeRotation(ecs::TransformComponent* tr, float finalRot, float duration, tween::tweenType type){
-
+    easeValue(&tr->_rotation, finalRot, duration, type );
 }

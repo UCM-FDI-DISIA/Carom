@@ -16,6 +16,7 @@ namespace ecs{
         auto tr = getComponent<TransformComponent>(ent);
 
         _tweenManager->easePosition(tr, {10, 0}, 3, tween::EASE_IN_BACK);
+        _tweenManager->easeRotation(tr, 360, 2, tween::EASE_IN_BACK);
     }
 
     CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward): CaromScene(state, g, reward){

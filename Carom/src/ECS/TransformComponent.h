@@ -17,7 +17,7 @@ namespace ecs{
 
         b2Vec2 _position;
         Scale _scale;
-        double _rotation; //In radians
+        float _rotation; //In radians
 
         friend TweenManager;
     public:
