@@ -20,6 +20,10 @@
 	BOWLING_EFFECT, \
 	QUANTIC_EFFECT, \
 	POKEBALL_EFFECT, \
+	PETANQUE_EFFECT, \
+	ABACUS_EFFECT, \
+	CRISTAL_EFFECT, \
+	X2_EFFECT, \
 	BALL_HANDLER
 
 // Groups list - must have at least one element

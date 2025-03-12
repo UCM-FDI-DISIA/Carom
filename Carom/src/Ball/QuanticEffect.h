@@ -8,7 +8,10 @@ private:
     bool _wasHit = false;
     BallHandler* _handler;
 public:
-    QuanticEffect(ecs::entity_t ent) : BallEffect(ent) {}
+    QuanticEffect(ecs::entity_t ent) : BallEffect(ent){
+        _name = "Cuántica";
+        _description = "X2 puntos al final del tiro si no es golpeada";
+    }
     ~QuanticEffect() {}
 
     void init() override;
