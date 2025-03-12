@@ -1,31 +1,54 @@
 #pragma once
+#include "SDLUtils.h"
 #include <functional>
-#include <cmath>
-#include <algorithm>
+
+class TweenManager;
 
 class Tween{
     float _startValue;
-    float& value;
+    float* value;
     float _endValue;
-    int _duration;
-    int _startTime;
+    uint32_t _duration;
+    uint32_t _startTime;
+
+    bool _alive = true;
+
     std::function<void> _onTweenExit;
+    TweenManager* _manager;
 public:
+    Tween(TweenManager* manager, float* start, float end, uint32_t duration, std::function<void> onTweenExit): _manager(manager), _duration(duration), _onTweenExit(onTweenExit){
+        value = start;
+        _startValue = *start;
+        _endValue = end;
+        _startTime = sdlutils().currRealTime();
+        _alive = true;
+    };
+
     inline void update(){
-        /*
-        currentTime = cronometro - startTime
-        if(currentTime > duration) {
-            killMe();
-            _onTweenExit();
+        uint32_t currentTime =  sdlutils().currRealTime() - _startTime;
+        if(currentTime > _duration) {
+            _onTweenExit;
+            _alive = false;
             return;
         }
         
-        float t = currentTime/duration;
+        float t = (float)currentTime/(float)_duration;
 
         t = easingFunction(t);
 
-        value = interpolation(_startValue, _endValue, t);
-        */
+        *value = interpolation(_startValue, _endValue, t);
     };
-    inline float interpolation(float a, float b, float t){ return a + t*(b-a); };
+    inline float interpolation(float a, float b, float t){ return a + t*(b-a); }
+    virtual float easingFunction(float t) = 0;
+    inline bool isAlive(){return _alive;}
+    inline bool setAlive(bool boolean) {_alive = boolean;}
+};
+
+//------------------------------------------DIFFERENT TYPES OF TWEENS--------------------------------
+
+class LinearTween: public Tween{
+    public:
+    inline float easingFunction(float t) override{
+        return t;
+    }
 };
