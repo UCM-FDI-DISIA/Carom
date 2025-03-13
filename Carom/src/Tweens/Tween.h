@@ -4,7 +4,7 @@
 #include <functional>
 
 class TweenComponent;
-using Callback = std::function<void(void)>;
+using Callback = std::function<void()>;
 class Tween{
     protected:
     float _startValue;
@@ -31,7 +31,7 @@ public:
     inline void update(){
         uint32_t currentTime =  sdlutils().currRealTime() - _startTime;
         if(currentTime > _duration) {
-            _callback;
+            _callback();
             _alive = false;
             *value = _endValue;
             return;

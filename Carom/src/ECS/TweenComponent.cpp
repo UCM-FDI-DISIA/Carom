@@ -18,8 +18,9 @@ namespace ecs{
     
     void TweenComponent::update(){
         if(!_paused){
-            for(Tween* t: _tweens){
-                t->update();
+            int size = _tweens.size();
+            for(int i =0; i < size; i++){
+                _tweens[i]->update();
             }
         }
         

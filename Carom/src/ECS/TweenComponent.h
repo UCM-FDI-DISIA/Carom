@@ -19,7 +19,7 @@ namespace ecs{
     class TransformComponent;
 
     class TweenComponent :public LogicComponent{
-        using Callback = std::function<void(void)>;
+        using Callback = std::function<void()>;
 
         std::vector<Tween*> _tweens;
         TransformComponent* _myTr;

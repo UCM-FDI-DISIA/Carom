@@ -16,9 +16,8 @@ namespace ecs{
         addComponent<TweenComponent>(ent);
 
         auto a = ent->getComponent<TweenComponent>();
-        a->easePosition({1,1}, 3, tween::EASE_IN_BACK, [this](){
-            
-            std::cout<<"a"<<std::endl;
+        a->easePosition({1,1}, 3, tween::EASE_IN_BACK, [=](){
+            a->easePosition({0,0}, 3, tween::EASE_IN_BACK);
         });
     }
 
