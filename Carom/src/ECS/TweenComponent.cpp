@@ -38,12 +38,12 @@ namespace ecs{
     void TweenComponent::pauseTweening() { _paused = true;}
     void TweenComponent::resumeTweening() { _paused = false;}
     
-    void TweenComponent::easeValue(float* value, float finalValue, float duration, tween::tweenType type){
+    void TweenComponent::easeValue(float* value, float finalValue, float duration, tween::tweenType type, Callback callback){
         uint32_t durationMS = duration * 1000;
         Tween* t;
         switch (type){
             case tween::LINEAR:
-                t = new LinearTween(value, finalValue, durationMS);
+                t = new LinearTween(value, finalValue, durationMS, callback);
             break;
             case tween::EASE_IN_EXPO:
     
@@ -52,19 +52,19 @@ namespace ecs{
     
             break;
             case tween::EASE_IN_BACK:
-                t = new EaseInBackTween(value, finalValue, durationMS);
+                t = new EaseInBackTween(value, finalValue, durationMS, callback);
             break;
         }
     
         _tweens.push_back(t);
     }
     
-    void TweenComponent::easePosition(Vector2D finalPos, float duration, tween::tweenType type){
-        easeValue(&_myTr->_position.x, finalPos.getX(), duration, type);
+    void TweenComponent::easePosition(Vector2D finalPos, float duration, tween::tweenType type, Callback callback){
+        easeValue(&_myTr->_position.x, finalPos.getX(), duration, type, callback);
         easeValue(&_myTr->_position.y, finalPos.getY(), duration, type);
     }
     
-    void TweenComponent::easeRotation(float finalRot, float duration, tween::tweenType type){
-        easeValue(&_myTr->_rotation, finalRot, duration, type );
+    void TweenComponent::easeRotation(float finalRot, float duration, tween::tweenType type, Callback callback){
+        easeValue(&_myTr->_rotation, finalRot, duration, type, callback);
     }
 }

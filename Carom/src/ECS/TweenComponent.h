@@ -2,7 +2,7 @@
 #include "SDLUtils.h"
 #include "LogicComponent.h"
 #include "ecs.h"
-
+#include <functional>
 namespace tween{
     enum tweenType{
         LINEAR,
@@ -12,11 +12,15 @@ namespace tween{
     };
 }
 
+
+
 class Tween;
 namespace ecs{
     class TransformComponent;
 
     class TweenComponent :public LogicComponent{
+        using Callback = std::function<void(void)>;
+
         std::vector<Tween*> _tweens;
         TransformComponent* _myTr;
         bool _paused;
@@ -29,9 +33,9 @@ namespace ecs{
         void pauseTweening();
         void resumeTweening();
     
-        void easeValue(float* value, float finalValue, float duration, tween::tweenType type);
-        void easePosition(Vector2D finalPos, float duration, tween::tweenType type);
-        void easeRotation(float finalRot, float duration, tween::tweenType type);
+        void easeValue(float* value, float finalValue, float duration, tween::tweenType type,  Callback callback = [](){});
+        void easePosition(Vector2D finalPos, float duration, tween::tweenType type, Callback callback = [](){});
+        void easeRotation(float finalRot, float duration, tween::tweenType type, Callback callback = [](){});
     };
 }
 

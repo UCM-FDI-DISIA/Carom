@@ -16,7 +16,10 @@ namespace ecs{
         addComponent<TweenComponent>(ent);
 
         auto a = ent->getComponent<TweenComponent>();
-        a->easePosition({1,1}, 3, tween::EASE_IN_BACK);
+        a->easePosition({1,1}, 3, tween::EASE_IN_BACK, [this](){
+            
+            std::cout<<"a"<<std::endl;
+        });
     }
 
     CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward): CaromScene(state, g, reward){
