@@ -15,7 +15,8 @@
 	EVENT_ON_COLLISION, \
 	STICK_INPUT, \
 	TEXT_DISPLAY, \
-	FOLLOW
+	FOLLOW, \
+	TWEEN
 
 // Groups list - must have at least one element
 //

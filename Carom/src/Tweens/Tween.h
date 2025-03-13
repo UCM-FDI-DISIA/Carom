@@ -1,8 +1,9 @@
 #pragma once
+
 #include "SDLUtils.h"
 #include <functional>
 
-class TweenManager;
+class TweenComponent;
 
 class Tween{
     float _startValue;

@@ -152,7 +152,7 @@ add_executable(Carom
 
 	src/Scenes/Gimmicks/CowboyPoolScene.cpp
 
-	src/Tweens/TweenManager.cpp
+	src/ECS/TweenComponent.cpp
 )
 
 # Link Box2D
