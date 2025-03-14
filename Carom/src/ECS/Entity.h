@@ -5,14 +5,13 @@
 #include "gameList.h"
 #include "ecs.h"
 #include <iostream>
-
+#include "ITransform.h"
 
 class Camera;
 namespace ecs {
 
     class GameScene;
     class Component;
-    class ITransform;
     class CaromScene;
     class PoolScene;
     class RenderTextureComponent;
@@ -54,7 +53,8 @@ namespace ecs {
         bool removeComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
     
-            if(dynamic_cast<ITransform>(_components[cmpId<T>] != nullptr)) _myTransform = nullptr;
+            if(dynamic_cast<ITransform*>(_components[cmpId<T>])!= nullptr) _myTransform = nullptr;
+
             auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
             _currentComponents.erase(it);
             _components[cmpId<T>] = nullptr;
