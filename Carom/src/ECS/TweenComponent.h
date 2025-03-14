@@ -33,9 +33,9 @@ namespace ecs{
         void pauseTweening();
         void resumeTweening();
     
-        void easeValue(float* value, float finalValue, float duration, tween::tweenType type,  Callback callback = [](){});
-        void easePosition(Vector2D finalPos, float duration, tween::tweenType type, Callback callback = [](){});
-        void easeRotation(float finalRot, float duration, tween::tweenType type, Callback callback = [](){});
+        void easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop = false , Callback callback = [](){});
+        void easePosition(Vector2D finalPos, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){});
+        void easeRotation(float finalRot, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){});
     };
 }
 
