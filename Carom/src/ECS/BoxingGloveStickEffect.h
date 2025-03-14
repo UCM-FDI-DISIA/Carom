@@ -11,5 +11,6 @@ namespace ecs {
         BoxingGloveStickEffect(entity_t entity, float frictionFactor);
         ~BoxingGloveStickEffect();
         void applyEffect(entity_t target) override;
+        void init() override {}
     };
 }

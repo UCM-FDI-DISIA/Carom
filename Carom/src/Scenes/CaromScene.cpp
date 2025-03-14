@@ -1,5 +1,6 @@
 #include "CaromScene.h"
 
+#include "BoxingGloveStickEffect.h"
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
@@ -139,6 +140,7 @@ namespace ecs {
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
+        addComponent<BoxingGloveStickEffect>(e, 0.5f);
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);
