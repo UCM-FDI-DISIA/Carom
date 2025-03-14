@@ -42,29 +42,19 @@ namespace ecs{
     void TweenComponent::easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop, Callback callback){
         uint32_t durationMS = duration * 1000;
 
-        if(loop){
-            callback = [=](){
-                easeValue(value, *value, duration, type, false, [=](){
-                    easeValue(value, finalValue, duration, type, loop, callback);
-                });
-
-                callback();
-            };
-        }
-
         Tween* t;
         switch (type){
             case tween::LINEAR:
-                t = new LinearTween(value, finalValue, durationMS, callback);
+                t = new LinearTween(value, finalValue, durationMS,loop, callback);
             break;
             case tween::EASE_IN_EXPO:
     
             break;
             case tween::EASE_OUT_QUINT:
-    
+                t = new EaseOutQuintTween(value, finalValue, durationMS, loop, callback);
             break;
             case tween::EASE_IN_BACK:
-                t = new EaseInBackTween(value, finalValue, durationMS, callback);
+                t = new EaseInBackTween(value, finalValue, durationMS,loop, callback);
             break;
         }
     
