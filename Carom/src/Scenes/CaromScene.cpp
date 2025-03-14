@@ -1,3 +1,7 @@
+// ! DEBUG
+#include "InputHandler.h"
+
+
 #include "CaromScene.h"
 
 #include "TransformComponent.h"
@@ -254,6 +258,12 @@ namespace ecs {
 
         // En efecto, esto se hace 2 veces, John Cleon no me pegues
         b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
+
+        #ifdef _DEBUG
+        if (ih().keyDownEvent() && ih().isKeyDown(SDLK_s))
+            for (int i = 0; i < 30; i++)
+                b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
+        #endif
 
         b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
         manageEnterCollisions(a_contactEvents);
