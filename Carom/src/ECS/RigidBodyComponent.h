@@ -84,6 +84,7 @@ public:
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
+    inline float getLinearDamping() {return _myProps.linearDamping; }
     bool isMoving();
 
     // Setters
