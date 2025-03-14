@@ -2,6 +2,7 @@
 
 #include "SDLUtils.h"
 #include <functional>
+#include <math.h>
 
 class TweenComponent;
 using Callback = std::function<void()>;
@@ -90,11 +91,45 @@ class EaseInBackTween: public Tween{
     }
 };
 
+class EaseInExponentialTween: public Tween{
+    public:
+    inline EaseInExponentialTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration, loop, callback){}
+
+    inline float easingFunction(float t) override{
+        if(t ==0) return 0;
+        return pow(2, 10 * t - 10);
+    }
+};
+
 class EaseOutQuintTween: public Tween{
     public:
     inline EaseOutQuintTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
 
     inline float easingFunction(float t) override{
         return 1- pow(1-t, 5);
+    }
+};
+
+class EaseInOutCubicTween: public Tween{
+    public:
+    inline EaseInOutCubicTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
+
+    inline float easingFunction(float t) override{
+        if(t < 0.5) return 4 * t * t * t;
+        return 1 - pow(-2 * t + 2, 3) / 2;
+    }
+    
+};
+
+class EaseOutElasticTween: public Tween{
+    public:
+    inline EaseOutElasticTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
+
+    inline float easingFunction(float t) override{
+        if(t ==0) return 0;
+        else if (t ==1) return 1;
+
+        float c4 = (2 * M_PI) / 3;
+        return pow(2, -10 * t) * sin((t * 10 - 0.75) * c4) + 1;
     }
 };

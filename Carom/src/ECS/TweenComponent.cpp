@@ -45,13 +45,19 @@ namespace ecs{
                 t = new LinearTween(value, finalValue, durationMS,loop, callback);
             break;
             case tween::EASE_IN_EXPO:
-    
+                t = new EaseInExponentialTween(value, finalValue, durationMS,loop, callback);
             break;
             case tween::EASE_OUT_QUINT:
                 t = new EaseOutQuintTween(value, finalValue, durationMS, loop, callback);
             break;
             case tween::EASE_IN_BACK:
                 t = new EaseInBackTween(value, finalValue, durationMS,loop, callback);
+            break;
+            case tween::EASE_IN_OUT_CUBIC:
+                t = new EaseInOutCubicTween(value, finalValue, durationMS, loop, callback);
+            break;
+            case tween::EASE_OUT_ELASTIC:
+                t = new EaseOutElasticTween(value, finalValue, durationMS, loop, callback);
             break;
         }
     

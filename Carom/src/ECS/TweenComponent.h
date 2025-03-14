@@ -8,7 +8,9 @@ namespace tween{
         LINEAR,
         EASE_IN_EXPO,
         EASE_OUT_QUINT,
-        EASE_IN_BACK
+        EASE_IN_BACK,
+        EASE_IN_OUT_CUBIC,
+        EASE_OUT_ELASTIC
     };
 }
 
