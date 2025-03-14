@@ -31,11 +31,18 @@ public:
         _callback = callback;
     };
 
+    //aplica la interpolacion de la clase
     inline void update(){
         uint32_t currentTime =  sdlutils().currRealTime() - _startTime;
+
+        //caso de que se haya pasado de tiempo, se setea a la posicion final
+
         if(currentTime > _duration) {
             _callback();
             *value = _endValue;
+
+            //si el tween no se loopea, lo mata
+            //si el tween se loopea, se cambian los parametros para que se hagan de forma inversa
             if(!_loop) _alive = false;
             else{
                 float _final = _startValue;
@@ -60,6 +67,8 @@ public:
 };
 
 //------------------------------------------DIFFERENT TYPES OF TWEENS--------------------------------
+//https://easings.net/#
+
 
 class LinearTween: public Tween{
     public:

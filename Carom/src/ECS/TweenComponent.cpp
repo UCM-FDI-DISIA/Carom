@@ -36,9 +36,6 @@ namespace ecs{
         
     }
     
-    void TweenComponent::pauseTweening() { _paused = true;}
-    void TweenComponent::resumeTweening() { _paused = false;}
-    
     void TweenComponent::easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop, Callback callback){
         uint32_t durationMS = duration * 1000;
 

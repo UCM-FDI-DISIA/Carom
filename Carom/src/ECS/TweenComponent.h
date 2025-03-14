@@ -30,8 +30,7 @@ namespace ecs{
         virtual ~TweenComponent();
         void init() override;
         void update() override;
-        void pauseTweening();
-        void resumeTweening();
+        inline void setPause(bool b){_paused = b;}
     
         void easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop = false , Callback callback = [](){});
         void easePosition(Vector2D finalPos, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){});
