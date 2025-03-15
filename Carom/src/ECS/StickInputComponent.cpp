@@ -75,7 +75,7 @@ namespace ecs {
 
                     _hasShot = true; // ! hasShot
 
-                    _myEntity->getScene().getCamera()->shakeCamera(0.15, 0.3);
+                    _myEntity->getScene().getCamera()->shakeCamera(0.15f, 0.3f);
                 });
             }
            

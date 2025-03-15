@@ -22,7 +22,8 @@ namespace ecs{
         ITransform* transform = _myEntity->getTransform();
         b2Vec2 pos = transform->getPosition();
         TweenComponent* tween = _myEntity->getComponent<TweenComponent>();
-        transform->setPosition(b2Vec2{pos.x, pos.y + intensity});
-        tween->easePosition({pos.x, pos.y}, duration, tween::EASE_OUT_ELASTIC);
+        tween->easePosition({pos.x, pos.y+ intensity}, duration*0.1f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easePosition({pos.x, pos.y}, duration*0.9f, tween::EASE_OUT_ELASTIC);
+        });
     }
 }
