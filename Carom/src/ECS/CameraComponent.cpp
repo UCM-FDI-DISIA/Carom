@@ -18,11 +18,11 @@ namespace ecs{
     CameraComponent::CameraComponent(Entity* e): InfoComponent(e){
     }
 
-    void CameraComponent::shakeCamera(float intensity, float duration){
+    void CameraComponent::shakeCamera(float intensity, float duration, Vector2D dir){
         ITransform* transform = _myEntity->getTransform();
         b2Vec2 pos = transform->getPosition();
         TweenComponent* tween = _myEntity->getComponent<TweenComponent>();
-        tween->easePosition({pos.x, pos.y+ intensity}, duration*0.1f, tween::EASE_OUT_QUINT, false, [=](){
+        tween->easePosition({pos.x+ dir.getX()*intensity, pos.y+ dir.getY()*intensity}, duration*0.1f, tween::EASE_OUT_QUINT, false, [=](){
             tween->easePosition({pos.x, pos.y}, duration*0.9f, tween::EASE_OUT_ELASTIC);
         });
     }

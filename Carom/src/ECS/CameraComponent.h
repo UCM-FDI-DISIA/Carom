@@ -3,6 +3,7 @@
 #include <box2D/box2D.h>
 #include <utility>
 #include "InfoComponent.h"
+#include "Vector2D.h"
 
 namespace ecs{
     class CameraComponent: public InfoComponent{
@@ -13,6 +14,6 @@ namespace ecs{
             //convierte la posicion fisica en posicion en la pantalla DEPENDIENTE de la posicion de la camara
             std::pair<int,int> getRenderPos(b2Vec2 physicalPos);
 
-            void shakeCamera(float intensity, float duration);
+            void shakeCamera(float intensity, float duration, Vector2D dir = Vector2D{0,1});
         };
 }
