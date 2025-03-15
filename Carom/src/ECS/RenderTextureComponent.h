@@ -27,7 +27,7 @@ namespace ecs {
         RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale, SDL_Color tint);
         ~RenderTextureComponent() {};
 
-        void render(Camera*) override;
+        void render() override;
         void init() override;
         Texture* getTexture() {return _texture;};
         virtual SDL_Rect getRect() const;

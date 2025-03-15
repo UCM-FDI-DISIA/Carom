@@ -3,7 +3,6 @@
 #include "ITransform.h"
 #include "PhysicsUtils.h"
 #include "Texture.h"
-#include "Camera.h"
 #include "Entity.h"
 #include "SDLUtils.h"
 

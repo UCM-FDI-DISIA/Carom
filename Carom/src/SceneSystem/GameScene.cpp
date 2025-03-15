@@ -7,11 +7,16 @@
 
 #include "GameScene.h"
 #include "../Game.h"
-#include "Camera.h"
 
 namespace ecs{
 
-    GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
+    GameScene::GameScene(Game* game): game(game){ 
+        Entity* cam = new Entity(*this, grp::CAMERA);
+        addComponent<TransformComponent>(cam, b2Vec2{0,0});
+        addComponent<CameraComponent>(cam);
+        addComponent<TweenComponent>(cam);
+        setCamera(cam);
+    }
 
     GameScene::~GameScene(){}
 
@@ -100,7 +105,7 @@ namespace ecs{
 
     void GameScene::render(){
         for (auto entity : _entsRenderable) {
-            entity->render(&_worldCamera);
+            entity->render();
         }
     }
 
@@ -123,20 +128,16 @@ namespace ecs{
         }
     }
 
-    Camera* GameScene::getWorldCamera(){
-        return &_worldCamera;
+    CameraComponent* GameScene::getCamera(){
+        return _camera;
     }
 
-    Camera* GameScene::getUICamera() {
-        return &_UICamera;
-    }
-
-    void GameScene::setWorldCamera(b2Vec2 pos){
-        _worldCamera = Camera(pos.x, pos.y);
-    }
-
-    void GameScene::setUICamera(b2Vec2 pos){
-        _UICamera = Camera(pos.x, pos.y);
+    void GameScene::setCamera(Entity* e){
+        CameraComponent* c = getComponent<CameraComponent>(e);
+        assert(c != nullptr);
+        //we kill the last camera
+        if(_camera != nullptr) _camera->_myEntity->setAlive(false);
+        _camera = c;
     }
 
     void GameScene::createBackground(std::string key){

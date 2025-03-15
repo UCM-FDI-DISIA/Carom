@@ -8,7 +8,7 @@
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
-#include "Camera.h"
+#include "CameraComponent.h"
 
 class Game;
 
@@ -32,8 +32,7 @@ namespace ecs{
 		std::vector<entity_t> _entsRenderable;
 
 		Game* game;
-		Camera _worldCamera;
-		Camera _UICamera;
+		CameraComponent* _camera = nullptr;
 
 		GameScene(Game* game);
 
@@ -132,10 +131,9 @@ namespace ecs{
 
 		/// Obtiene el juego al que pertenece el estado
 		Game* getGame() const;
-		Camera* getWorldCamera();
-		Camera* getUICamera();
-		void setWorldCamera(b2Vec2 pos);
-		void setUICamera(b2Vec2 pos);
+		CameraComponent* getCamera();
+		//Must have CameraComponent attached
+		void setCamera(Entity* e);
 		/// Elimina los objetos
 		virtual void clear();
 		// Set rendering order. Called by render texture component on init.

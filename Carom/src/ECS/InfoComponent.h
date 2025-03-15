@@ -12,7 +12,7 @@ namespace ecs{
         void init() override {}
         
         void update() override {}
-        void render(Camera*) override {}
+        void render() override {}
         void handleEvent() override {}
     };
 }

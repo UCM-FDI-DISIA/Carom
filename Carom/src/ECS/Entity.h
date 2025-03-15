@@ -7,7 +7,7 @@
 #include <iostream>
 
 
-class Camera;
+class CameraComponent;
 namespace ecs {
 
     class GameScene;
@@ -95,7 +95,7 @@ namespace ecs {
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
-        void render(Camera* camera); //En posición relativa a la cámara
+        void render(); //En posición relativa a la cámara
         void handleEvents();
 
         GameScene& getScene();

@@ -16,7 +16,8 @@
 	STICK_INPUT, \
 	TEXT_DISPLAY, \
 	FOLLOW, \
-	TWEEN
+	TWEEN, \
+	CAMERA
 
 // Groups list - must have at least one element
 //
@@ -29,7 +30,8 @@
 	SCORE, \
 	SHADOWS, \
 	POOL_HOLE, \
-	BOSS_MODIFIERS
+	BOSS_MODIFIERS, \
+	CAMERA
 
 // Effect list
 // TODO completar	

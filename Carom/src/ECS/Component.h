@@ -1,7 +1,7 @@
 #pragma once
 #include "ecs.h"
 
-class Camera;
+class CameraComponent;
 namespace ecs
 {
     class Component
@@ -16,7 +16,7 @@ namespace ecs
         virtual void init() = 0;
 
         virtual void update() = 0;
-        virtual void render(Camera*) = 0;
+        virtual void render() = 0;
         virtual void handleEvent() = 0;
 
         virtual void setEnabled(bool state);

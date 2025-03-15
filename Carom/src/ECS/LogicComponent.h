@@ -9,7 +9,7 @@ namespace ecs {
         LogicComponent(Entity* ent) : Component(ent) {}
         virtual ~LogicComponent(){}
     
-        void render(Camera*) override {}
+        void render() override {}
         void handleEvent() override {}
     };
 }
