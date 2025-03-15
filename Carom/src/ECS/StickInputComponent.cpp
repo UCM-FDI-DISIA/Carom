@@ -64,11 +64,19 @@ namespace ecs {
 
                 float impulseMag = MAX_IMPULSE * (dir.magnitude() - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
                 b2Vec2 impulseVec = {dirNormalized.getX() * impulseMag, dirNormalized.getY() * impulseMag};
+                
 
-                //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
-                _whiteBallRB->applyImpulseToCenter(impulseVec);
+                //aplicar tween con callback al final
+                TweenComponent* _tween = _myEntity->getComponent<TweenComponent>();
+                Vector2D distance = dirNormalized * PhysicsConverter::pixel2meter(_myRender->getRect().w)/2;
+                _tween->easePosition({_center.x- distance.getX() - dirNormalized.getX(), _center.y - distance.getY() -dirNormalized.getY()}, .08f, tween::EASE_IN_EXPO, false, [=](){
+                    //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
+                    _whiteBallRB->applyImpulseToCenter(impulseVec);
 
-                _hasShot = true; // ! hasShot
+                    _hasShot = true; // ! hasShot
+
+                    _myEntity->getScene().getCamera()->shakeCamera(0.15, 0.3);
+                });
             }
            
         }

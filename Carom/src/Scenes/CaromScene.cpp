@@ -139,12 +139,14 @@ namespace ecs {
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
+        addComponent<TweenComponent>(e);
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);
         addComponent<TransformComponent>(stickShadow, pos);
         addComponent<RenderTextureComponent>(stickShadow, &sdlutils().images().at("palo1_sombra"), 4, scale);
         addComponent<FollowComponent>(stickShadow, e, true,true,true, Vector2D{-0.05, -0.05});
+        
 
         return e;
     }
