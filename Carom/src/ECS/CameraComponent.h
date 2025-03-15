@@ -12,5 +12,7 @@ namespace ecs{
             CameraComponent(Entity* e);
             //convierte la posicion fisica en posicion en la pantalla DEPENDIENTE de la posicion de la camara
             std::pair<int,int> getRenderPos(b2Vec2 physicalPos);
+
+            void shakeCamera(float intensity, float duration);
         };
 }

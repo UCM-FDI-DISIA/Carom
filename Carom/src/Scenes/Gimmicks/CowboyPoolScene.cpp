@@ -16,7 +16,11 @@ namespace ecs{
         addComponent<TweenComponent>(ent);
 
         auto a = ent->getComponent<TweenComponent>();
-        a->easePosition({1,1}, 2, tween::EASE_OUT_ELASTIC,true);
+        a->easePosition({1,1}, 2, tween::EASE_OUT_ELASTIC,true, [=](){
+            _camera->shakeCamera(0.2, 0.4);
+        });
+
+        
     }
 
     CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward): CaromScene(state, g, reward){
