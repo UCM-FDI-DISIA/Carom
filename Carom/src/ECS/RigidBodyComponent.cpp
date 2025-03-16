@@ -36,6 +36,13 @@ RigidBodyComponent::~RigidBodyComponent()
     b2DestroyBody(_myB2BodyId);
 }
 
+void RigidBodyComponent::update() {
+    if (_scaleBuffer.first) {
+        updateScale();
+        _scaleBuffer.first = false;
+    }
+}
+
 void
 RigidBodyComponent::generateBodyAndShape(){
     // ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
@@ -104,6 +111,17 @@ RigidBodyComponent::setPosition(const b2Vec2& newPos) {
 void
 RigidBodyComponent::setRotation(const double& newRot) {
     b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {std::cosf(newRot), std::sinf(newRot)});
+}
+
+/// @brief Setea el cambio de escala del buffer a true y se asigna la escala nueva al buffer \n
+///
+///        Es importante saber que esto solo cambia el buffer, se delega el cambio en la escala
+///        al update
+/// @param newScale escala en R2
+void
+RigidBodyComponent::setScale(const Scale& newScale) {
+    _scaleBuffer.first = true;
+    _scaleBuffer.second = newScale;
 }
 
 /// @brief Changes the body type.
