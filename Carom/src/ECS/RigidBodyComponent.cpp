@@ -26,7 +26,7 @@ using namespace ecs;
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
 RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITransform()
 {
-
+    _myProps.sleepThreshold = 0.115;
 }
 
 RigidBodyComponent::~RigidBodyComponent()

@@ -44,7 +44,7 @@ protected:
         float friction;
         float restitution;
         float linearDamping;
-        float sleepThreshold = 0.01;
+        float sleepThreshold;
         bool isBullet;
         bool isSensor;
         bool enableContactEvents;
@@ -69,6 +69,7 @@ protected:
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
 
+    void generateBodyAndShape();
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
@@ -76,7 +77,6 @@ public:
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
 
-    void generateBodyAndShape();
 
     // Getters
     b2Vec2 getPosition() const override;
