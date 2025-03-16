@@ -137,7 +137,9 @@ add_executable(Carom
 	src/ECS/FollowComponent.cpp
 
 	src/ECS/GimmicksCmps/FrictionComponent.cpp
-	
+	src/ECS/GimmicksCmps/ForceFieldComponent.cpp
+	src/ECS/GimmicksCmps/ForceAreaComponent.cpp
+
 	src/HitManager/ColorHitManager.cpp
 
 	src/inputTest.cpp
