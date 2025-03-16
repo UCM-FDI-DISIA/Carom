@@ -13,13 +13,13 @@ ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
 
 void
 ScoringState::onStateEnter() {
-        std::cout << "Entrando en Scoring\n";
-
+    std::cout << "Entrando en Scoring\n";
+    _scene->setCanFastForward(true);
 }
 
 void
 ScoringState::onStateExit() {
-    
+    _scene->setCanFastForward(false);
 }
 
 bool

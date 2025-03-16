@@ -18,14 +18,25 @@ namespace ecs{
     class CaromScene: public GameScene {
     //--------------------BASIC SCENE FUNCTIONALITY------------------------
     protected:
-        int _remainingHits = 3;
+
         ScenesManager* _sceneManager;
         GameScene* _reward; //La recompensa al completar la escena
+
+        int _remainingHits = 3;
+
+        bool _fastForwardPhysics = false;
+        int _fastForwardIterations = 5;
+
+        void updatePhysics() override;
+        void updateScene() override;
     public:
         CaromScene(State* state, Game* g, GameScene* reward);
         ~CaromScene();
 
         inline ScenesManager* getScenesManager() const {return _sceneManager;}
+
+        void handleEvent() override;
+        void setCanFastForward(bool active) override;
         //Llama al update de todas las entidades de escena y maneja las físicas
         void update() override;
 
@@ -77,7 +88,7 @@ namespace ecs{
         bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
 
         // Dividido /1000 porque b2 trabaja en segundos con float
-        const float _b2timeSteps = Game::FIXED_TIME_STEP / 1000;
+        float const _b2timeSteps = Game::PHYSICS_TIMESTEP / 1000.0f;
         // Esto de momento se inicializa en 4, no manipular
         int _b2Substeps = 4;
 

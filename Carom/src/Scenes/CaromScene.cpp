@@ -1,5 +1,11 @@
 #include "CaromScene.h"
 
+#include <box2d/box2d.h>
+#include "PhysicsUtils.h"
+#include "Vector2D.h"
+#include "Game.h"
+#include "InputHandler.h"
+
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
@@ -14,11 +20,6 @@
 #include "FollowComponent.h"
 #include "StartMatchState.h"
 
-#include "PhysicsUtils.h"
-#include "Game.h"
-#include "Vector2D.h"
-#include "vector"
-#include <box2d/box2d.h>
 
 namespace ecs {
 
@@ -235,6 +236,7 @@ namespace ecs {
             _currentState->onStateExit();
             delete _currentState;
         }
+        _fastForwardPhysics = false;
         _currentState = s;
         _currentState->onStateEnter();
     }
@@ -248,12 +250,25 @@ namespace ecs {
         delete _hitManager;
     }
 
-    void CaromScene::update(){
+    void CaromScene::handleEvent()
+    {
+        GameScene::handleEvent();
+        // input to fast forward physics
+        if (_canFastForwardPhysics && ih().isKeyDown(SDLK_s))
+            _fastForwardPhysics = true;
+        else
+            _fastForwardPhysics = false;
+    }
 
-        auto a = Game::FIXED_TIME_STEP/1000.0;
+    void CaromScene::setCanFastForward(bool active)
+    {
+        _canFastForwardPhysics = active;
+        _fastForwardPhysics = false;
+    }
 
-        // En efecto, esto se hace 2 veces, John Cleon no me pegues
-        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
+    void CaromScene::updatePhysics()
+    {
+        b2World_Step(_myB2WorldId, _b2timeSteps, _b2Substeps);
 
         b2ContactEvents a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
         manageEnterCollisions(a_contactEvents);
@@ -262,19 +277,10 @@ namespace ecs {
         b2SensorEvents a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
         manageEnterTriggers(a_sensorEvents);
         manageExitTriggers(a_sensorEvents);
+    }
 
-        b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
-
-        a_contactEvents = b2World_GetContactEvents(_myB2WorldId);
-        manageEnterCollisions(a_contactEvents);
-        manageExitCollisions(a_contactEvents);
-
-        a_sensorEvents = b2World_GetSensorEvents(_myB2WorldId);
-        manageEnterTriggers(a_sensorEvents);
-        manageExitTriggers(a_sensorEvents);
-
-        enablePhysics();
-
+    void CaromScene::updateScene()
+    {
         State* a_stateToChange = nullptr;
         if(_currentState->checkCondition(a_stateToChange)){
             setNewState(a_stateToChange);
@@ -283,6 +289,24 @@ namespace ecs {
         _hitManager->clearAllHits();
 
         GameScene::update();
+    }
+
+    // called 2x at 60fps an 1x at 120fps
+    // update always runs at 120fps for physics precision
+    void CaromScene::update()
+    {
+        // iterations purpose for fast forwarding
+        // the main loop still calls update twice at 60fps to update logic at 120fps
+        int iterations;
+        if (_fastForwardPhysics)
+            iterations = _fastForwardIterations;
+        else
+            iterations = 1;
+
+        for (int i = 0; i < iterations; ++i){
+            updatePhysics();
+            updateScene();
+        }
     }
 
     b2BodyId CaromScene::addBodyToWorld(b2BodyDef bodyDef){

@@ -11,6 +11,7 @@ void start() { // ! tst
 
     g.init();
     g.start();
+    g.run();
 }
 
 int main (int, char**)

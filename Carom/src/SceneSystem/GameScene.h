@@ -33,6 +33,8 @@ namespace ecs{
 		Camera _worldCamera;
 		Camera _UICamera;
 
+		bool _canFastForwardPhysics = false;
+
 		GameScene(Game* game);
 
 		// Create entities that represent and compose the table. The table as a whole is a group.
@@ -121,7 +123,6 @@ namespace ecs{
 
 	public:
 
-
 		virtual ~GameScene();
 
 		virtual void render();
@@ -138,6 +139,12 @@ namespace ecs{
 		virtual void clear();
 		// Set rendering order. Called by render texture component on init.
 		void sortRenderOrder();
+		virtual void setCanFastForward(bool active) {};
+
+	protected:
+
+		virtual void updatePhysics() {};
+		virtual void updateScene() {};
 	};
 
 	inline Game*
