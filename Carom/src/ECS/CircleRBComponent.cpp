@@ -28,6 +28,7 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
     _myProps.isSensor = sensor;
     _myProps.linearDamping = linearDamping;
     _myProps.rotation = rotation;
+    calculateMass();
 
     generateBodyAndShape();
 
@@ -69,8 +70,16 @@ CircleRBComponent::setScale(const Scale& newScale){
     _myScale = newScale;
 
     b2Circle a_circle;
-    a_circle.radius = _myProps.radius * newScale.x;
+    _myProps.radius = _myProps.radius * newScale.x; 
+    a_circle.radius = _myProps.radius; // TODO EN LOS OTROS TIPOS DE RB
     a_circle.center = {0, 0};
 
     b2Shape_SetCircle(_myB2ShapeId, &a_circle);
+    calculateMass();
+}
+
+// Calculate mass (circle area as if it was a square)
+void ecs::CircleRBComponent::calculateMass() // TODO EN OTROS RBS
+{
+    _myProps.mass = _myProps.density * _myProps.radius*_myProps.radius;
 }

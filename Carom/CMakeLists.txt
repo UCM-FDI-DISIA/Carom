@@ -66,6 +66,7 @@ include_directories(
 
 	${CMAKE_SOURCE_DIR}/src
 	${CMAKE_SOURCE_DIR}/src/ECS
+	${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
 	${CMAKE_SOURCE_DIR}/src/StateMachine
@@ -134,6 +135,8 @@ add_executable(Carom
 	src/ECS/TextDisplayComponent.cpp
 
 	src/ECS/FollowComponent.cpp
+
+	src/ECS/GimmicksCmps/FrictionComponent.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 

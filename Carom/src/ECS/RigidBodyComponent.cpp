@@ -26,7 +26,7 @@ using namespace ecs;
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
 RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITransform()
 {
-
+    _myProps.sleepThreshold = 0.115;
 }
 
 RigidBodyComponent::~RigidBodyComponent()
@@ -178,6 +178,8 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 /// @param density the new density for the shape
 void ecs::RigidBodyComponent::setDensity(float density)
 {
+    _myProps.density = density;
+    calculateMass();
     b2Shape_SetDensity(_myB2ShapeId, density, true);
 }
 
@@ -220,6 +222,12 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
 void ecs::RigidBodyComponent::setRestitution(float restitution)
 {
     b2Shape_SetRestitution(_myB2ShapeId, restitution);
+}
+
+void ecs::RigidBodyComponent::setLinearDamping(float damping)
+{
+    _myProps.linearDamping = damping;
+    b2Body_SetLinearDamping(_myB2BodyId, damping);
 }
 
 /// @brief Function called everytime object enters a collision

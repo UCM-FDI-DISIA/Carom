@@ -44,10 +44,11 @@ protected:
         float friction;
         float restitution;
         float linearDamping;
-        float sleepThreshold = 0.01;
+        float sleepThreshold;
         bool isBullet;
         bool isSensor;
         bool enableContactEvents;
+        float mass;
 
         union {
             float radius;
@@ -68,6 +69,8 @@ protected:
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
 
+    void generateBodyAndShape();
+    virtual void calculateMass() {}
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
@@ -75,7 +78,6 @@ public:
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
 
-    void generateBodyAndShape();
 
     // Getters
     b2Vec2 getPosition() const override;
@@ -83,6 +85,9 @@ public:
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
+    inline float getLinearDamping() {return _myProps.linearDamping; }
+    inline float getDensity() {return _myProps.density; }
+    inline float getMass() {return _myProps.mass; }
     bool isMoving();
 
     // Setters
@@ -96,6 +101,7 @@ public:
     void setFriction(float friction);
     void setRestitution(float restitution, int nShapes);
     void setRestitution(float restitution);
+    void setLinearDamping(float damping);
 
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);
