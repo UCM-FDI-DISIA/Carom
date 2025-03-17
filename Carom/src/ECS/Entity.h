@@ -86,6 +86,17 @@ namespace ecs {
             return true;
         }
 
+        template<typename T>
+        bool tryGetComponent(T*& returnedComponent) {
+            T* comp = _components[cmpId<T>]
+
+            if(comp == nullptr)
+                return false;
+            
+            returnedComponent = comp;
+            return true;
+        }
+
         // template<typename T>
         // bool tryGetComponent(T* comp){
         //     if(_components[cmpId<T>] == nullptr) return false;
