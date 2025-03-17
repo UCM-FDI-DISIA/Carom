@@ -72,4 +72,9 @@ namespace ecs{
     void TweenComponent::easeRotation(float finalRot, float duration, tween::tweenType type,bool loop, Callback callback){
         easeValue(&_myTr->_rotation, finalRot, duration, type, loop,callback);
     }
+
+    void TweenComponent::eraseAllTweens(){
+        for(auto t : _tweens) delete t;
+        _tweens.resize(0);
+    }
 }
