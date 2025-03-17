@@ -107,6 +107,9 @@ public:
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
 
+    // enable or disable body to participate in simulation
+    void setBodyEnabled(bool enabled);
+
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);
     void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
