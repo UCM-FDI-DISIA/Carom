@@ -9,18 +9,18 @@
 
 
 namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale) 
     : RenderComponent(ent),
     _texture(texture),
     _transform(nullptr),
-    renderOrder(renderOrder),
+    _renderLayer(renderLayer),
     _scale(scale)
     {
 
     }
 
-    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale, SDL_Color tint) 
-    : RenderTextureComponent(ent, texture, renderOrder, scale)
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale, SDL_Color tint) 
+    : RenderTextureComponent(ent, texture, renderLayer, scale)
     {
         changeColorTint(tint.r, tint.g, tint.b);
     }
@@ -49,6 +49,12 @@ namespace ecs {
         SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
 
         return dest;
+    }
+
+    void RenderTextureComponent::setRenderLayer(ecs::layerId_t layer)
+    {
+        _renderLayer = layer;
+        _myEntity->getScene().sortRenderOrder();
     }
 
     void RenderTextureComponent::changeColorTint(int r, int g, int b){
