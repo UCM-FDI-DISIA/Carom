@@ -41,9 +41,9 @@ namespace ecs {
 
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
-    
+            
             _components[cmpId<T>]->init();
-    
+            
             return true;
         }
 

@@ -17,7 +17,7 @@ public:
     BallEffect(ecs::entity_t ent) : Component(ent) {}
     ~BallEffect() {}
 
-    void init() override;
+    virtual void init() override;
     virtual void onHit(ecs::entity_t ent) {};
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};

@@ -23,7 +23,8 @@
 	BALL_HANDLER, \
 	BOXING_GLOVE_STICK, \
 	FRICTION_MULTIPLIER, \
-	SUBDIVISION_EFFECT
+	SUBDIVISION_EFFECT, \
+	MAGIC_WAND_STICK
 
 // Groups list - must have at least one element
 //

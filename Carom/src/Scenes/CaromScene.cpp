@@ -14,6 +14,7 @@
 #include "FollowComponent.h"
 #include "StartMatchState.h"
 #include "BoxingGloveStickEffect.h"
+#include "MagicWandStickEffect.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -137,8 +138,8 @@ namespace ecs {
         auto stickInput = addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
 
         //!Stick effects:
-        auto effect = addComponent<BoxingGloveStickEffect>(e, 0.8f);
-        stickInput->registerStickEffect(effect);
+        //auto effect = addComponent<MagicWandStickEffect>(e);
+        //stickInput->registerStickEffect(effect);
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);

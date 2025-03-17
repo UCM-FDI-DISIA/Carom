@@ -4,9 +4,13 @@
 
 namespace ecs{
 class MagicWandStickEffect : public StickEffectComponent{
+public:
+    __CMPID_DECL__(cmp::MAGIC_WAND_STICK);
+
     MagicWandStickEffect(entity_t ent) : StickEffectComponent(ent) {}
     ~MagicWandStickEffect() {}
 
-    virtual void applyEffect(entity_t ent) override;
+    inline void init() {}
+    void applyEffect(entity_t target) override;
 };
 }

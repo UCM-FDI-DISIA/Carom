@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "TransformComponent.h"
 #include "StickInputComponent.h"
+#include "BallHandler.h"
 
 using namespace ecs;
 
@@ -10,4 +11,8 @@ SubdivisionEffect::onStrikeEnd(){
     _target->activate();
     _target->getTransform()->setPosition(_myEntity->getTransform()->getPosition());
     delete _myEntity;
+}
+
+void
+SubdivisionEffect::init(){
 }
