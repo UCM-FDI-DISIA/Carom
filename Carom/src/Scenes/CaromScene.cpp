@@ -30,7 +30,6 @@ namespace ecs {
         unsigned seed = _rngManager->randomRange(1, 1000000); 
         _rngManager->inseminate(seed);
 
-
         // Creación del mundo físico
         b2WorldDef worldDef = b2DefaultWorldDef();
         worldDef.gravity = {0.0f, 0.0f};
