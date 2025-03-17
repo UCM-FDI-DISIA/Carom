@@ -450,7 +450,7 @@ namespace ecs {
     //---------------------------BOSS---------------------------------
     void CaromScene::playBossTurn() {
         clearBossModifiers();
-        applyBossModifiers(); // TODO: no se si esto llama al metodo de a subclase a ser virtual o no
+        applyBossModifiers(); // TODO: no se si esto llama al metodo de la subclase al ser virtual o no
     }
 
     void CaromScene::clearBossModifiers() {
@@ -458,8 +458,8 @@ namespace ecs {
             disableEntity(e); // boss modifiers are disabled, not deleted
     }
 
+    /// @brief Virtual method, subtypes of CaromScene must implement this method
     void CaromScene::applyBossModifiers() {
-        // Virtual method, subtypes of CaromScene must implement this method
         // After this is done, _currentState->finish() should be called
         std::cout << "aplicando modificador de boss desde CaromScene" << std::endl;
     }

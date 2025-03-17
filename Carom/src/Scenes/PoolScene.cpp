@@ -69,17 +69,20 @@ namespace ecs{
             ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
             addComponent<ecs::Button>(e, rButton);
 
-            
+
             if(i == a_bossPosition){ // --- POSICION BOSS.
                 e->getComponent<ecs::Button>()->setOnClick([this](){
-                std::cout << "Carga escena Boss" << std::endl;
+                    std::cout << "Carga escena Boss" << std::endl;
+                    NullState* state = new NullState(nullptr);
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, true); // ! tst  
+                    game->getScenesManager()->pushScene(ms);
                 });
             }
             else{ // --- POSICION COLORES.
                 e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Carom" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr); // ! tst  
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, false); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }

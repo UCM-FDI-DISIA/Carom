@@ -23,8 +23,15 @@ namespace ecs{
         
     }
 
-    CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward): CaromScene(state, g, reward){
+    CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){
+        _boss = Boss::COWBOY_POOL;
         initGimmick();
+    }
+
+    void
+    CowboyPoolScene::applyBossModifiers() {
+        std::cout << "aplicando modificador de boss desde CowboyPoolScene" << std::endl;
+        //TODO
     }
 }
 

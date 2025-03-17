@@ -121,13 +121,14 @@ namespace ecs{
             RUSSIAN_PYRAMID = 1,
             NONE
         };
-        Boss boss = Boss::NONE;
-
-        inline bool isBossMatch() {return boss != Boss::NONE; }
+        
+        inline bool isBossMatch() {return _boss != Boss::NONE; }
         void playBossTurn();
+
     protected:
-        void clearBossModifiers();
-        virtual void applyBossModifiers();
+        Boss _boss = Boss::NONE;
+        virtual void clearBossModifiers();
+        virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 
     };
 }
