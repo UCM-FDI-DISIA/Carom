@@ -46,7 +46,7 @@ namespace ecs {
         coordinateX -= _scale*_texture->width() / 2;
         coordinateY -= _scale*_texture->height() / 2;
 
-        SDL_Rect dest = {coordinateX, coordinateY, (int)(_texture->width()*_scale), (int)(_texture->height()*_scale)};
+        SDL_Rect dest = build_sdlrect(coordinateX, coordinateY, _texture->width()*_scale, _texture->height()*_scale);
 
         return dest;
     }
