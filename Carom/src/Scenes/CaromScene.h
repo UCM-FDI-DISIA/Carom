@@ -101,10 +101,10 @@ namespace ecs{
     public:
         entity_t createStick();
 
-        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
+        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                                float density, float friction, float restitution, int layer);
+                                float density, float friction, float restitution);
         void createBallShadow(entity_t);
 
         void createScoreEntity();

@@ -12,7 +12,7 @@ namespace ecs{
         /*
         Entity* ent = new Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(ent, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(ent, &sdlutils().images().at("bola_blanca"), 1000, 1);
+        addComponent<RenderTextureComponent>(ent, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, 1);
         addComponent<TweenComponent>(ent);
 
         auto a = ent->getComponent<TweenComponent>();

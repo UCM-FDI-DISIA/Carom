@@ -37,19 +37,19 @@ namespace ecs{
         entity_t e_marco = new Entity(*this, grp::TABLE);
         b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("mesa_marco").x, *&sdlutils().svgElements_table().at("mesa_marco").y);
         addComponent<TransformComponent>(e_marco, pos_m);
-        addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), 3, scale);
+        addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
 
         // Entidad suelo
         entity_t e_fondo = new Entity(*this, grp::TABLE);
         b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("fondo_mesa").x, *&sdlutils().svgElements_table().at("fondo_mesa").y);
         addComponent<TransformComponent>(e_fondo, pos_f);
-        addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), 1, scale);
+        addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, scale);
 
         // Entidad sombraMarco
         entity_t e_sombraMarco = new Entity(*this, grp::TABLE);
         b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("mesa_sombra").x, *&sdlutils().svgElements_table().at("mesa_sombra").y);
         addComponent<TransformComponent>(e_sombraMarco, b2Vec2{pos_s.x - 0.2f, pos_s.y - 0.2f});
-        addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0, scale);
+        addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);
 
         // !---- BODIES ----//
         // Left cushion coll
@@ -144,7 +144,7 @@ namespace ecs{
         //sprite de suelo
         Entity* a_suelo = new Entity(*this, grp::BACKGROUND);
         addComponent<TransformComponent>(a_suelo, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), -1, 1);
+        addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1);
     }
 };
 

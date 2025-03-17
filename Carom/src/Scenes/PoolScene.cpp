@@ -48,23 +48,22 @@ namespace ecs{
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);
         b2Vec2 pos(0,0);
         addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), 4, 1);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
 
         table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), 3, 1);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
         
         // Entre 0 y posiciones-1 elige un indice para que sea el boss.
         int a_bossPosition = _rngm->randomRange(0, HOLES);
 
-        // coloca los tipos.
+        // coloca los agujeros de partida
         for(int i = 0; i < HOLES; i++){
 
-            // crea una ball.
             entity_t e = new ecs::Entity(*this, grp::POOL_HOLE);
             b2Vec2 pos = _poolPositions[i];
             addComponent<TransformComponent>(e, pos);
-            addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), 5, 0.2f);
+            addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, 0.2f);
 
             ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
             addComponent<ecs::Button>(e, rButton);

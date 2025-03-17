@@ -50,7 +50,7 @@ namespace ecs {
             *&sdlutils().svgElements_table().at("bola_blanca").x,
             *&sdlutils().svgElements_table().at("bola_blanca").y
         );
-        createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
+        createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
         std::cout << sdlutils().svgElements_table().size();
         // Apply impulse
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
@@ -74,7 +74,7 @@ namespace ecs {
             auto& eb = sdlutils().svgElements_ballPos().at(s);
             auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
-            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
+            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1);
         }
 
 
@@ -93,7 +93,7 @@ namespace ecs {
     }
 
     entity_t
-    CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) 
+    CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) 
     {
         // SCALE
         float svgSize = *&sdlutils().svgElements_table().at("bola_blanca").width;
@@ -106,7 +106,7 @@ namespace ecs {
         //! I don't know how to get the radius of the ball
         addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale);;
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, scale);;
         addComponent<WhiteBallScorerComponent>(e);
         Button::RadialButton rButton = Button::RadialButton(2.0);
         addComponent<Button>(e, rButton);
@@ -137,14 +137,14 @@ namespace ecs {
         );
 
         addComponent<TransformComponent>(e, pos);
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
         addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
         addComponent<TweenComponent>(e);
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);
         addComponent<TransformComponent>(stickShadow, pos);
-        addComponent<RenderTextureComponent>(stickShadow, &sdlutils().images().at("palo1_sombra"), 4, scale);
+        addComponent<RenderTextureComponent>(stickShadow, &sdlutils().images().at("palo1_sombra"), renderLayer::STICK_SHADOW, scale);
         addComponent<FollowComponent>(stickShadow, e, true,true,true, Vector2D{-0.05, -0.05});
         
 
@@ -152,7 +152,7 @@ namespace ecs {
     }
 
     void
-    CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
+    CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
         // Scale
         float svgSize = *&sdlutils().svgElements_ballPos().at("bola").width;
         float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
@@ -165,7 +165,7 @@ namespace ecs {
         addComponent<CircleRBComponent>(e, pos, type, radius);
 
         // RENDER
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), layer, scale, SDL_Color{0, 150, 100, 1});
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::EFFECT_BALL, scale, SDL_Color{0, 150, 100, 1});
 
         // SCORE
         addComponent<ColorBallScorerComponent>(e);
@@ -186,7 +186,7 @@ namespace ecs {
 
         addComponent<TransformComponent>(a_cast, b2Vec2{0,0});
         addComponent<FollowComponent>(a_cast, entity, true, false, true, Vector2D(0,0));
-        addComponent<RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), 11, cast_scale);
+        addComponent<RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), renderLayer::BALL_SHADOW_ON_BALL, cast_scale);
 
         //sombra de la bola
         entity_t a_shadow = new Entity(*this, grp::SHADOWS);
@@ -203,7 +203,7 @@ namespace ecs {
 
         addComponent<ecs::TransformComponent>(a_shadow, b2Vec2{0,0});
         addComponent<ecs::FollowComponent>(a_shadow, entity, true, false, true, a_relPos);
-        addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), 2, cast_scale);
+        addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), renderLayer::BALL_SHADOW_ON_TABLE, cast_scale);
 
     }
 
@@ -220,7 +220,7 @@ namespace ecs {
 
 
         addComponent<TransformComponent>(e, pos);
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), 0, scale);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
         //segundo score
 
@@ -232,7 +232,7 @@ namespace ecs {
         );
 
         addComponent<TransformComponent>(e1, pos1);
-        addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), 0, scale);
+        addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
     }
 
@@ -415,7 +415,7 @@ namespace ecs {
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 1, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, renderLayer::SCORE, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
@@ -428,7 +428,7 @@ namespace ecs {
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 1, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
 
         return currentDisplay;
     }
