@@ -136,6 +136,7 @@ add_executable(Carom
 	src/ECS/FollowComponent.cpp
 
 	src/ECS/BoxingGloveStickEffect.cpp
+	src/ECS/MagicWandStickEffect.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 

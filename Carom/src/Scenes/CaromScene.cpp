@@ -149,7 +149,7 @@ namespace ecs {
         return e;
     }
 
-    void
+    entity_t
     CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
         // Scale
         float svgSize = *&sdlutils().svgElements_ballPos().at("bola").width;
@@ -171,6 +171,8 @@ namespace ecs {
         // TODO: add components according to its id
 
         createBallShadow(e);
+
+        return e;
     }
 
     void CaromScene::createBallShadow(entity_t entity){
