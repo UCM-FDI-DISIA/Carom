@@ -62,7 +62,7 @@ namespace ecs{
 		// NOTE: If the entity already has this component no component is added!
 		//
 		template<typename T, typename ...Ts>
-		inline void addComponent(entity_t e, Ts &&... args) {
+		inline T* addComponent(entity_t e, Ts &&... args) {
 			// the component id exists
 			static_assert(cmpId<T> < ecs::maxComponentId);
 
@@ -72,7 +72,9 @@ namespace ecs{
 			// install the new component if entity doesn't have one of the type
 			if (!e->addComponent<T>(c)) {
 				delete c;
+				return nullptr;
 			}
+			return c;
 		}
 
 		// Removes the component T, if any, from the entity.
