@@ -257,6 +257,12 @@ void ecs::RigidBodyComponent::setBodyEnabled(bool enabled)
         b2Body_Disable(_myB2BodyId);
 }
 
+void
+ecs::RigidBodyComponent::setEnabled(bool state) {
+    _isEnable = state;
+    setBodyEnabled(state);
+}
+
 /// @brief Function called everytime object enters a collision
 /// @param ent object that collides with this rigidbody
 void 

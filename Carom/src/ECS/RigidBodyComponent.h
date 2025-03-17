@@ -107,6 +107,8 @@ public:
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
 
+    void setEnabled(bool state) override;
+
     // enable or disable body to participate in simulation
     void setBodyEnabled(bool enabled);
 
