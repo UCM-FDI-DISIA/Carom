@@ -88,7 +88,7 @@ namespace ecs {
 
         template<typename T>
         bool tryGetComponent(T*& returnedComponent) {
-            T* comp = _components[cmpId<T>];
+            T* comp = dynamic_cast<T*>(_components[cmpId<T>]);
 
             if(comp == nullptr)
                 return false;
