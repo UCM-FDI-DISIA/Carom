@@ -22,7 +22,8 @@
 
 namespace ecs {
 
-    CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
+    CaromScene::CaromScene(State* s, Game* g, GameScene* reward) 
+        : GameScene(g), _reward(reward), _updatePhysics(true), _currentScore(0), _scoreToBeat(20)
     {
         // SEEDING
         _rngManager = new RNG_Manager();
@@ -35,7 +36,6 @@ namespace ecs {
         worldDef.gravity = {0.0f, 0.0f};
         _myB2WorldId = b2CreateWorld(&worldDef);
         b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
-
         setNewState(s);
 
         createStick();
@@ -83,6 +83,7 @@ namespace ecs {
         _hitManager = new ColorHitManager(this);
 
         _currentScoreDisplay = createScoreUI();
+        _remainingHitsDisplay = createRemainingHitsUI();
 
 
         setNewState(new StartMatchState(this));
@@ -403,7 +404,7 @@ namespace ecs {
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 1, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 1, 1.0, "0", {255, 255, 255, 255}, "Basteleur-Moonlight48");
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
@@ -416,9 +417,29 @@ namespace ecs {
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 1, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 1, 1.0, std::to_string(_scoreToBeat), {255, 255, 255, 255}, "Basteleur-Moonlight48"));
 
         return currentDisplay;
+    }
+
+    TextDisplayComponent* 
+    CaromScene::createRemainingHitsUI() {
+        //CurrentScore
+        entity_t remainingHitsObject = new Entity(*this, ecs::grp::SCORE);
+        _entsRenderable.push_back(remainingHitsObject);
+
+        b2Vec2 pos1 = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgElements_table().at("shotsLeftText").x,
+            *&sdlutils().svgElements_table().at("shotsLeftText").y
+        );
+
+        // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
+        remainingHitsObject->addComponent(new TransformComponent(remainingHitsObject, pos1));
+        TextDisplayComponent* remainingHitsDisplay = new TextDisplayComponent(remainingHitsObject, 1, 1.0, 
+            std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Moonlight48");
+        remainingHitsObject->addComponent(remainingHitsDisplay);
+
+        return remainingHitsDisplay;
     }
 
     void CaromScene::addScore(int score) {
@@ -433,5 +454,13 @@ namespace ecs {
 
     void CaromScene::setScoreToBeat(int score){
         _scoreToBeat = score; 
+    }
+
+    void CaromScene::decrementRemainingHits()
+    {
+        if (_remainingHits > 0) {
+            --_remainingHits;
+            _remainingHitsDisplay->setDisplayedText(std::to_string(_remainingHits));
+        }
     }
 }

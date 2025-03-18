@@ -18,7 +18,7 @@ namespace ecs{
     class CaromScene: public GameScene {
     //--------------------BASIC SCENE FUNCTIONALITY------------------------
     protected:
-        int _remainingHits = 3;
+        int _remainingHits = 10;
         ScenesManager* _sceneManager;
         GameScene* _reward; //La recompensa al completar la escena
     public:
@@ -31,6 +31,8 @@ namespace ecs{
 
         // ?Métodos para comprobar condiciones de estado 
         inline int getRemainingHits() { return _remainingHits; }
+
+        void decrementRemainingHits();
 
         inline GameScene* getRewardScene() const {return _reward;}
 
@@ -50,11 +52,13 @@ namespace ecs{
     //-------------------------------SCORE---------------------------------------
     protected:
         TextDisplayComponent* _currentScoreDisplay;
+        TextDisplayComponent* _remainingHitsDisplay;
         //Los acumuladores de puntuación
         int _currentScore = 0, _scoreToBeat = 10; 
         ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     public:
         TextDisplayComponent* createScoreUI();
+        TextDisplayComponent* createRemainingHitsUI();
 
         inline ColorHitManager* getColorHitManager() { return _hitManager; }
         inline double getCurrentScore() { return _currentScore; }
