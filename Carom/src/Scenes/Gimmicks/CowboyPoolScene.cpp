@@ -18,16 +18,13 @@ namespace ecs{
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
         /*
-        Entity* ent = new Entity(*this, grp::DEFAULT);
-        addComponent<TransformComponent>(ent, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(ent, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, 1);
-        addComponent<TweenComponent>(ent);
-
-        auto a = ent->getComponent<TweenComponent>();
-        a->easePosition({1,1}, 2, tween::EASE_OUT_ELASTIC,true, [=](){
-            _camera->shakeCamera(0.2, 0.4);
-        });
+        Entity* boss = new Entity(*this, grp::BOSS_HAND);
+        addComponent<TransformComponent>(boss, b2Vec2{0,.5f});
+        addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("cowboy_hand"), renderLayer::BOSS_HAND, .3f);
+        addComponent<TweenComponent>(boss);
+        getComponent<TweenComponent>(boss)->easePosition({.5f, .5f}, 2, tween::EASE_IN_OUT_CUBIC, true);
         */
+
         createSandBank();
         createBulletHole();
     }
@@ -71,8 +68,8 @@ namespace ecs{
         float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
         addComponent<CircleRBComponent>(e, pos, b2_staticBody, radius, true);
 
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::POOL_HOLE, scale);
-        e->getComponent<RenderTextureComponent>()->changeColorTint(0, 0, 0);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
+        //e->getComponent<RenderTextureComponent>()->changeColorTint(0, 0, 0);
 
         addComponent<HoleComponent>(e, pos, 0.4f);
     }
@@ -86,8 +83,11 @@ namespace ecs{
     CowboyPoolScene::applyBossModifiers() {
         std::cout << "aplicando modificador de boss desde CowboyPoolScene" << std::endl;
         //TODO: intanciación tiros pistola
+
+
         _currentState->finish();
         //TODO 2: reset entities' components modified by gimmicks to original state
+
     }
 }
 
