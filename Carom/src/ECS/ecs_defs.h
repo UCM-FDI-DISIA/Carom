@@ -19,7 +19,8 @@
 	FORCE_AREA, \
 	FRICTION, \
 	TWEEN, \
-	CAMERA
+	CAMERA, \
+	HOLE
 
 // Groups list - must have at least one element
 //
