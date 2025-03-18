@@ -4,6 +4,7 @@
 #include "CaromScene.h"
 #include "LoseMatchState.h"
 #include "RigidBodyComponent.h"
+#include "BallHandler.h"
 #include <iostream>
 
 ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
@@ -42,6 +43,12 @@ ScoringState::checkCondition(State*& state) {
     if(_scene->roundWins()) state = new WinMatchState(_scene);
     else if(_scene->getRemainingHits() > 0) {
         std::cout << "Cambio a HitState\n";
+        for(auto& entity : effectBalls){
+            _scene->getComponent<ecs::BallHandler>(entity)->onStrikeEnd();
+        }
+        for(auto& entity : whiteBall){
+            _scene->getComponent<ecs::BallHandler>(entity)->onStrikeEnd();
+        }
         state = new HitState(_scene);
     } 
     else state = new LoseMatchState(_scene);

@@ -19,6 +19,7 @@ namespace ecs {
     }
 
     void FrictionMultiplierEffect::onStrikeEnd() {
+        std::cout << "LOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() / _frictionFactor);
         _myEntity->removeComponent<FrictionMultiplierEffect>();
     }

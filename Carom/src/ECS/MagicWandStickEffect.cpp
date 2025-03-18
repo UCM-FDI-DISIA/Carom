@@ -29,11 +29,8 @@ MagicWandStickEffect::applyEffect(entity_t target){
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
     a_targetRB->getFriction(), a_targetRB->getRestitution(), layer);
     
-    SubdivisionEffect* a_sb = new SubdivisionEffect(a_ball1, target);
-    a_ball1->addComponent<SubdivisionEffect>(a_sb); //! AQUI SE CAGA ENCIMA
-    //a_sb = new SubdivisionEffect(a_ball2, target);
-    //a_ball2->addComponent<SubdivisionEffect>(a_sb);
-    //a_sb = nullptr;
+    a_ball1->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball1, target));
+    a_ball2->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball2, target));
     
     RigidBodyComponent* a_1RB = dynamic_cast<RigidBodyComponent*>(a_ball1->getComponent<RigidBodyComponent>());
     RigidBodyComponent* a_2RB = dynamic_cast<RigidBodyComponent*>(a_ball2->getComponent<RigidBodyComponent>());
@@ -42,5 +39,4 @@ MagicWandStickEffect::applyEffect(entity_t target){
     a_2RB->applyForceToCenter(b2CrossVS(a_targetRB->getVelocity(), -1/sqrt(2)));
 
     target->deactivate();
-    std::cout << "Termina\n";
 }
