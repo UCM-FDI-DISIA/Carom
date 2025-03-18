@@ -1,14 +1,17 @@
 #include "Entity.h"
 #include "ForceFieldComponent.h"
 #include "RigidBodyComponent.h"
+#include "RenderTextureComponent.h"
+#include "PhysicsUtils.h"
 
 
 namespace ecs{
 
     ForceFieldComponent::ForceFieldComponent(entity_t ent) 
-        : PhysicsComponent(ent)
+        : PhysicsComponent(ent), _force(b2Vec2(.0f, .0f))
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
+        _myRadius = PhysicsConverter::pixel2meter(_myEntity->getComponent<RenderTextureComponent>()->getRect().w/2);
     }
 
     // Apply friction force to bodies inside area proportional to its mass
@@ -22,7 +25,7 @@ namespace ecs{
     {
         if(other->tryGetComponent<RigidBodyComponent>()){
             _rigidbodies.insert_or_assign(other, true);
-            applyForce(other); // applies force on enter for cases in which fast balls could skip an update
+            applyForce(other, _force); // applies force on enter for cases in which fast balls could skip an update
         }
     }
 
@@ -38,7 +41,7 @@ namespace ecs{
             entity_t entity = (*it).first;
             bool isInside = (*it).second;
             if (isInside)
-                applyForce(entity);
+                applyForce(entity, _force);
         }
     }
 
