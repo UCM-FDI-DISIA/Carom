@@ -1,13 +1,7 @@
 #pragma once
 
-#include <box2d/box2d.h>
-#include "ecs.h"
-#include <unordered_map>
-
 #include "ForceFieldComponent.h"
-#include "RigidBodyComponent.h"
 
-using isInside = bool;
 
 namespace ecs{
 
@@ -24,11 +18,11 @@ namespace ecs{
     public:
         __CMPID_DECL__(cmp::FRICTION);
         
-        FrictionComponent(entity_t ent, float frictionCoef = 1);
+        FrictionComponent(entity_t ent, float frictionCoef = 2);
         ~FrictionComponent() {}
         
     protected:
-        void applyForce(entity_t e) override;
+        void applyForce(entity_t e, b2Vec2 force) override;
 
     };
 
