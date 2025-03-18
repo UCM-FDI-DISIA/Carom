@@ -18,6 +18,8 @@ public:
     virtual void onStateEnter()=0;
     //se ejecuta cuando se sale del estado
     virtual void onStateExit()=0;
+
+    virtual void finish() {};
 protected:
     ecs::CaromScene* _scene;
 };

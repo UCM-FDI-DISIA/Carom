@@ -56,6 +56,7 @@ namespace ecs{
         
         // Entre 0 y posiciones-1 elige un indice para que sea el boss.
         int a_bossPosition = _rngm->randomRange(0, HOLES);
+        std::cout << "Boss hole: " << a_bossPosition << std::endl;
 
         // coloca los agujeros de partida
         for(int i = 0; i < HOLES; i++){

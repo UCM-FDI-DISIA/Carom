@@ -458,9 +458,9 @@ namespace ecs {
             disableEntity(e); // boss modifiers are disabled, not deleted
     }
 
-    /// @brief Virtual method, subtypes of CaromScene must implement this method
+    /// @brief Virtual method, subtypes of CaromScene must implement this method.
+    /// After this is done, _currentState->finish() should be called
     void CaromScene::applyBossModifiers() {
-        // After this is done, _currentState->finish() should be called
         std::cout << "aplicando modificador de boss desde CaromScene" << std::endl;
     }
 }

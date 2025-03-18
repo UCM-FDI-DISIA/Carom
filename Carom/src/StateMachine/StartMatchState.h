@@ -16,6 +16,6 @@ public:
     void onStateEnter() override;
     void onStateExit() override;
 
-    inline void finish() {_finished = true; }
+    inline void finish() override {_finished = true; }
 };
 
