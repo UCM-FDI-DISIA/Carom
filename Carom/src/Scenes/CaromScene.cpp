@@ -13,6 +13,9 @@
 #include "RandomItem.h"
 #include "FollowComponent.h"
 #include "StartMatchState.h"
+#include "BallHandler.h"
+#include "AbacusEffect.h"
+#include "BowlingEffect.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -112,6 +115,8 @@ namespace ecs {
         });
         
         _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
+        addComponent<BallHandler>(e);
+        addComponent<AbacusEffect>(e);
 
         createBallShadow(e);
 

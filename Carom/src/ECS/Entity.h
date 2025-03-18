@@ -135,6 +135,6 @@ namespace ecs {
         GameList<Entity>::anchor _anchor;
         
         ITransform* _myTransform;
-        grpId_t _id;
+        ecs::grp::grpId _id;
     };
 }

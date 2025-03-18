@@ -2,7 +2,7 @@
 #include "BallEffect.h"
 class BallHandler;
 
-class AbacusEffect : BallEffect
+class AbacusEffect : public BallEffect
 {
 private:
     int _bonusPoints = 1;

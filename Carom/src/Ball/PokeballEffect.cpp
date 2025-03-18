@@ -10,8 +10,8 @@ void PokeballEffect::onHit(ecs::entity_t ent)
 
     for(Component* comp : effects)
     {
-        ent->removeComponent(&comp);
-        ent->addComponent(comp);
+        // ent->addComponent(comp);
+        // ent->removeComponent(&comp);
     }
 
     effects.clear();

@@ -116,7 +116,7 @@ add_executable(Carom
 
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
-	src/ECS/JsonEntityParser.cpp
+	# src/ECS/JsonEntityParser.cpp
 	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
 	src/ECS/BoxRBComponent.cpp
@@ -141,7 +141,7 @@ add_executable(Carom
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/CaromScene.cpp
-	src/Scenes/PrefabTestScene.cpp
+	# src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
 	
 	src/StateMachine/StartMatchState.cpp
@@ -150,6 +150,7 @@ add_executable(Carom
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
 
+ 	src/Ball/AbacusEffect.cpp
 	src/Ball/BallEffect.cpp
 	src/Ball/BallHandler.cpp
 	src/Ball/QuanticEffect.cpp
