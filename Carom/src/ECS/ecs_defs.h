@@ -33,6 +33,8 @@
 	SHADOWS, \
 	POOL_HOLE, \
 	BOSS_MODIFIERS, \
+	BOSS_HAND, \
+	BOSS_SHADOW, \
 	CAMERA
 
 // Effect list
