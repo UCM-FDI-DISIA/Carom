@@ -6,11 +6,12 @@
 #include "RectangleRBComponent.h"
 
 #include "GameScene.h"
-#include "../Game.h"
+#include "Game.h"
 
 namespace ecs{
 
-    GameScene::GameScene(Game* game): game(game){ 
+    GameScene::GameScene(Game* game): game(game)
+    {
         Entity* cam = new Entity(*this, grp::CAMERA);
         addComponent<TransformComponent>(cam, b2Vec2{0,0});
         addComponent<CameraComponent>(cam);

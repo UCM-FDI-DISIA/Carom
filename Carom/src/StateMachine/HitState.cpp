@@ -39,7 +39,6 @@ HitState::onStateExit() {
 
 bool 
 HitState::checkCondition(State*& state) {
-    // TODO: comprobar si la bola blanca ya ha sido golpeada ARQUITECTURA MIRAR SI ESTO ESTÁ BIEN
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)){
         if(e->tryGetComponent<ecs::StickInputComponent>() && e->getComponent<ecs::StickInputComponent>()->hasShot()) {
             std::cout << "Cambio a Scoring\n";

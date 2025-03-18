@@ -1,16 +1,17 @@
 #include <iostream>
-// #include "inputTest.h"
+
 #include "RNG_Manager.h"
 #include "RandomItem.h"
 #include "RandomItemParser.h"
 
 #include "Game.h"
 
-void start() { // ! tst
+void start() {
     Game g;
 
     g.init();
     g.start();
+    g.run();
 }
 
 int main (int, char**)
@@ -19,7 +20,7 @@ int main (int, char**)
         // input_basic_demo();
         // rng_basic_demo();
         // json_basic_demo();
-        start(); // ! tst
+        start();
     } catch (const std::string &e) { // catch exceptions thrown as strings
         std::cerr << e << std::endl;
     } catch (const char *e) { // catch exceptions thrown as char*

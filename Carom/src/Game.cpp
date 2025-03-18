@@ -1,13 +1,13 @@
-#include "Game.h"
+// #define _FPS // ! comentar si quieres quitar el cout de FPS
 
-#include "SDLUtils.h"
+#include "Game.h"
 #include "InputHandler.h"
 
 #include "ScenesManager.h"
-#include "GameScene.h" // ! test
-#include "CaromScene.h" // ! test
+#include "GameScene.h"
+#include "CaromScene.h"
 #include "PoolScene.h"
-#include "NullState.h" // ! test
+#include "NullState.h"
 
 #include "CaromScene.h"
 
@@ -24,9 +24,9 @@ Game::~Game() {
         SDLUtils::Release();
 }
 
-// TODO
 void
-Game::init() {
+Game::init() 
+{
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
 	if (!SDLUtils::Init("Carom", 1920, 1080, 
@@ -38,8 +38,6 @@ Game::init() {
 				<< std::endl;
 		return;
 	}
-    auto utils = SDLUtils::Instance();
-    //utils->toggleFullScreen();
 
 	// initialize InputHandler singleton
     if (!InputHandler::Init()) {
@@ -48,56 +46,110 @@ Game::init() {
         return;
     }
 
-    _sceneManager = new ScenesManager();    
+    // Gets refresh rate of monitor to set timestep
+    _displayMode.refresh_rate = getMonitorRefreshRate(sdlutils().window());
+    _timestep = 1000.0f/getMonitorRefreshRate(sdlutils().window()) - 1; // the "-1ms" is to benefit the VSync
+    // _logicTimestep = 
+
+    #ifdef _FPS
+        std::cout << "Monitor refresh rate: " << _displayMode.refresh_rate <<std::endl;
+        std::cout << "Current variable timestep: " << _timestep <<std::endl;
+    #endif
+}
+
+// Used to adapt render fps for different refresh rates hardware
+int Game::getMonitorRefreshRate(SDL_Window* window) 
+{
+    int displayIndex = SDL_GetWindowDisplayIndex(window);
+    if (displayIndex < 0) {
+        std::cerr << "Failed to get display index" << std::endl;
+        return -1;
+    }
+
+    // to get the current display mode
+    SDL_DisplayMode mode;
+    if (SDL_GetCurrentDisplayMode(displayIndex, &mode) != 0) {
+        std::cerr << "Failed to get display mode" << std::endl;
+        return -1;
+    }
+
+    // return the refresh rate in hz
+    return mode.refresh_rate;
 }
 
 void
-Game::start() {
-
-    bool exit = false;
-
-    auto &ihdlr = ih();
-    
-    sdlutils().showCursor();
+Game::start() 
+{
+    _sceneManager = new ScenesManager();    
 
     NullState* state = new NullState(nullptr);
-    // ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
     ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr);
-    _sceneManager->pushScene(ms); // ! tst
 
+    _sceneManager->pushScene(ms);
+}
+
+void Game::run()
+{
+    bool exit = false;
+    
+    sdlutils().showCursor();
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
+    
+    // for debugging fps
+    #if defined(_DEBUG) && defined(_FPS)
+        int frameCount = 0;
+        int time = 1000;
+    #endif
 
+    // Game loop capped by VSync (but has manual loop control for disabled functionality case)
+    // Monitors with refresh higher than 120hz are capped to 120hz (120 is max)
     while(!exit) {
-        // store the current time -- all game objects should use this time when
-		// they need to get the current time. They also have accesse to the time elapsed
-		// between the last two calls to regCurrTime().
-		Uint32 startTime = sdlutils().regCurrTime();
+        // refresh the input handler
+        Uint32 startTime = sdlutils().regCurrTime();
 
-		// refresh the input handler
-		ihdlr.refresh();
-
-		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdlr.closeWindowEvent()) {
-			exit = true;
-			continue;
-		}
-        
-        sdlutils().clearRenderer();
-
-        _sceneManager->handleEvent();
-        _sceneManager->update();
-
-        if (ihdlr.isWindowsFocused()) {
-            _sceneManager->render();
-            sdlutils().presentRenderer();
-            sdlutils().clearRenderer();
+        ih().refresh();
+        if (ih().isKeyDown(SDL_SCANCODE_ESCAPE) || ih().closeWindowEvent()) {
+            exit = true;
+            continue;
         }
 
-        Uint32 elapsed = startTime - sdlutils().currRealTime();
+        // So logic always runs at 120fps
+        for (int i = 0; i < _timestep/PHYSICS_TIMESTEP; ++i){
+            _sceneManager->handleEvent();
+            _sceneManager->update();
+        }
 
-        // Forzado a que el juego no vaya mas rápido que 60 fps
-        if (elapsed < FIXED_TIME_STEP)
-			SDL_Delay(FIXED_TIME_STEP - elapsed);
+        if (ih().isWindowsFocused()) {
+            sdlutils().clearRenderer();
+            _sceneManager->render();
+            sdlutils().presentRenderer();
+        }
+
+        #if defined(_DEBUG) && defined(_FPS)
+            frameCount++;
+            if (sdlutils().currRealTime() >= time){
+                std::cout << "FPS: " << frameCount << std::endl;
+                time = sdlutils().currRealTime() + 1000;
+                frameCount = 0;
+            }
+        #endif
+
+        Uint32 elapsed = sdlutils().currRealTime() - startTime;
+
+        // SDL_Delay introduce errors for how it works under the hood. 
+        // A way to deal with it is to call it with smaller durations.
+        if (elapsed < _timestep) {
+            Uint32 remainingTime = _timestep - elapsed;
+            while(sdlutils().currRealTime() - startTime < _timestep) { // (elapsed < _timestep)
+                if (remainingTime > 1)
+                    SDL_Delay(remainingTime - 1);
+                else
+                    SDL_Delay(1); // Waiting for shorter periods increases precision
+                remainingTime = _timestep - (sdlutils().currRealTime() - startTime);
+            }
+        }
+
     }
 
 }
