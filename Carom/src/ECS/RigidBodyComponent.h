@@ -10,8 +10,6 @@
 #include "ITransform.h"
 
 
-class B2Manager;
-
 namespace ecs{
 
 class Entity;
@@ -89,6 +87,7 @@ public:
     inline float getDensity() {return _myProps.density; }
     inline float getMass() {return _myProps.mass; }
     bool isMoving();
+    float getVelocityMag();
 
     // Setters
     void setPosition(const b2Vec2& newPos) override;

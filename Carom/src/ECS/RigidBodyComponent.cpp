@@ -92,6 +92,13 @@ RigidBodyComponent::isMoving() {
     return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2)) > 0.01f;
 }
 
+/// @brief Returns the speed of the body
+float
+RigidBodyComponent::getVelocityMag() {
+    b2Vec2 vel = getVelocity();
+    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2));
+}
+
 /// @brief Recoloca el objeto físico
 /// @param newPos Posición cartesiana
 void
