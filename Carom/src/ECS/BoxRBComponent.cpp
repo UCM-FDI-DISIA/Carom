@@ -38,7 +38,7 @@ BoxRBComponent::BoxRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyT
 }
 
 void
-BoxRBComponent::setScale(const Scale& newScale){
+BoxRBComponent::updateScale(){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -63,9 +63,9 @@ BoxRBComponent::setScale(const Scale& newScale){
     b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, &a_box);
     */
 
-    _myScale = newScale;
+    _myScale = _scaleBuffer.second;
 
-    b2Polygon a_box = b2MakeSquare((_myProps.length/2)*newScale.x);
+    b2Polygon a_box = b2MakeSquare((_myProps.length/2)*_myScale.x);
 
     b2Shape_SetPolygon(_myB2ShapeId, &a_box);
 }

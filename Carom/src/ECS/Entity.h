@@ -7,13 +7,13 @@
 #include <iostream>
 #include <functional>
 
+#include "ITransform.h"
 
 class Camera;
 namespace ecs {
 
     class GameScene;
     class Component;
-    class ITransform;
     class CaromScene;
     class JsonEntityParser;
     class PoolScene;
@@ -56,7 +56,8 @@ namespace ecs {
         bool removeComponent(){
             if(_components[cmpId<T>] == nullptr) return false;
     
-            if(dynamic_cast<ITransform>(_components[cmpId<T>] != nullptr)) _myTransform = nullptr;
+            if(dynamic_cast<ITransform*>(_components[cmpId<T>])!= nullptr) _myTransform = nullptr;
+
             auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
             delete _components[cmpId<T>];
             _currentComponents.erase(it);
@@ -73,7 +74,7 @@ namespace ecs {
         bool removeComponent(T comp){
             if(_components[cmpId<T>] == nullptr) return false;
     
-            if(dynamic_cast<ITransform>(_components[cmpId<T>] != nullptr)) _myTransform = nullptr;
+            if(dynamic_cast<ITransform*>(_components[cmpId<T>]) != nullptr) _myTransform = nullptr;
             auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
             _currentComponents.erase(it);
             _components[cmpId<T>] = nullptr;
@@ -119,7 +120,7 @@ namespace ecs {
         void handleEvents();
 
         GameScene& getScene();
-        inline grp::grpId getID() const {return _id;};
+        inline grpId_t getID() const {return _id;};
     
     private:
         friend GameScene;
@@ -134,6 +135,6 @@ namespace ecs {
         GameList<Entity>::anchor _anchor;
         
         ITransform* _myTransform;
-        grp::grpId _id;
+        grpId_t _id;
     };
 }
