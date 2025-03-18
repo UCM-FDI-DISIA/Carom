@@ -5,30 +5,42 @@
 #include "WhiteBallScorerComponent.h"
 
 
-ecs::ForceAreaComponent::ForceAreaComponent(entity_t ent, b2Vec2 center, float magnitude)
-    : ForceFieldComponent(ent), _minMagnitude(magnitude)
+ecs::ForceAreaComponent::ForceAreaComponent(entity_t ent, b2Vec2 center, float magnitude, bool attraction)
+    : ForceFieldComponent(ent), _minMagnitude(magnitude), _attraction(attraction)
 {
+    _force = b2Vec2_zero;
 }
 
-void ecs::ForceAreaComponent::applyForce(entity_t e)
+void ecs::ForceAreaComponent::defineForce(entity_t e)
+{
+    auto rb = e->getComponent<RigidBodyComponent>();
+
+    Vector2D a_bodyPos = {rb->getPosition().x, rb->getPosition().y};
+    Vector2D a_myCenter = {_myCenter.x, _myCenter.y};
+
+    // When the force is attraction:
+    Vector2D a_fieldForceVec = (a_myCenter - a_bodyPos);
+    if(!_attraction)
+        a_fieldForceVec = a_fieldForceVec * (-1);
+
+    float a_dist = a_fieldForceVec.magnitude();
+    float a_magnitude = _minMagnitude;
+    // TODO: mejorar función
+    Vector2D a_force = a_fieldForceVec.normalize() * a_magnitude * a_dist;
+    _force = {a_force.getX(), a_force.getY()};
+}
+
+void ecs::ForceAreaComponent::applyForce(entity_t e, b2Vec2 force)
 {
     auto rb = e->getComponent<RigidBodyComponent>();
 
     if(bodyIsMoving(*rb)){
 
-        Vector2D a_bodyPos = {rb->getPosition().x, rb->getPosition().y};
-
-        Vector2D a_fieldForceVec = (_myCenter - a_bodyPos);
-        float a_dist = a_fieldForceVec.magnitude();
-        float a_magnitude = _minMagnitude;
-        Vector2D a_force = a_fieldForceVec.normalize() * a_magnitude * a_dist;
-
-        //  ! if the ball is some small distance from the center set velocity to 0 ??
-
-        rb->applyForceToCenter({a_force.getX(), a_force.getY()});
+        rb->applyForceToCenter(_force);
 
         if (e->tryGetComponent<WhiteBallScorerComponent>()){
             // TODO: camera shake ??
         }
     }
 }
+
