@@ -12,10 +12,10 @@ namespace ecs {
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
         _myCenter = _myRB->getPosition();
-        _minVelocityToFall = 0.8f;
-        _maxDistToFall = _myRadius/2;
-        _maxForce = 0.5f;
-        _maxVelToTrigger = 2.0f; // above this the force doesnt work
+        _maxVelocityToFall = 5.0f;
+        _maxDistToFall = _myRadius * 0.5f;
+        _maxForce = 1.0f;
+        _maxVelToTrigger = 5.0f; // above this the force doesnt work
     }
 
     void HoleComponent::onTriggerEnter(entity_t other)
@@ -51,23 +51,23 @@ namespace ecs {
     }
 
     
-    void HoleComponent::applyForce(entity_t other, b2Vec2 force)
+    void HoleComponent::applyForce(entity_t other)
     {
         // std::cout << "apply force x" << force.x << std::endl;
         // std::cout << "apply force y" << force.y << std::endl;
         auto other_rb = _bodyCaptured->getComponent<RigidBodyComponent>();
         // TODO: MEJORA APPLY FORCE PERPENDICULAR TO BODY VELOCITY VECTOR
-        other_rb->applyForceToCenter({force.x, force.y});
+        other_rb->applyForceToCenter({_myForce.x, _myForce.y});
     }
 
     bool HoleComponent::tryToCapture(RigidBodyComponent* other_rb, float centersDist)
     {
         // std::cout << "try dist " << (centersDist < _maxDistToFall) << std::endl;
-        // std::cout << "try vel " << (other_rb->getVelocityMag() < _minVelocityToFall) << std::endl;
-        std::cout << "vel " << other_rb->getVelocityMag() << std::endl;
-        // min velocity
+        // std::cout << "try vel " << (other_rb->getVelocityMag() < _maxVelocityToFall) << std::endl;
+        // std::cout << "vel " << other_rb->getVelocityMag() << std::endl;
+        // max velocity
         // dist center
-        return centersDist < _maxDistToFall && other_rb->getVelocityMag() < _minVelocityToFall;
+        return centersDist < _maxDistToFall && other_rb->getVelocityMag() < _maxVelocityToFall;
     }
 
     void HoleComponent::update()
@@ -84,13 +84,13 @@ namespace ecs {
             float centersDistance = distanceVec.magnitude();
 
             // If object is in range of effect
-            if (centersDistance < other_radio){
+            if (centersDistance < _myRadius){
 
                 // std::cout << "in effect range" <<std::endl;
                 // To apply a force
                 float other_vel = other_rb->getVelocityMag();
-                _force = calculateForceToApply(_bodyCaptured, distanceVec, other_vel);
-                applyForce(_bodyCaptured, _force);
+                _myForce = calculateForceToApply(_bodyCaptured, distanceVec, other_vel);
+                applyForce(_bodyCaptured);
     
                 // To capture the object
                 if(tryToCapture(other_rb, centersDistance))
@@ -98,8 +98,8 @@ namespace ecs {
                     other_rb->setBodyEnabled(false);
                     other_rb->setPosition(_myCenter);
                     other_render->setRenderLayer(ecs::renderLayer::POOL_HOLE);
-                    // TODO: change color tint para ser más oscuro
-                    _myEntity->deactivate();
+                    other_render->changeColorTint(100, 100, 100);
+                    this->setEnabled(false);
                 }
             }
         }

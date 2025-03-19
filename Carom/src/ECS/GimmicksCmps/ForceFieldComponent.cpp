@@ -8,24 +8,30 @@
 namespace ecs{
 
     ForceFieldComponent::ForceFieldComponent(entity_t ent) 
-        : PhysicsComponent(ent), _force(b2Vec2(.0f, .0f))
+        : PhysicsComponent(ent)
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
         _myRadius = PhysicsConverter::pixel2meter(_myEntity->getComponent<RenderTextureComponent>()->getRect().w/2);
+        _myForce = b2Vec2_zero;
+
+        _minForce = 0;
+        _maxForce = SDL_MAX_UINT8; // 255
+        _minVelocity = 0;
+        _maxVelocity = SDL_MAX_UINT8; // 255
     }
 
-    // Apply friction force to bodies inside area proportional to its mass
-    // Force applied only for moving entities
+    // Apply defined force by derived to all bodies registered
     void ForceFieldComponent::update()
     {
         applyForceToAll();
     }
 
+    // Registers body and applies force on enter for cases in which fast bodies could skip an update
     void ForceFieldComponent::onTriggerEnter(entity_t other)
     {
         if(other->tryGetComponent<RigidBodyComponent>()){
             _rigidbodies.insert_or_assign(other, true);
-            applyForce(other, _force); // applies force on enter for cases in which fast balls could skip an update
+            applyForce(other); 
         }
     }
 
@@ -35,13 +41,14 @@ namespace ecs{
         _rigidbodies[other] = false;
     }
 
+    // Apply force to all bodies registered and flagged inside
     void ForceFieldComponent::applyForceToAll()
     {
         for(auto it = _rigidbodies.begin(); it != _rigidbodies.end(); ++it){
             entity_t entity = (*it).first;
             bool isInside = (*it).second;
             if (isInside)
-                applyForce(entity, _force);
+                applyForce(entity);
         }
     }
 

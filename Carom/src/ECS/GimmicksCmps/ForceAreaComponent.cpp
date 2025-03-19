@@ -8,7 +8,6 @@
 ecs::ForceAreaComponent::ForceAreaComponent(entity_t ent, b2Vec2 center, float magnitude, bool attraction)
     : ForceFieldComponent(ent), _minMagnitude(magnitude), _attraction(attraction)
 {
-    _force = b2Vec2_zero;
 }
 
 void ecs::ForceAreaComponent::defineForce(entity_t e)
@@ -27,16 +26,16 @@ void ecs::ForceAreaComponent::defineForce(entity_t e)
     float a_magnitude = _minMagnitude;
     // TODO: mejorar función
     Vector2D a_force = a_fieldForceVec.normalize() * a_magnitude * a_dist;
-    _force = {a_force.getX(), a_force.getY()};
+    _myForce = {a_force.getX(), a_force.getY()};
 }
 
-void ecs::ForceAreaComponent::applyForce(entity_t e, b2Vec2 force)
+void ecs::ForceAreaComponent::applyForce(entity_t e)
 {
     auto rb = e->getComponent<RigidBodyComponent>();
 
     if(bodyIsMoving(*rb)){
 
-        rb->applyForceToCenter(_force);
+        rb->applyForceToCenter(_myForce);
 
         if (e->tryGetComponent<WhiteBallScorerComponent>()){
             // TODO: camera shake ??

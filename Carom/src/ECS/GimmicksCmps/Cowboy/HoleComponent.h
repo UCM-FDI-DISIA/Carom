@@ -7,12 +7,12 @@ using isInsideField = bool;
 
 namespace ecs{
 
-    //
+    // Component that captures a single body
     class HoleComponent : public ForceAreaComponent
     {
     protected:
         entity_t _bodyCaptured;
-        float _minVelocityToFall;
+        float _maxVelocityToFall;
         float _maxDistToFall;
         
     public:
@@ -24,9 +24,11 @@ namespace ecs{
         virtual void onTriggerEnter(entity_t other) override;
         virtual void onTriggerExit(entity_t other) override; 
         b2Vec2 calculateForceToApply(entity_t e, Vector2D distanceVec, float other_vel);
-        virtual void applyForce(entity_t e, b2Vec2 force) override;
-        bool tryToCapture(RigidBodyComponent* other_rb, float centersDist);
         virtual void update() override;
+
+    protected:
+        virtual void applyForce(entity_t e) override;
+        bool tryToCapture(RigidBodyComponent* other_rb, float centersDist);
     };
 
 }

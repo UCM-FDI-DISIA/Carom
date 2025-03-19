@@ -54,22 +54,21 @@ namespace ecs{
 
     void CowboyPoolScene::createBulletHole(){
         // SCALE
-        float svgSize = *&sdlutils().svgElements_table().at("bola_blanca").width;
-        float textureSize = sdlutils().images().at("bola_blanca").width();
+        float svgSize = *&sdlutils().svgElements_table().at("hole1").width;
+        float textureSize = sdlutils().images().at("hole").width();
         float scale = svgSize/textureSize;
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("bola_blanca").x + 55,
-            *&sdlutils().svgElements_table().at("bola_blanca").y
+            *&sdlutils().svgElements_table().at("hole1").x + 70,
+            *&sdlutils().svgElements_table().at("hole1").y
         );
 
         Entity* e = new Entity(*this, grp::DEFAULT);
 
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
+        float radius = PhysicsConverter::pixel2meter(svgSize/2);
         addComponent<CircleRBComponent>(e, pos, b2_staticBody, radius, true);
 
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
-        //e->getComponent<RenderTextureComponent>()->changeColorTint(0, 0, 0);
 
         addComponent<HoleComponent>(e, pos, 0.4f);
     }

@@ -19,10 +19,10 @@ namespace ecs{
         __CMPID_DECL__(cmp::FRICTION);
         
         FrictionComponent(entity_t ent, float frictionCoef = 2);
-        ~FrictionComponent() {}
+        virtual ~FrictionComponent() {}
         
     protected:
-        void applyForce(entity_t e, b2Vec2 force) override;
+        virtual void applyForce(entity_t e) override;
 
     };
 

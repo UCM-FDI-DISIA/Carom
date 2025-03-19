@@ -15,7 +15,7 @@ namespace ecs{
         _maxForce = 2.0f;
     }
 
-    void FrictionComponent::applyForce(entity_t e, b2Vec2 force)
+    void FrictionComponent::applyForce(entity_t e)
     {
         auto rb = e->getComponent<RigidBodyComponent>();
 
@@ -24,6 +24,8 @@ namespace ecs{
             float    a_bodyMass = rb->getMass();
             Vector2D a_bodyVel = {rb->getVelocity().x, rb->getVelocity().y};
             float a_mag = (_mu * a_bodyMass * _g) * a_bodyVel.magnitude();
+
+            // Friction magnitude capped by _maxForce
             Vector2D a_frictionForce = a_bodyVel.normalize() * (-1) * b2ClampFloat(a_mag, 0, _maxForce);
             
             rb->applyForceToCenter({a_frictionForce.getX(), a_frictionForce.getY()});
