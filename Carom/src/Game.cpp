@@ -10,6 +10,8 @@
 #include "NullState.h"
 
 #include "CaromScene.h"
+#include "CowboyPoolScene.h" // ! tst
+
 
 Game::Game() {}
 
@@ -22,6 +24,8 @@ Game::~Game() {
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
+
+    delete _sceneManager;
 }
 
 void
@@ -91,10 +95,13 @@ Game::start()
 void Game::run()
 {
     bool exit = false;
+
+    auto& ihdr = ih();
+    auto& sdlut = sdlutils();
     
-    sdlutils().showCursor();
+    sdlut.showCursor();
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
-	sdlutils().resetTime();
+	sdlut.resetTime();
     
     // for debugging fps
     #if defined(_DEBUG) && defined(_FPS)
@@ -105,12 +112,18 @@ void Game::run()
     // Game loop capped by VSync (but has manual loop control for disabled functionality case)
     // Monitors with refresh higher than 120hz are capped to 120hz (120 is max)
     while(!exit) {
+        
+        Uint32 startTime = sdlut.regCurrTime();
+        
         // refresh the input handler
-        Uint32 startTime = sdlutils().regCurrTime();
-
-        ih().refresh();
-        if (ih().isKeyDown(SDL_SCANCODE_ESCAPE) || ih().closeWindowEvent()) {
+        ihdr.refresh();
+        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) {
             exit = true;
+            continue;
+        }
+
+        if (_restartRequested){
+            restart();
             continue;
         }
 
@@ -120,10 +133,10 @@ void Game::run()
             _sceneManager->update();
         }
 
-        if (ih().isWindowsFocused()) {
-            sdlutils().clearRenderer();
+        if (ihdr.isWindowsFocused()) {
+            sdlut.clearRenderer();
             _sceneManager->render();
-            sdlutils().presentRenderer();
+            sdlut.presentRenderer();
         }
 
         #if defined(_DEBUG) && defined(_FPS)
@@ -135,21 +148,38 @@ void Game::run()
             }
         #endif
 
-        Uint32 elapsed = sdlutils().currRealTime() - startTime;
+        Uint32 elapsed = sdlut.currRealTime() - startTime;
 
         // SDL_Delay introduce errors for how it works under the hood. 
         // A way to deal with it is to call it with smaller durations.
         if (elapsed < _timestep) {
             Uint32 remainingTime = _timestep - elapsed;
-            while(sdlutils().currRealTime() - startTime < _timestep) { // (elapsed < _timestep)
+            while(sdlut.currRealTime() - startTime < _timestep) { // (elapsed < _timestep)
                 if (remainingTime > 1)
                     SDL_Delay(remainingTime - 1);
                 else
                     SDL_Delay(1); // Waiting for shorter periods increases precision
-                remainingTime = _timestep - (sdlutils().currRealTime() - startTime);
+                remainingTime = _timestep - (sdlut.currRealTime() - startTime);
             }
         }
 
     }
 
 }
+
+#ifdef _DEBUG
+    void Game::restart()
+    {
+        _restartRequested = false;
+
+        delete _sceneManager;
+        _sceneManager = nullptr;
+
+        _sceneManager = new ScenesManager();    
+
+        NullState* state = new NullState(nullptr);
+        ecs::GameScene *ms = new ecs::CowboyPoolScene(state, this, nullptr, true);
+    
+        _sceneManager->pushScene(ms);
+    }
+#endif

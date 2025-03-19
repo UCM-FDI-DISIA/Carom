@@ -17,6 +17,10 @@ public:
     void init();
     void start();
     void run();
+
+    #ifdef _DEBUG
+        inline void requestRestart() { _restartRequested = true; }
+    #endif
     
     inline auto getRenderer() const{
         return _t->getRenderer();
@@ -35,4 +39,9 @@ private:
 
     Uint32 _timestep; // variable frame duration
     SDL_DisplayMode _displayMode; // to get the monitos
+
+    #ifdef _DEBUG
+        void restart();
+        bool _restartRequested = false;
+    #endif
 };

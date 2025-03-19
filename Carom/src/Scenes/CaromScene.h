@@ -27,11 +27,13 @@ namespace ecs{
         bool _fastForwardPhysics = false;
         int _fastForwardIterations = 10;
 
+        bool _canRestart = false; // ! DEBUG
+
         void updatePhysics() override;
         void updateScene() override;
     public:
         CaromScene(State* state, Game* g, GameScene* reward);
-        ~CaromScene();
+        virtual ~CaromScene();
 
         void handleEvent() override;
         void setCanFastForward(bool active) override;

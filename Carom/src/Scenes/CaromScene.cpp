@@ -260,6 +260,15 @@ namespace ecs {
             _fastForwardPhysics = true;
         else
             _fastForwardPhysics = false;
+
+        // ! DEBUG
+        if(ih().isKeyDown(SDLK_e) && !_canRestart){
+            _canRestart = true;
+        }
+        if (ih().isKeyDown(SDLK_r) && _canRestart){
+            _canRestart = false;
+            game->requestRestart();
+        }
     }
 
     void CaromScene::setCanFastForward(bool active)
