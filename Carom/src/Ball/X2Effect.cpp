@@ -6,5 +6,5 @@
 void X2Effect::init()
 {
     BallEffect::init();
-    _handler->setMult(2);
+    _handler->setMult(_handler->getMult() * 2);
 }

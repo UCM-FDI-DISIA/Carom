@@ -18,6 +18,7 @@ public:
     ~BallEffect() {}
 
     virtual void init() override;
+
     virtual void onHit(ecs::entity_t ent) {};
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};
