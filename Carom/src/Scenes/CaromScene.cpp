@@ -26,6 +26,7 @@ namespace ecs {
     CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
     {
         // SEEDING
+        // TODO: pasar RNG a sceneManager o Game para que haya uno solo
         _rngManager = new RNG_Manager();
         unsigned seed = _rngManager->randomRange(1, 1000000); 
         _rngManager->inseminate(seed);
@@ -41,38 +42,21 @@ namespace ecs {
 
         createStick();
         
-        // BALL TEST
+
+        // WHITE BALL
         // Converts (x, y) from screen(svg) to meters and to meter coordinates
         b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("bola_blanca").x,
             *&sdlutils().svgElements_table().at("bola_blanca").y
         );
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
-        std::cout << sdlutils().svgElements_table().size();
         // Apply impulse
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
+
         // EFFECT BALLS
-        int n_eb = 3;
-        int npos = sdlutils().svgElements_ballPos().size();
-        assert(n_eb <= npos);
-
-        std::vector<RandomItem<int>> positions;
-        for(int i = 1; i <= npos; ++i)
-            positions.push_back(RandomItem(i, 1.0f));
-
-        std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, n_eb, false);
-
-        for(int i = 0; i < n_eb; ++i) {
-            std::string s = "bola";
-            if(eb_selected_pos[i] > 1)
-                s += ("_" + std::to_string(eb_selected_pos[i]));
-            
-            auto& eb = sdlutils().svgElements_ballPos().at(s);
-            auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
-
-            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1);
-        }
+        int n_eb = 3; // TODO: obetener esto de config
+        createEffectBalls(n_eb);
 
 
         // Create table with texture and colliders
@@ -148,6 +132,9 @@ namespace ecs {
         return e;
     }
 
+
+    /// @brief Creates a single effect ball
+    /// @param effectId Specific components will be applied according to the ball id
     void
     CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
         // Scale
@@ -171,6 +158,33 @@ namespace ecs {
 
         createBallShadow(e);
     }
+
+
+    /// @brief Creates and randomly places as many effect balls as specified
+    /// @param n Number of balls to place
+    void 
+    CaromScene::createEffectBalls(int n) {
+        int npos = sdlutils().svgElements_ballPos().size();
+        assert(n <= npos);
+
+        std::vector<RandomItem<int>> positions;
+        for(int i = 1; i <= npos; ++i)
+            positions.push_back(RandomItem(i, 1.0f));
+
+        std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, n, false);
+
+        for(int i = 0; i < n; ++i) {
+            std::string s = "bola";
+            if(eb_selected_pos[i] > 1)
+                s += ("_" + std::to_string(eb_selected_pos[i]));
+            
+            auto& eb = sdlutils().svgElements_ballPos().at(s);
+            auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
+
+            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1);
+        }
+    }
+
 
     void CaromScene::createBallShadow(entity_t entity){
         //sombra de reflejo de la bola
@@ -473,7 +487,7 @@ namespace ecs {
     //---------------------------BOSS---------------------------------
     void CaromScene::playBossTurn() {
         clearBossModifiers();
-        applyBossModifiers(); // TODO: no se si esto llama al metodo de la subclase al ser virtual o no
+        applyBossModifiers();
     }
 
     void CaromScene::clearBossModifiers() {

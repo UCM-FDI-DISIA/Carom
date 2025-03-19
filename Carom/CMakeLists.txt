@@ -97,7 +97,6 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
-	external/sdlutils/src/sdlutils_demo.cpp
 	external/sdlutils/src/SDLUtils.cpp
 	external/sdlutils/src/SDLUtilsError.cpp
 	external/sdlutils/src/SoundEffect.cpp
@@ -144,7 +143,6 @@ add_executable(Carom
 
 	src/HitManager/ColorHitManager.cpp
 
-	src/inputTest.cpp
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/CaromScene.cpp

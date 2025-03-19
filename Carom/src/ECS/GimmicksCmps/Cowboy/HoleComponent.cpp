@@ -7,11 +7,11 @@
 
 namespace ecs {
 
-    HoleComponent::HoleComponent(entity_t ent, b2Vec2 center, float magnitude)
-        : ForceAreaComponent(ent, center, magnitude, true), _nearBody(nullptr), _isEmpty(true)
+    HoleComponent::HoleComponent(entity_t ent, float magnitude)
+        : ForceAreaComponent(ent, magnitude, true), _nearBody(nullptr), _isEmpty(true)
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
-        _myCenter = _myRB->getPosition();
+        defineCenter(_myRB->getPosition());
         _maxVelocityToFall = 5.0f;
         _maxDistToFall = _myRadius * 0.5f;
         _maxForce = 1.0f;
@@ -102,6 +102,7 @@ namespace ecs {
                     other_render->changeColorTint(100, 100, 100);
                     this->setEnabled(false);
                     _isEmpty = false;
+                    // ! SONIDO bola cayendo en agujero
                 }
             }
         }

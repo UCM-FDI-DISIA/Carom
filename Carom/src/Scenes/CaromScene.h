@@ -115,6 +115,9 @@ namespace ecs{
 
         void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
                                 float density, float friction, float restitution);
+
+        void createEffectBalls(int n);
+        
         void createBallShadow(entity_t);
 
         void createScoreEntity();

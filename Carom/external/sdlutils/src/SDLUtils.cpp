@@ -24,6 +24,7 @@ SDLUtils::SDLUtils() :
 		_imagesAccessWrapper(_images, "Images Table"), //
 		_svgAccessWrapper_table(_svg_table, "SVG Table"), //
 		_svgAccessWrapper_ballPos(_svg_ballPos, "SVG Ball Positions"), //
+		_svgAccessWrapper_CowboyPool_shotHoles(_svg_CowboyPool_shotHoles, "SVG Cowboy Pool Shot hole positions"), //
 		_msgsAccessWrapper(_msgs, "Messages Table"), //
 		_soundsAccessWrapper(_sounds, "Sounds Table"), //
 		_musicsAccessWrapper(_musics, "Musics Table"), //

@@ -41,7 +41,7 @@ namespace ecs{
             *&sdlutils().svgElements_table().at("bola_blanca").y + 50
         );
 
-        Entity* ent = new Entity(*this, grp::BOSS_MODIFIERS);
+        Entity* ent = new Entity(*this, grp::GIMMICK);
 
         float length = PhysicsConverter::pixel2meter(svgSize/2);
         addComponent<CircleRBComponent>(ent, pos, b2_staticBody, length, true);
@@ -70,7 +70,7 @@ namespace ecs{
 
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
 
-        addComponent<HoleComponent>(e, pos, 0.4f);
+        addComponent<HoleComponent>(e, 0.4f);
     }
 
     CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){
@@ -91,10 +91,15 @@ namespace ecs{
             }
         }
 
-        _currentState->finish();
+        
         //TODO 2: reset entities' components modified by gimmicks to original state
-
+        _currentState->finish();
     }
+
+    void CowboyPoolScene::animateBossHand(){
+        
+    }
+
     void CowboyPoolScene::clearBossModifiers()
     {
         // Reset hole changes on balls and deactivate it
