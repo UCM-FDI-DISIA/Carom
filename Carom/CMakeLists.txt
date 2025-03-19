@@ -157,6 +157,15 @@ add_executable(Carom
 	src/Ball/QuanticEffect.cpp
 	src/Ball/PokeballEffect.cpp
 	src/Ball/BowlingEffect.cpp
+	src/Ball/SubdivisionEffect.cpp
+	src/Ball/ExplosiveEffect.cpp
+	src/Ball/FrictionMultiplierEffect.cpp
+	src/Ball/PushOutsideTriggerComponent.cpp
+
+
+	src/ECS/BoxingGloveStickEffect.cpp
+	src/ECS/MagicWandStickEffect.cpp
+	src/ECS/GranadeLauncherStickEffect.cpp
 )
 
 # Link Box2D
