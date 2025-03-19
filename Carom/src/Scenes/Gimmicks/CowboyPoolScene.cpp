@@ -91,10 +91,15 @@ namespace ecs{
             }
         }
 
-        _currentState->finish();
+        
         //TODO 2: reset entities' components modified by gimmicks to original state
-
+        _currentState->finish();
     }
+
+    void CowboyPoolScene::animateBossHand(){
+        
+    }
+
     void CowboyPoolScene::clearBossModifiers()
     {
         // Reset hole changes on balls and deactivate it

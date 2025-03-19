@@ -9,6 +9,8 @@ namespace ecs{
         void applyBossModifiers() override;
         void clearBossModifiers() override;
 
+        void animateBossHand();
+
         // Gimmicks
         void createSandBank();
         void createBulletHole();
