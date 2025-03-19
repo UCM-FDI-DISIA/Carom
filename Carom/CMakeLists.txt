@@ -116,7 +116,7 @@ add_executable(Carom
 
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
-	# src/ECS/JsonEntityParser.cpp
+	src/ECS/JsonEntityParser.cpp
 	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
 	src/ECS/BoxRBComponent.cpp
