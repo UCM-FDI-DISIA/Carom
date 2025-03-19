@@ -8,10 +8,10 @@
 namespace ecs {
 
     HoleComponent::HoleComponent(entity_t ent, float magnitude)
-        : ForceAreaComponent(ent, _myEntity->getTransform()->getPosition(), magnitude, true), _nearBody(nullptr), _isEmpty(true)
+        : ForceAreaComponent(ent, magnitude, true), _nearBody(nullptr), _isEmpty(true)
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
-        _myCenter = _myRB->getPosition();
+        defineCenter(_myRB->getPosition());
         _maxVelocityToFall = 5.0f;
         _maxDistToFall = _myRadius * 0.5f;
         _maxForce = 1.0f;

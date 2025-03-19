@@ -24,12 +24,14 @@ namespace ecs{
         __CMPID_DECL__(cmp::FORCE_AREA);
         
         // If attraction is false the force is repulsion
-        ForceAreaComponent(entity_t ent, b2Vec2 center, float magnitude, bool attraction = true);
+        ForceAreaComponent(entity_t ent, float magnitude, bool attraction = true);
         virtual ~ForceAreaComponent() {}
     
     protected:
         virtual void defineForce(entity_t e);
         virtual void applyForce(entity_t e) = 0;
+
+        virtual void defineCenter(b2Vec2 c);
     };
 
 }

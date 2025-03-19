@@ -5,7 +5,7 @@
 #include "WhiteBallScorerComponent.h"
 
 
-ecs::ForceAreaComponent::ForceAreaComponent(entity_t ent, b2Vec2 center, float magnitude, bool attraction)
+ecs::ForceAreaComponent::ForceAreaComponent(entity_t ent, float magnitude, bool attraction)
     : ForceFieldComponent(ent), _minMagnitude(magnitude), _attraction(attraction)
 {
 }
@@ -41,5 +41,9 @@ void ecs::ForceAreaComponent::applyForce(entity_t e)
             // TODO: camera shake ??
         }
     }
+}
+
+void ecs::ForceAreaComponent::defineCenter(b2Vec2 c){
+    _myCenter = c;
 }
 
