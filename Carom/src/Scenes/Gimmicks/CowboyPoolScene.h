@@ -5,6 +5,10 @@
 namespace ecs{
 
     class CowboyPoolScene : public ecs::CaromScene {
+    public:
+            CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss);
+
+    protected:
         void initGimmick();
         void applyBossModifiers() override;
         void clearBossModifiers() override;
@@ -13,10 +17,9 @@ namespace ecs{
 
         // Gimmicks
         void createSandBank();
-        void createBulletHole();
 
-    public:
-        CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss);
-            
+        // Boss modifiers
+        entity_t createBulletHole(const b2Vec2& pos);  
+        void createBulletHoles(int n);  
     };
 }

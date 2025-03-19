@@ -11,9 +11,17 @@
 #include "ForceAreaComponent.h"
 #include "FrictionComponent.h"
 #include "HoleComponent.h"
+#include "RNG_Manager.h"
+#include "RandomItem.h"
 
 
 namespace ecs{
+
+    CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){
+        if(isBoss) _boss = Boss::COWBOY_POOL;
+        initGimmick();
+    }
+
     void CowboyPoolScene::initGimmick(){
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
@@ -52,7 +60,7 @@ namespace ecs{
         addComponent<FrictionComponent>(ent);
     }
 
-    void CowboyPoolScene::createBulletHole(){
+    void CowboyPoolScene::createBulletHole(const b2Vec2& pos){
         // SCALE
         float svgSize = *&sdlutils().svgElements_table().at("hole1").width;
         float textureSize = sdlutils().images().at("hole").width();
@@ -73,9 +81,56 @@ namespace ecs{
         addComponent<HoleComponent>(e, 0.4f);
     }
 
-    CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){
-        if(isBoss) _boss = Boss::COWBOY_POOL;
-        initGimmick();
+    void 
+    CowboyPoolScene::createBulletHoles(int n) {
+        int npos = sdlutils().svgElements_CowboyPool_ShotHoles().size();
+        assert(n <= npos);
+
+        std::vector<RandomItem<int>> positions;
+        for(int i = 1; i <= npos; ++i)
+            positions.push_back(RandomItem(i, 1.0f));
+        
+        std::vector<int> selected_pos;
+        
+        
+        
+        while(n > 0) {
+            // Sacar agujero
+            int id = _rngManager->getRandomItem(positions, true) ;
+
+            std::string s = "shot_hole";
+            if(id > 1)
+                s += ("_" + std::to_string(id));
+            
+            auto& hole = sdlutils().svgElements_CowboyPool_ShotHoles().at(s);
+            auto hole_pos = PhysicsConverter::pixel2meter(hole.x, hole.y);
+            auto hole_radius = sdlutils().svgElements_CowboyPool_ShotHoles().at("shot_hole").width/2;
+
+            // Comprobar si es válido
+            bool valid = true;
+
+            auto& balls = (getEntitiesOfGroup(ecs::grp::WHITEBALL));
+            for(auto& e : balls) {
+                if(e->tryGetComponent<CircleRBComponent>()) { // TODO: cambiar esto cuando se mergee con la rama de Diego el tryGetComponent
+                    auto ball_tr = e->getComponent<CircleRBComponent>();
+                    auto ball_pos = ball_tr->getPosition();
+                    auto ball_radius = PhysicsConverter::pixel2meter(ball_tr->getRadius());
+                    
+                    if(PhysicsConverter::circleOverlap(hole_pos, hole_radius, ball_pos, ball_radius)) {
+                        valid = false;
+                        break;
+                    }
+                }
+            }
+
+
+            // auto& balls = getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+
+            // Si lo es, crear agujero y --n
+            // selected_pos.emplace_back
+
+
+        }
     }
 
     void
