@@ -66,6 +66,7 @@ namespace ecs{
         void removeScore(int score);
         
         inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+        b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
     //------------------------------MANAGERS-------------------------------------
     protected:

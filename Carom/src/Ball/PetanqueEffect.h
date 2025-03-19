@@ -1,8 +1,13 @@
 #pragma once
 #include "BallEffect.h"
+class BallHandler;
 
-class PetanqueEffect : BallEffect
+class PetanqueEffect : public BallEffect
 {
+private:
+    BallHandler* _handler;
+    ecs::entity_t _whiteBall;
+    const float MAX_DISTANCE = 50;
 public:
     PetanqueEffect(ecs::entity_t ent) : BallEffect(ent) {
         _name = "Petanca";
@@ -10,6 +15,7 @@ public:
     }
     ~PetanqueEffect() {}
 
+    void init() override;
     void onStrikeEnd() override;
     __CMPID_DECL__(ecs::cmp::PETANQUE_EFFECT);
 };

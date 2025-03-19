@@ -151,6 +151,7 @@ add_executable(Carom
 	src/StateMachine/LoseMatchState.cpp
 
  	src/Ball/AbacusEffect.cpp
+	src/Ball/PetanqueEffect.cpp
 	src/Ball/BallEffect.cpp
 	src/Ball/BallHandler.cpp
 	src/Ball/QuanticEffect.cpp

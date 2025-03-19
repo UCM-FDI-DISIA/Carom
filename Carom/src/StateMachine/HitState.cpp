@@ -6,6 +6,7 @@
 #include "Button.h"
 #include "WhiteBallScorerComponent.h"
 #include <iostream>
+#include "BallHandler.h"
 
 
 HitState::HitState(ecs::CaromScene* scene) : State(scene) 
@@ -33,6 +34,15 @@ HitState::onStateExit() {
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
         if(e->tryGetComponent<ecs::Button>()) {
             e->getComponent<ecs::Button>()->setEnabled(false);
+        }
+
+        if(e->tryGetComponent<BallHandler>()) {
+            e->getComponent<BallHandler>()->onStrikeEnd();
+        }
+    }
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS)) {
+        if(e->tryGetComponent<BallHandler>()) {
+            e->getComponent<BallHandler>()->onStrikeEnd();
         }
     }
 }

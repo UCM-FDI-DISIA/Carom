@@ -1,7 +1,7 @@
 #pragma once
 #include "BallEffect.h"
 
-class CristalEffect : BallEffect
+class CristalEffect : public BallEffect
 {
 public:
     CristalEffect(ecs::entity_t ent) : BallEffect(ent) {
