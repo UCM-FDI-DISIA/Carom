@@ -10,7 +10,7 @@ using namespace std;
 
 namespace ecs {
 
-    Entity::Entity(GameScene& scene, grpId_t gId) : _myScene(scene), _alive(true), _myTransform(nullptr)
+    Entity::Entity(GameScene& scene, grpId_t gId) : _myScene(scene), _alive(true), _myTransform(nullptr), _id((ecs::grp::grpId)gId)
     {
         _myScene.getEntities().push_back(this);
         _myScene.getEntitiesOfGroup(gId).push_back(this);

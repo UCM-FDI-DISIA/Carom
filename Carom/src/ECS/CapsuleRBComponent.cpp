@@ -44,7 +44,7 @@ CapsuleRBComponent::CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
 }
 
 void
-CapsuleRBComponent::setScale(const Scale& newScale){
+CapsuleRBComponent::updateScale(){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -77,13 +77,13 @@ CapsuleRBComponent::setScale(const Scale& newScale){
     b2CreateCapsuleShape(_myB2BodyId, bodyShapeTuple.second, &a_capsule);
     */
 
-    _myScale = newScale;
+    _myScale = _scaleBuffer.second;
 
     b2Capsule a_capsule;
-    a_capsule.radius = _myProps.dimensions.y * newScale.x;
+    a_capsule.radius = _myProps.dimensions.y * _myScale.x;
 
-    float width = _myProps.dimensions.x * newScale.x;
-    float height = _myProps.dimensions.y * newScale.y;
+    float width = _myProps.dimensions.x * _myScale.x;
+    float height = _myProps.dimensions.y * _myScale.y;
 
     a_capsule.center1 = {_myProps.initialPos.x - (width - height)/2, 
                          _myProps.initialPos.y};
