@@ -1,4 +1,4 @@
- cmake_minimum_required(VERSION 3.15...3.30)
+cmake_minimum_required(VERSION 3.15...3.30)
 
 project(Carom VERSION 0.1 LANGUAGES CXX)
 
@@ -116,7 +116,7 @@ add_executable(Carom
 
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
-	# src/ECS/JsonEntityParser.cpp
+	src/ECS/JsonEntityParser.cpp
 	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
 	src/ECS/BoxRBComponent.cpp
@@ -144,7 +144,6 @@ add_executable(Carom
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/CaromScene.cpp
-	# src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
 	src/Scenes/PrefabTestScene.cpp
 	
@@ -154,7 +153,6 @@ add_executable(Carom
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
 
- 	src/Ball/AbacusEffect.cpp
 	src/Ball/BallEffect.cpp
 	src/Ball/BallHandler.cpp
 	src/Ball/QuanticEffect.cpp

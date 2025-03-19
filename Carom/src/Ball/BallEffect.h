@@ -12,6 +12,7 @@ class BallEffect : public ecs::Component
 protected:
     std::string _name;
     std::string _description;
+    ecs::CaromScene* _scene;
 public:
     BallEffect(ecs::entity_t ent) : Component(ent) {}
     ~BallEffect() {}

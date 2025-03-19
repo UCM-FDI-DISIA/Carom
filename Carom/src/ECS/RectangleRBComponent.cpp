@@ -41,7 +41,7 @@ RectangleRBComponent::RectangleRBComponent(entity_t ent, const b2Vec2 &pos, b2Bo
 }
 
 void
-RectangleRBComponent::updateScale(){
+RectangleRBComponent::setScale(const Scale& newScale){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -66,9 +66,9 @@ RectangleRBComponent::updateScale(){
     b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, &a_rect);
     */
 
-    _myScale = _scaleBuffer.second;
+    _myScale = newScale;
 
-    b2Polygon a_rect = b2MakeBox((_myProps.dimensions.x/2) * _myScale.x, (_myProps.dimensions.y/2) * _myScale.y);
+    b2Polygon a_rect = b2MakeBox((_myProps.dimensions.x/2) * newScale.x, (_myProps.dimensions.y/2) * newScale.y);
 
     b2Shape_SetPolygon(_myB2ShapeId, &a_rect);
 }

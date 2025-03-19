@@ -40,7 +40,7 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
 }
 
 void
-CircleRBComponent::updateScale(){
+CircleRBComponent::setScale(const Scale& newScale){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -68,10 +68,10 @@ CircleRBComponent::updateScale(){
 
     static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics();*/
 
-    _myScale = _scaleBuffer.second;
+    _myScale = newScale;
 
     b2Circle a_circle;
-    a_circle.radius = _myProps.radius * _myScale.x;
+    a_circle.radius = _myProps.radius * newScale.x;
     a_circle.center = {0, 0};
 
     b2Shape_SetCircle(_myB2ShapeId, &a_circle);
