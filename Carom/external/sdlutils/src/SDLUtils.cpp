@@ -49,12 +49,15 @@ bool SDLUtils::init(std::string windowTitle, int width, int height) {
 	return true;
 }
 
-bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename_table, const char* svgFilename_ballPos) {
+
+
+bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const std::unordered_map<ecs::svgId_t, std::string> svgFilenames) {
 	init(windowTitle, width, height);
 	
 	loadReasources(filename);
-	loadSVG(_svg_table, svgFilename_table);
-	loadSVG(_svg_ballPos, svgFilename_ballPos);
+	loadSVG(_svg_table, svgFilenames.at(ecs::svg::TABLE));
+	loadSVG(_svg_ballPos, svgFilenames.at(ecs::svg::BALL_POSITIONS));
+	loadSVG(_svg_CowboyPool_shotHoles, svgFilenames.at(ecs::svg::SHOT_HOLES));
 
 	// we always return true, because this class either exit or throws an
 	// exception on error. If you want to avoid using exceptions you should
@@ -302,6 +305,10 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+}
+
+void SDLUtils::loadSVG(auto& svgMap, const std::string& filename) {
+	loadSVG(svgMap, filename.c_str());
 }
 
 void SDLUtils::loadSVG(auto& svgMap, const char* filename){
