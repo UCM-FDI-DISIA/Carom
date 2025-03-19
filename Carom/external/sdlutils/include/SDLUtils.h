@@ -13,6 +13,7 @@
 #include "SoundEffect.h"
 #include "Texture.h"
 #include "VirtualTimer.h"
+#include "ecs.h"
 
 
 
@@ -234,8 +235,7 @@ private:
 
 	SDLUtils();
 	bool init(std::string windowTitle, int width, int height);
-	bool init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename1, const char* svgFilename2);
-	bool init(std::string windowTitle, int width, int height, std::string filename, const std::unordered_map<std::string, std::string> svgFilenames);
+	bool init(std::string windowTitle, int width, int height, std::string filename, const std::unordered_map<ecs::svgId_t, std::string> svgFilenames);
 
 	void initWindow();
 	void closeWindow();
@@ -243,6 +243,7 @@ private:
 	void closeSDLExtensions(); // free resources the
 	void loadReasources(std::string filename); // load resources from the json file
 	void loadSVG(auto& svgMap, const char* filename); // load resources from the svg file
+	void loadSVG(auto& svgMap, const std::string& filename); // load resources from the svg file
 
 	std::string _windowTitle; // window title
 	int _width; // window width

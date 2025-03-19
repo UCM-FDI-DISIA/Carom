@@ -55,18 +55,19 @@
   ],
 
     "sounds": [
-        {
-            "id": "gunshot",
-            "file": "../../resources/sound/gunshot.wav"
-        }
+        {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"}
     ],
 
-  "musics" : [
-    { "id" : "beat", "file" : "../../resources/sound/beat.wav" },
-    {
-        "id": "imperial_march",
-        "file": "../../resources/sound/imperial_march.wav"
-    }
+  "musics": [
+    { "id": "beat", "file": "../../resources/sound/beat.wav"},
+    { "id": "imperial_march", "file": "../../resources/sound/imperial_march.wav" }
+  ],
+
+  "svgs": [
+    {"id": "game", "file": "../../resources/svg/Game.svg"},
+    {"id": "grp_cowboy", "file": "../../resources/svg/grp_cowboy.svg"},
+    {"id": "positions", "file": "../../resources/svg/positions.svg"},
+    {"id": "shot_positions", "file": "../../resources/svg/shot_positions.svg"}
   ]
 
 }

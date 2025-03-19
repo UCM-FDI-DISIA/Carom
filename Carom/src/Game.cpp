@@ -1,5 +1,8 @@
 // #define _FPS // ! comentar si quieres quitar el cout de FPS
 
+#include <unordered_map>
+#include <utility>
+
 #include "Game.h"
 #include "InputHandler.h"
 
@@ -31,13 +34,14 @@ Game::~Game() {
 void
 Game::init() 
 {
+    std::unordered_map<ecs::svgId_t, std::string> svgFilenames;
+    svgFilenames.emplace(std::make_pair(ecs::svg::TABLE, "../../resources/svg/Game.svg"));
+    svgFilenames.emplace(std::make_pair(ecs::svg::BALL_POSITIONS, "../../resources/svg/positions.svg"));
+    svgFilenames.emplace(std::make_pair(ecs::svg::SHOT_HOLES, "../../resources/svg/shot_positions.svg"));
+    
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
-	if (!SDLUtils::Init("Carom", 1920, 1080, 
-            "../../resources/config/resources.json", 
-            "../../resources/svg/Game.svg", 
-            "../../resources/svg/positions.svg"
-        )) {
+	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/resources.json", svgFilenames)) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
 		return;
