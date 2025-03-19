@@ -119,7 +119,7 @@ namespace ecs {
             other_render->resetRenderLayer();
             other_render->resetColorTint();
 
-            _bodyCaptured = false;
+            _bodyCaptured = nullptr;
         }
     }
 
