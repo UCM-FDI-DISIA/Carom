@@ -117,7 +117,7 @@ namespace ecs {
 
         createBallShadow(e);
 
-        addComponent<ecs::BallHandler>(e);
+        // addComponent<ecs::BallHandler>(e);
 
         return e;
     }
@@ -173,7 +173,7 @@ namespace ecs {
         addComponent<ColorBallScorerComponent>(e);
 
         // BALLEFFECTS
-        addComponent<ecs::BallHandler>(e);
+        // addComponent<ecs::BallHandler>(e);
 
         // TODO: add components according to its id
 

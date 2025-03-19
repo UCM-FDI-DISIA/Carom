@@ -19,5 +19,4 @@ namespace ecs {
     GranadeLauncherStickEffect::applyEffect(entity_t ball){
        ball->addComponent<ExplosiveEffect>(new ExplosiveEffect(ball, _explosionDelay, _radius, _explosionForce));
     } 
-
 }
