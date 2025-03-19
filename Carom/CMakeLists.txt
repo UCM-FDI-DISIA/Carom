@@ -135,11 +135,8 @@ add_executable(Carom
 
 	src/ECS/FollowComponent.cpp
 
-	src/ECS/PushOutsideTriggerComponent.cpp
-
 	src/ECS/BoxingGloveStickEffect.cpp
 	src/ECS/MagicWandStickEffect.cpp
-	src/ECS/GranadeLauncherStickEffect.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 
@@ -163,7 +160,6 @@ add_executable(Carom
 	src/Ball/BowlingEffect.cpp
 	src/Ball/SubdivisionEffect.cpp
 	src/Ball/FrictionMultiplierEffect.cpp
-	src/Ball/ExplosiveEffect.cpp
 )
 
 # Link Box2D
