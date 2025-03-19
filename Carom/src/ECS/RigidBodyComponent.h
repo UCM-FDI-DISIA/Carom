@@ -30,9 +30,6 @@ protected:
     
     Scale _myScale = {1.0, 1.0};
 
-    /// @brief Si es true implica que la escala debe ser cambiada a la del segundo componente
-    std::pair<bool, Scale> _scaleBuffer = {false, Scale()};
-
     // Data used for polygons
     struct Polygon{
         std::vector<b2Vec2> vertices;
@@ -72,15 +69,12 @@ protected:
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
 
-    virtual void updateScale() = 0;
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
-
-    void update() override;
 
     void generateBodyAndShape();
 
@@ -89,6 +83,10 @@ public:
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
+    inline b2BodyType getBodyType() const {return b2Body_GetType(_myB2BodyId);}
+    inline float getDensity() const {return b2Shape_GetDensity(_myB2ShapeId);}
+    inline float getFriction() const {return b2Shape_GetFriction(_myB2ShapeId);}
+    inline float getRestitution() const {return b2Shape_GetRestitution(_myB2ShapeId);}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
     bool isMoving();
@@ -96,7 +94,6 @@ public:
     // Setters
     void setPosition(const b2Vec2& newPos) override;
     void setRotation(const double& newRot) override;
-    void setScale(const Scale& newScale) override;
 
     void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes);
@@ -106,11 +103,6 @@ public:
     void setRestitution(float restitution, int nShapes);
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
-
-    void setEnabled(bool state) override;
-
-    // enable or disable body to participate in simulation
-    void setBodyEnabled(bool enabled);
 
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);

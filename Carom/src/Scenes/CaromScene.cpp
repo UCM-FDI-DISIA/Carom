@@ -18,6 +18,7 @@
 #include "BowlingEffect.h"
 #include "PetanqueEffect.h"
 #include "QuanticEffect.h"
+#include "MagicWandStickEffect.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -139,7 +140,9 @@ namespace ecs {
 
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
-        addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
+        auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
+
+        //auto effect = addComponent<MagicWa
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);
