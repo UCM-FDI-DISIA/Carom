@@ -36,6 +36,7 @@
 	BOSS_MODIFIERS, \
 	BOSS_HAND, \
 	BOSS_SHADOW, \
+	GIMMICK, \
 	CAMERA
 
 // Effect list

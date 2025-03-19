@@ -161,6 +161,11 @@ public:
 		return _svgAccessWrapper_ballPos;
 	}
 
+	// COWBOYPOOL Shot holes svg elements map
+	inline auto& svgElements_CowboyPool_ShotHoles() {
+		return _svgAccessWrapper_CowboyPool_shotHoles;
+	}
+
 	// messages map
 	inline auto& msgs() {
 		return _msgsAccessWrapper;
@@ -230,6 +235,7 @@ private:
 	SDLUtils();
 	bool init(std::string windowTitle, int width, int height);
 	bool init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename1, const char* svgFilename2);
+	bool init(std::string windowTitle, int width, int height, std::string filename, const std::unordered_map<std::string, std::string> svgFilenames);
 
 	void initWindow();
 	void closeWindow();
@@ -249,6 +255,7 @@ private:
 	sdl_resource_table<Texture> _images; // textures map (string -> texture)
 	sdl_resource_table<svgElem> _svg_table; // svg for TABLE ITEMS struct map (string(ID) -> struct)
 	sdl_resource_table<svgElem> _svg_ballPos; // svg for BALL POSITIONS struct map (string(ID) -> struct)
+	sdl_resource_table<svgElem> _svg_CowboyPool_shotHoles; // svg for SHOT HOLE POSITIONS in COWBOY POOL struct map (string(ID) -> struct)
 	sdl_resource_table<Texture> _msgs; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> _sounds; // sounds map (string -> sound)
 	sdl_resource_table<Music> _musics; // musics map (string -> music)
@@ -257,6 +264,7 @@ private:
 	map_access_wrapper<Texture> _imagesAccessWrapper;
 	map_access_wrapper<svgElem> _svgAccessWrapper_table;
 	map_access_wrapper<svgElem> _svgAccessWrapper_ballPos;
+	map_access_wrapper<svgElem> _svgAccessWrapper_CowboyPool_shotHoles;
 	map_access_wrapper<Texture> _msgsAccessWrapper;
 	map_access_wrapper<SoundEffect> _soundsAccessWrapper;
 	map_access_wrapper<Music> _musicsAccessWrapper;
