@@ -35,15 +35,6 @@ HitState::onStateExit() {
         if(e->tryGetComponent<ecs::Button>()) {
             e->getComponent<ecs::Button>()->setEnabled(false);
         }
-
-        if(e->tryGetComponent<BallHandler>()) {
-            e->getComponent<BallHandler>()->onStrikeEnd();
-        }
-    }
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS)) {
-        if(e->tryGetComponent<BallHandler>()) {
-            e->getComponent<BallHandler>()->onStrikeEnd();
-        }
     }
 }
 

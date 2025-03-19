@@ -2,6 +2,8 @@
 #include "QuanticEffect.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
 void QuanticEffect::init()
 {
     BallEffect::init();

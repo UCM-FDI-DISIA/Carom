@@ -3,6 +3,8 @@
 #include "BallEffect.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
 void BallHandler::init()
 {
     _scene = dynamic_cast<ecs::CaromScene*>(&_myEntity->getScene());
@@ -13,7 +15,7 @@ void BallHandler::onCollisionEnter(ecs::entity_t collision)
 {
     if(collision->getID() == ecs::grp::EFFECTBALLS || collision->getID() == ecs::grp::WHITEBALL)
     {
-        for(BallEffect* effect : _effects)
+        for(ecs::BallEffect* effect : _effects)
         {
             effect->onHit(collision);
         }

@@ -9,9 +9,9 @@
 
 namespace ecs
 {
-    Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
+    /*Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
 
-        Entity* entity = new Entity(gameScene);
+        Entity* entity = new Entity(gameScene, ecs::grp::DEFAULT);
         JSONValue* entityElements = JSON::ParseFromFile(file);
         //std::cout<<JSON::Stringify(entityElements);
     
@@ -83,6 +83,6 @@ namespace ecs
               restitution = atributes.at("restitution")->AsNumber();
         RigidBodyComponent* a = new RigidBodyComponent(entity, pos, bodyType, shape, density, friction, restitution); 
         addComponent<ecs::RigidBodyComponent>(entity, pos, bodyType, shape, density, friction, restitution);
-    }
+    }*/
 } // namespace ecs
 

@@ -2,7 +2,7 @@
 #include "BallEffect.h"
 class BallHandler;
 
-class PetanqueEffect : public BallEffect
+class PetanqueEffect : public ecs::BallEffect
 {
 private:
     const float MAX_DISTANCE = 50;

@@ -2,13 +2,13 @@
 #include "BallEffect.h"
 class BallHandler;
 
-class AbacusEffect : public BallEffect
+class AbacusEffect : public ecs::BallEffect
 {
 private:
     int _bonusPoints = 1;
 
 public:
-    AbacusEffect(ecs::entity_t ent) : BallEffect(ent) {
+    AbacusEffect(ecs::entity_t ent) : ecs::BallEffect(ent) {
         _name = "Ábaco";
         _description = "Suma al ser golpeada" + _bonusPoints;
     }

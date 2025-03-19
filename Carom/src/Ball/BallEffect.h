@@ -7,14 +7,15 @@
 namespace ecs
 {class CaromScene;}
 
-class BallEffect : public ecs::InfoComponent
+namespace ecs{
+class BallEffect : public ecs::Component
 {
 protected:
     std::string _name;
     std::string _description;
     BallHandler* _handler;
 public:
-    BallEffect(ecs::entity_t ent) : InfoComponent(ent) {}
+    BallEffect(ecs::entity_t ent) : Component(ent) {}
     ~BallEffect() {}
 
     virtual void init() override;
@@ -22,5 +23,9 @@ public:
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};
 
+    void render(Camera*) override {}
+    void handleEvent() override {}
+    virtual void update() override {}
+
     __CMPID_DECL__(ecs::cmp::BALL_EFFECT);
-};
+};}

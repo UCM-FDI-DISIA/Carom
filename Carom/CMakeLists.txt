@@ -1,4 +1,4 @@
- cmake_minimum_required(VERSION 3.15...3.30)
+cmake_minimum_required(VERSION 3.15...3.30)
 
 project(Carom VERSION 0.1 LANGUAGES CXX)
 
@@ -116,7 +116,7 @@ add_executable(Carom
 
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
-	# src/ECS/JsonEntityParser.cpp
+	src/ECS/JsonEntityParser.cpp
 	src/ECS/StickInputComponent.cpp
 	src/ECS/Button.cpp
 	src/ECS/BoxRBComponent.cpp
@@ -134,6 +134,12 @@ add_executable(Carom
 	src/ECS/TextDisplayComponent.cpp
 
 	src/ECS/FollowComponent.cpp
+
+	src/ECS/PushOutsideTriggerComponent.cpp
+
+	src/ECS/BoxingGloveStickEffect.cpp
+	src/ECS/MagicWandStickEffect.cpp
+	src/ECS/GranadeLauncherStickEffect.cpp
 	
 	src/HitManager/ColorHitManager.cpp
 
@@ -141,8 +147,8 @@ add_executable(Carom
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/CaromScene.cpp
-	# src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
+	src/Scenes/PrefabTestScene.cpp
 	
 	src/StateMachine/StartMatchState.cpp
 	src/StateMachine/HitState.cpp
@@ -157,6 +163,9 @@ add_executable(Carom
 	src/Ball/QuanticEffect.cpp
 	src/Ball/PokeballEffect.cpp
 	src/Ball/BowlingEffect.cpp
+	src/Ball/SubdivisionEffect.cpp
+	src/Ball/FrictionMultiplierEffect.cpp
+	src/Ball/ExplosiveEffect.cpp
 )
 
 # Link Box2D

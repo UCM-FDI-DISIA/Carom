@@ -104,8 +104,8 @@ namespace ecs{
         entity_t createStick();
 
         // TODO: provisory definition
-        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                                float density, float friction, float restitution, int layer);
+        entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density,
+                                float friction, float restitution, int layer);
         void createScoreEntity();
 
         void createBallShadow(entity_t);

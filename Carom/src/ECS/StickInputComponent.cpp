@@ -1,4 +1,6 @@
 #include "StickInputComponent.h"
+
+#include "StickEffectComponent.h"
 #include "InputHandler.h"
 #include "Entity.h"
 #include "RigidBodyComponent.h"
@@ -22,7 +24,7 @@
 namespace ecs { 
 
     // Hay que pasarle el rectangulo para la deteccion de clics.
-    StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight)
+    StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight), _myEffect(nullptr)
     { }
     
     // Rigidbody hereda de transform. Rigidbody es un transform.
@@ -67,6 +69,9 @@ namespace ecs {
 
                 //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
                 _whiteBallRB->applyImpulseToCenter(impulseVec);
+
+                //aplicar el efecto del palo si lo tiene
+                if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
 
                 _hasShot = true; // ! hasShot
             }
@@ -125,5 +130,9 @@ namespace ecs {
     {
         _whiteBall = wb;
         _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
+    }
+
+    void StickInputComponent::registerStickEffect(StickEffectComponent* effect) {
+        _myEffect = effect;
     }
 }

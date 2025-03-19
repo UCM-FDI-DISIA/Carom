@@ -43,7 +43,7 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
 }
 
 void
-PolygonRBComponent::updateScale(){
+PolygonRBComponent::setScale(const Scale& newScale){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -77,7 +77,7 @@ PolygonRBComponent::updateScale(){
     b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, &a_polygon);
     */
 
-    _myScale = _scaleBuffer.second;
+    _myScale = newScale;
 
     const b2Vec2* a_array = _myProps.polyData->vertices.data();
     b2Hull a_hull = b2ComputeHull(a_array, _myProps.polyData->vertices.size());
@@ -85,8 +85,8 @@ PolygonRBComponent::updateScale(){
     
     for(int i = 0; i < _myProps.polyData->vertices.size(); ++i){
         b2Vec2 vector = a_polygon.vertices[i] - a_polygon.centroid;
-        a_polygon.vertices[i].x += vector.x * (_myScale.x - 1);
-        a_polygon.vertices[i].y += vector.y * (_myScale.y - 1);
+        a_polygon.vertices[i].x += vector.x * (newScale.x - 1);
+        a_polygon.vertices[i].y += vector.y * (newScale.y - 1);
     }
 
     b2Shape_SetPolygon(_myB2ShapeId, &a_polygon);
