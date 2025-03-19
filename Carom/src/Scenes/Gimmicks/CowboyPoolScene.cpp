@@ -70,7 +70,7 @@ namespace ecs{
 
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
 
-        addComponent<HoleComponent>(e, pos, 0.4f);
+        addComponent<HoleComponent>(e, 0.4f);
     }
 
     CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){

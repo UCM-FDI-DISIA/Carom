@@ -7,8 +7,8 @@
 
 namespace ecs {
 
-    HoleComponent::HoleComponent(entity_t ent, b2Vec2 center, float magnitude)
-        : ForceAreaComponent(ent, center, magnitude, true), _nearBody(nullptr), _isEmpty(true)
+    HoleComponent::HoleComponent(entity_t ent, float magnitude)
+        : ForceAreaComponent(ent, _myEntity->getTransform()->getPosition(), magnitude, true), _nearBody(nullptr), _isEmpty(true)
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
         _myCenter = _myRB->getPosition();

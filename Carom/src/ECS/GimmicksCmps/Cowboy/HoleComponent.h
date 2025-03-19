@@ -19,7 +19,7 @@ namespace ecs{
     public:
         __CMPID_DECL__(cmp::HOLE);
 
-        HoleComponent(entity_t ent, b2Vec2 center, float magnitude);
+        HoleComponent(entity_t ent, float magnitude);
         ~HoleComponent() {}
 
         virtual void onTriggerEnter(entity_t other) override;
