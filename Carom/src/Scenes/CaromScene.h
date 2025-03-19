@@ -9,6 +9,7 @@ class RNG_Manager;
 class b2WorldId;
 class Vector2D;
 class ScoreContainer;
+class InputHandler;
 
 
 namespace ecs{
@@ -143,5 +144,8 @@ namespace ecs{
         virtual void clearBossModifiers();
         virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 
+    //-----------------(!test!)WIN/LOOSE(!test!)-----------------------
+    private:
+        InputHandler* _ih;
     };
 }

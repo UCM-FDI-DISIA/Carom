@@ -31,6 +31,8 @@ namespace ecs {
         unsigned seed = _rngManager->randomRange(1, 1000000); 
         _rngManager->inseminate(seed);
 
+        
+
 
         // Creación del mundo físico
         b2WorldDef worldDef = b2DefaultWorldDef();
@@ -57,7 +59,6 @@ namespace ecs {
         // EFFECT BALLS
         int n_eb = 3; // TODO: obetener esto de config
         createEffectBalls(n_eb);
-
 
         // Create table with texture and colliders
         createTable();
@@ -329,8 +330,27 @@ namespace ecs {
             iterations = 1;
 
         for (int i = 0; i < iterations; ++i){
+
+            /*
+            if(_ih->keyDownEvent() && _ih->isKeyDown(SDLK_l)){ 
+                // Al presionar la "L" te lleva a la escena de ganar.
+                    std::cout << "Carga escena de PERDER." << std::endl;
+                    //NullState* state = new NullState(nullptr);
+                    ecs::EndGameScene *ms = new ecs::RewardScene(game); // ! tst  
+                    game->getScenesManager()->pushScene(ms);
+            }
+
+            if(_ih->keyDownEvent() && _ih->isKeyDown(SDLK_w)){
+                // Al presionar la "W" te lleva a la escena de perder.
+                    std::cout << "Carga escena GANAR." << std::endl;
+                    //NullState* state = new NullState(nullptr);
+                    ecs::RewardScene *ms = new ecs::RewardScene(game); // ! tst  
+                    game->getScenesManager()->pushScene(ms);
+            }
+            */
+
             updatePhysics();
-            updateScene();
+            updateScene(); 
         }
     }
 
