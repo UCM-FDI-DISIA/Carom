@@ -41,7 +41,7 @@ namespace ecs{
             *&sdlutils().svgElements_table().at("bola_blanca").y + 50
         );
 
-        Entity* ent = new Entity(*this, grp::BOSS_MODIFIERS);
+        Entity* ent = new Entity(*this, grp::GIMMICK);
 
         float length = PhysicsConverter::pixel2meter(svgSize/2);
         addComponent<CircleRBComponent>(ent, pos, b2_staticBody, length, true);

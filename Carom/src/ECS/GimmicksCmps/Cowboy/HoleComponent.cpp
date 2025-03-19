@@ -102,6 +102,7 @@ namespace ecs {
                     other_render->changeColorTint(100, 100, 100);
                     this->setEnabled(false);
                     _isEmpty = false;
+                    // ! SONIDO bola cayendo en agujero
                 }
             }
         }
