@@ -8,7 +8,7 @@
 namespace ecs {
 
     HoleComponent::HoleComponent(entity_t ent, b2Vec2 center, float magnitude)
-        : ForceAreaComponent(ent, center, magnitude, true), _bodyCaptured(nullptr)
+        : ForceAreaComponent(ent, center, magnitude, true), _nearBody(nullptr), _isEmpty(true)
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
         _myCenter = _myRB->getPosition();
@@ -21,13 +21,13 @@ namespace ecs {
     void HoleComponent::onTriggerEnter(entity_t other)
     {
         if(other->tryGetComponent<RigidBodyComponent>()){
-            _bodyCaptured = other;
+            // std::cout << "trigger enter" <<std::endl;
+            _nearBody = other;
         }
     }
 
     void HoleComponent::onTriggerExit(entity_t other)
     {
-        _bodyCaptured = nullptr;
     }
 
     // force = f(other_vel, distCenters)
@@ -55,7 +55,7 @@ namespace ecs {
     {
         // std::cout << "apply force x" << force.x << std::endl;
         // std::cout << "apply force y" << force.y << std::endl;
-        auto other_rb = _bodyCaptured->getComponent<RigidBodyComponent>();
+        auto other_rb = _nearBody->getComponent<RigidBodyComponent>();
         // TODO: MEJORA APPLY FORCE PERPENDICULAR TO BODY VELOCITY VECTOR
         other_rb->applyForceToCenter({_myForce.x, _myForce.y});
     }
@@ -72,12 +72,13 @@ namespace ecs {
 
     void HoleComponent::update()
     {
+        // std::cout << "is empty" << _isEmpty << std::endl;
         // If an object is inside sensor
-        if (_bodyCaptured) {
-            // std::cout << "bodycaptured" <<std::endl;
-            auto other_rb = _bodyCaptured->getComponent<RigidBodyComponent>();
+        if (_nearBody) {
+            // std::cout << "_nearbody" <<std::endl;
+            auto other_rb = _nearBody->getComponent<RigidBodyComponent>();
             b2Vec2 other_pos = other_rb->getPosition();
-            auto other_render = _bodyCaptured->getComponent<RenderTextureComponent>();
+            auto other_render = _nearBody->getComponent<RenderTextureComponent>();
             float other_radio = PhysicsConverter::pixel2meter(other_render->getRect().w/2);
 
             Vector2D distanceVec = Vector2D(_myCenter.x - other_pos.x, _myCenter.y - other_pos.y);
@@ -89,8 +90,8 @@ namespace ecs {
                 // std::cout << "in effect range" <<std::endl;
                 // To apply a force
                 float other_vel = other_rb->getVelocityMag();
-                _myForce = calculateForceToApply(_bodyCaptured, distanceVec, other_vel);
-                applyForce(_bodyCaptured);
+                _myForce = calculateForceToApply(_nearBody, distanceVec, other_vel);
+                applyForce(_nearBody);
     
                 // To capture the object
                 if(tryToCapture(other_rb, centersDistance))
@@ -100,6 +101,7 @@ namespace ecs {
                     other_render->setRenderLayer(ecs::renderLayer::POOL_HOLE);
                     other_render->changeColorTint(100, 100, 100);
                     this->setEnabled(false);
+                    _isEmpty = false;
                 }
             }
         }
@@ -109,22 +111,29 @@ namespace ecs {
     // Reset changes made to captured ball
     void HoleComponent::resetChanges()
     {
-        if (_bodyCaptured){
+        // std::cout << "reset changes method hole" << std::endl;
+        // std::cout << "body cap: " << _nearBody << std::endl;
+
+        if (!_isEmpty){
+            // std::cout << "asdfasdfasdfasdfasdf" << std::endl;
             // reset physics
-            auto other_rb = _bodyCaptured->getComponent<RigidBodyComponent>();
+            auto other_rb = _nearBody->getComponent<RigidBodyComponent>();
             other_rb->setBodyEnabled(false);
 
             // reset render changes
-            auto other_render = _bodyCaptured->getComponent<RenderTextureComponent>();
+            auto other_render = _nearBody->getComponent<RenderTextureComponent>();
             other_render->resetRenderLayer();
             other_render->resetColorTint();
 
-            _bodyCaptured = nullptr;
+            _nearBody = nullptr;
         }
     }
 
-    void HoleComponent::resetPosition(const b2Vec2 &pos)
+    void HoleComponent::resetHole(const b2Vec2 &pos)
     {
+        _isEmpty = true;
         _myEntity->getComponent<RigidBodyComponent>()->setPosition(pos);
+        _myRB = _myEntity->getComponent<RigidBodyComponent>();
+        _myCenter = _myRB->getPosition();
     }
 }

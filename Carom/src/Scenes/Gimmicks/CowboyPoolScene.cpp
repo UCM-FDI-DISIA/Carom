@@ -85,8 +85,9 @@ namespace ecs{
         for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
             if (e->tryGetComponent<HoleComponent>()){
                 auto hole = e->getComponent<HoleComponent>();
-                hole->resetPosition(b2Vec2_zero); // TODO: definir posición
+                hole->resetHole(b2Vec2_zero); // TODO: definir posición
                 e->activate();
+                // std::cout << "apply boss modifiers" << std::endl;
             }
         }
 
@@ -102,6 +103,7 @@ namespace ecs{
                 auto hole = e->getComponent<HoleComponent>();
                 hole->resetChanges();
                 e->deactivate();
+                // std::cout << "reset changes clear boss" << std::endl;
             }
         }
     }

@@ -11,7 +11,8 @@ namespace ecs{
     class HoleComponent : public ForceAreaComponent
     {
     protected:
-        entity_t _bodyCaptured;
+        entity_t _nearBody;
+        bool _isEmpty;
         float _maxVelocityToFall;
         float _maxDistToFall;
         
@@ -27,7 +28,7 @@ namespace ecs{
         virtual void update() override;
 
         void resetChanges();
-        void resetPosition(const b2Vec2& pos);
+        void resetHole(const b2Vec2& pos);
 
     protected:
         virtual void applyForce(entity_t e) override;
