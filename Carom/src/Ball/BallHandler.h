@@ -11,6 +11,7 @@ class BallHandler : public ecs::PhysicsComponent
 private:
     ecs::CaromScene* _scene;
     std::vector<BallEffect*> _effects;
+    static constexpr int EFFECTS_LIMIT = 3;
 
     float _mult = 1;
 public:
@@ -22,7 +23,7 @@ public:
     void onBeingTargeted(); //Se ejecuta cuando esta siendo apuntado por una trayectoria de palo
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 
-    inline void addEffect(BallEffect* effect) {_effects.push_back(effect);}
+    bool addEffect(BallEffect* effect);
     __CMPID_DECL__(ecs::cmp::BALL_HANDLER);
 
     void addScore(float points); //Se usa para sumar puntos, esta pensado para ser usado por los efectos de bola

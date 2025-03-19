@@ -55,3 +55,12 @@ void BallHandler::setMult(float newMult)
         effect->onMultChanged();
     }
 }
+
+bool BallHandler::addEffect(BallEffect* effect)
+{
+    if(_effects.size() == EFFECTS_LIMIT)
+    {
+        _effects.push_back(effect);
+        return true;
+    } else return false;
+}
