@@ -14,6 +14,7 @@ namespace ecs {
     _texture(texture),
     _transform(nullptr),
     _renderLayer(renderLayer),
+    _defaultRenderLayer(renderLayer),
     _scale(scale)
     {
 
