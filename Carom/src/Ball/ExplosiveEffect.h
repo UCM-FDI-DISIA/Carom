@@ -1,21 +1,18 @@
 #pragma once
 
 #include "BallEffect.h"
-#include <box2d/box2d.h>
+#include <box2d>
 
 
 namespace ecs {
     class ExplosiveEffect : public BallEffect {
-        float _explosionDelay, _explosionStart, _radius, _force;
+        float _explosionDelay, _explosionStart, _radius;
 
-        bool _exploded;
+        bool _exploted;
 
         b2ShapeId _id;
         public:
-
-        __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
-
-        ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force);
+        ExplosiveEffect(entity_t ent, float timeForExplosion, float radius);
         ~ExplosiveEffect();
 
         void init() override;
