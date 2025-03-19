@@ -25,9 +25,9 @@ public:
     inline void addEffect(BallEffect* effect) {_effects.push_back(effect);}
     __CMPID_DECL__(ecs::cmp::BALL_HANDLER);
 
-    void addScore(float points);
-    void multScore(float mult);
-    inline void setMult(float newMult) {_mult = newMult;}
+    void addScore(float points); //Se usa para sumar puntos, esta pensado para ser usado por los efectos de bola
+    void multScore(float mult); // Se usa para multiplicar la puntuacion, esta pensado para ser usado por los efectos de bola
+    inline void setMult(float newMult) {_mult = newMult;} //Define la intensidad de los efectos de bola
 
     std::vector<BallEffect*>& getEffects() {return _effects;}
 };
