@@ -6,9 +6,19 @@
 void BowlingEffect::init()
 {
     BallEffect::init();
+    updateEffect();
+}
+
+void BowlingEffect::updateEffect()
+{
     assert(_myEntity->tryGetComponent<ecs::RigidBodyComponent>() && "Se está intentando añadir el componente BowlingEffect a una entidad sin rigibody");
 
     ecs::RigidBodyComponent* rb =_myEntity->getComponent<ecs::RigidBodyComponent>();
-    rb->setDensity(DENSITY);
-    rb->setFriction(FRICTION);
+    rb->setDensity(DENSITY * _handler->getMult());
+    rb->setFriction(FRICTION * _handler->getMult());
+}
+
+void BowlingEffect::onMultChanged()
+{
+    updateEffect();
 }

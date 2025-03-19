@@ -27,7 +27,8 @@ public:
 
     void addScore(float points); //Se usa para sumar puntos, esta pensado para ser usado por los efectos de bola
     void multScore(float mult); // Se usa para multiplicar la puntuacion, esta pensado para ser usado por los efectos de bola
-    inline void setMult(float newMult) {_mult = newMult;} //Define la intensidad de los efectos de bola
+    void setMult(float newMult); //Define la intensidad de los efectos de bola
 
     std::vector<BallEffect*>& getEffects() {return _effects;}
+    inline float getMult() {return _mult;}
 };

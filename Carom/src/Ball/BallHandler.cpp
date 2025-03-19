@@ -38,10 +38,20 @@ void BallHandler::onBeingTargeted()
 
 void BallHandler::addScore(float points)
 {
-    _scene->addScore(points * _mult);
+    _scene->addScore(points);
 }
 
 void BallHandler::multScore(float mult)
 {
-    _scene->addScore(_scene->getCurrentScore() * ((mult * _mult) - 1));
+    _scene->addScore(_scene->getCurrentScore() * (mult - 1));
+}
+
+void BallHandler::setMult(float newMult)
+{
+    _mult = newMult;
+    
+    for(BallEffect* effect : _effects)
+    {
+        effect->onMultChanged();
+    }
 }

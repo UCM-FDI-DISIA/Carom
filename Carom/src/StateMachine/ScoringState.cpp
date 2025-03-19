@@ -4,6 +4,7 @@
 #include "CaromScene.h"
 #include "LoseMatchState.h"
 #include "RigidBodyComponent.h"
+#include "BallHandler.h"
 #include <iostream>
 
 ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
@@ -19,7 +20,17 @@ ScoringState::onStateEnter() {
 
 void
 ScoringState::onStateExit() {
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
+        if(e->tryGetComponent<BallHandler>()) {
+            e->getComponent<BallHandler>()->onStrikeEnd();
+        }
+    }
     
+    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS)) {
+        if(e->tryGetComponent<BallHandler>()) {
+            e->getComponent<BallHandler>()->onStrikeEnd();
+        }
+    }
 }
 
 bool

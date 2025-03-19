@@ -21,6 +21,7 @@ public:
     virtual void onHit(ecs::entity_t ent) {};
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};
+    virtual void onMultChanged() {};
 
     __CMPID_DECL__(ecs::cmp::BALL_EFFECT);
 };

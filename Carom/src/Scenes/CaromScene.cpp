@@ -17,6 +17,7 @@
 #include "AbacusEffect.h"
 #include "BowlingEffect.h"
 #include "PetanqueEffect.h"
+#include "QuanticEffect.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -173,6 +174,7 @@ namespace ecs {
         createBallShadow(e);
 
         addComponent<BallHandler>(e);
+        addComponent<QuanticEffect>(e);
     }
 
     void CaromScene::createBallShadow(entity_t entity){
