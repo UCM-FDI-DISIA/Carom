@@ -106,6 +106,11 @@ RigidBodyComponent::setRotation(const double& newRot) {
     b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {std::cosf(newRot), std::sinf(newRot)});
 }
 
+void
+RigidBodyComponent::setScale(const Scale& newScale){
+    _scaleBuffer = {true, newScale};
+}
+
 /// @brief Changes the body type.
 /// @param newType New type of the RigidBody.
 void

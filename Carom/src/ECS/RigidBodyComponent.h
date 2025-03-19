@@ -57,18 +57,22 @@ protected:
             Polygon *polyData = nullptr;
         };
     };
-
+    
     Props _myProps;
-
+    
+    /// @brief Si es true implica que la escala debe ser cambiada a la del segundo componente
+    std::pair<bool, Scale> _scaleBuffer = {false, Scale()};
+    
     // Collision functions
     std::vector<PhysicsComponent*> _collisionEnter = {};
     std::vector<PhysicsComponent*> _collisionExit = {};
     std::vector<PhysicsComponent*> _triggerEnter = {};
     std::vector<PhysicsComponent*> _triggerExit = {};
-
+    
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
-
+    virtual void updateScale() = 0;
+    
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
@@ -94,7 +98,7 @@ public:
     // Setters
     void setPosition(const b2Vec2& newPos) override;
     void setRotation(const double& newRot) override;
-
+    void setScale(const Scale& newScale) override;
     void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes);
     void setDensity(float density);
