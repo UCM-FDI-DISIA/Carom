@@ -7,6 +7,7 @@ namespace ecs{
     class CowboyPoolScene : public ecs::CaromScene {
         void initGimmick();
         void applyBossModifiers() override;
+        void clearBossModifiers() override;
 
         // Gimmicks
         void createSandBank();

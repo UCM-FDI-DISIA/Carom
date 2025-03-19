@@ -26,6 +26,9 @@ namespace ecs{
         b2Vec2 calculateForceToApply(entity_t e, Vector2D distanceVec, float other_vel);
         virtual void update() override;
 
+        void resetChanges();
+        void resetPosition(const b2Vec2& pos);
+
     protected:
         virtual void applyForce(entity_t e) override;
         bool tryToCapture(RigidBodyComponent* other_rb, float centersDist);

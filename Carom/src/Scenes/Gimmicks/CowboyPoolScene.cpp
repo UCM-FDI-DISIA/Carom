@@ -41,7 +41,7 @@ namespace ecs{
             *&sdlutils().svgElements_table().at("bola_blanca").y + 50
         );
 
-        Entity* ent = new Entity(*this, grp::DEFAULT);
+        Entity* ent = new Entity(*this, grp::BOSS_MODIFIERS);
 
         float length = PhysicsConverter::pixel2meter(svgSize/2);
         addComponent<CircleRBComponent>(ent, pos, b2_staticBody, length, true);
@@ -63,7 +63,7 @@ namespace ecs{
             *&sdlutils().svgElements_table().at("hole1").y
         );
 
-        Entity* e = new Entity(*this, grp::DEFAULT);
+        Entity* e = new Entity(*this, grp::BOSS_MODIFIERS);
 
         float radius = PhysicsConverter::pixel2meter(svgSize/2);
         addComponent<CircleRBComponent>(e, pos, b2_staticBody, radius, true);
@@ -82,11 +82,27 @@ namespace ecs{
     CowboyPoolScene::applyBossModifiers() {
         std::cout << "aplicando modificador de boss desde CowboyPoolScene" << std::endl;
         //TODO: intanciación tiros pistola
-
+        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
+            if (e->tryGetComponent<HoleComponent>()){
+                auto hole = e->getComponent<HoleComponent>();
+                hole->resetPosition(b2Vec2_zero); // TODO: definir posición
+                e->activate();
+            }
+        }
 
         _currentState->finish();
         //TODO 2: reset entities' components modified by gimmicks to original state
 
     }
+    void CowboyPoolScene::clearBossModifiers()
+    {
+        // Reset hole changes on balls and deactivate it
+        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
+            if (e->tryGetComponent<HoleComponent>()){
+                auto hole = e->getComponent<HoleComponent>();
+                hole->resetChanges();
+                e->deactivate();
+            }
+        }
+    }
 }
-

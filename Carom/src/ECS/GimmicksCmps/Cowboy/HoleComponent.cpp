@@ -106,4 +106,25 @@ namespace ecs {
 
     }
 
+    // Reset changes made to captured ball
+    void HoleComponent::resetChanges()
+    {
+        if (_bodyCaptured){
+            // reset physics
+            auto other_rb = _bodyCaptured->getComponent<RigidBodyComponent>();
+            other_rb->setBodyEnabled(false);
+
+            // reset render changes
+            auto other_render = _bodyCaptured->getComponent<RenderTextureComponent>();
+            other_render->resetRenderLayer();
+            other_render->resetColorTint();
+
+            _bodyCaptured = false;
+        }
+    }
+
+    void HoleComponent::resetPosition(const b2Vec2 &pos)
+    {
+        _myEntity->getComponent<RigidBodyComponent>()->setPosition(pos);
+    }
 }
