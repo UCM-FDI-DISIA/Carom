@@ -17,6 +17,8 @@ namespace ecs {
     class PoolScene;
     class RenderTextureComponent;
     class CowboyPoolScene;
+    class EndGameScene;
+    class RewardScene;
 
     class Entity{
     public:
@@ -105,6 +107,8 @@ namespace ecs {
         friend CaromScene;
         friend CowboyPoolScene;
         friend PoolScene;
+        friend EndGameScene;
+        friend RewardScene;
         Entity(GameScene& scene, grpId_t gId);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
