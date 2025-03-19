@@ -12,7 +12,7 @@ private:
     ecs::CaromScene* _scene;
     std::vector<BallEffect*> _effects;
 
-    float _scoreMult = 1;
+    float _mult = 1;
 public:
     BallHandler(ecs::entity_t ent) : ecs::PhysicsComponent(ent) {}
     ~BallHandler() {}
@@ -27,7 +27,7 @@ public:
 
     void addScore(float points);
     void multScore(float mult);
-    inline void setMult(float newMult) {_scoreMult = newMult;}
+    inline void setMult(float newMult) {_mult = newMult;}
 
     std::vector<BallEffect*>& getEffects() {return _effects;}
 };

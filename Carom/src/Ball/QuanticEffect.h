@@ -6,7 +6,6 @@ class QuanticEffect : public BallEffect
 {
 private:
     bool _wasHit = false;
-    BallHandler* _handler;
 public:
     QuanticEffect(ecs::entity_t ent) : BallEffect(ent){
         _name = "Cuántica";

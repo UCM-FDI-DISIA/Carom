@@ -5,5 +5,6 @@
 
 void X2Effect::init()
 {
-    _myEntity->getComponent<BallHandler>()->setMult(2);
+    BallEffect::init();
+    _handler->setMult(2);
 }

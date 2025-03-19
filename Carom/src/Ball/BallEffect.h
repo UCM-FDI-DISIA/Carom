@@ -1,5 +1,6 @@
 #pragma once
 #include "InfoComponent.h"
+#include "BallHandler.h"
 #include "ecs.h"
 #include <string>
 
@@ -11,6 +12,7 @@ class BallEffect : public ecs::InfoComponent
 protected:
     std::string _name;
     std::string _description;
+    BallHandler* _handler;
 public:
     BallEffect(ecs::entity_t ent) : InfoComponent(ent) {}
     ~BallEffect() {}

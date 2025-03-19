@@ -5,7 +5,6 @@
 void QuanticEffect::init()
 {
     BallEffect::init();
-    _handler = _myEntity->getComponent<BallHandler>();
 }
 
 void QuanticEffect::onHit(ecs::entity_t ent)

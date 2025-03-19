@@ -6,5 +6,6 @@
 void BallEffect::init()
 {
     assert(_myEntity->tryGetComponent<BallHandler>() || "Se ha intentado añadir un efecto a una entidad sin administrador de efectos");
-    _myEntity->getComponent<BallHandler>()->addEffect(this);
+    _handler = _myEntity->getComponent<BallHandler>();
+    _handler->addEffect(this);
 }

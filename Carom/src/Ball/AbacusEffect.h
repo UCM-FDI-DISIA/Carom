@@ -6,7 +6,6 @@ class AbacusEffect : public BallEffect
 {
 private:
     int _bonusPoints = 1;
-    BallHandler* _handler;
 
 public:
     AbacusEffect(ecs::entity_t ent) : BallEffect(ent) {

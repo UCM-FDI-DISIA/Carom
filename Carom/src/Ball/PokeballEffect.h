@@ -5,7 +5,6 @@ class BallHandler;
 class PokeballEffect : public BallEffect
 {
 private:
-    BallHandler* _handler;
 public:
     PokeballEffect(ecs::entity_t ent) : BallEffect(ent){
         _name = "Pokeball";

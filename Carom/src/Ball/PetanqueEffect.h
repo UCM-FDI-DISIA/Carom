@@ -5,8 +5,6 @@ class BallHandler;
 class PetanqueEffect : public BallEffect
 {
 private:
-    BallHandler* _handler;
-    ecs::entity_t _whiteBall;
     const float MAX_DISTANCE = 50;
 public:
     PetanqueEffect(ecs::entity_t ent) : BallEffect(ent) {
