@@ -19,7 +19,9 @@ namespace ecs{
         void createSandBank();
 
         // Boss modifiers
-        entity_t createBulletHole(const b2Vec2& pos);  
+        void createBulletHole(const b2Vec2& pos);  
         void createBulletHoles(int n);  
+
+        bool canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius);
     };
 }

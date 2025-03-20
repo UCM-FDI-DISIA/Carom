@@ -34,7 +34,7 @@ namespace ecs{
         */
 
         createSandBank();
-        createBulletHole();
+        createBulletHoles(3); // TODO: numero de agujeros random?
     }
 
     void CowboyPoolScene::createSandBank()
@@ -66,11 +66,6 @@ namespace ecs{
         float textureSize = sdlutils().images().at("hole").width();
         float scale = svgSize/textureSize;
 
-        b2Vec2 pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("hole1").x + 70,
-            *&sdlutils().svgElements_table().at("hole1").y
-        );
-
         Entity* e = new Entity(*this, grp::BOSS_MODIFIERS);
 
         float radius = PhysicsConverter::pixel2meter(svgSize/2);
@@ -90,12 +85,9 @@ namespace ecs{
         for(int i = 1; i <= npos; ++i)
             positions.push_back(RandomItem(i, 1.0f));
         
-        std::vector<int> selected_pos;
         
-        
-        
-        while(n > 0) {
-            // Sacar agujero
+        while(n > 0 && positions.size() > 0) {
+            // Obtener posición aleatoria para el agujero
             int id = _rngManager->getRandomItem(positions, true) ;
 
             std::string s = "shot_hole";
@@ -103,8 +95,8 @@ namespace ecs{
                 s += ("_" + std::to_string(id));
             
             auto& hole = sdlutils().svgElements_CowboyPool_ShotHoles().at(s);
-            auto hole_pos = PhysicsConverter::pixel2meter(hole.x, hole.y);
-            auto hole_radius = sdlutils().svgElements_CowboyPool_ShotHoles().at("shot_hole").width/2;
+            b2Vec2 hole_pos = PhysicsConverter::pixel2meter(hole.x, hole.y);
+            float hole_radius = sdlutils().svgElements_CowboyPool_ShotHoles().at("shot_hole").width/2;
 
             // Comprobar si es válido
             bool valid = true;
@@ -112,23 +104,30 @@ namespace ecs{
             auto& balls = (getEntitiesOfGroup(ecs::grp::WHITEBALL));
             for(auto& e : balls) {
                 if(e->tryGetComponent<CircleRBComponent>()) { // TODO: cambiar esto cuando se mergee con la rama de Diego el tryGetComponent
-                    auto ball_tr = e->getComponent<CircleRBComponent>();
-                    auto ball_pos = ball_tr->getPosition();
-                    auto ball_radius = PhysicsConverter::pixel2meter(ball_tr->getRadius());
-                    
-                    if(PhysicsConverter::circleOverlap(hole_pos, hole_radius, ball_pos, ball_radius)) {
+                    if(!canPlaceHole(e, hole_pos, hole_radius)) {
                         valid = false;
                         break;
                     }
                 }
             }
+            
+            if(!valid) continue; // No seguir comprobando si no es válido
 
-
-            // auto& balls = getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
-
-            // Si lo es, crear agujero y --n
-            // selected_pos.emplace_back
-
+            balls = getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+            for(auto& e : balls) {
+                if(e->tryGetComponent<CircleRBComponent>()) { // TODO: cambiar esto cuando se mergee con la rama de Diego el tryGetComponent
+                    if(!canPlaceHole(e, hole_pos, hole_radius)) {
+                        valid = false;
+                        break;
+                    }
+                }
+            }
+            
+            // Si la posición es válida, crear agujero
+            if(valid) {
+                createBulletHole(hole_pos);
+                --n;
+            }
 
         }
     }
@@ -146,16 +145,12 @@ namespace ecs{
             }
         }
 
-        
         //TODO 2: reset entities' components modified by gimmicks to original state
         _currentState->finish();
     }
 
-    void CowboyPoolScene::animateBossHand(){
-        
-    }
-
-    void CowboyPoolScene::clearBossModifiers()
+    void 
+    CowboyPoolScene::clearBossModifiers()
     {
         // Reset hole changes on balls and deactivate it
         for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
@@ -167,4 +162,20 @@ namespace ecs{
             }
         }
     }
+
+    void CowboyPoolScene::animateBossHand(){
+        
+    }
+
+
+
+    bool
+    CowboyPoolScene::canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius) {
+        auto ball_tr = e->getComponent<CircleRBComponent>();
+        auto ball_pos = ball_tr->getPosition();
+        auto ball_radius = PhysicsConverter::pixel2meter(ball_tr->getRadius());
+        
+        return !PhysicsConverter::circleOverlap(hole_pos, hole_radius, ball_pos, ball_radius);
+    }
 }
+
