@@ -18,13 +18,20 @@
 #include <box2d/box2d.h>
 
 namespace ecs{
+    
+    RewardScene::RewardScene(Game *g) : GameScene(g)
+    {
+        createBackground("suelo");
+        createTable();
+    }
+    
     void RewardScene::createTable()
     {
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);
         b2Vec2 pos(0,0);
         addComponent<TransformComponent>(table, pos);
         addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
-
+    
         table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
         addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);

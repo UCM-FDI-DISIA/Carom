@@ -146,6 +146,5 @@ namespace ecs{
 
     //-----------------(!test!)WIN/LOOSE(!test!)-----------------------
     private:
-        InputHandler* _ih;
     };
 }

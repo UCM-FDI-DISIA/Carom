@@ -18,6 +18,13 @@
 #include <box2d/box2d.h>
 
 namespace ecs{
+
+    EndGameScene::EndGameScene(Game *g) : GameScene(g)
+    {
+        createBackground("suelo");
+        createTable();
+    }
+
     void EndGameScene::createTable()
     {
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);

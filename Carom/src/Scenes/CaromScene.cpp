@@ -19,6 +19,10 @@
 #include "RandomItem.h"
 #include "FollowComponent.h"
 #include "StartMatchState.h"
+#include "NullState.h"
+#include "RewardScene.h"
+#include "EndGameScene.h"
+#include "ScenesManager.h"
 
 
 namespace ecs {
@@ -284,6 +288,26 @@ namespace ecs {
             _canRestart = false;
             game->requestRestart();
         }
+
+        if(ih().keyDownEvent() && ih().isKeyDown(SDLK_l)){ 
+            // Al presionar la "L" te lleva a la escena de ganar.
+                std::cout << "Carga escena de PERDER." << std::endl;
+                NullState* state = new NullState(nullptr);
+                ecs::EndGameScene *ms = new ecs::EndGameScene(game); // ! tst  
+                game->getScenesManager()->pushScene(ms);
+        }
+
+        if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
+            // Al presionar la "W" te lleva a la escena de perder.
+                std::cout << "Carga escena GANAR." << std::endl;
+                NullState* state = new NullState(nullptr);
+                ecs::RewardScene *ms = new ecs::RewardScene(game); // ! tst  
+                game->getScenesManager()->pushScene(ms);
+        }
+
+        
+
+        
     }
 
     void CaromScene::setCanFastForward(bool active)
@@ -330,25 +354,6 @@ namespace ecs {
             iterations = 1;
 
         for (int i = 0; i < iterations; ++i){
-
-            /*
-            if(_ih->keyDownEvent() && _ih->isKeyDown(SDLK_l)){ 
-                // Al presionar la "L" te lleva a la escena de ganar.
-                    std::cout << "Carga escena de PERDER." << std::endl;
-                    //NullState* state = new NullState(nullptr);
-                    ecs::EndGameScene *ms = new ecs::RewardScene(game); // ! tst  
-                    game->getScenesManager()->pushScene(ms);
-            }
-
-            if(_ih->keyDownEvent() && _ih->isKeyDown(SDLK_w)){
-                // Al presionar la "W" te lleva a la escena de perder.
-                    std::cout << "Carga escena GANAR." << std::endl;
-                    //NullState* state = new NullState(nullptr);
-                    ecs::RewardScene *ms = new ecs::RewardScene(game); // ! tst  
-                    game->getScenesManager()->pushScene(ms);
-            }
-            */
-
             updatePhysics();
             updateScene(); 
         }

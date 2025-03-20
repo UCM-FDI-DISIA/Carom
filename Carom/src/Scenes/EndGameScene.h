@@ -15,7 +15,7 @@ namespace ecs{
         
     public:
         EndGameScene(Game* g); // para cuando se gana (hay reward).
-        ~EndGameScene();
+        virtual ~EndGameScene() = default;
 
         void setNewState(State* s);
     };

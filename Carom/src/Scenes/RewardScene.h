@@ -16,7 +16,7 @@ namespace ecs{
         
     public:
         RewardScene(Game* g); // para cuando se gana (hay reward).
-        ~RewardScene();
+        virtual ~RewardScene() = default;
 
         void setNewState(State* s);
     };
