@@ -73,6 +73,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
 	${CMAKE_SOURCE_DIR}/src/Scenes/Gimmicks
+	${CMAKE_SOURCE_DIR}/src/Scenes/EndScenes
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
@@ -147,8 +148,9 @@ add_executable(Carom
 
 	src/Scenes/CaromScene.cpp
 	src/Scenes/PoolScene.cpp
-	src/Scenes/EndGameScene.cpp
-	src/Scenes/RewardScene.cpp
+	
+	src/Scenes/EndScenes/EndGameScene.cpp
+	src/Scenes/EndScenes/RewardScene.cpp
 	
 	src/StateMachine/StartMatchState.cpp
 	src/StateMachine/HitState.cpp
