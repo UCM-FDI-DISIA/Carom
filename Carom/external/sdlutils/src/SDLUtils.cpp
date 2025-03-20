@@ -22,15 +22,14 @@ SDLUtils::SDLUtils() :
 		_renderer(nullptr), //
 		_fontsAccessWrapper(_fonts, "Fonts Table"), //
 		_imagesAccessWrapper(_images, "Images Table"), //
-		_svgAccessWrapper_table(_svg_table, "SVG Table"), //
-		_svgAccessWrapper_ballPos(_svg_ballPos, "SVG Ball Positions"), //
-		_svgAccessWrapper_CowboyPool_shotHoles(_svg_CowboyPool_shotHoles, "SVG Cowboy Pool Shot hole positions"), //
 		_msgsAccessWrapper(_msgs, "Messages Table"), //
 		_soundsAccessWrapper(_sounds, "Sounds Table"), //
 		_musicsAccessWrapper(_musics, "Musics Table"), //
+		_svgsAccessWrapper(_svgs, "SVGs Table"), //
 		_currTime(0), //
 		_deltaTime(0) //
 {
+	
 }
 
 bool SDLUtils::init(std::string windowTitle, int width, int height) {
@@ -51,13 +50,10 @@ bool SDLUtils::init(std::string windowTitle, int width, int height) {
 
 
 
-bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const std::unordered_map<ecs::svgId_t, std::string> svgFilenames) {
+bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename) {
 	init(windowTitle, width, height);
 	
 	loadReasources(filename);
-	loadSVG(_svg_table, svgFilenames.at(ecs::svg::TABLE));
-	loadSVG(_svg_ballPos, svgFilenames.at(ecs::svg::BALL_POSITIONS));
-	loadSVG(_svg_CowboyPool_shotHoles, svgFilenames.at(ecs::svg::SHOT_HOLES));
 
 	// we always return true, because this class either exit or throws an
 	// exception on error. If you want to avoid using exceptions you should
@@ -305,17 +301,43 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	//load svgs
+	jValue = root["svgs"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			_svgs.reserve(jValue->AsArray().size()); // reserve enough space to avoid resizing
+			for (auto &v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string key = vObj["id"]->AsString();
+					std::string file = vObj["file"]->AsString();
+#ifdef _DEBUG
+					std::cout << "Loading svg with id: " << key << std::endl;
+#endif
+					_svgs.emplace(key, loadSVG(file));
+				} else {
+					throw "'svg' array in '" + filename
+							+ "' includes and invalid value";
+				}
+			}
+		} else {
+			throw "'svg' is not an array";
+		}
+	}
+
+
 }
 
-void SDLUtils::loadSVG(auto& svgMap, const std::string& filename) {
-	loadSVG(svgMap, filename.c_str());
+SDLUtils::sdl_resource_table<SDLUtils::svgElem> SDLUtils::loadSVG(const std::string& filename) {
+	return loadSVG(filename.c_str());
 }
 
-void SDLUtils::loadSVG(auto& svgMap, const char* filename){
+SDLUtils::sdl_resource_table<SDLUtils::svgElem> SDLUtils::loadSVG(const char* filename){
+	sdl_resource_table<svgElem> svgMap;
 	struct NSVGimage* image = nsvgParseFromFile(filename, "px", 96.0f);
     if (!image) {
         std::cerr << "Failed to load SVG: " << filename << std::endl;
-        return;
+        return svgMap;
     }
 	
 	// Clear the existing SVG elements (if any)
@@ -340,7 +362,7 @@ void SDLUtils::loadSVG(auto& svgMap, const char* filename){
 	nsvgDelete(image);
 
 	std::cout << "SVG loaded and parsed successfully!" << std::endl;
-
+	return svgMap;
 }
 
 void SDLUtils::closeSDLExtensions() {

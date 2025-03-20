@@ -68,10 +68,3 @@
 	STICK_SHADOW, \
 	STICK, \
 	BOSS_HAND
-
-
-// Svg filenames list
-#define _SVG_LIST_ \
-	TABLE, \
-	BALL_POSITIONS, \
-	SHOT_HOLES

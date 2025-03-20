@@ -40,13 +40,13 @@ namespace ecs{
     void CowboyPoolScene::createSandBank()
     {
         // SCALE
-        float svgSize = *&sdlutils().svgElements_table().at("bola_blanca").width + 100;
+        float svgSize = *&sdlutils().svgs().at("game").at("bola_blanca").width + 100;
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("bola_blanca").x + 400,
-            *&sdlutils().svgElements_table().at("bola_blanca").y + 50
+            *&sdlutils().svgs().at("game").at("bola_blanca").x + 400,
+            *&sdlutils().svgs().at("game").at("bola_blanca").y + 50
         );
 
         Entity* ent = new Entity(*this, grp::GIMMICK);
@@ -62,7 +62,7 @@ namespace ecs{
 
     void CowboyPoolScene::createBulletHole(const b2Vec2& pos){
         // SCALE
-        float svgSize = *&sdlutils().svgElements_table().at("hole1").width;
+        float svgSize = *&sdlutils().svgs().at("game").at("hole1").width;
         float textureSize = sdlutils().images().at("hole").width();
         float scale = svgSize/textureSize;
 
@@ -78,7 +78,7 @@ namespace ecs{
 
     void 
     CowboyPoolScene::createBulletHoles(int n) {
-        int npos = sdlutils().svgElements_CowboyPool_ShotHoles().size();
+        int npos = sdlutils().svgs().at("shot_positions").size();
         assert(n <= npos);
 
         std::vector<RandomItem<int>> positions;
@@ -94,9 +94,9 @@ namespace ecs{
             if(id > 1)
                 s += ("_" + std::to_string(id));
             
-            auto& hole = sdlutils().svgElements_CowboyPool_ShotHoles().at(s);
+            auto& hole = sdlutils().svgs().at("shot_positions").at(s);
             b2Vec2 hole_pos = PhysicsConverter::pixel2meter(hole.x, hole.y);
-            float hole_radius = sdlutils().svgElements_CowboyPool_ShotHoles().at("shot_hole").width/2;
+            float hole_radius = sdlutils().svgs().at("shot_positions").at("shot_hole").width/2;
 
             // Comprobar si es válido
             bool valid = true;

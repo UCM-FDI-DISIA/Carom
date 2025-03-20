@@ -52,8 +52,8 @@ namespace ecs {
         // WHITE BALL
         // Converts (x, y) from screen(svg) to meters and to meter coordinates
         b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("bola_blanca").x,
-            *&sdlutils().svgElements_table().at("bola_blanca").y
+            *&sdlutils().svgs().at("game").at("bola_blanca").x,
+            *&sdlutils().svgs().at("game").at("bola_blanca").y
         );
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
         // Apply impulse
@@ -82,13 +82,13 @@ namespace ecs {
     CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) 
     {
         // SCALE
-        float svgSize = *&sdlutils().svgElements_table().at("bola_blanca").width;
+        float svgSize = *&sdlutils().svgs().at("game").at("bola_blanca").width;
         float textureSize = sdlutils().images().at("bola_blanca").width();
         float scale = svgSize/textureSize;
 
         entity_t e = new Entity(*this, grp::WHITEBALL);
 
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bola_blanca").width/2);
         //! I don't know how to get the radius of the ball
         addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
@@ -111,20 +111,20 @@ namespace ecs {
     entity_t CaromScene::createStick()
     {
         // Scale
-        float svgSize = *&sdlutils().svgElements_table().at("palo1").width;
+        float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
         float textureSize = sdlutils().images().at("palo1").width();
         float scale = svgSize/textureSize;
 
         entity_t e = new Entity(*this, grp::PALO);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("palo1").x,
-            *&sdlutils().svgElements_table().at("palo1").y
+            *&sdlutils().svgs().at("game").at("palo1").x,
+            *&sdlutils().svgs().at("game").at("palo1").y
         );
 
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
-        addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
+        addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
         addComponent<TweenComponent>(e);
 
         //!john cleon's stick shadow
@@ -143,14 +143,14 @@ namespace ecs {
     void
     CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) {
         // Scale
-        float svgSize = *&sdlutils().svgElements_ballPos().at("bola").width;
+        float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
         float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
         float scale = svgSize/textureSize;        
         
         entity_t e = new Entity(*this, grp::EFFECTBALLS);
         
         // RB
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
+        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bola_blanca").width/2);
         addComponent<CircleRBComponent>(e, pos, type, radius);
 
         // RENDER
@@ -169,7 +169,7 @@ namespace ecs {
     /// @param n Number of balls to place
     void 
     CaromScene::createEffectBalls(int n) {
-        int npos = sdlutils().svgElements_ballPos().size();
+        int npos = sdlutils().svgs().at("positions").size();
         assert(n <= npos);
 
         std::vector<RandomItem<int>> positions;
@@ -183,7 +183,7 @@ namespace ecs {
             if(eb_selected_pos[i] > 1)
                 s += ("_" + std::to_string(eb_selected_pos[i]));
             
-            auto& eb = sdlutils().svgElements_ballPos().at(s);
+            auto& eb = sdlutils().svgs().at("positions").at(s);
             auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
             createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1);
@@ -197,7 +197,7 @@ namespace ecs {
 
         float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
 
-        float a_svg_scale = sdlutils().svgElements_table().at("bola_cast_sombra 1").width;
+        float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
         float cast_scale = a_svg_scale/a_imgScale;
 
         addComponent<TransformComponent>(a_cast, b2Vec2{0,0});
@@ -208,13 +208,13 @@ namespace ecs {
         entity_t a_shadow = new Entity(*this, grp::SHADOWS);
 
         a_imgScale = sdlutils().images().at("bola_sombra").width();
-        a_svg_scale = sdlutils().svgElements_table().at("bola_sombra 1").width;
+        a_svg_scale = sdlutils().svgs().at("game").at("bola_sombra 1").width;
         cast_scale = a_svg_scale/a_imgScale;
 
         Vector2D a_relPos{
-            PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").x - sdlutils().svgElements_table().at("bola_sombra 1").x - 10),
+            PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").x - sdlutils().svgs().at("game").at("bola_sombra 1").x - 10),
             
-            PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").y - sdlutils().svgElements_table().at("bola_sombra 1").y)
+            PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
         };
 
         addComponent<ecs::TransformComponent>(a_shadow, b2Vec2{0,0});
@@ -228,11 +228,11 @@ namespace ecs {
         entity_t e = new Entity(*this, grp::SCORE);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("scoreSpriteL").x,
-            *&sdlutils().svgElements_table().at("scoreSpriteL").y
+            *&sdlutils().svgs().at("game").at("scoreSpriteL").x,
+            *&sdlutils().svgs().at("game").at("scoreSpriteL").y
         );
 
-        float scale = float(sdlutils().svgElements_table().at("scoreSpriteL").width) / float(sdlutils().images().at("scoreSprite").width());
+        float scale = float(sdlutils().svgs().at("game").at("scoreSpriteL").width) / float(sdlutils().images().at("scoreSprite").width());
 
 
         addComponent<TransformComponent>(e, pos);
@@ -243,8 +243,8 @@ namespace ecs {
         entity_t e1 = new Entity(*this, grp::SCORE);
 
         b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("scoreSpriteR").x,
-            *&sdlutils().svgElements_table().at("scoreSpriteR").y
+            *&sdlutils().svgs().at("game").at("scoreSpriteR").x,
+            *&sdlutils().svgs().at("game").at("scoreSpriteR").y
         );
 
         addComponent<TransformComponent>(e1, pos1);
@@ -472,8 +472,8 @@ namespace ecs {
         _entsRenderable.push_back(currentScoreObject);
 
         b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("scoreTextL").x,
-            *&sdlutils().svgElements_table().at("scoreTextL").y
+            *&sdlutils().svgs().at("game").at("scoreTextL").x,
+            *&sdlutils().svgs().at("game").at("scoreTextL").y
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
@@ -485,8 +485,8 @@ namespace ecs {
         _entsRenderable.push_back(scoreToBeatObject);
 
         b2Vec2 pos2 = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgElements_table().at("scoreTextR").x,
-            *&sdlutils().svgElements_table().at("scoreTextR").y
+            *&sdlutils().svgs().at("game").at("scoreTextR").x,
+            *&sdlutils().svgs().at("game").at("scoreTextR").y
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
