@@ -37,7 +37,8 @@
 	BOSS_HAND, \
 	BOSS_SHADOW, \
 	GIMMICK, \
-	CAMERA
+	CAMERA, \
+	UI
 
 // Effect list
 // TODO completar	
@@ -67,4 +68,5 @@
 	SCORE, \
 	STICK_SHADOW, \
 	STICK, \
-	BOSS_HAND
+	BOSS_HAND, \
+	UI

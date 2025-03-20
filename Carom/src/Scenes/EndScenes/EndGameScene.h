@@ -14,6 +14,7 @@ namespace ecs{
     protected:
        void createTable(); // para que se genere la mesa.
        void createLooseText(); // para q salga el texto de ganar o perdr.
+       void createExitButton(); // crea el boton de cambio de escena.
         
     public:
         EndGameScene(Game* g); // para cuando se gana (hay reward).
