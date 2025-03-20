@@ -19,6 +19,7 @@ namespace ecs {
     class CowboyPoolScene;
     class EndGameScene;
     class RewardScene;
+    class EndScene;
 
     class Entity{
     public:
@@ -108,6 +109,7 @@ namespace ecs {
         friend CowboyPoolScene;
         friend PoolScene;
         friend EndGameScene;
+        friend EndScene;
         friend RewardScene;
         Entity(GameScene& scene, grpId_t gId);
 

@@ -20,6 +20,7 @@
 #include "FollowComponent.h"
 #include "StartMatchState.h"
 #include "NullState.h"
+#include "EndScene.h"
 #include "RewardScene.h"
 #include "EndGameScene.h"
 #include "ScenesManager.h"
@@ -293,7 +294,7 @@ namespace ecs {
             // Al presionar la "L" te lleva a la escena de ganar.
                 std::cout << "Carga escena de PERDER." << std::endl;
                 NullState* state = new NullState(nullptr);
-                ecs::EndGameScene *ms = new ecs::EndGameScene(game); // ! tst  
+                ecs::EndScene *ms = new ecs::EndGameScene(game); // ! tst  
                 game->getScenesManager()->pushScene(ms);
         }
 
@@ -301,7 +302,7 @@ namespace ecs {
             // Al presionar la "W" te lleva a la escena de perder.
                 std::cout << "Carga escena GANAR." << std::endl;
                 NullState* state = new NullState(nullptr);
-                ecs::RewardScene *ms = new ecs::RewardScene(game); // ! tst  
+                ecs::EndScene *ms = new ecs::RewardScene(game); // ! tst  
                 game->getScenesManager()->pushScene(ms);
         }
 

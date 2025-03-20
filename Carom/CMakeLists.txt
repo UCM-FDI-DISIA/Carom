@@ -148,9 +148,10 @@ add_executable(Carom
 
 	src/Scenes/CaromScene.cpp
 	src/Scenes/PoolScene.cpp
-	
+
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/EndScenes/RewardScene.cpp
+	src/Scenes/EndScenes/EndScene.cpp
 	
 	src/StateMachine/StartMatchState.cpp
 	src/StateMachine/HitState.cpp
