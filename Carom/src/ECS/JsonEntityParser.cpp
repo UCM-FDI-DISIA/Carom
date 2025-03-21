@@ -10,6 +10,9 @@
 #include "PolygonRBComponent.h"
 #include "RectangleRBComponent.h"
 
+#include "RenderTextureComponent.h"
+#include "Texture.h"
+
 #include <iostream>
 #include <vector>
 
@@ -31,6 +34,8 @@ namespace ecs
                 rigidBodyComponent(atributes, entity);
             }
             else if(element->Child("componentName")->AsString() == "RenderTextureComponent"){
+                JSONObject atributes = element->Child("atributes")->AsObject();
+                renderTextureComponent(atributes, entity);
             }
         }
        return nullptr;
@@ -42,8 +47,6 @@ namespace ecs
     }
 
     void JsonEntityParser::rigidBodyComponent(const JSONObject& atributes, Entity* entity){
-        
-        
         //escoge el tipo de body type
         b2BodyType bodyType;
         if(atributes.at("b2BodyType")->AsString() == "static") bodyType = b2_staticBody;
@@ -57,19 +60,18 @@ namespace ecs
               friction = atributes.at("friction")->AsNumber(),
               restitution = atributes.at("restitution")->AsNumber();
         //escoge la forma del rigidbody
-        if(atributes.at("CircleShape")->IsObject()){
+        if(atributes.contains("CircleShape")){
             float radius = atributes.at("CircleShape")->Child("radius")->AsNumber();//accede al radio del circulo
             
             addComponent<CircleRBComponent>(entity, pos, bodyType, radius, false, b2Rot(1.0f, 0.0f), density, friction, restitution);
         }
-        else if (atributes.at("CapsuleShape")->IsObject()){
+        else if (atributes.contains("CapsuleShape")){
             JSONValue* capsule = atributes.at("CapsuleShape");
-            float with = capsule->Child("with")->Child("x")->AsNumber(),
-                  height = capsule->Child("height")->Child("x")->AsNumber();
-            
+            float with = capsule->Child("with")->AsNumber(),
+                  height = capsule->Child("height")->AsNumber();
             addComponent<CapsuleRBComponent>(entity, pos, bodyType, with, height, false, b2Rot(1.0f, 0.0f), density, friction, restitution);
         }
-        else if (atributes.at("PolygonShape")->IsObject()){
+        else if (atributes.contains("PolygonShape")){
             JSONValue* poligon = atributes.at("PolygonShape");
             int size = poligon->Child("size")->AsNumber();
             float temp1=0, temp2=0;
@@ -86,16 +88,21 @@ namespace ecs
             else 
                 addComponent<PolygonRBComponent>(entity, pos, bodyType, vertex, 0.0f, false, b2Rot(1.0f, 0.0f), density, friction, restitution);
         }
-        else if(atributes.at("RectangleShape")->IsObject()){
+        else if(atributes.contains("RectangleShape")){
             float with = atributes.at("RectangleShape")->Child("with")->AsNumber(),
                   height = atributes.at("RectangleShape")->Child("height")->AsNumber();
             addComponent<RectangleRBComponent>(entity, pos, bodyType, with, height, false, b2Rot(1.0f, 0.0f), density, friction, restitution);
         }
-        else if(atributes.at("SquareShape")->IsObject()){
+        else if(atributes.contains("SquareShape")){
             float side = atributes.at("SquareShape")->Child("side")->AsNumber();
             addComponent<BoxRBComponent>(entity, pos, bodyType, side, false, b2Rot(1.0f, 0.0f), density, friction, restitution);
         }
-        
     }
-} // namespace ecs
+
+    void JsonEntityParser::renderTextureComponent(const JSONObject& atributes, Entity* entity){
+        /*SDL_Renderer *renderer = new SDL_Renderer();
+        Texture *texture = new Texture();
+        addComponent<ecs::RenderTextureComponent>(entity);*/
+    }
+} 
 
