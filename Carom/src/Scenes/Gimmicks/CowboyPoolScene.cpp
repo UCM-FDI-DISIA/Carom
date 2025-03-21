@@ -19,20 +19,27 @@ namespace ecs{
 
     CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){
         if(isBoss) _boss = Boss::COWBOY_POOL;
+
+        createBoss();
         initGimmick();
+    }
+
+    void CowboyPoolScene::createBoss(){
+        //crear jefe
+        Entity* boss = new Entity(*this, grp::BOSS_HAND);
+        addComponent<TransformComponent>(boss, startingHandPosition);
+
+        float svgSize = *&sdlutils().svgs().at("grp_cowboy").at("cowboy_hand 1").width;
+        float textureSize = sdlutils().images().at("cowboy_hand").width();
+        float scale = svgSize/textureSize;
+
+        addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("cowboy_hand"), renderLayer::BOSS_HAND, scale);
+        addComponent<TweenComponent>(boss);
     }
 
     void CowboyPoolScene::initGimmick(){
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
-        /*
-        Entity* boss = new Entity(*this, grp::BOSS_HAND);
-        addComponent<TransformComponent>(boss, b2Vec2{0,.5f});
-        addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("cowboy_hand"), renderLayer::BOSS_HAND, .3f);
-        addComponent<TweenComponent>(boss);
-        getComponent<TweenComponent>(boss)->easePosition({.5f, .5f}, 2, tween::EASE_IN_OUT_CUBIC, true);
-        */
-
         createSandBank();
     }
 
@@ -76,10 +83,12 @@ namespace ecs{
         addComponent<HoleComponent>(e, 0.4f);
     }
 
-    void 
-    CowboyPoolScene::createBulletHoles(int n) {
+    std::vector<b2Vec2>
+    CowboyPoolScene::generateBulletHolesPositions(int n) {
         int npos = sdlutils().svgs().at("shot_positions").size();
         assert(n <= npos);
+
+        std::vector<b2Vec2> resPositions(n);
 
         std::vector<RandomItem<int>> positions;
         for(int i = 1; i <= npos; ++i)
@@ -125,11 +134,14 @@ namespace ecs{
             
             // Si la posición es válida, crear agujero
             if(valid) {
-                createBulletHole(hole_pos);
+                //createBulletHole(hole_pos);
+                resPositions[n-1] = hole_pos;
                 --n;
             }
 
         }
+
+        return resPositions;
     }
 
     void
@@ -137,16 +149,36 @@ namespace ecs{
         std::cout << "aplicando modificador de boss desde CowboyPoolScene" << std::endl;
 
         int n = sdlutils().rand().nextInt(1,4);
-        createBulletHoles(n);
-
-        _currentState->finish();
+        std::vector<b2Vec2> bulletPositions = generateBulletHolesPositions(n);
+        TweenComponent* t = getComponent<TweenComponent>(getEntitiesOfGroup(grp::BOSS_HAND)[0]);
+        moveAndShoot(0, bulletPositions, t);
     }
 
-    void CowboyPoolScene::animateBossHand(){
-        
+    void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, TweenComponent* tween){
+        if(index >= bulletPos.size()) {
+            tween->easePosition({startingHandPosition.x, startingHandPosition.y}, 2, tween::EASE_OUT_QUINT);
+            _currentState->finish();
+            return;
+        }
+
+        b2Vec2 pos = bulletPos[index];
+
+        b2Vec2 handPos = pos + b2Vec2{0, PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::BOSS_HAND)[0])->getRect().h)/2};
+
+        tween->easePosition({handPos.x, handPos.y}, .5f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+            createBulletHole(pos);
+            getCamera()->shakeCamera(.2f, .3f, {1,-1});
+
+            //efecto patras
+            tween->easePosition({handPos.x, handPos.y + .3f}, .1f, tween::EASE_OUT_QUINT, false, [=](){
+                tween->easePosition({handPos.x, handPos.y}, .3f, tween::EASE_OUT_ELASTIC, false, [=](){
+                    moveAndShoot(index+1, bulletPos, tween);
+                });
+            });
+
+            
+        });
     }
-
-
 
     bool
     CowboyPoolScene::canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius) {

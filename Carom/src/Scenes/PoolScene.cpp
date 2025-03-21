@@ -82,7 +82,7 @@ namespace ecs{
                 e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Carom" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, false); // ! tst  
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, true); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }
