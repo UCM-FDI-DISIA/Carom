@@ -34,7 +34,6 @@ namespace ecs{
         */
 
         createSandBank();
-        createBulletHoles(3); // TODO: numero de agujeros random?
     }
 
     void CowboyPoolScene::createSandBank()
@@ -61,6 +60,7 @@ namespace ecs{
     }
 
     void CowboyPoolScene::createBulletHole(const b2Vec2& pos){
+
         // SCALE
         float svgSize = *&sdlutils().svgs().at("game").at("hole1").width;
         float textureSize = sdlutils().images().at("hole").width();
@@ -96,12 +96,12 @@ namespace ecs{
             
             auto& hole = sdlutils().svgs().at("shot_positions").at(s);
             b2Vec2 hole_pos = PhysicsConverter::pixel2meter(hole.x, hole.y);
-            float hole_radius = sdlutils().svgs().at("shot_positions").at("shot_hole").width/2;
+            float hole_radius = PhysicsConverter::pixel2meter(static_cast<float>(sdlutils().svgs().at("shot_positions").at("shot_hole").width)/2) ;
 
             // Comprobar si es válido
             bool valid = true;
 
-            auto& balls = (getEntitiesOfGroup(ecs::grp::WHITEBALL));
+            auto balls = (getEntitiesOfGroup(ecs::grp::WHITEBALL));
             for(auto& e : balls) {
                 if(e->tryGetComponent<CircleRBComponent>()) { // TODO: cambiar esto cuando se mergee con la rama de Diego el tryGetComponent
                     if(!canPlaceHole(e, hole_pos, hole_radius)) {
@@ -135,32 +135,11 @@ namespace ecs{
     void
     CowboyPoolScene::applyBossModifiers() {
         std::cout << "aplicando modificador de boss desde CowboyPoolScene" << std::endl;
-        //TODO: intanciación tiros pistola
-        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
-            if (e->tryGetComponent<HoleComponent>()){
-                auto hole = e->getComponent<HoleComponent>();
-                hole->resetHole(b2Vec2_zero); // TODO: definir posición
-                e->activate();
-                // std::cout << "apply boss modifiers" << std::endl;
-            }
-        }
 
-        //TODO 2: reset entities' components modified by gimmicks to original state
+        int n = sdlutils().rand().nextInt(1,4);
+        createBulletHoles(n);
+
         _currentState->finish();
-    }
-
-    void 
-    CowboyPoolScene::clearBossModifiers()
-    {
-        // Reset hole changes on balls and deactivate it
-        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
-            if (e->tryGetComponent<HoleComponent>()){
-                auto hole = e->getComponent<HoleComponent>();
-                hole->resetChanges();
-                e->deactivate();
-                // std::cout << "reset changes clear boss" << std::endl;
-            }
-        }
     }
 
     void CowboyPoolScene::animateBossHand(){
@@ -173,7 +152,7 @@ namespace ecs{
     CowboyPoolScene::canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius) {
         auto ball_tr = e->getComponent<CircleRBComponent>();
         auto ball_pos = ball_tr->getPosition();
-        auto ball_radius = PhysicsConverter::pixel2meter(ball_tr->getRadius());
+        auto ball_radius = ball_tr->getRadius();
         
         return !PhysicsConverter::circleOverlap(hole_pos, hole_radius, ball_pos, ball_radius);
     }

@@ -89,7 +89,7 @@ namespace ecs {
 
         entity_t e = new Entity(*this, grp::WHITEBALL);
 
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bola_blanca").width/2);
+        float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
         //! I don't know how to get the radius of the ball
         addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
@@ -151,7 +151,7 @@ namespace ecs {
         entity_t e = new Entity(*this, grp::EFFECTBALLS);
         
         // RB
-        float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bola_blanca").width/2);
+        float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
         addComponent<CircleRBComponent>(e, pos, type, radius);
 
         // RENDER
@@ -518,12 +518,13 @@ namespace ecs {
 
     void CaromScene::clearBossModifiers() {
         for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS))
-            disableEntity(e); // boss modifiers are disabled, not deleted
+            setAlive(e, false); // delete boss modifiers
     }
 
     /// @brief Virtual method, subtypes of CaromScene must implement this method.
-    /// After this is done, _currentState->finish() should be called
+    /// After this is done, _currentState->finish() must be called
     void CaromScene::applyBossModifiers() {
         std::cout << "aplicando modificador de boss desde CaromScene" << std::endl;
+        _currentState->finish();
     }
 }

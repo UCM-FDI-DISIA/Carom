@@ -11,7 +11,6 @@ namespace ecs{
     protected:
         void initGimmick();
         void applyBossModifiers() override;
-        void clearBossModifiers() override;
 
         void animateBossHand();
 
