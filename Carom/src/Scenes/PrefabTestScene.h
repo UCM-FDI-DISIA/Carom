@@ -1,10 +1,10 @@
 #pragma once
 
-#include "GameScene.h"
+#include "CaromScene.h"
 
-class PrefabTestScene: public ecs::GameScene{
+class PrefabTestScene: public ecs::CaromScene{
 protected:
     void init() override;
 public:
-    PrefabTestScene(Game* myGame);
+    PrefabTestScene(State* state, Game* g, GameScene* reward);
 };

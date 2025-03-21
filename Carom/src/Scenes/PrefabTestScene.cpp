@@ -1,8 +1,7 @@
 #include "PrefabTestScene.h"
 #include "JsonEntityParser.h"
 
-PrefabTestScene::PrefabTestScene(Game* myGame){
-    game = myGame;
+PrefabTestScene::PrefabTestScene(State* state, Game* g, GameScene* reward) : CaromScene(state, g, reward){
     init();
 }
 
