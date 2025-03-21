@@ -71,7 +71,7 @@ namespace ecs
                   height = capsule->Child("height")->AsNumber();
             addComponent<CapsuleRBComponent>(entity, pos, bodyType, with, height, false, b2Rot(1.0f, 0.0f), density, friction, restitution);
         }
-        else if (atributes.contains("PolygonShape")){
+        else if (atributes.contains("PolygonShape")){//esto falla
             JSONValue* poligon = atributes.at("PolygonShape");
             int size = poligon->Child("size")->AsNumber();
             float temp1=0, temp2=0;
