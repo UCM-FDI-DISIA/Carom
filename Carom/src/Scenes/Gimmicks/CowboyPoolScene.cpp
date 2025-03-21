@@ -13,6 +13,7 @@
 #include "HoleComponent.h"
 #include "RNG_Manager.h"
 #include "RandomItem.h"
+#include "FollowComponent.h"
 
 
 namespace ecs{
@@ -35,6 +36,12 @@ namespace ecs{
 
         addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("cowboy_hand"), renderLayer::BOSS_HAND, scale);
         addComponent<TweenComponent>(boss);
+
+        //sombra
+        Entity* sombraJefe = new Entity(*this, grp::SHADOWS);
+        addComponent<TransformComponent>(sombraJefe, b2Vec2{0,0});
+        addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW, scale);
+        addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
     }
 
     void CowboyPoolScene::initGimmick(){
@@ -156,8 +163,7 @@ namespace ecs{
 
     void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, TweenComponent* tween){
         if(index >= bulletPos.size()) {
-            tween->easePosition({startingHandPosition.x, startingHandPosition.y}, 2, tween::EASE_OUT_QUINT);
-            _currentState->finish();
+            tween->easePosition({startingHandPosition.x, startingHandPosition.y}, .8f, tween::EASE_OUT_QUINT, false, [=]() {_currentState->finish();});
             return;
         }
 
