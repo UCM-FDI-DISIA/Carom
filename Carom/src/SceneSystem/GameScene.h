@@ -129,6 +129,7 @@ namespace ecs{
 		virtual void render();
 		virtual void update();
 		virtual void handleEvent();
+		virtual void refresh();
 
 		/// Obtiene el juego al que pertenece el estado
 		Game* getGame() const;
