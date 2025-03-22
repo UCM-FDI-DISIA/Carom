@@ -20,6 +20,8 @@ Game::Game() {}
 
 Game::~Game() {
 
+    delete _sceneManager; // HAS TO BE FIRST
+
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
         InputHandler::Release();
@@ -27,8 +29,6 @@ Game::~Game() {
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
-
-    delete _sceneManager;
 }
 
 void

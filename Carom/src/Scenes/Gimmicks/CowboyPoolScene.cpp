@@ -1,10 +1,13 @@
 #include "CowboyPoolScene.h"
 #include "Entity.h"
 #include "PhysicsUtils.h"
+#include "GraphicsUtils.h"
 #include "ecs.h"
+#include "RNG_Manager.h"
 
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
+#include "PolygonRBComponent.h"
 #include "TweenComponent.h"
 #include "BoxRBComponent.h"
 #include "CircleRBComponent.h"
@@ -23,6 +26,13 @@ namespace ecs{
 
         createBoss();
         initGimmick();
+    }
+
+    CowboyPoolScene::~CowboyPoolScene()
+    {
+        for (int i = 0; i < _sandBanks; ++i) {
+            sdlutils().deleteImage(std::to_string(i));
+        }
     }
 
     void CowboyPoolScene::createBoss(){
@@ -47,30 +57,67 @@ namespace ecs{
     void CowboyPoolScene::initGimmick(){
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
-        createSandBank();
+
+        generateSandBanks(3, 2, 100, 200);
     }
 
-    void CowboyPoolScene::createSandBank()
+    void CowboyPoolScene::createSandBank(const std::vector<b2Vec2>& vertices, const SDL_Rect& rect, const b2Vec2& unclampedCenter, float friction) 
     {
-        // SCALE
-        float svgSize = *&sdlutils().svgs().at("game").at("bola_blanca").width + 100;
-        float textureSize = sdlutils().images().at("bola_blanca").width();
-        float scale = svgSize/textureSize;
+        int id = _sandBanks;
+        Entity* e = new Entity(*this, grp::GIMMICK);
+    
+        // Skip if the SDL_Rect has zero width or height
+        if (rect.w <= 0 || rect.h <= 0) {
+            std::cout << "Skipping sandbank: SDL_Rect has zero width or height" << std::endl;
+            return;
+        }
+    
+        // Use the unclamped center as the position of the physics body (in meters)
+        b2Vec2 pos = unclampedCenter;
+    
+        // Convert vertices to local coordinates by subtracting the body's position
+        std::vector<b2Vec2> localVertices = vertices;
+        for (auto& vertex : localVertices) {
+            vertex -= pos;
+        }
+    
+        // Create the physics body with the adjusted local vertices
+        addComponent<PolygonRBComponent>(e, pos, b2_staticBody, localVertices, 0, true);
+    
+        // Render the texture using the SDL_Rect
+        std::vector<uint8_t> alphaMask = GraphisUtils::computeAlphaMask(vertices, rect, 0.01f);
+        sdlutils().addImage(std::to_string(id), "../../resources/images/arenatest.jpg", rect, alphaMask);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at(std::to_string(id)), renderLayer::GIMMICK, 1);
+        auto renderCmp =  e->getComponent<RenderTextureComponent>();
+        renderCmp->setPortion(true);
 
-        b2Vec2 pos = PhysicsConverter::pixel2meter(
-            *&sdlutils().svgs().at("game").at("bola_blanca").x + 400,
-            *&sdlutils().svgs().at("game").at("bola_blanca").y + 50
+        addComponent<FrictionComponent>(e, friction);
+    
+        _sandBanks++;
+    }
+
+    // float minRadius, float maxRadius are in pixels
+    void CowboyPoolScene::generateSandBanks(int n, float friction, float minRadius, float maxRadius)
+    {
+        std::pair<int, int> areaPos = {*&sdlutils().svgs().at("grp_cowboy").at("arenaArea").x - *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").width/2  , *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").y - *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").height/2};
+        auto [areaPosX, areaPosY] = areaPos;
+
+        std::pair<int, int> areaSize = {*&sdlutils().svgs().at("grp_cowboy").at("arenaArea").width, *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").height};
+        auto [areaWidth, areaHeight] = areaSize;
+
+        int numPoints = 8; // number of points that define the polygon (box2d max = 8!)
+        std::vector<std::vector<b2Vec2>> sandBanksPolygons = GraphisUtils::generateNonOverlappingPolygons(
+            minRadius, maxRadius, n, numPoints, areaPosX, areaPosY, areaWidth, areaHeight, _rngManager
         );
-
-        Entity* ent = new Entity(*this, grp::GIMMICK);
-
-        float length = PhysicsConverter::pixel2meter(svgSize/2);
-        addComponent<CircleRBComponent>(ent, pos, b2_staticBody, length, true);
-
-        addComponent<RenderTextureComponent>(ent, &sdlutils().images().at("bola_blanca"), renderLayer::GIMMICK, scale);
-        ent->getComponent<RenderTextureComponent>()->changeColorTint(180, 180, 0);
-
-        addComponent<FrictionComponent>(ent);
+    
+        // Get bounding boxes to make a rect that won't exceed area limits
+        auto [boundingBoxes, unclampedCenters] = GraphisUtils::generatePolygonBoundingBoxes(
+            sandBanksPolygons, areaPosX, areaPosY, areaWidth, areaHeight
+        );
+    
+        for (int i = 0; i < sandBanksPolygons.size(); ++i) {
+            createSandBank(sandBanksPolygons[i], boundingBoxes[i], unclampedCenters[i], friction);
+        }
     }
 
     void CowboyPoolScene::createBulletHole(const b2Vec2& pos){
@@ -186,6 +233,18 @@ namespace ecs{
         });
     }
 
+    void CowboyPoolScene::clearBossModifiers()
+    {
+        // // Reset hole changes on balls and deactivate it
+        // for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
+        //     if (e->tryGetComponent<HoleComponent>()){
+        //         auto hole = e->getComponent<HoleComponent>();
+        //         hole->resetChanges();
+        //         e->deactivate();
+        //     }
+        // }
+    }
+
     bool
     CowboyPoolScene::canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius) {
         auto ball_tr = e->getComponent<CircleRBComponent>();
@@ -195,4 +254,3 @@ namespace ecs{
         return !PhysicsConverter::circleOverlap(hole_pos, hole_radius, ball_pos, ball_radius);
     }
 }
-

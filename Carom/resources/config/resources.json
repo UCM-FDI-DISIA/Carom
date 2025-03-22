@@ -41,7 +41,8 @@
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
     { "id" : "cowboy_hand", "file" : "../../resources/images/cowboy_hand.png"},
-    { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"}
+    { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"},
+    { "id" : "arena", "file" : "../../resources/images/arenatest.jpg"}
   ],
   
   "messages" : [

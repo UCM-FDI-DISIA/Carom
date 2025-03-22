@@ -9,6 +9,7 @@
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
+#include "PolygonRBComponent.h"
 #include "ColorHitManager.h"
 #include "WhiteBallScorerComponent.h"
 #include "StickInputComponent.h"
