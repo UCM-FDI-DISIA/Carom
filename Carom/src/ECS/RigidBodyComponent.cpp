@@ -31,8 +31,7 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITran
 
 RigidBodyComponent::~RigidBodyComponent()
 {
-    if(_myProps.polyData)
-        delete _myProps.polyData;
+    delete _myB2ShapeDef;
     b2DestroyBody(_myB2BodyId);
 }
 

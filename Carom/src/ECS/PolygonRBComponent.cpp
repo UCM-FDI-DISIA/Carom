@@ -20,11 +20,9 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
 {
     _myProps.bodyType = bodyType;
     _myProps.initialPos = pos;
-    _myProps.polyData->radius = radius;
-    _myProps.polyData->vertices = vertices;
+    _myProps.polyData = new RigidBodyComponent::Polygon(vertices, radius);
     _myProps.density = density;
     _myProps.friction = friction;
-    _myProps.density = density;
     _myProps.restitution = restitution;
     _myProps.isBullet = bullet;
     _myProps.isSensor = sensor;
@@ -33,11 +31,22 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
 
     generateBodyAndShape();
     
-    const b2Vec2* a_array = _myProps.polyData->vertices.data();
-    b2Hull a_hull = b2ComputeHull(a_array, _myProps.polyData->vertices.size());
-    b2Polygon a_polygon = b2MakePolygon(&a_hull, _myProps.polyData->radius);
+    b2Hull hull = b2ComputeHull(_myProps.polyData->vertices.data(), _myProps.polyData->vertices.size());
+    if (!b2ValidateHull(&hull)) {
+        throw std::runtime_error("Invalid hull in PolygonRBComponent");
+    }
 
-    b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_polygon);
+    b2Polygon a_polygon = b2MakePolygon(&hull, _myProps.polyData->radius);
+    if (a_polygon.count < 3) {
+        throw std::runtime_error("Invalid polygon in PolygonRBComponent: too few vertices");
+    }
+
+    _myB2ShapeId = b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_polygon);
+}
+
+ecs::PolygonRBComponent::~PolygonRBComponent()
+{
+    delete _myProps.polyData;
 }
 
 void

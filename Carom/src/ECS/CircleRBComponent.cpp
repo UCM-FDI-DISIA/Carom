@@ -22,7 +22,6 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
     _myProps.radius = radius;
     _myProps.density = density;
     _myProps.friction = friction;
-    _myProps.density = density;
     _myProps.restitution = restitution;
     _myProps.isBullet = bullet;
     _myProps.isSensor = sensor;

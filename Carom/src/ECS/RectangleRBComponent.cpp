@@ -24,7 +24,6 @@ RectangleRBComponent::RectangleRBComponent(entity_t ent, const b2Vec2 &pos, b2Bo
     _myProps.dimensions.y = height;
     _myProps.density = density;
     _myProps.friction = friction;
-    _myProps.density = density;
     _myProps.restitution = restitution;
     _myProps.isBullet = bullet;
     _myProps.isSensor = sensor;
@@ -35,7 +34,7 @@ RectangleRBComponent::RectangleRBComponent(entity_t ent, const b2Vec2 &pos, b2Bo
     
     b2Polygon a_rect = b2MakeBox(width/2, height/2);
 
-    b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_rect);
+    _myB2ShapeId = b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_rect);
 }
 
 void
