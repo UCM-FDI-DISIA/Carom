@@ -152,6 +152,34 @@ public:
 		return _imagesAccessWrapper;
 	}
 
+	// Add image manually to the map
+	inline void addImage(const std::string& key, const std::string& filename, const SDL_Rect& rect) {
+		_images.emplace(key, Texture(renderer(), filename, rect));
+	}
+
+	// Add image with alphamask manually to the map
+	inline void addImage(const std::string& key, const std::string& filename, const SDL_Rect& rect, const std::vector<uint8_t>& alphaMask){
+		_images.emplace(key, Texture(renderer(), filename, rect, alphaMask));
+	}
+
+	// Deleting an image safely
+	inline bool deleteImage(const std::string& key) {
+		try {
+			_imagesAccessWrapper.at(key);
+		} catch (const std::exception& e) {
+			std::cerr << "Warning: " << e.what() << std::endl;
+			return false;
+		}
+		try {
+			_images.erase(key);
+			std::cout << "Successfully deleted image with key: " << key << std::endl;
+			return true;
+		} catch (const std::exception& e) {
+			std::cerr << "Error: Exception while deleting image with key: " << key << ": " << e.what() << std::endl;
+			return false;
+		}
+	}
+
 	inline auto& svgs(){
 		return _svgs;
 	}
