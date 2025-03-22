@@ -14,6 +14,7 @@ namespace ecs {
         Texture* _texture;
         ITransform* _transform;
         float _scale; // scale de la textura (no su physical body)
+        bool _isPortion = false; // If the rect is a portion of a rect
 
         SDL_Color _color = {255,255,255,0};
 
@@ -32,6 +33,7 @@ namespace ecs {
         void init() override;
         Texture* getTexture() {return _texture;};
         virtual SDL_Rect getRect() const;
+        inline void setPortion(bool isPortion) {_isPortion = isPortion;}
 
         ecs::layerId_t getRenderLayer() { return _renderLayer; }
         void setRenderLayer(ecs::layerId_t layer);

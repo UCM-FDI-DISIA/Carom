@@ -39,7 +39,15 @@ namespace ecs {
 
     SDL_Rect RenderTextureComponent::getRect() const
     {
-        b2Vec2 physicalPosition = _transform->getPosition();
+        b2Vec2 physicalPosition = b2Vec2_zero;
+
+        if (_isPortion){ // if the rect is a portion of the transform rect the transform position can't be used to render
+            physicalPosition = PhysicsConverter::pixel2meter(_texture->getRect().x + _texture->getRect().w/2, _texture->getRect().y + _texture->getRect().h/2);
+        }
+        else {
+            physicalPosition = _transform->getPosition();
+        }
+
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
         auto [coordinateX, coordinateY] = _myEntity->getScene().getCamera()->getRenderPos({physicalPosition.x, physicalPosition.y});
         
