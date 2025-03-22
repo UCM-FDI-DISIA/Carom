@@ -119,7 +119,8 @@ namespace ecs {
         return e;
     }
 
-    entity_t CaromScene::createStick()
+    entity_t 
+    CaromScene::createStick()
     {
         // Scale
         float svgSize = *&sdlutils().svgElements_table().at("palo1").width;
@@ -192,7 +193,6 @@ namespace ecs {
 
         Vector2D a_relPos{
             PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").x - sdlutils().svgElements_table().at("bola_sombra 1").x - 10),
-            
             PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").y - sdlutils().svgElements_table().at("bola_sombra 1").y)
         };
 
@@ -250,8 +250,6 @@ namespace ecs {
     }
 
     void CaromScene::update(){
-
-        auto a = Game::FIXED_TIME_STEP/1000.0;
 
         // En efecto, esto se hace 2 veces, John Cleon no me pegues
         b2World_Step(_myB2WorldId, Game::FIXED_TIME_STEP/2000.0, _b2Substeps);
@@ -404,7 +402,8 @@ namespace ecs {
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 1, 1.0, "0", {255, 255, 255, 255}, "Basteleur-Moonlight48");
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(
+            currentScoreObject, 1, 1.0, "0", {255, 255, 255, 255}, "Basteleur-Moonlight48");
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
@@ -417,26 +416,42 @@ namespace ecs {
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 1, 1.0, std::to_string(_scoreToBeat), {255, 255, 255, 255}, "Basteleur-Moonlight48"));
+        scoreToBeatObject->addComponent(new TextDisplayComponent(
+            scoreToBeatObject, 1, 1.0, std::to_string(_scoreToBeat), {255, 255, 255, 255}, "Basteleur-Moonlight48"));
 
         return currentDisplay;
     }
 
     TextDisplayComponent* 
     CaromScene::createRemainingHitsUI() {
-        //CurrentScore
+
+        entity_t hitsFrameObject = new Entity(*this, ecs::grp::SCORE);
+        _entsRenderable.push_back(hitsFrameObject);
+
+        b2Vec2 framePos = PhysicsConverter::pixel2meter(
+            sdlutils().svgElements_table().at("shotsLeftSprite").x,
+            sdlutils().svgElements_table().at("shotsLeftSprite").y
+        );
+
+        float svgSize = sdlutils().svgElements_table().at("shotsLeftSprite").width;
+        float textureSize = sdlutils().images().at("shotsSprite").width();
+        float scale = svgSize/textureSize;
+        // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
+        hitsFrameObject->addComponent(new TransformComponent(hitsFrameObject, framePos));
+        hitsFrameObject->addComponent(new RenderTextureComponent(hitsFrameObject, &sdlutils().images().at("shotsSprite"), 0, scale));
+        //ShotsLeft text
         entity_t remainingHitsObject = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(remainingHitsObject);
 
-        b2Vec2 pos1 = PhysicsConverter::pixel2meter(
+        b2Vec2 textPos = PhysicsConverter::pixel2meter(
             *&sdlutils().svgElements_table().at("shotsLeftText").x,
             *&sdlutils().svgElements_table().at("shotsLeftText").y
         );
 
         // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
-        remainingHitsObject->addComponent(new TransformComponent(remainingHitsObject, pos1));
+        remainingHitsObject->addComponent(new TransformComponent(remainingHitsObject, textPos));
         TextDisplayComponent* remainingHitsDisplay = new TextDisplayComponent(remainingHitsObject, 1, 1.0, 
-            std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Moonlight48");
+            std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Bold72");
         remainingHitsObject->addComponent(remainingHitsDisplay);
 
         return remainingHitsDisplay;
