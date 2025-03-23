@@ -30,6 +30,7 @@ namespace ecs {
         void render(Camera*) override;
         void init() override;
         Texture* getTexture() {return _texture;};
+        void setTexture(Texture* tex, float scale);
         virtual SDL_Rect getRect() const;
 
         void changeColorTint(int r, int g, int b);

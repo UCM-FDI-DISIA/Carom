@@ -36,6 +36,12 @@ namespace ecs {
         _texture->changeColorTint(255,255,255);
     }
 
+    void RenderTextureComponent::setTexture(Texture* tex, float scale) { 
+        assert(tex != nullptr);
+        _texture = tex; 
+        _scale = scale; 
+    }
+
     SDL_Rect RenderTextureComponent::getRect() const
     {
         b2Vec2 physicalPosition = _transform->getPosition();

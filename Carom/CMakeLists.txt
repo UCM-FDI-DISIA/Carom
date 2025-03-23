@@ -130,9 +130,11 @@ add_executable(Carom
 	src/ECS/PhysicsComponent.cpp
 
 	src/ECS/TextDisplayComponent.cpp
-
 	src/ECS/FollowComponent.cpp
 	
+	src/Animator/FrameAnimatorComponent.cpp
+	src/Animator/Frame.cpp
+
 	src/HitManager/ColorHitManager.cpp
 
 	src/inputTest.cpp
