@@ -43,7 +43,7 @@ namespace ecs {
         b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
 
         setNewState(s);
-
+        
         createStick();
         
         // BALL TEST
@@ -56,7 +56,7 @@ namespace ecs {
         std::cout << sdlutils().svgElements_table().size();
         // Apply impulse
         getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
-
+        
         // EFFECT BALLS
         int n_eb = 3;
         int npos = sdlutils().svgElements_ballPos().size();
@@ -142,7 +142,8 @@ namespace ecs {
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
 
-        //auto effect = addComponent<MagicWa
+        auto effect = addComponent<MagicWandStickEffect>(e);
+        input->registerStickEffect(effect);
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);

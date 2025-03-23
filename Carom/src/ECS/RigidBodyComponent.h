@@ -107,6 +107,7 @@ public:
     void setRestitution(float restitution, int nShapes);
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
+    void setEnabled(bool state) override;
 
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);
