@@ -32,6 +32,8 @@ protected:
     struct Polygon{
         std::vector<b2Vec2> vertices;
         float radius;
+
+        Polygon(const std::vector<b2Vec2>& v, float r) : vertices(v), radius(r) {}
     };
 
     struct Props {
@@ -82,6 +84,7 @@ public:
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
+    inline b2BodyType getBodyType() const {return _myProps.bodyType;}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
     inline float getDensity() {return _myProps.density; }

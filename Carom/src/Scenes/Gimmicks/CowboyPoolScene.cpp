@@ -57,6 +57,9 @@ namespace ecs{
         ent->getComponent<RenderTextureComponent>()->changeColorTint(180, 180, 0);
 
         addComponent<FrictionComponent>(ent);
+
+        ent->setAlive(false); // ! TEST
+        refresh(); // ! TEST
     }
 
     void CowboyPoolScene::createBulletHole(const b2Vec2& pos){

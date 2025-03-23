@@ -31,8 +31,7 @@ RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITran
 
 RigidBodyComponent::~RigidBodyComponent()
 {
-    if(_myProps.polyData)
-        delete _myProps.polyData;
+    delete _myB2ShapeDef;
     b2DestroyBody(_myB2BodyId);
 }
 
@@ -295,9 +294,21 @@ RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
     _collisionEnter.push_back(PC);
 
     PC->setOnDestroy([this]() -> void {
-        _triggerExit.erase(--_triggerExit.end());
-        _triggerEnter.erase(--_triggerEnter.end());
-        _collisionExit.erase(--_collisionExit.end());
-        _collisionEnter.erase(--_collisionEnter.end());
+        std::cout << "triggerexit size: " << _triggerExit.size() << std::endl;
+        if (!_triggerExit.empty()) {
+            _triggerExit.erase(--_triggerExit.end());
+        }
+        std::cout << "triggerenter size: " << _triggerExit.size() << std::endl;
+        if (!_triggerEnter.empty()) {
+            _triggerEnter.erase(--_triggerEnter.end());
+        }
+        std::cout << "col enter size: " << _triggerExit.size() << std::endl;
+        if (!_collisionExit.empty()) {
+            _collisionExit.erase(--_collisionExit.end());
+        }
+        std::cout << "col exit, size: " << _triggerExit.size() << std::endl;
+        if (!_collisionEnter.empty()) {
+            _collisionEnter.erase(--_collisionEnter.end());
+        }        
     });
 }
