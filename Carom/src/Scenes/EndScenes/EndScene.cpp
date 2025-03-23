@@ -1,23 +1,7 @@
 #include "EndScene.h"
-#include "TransformComponent.h"
-#include "RenderTextureComponent.h"
-#include "RigidBodyComponent.h"
-#include "ColorHitManager.h"
-#include "Entity.h"
-#include "Button.h"
-#include "PhysicsUtils.h"
-#include "ScenesManager.h"
-#include "NullState.h"
-#include "CaromScene.h"
-#include "CowboyPoolScene.h"
-#include "PoolScene.h"
-#include "TextDisplayComponent.h"
-//#include "ScoreContainer.h"
-//#include "StickInputComponent.h"
 
-#include "Game.h"
-#include "Vector2D.h"
-#include <box2d/box2d.h>
+#include "TextDisplayComponent.h"
+#include "ScenesManager.h"
 
 namespace ecs{
     
@@ -33,21 +17,18 @@ namespace ecs{
             addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
     }
     
-    void EndScene::createText(std::string text)
+    void EndScene::createText(std::string text, int x, int y, int size)
     {
         entity_t winContainer = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(winContainer);
 
-        b2Vec2 pos = PhysicsConverter::pixel2meter(
-            sdlutils().width()/2,
-            sdlutils().height()/2
-        );
+        b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
 
         winContainer->addComponent(new TransformComponent(winContainer, pos));
         TextDisplayComponent* currentDisplay = new TextDisplayComponent(
             winContainer,           // container
             renderLayer::SCORE,     // capa renderizado
-            3,                      // tamano fuente
+            size,                      // tamano fuente
             text,         // text
             {255, 255, 255, 255},   // color (blanco)
             "Basteleur-Moonlight24" // fuente
@@ -55,14 +36,11 @@ namespace ecs{
         winContainer->addComponent(currentDisplay);
     }
     
-    void EndScene::createExitButton()
+    entity_t EndScene::createExitButton(int x, int y, ecs::GameScene* scene)
     {
         entity_t e = new ecs::Entity(*this, grp::DEFAULT);
 
-        b2Vec2 pos = PhysicsConverter::pixel2meter(
-            sdlutils().width()/2,
-            (sdlutils().height()/2) + 250
-        );    
+        b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);    
 
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::UI, 0.75f);
@@ -71,11 +49,11 @@ namespace ecs{
         addComponent<ecs::Button>(e, rButton);
   
         // Para cuando este la MainMenu scene, habria que ponerla aqui.
-        e->getComponent<ecs::Button>()->setOnClick([this](){
-            std::cout << "Carga escena PoolScene" << std::endl;
-            NullState* state = new NullState(nullptr);
-            ecs::PoolScene *ms = new ecs::PoolScene(state, game, nullptr); // ! tst  
-            game->getScenesManager()->pushScene(ms);
-        });          
+        e->getComponent<ecs::Button>()->setOnClick([this, scene](){
+            std::cout << "Carga escena" << scene << std::endl;
+            game->getScenesManager()->pushScene(scene);
+        });   
+        
+        return e;
     }
 }

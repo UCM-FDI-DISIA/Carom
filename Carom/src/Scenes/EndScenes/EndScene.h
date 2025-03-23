@@ -1,20 +1,25 @@
 #pragma once
+
 #include "GameScene.h"
 #include "State.h"
 #include "Game.h"
-#include "Texture.h"
-#include "RNG_Manager.h"
-
-class ScenesManager;
-class RNG_Manager;
+#include "TransformComponent.h"
+#include "RenderTextureComponent.h"
+#include "Entity.h"
+#include "Button.h"
+#include "PhysicsUtils.h"
+#include "NullState.h"
+#include "PoolScene.h"
 
 namespace ecs{
+    class ScenesManager;
     class TextDisplayComponent;
+
     class EndScene: public GameScene {
     protected:
        void createTable(); // para que se genere la mesa.
-       void createText(std::string text);       // para q salga el texto de ganar o perdr.
-       void createExitButton(); // crea el boton de cambio de escena.
+       void createText(std::string text, int x, int y, int size);       // para q salga el texto de ganar o perdr.
+       entity_t createExitButton(int x, int y, ecs::GameScene* scene); // crea el boton de cambio de escena.
         
     public:
         EndScene(Game* g) : GameScene(g){} // para cuando se gana (hay reward).
