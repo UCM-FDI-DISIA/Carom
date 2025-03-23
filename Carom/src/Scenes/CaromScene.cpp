@@ -388,6 +388,7 @@ namespace ecs {
             ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
 
             sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+            visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(sensor);
         }
     }
 
@@ -403,6 +404,8 @@ namespace ecs {
             ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
         
             sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+            visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(sensor);
+
         } 
 
     }

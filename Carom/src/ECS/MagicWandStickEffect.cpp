@@ -6,6 +6,7 @@
 #include "SubdivisionEffect.h"
 #include <box2D/box2D.h>
 
+
 using namespace ecs;
 
 void
@@ -35,8 +36,12 @@ MagicWandStickEffect::applyEffect(entity_t target){
     RigidBodyComponent* a_1RB = dynamic_cast<RigidBodyComponent*>(a_ball1->getComponent<RigidBodyComponent>());
     RigidBodyComponent* a_2RB = dynamic_cast<RigidBodyComponent*>(a_ball2->getComponent<RigidBodyComponent>());
 
-    a_1RB->applyForceToCenter(b2CrossVS(a_targetRB->getVelocity(), 1/sqrt(2)));
-    a_2RB->applyForceToCenter(b2CrossVS(a_targetRB->getVelocity(), -1/sqrt(2)));
+    b2Rot rotation1 = b2MakeRot(M_PI/4);
+    b2Rot rotation2 = b2MakeRot(7*M_PI/4);
+
+    a_1RB->applyForceToCenter(b2RotateVector(rotation1, a_targetRB->getVelocity()));
+    a_2RB->applyForceToCenter(b2RotateVector(rotation2, a_targetRB->getVelocity()));
 
     target->deactivate();
+    // TODO desactivar sombra de bola
 }
