@@ -210,7 +210,7 @@ namespace ecs{
 
     void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, TweenComponent* tween){
         if(index >= bulletPos.size()) {
-            tween->easePosition({startingHandPosition.x, startingHandPosition.y}, .8f, tween::EASE_OUT_QUINT, false, [=]() {_currentState->finish();});
+            tween->easePosition(startingHandPosition, .8f, tween::EASE_OUT_QUINT, false, [=]() {_currentState->finish();});
             return;
         }
 
