@@ -8,6 +8,7 @@ ecs::PhysicsComponent::PhysicsComponent(entity_t ent) : Component(ent){
     assert(ent->tryGetComponent<RigidBodyComponent>());
 
     ent->getComponent<RigidBodyComponent>()->suscribePhysicsComponent(this);
+    _onDestroy = [](){};
 }
 
 ecs::PhysicsComponent::~PhysicsComponent() {_onDestroy();}
