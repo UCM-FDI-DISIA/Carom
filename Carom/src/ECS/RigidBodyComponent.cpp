@@ -236,6 +236,16 @@ void ecs::RigidBodyComponent::setLinearDamping(float damping)
     b2Body_SetLinearDamping(_myB2BodyId, damping);
 }
 
+void ecs::RigidBodyComponent::setEnabled(bool state){
+    ecs::Component::setEnabled(state);
+    setBodyEnabled(state);
+}
+
+void ecs::RigidBodyComponent::setBodyEnabled(bool enabled){
+    if(enabled) b2Body_Enable(_myB2BodyId);
+    else b2Body_Disable(_myB2BodyId);
+}
+
 /// @brief Function called everytime object enters a collision
 /// @param ent object that collides with this rigidbody
 void 

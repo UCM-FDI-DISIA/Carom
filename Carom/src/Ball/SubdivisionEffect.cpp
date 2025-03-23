@@ -3,6 +3,7 @@
 #include "TransformComponent.h"
 #include "StickInputComponent.h"
 #include "BallHandler.h"
+#include "GameScene.h"
 
 using namespace ecs;
 
@@ -10,9 +11,5 @@ void
 SubdivisionEffect::onStrikeEnd(){
     _target->activate();
     _target->getTransform()->setPosition(_myEntity->getTransform()->getPosition());
-    delete _myEntity;
-}
-
-void
-SubdivisionEffect::init(){
+    // TODO Elimina la entidad
 }

@@ -11,8 +11,6 @@ namespace ecs{
 
         SubdivisionEffect(ecs::entity_t ent, ecs::entity_t target) : BallEffect(ent), _target(target) {}
         ~SubdivisionEffect() {}
-
-        void init() override;
         void onStrikeEnd() override;
     };
 }

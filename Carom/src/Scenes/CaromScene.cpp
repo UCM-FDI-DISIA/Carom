@@ -116,6 +116,8 @@ namespace ecs {
             for (auto& e : getEntitiesOfGroup(grp::PALO))
                 e->activate();
         });
+
+        addComponent<BallHandler>(e);
         
         _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
