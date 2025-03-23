@@ -7,11 +7,11 @@
 namespace ecs {
     class ExplosiveEffect : public BallEffect {
         float _explosionDelay, _explosionStart, _radius, _force;
-
         bool _exploded;
-
         b2ShapeId _id;
-        public:
+        entity_t _explosionEntity;
+        void createExplosion();
+    public:
 
         __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
 

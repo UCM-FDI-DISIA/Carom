@@ -23,22 +23,28 @@ namespace ecs {
     void 
     ExplosiveEffect::update() {
         if(!_exploded && sdlutils().virtualTimer().currTime() - _explosionStart >= _explosionDelay) {
-            //Agitar cámara
-
-            b2BodyId ID = _myEntity->getComponent<RigidBodyComponent>()->getB2Body();
-
-            b2ShapeDef* shape = new b2ShapeDef(b2DefaultShapeDef());
-            shape->userData = _myEntity;
-            shape->isSensor = true;
-
-            b2Circle circle;
-            circle.radius = _radius;
-            circle.center = {0, 0};
-            _id = b2CreateCircleShape(ID, shape, &circle);
+            
         }
         else if(_exploded && sdlutils().virtualTimer().currTime() - _explosionStart >= _explosionDelay + 1.0f) {
             b2DestroyShape(_id, false);
             _myEntity->removeComponent<ExplosiveEffect>();
         }
     }
+
+    void 
+    ExplosiveEffect::createExplosion() {
+        //Agitar cámara
+        //TODO transformar esto en una entidad con el componente de empuje
+        b2BodyId ID = _myEntity->getComponent<RigidBodyComponent>()->getB2Body();
+
+        b2ShapeDef* shape = new b2ShapeDef(b2DefaultShapeDef());
+        shape->userData = _myEntity;
+        shape->isSensor = true;
+
+        b2Circle circle;
+        circle.radius = _radius;
+        circle.center = {0, 0};
+        _id = b2CreateCircleShape(ID, shape, &circle);
+    }
+
 }

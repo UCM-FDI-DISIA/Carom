@@ -6,11 +6,12 @@ namespace ecs {
     class RigidBodyComponent;
     class PushOutsideTriggerComponent : public PhysicsComponent {
         float _force;
+        entity_t _inmune;
         RigidBodyComponent* _myRigidBody;
     public:
 
         __CMPID_DECL__(cmp::PUSH_OUTSIDE_TRIGGER);
-        PushOutsideTriggerComponent(entity_t ent, float force);
+        PushOutsideTriggerComponent(entity_t ent, float force, entity_t inmuneEnt = nullptr);
         ~PushOutsideTriggerComponent();
 
         void init() override;

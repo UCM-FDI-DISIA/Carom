@@ -4,7 +4,8 @@
 #include "RigidBodyComponent.h"
 
 namespace ecs {
-    PushOutsideTriggerComponent::PushOutsideTriggerComponent(entity_t ent, float force) : PhysicsComponent(ent), _force(force)
+    PushOutsideTriggerComponent::PushOutsideTriggerComponent(entity_t ent, float force, entity_t inmuneEntity) 
+        : PhysicsComponent(ent), _force(force), _inmune(inmuneEntity)
     {
     }
     
@@ -16,7 +17,7 @@ namespace ecs {
 
     void 
     PushOutsideTriggerComponent::onTriggerEnter(entity_t target) {
-        if(target != _myEntity) {
+        if(target != _myEntity && target != _inmune) {
             auto targetRb = target->getComponent<RigidBodyComponent>();
             b2Vec2 direction = targetRb->getPosition() - _myRigidBody->getPosition();
             direction = b2Normalize(direction);
