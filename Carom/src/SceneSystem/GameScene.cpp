@@ -145,7 +145,7 @@ namespace ecs{
         //sprite de suelo
         Entity* a_suelo = new Entity(*this, grp::BACKGROUND);
         addComponent<TransformComponent>(a_suelo, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1);
+        addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1.0f);
     }
 };
 
