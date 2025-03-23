@@ -11,5 +11,5 @@ void
 SubdivisionEffect::onStrikeEnd(){
     _target->activate();
     _target->getTransform()->setPosition(_myEntity->getTransform()->getPosition());
-    // TODO Elimina la entidad
+    _myEntity->setAlive(false); // * Te juro que en cuanto traigamos la rama de Andrea funciona
 }
