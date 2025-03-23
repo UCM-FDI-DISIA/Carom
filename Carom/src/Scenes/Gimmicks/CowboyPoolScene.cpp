@@ -209,6 +209,8 @@ namespace ecs{
     }
 
     void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, TweenComponent* tween){
+        Entity* boss = getEntitiesOfGroup(grp::BOSS_HAND)[0];
+
         if(index >= bulletPos.size()) {
             tween->easePosition(startingHandPosition, .8f, tween::EASE_OUT_QUINT, false, [=]() {_currentState->finish();});
             return;
@@ -216,11 +218,15 @@ namespace ecs{
 
         b2Vec2 pos = bulletPos[index];
 
-        b2Vec2 handPos = pos + b2Vec2{0, PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::BOSS_HAND)[0])->getRect().h)/2};
+        float halfHandMag = PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(boss)->getRect().h/2);
 
-        tween->easePosition({handPos.x, handPos.y}, .5f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+        Vector2D dir = Vector2D{startingHandPosition.x - pos.x, startingHandPosition.y - pos.y}.normalize();
+
+        b2Vec2 handPos = pos + b2Vec2{dir.getX() * halfHandMag , dir.getY() * halfHandMag};
+
+        tween->easePosition(handPos, .3f, tween::EASE_IN_OUT_CUBIC, false, [=](){
             createBulletHole(pos);
-            getCamera()->shakeCamera(.2f, .3f, {1,-1});
+            getCamera()->shakeCamera(.2f, .3f, dir*-1);
 
             //efecto patras
             tween->easePosition({handPos.x, handPos.y + .3f}, .1f, tween::EASE_OUT_QUINT, false, [=](){
@@ -230,7 +236,23 @@ namespace ecs{
             });
 
             
-        });
+        }, 
+    [=](){
+
+        float radiansConversion = M_PI/180.0f;
+        float handRot = (boss->getTransform()->getRotation()-90) * radiansConversion;
+        Vector2D handDir = Vector2D{float(cos(handRot)), float(sin(handRot))}.normalize();
+
+        b2Vec2 handEndPos = boss->getTransform()->getPosition() + b2Vec2{handDir.getX() * halfHandMag, handDir.getY()*halfHandMag};
+
+        Vector2D dir = Vector2D{handEndPos.x - startingHandPosition.x, handEndPos.y - startingHandPosition.y}.normalize();
+        //en radianes
+        float angle = atan(dir.getX()/dir.getY());
+        //en grados
+        angle = angle * (180/M_PI);
+
+        boss->getTransform()->setRotation(angle);
+    });
     }
 
     void CowboyPoolScene::clearBossModifiers()

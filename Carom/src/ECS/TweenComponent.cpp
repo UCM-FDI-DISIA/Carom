@@ -64,9 +64,9 @@ namespace ecs{
         _tweens.push_back(t);
     }
     
-    void TweenComponent::easePosition(b2Vec2 finalPos, float duration, tween::tweenType type, bool loop, Callback callback){
-        easeValue(&_myTr->_position.x, finalPos.x, duration, type, loop, callback);
+    void TweenComponent::easePosition(b2Vec2 finalPos, float duration, tween::tweenType type, bool loop, Callback callback, Callback onUpdate){
         easeValue(&_myTr->_position.y, finalPos.y, duration, type, loop);
+        easeValue(&_myTr->_position.x, finalPos.x, duration, type, loop, callback, onUpdate);
     }
     
     void TweenComponent::easeRotation(float finalRot, float duration, tween::tweenType type,bool loop, Callback callback){

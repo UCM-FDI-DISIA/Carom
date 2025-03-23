@@ -35,7 +35,7 @@ namespace ecs{
         inline void setPause(bool b){_paused = b;}
     
         void easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop = false , Callback callback = [](){}, Callback onUpdate = [](){});
-        void easePosition(b2Vec2 finalPos, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){});
+        void easePosition(b2Vec2 finalPos, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){}, Callback onUpdate= [](){});
         void easeRotation(float finalRot, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){}); 
         void easeRotation(float finalRot, b2Vec2 pivotPoint, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){}); 
 
