@@ -20,6 +20,7 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
 {
     _myProps.bodyType = bodyType;
     _myProps.initialPos = pos;
+    _myProps.polyData = new RigidBodyComponent::Polygon(vertices, radius);
     _myProps.polyData->radius = radius;
     _myProps.polyData->vertices = vertices;
     _myProps.density = density;
@@ -90,4 +91,9 @@ PolygonRBComponent::updateScale(){
     }
 
     b2Shape_SetPolygon(_myB2ShapeId, &a_polygon);
+}
+
+ecs::PolygonRBComponent::~PolygonRBComponent()
+{
+    delete _myProps.polyData;
 }
