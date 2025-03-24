@@ -160,7 +160,6 @@ add_executable(Carom
 	src/Ball/SubdivisionEffect.cpp
 	src/Ball/ExplosiveEffect.cpp
 	src/Ball/FrictionMultiplierEffect.cpp
-	src/Ball/PushOutsideTriggerComponent.cpp
 
 
 	src/ECS/BoxingGloveStickEffect.cpp

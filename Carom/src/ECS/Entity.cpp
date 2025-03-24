@@ -79,8 +79,4 @@ namespace ecs {
         for(Component* component : _currentComponents) 
             if (component->isEnabled()) component->handleEvent();
     }
-
-    GameScene& Entity::getScene(){
-        return _myScene;
-    }
 }
