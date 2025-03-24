@@ -9,7 +9,6 @@ namespace ecs {
         float _explosionDelay, _explosionStart, _radius, _force;
         bool _exploded;
         b2ShapeId _id;
-        entity_t _explosionEntity;
         void createExplosion();
     public:
 
