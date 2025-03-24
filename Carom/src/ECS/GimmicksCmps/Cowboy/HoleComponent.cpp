@@ -119,7 +119,7 @@ namespace ecs {
             // std::cout << "asdfasdfasdfasdfasdf" << std::endl;
             // reset physics
             auto other_rb = _nearBody->getComponent<RigidBodyComponent>();
-            other_rb->setBodyEnabled(false);
+            other_rb->setBodyEnabled(true);
 
             // reset render changes
             auto other_render = _nearBody->getComponent<RenderTextureComponent>();
@@ -130,11 +130,13 @@ namespace ecs {
         }
     }
 
-    void HoleComponent::resetHole(const b2Vec2 &pos)
-    {
-        _isEmpty = true;
-        _myEntity->getComponent<RigidBodyComponent>()->setPosition(pos);
-        _myRB = _myEntity->getComponent<RigidBodyComponent>();
-        _myCenter = _myRB->getPosition();
-    }
+
+// No se usa
+    // void HoleComponent::resetHole(const b2Vec2 &pos)
+    // {
+    //     _isEmpty = true;
+    //     _myEntity->getComponent<RigidBodyComponent>()->setPosition(pos);
+    //     _myRB = _myEntity->getComponent<RigidBodyComponent>();
+    //     _myCenter = _myRB->getPosition();
+    // }
 }
