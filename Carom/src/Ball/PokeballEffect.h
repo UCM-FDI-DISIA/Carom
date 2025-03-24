@@ -15,4 +15,5 @@ public:
     void onHit(ecs::entity_t ent) override;
 
     __CMPID_DECL__(ecs::cmp::POKEBALL_EFFECT);
+    ecs::cmpId_t getEffectId() {return ecs::cmp::POKEBALL_EFFECT; };
 };

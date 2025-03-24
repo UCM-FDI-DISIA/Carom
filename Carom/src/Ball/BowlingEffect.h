@@ -18,4 +18,6 @@ public:
     void updateEffect();
     void onMultChanged() override;
     __CMPID_DECL__(ecs::cmp::BOWLING_EFFECT);
+
+    ecs::cmpId_t getEffectId() {return ecs::cmp::BOWLING_EFFECT; };
 };

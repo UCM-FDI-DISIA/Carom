@@ -23,4 +23,6 @@ public:
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};
     virtual void onMultChanged() {};
+
+    virtual ecs::cmpId_t getEffectId() = 0;
 };

@@ -17,4 +17,6 @@ public:
     void init() override;
     void onHit(ecs::entity_t ent) override;
     __CMPID_DECL__(ecs::cmp::ABACUS_EFFECT);
+
+    ecs::cmpId_t getEffectId() {return ecs::cmp::ABACUS_EFFECT;};
 };
