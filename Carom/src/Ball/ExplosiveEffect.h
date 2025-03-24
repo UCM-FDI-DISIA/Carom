@@ -5,10 +5,12 @@
 
 
 namespace ecs {
+    class RigidBodyComponent;
     class ExplosiveEffect : public BallEffect {
         float _explosionDelay, _explosionStart, _radius, _force;
         bool _exploded;
-        b2ShapeId _id;
+        RigidBodyComponent* _myRigidbody;
+
         void createExplosion();
     public:
 

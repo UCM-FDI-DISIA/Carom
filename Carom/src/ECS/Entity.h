@@ -144,7 +144,7 @@ namespace ecs {
         void render(Camera* camera); //En posición relativa a la cámara
         void handleEvents();
 
-        GameScene& getScene();
+        inline GameScene& getScene() { return _myScene; }
         inline grp::grpId getID() const {return _id;};
     
     private:

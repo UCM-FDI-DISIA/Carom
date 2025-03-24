@@ -145,7 +145,7 @@ namespace ecs {
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
 
-        auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 10, 3000.0f);
+        auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 5, 1000.0f);
         input->registerStickEffect(effect);
 
         //!john cleon's stick shadow

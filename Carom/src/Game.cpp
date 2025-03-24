@@ -63,8 +63,8 @@ Game::start() {
 
     NullState* state = new NullState(nullptr);
     // ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
-    //ecs::GameScene *ms = new PrefabTestScene(state, this, nullptr); //no borrar, pruebas jordi
-    ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr); 
+    ecs::GameScene *ms = new PrefabTestScene(state, this, nullptr); //no borrar, pruebas jordi
+    //ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr); 
     _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
