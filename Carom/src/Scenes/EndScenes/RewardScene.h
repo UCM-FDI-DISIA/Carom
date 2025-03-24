@@ -1,8 +1,8 @@
 #pragma once
-#include "EndScene.h"
+#include "UIScene.h"
 namespace ecs{
     class ScenesManager;
-    class RewardScene: public EndScene {
+    class RewardScene: public UIScene {
     public:
         RewardScene(Game* g); // para cuando se gana (hay reward).
         virtual ~RewardScene() = default;

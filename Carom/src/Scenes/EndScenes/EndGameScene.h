@@ -1,9 +1,9 @@
 #pragma once
-#include "EndScene.h"
+#include "UIScene.h"
 
 namespace ecs{
     class ScenesManager;
-    class EndGameScene: public EndScene {  
+    class EndGameScene: public UIScene {  
     public:
         EndGameScene(Game* g); // para cuando se pierde.
         virtual ~EndGameScene() = default;

@@ -1,7 +1,7 @@
 #include "RewardScene.h"
 namespace ecs{
     
-    RewardScene::RewardScene(Game *g) : EndScene(g)
+    RewardScene::RewardScene(Game *g) : UIScene(g)
     {
         createBackground("suelo");
 
@@ -16,7 +16,7 @@ namespace ecs{
         NullState* state = new NullState(nullptr);
         ecs::GameScene *ms = new ecs::PoolScene(state, game, nullptr); // ! tst 
 
-        entity_t b = createExitButton(
+        entity_t b = createSceneButton(
             sdlutils().width()/2, // x
             (sdlutils().height()/2) + 250, // y
             ms // scene
