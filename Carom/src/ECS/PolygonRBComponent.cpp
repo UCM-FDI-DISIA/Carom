@@ -28,6 +28,8 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
     _myProps.isSensor = sensor;
     _myProps.linearDamping = linearDamping;
     _myProps.rotation = rotation;
+    _myProps.enableContactEvents = !sensor;
+    _myProps.enableSensorEvents = sensor;
 
     generateBodyAndShape();
     
@@ -50,7 +52,7 @@ ecs::PolygonRBComponent::~PolygonRBComponent()
 }
 
 void
-PolygonRBComponent::setScale(const Scale& newScale){
+PolygonRBComponent::updateScale(){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -84,7 +86,7 @@ PolygonRBComponent::setScale(const Scale& newScale){
     b2CreatePolygonShape(_myB2BodyId, bodyShapeTuple.second, &a_polygon);
     */
 
-    _myScale = newScale;
+    _myScale = _scaleBuffer.second;
 
     const b2Vec2* a_array = _myProps.polyData->vertices.data();
     b2Hull a_hull = b2ComputeHull(a_array, _myProps.polyData->vertices.size());
@@ -92,8 +94,8 @@ PolygonRBComponent::setScale(const Scale& newScale){
     
     for(int i = 0; i < _myProps.polyData->vertices.size(); ++i){
         b2Vec2 vector = a_polygon.vertices[i] - a_polygon.centroid;
-        a_polygon.vertices[i].x += vector.x * (newScale.x - 1);
-        a_polygon.vertices[i].y += vector.y * (newScale.y - 1);
+        a_polygon.vertices[i].x += vector.x * (_myScale.x - 1);
+        a_polygon.vertices[i].y += vector.y * (_myScale.y - 1);
     }
 
     b2Shape_SetPolygon(_myB2ShapeId, &a_polygon);

@@ -27,8 +27,10 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
     _myProps.isSensor = sensor;
     _myProps.linearDamping = linearDamping;
     _myProps.rotation = rotation;
-    calculateMass();
+    _myProps.enableContactEvents = !sensor;
+    _myProps.enableSensorEvents = sensor;
 
+    calculateMass();
     generateBodyAndShape();
 
     b2Circle a_circle;
@@ -38,7 +40,7 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
 }
 
 void
-CircleRBComponent::setScale(const Scale& newScale){
+CircleRBComponent::updateScale(){
     /*_myScale = newScale;
 
     b2ShapeId shapes[1];
@@ -66,11 +68,10 @@ CircleRBComponent::setScale(const Scale& newScale){
 
     static_cast<CaromScene*>(&_myEntity->getScene())->disablePhysics();*/
 
-    _myScale = newScale;
+    _myScale = _scaleBuffer.second;
 
     b2Circle a_circle;
-    _myProps.radius = _myProps.radius * newScale.x; 
-    a_circle.radius = _myProps.radius; // TODO EN LOS OTROS TIPOS DE RB
+    a_circle.radius = _myProps.radius * _myScale.x;
     a_circle.center = {0, 0};
 
     b2Shape_SetCircle(_myB2ShapeId, &a_circle);

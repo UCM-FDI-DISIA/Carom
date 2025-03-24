@@ -2,7 +2,6 @@
 #include "PhysicsComponent.h"
 #include "InfoComponent.h"
 #include "ecs.h"
-#include <box2D/box2D.h>
 #include <functional>
 #include <cmath>
 #include <math.h>
@@ -28,6 +27,9 @@ protected:
     
     Scale _myScale = {1.0, 1.0};
 
+    /// @brief Si es true implica que la escala debe ser cambiada a la del segundo componente
+    std::pair<bool, Scale> _scaleBuffer = {false, Scale()};
+
     // Data used for polygons
     struct Polygon{
         std::vector<b2Vec2> vertices;
@@ -49,6 +51,7 @@ protected:
         bool isSensor;
         bool enableContactEvents;
         float mass;
+        bool enableSensorEvents;
 
         union {
             float radius;
@@ -71,6 +74,7 @@ protected:
 
     void generateBodyAndShape();
     virtual void calculateMass() {}
+    virtual void updateScale() = 0;
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
@@ -78,6 +82,7 @@ public:
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
 
+    void update() override;
 
     // Getters
     b2Vec2 getPosition() const override;
@@ -95,6 +100,7 @@ public:
     // Setters
     void setPosition(const b2Vec2& newPos) override;
     void setRotation(const double& newRot) override;
+    void setScale(const Scale& newScale) override;
 
     void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes);
