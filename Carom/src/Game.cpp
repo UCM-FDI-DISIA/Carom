@@ -69,13 +69,14 @@ Game::start() {
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
+	sdlutils().virtualTimer().resetTime();
 
     while(!exit) {
         // store the current time -- all game objects should use this time when
 		// they need to get the current time. They also have accesse to the time elapsed
 		// between the last two calls to regCurrTime().
 		Uint32 startTime = sdlutils().regCurrTime();
-
+        sdlutils().virtualTimer().regCurrTime();
 		// refresh the input handler
 		ihdlr.refresh();
 

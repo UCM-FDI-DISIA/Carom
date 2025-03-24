@@ -19,6 +19,7 @@
 #include "PetanqueEffect.h"
 #include "QuanticEffect.h"
 #include "MagicWandStickEffect.h"
+#include "GranadeLauncherStickEffect.h"
 
 #include "PhysicsUtils.h"
 #include "Game.h"
@@ -144,7 +145,7 @@ namespace ecs {
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
         auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
 
-        auto effect = addComponent<MagicWandStickEffect>(e);
+        auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 10, 3000.0f);
         input->registerStickEffect(effect);
 
         //!john cleon's stick shadow
