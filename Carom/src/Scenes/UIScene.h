@@ -15,15 +15,15 @@ namespace ecs{
     class ScenesManager;
     class TextDisplayComponent;
 
-    class EndScene: public GameScene {
+    class UIScene: public GameScene {
     protected:
        void createTable(); // para que se genere la mesa.
        void createText(std::string text, int x, int y, int size);       // para q salga el texto de ganar o perdr.
-       entity_t createExitButton(int x, int y, ecs::GameScene* scene); // crea el boton de cambio de escena.
+       entity_t createSceneButton(int x, int y, ecs::GameScene* scene); // crea el boton de cambio de escena.
         
     public:
-        EndScene(Game* g) : GameScene(g){} // para cuando se gana (hay reward).
-        virtual ~EndScene() = default;
+        UIScene(Game* g) : GameScene(g){} // para cuando se gana (hay reward).
+        virtual ~UIScene() = default;
 
         void setNewState(State* s);
     };

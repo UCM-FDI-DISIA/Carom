@@ -1,11 +1,11 @@
-#include "EndScene.h"
+#include "UIScene.h"
 
 #include "TextDisplayComponent.h"
 #include "ScenesManager.h"
 
 namespace ecs{
     
-    void EndScene::createTable()
+    void UIScene::createTable()
     {
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);
             b2Vec2 pos(0,0);
@@ -17,7 +17,7 @@ namespace ecs{
             addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
     }
     
-    void EndScene::createText(std::string text, int x, int y, int size)
+    void UIScene::createText(std::string text, int x, int y, int size)
     {
         entity_t winContainer = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(winContainer);
@@ -36,7 +36,7 @@ namespace ecs{
         winContainer->addComponent(currentDisplay);
     }
     
-    entity_t EndScene::createExitButton(int x, int y, ecs::GameScene* scene)
+    entity_t UIScene::createSceneButton(int x, int y, ecs::GameScene* scene)
     {
         entity_t e = new ecs::Entity(*this, grp::DEFAULT);
 
@@ -48,9 +48,7 @@ namespace ecs{
         ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
         addComponent<ecs::Button>(e, rButton);
   
-        // Para cuando este la MainMenu scene, habria que ponerla aqui.
         e->getComponent<ecs::Button>()->setOnClick([this, scene](){
-            std::cout << "Carga escena" << scene << std::endl;
             game->getScenesManager()->pushScene(scene);
         });   
         

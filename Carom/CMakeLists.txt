@@ -51,6 +51,7 @@ endif()
 # Incluir directorios
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
+
     ${CMAKE_SOURCE_DIR}/external/sdlutils/include
     ${CMAKE_SOURCE_DIR}/external/utils/include
     ${CMAKE_SOURCE_DIR}/external/json/include
@@ -58,6 +59,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/external/clipper2/include
 
     ${CMAKE_SOURCE_DIR}/src
+
     ${CMAKE_SOURCE_DIR}/src/ECS
     ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps
     ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Cowboy
@@ -67,6 +69,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/Scenes
     ${CMAKE_SOURCE_DIR}/src/Scenes/Gimmicks
 	${CMAKE_SOURCE_DIR}/src/Scenes/EndScenes
+    ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
     ${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/Graphics
     ${CMAKE_SOURCE_DIR}/src/HitManager
@@ -143,7 +146,8 @@ add_executable(Carom
 
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/EndScenes/RewardScene.cpp
-	src/Scenes/EndScenes/EndScene.cpp
+	src/Scenes/UIScene.cpp
+    src/Scenes/MenuScenes/MainMenuScene.cpp
     
     src/StateMachine/StartMatchState.cpp
     src/StateMachine/HitState.cpp
