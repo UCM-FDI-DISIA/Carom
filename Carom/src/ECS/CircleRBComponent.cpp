@@ -72,7 +72,7 @@ CircleRBComponent::updateScale(){
     _myScale = _scaleBuffer.second;
 
     b2Circle a_circle;
-    _myProps.radius = _myProps.radius * newScale.x; 
+    _myProps.radius = _myProps.radius * _myScale.x; 
     a_circle.radius = _myProps.radius; // TODO EN LOS OTROS TIPOS DE RB
     a_circle.center = {0, 0};
 

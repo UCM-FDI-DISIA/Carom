@@ -12,6 +12,6 @@
 
         void update() override {}
         void handleEvent() override {}
-        void render(Camera* camera) override {}
+        void render() override {}
     };
  }

@@ -48,6 +48,7 @@ namespace ecs
                 _onHover();
             }
             if(input->mouseButtonDownEvent() && input->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT)){
+                std::cout << "LLAMAMOS\n";
                 _onClick();
             }
         }

@@ -119,15 +119,6 @@ void Game::run()
 		// between the last two calls to regCurrTime().
 		Uint32 startTime = sdlutils().regCurrTime();
         sdlutils().virtualTimer().regCurrTime();
-		// refresh the input handler
-		ihdr.refresh();
-
-		if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) {
-			exit = true;
-			continue;
-		}
-        
-        Uint32 startTime = sdlut.regCurrTime();
         
         // refresh the input handler
         ihdr.refresh();

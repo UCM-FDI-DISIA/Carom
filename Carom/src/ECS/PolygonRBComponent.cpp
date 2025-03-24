@@ -48,11 +48,6 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
     _myB2ShapeId = b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_polygon);
 }
 
-ecs::PolygonRBComponent::~PolygonRBComponent()
-{
-    delete _myProps.polyData;
-}
-
 void
 PolygonRBComponent::updateScale(){
     /*_myScale = newScale;

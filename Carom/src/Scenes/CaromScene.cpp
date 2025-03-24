@@ -134,7 +134,7 @@ namespace ecs {
         );
 
         addComponent<TransformComponent>(e, pos);
-        auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
+        auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
 
         auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 10, 3000.0f);
         input->registerStickEffect(effect);
@@ -203,7 +203,7 @@ namespace ecs {
             auto& eb = sdlutils().svgs().at("positions").at(s);
             auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
-            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1);
+            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
         }
     }
 

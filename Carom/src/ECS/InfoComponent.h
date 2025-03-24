@@ -11,7 +11,6 @@ namespace ecs{
     private:
         void init() override {}
         
-        virtual void update() override {}
         void update() override {}
         void render() override {}
         void handleEvent() override {}
