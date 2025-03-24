@@ -7,6 +7,7 @@
 #include <iostream>
 #include <functional>
 #include "ITransform.h"
+#include "Component.h"
 
 class CameraComponent;
 namespace ecs {
@@ -35,18 +36,25 @@ namespace ecs {
         }
     
         template<typename T>
+        bool addComponent(T* component, cmpId_t id){
+            if(_components[id] != nullptr) return false;
+
+            _components[id] = component;
+            _currentComponents.push_back(component);
+            
+            component->init();
+            
+            return true;
+        }
+
+        template<typename T>
         bool addComponent(T* component){
             if(_components[cmpId<T>] != nullptr) return false;
-
-            // Asigna el transform de la entidad en caso de que no exista ninguno
-            if (dynamic_cast<ITransform*>(component) != nullptr)
-                _myTransform = dynamic_cast<ITransform*>(component);
-            
 
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
             
-            _components[cmpId<T>]->init();
+            component->init();
             
             return true;
         }
@@ -63,6 +71,14 @@ namespace ecs {
             auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
             _currentComponents.erase(it);
             _components[cmpId<T>] = nullptr;
+    
+            return true;
+        }
+
+        bool removeComponent(cmpId_t id){
+            auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[id]);
+            _currentComponents.erase(it);
+            _components[id] = nullptr;
     
             return true;
         }
@@ -132,7 +148,7 @@ namespace ecs {
         void render(); //En posición relativa a la cámara
         void handleEvents();
 
-        GameScene& getScene();
+        inline GameScene& getScene() { return _myScene; }
         inline grp::grpId getID() const {return _id;};
     
     private:

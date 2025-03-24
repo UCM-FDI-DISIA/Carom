@@ -11,6 +11,7 @@ namespace ecs {
         RigidBodyComponent* _rigidBody;        
     public:
         __CMPID_DECL__(cmp::FRICTION_MULTIPLIER);
+        ecs::cmpId_t getEffectId() {return ecs::cmp::FRICTION_MULTIPLIER; };
 
         FrictionMultiplierEffect(entity_t entity, float friction);
         ~FrictionMultiplierEffect();

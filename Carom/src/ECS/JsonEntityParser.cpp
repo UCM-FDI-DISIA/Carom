@@ -1,6 +1,7 @@
 #include "JsonEntityParser.h"
 #include "JSON.h"
 #include "Vector2D.h"
+#include "SDLUtils.h"
 
 #include "TransformComponent.h"
 
@@ -15,6 +16,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 namespace ecs
 {
@@ -100,9 +102,13 @@ namespace ecs
     }
 
     void JsonEntityParser::renderTextureComponent(const JSONObject& atributes, Entity* entity){
-        /*SDL_Renderer *renderer = new SDL_Renderer();
-        Texture *texture = new Texture();
-        addComponent<ecs::RenderTextureComponent>(entity);*/
+        std::string key = atributes.at("textureID")->AsString();       
+        
+        float scale = atributes.at("scale")->AsNumber();
+
+        int layer = atributes.at("layer")->AsNumber();
+        
+        addComponent<ecs::RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale);
     }
 } 
 

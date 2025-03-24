@@ -16,4 +16,5 @@ public:
     void init() override;
     void onStrikeEnd() override;
     __CMPID_DECL__(ecs::cmp::PETANQUE_EFFECT);
+    ecs::cmpId_t getEffectId() {return ecs::cmp::PETANQUE_EFFECT; };
 };

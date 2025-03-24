@@ -136,7 +136,7 @@ namespace ecs {
         addComponent<TransformComponent>(e, pos);
         auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
 
-        auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 10, 3000.0f);
+        auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 5, 1000.0f);
         input->registerStickEffect(effect);
         
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);

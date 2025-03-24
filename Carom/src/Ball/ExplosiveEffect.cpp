@@ -4,7 +4,7 @@
 #include "VirtualTimer.h"
 #include "CaromScene.h"
 #include "RigidBodyComponent.h"
-#include "PushOutsideTriggerComponent.h"
+#include <cmath>
 
 namespace ecs {
     ExplosiveEffect::ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force) 
@@ -18,18 +18,17 @@ namespace ecs {
     void 
     ExplosiveEffect::init(){
         _explosionStart = sdlutils().virtualTimer().currTime();
+        _myRigidbody = _myEntity->getComponent<RigidBodyComponent>();
     }
 
     void 
     ExplosiveEffect::update() {
         if(!_exploded && sdlutils().virtualTimer().currTime() - _explosionStart >= _explosionDelay) {
             createExplosion();
-            _exploded;
+            _exploded = true;
         }
         else if(_exploded && sdlutils().virtualTimer().currTime() - _explosionStart >= _explosionDelay + 1000.0f) {
-            b2DestroyShape(_id, false);
             _myEntity->removeComponent<ExplosiveEffect>();
-            _myEntity->removeComponent<PushOutsideTriggerComponent>();
         }
     }
 
@@ -37,19 +36,20 @@ namespace ecs {
     ExplosiveEffect::createExplosion() {
         //Agitar cámara
         //TODO transformar esto en una entidad con el componente de empuje
-        b2BodyId body = _myEntity->getComponent<RigidBodyComponent>()->getB2Body();
+        auto balls = _myEntity->getScene().getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+        
+        for(auto ball : balls) {
+            auto targetRB = ball->getComponent<RigidBodyComponent>();
+            b2Vec2 distance = targetRB->getPosition() - _myRigidbody->getPosition();
 
-        b2ShapeDef* shape = new b2ShapeDef(b2DefaultShapeDef());
-        shape->userData = _myEntity;
-        shape->isSensor = true;
+            float distanceMagnitude = Vector2D(distance.x, distance.y).magnitude();
 
-        b2Circle circle;
-        circle.radius = _radius;
-        circle.center = {0, 0};
-
-        _id = b2CreateCircleShape(body, shape, &circle);
-
-        _myEntity->addComponent<PushOutsideTriggerComponent>(new PushOutsideTriggerComponent(_myEntity, _force));
+            if(distanceMagnitude < _radius) {
+                b2Vec2 direction = b2Normalize(distance);
+                float quadraticInverseDistance = 1 / std::pow(distanceMagnitude, 2);
+                targetRB->applyForceToCenter((direction * _force) * quadraticInverseDistance);
+            }
+        }
     }
 
 }

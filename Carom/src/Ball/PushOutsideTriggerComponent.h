@@ -10,6 +10,8 @@ namespace ecs {
     public:
 
         __CMPID_DECL__(cmp::PUSH_OUTSIDE_TRIGGER);
+        ecs::cmpId_t getEffectId() {return ecs::cmp::PUSH_OUTSIDE_TRIGGER;};
+
         PushOutsideTriggerComponent(entity_t ent, float force);
         ~PushOutsideTriggerComponent();
 

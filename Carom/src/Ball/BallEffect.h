@@ -27,4 +27,5 @@ public:
     void render() override {}
     void handleEvent() override {}
     virtual void update() override {}
+    virtual ecs::cmpId_t getEffectId() = 0;
 };
