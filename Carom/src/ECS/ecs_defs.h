@@ -20,7 +20,8 @@
 	FRICTION, \
 	TWEEN, \
 	CAMERA, \
-	HOLE
+	HOLE, \
+	SHADOW
 
 // Groups list - must have at least one element
 //
