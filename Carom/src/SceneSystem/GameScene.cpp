@@ -124,6 +124,12 @@ namespace ecs{
     }
 
     void GameScene::refresh() {
+        _entsRenderable.erase(
+            std::remove_if(_entsRenderable.begin(), _entsRenderable.end(),
+                    [this](Entity *e) {
+                        return !isAlive(e);
+                    }), _entsRenderable.end());
+
         // removes dead entities from group lists, and also those who do not belong to the group anymore
         for (ecs::grpId_t gId = 0; gId < ecs::maxGroupId; gId++) {
             auto &groupEntities = _entsByGroup[gId];

@@ -257,14 +257,12 @@ namespace ecs{
 
     void CowboyPoolScene::clearBossModifiers()
     {
-        // // Reset hole changes on balls and deactivate it
-        // for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
-        //     if (e->tryGetComponent<HoleComponent>()){
-        //         auto hole = e->getComponent<HoleComponent>();
-        //         hole->resetChanges();
-        //         e->deactivate();
-        //     }
-        // }
+        // Reset hole changes on balls and deactivate it
+        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
+            if (e->tryGetComponent<HoleComponent>())
+                e->getComponent<HoleComponent>()->resetChanges();
+            e->setAlive(false);
+        }
     }
 
     bool
