@@ -6,5 +6,5 @@ PrefabTestScene::PrefabTestScene(State* state, Game* g, GameScene* reward) : Car
 }
 
 void PrefabTestScene::init(){
-    ecs::JsonEntityParser::Parse(*this, "../../resources/prefabs/examplePrefab.json");
+    ecs::JsonEntityParser::Parse(*this, "../../resources/prefabs/basicBallPrefab.json");
 }
