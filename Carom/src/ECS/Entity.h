@@ -43,6 +43,18 @@ namespace ecs {
             return true;
         }
 
+        template<typename T>
+        bool addComponent(T* component){
+            if(_components[cmpId<T>] != nullptr) return false;
+
+            _components[cmpId<T>] = component;
+            _currentComponents.push_back(component);
+            
+            component->init();
+            
+            return true;
+        }
+
         // Specialization for adding renderable entities to layer sort vector _entsRenderable
         template<>
         bool addComponent<RenderTextureComponent>(RenderTextureComponent* renderComp);
