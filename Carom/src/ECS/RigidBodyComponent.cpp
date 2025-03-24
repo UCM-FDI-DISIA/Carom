@@ -26,13 +26,12 @@ using namespace ecs;
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
 RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITransform()
 {
-
+    _myProps.sleepThreshold = 0.115;
 }
 
 RigidBodyComponent::~RigidBodyComponent()
 {
-    if(_myProps.polyData)
-        delete _myProps.polyData;
+    delete _myB2ShapeDef;
     b2DestroyBody(_myB2BodyId);
 }
 
@@ -90,6 +89,13 @@ bool
 RigidBodyComponent::isMoving() {
     b2Vec2 vel = getVelocity();
     return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2)) > 0.01f;
+}
+
+/// @brief Returns the speed of the body
+float
+RigidBodyComponent::getVelocityMag() {
+    b2Vec2 vel = getVelocity();
+    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2));
 }
 
 /// @brief Recoloca el objeto físico
@@ -184,6 +190,7 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 void ecs::RigidBodyComponent::setDensity(float density)
 {
     _myProps.density = density;
+    calculateMass();
     b2Shape_SetDensity(_myB2ShapeId, density, true);
 }
 
@@ -290,9 +297,21 @@ RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
     _collisionEnter.push_back(PC);
 
     PC->setOnDestroy([this]() -> void {
-        _triggerExit.erase(--_triggerExit.end());
-        _triggerEnter.erase(--_triggerEnter.end());
-        _collisionExit.erase(--_collisionExit.end());
-        _collisionEnter.erase(--_collisionEnter.end());
+        std::cout << "triggerexit size: " << _triggerExit.size() << std::endl;
+        if (!_triggerExit.empty()) {
+            _triggerExit.erase(--_triggerExit.end());
+        }
+        std::cout << "triggerenter size: " << _triggerEnter.size() << std::endl;
+        if (!_triggerEnter.empty()) {
+            _triggerEnter.erase(--_triggerEnter.end());
+        }
+        std::cout << "col enter size: " << _collisionExit.size() << std::endl;
+        if (!_collisionExit.empty()) {
+            _collisionExit.erase(--_collisionExit.end());
+        }
+        std::cout << "col exit size: " << _collisionEnter.size() << std::endl;
+        if (!_collisionEnter.empty()) {
+            _collisionEnter.erase(--_collisionEnter.end());
+        }        
     });
 }

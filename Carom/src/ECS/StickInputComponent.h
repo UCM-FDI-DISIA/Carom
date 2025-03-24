@@ -43,8 +43,8 @@ namespace ecs{
         bool isMouseOnCircleRadius( double r);
         float getMagFromMouseToCenter();
         // --- Area de clic de la bola.
-        double _minRadiusToPull = 0.12f;
-        double _maxRadiusToPull = 0.8f;
+        double _minRadiusToPull = 0.035f; // when a white ball is registred is updates to ball radius
+        double _maxRadiusToPull = 0.5f;
         float _stickHeight;
 
         bool _behaviourEnabled = false;

@@ -12,7 +12,8 @@ namespace ecs{
         void init() override {}
         
         virtual void update() override {}
-        void render(Camera*) override {}
+        void update() override {}
+        void render() override {}
         void handleEvent() override {}
     };
 }

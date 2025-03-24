@@ -20,6 +20,7 @@ using cmpId_t = uint8_t;
 using grpId_t = uint8_t;
 using effectId_t = uint8_t;
 using shapeId_t = uint8_t;
+using layerId_t = uint8_t;
 
 
 namespace cmp {
@@ -64,6 +65,14 @@ namespace shape {
 	
 		// do not remove this
 		_LAST_EFFECT_ID
+	};
+}
+
+
+namespace renderLayer {
+	enum layerId : layerId_t {
+		_LAYER_LIST_, /* taken from ecs_defs.h */
+		_LAST_LAYER_ID
 	};
 }
 

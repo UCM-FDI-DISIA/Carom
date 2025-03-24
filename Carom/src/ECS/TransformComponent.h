@@ -8,6 +8,7 @@
 #include "ITransform.h"
 #include "RigidBodyComponent.h"
 #include "Entity.h"
+#include "TweenComponent.h"
 
 
 namespace ecs{
@@ -16,8 +17,10 @@ namespace ecs{
 
         b2Vec2 _position;
         Scale _scale;
-        double _rotation; //In radians
+        float _rotation; //In radians
 
+        //basicamente para que el tween pueda cambiar la posicion
+        friend TweenComponent;
     public:
         __CMPID_DECL__(cmp::TRANSFORM);
 

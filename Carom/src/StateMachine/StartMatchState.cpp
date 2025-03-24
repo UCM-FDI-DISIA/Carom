@@ -1,5 +1,6 @@
 #include "StartMatchState.h"
 #include "HitState.h"
+#include "BossState.h"
 #include "CaromScene.h"
 
 StartMatchState::StartMatchState(ecs::CaromScene* scene): State(scene) {
@@ -20,9 +21,10 @@ StartMatchState::onStateExit() {
 
 bool
 StartMatchState::checkCondition(State*& state) {
-    // if(animación terminada) {
-        state = new HitState(_scene);
-        return true;
-    // }
-    return false;
+    if(_finished) { // animación terminada
+        if(_scene->isBossMatch())
+            state = new BossState(_scene);
+        else state = new HitState(_scene);
+    }
+    return _finished;
 }

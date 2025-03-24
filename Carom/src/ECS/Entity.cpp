@@ -3,6 +3,7 @@
 #include "ITransform.h"
 #include "RenderTextureComponent.h"
 #include "GameScene.h"
+#include "CowboyPoolScene.h"
 
 #include <algorithm>
 
@@ -70,9 +71,9 @@ namespace ecs {
             if (component->isEnabled()) component->update();
     }
 
-    void Entity::render(Camera* camera){
+    void Entity::render(){
         for(Component* component : _currentComponents) 
-            if (component->isEnabled()) component->render(camera);
+            if (component->isEnabled()) component->render();
     }
 
     void Entity::handleEvents(){

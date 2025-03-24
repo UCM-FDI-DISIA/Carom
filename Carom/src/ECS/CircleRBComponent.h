@@ -12,5 +12,9 @@ namespace ecs{
 
     protected:
         void updateScale() override;
+        void setScale(const Scale& newScale) override;
+        void calculateMass() override;
+
+        inline float getRadius() const { return _myProps.radius;}
     };
 }

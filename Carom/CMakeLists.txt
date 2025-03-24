@@ -66,14 +66,19 @@ include_directories(
 
 	${CMAKE_SOURCE_DIR}/src
 	${CMAKE_SOURCE_DIR}/src/ECS
+	${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps
+	${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Cowboy
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/SceneSystem
 	${CMAKE_SOURCE_DIR}/src/StateMachine
 	${CMAKE_SOURCE_DIR}/src/Scenes
+	${CMAKE_SOURCE_DIR}/src/Scenes/Gimmicks
+	${CMAKE_SOURCE_DIR}/src/Scenes/EndScenes
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
 	${CMAKE_SOURCE_DIR}/src/Ball
+	${CMAKE_SOURCE_DIR}/src/Tweens
 )
 
 # Descomentar lo de abajo si se quiere que no haya ventana
@@ -94,7 +99,6 @@ add_executable(Carom
 
     external/utils/src/Collisions.cpp
     external/utils/src/Vector2D.cpp
-	external/sdlutils/src/sdlutils_demo.cpp
 	external/sdlutils/src/SDLUtils.cpp
 	external/sdlutils/src/SDLUtilsError.cpp
 	external/sdlutils/src/SoundEffect.cpp
@@ -108,7 +112,7 @@ add_executable(Carom
 
 	src/SceneSystem/GameScene.cpp
 	src/SceneSystem/ScenesManager.cpp
-	src/SceneSystem/Camera.cpp
+	src/ECS/CameraComponent.cpp
 
 	src/ECS/Entity.cpp
 	src/ECS/Component.cpp
@@ -134,15 +138,23 @@ add_executable(Carom
 	src/ECS/TextDisplayComponent.cpp
 
 	src/ECS/FollowComponent.cpp
-	
+
+	src/ECS/GimmicksCmps/ForceFieldComponent.cpp
+	src/ECS/GimmicksCmps/ForceAreaComponent.cpp
+	src/ECS/GimmicksCmps/Cowboy/FrictionComponent.cpp
+	src/ECS/GimmicksCmps/Cowboy/HoleComponent.cpp
+
 	src/HitManager/ColorHitManager.cpp
 
-	src/inputTest.cpp
 	src/Physics/PhysicsUtils.cpp
 
 	src/Scenes/CaromScene.cpp
 	src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
+
+	src/Scenes/EndScenes/EndGameScene.cpp
+	src/Scenes/EndScenes/RewardScene.cpp
+	src/Scenes/EndScenes/EndScene.cpp
 	
 	src/StateMachine/StartMatchState.cpp
 	src/StateMachine/HitState.cpp
@@ -166,6 +178,11 @@ add_executable(Carom
 	src/ECS/BoxingGloveStickEffect.cpp
 	src/ECS/MagicWandStickEffect.cpp
 	src/ECS/GranadeLauncherStickEffect.cpp
+	src/StateMachine/BossState.cpp
+
+	src/Scenes/Gimmicks/CowboyPoolScene.cpp
+
+	src/ECS/TweenComponent.cpp
 )
 
 # Link Box2D

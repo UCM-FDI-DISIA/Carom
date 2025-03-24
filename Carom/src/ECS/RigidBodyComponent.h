@@ -10,8 +10,6 @@
 #include "ITransform.h"
 
 
-class B2Manager;
-
 namespace ecs{
 
 class Entity;
@@ -34,6 +32,8 @@ protected:
     struct Polygon{
         std::vector<b2Vec2> vertices;
         float radius;
+
+        Polygon(const std::vector<b2Vec2>& v, float r) : vertices(v), radius(r) {}
     };
 
     struct Props {
@@ -44,11 +44,12 @@ protected:
         float friction;
         float restitution;
         float linearDamping;
-        float sleepThreshold = 0.01;
+        float sleepThreshold;
         bool isBullet;
         bool isSensor;
         bool enableContactEvents;
         bool enableSensorEvents;
+        float mass;
 
         union {
             float radius;
@@ -74,26 +75,30 @@ protected:
     virtual void updateScale() = 0;
     
 
+    void generateBodyAndShape();
+    virtual void calculateMass() {}
+
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
 
-    void generateBodyAndShape();
 
     // Getters
     b2Vec2 getPosition() const override;
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
-    inline b2BodyType getBodyType() const {return b2Body_GetType(_myB2BodyId);}
-    inline float getDensity() const {return b2Shape_GetDensity(_myB2ShapeId);}
     inline float getFriction() const {return b2Shape_GetFriction(_myB2ShapeId);}
     inline float getRestitution() const {return b2Shape_GetRestitution(_myB2ShapeId);}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
+    inline b2BodyType getBodyType() const {return _myProps.bodyType;}
+    inline float getDensity() {return _myProps.density; }
+    inline float getMass() {return _myProps.mass; }
     bool isMoving();
+    float getVelocityMag();
 
     // Setters
     void setPosition(const b2Vec2& newPos) override;
@@ -107,7 +112,10 @@ public:
     void setRestitution(float restitution, int nShapes);
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
+
     void setEnabled(bool state) override;
+
+    // enable or disable body to participate in simulation
     void setBodyEnabled(bool enabled);
 
     // Force appliers

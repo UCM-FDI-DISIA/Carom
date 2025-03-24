@@ -31,7 +31,12 @@
 	BOXING_GLOVE_STICK, \
 	MAGIC_WAND_STICK, \
 	GRANADE_LAUCHER_STICK, \
-	BALL_HANDLER
+	BALL_HANDLER, \
+	FORCE_AREA, \
+	FRICTION, \
+	TWEEN, \
+	CAMERA, \
+	HOLE
 
 // Groups list - must have at least one element
 //
@@ -43,7 +48,13 @@
 	BACKGROUND, \
 	SCORE, \
 	SHADOWS, \
-	POOL_HOLE
+	POOL_HOLE, \
+	BOSS_MODIFIERS, \
+	BOSS_HAND, \
+	BOSS_SHADOW, \
+	GIMMICK, \
+	CAMERA, \
+	UI
 
 // Effect list
 // TODO completar	
@@ -56,3 +67,22 @@
 	CIRCLE, \
 	CAPSULE, \
 	POLYGON
+
+// Render layers list
+#define _LAYER_LIST_ \
+	BACKGROUND, \
+	TABLE_SHADOW, \
+	SCORE_CONTAINER, \
+	TABLE_BACKGOUND, \
+	GIMMICK, \
+	BALL_SHADOW_ON_TABLE, \
+	POOL_HOLE, \
+	TABLE_BORDER, \
+	EFFECT_BALL, \
+	WHITE_BALL, \
+	BALL_SHADOW_ON_BALL, \
+	SCORE, \
+	STICK_SHADOW, \
+	STICK, \
+	BOSS_HAND, \
+	UI

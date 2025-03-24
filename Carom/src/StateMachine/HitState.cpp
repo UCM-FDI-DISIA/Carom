@@ -16,13 +16,16 @@ HitState::HitState(ecs::CaromScene* scene) : State(scene)
 
 void
 HitState::onStateEnter() {
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
+    auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
+    assert(whiteBall.size() > 0);
+
+    for (auto& e : whiteBall) {
         if(e->tryGetComponent<ecs::Button>()) {
             e->getComponent<ecs::Button>()->setEnabled(true);
         }
     }
 
-    _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::WhiteBallScorerComponent>()->refreshOnNewTurn();
+    whiteBall[0]->getComponent<ecs::WhiteBallScorerComponent>()->refreshOnNewTurn();
 }
 
 void
@@ -40,7 +43,6 @@ HitState::onStateExit() {
 
 bool 
 HitState::checkCondition(State*& state) {
-    // TODO: comprobar si la bola blanca ya ha sido golpeada ARQUITECTURA MIRAR SI ESTO ESTÁ BIEN
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)){
         if(e->tryGetComponent<ecs::StickInputComponent>() && e->getComponent<ecs::StickInputComponent>()->hasShot()) {
             std::cout << "Cambio a Scoring\n";

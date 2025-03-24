@@ -8,7 +8,7 @@
 #include <functional>
 #include "ITransform.h"
 
-class Camera;
+class CameraComponent;
 namespace ecs {
 
     class GameScene;
@@ -17,6 +17,10 @@ namespace ecs {
     class PoolScene;
     class RenderTextureComponent;
     class JsonEntityParser;
+    class CowboyPoolScene;
+    class EndGameScene;
+    class RewardScene;
+    class EndScene;
 
     class Entity{
     public:
@@ -125,7 +129,7 @@ namespace ecs {
         void setListAnchor(GameList<Entity>::anchor&& anchor);
     
         void update();
-        void render(Camera* camera); //En posición relativa a la cámara
+        void render(); //En posición relativa a la cámara
         void handleEvents();
 
         GameScene& getScene();
@@ -134,8 +138,12 @@ namespace ecs {
     private:
         friend GameScene;
         friend CaromScene;
+        friend CowboyPoolScene;
         friend PoolScene;
         friend JsonEntityParser;
+        friend EndGameScene;
+        friend EndScene;
+        friend RewardScene;
         Entity(GameScene& scene, grpId_t gId);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"

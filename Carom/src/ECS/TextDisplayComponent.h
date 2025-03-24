@@ -23,7 +23,7 @@ namespace ecs {
         /// @param color El color del texto a mostrar
         /// @param key La key con la que buscar la fuente en el resources.json
         /// @param displayScale la escala del rect donde se crea el texto
-        TextDisplayComponent(Entity* entity, int renderOrder, float displayScale, std::string initialText, SDL_Color color, std::string key);
+        TextDisplayComponent(Entity* entity, int renderLayer, float displayScale, std::string initialText, SDL_Color color, std::string key);
 
         void changeFont(std::string key);
         void setColor(SDL_Color);

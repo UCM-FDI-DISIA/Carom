@@ -9,6 +9,7 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 #include "CaromScene.h"
+#include "CowboyPoolScene.h"
 //#include "ScoreContainer.h"
 //#include "StickInputComponent.h"
 
@@ -47,38 +48,41 @@ namespace ecs{
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);
         b2Vec2 pos(0,0);
         addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), 4, 1);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
 
         table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), 3, 1);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
         
         // Entre 0 y posiciones-1 elige un indice para que sea el boss.
         int a_bossPosition = _rngm->randomRange(0, HOLES);
+        std::cout << "Boss hole: " << a_bossPosition << std::endl;
 
-        // coloca los tipos.
+        // coloca los agujeros de partida
         for(int i = 0; i < HOLES; i++){
 
-            // crea una ball.
             entity_t e = new ecs::Entity(*this, grp::POOL_HOLE);
             b2Vec2 pos = _poolPositions[i];
             addComponent<TransformComponent>(e, pos);
-            addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), 5, 0.2f);
+            addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, 0.2f);
 
             ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
             addComponent<ecs::Button>(e, rButton);
 
-            
+
             if(i == a_bossPosition){ // --- POSICION BOSS.
                 e->getComponent<ecs::Button>()->setOnClick([this](){
-                std::cout << "Carga escena Boss" << std::endl;
+                    std::cout << "Carga escena Boss" << std::endl;
+                    NullState* state = new NullState(nullptr);
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, true); // ! tst  
+                    game->getScenesManager()->pushScene(ms);
                 });
             }
             else{ // --- POSICION COLORES.
                 e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Carom" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    ecs::GameScene *ms = new ecs::CaromScene(state, game, nullptr); // ! tst  
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, false); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }

@@ -8,9 +8,11 @@
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
-#include "Camera.h"
+#include "CameraComponent.h"
 
 class Game;
+
+class TweenComponent;
 
 // Declaraciones anticipadas
 namespace ecs{
@@ -30,8 +32,9 @@ namespace ecs{
 		std::vector<entity_t> _entsRenderable;
 
 		Game* game;
-		Camera _worldCamera;
-		Camera _UICamera;
+		CameraComponent* _camera = nullptr;
+
+		bool _canFastForwardPhysics = false;
 
 	GameScene(Game* game);
 	GameScene();
@@ -130,23 +133,28 @@ namespace ecs{
 
 	public:
 
-
 		virtual ~GameScene();
 
 		virtual void render();
 		virtual void update();
 		virtual void handleEvent();
+		virtual void refresh();
 
 		/// Obtiene el juego al que pertenece el estado
 		Game* getGame() const;
-		Camera* getWorldCamera();
-		Camera* getUICamera();
-		void setWorldCamera(b2Vec2 pos);
-		void setUICamera(b2Vec2 pos);
+		CameraComponent* getCamera();
+		//Must have CameraComponent attached
+		void setCamera(Entity* e);
 		/// Elimina los objetos
 		virtual void clear();
 		// Set rendering order. Called by render texture component on init.
 		void sortRenderOrder();
+		virtual void setCanFastForward(bool active) {};
+
+	protected:
+
+		virtual void updatePhysics() {};
+		virtual void updateScene() {};
 	};
 
 	inline Game*
