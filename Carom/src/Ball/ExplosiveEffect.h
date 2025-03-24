@@ -15,6 +15,7 @@ namespace ecs {
     public:
 
         __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
+        ecs::cmpId_t getEffectId() {return ecs::cmp::EXPLOSIVE_EFFECT;};
 
         ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force);
         ~ExplosiveEffect();

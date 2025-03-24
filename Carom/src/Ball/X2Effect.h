@@ -12,4 +12,5 @@ public:
     void init() override;
 
     __CMPID_DECL__(ecs::cmp::X2_EFFECT);
+    ecs::cmpId_t getEffectId() {return ecs::cmp::X2_EFFECT;};
 };

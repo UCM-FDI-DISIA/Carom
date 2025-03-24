@@ -17,4 +17,5 @@ public:
     void onHit(ecs::entity_t ent) override;
     void onStrikeEnd() override;
     __CMPID_DECL__(ecs::cmp::QUANTIC_EFFECT)
+    ecs::cmpId_t getEffectId() {return ecs::cmp::QUANTIC_EFFECT;};
 };
