@@ -77,6 +77,13 @@ ScenesManager::handleEvent()
 	}
 }
 
+void
+ScenesManager::refresh() {
+	if(!GameScenes.empty()) {
+		GameScenes.top()->refresh();
+	}
+}
+
 void 
 ScenesManager::invokeLose(){
 	//TODO

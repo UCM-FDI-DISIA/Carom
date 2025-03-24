@@ -138,6 +138,8 @@ void Game::run()
             sdlut.presentRenderer();
         }
 
+        _sceneManager->refresh();
+
         #if defined(_DEBUG) && defined(_FPS)
             frameCount++;
             if (sdlutils().currRealTime() >= time){

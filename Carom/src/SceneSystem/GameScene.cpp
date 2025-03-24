@@ -123,6 +123,25 @@ namespace ecs{
         }
     }
 
+    void GameScene::refresh() {
+        // removes dead entities from group lists, and also those who do not belong to the group anymore
+        for (ecs::grpId_t gId = 0; gId < ecs::maxGroupId; gId++) {
+            auto &groupEntities = _entsByGroup[gId];
+            groupEntities.erase(
+                    std::remove_if(groupEntities.begin(), groupEntities.end(),
+                            [this](Entity *e) {
+                                if (isAlive(e)) {
+                                    return false;
+                                } else {
+                                    std::cout << "borrando entidad " << std::endl;
+                                    delete e;
+                                    return true;
+                                }
+                            }), groupEntities.end());
+        }
+        
+    }
+
     void GameScene::clear(){
         for (auto entity : _entities) {
             delete entity;
