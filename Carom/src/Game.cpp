@@ -130,6 +130,7 @@ void Game::run()
         for (int i = 0; i < _timestep/PHYSICS_TIMESTEP; ++i){
             _sceneManager->handleEvent();
             _sceneManager->update();
+            _sceneManager->refresh();
         }
 
         if (ihdr.isWindowsFocused()) {
@@ -138,7 +139,6 @@ void Game::run()
             sdlut.presentRenderer();
         }
 
-        _sceneManager->refresh();
 
         #if defined(_DEBUG) && defined(_FPS)
             frameCount++;

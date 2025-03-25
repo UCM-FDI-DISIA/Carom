@@ -58,7 +58,7 @@ namespace ecs{
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
 
-        generateSandBanks(3, 2, 100, 200);
+        // generateSandBanks(3, 2, 100, 200);
     }
 
     void CowboyPoolScene::createSandBank(const std::vector<b2Vec2>& vertices, const SDL_Rect& rect, const b2Vec2& unclampedCenter, float friction) 
