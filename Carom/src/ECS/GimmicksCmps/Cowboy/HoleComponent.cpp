@@ -12,7 +12,7 @@ namespace ecs {
     {
         _myRB = _myEntity->getComponent<RigidBodyComponent>();
         defineCenter(_myRB->getPosition());
-        _maxVelocityToFall = 5.0f;
+        _maxVelocityToFall = 10.0f;
         _maxDistToFall = _myRadius * 0.5f;
         _maxForce = 1.0f;
         _maxVelToTrigger = 5.0f; // above this the force doesnt work
@@ -98,6 +98,7 @@ namespace ecs {
                 {
                     other_rb->setBodyEnabled(false);
                     other_rb->setPosition(_myCenter);
+                    // other_rb.setVelocity(0); // TODO
                     other_render->setRenderLayer(ecs::renderLayer::POOL_HOLE);
                     other_render->changeColorTint(100, 100, 100);
                     this->setEnabled(false);
@@ -116,7 +117,6 @@ namespace ecs {
         // std::cout << "body cap: " << _nearBody << std::endl;
 
         if (!_isEmpty){
-            // std::cout << "asdfasdfasdfasdfasdf" << std::endl;
             // reset physics
             auto other_rb = _nearBody->getComponent<RigidBodyComponent>();
             other_rb->setBodyEnabled(true);

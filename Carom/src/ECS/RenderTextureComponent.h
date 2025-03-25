@@ -41,7 +41,7 @@ namespace ecs {
         void nDownRenderLayer(int n) { _renderLayer -= n; }
         // To came closer/up n layers
         void nUpRenderLayer(int n) { _renderLayer += n; }
-        void resetRenderLayer() { _renderLayer = _defaultRenderLayer; }
+        void resetRenderLayer();
 
         void changeColorTint(int r, int g, int b);
         void resetColorTint();

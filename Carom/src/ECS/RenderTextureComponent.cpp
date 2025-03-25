@@ -66,6 +66,12 @@ namespace ecs {
         _myEntity->getScene().sortRenderOrder();
     }
 
+    void RenderTextureComponent::resetRenderLayer()
+    {
+        _renderLayer = _defaultRenderLayer;
+        _myEntity->getScene().sortRenderOrder();
+    }
+
     void RenderTextureComponent::changeColorTint(int r, int g, int b){
         _color.r = r;
         _color.g = g;
