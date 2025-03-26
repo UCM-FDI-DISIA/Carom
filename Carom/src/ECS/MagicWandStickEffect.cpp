@@ -18,13 +18,13 @@ MagicWandStickEffect::applyEffect(entity_t target){
     
     
     //TODO Hacer que se pueda añadir la subdivision al grupo de efectos de la bola original
-    auto a_ball1 = a_scene->createEffectBall(ecs::effect::NULO, a_targetTransform->getPosition(), 
+    auto a_ball1 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
-    a_targetRB->getFriction(), a_targetRB->getRestitution(), renderLayer::EFFECT_BALL);
+    a_targetRB->getFriction(), a_targetRB->getRestitution());
     
-    auto a_ball2 = a_scene->createEffectBall(ecs::effect::NULO, a_targetTransform->getPosition(), 
+    auto a_ball2 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
-    a_targetRB->getFriction(), a_targetRB->getRestitution(), renderLayer::EFFECT_BALL);
+    a_targetRB->getFriction(), a_targetRB->getRestitution());
     
     a_ball1->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball1, target));
     a_ball2->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball2, target));

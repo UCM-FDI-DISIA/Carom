@@ -51,6 +51,10 @@ namespace ecs {
         bool addComponent(T* component){
             if(_components[cmpId<T>] != nullptr) return false;
 
+            if(dynamic_cast<ITransform*>(component) != nullptr){
+                _myTransform = dynamic_cast<ITransform*>(component);
+            }
+
             _components[cmpId<T>] = component;
             _currentComponents.push_back(component);
             

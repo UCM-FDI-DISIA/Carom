@@ -132,15 +132,16 @@ namespace ecs {
             *&sdlutils().svgs().at("game").at("palo1").x,
             *&sdlutils().svgs().at("game").at("palo1").y
         );
-
-        addComponent<TransformComponent>(e, pos);
-        auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
-
-        auto effect = addComponent<GranadeLauncherStickEffect>(e, 500, 5, 1000.0f);
-        input->registerStickEffect(effect);
         
+        addComponent<TransformComponent>(e, pos);
+
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
         addComponent<TweenComponent>(e);
+        
+        auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
+
+        auto effect = addComponent<MagicWandStickEffect>(e);
+        input->registerStickEffect(effect);
 
         //!john cleon's stick shadow
         entity_t stickShadow = new Entity(*this, grp::PALO);

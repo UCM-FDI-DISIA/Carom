@@ -8,7 +8,6 @@ namespace ecs{
         InfoComponent(Entity* ent) : Component(ent) {}
         virtual ~InfoComponent(){}
     
-    private:
         void init() override {}
         
         void update() override {}
