@@ -4,6 +4,7 @@
 #include "RenderTextureComponent.h"
 #include "GameScene.h"
 #include "CowboyPoolScene.h"
+#include "ShadowComponent.h"
 
 #include <algorithm>
 

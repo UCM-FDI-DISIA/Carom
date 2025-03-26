@@ -20,8 +20,10 @@ namespace ecs {
     class RewardScene;
     class UIScene;
     class MainMenuScene;
+    class ShadowComponent;
 
     class Entity{
+        friend ShadowComponent;
     public:
         virtual ~Entity();
     

@@ -18,13 +18,14 @@
 #include "ColorBallScorerComponent.h"
 #include "RNG_Manager.h"
 #include "RandomItem.h"
-#include "FollowComponent.h"
 #include "StartMatchState.h"
 #include "NullState.h"
 #include "UIScene.h"
 #include "RewardScene.h"
 #include "EndGameScene.h"
 #include "ScenesManager.h"
+
+#include "ShadowComponent.h"
 
 
 namespace ecs {
@@ -130,11 +131,8 @@ namespace ecs {
         addComponent<TweenComponent>(e);
 
         //!john cleon's stick shadow
-        entity_t stickShadow = new Entity(*this, grp::PALO);
-        addComponent<TransformComponent>(stickShadow, pos);
-        addComponent<RenderTextureComponent>(stickShadow, &sdlutils().images().at("palo1_sombra"), renderLayer::STICK_SHADOW, scale);
-        addComponent<FollowComponent>(stickShadow, e, true,true,true, Vector2D{-0.05, -0.05});
-        
+        addComponent<ShadowComponent>(e);
+        getComponent<ShadowComponent>(e)->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
 
         return e;
     }
@@ -194,6 +192,9 @@ namespace ecs {
 
 
     void CaromScene::createBallShadow(entity_t entity){
+        addComponent<ShadowComponent>(entity);
+        ShadowComponent* comp = getComponent<ShadowComponent>(entity);
+
         //sombra de reflejo de la bola
         entity_t a_cast = new Entity(*this, grp::SHADOWS);
 
@@ -202,9 +203,7 @@ namespace ecs {
         float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
         float cast_scale = a_svg_scale/a_imgScale;
 
-        addComponent<TransformComponent>(a_cast, b2Vec2{0,0});
-        addComponent<FollowComponent>(a_cast, entity, true, false, true, Vector2D(0,0));
-        addComponent<RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), renderLayer::BALL_SHADOW_ON_BALL, cast_scale);
+        comp->addShadow({0,0}, "bola_cast_sombra", renderLayer::BALL_SHADOW_ON_BALL, cast_scale, true, false, true);
 
         //sombra de la bola
         entity_t a_shadow = new Entity(*this, grp::SHADOWS);
@@ -218,10 +217,7 @@ namespace ecs {
             
             PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
         };
-
-        addComponent<ecs::TransformComponent>(a_shadow, b2Vec2{0,0});
-        addComponent<ecs::FollowComponent>(a_shadow, entity, true, false, true, a_relPos);
-        addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), renderLayer::BALL_SHADOW_ON_TABLE, cast_scale);
+        comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
 
     }
 
