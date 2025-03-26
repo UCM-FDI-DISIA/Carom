@@ -10,7 +10,7 @@ namespace ecs{
         createText("Carom Titulo de Ejemplo", // text
             sdlutils().width()/2, // x
             sdlutils().height()/2 - 250, // y
-            4 // size.
+            2 // size.
         );
 
         // !!! SE CREA POOLSCENE
@@ -26,7 +26,7 @@ namespace ecs{
         createText("Comenzar Partida.", // text
             sdlutils().width()/2 , // x
             (sdlutils().height()/2 - 100), // y
-            2 // size
+            1 // scale
         );
 
         // modificar luego, ahora te comienza este tambien partida.
@@ -39,7 +39,7 @@ namespace ecs{
         createText("Cargar Partida.", // text
             sdlutils().width()/2 , // x
             (sdlutils().height()/2 + 150), // y
-            2 // size
+            1 // scale
         );
     }
 }

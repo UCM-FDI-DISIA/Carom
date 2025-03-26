@@ -13,6 +13,7 @@
     { "id" : "Basteleur-Moonlight16", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 16},
     { "id" : "Basteleur-Moonlight24", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 24},
     { "id" : "Basteleur-Moonlight48", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 48},
+    { "id" : "Basteleur-Moonlight60", "file" : "../../resources/fonts/Basteleur-Moonlight.ttf", "size": 60},
     { "id" : "Basteleur-Bold16", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 16},
     { "id" : "Basteleur-Bold24", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 24},
     { "id" : "Basteleur-Bold48", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 48},

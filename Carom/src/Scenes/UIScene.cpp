@@ -31,7 +31,7 @@ namespace ecs{
             size,                      // tamano fuente
             text,         // text
             {255, 255, 255, 255},   // color (blanco)
-            "Basteleur-Moonlight24" // fuente
+            "Basteleur-Moonlight60" // fuente
         );
         winContainer->addComponent(currentDisplay);
     }
