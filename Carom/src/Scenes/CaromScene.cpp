@@ -330,6 +330,8 @@ namespace ecs {
             setNewState(a_stateToChange);
         }
 
+        refresh();
+
         _hitManager->clearAllHits();
 
         GameScene::update();

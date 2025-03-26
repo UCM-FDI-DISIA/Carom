@@ -131,7 +131,7 @@ void Game::run()
         for (int i = 0; i < _timestep/PHYSICS_TIMESTEP; ++i){
             _sceneManager->handleEvent();
             _sceneManager->update();
-            _sceneManager->refresh();
+            //_sceneManager->refresh();
         }
 
         if (ihdr.isWindowsFocused()) {
