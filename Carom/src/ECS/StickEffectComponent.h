@@ -2,16 +2,14 @@
 
 #include "Component.h"
 
- namespace ecs {
-    class StickEffectComponent : public Component {
-    public:
-        StickEffectComponent(entity_t entity) : Component(entity) {}
-        virtual ~StickEffectComponent() {}
+class StickEffectComponent : public Component {
+public:
+    StickEffectComponent(entity_t entity) : Component(entity) {}
+    virtual ~StickEffectComponent() {}
 
-        virtual void applyEffect(entity_t target) = 0;
+    virtual void applyEffect(entity_t target) = 0;
 
-        void update() override {}
-        void handleEvent() override {}
-        void render() override {}
-    };
- }
+    void update() override {}
+    void handleEvent() override {}
+    void render() override {}
+};

@@ -7,8 +7,6 @@
 #include <box2D/box2D.h>
 
 
-using namespace ecs;
-
 void
 MagicWandStickEffect::applyEffect(entity_t target){
     CaromScene* a_scene = static_cast<CaromScene*>(&target->getScene());
@@ -18,19 +16,11 @@ MagicWandStickEffect::applyEffect(entity_t target){
     
     
     //TODO Hacer que se pueda añadir la subdivision al grupo de efectos de la bola original
-<<<<<<< Updated upstream
-    auto a_ball1 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
-=======
     auto a_ball1 = a_scene->createEffectBall(effect::NULO, a_targetTransform->getPosition(), 
->>>>>>> Stashed changes
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
     a_targetRB->getFriction(), a_targetRB->getRestitution());
     
-<<<<<<< Updated upstream
-    auto a_ball2 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
-=======
     auto a_ball2 = a_scene->createEffectBall(effect::NULO, a_targetTransform->getPosition(), 
->>>>>>> Stashed changes
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
     a_targetRB->getFriction(), a_targetRB->getRestitution());
     
