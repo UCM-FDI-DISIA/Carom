@@ -180,7 +180,7 @@ void Game::run()
         _sceneManager = new ScenesManager();    
 
         NullState* state = new NullState(nullptr);
-        ecs::GameScene *ms = new ecs::CowboyPoolScene(state, this, nullptr, true);
+        ecs::GameScene *ms = new ecs::MainMenuScene(this);
     
         _sceneManager->pushScene(ms);
     }
