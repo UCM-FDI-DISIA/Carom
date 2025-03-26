@@ -27,5 +27,4 @@ namespace ecs{
 
         void setNewState(State* s);
     };
-
 }

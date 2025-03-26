@@ -19,6 +19,7 @@ namespace ecs {
     class EndGameScene;
     class RewardScene;
     class UIScene;
+    class MainMenuScene;
 
     class Entity{
     public:
@@ -111,6 +112,7 @@ namespace ecs {
         friend EndGameScene;
         friend UIScene;
         friend RewardScene;
+        friend MainMenuScene;
         Entity(GameScene& scene, grpId_t gId);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"

@@ -10,6 +10,7 @@
 #include "GameScene.h"
 #include "CaromScene.h"
 #include "PoolScene.h"
+#include "MainMenuScene.h"
 #include "NullState.h"
 
 #include "CaromScene.h"
@@ -86,7 +87,8 @@ Game::start()
     _sceneManager = new ScenesManager();    
 
     NullState* state = new NullState(nullptr);
-    ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr);
+    //ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr);
+    ecs::GameScene *ms = new ecs::MainMenuScene(this);
 
     _sceneManager->pushScene(ms);
 }
