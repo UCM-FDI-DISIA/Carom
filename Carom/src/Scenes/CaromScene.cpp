@@ -196,8 +196,6 @@ namespace ecs {
         ShadowComponent* comp = getComponent<ShadowComponent>(entity);
 
         //sombra de reflejo de la bola
-        entity_t a_cast = new Entity(*this, grp::SHADOWS);
-
         float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
 
         float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
@@ -206,8 +204,6 @@ namespace ecs {
         comp->addShadow({0,0}, "bola_cast_sombra", renderLayer::BALL_SHADOW_ON_BALL, cast_scale, true, false, true);
 
         //sombra de la bola
-        entity_t a_shadow = new Entity(*this, grp::SHADOWS);
-
         a_imgScale = sdlutils().images().at("bola_sombra").width();
         a_svg_scale = sdlutils().svgs().at("game").at("bola_sombra 1").width;
         cast_scale = a_svg_scale/a_imgScale;
