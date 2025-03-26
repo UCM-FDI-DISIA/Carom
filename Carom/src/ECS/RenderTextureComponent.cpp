@@ -17,13 +17,14 @@ namespace ecs {
     _defaultRenderLayer(renderLayer),
     _scale(scale)
     {
-
+        _defaultColor = _color;
     }
 
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale, SDL_Color tint) 
     : RenderTextureComponent(ent, texture, renderLayer, scale)
     {
         changeColorTint(tint.r, tint.g, tint.b);
+        _defaultColor = _color;
     }
 
     void RenderTextureComponent::init(){
@@ -79,8 +80,9 @@ namespace ecs {
     }
 
     void RenderTextureComponent::resetColorTint(){
-        _color.r = 255;
-        _color.g = 255;
-        _color.b = 255;
+        // _color = _defaultColor;
+        _color.r = _defaultColor.r;
+        _color.g = _defaultColor.g;
+        _color.b = _defaultColor.b;
     }
 } 

@@ -126,6 +126,7 @@ namespace ecs {
             other_render->resetRenderLayer();
             other_render->resetColorTint();
 
+            _isEmpty = true;
             _nearBody = nullptr;
         }
     }
