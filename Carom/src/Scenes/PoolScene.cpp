@@ -10,6 +10,8 @@
 #include "NullState.h"
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
+
+#include "RewardScene.h"
 //#include "ScoreContainer.h"
 //#include "StickInputComponent.h"
 
@@ -74,7 +76,10 @@ namespace ecs{
                 e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Boss" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, true); // ! tst  
+
+                    // !!! CREA BOSSSCENE(CAMBIAR).
+                    ecs::UIScene* rewardScene = new ecs::RewardScene(game);
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }
@@ -82,7 +87,10 @@ namespace ecs{
                 e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Carom" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, nullptr, true); // ! tst  
+
+                    // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
+                    ecs::UIScene* rewardScene = new ecs::RewardScene(game);
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }

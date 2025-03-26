@@ -4,7 +4,7 @@ namespace ecs{
     class ScenesManager;
     class MainMenuScene: public UIScene {
     public:
-        MainMenuScene(State* s, Game* g);
+        MainMenuScene(Game* g);
         virtual ~MainMenuScene() = default;
     };
 }

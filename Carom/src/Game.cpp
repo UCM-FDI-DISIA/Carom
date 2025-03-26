@@ -86,9 +86,8 @@ Game::start()
 {
     _sceneManager = new ScenesManager();    
 
-    NullState* state = new NullState(nullptr);
-    //ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr);
-    ecs::GameScene *ms = new ecs::MainMenuScene(state, this);
+    // !!! SE CREA MAINMENUSCENE
+    ecs::GameScene *ms = new ecs::MainMenuScene(this);
 
     _sceneManager->pushScene(ms);
 }
