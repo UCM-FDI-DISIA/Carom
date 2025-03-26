@@ -73,6 +73,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
+	${CMAKE_SOURCE_DIR}/src/Animator
 )
 
 # Descomentar lo de abajo si se quiere que no haya ventana

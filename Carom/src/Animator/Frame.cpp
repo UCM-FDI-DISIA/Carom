@@ -11,3 +11,8 @@ _exitCallback(exitCallback) {
 
         assert(_milliseconds > 0 && _texture != nullptr);
     }
+
+void
+Frame::setNextframe(Frame* frame) {
+        _nextFrame = frame;
+}

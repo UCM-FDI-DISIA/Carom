@@ -20,6 +20,11 @@ public:
     Frame(Uint32 frameDuration, Texture* tex, float scale, Frame* nextFrame = nullptr, 
         std::function<void()> enterCallback = [] {}, std::function<void()> exitCallback = [] {});
     ~Frame() {}
+
+    enum Animation {
+        DEFAULT
+    };
+
 private:
 
     friend class ecs::FrameAnimatorComponent;

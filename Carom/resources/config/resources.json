@@ -65,6 +65,17 @@
         "id": "imperial_march",
         "file": "../../resources/sound/imperial_march.wav"
     }
+  ],
+
+  "animations" : [
+    { "id" : "test",
+      "scale" : 1.0,
+      "animation": [
+        {"textureId" : "bola_blanca", "frames" : 10},
+        {"textureId" : "hole", "frames" : 10}
+      ]
+
+    }
   ]
 
 }

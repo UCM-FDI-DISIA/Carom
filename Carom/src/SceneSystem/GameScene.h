@@ -9,6 +9,9 @@
 #include "ecs.h"
 #include "Entity.h"
 #include "Camera.h"
+#include <unordered_map>
+#include <vector>
+#include "Frame.h"
 
 class Game;
 
@@ -118,9 +121,6 @@ namespace ecs{
 		inline void disableEntity(entity_t e) {
 			e->deactivate();
 		}
-
-	public:
-
 
 		virtual ~GameScene();
 

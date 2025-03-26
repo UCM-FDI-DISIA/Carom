@@ -22,6 +22,7 @@ namespace ecs{
     FrameAnimatorComponent::update() {
         if (sdlutils().currTime() - _frameStartTimestamp >= _currentFrame->_milliseconds)
         {
+
             _currentFrame->_exitCallback();
             if (_currentFrame->_nextFrame == nullptr) {
                 applyExitCase();
