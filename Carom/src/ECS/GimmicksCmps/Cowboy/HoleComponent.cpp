@@ -57,7 +57,8 @@ namespace ecs {
         // std::cout << "apply force y" << force.y << std::endl;
         auto other_rb = _nearBody->getComponent<RigidBodyComponent>();
         // TODO: MEJORA APPLY FORCE PERPENDICULAR TO BODY VELOCITY VECTOR
-        other_rb->applyForceToCenter({_myForce.x, _myForce.y});
+        // other_rb->applyForceToCenter({_myForce.x, _myForce.y});
+        other_rb->applyImpulseToCenter({_myForce.x * 0.25f, _myForce.y * 0.25f});
     }
 
     bool HoleComponent::tryToCapture(RigidBodyComponent* other_rb, float centersDist)
