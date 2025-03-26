@@ -15,7 +15,7 @@ namespace ecs {
     public:
 
         __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
-        ecs::cmpId_t getEffectId() {return ecs::cmp::EXPLOSIVE_EFFECT;};
+        cmpId_t getEffectId() {return cmp::EXPLOSIVE_EFFECT;};
 
         ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force);
         ~ExplosiveEffect();
@@ -23,7 +23,7 @@ namespace ecs {
         void init() override;
         void update() override;
 
-        void onHit(ecs::entity_t ent) {}
+        void onHit(entity_t ent) {}
         void onStrikeEnd() override {}
         void onBeingTargeted() override {}
     };

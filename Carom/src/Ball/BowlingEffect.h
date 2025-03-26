@@ -8,7 +8,7 @@ private:
     static constexpr float FRICTION = 0.4f;
     float _mult;
 public:
-    BowlingEffect(ecs::entity_t ent) : BallEffect(ent) {
+    BowlingEffect(entity_t ent) : BallEffect(ent) {
         _name = "Pesado";
         _description = "La bola es un 50% más pesada";
     }
@@ -17,7 +17,7 @@ public:
     void init() override;
     void updateEffect();
     void onMultChanged() override;
-    __CMPID_DECL__(ecs::cmp::BOWLING_EFFECT);
+    __CMPID_DECL__(cmp::BOWLING_EFFECT);
 
-    ecs::cmpId_t getEffectId() {return ecs::cmp::BOWLING_EFFECT; };
+    cmpId_t getEffectId() {return cmp::BOWLING_EFFECT; };
 };

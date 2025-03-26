@@ -37,7 +37,7 @@ RigidBodyComponent::~RigidBodyComponent()
 
 void
 RigidBodyComponent::generateBodyAndShape(){
-    // ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
+    // entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
 
     b2BodyDef bodyDef = b2DefaultBodyDef();
     bodyDef.type = _myProps.bodyType;
@@ -187,7 +187,7 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 
 /// @brief Changes the density of an object
 /// @param density the new density for the shape
-void ecs::RigidBodyComponent::setDensity(float density)
+void RigidBodyComponent::setDensity(float density)
 {
     _myProps.density = density;
     calculateMass();
@@ -210,7 +210,7 @@ RigidBodyComponent::setFriction(float friction, int nShapes){
 
 /// @brief Changes the friction of an object
 /// @param density the new friction for the shape
-void ecs::RigidBodyComponent::setFriction(float friction)
+void RigidBodyComponent::setFriction(float friction)
 {
     _myProps.friction = friction;
     b2Shape_SetFriction(_myB2ShapeId, friction);
@@ -231,24 +231,24 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
 
 /// @brief Changes the restitution of an object
 /// @param density the new restitution for the shape
-void ecs::RigidBodyComponent::setRestitution(float restitution)
+void RigidBodyComponent::setRestitution(float restitution)
 {
     _myProps.restitution = restitution;
     b2Shape_SetRestitution(_myB2ShapeId, restitution);
 }
 
-void ecs::RigidBodyComponent::setLinearDamping(float damping)
+void RigidBodyComponent::setLinearDamping(float damping)
 {
     _myProps.linearDamping = damping;
     b2Body_SetLinearDamping(_myB2BodyId, damping);
 }
 
-void ecs::RigidBodyComponent::setEnabled(bool state){
-    ecs::Component::setEnabled(state);
+void RigidBodyComponent::setEnabled(bool state){
+    Component::setEnabled(state);
     setBodyEnabled(state);
 }
 
-void ecs::RigidBodyComponent::setBodyEnabled(bool enabled){
+void RigidBodyComponent::setBodyEnabled(bool enabled){
     if(enabled) b2Body_Enable(_myB2BodyId);
     else b2Body_Disable(_myB2BodyId);
 }

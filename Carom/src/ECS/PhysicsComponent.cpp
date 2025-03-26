@@ -4,10 +4,10 @@
 
 using namespace ecs;
 
-ecs::PhysicsComponent::PhysicsComponent(entity_t ent) : Component(ent){
+PhysicsComponent::PhysicsComponent(entity_t ent) : Component(ent){
     assert(ent->tryGetComponent<RigidBodyComponent>());
 
     ent->getComponent<RigidBodyComponent>()->suscribePhysicsComponent(this);
 }
 
-ecs::PhysicsComponent::~PhysicsComponent() {_onDestroy();}
+PhysicsComponent::~PhysicsComponent() {_onDestroy();}

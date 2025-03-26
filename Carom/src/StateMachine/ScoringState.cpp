@@ -8,7 +8,7 @@
 #include "BallHandler.h"
 #include <iostream>
 
-ScoringState::ScoringState(ecs::CaromScene* scene) : State(scene)
+ScoringState::ScoringState(CaromScene* scene) : State(scene)
 {
 
 }
@@ -21,13 +21,13 @@ ScoringState::onStateEnter() {
 
 void
 ScoringState::onStateExit() {
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
+    for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
         if(e->tryGetComponent<BallHandler>()) {
             e->getComponent<BallHandler>()->onStrikeEnd();
         }
     }
     
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS)) {
+    for (auto& e : _scene->getEntitiesOfGroup(grp::EFFECTBALLS)) {
         if(e->tryGetComponent<BallHandler>()) {
             e->getComponent<BallHandler>()->onStrikeEnd();
         }
@@ -39,15 +39,15 @@ bool
 ScoringState::checkCondition(State*& state) {
     
     //Comprueba que ninguna bola se mueva
-    auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
+    auto whiteBall = _scene->getEntitiesOfGroup(grp::WHITEBALL);
     for(auto& e : whiteBall) {
-        if(_scene->getComponent<ecs::RigidBodyComponent>(e)->isMoving())
+        if(_scene->getComponent<RigidBodyComponent>(e)->isMoving())
             return false;
     }
 
-    auto effectBalls = _scene->getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+    auto effectBalls = _scene->getEntitiesOfGroup(grp::EFFECTBALLS);
     for(auto& e : effectBalls) {
-        if(_scene->getComponent<ecs::RigidBodyComponent>(e)->isMoving())
+        if(_scene->getComponent<RigidBodyComponent>(e)->isMoving())
             return false;
     }
 

@@ -2,7 +2,7 @@
 #include "HitState.h"
 #include "CaromScene.h"
 
-BossState::BossState(ecs::CaromScene* scene): State(scene) {
+BossState::BossState(CaromScene* scene): State(scene) {
 
 }
 

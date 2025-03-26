@@ -36,7 +36,7 @@ namespace ecs {
     ExplosiveEffect::createExplosion() {
         //Agitar cámara
         //TODO transformar esto en una entidad con el componente de empuje
-        auto balls = _myEntity->getScene().getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+        auto balls = _myEntity->getScene().getEntitiesOfGroup(grp::EFFECTBALLS);
         
         for(auto ball : balls) {
             auto targetRB = ball->getComponent<RigidBodyComponent>();

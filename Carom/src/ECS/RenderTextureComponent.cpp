@@ -52,7 +52,7 @@ namespace ecs {
         return dest;
     }
 
-    void RenderTextureComponent::setRenderLayer(ecs::layerId_t layer)
+    void RenderTextureComponent::setRenderLayer(layerId_t layer)
     {
         _renderLayer = layer;
         _myEntity->getScene().sortRenderOrder();

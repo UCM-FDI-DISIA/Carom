@@ -104,7 +104,7 @@ namespace ecs{
             // Comprobar si es válido
             bool valid = true;
 
-            auto balls = (getEntitiesOfGroup(ecs::grp::WHITEBALL));
+            auto balls = (getEntitiesOfGroup(grp::WHITEBALL));
             for(auto& e : balls) {
                 if(e->tryGetComponent<CircleRBComponent>()) { // TODO: cambiar esto cuando se mergee con la rama de Diego el tryGetComponent
                     if(!canPlaceHole(e, hole_pos, hole_radius)) {
@@ -116,7 +116,7 @@ namespace ecs{
             
             if(!valid) continue; // No seguir comprobando si no es válido
 
-            balls = getEntitiesOfGroup(ecs::grp::EFFECTBALLS);
+            balls = getEntitiesOfGroup(grp::EFFECTBALLS);
             for(auto& e : balls) {
                 if(e->tryGetComponent<CircleRBComponent>()) { // TODO: cambiar esto cuando se mergee con la rama de Diego el tryGetComponent
                     if(!canPlaceHole(e, hole_pos, hole_radius)) {

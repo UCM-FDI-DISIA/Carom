@@ -6,7 +6,7 @@
 #include "SDL.h"
 
 namespace ecs {
-    class Button : public ecs::HandleEventComponent
+    class Button : public HandleEventComponent
     {
     public:
 

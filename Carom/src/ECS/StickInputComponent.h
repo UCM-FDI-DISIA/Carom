@@ -13,7 +13,7 @@ namespace ecs{
     class RenderTextureComponent;
     class TransformComponent;
     class StickEffectComponent;   
-    class StickInputComponent : public ecs::HandleEventComponent
+    class StickInputComponent : public HandleEventComponent
     {
     public:
         __CMPID_DECL__(cmp::STICK_INPUT);

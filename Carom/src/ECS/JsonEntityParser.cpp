@@ -14,38 +14,43 @@
 #include "RenderTextureComponent.h"
 #include "Texture.h"
 
+#include "BallHandler.h"
+#include "BowlingEffect.h"
+#include "X2Effect.h"
+#include "AbacusEffect.h"
+#include "CristalEffect.h"
+#include "PetanqueEffect.h"
+#include "QuanticEffect.h"
+#include "PokeballEffect.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
 
-namespace ecs
-{
+
+
     Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
 
         JSONValue* entityElements = JSON::ParseFromFile(file);
-        Entity* entity = new Entity(gameScene, (ecs::grp::grpId) entityElements->Child("ID")->AsNumber());
+        Entity* entity = new Entity(gameScene, (grp::grpId) entityElements->Child("ID")->AsNumber());
         //std::cout<<JSON::Stringify(entityElements);
-    
-        for(auto element : entityElements->Child("components")->AsArray()){
-            if(element->Child("componentName")->AsString() == "TransformComponent"){
-                JSONObject atributes = element->Child("atributes")->AsObject();
-                transformComponent(atributes, entity);
-            }
-            else if(element->Child("componentName")->AsString() == "RigidBodyComponent"){
-                JSONObject atributes = element->Child("atributes")->AsObject();
-                rigidBodyComponent(atributes, entity);
-            }
-            else if(element->Child("componentName")->AsString() == "RenderTextureComponent"){
-                JSONObject atributes = element->Child("atributes")->AsObject();
-                renderTextureComponent(atributes, entity);
-            }
+        
+        for(auto element : entityElements->Child("components")->AsArray())
+        {
+            JSONObject atributes = element->Child("atributes")->AsObject();
+            std::string componentName = element->Child("componentName")->AsString();
+
+            if(componentName == "TransformComponent") transformComponent(atributes, entity);
+            else if(componentName == "RigidBodyComponent") rigidBodyComponent(atributes, entity);
+            else if(componentName == "RenderTextureComponent") renderTextureComponent(atributes, entity);
+            else if (componentName == "BallHandler") ballHandler(atributes, entity);
         }
        return nullptr;
     }
     
     void JsonEntityParser::transformComponent(const JSONObject& atributes, Entity* entity){
         b2Vec2 position(atributes.at("x")->AsNumber(), atributes.at("y")->AsNumber());
-        addComponent<ecs::TransformComponent>(entity, position);
+        addComponent<TransformComponent>(entity, position);
     }
 
     void JsonEntityParser::rigidBodyComponent(const JSONObject& atributes, Entity* entity){
@@ -108,7 +113,19 @@ namespace ecs
 
         int layer = atributes.at("layer")->AsNumber();
         
-        addComponent<ecs::RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale);
+        addComponent<RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale);
+    }
+
+    void ballHandler(const JSONObject& atributes, Entity* entity){
+        addComponent<BallHandler>(entity);
+
+        // auto ballEffectArray = atributes.at("effects")->AsArray();
+        // for(auto effect : ballEffectArray){
+        //     //JSONObject atributes = effect->Child("atributes")->AsObject();
+        //     std::string componentName = effect->Child("componentName")->AsString();
+        //     if(componentName == "BowlingEffect") addComponent<BowlingEffect>(entity);
+        // }
+    
     }
 } 
 

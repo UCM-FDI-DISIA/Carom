@@ -18,8 +18,8 @@ namespace ecs {
         SDL_Color _color = {255,255,255,0};
 
         // See ecs.h for layers enum
-        ecs::layerId_t _defaultRenderLayer;
-        ecs::layerId_t _renderLayer;
+        layerId_t _defaultRenderLayer;
+        layerId_t _renderLayer;
     public:
         __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
@@ -33,8 +33,8 @@ namespace ecs {
         Texture* getTexture() {return _texture;};
         virtual SDL_Rect getRect() const;
 
-        ecs::layerId_t getRenderLayer() { return _renderLayer; }
-        void setRenderLayer(ecs::layerId_t layer);
+        layerId_t getRenderLayer() { return _renderLayer; }
+        void setRenderLayer(layerId_t layer);
         // To go deeper/down n layers
         void nDownRenderLayer(int n) { _renderLayer -= n; }
         // To came closer/up n layers

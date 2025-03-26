@@ -87,9 +87,15 @@ Game::start()
     _sceneManager = new ScenesManager();    
 
     NullState* state = new NullState(nullptr);
+<<<<<<< Updated upstream
     // ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
     ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr); //no borrar, pruebas jordi
     //ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr); 
+=======
+    // GameScene *ms = new CaromScene(state, this, nullptr); // ! tst  
+    GameScene *ms = new PrefabTestScene(state, this, nullptr); //no borrar, pruebas jordi
+    //GameScene *ms = new PoolScene(state, this, nullptr); 
+>>>>>>> Stashed changes
     _sceneManager->pushScene(ms); // ! tst
 }
 
@@ -185,7 +191,11 @@ void Game::run()
         _sceneManager = new ScenesManager();    
 
         NullState* state = new NullState(nullptr);
+<<<<<<< Updated upstream
         ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr);
+=======
+        GameScene *ms = new CowboyPoolScene(state, this, nullptr, true);
+>>>>>>> Stashed changes
     
         _sceneManager->pushScene(ms);
     }
