@@ -14,7 +14,8 @@ namespace ecs{
         );
 
         // Para cuando este la MainMenu scene, habria que ponerla aqui.
-        ecs::GameScene *ms = new ecs::MainMenuScene(game); // ! tst 
+        NullState* state = new NullState(nullptr);
+        ecs::GameScene *ms = new ecs::MainMenuScene(state, game); // ! tst 
 
         entity_t b = createSceneButton(
             sdlutils().width()/2, // x

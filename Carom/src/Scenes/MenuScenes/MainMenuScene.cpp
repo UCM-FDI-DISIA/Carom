@@ -1,7 +1,7 @@
 #include "MainMenuScene.h"
 namespace ecs{
     
-    MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
+    MainMenuScene::MainMenuScene(State* s, Game *g) : UIScene(g)
     {
         createBackground("suelo");
 

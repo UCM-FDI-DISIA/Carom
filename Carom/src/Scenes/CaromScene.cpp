@@ -295,16 +295,18 @@ namespace ecs {
             // Al presionar la "L" te lleva a la escena de ganar.
                 std::cout << "Carga escena de PERDER." << std::endl;
                 NullState* state = new NullState(nullptr);
-                ecs::UIScene *ms = new ecs::EndGameScene(game); // ! tst  
-                game->getScenesManager()->pushScene(ms);
+                ecs::GameScene*ms = new ecs::EndGameScene(game); // ! tst  
+                //game->getScenesManager()->pushScene(ms);
+                game->getScenesManager()->replaceScene(ms);
         }
 
         if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
             // Al presionar la "W" te lleva a la escena de perder.
                 std::cout << "Carga escena GANAR." << std::endl;
                 NullState* state = new NullState(nullptr);
-                ecs::UIScene *ms = new ecs::RewardScene(game); // ! tst  
-                game->getScenesManager()->pushScene(ms);
+                ecs::GameScene *ms = new ecs::RewardScene(game); // ! tst  
+                //game->getScenesManager()->pushScene(ms);
+                game->getScenesManager()->replaceScene(ms);
         }
 
         

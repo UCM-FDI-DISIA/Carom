@@ -49,7 +49,8 @@ namespace ecs{
         addComponent<ecs::Button>(e, rButton);
   
         e->getComponent<ecs::Button>()->setOnClick([this, scene](){
-            game->getScenesManager()->pushScene(scene);
+            //game->getScenesManager()->pushScene(scene);
+            game->getScenesManager()->replaceScene(scene);
         });   
         
         return e;
