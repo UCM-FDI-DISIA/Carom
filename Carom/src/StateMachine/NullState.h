@@ -2,9 +2,7 @@
 
 #include "State.h"
 
-namespace ecs{
-    class CaromScene;
-}
+class CaromScene;
 //Estado a devolver en un checkCondition como alternativa a no devolver nada, para no romper el flujo
 class NullState : public State{
 public:

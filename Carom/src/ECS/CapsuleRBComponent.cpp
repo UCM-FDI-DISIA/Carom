@@ -1,9 +1,6 @@
 #include "CapsuleRBComponent.h"
 #include "CaromScene.h"
 
-using namespace ecs;
-
-
 /// @brief Constructor for a capsule. The capsule is constructed horizontally.
 /// @param ent the entity
 /// @param pos the position

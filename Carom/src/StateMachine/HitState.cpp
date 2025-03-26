@@ -6,7 +6,6 @@
 #include "Button.h"
 #include "WhiteBallScorerComponent.h"
 #include <iostream>
-#include "BallHandler.h"
 
 
 HitState::HitState(CaromScene* scene) : State(scene) 
@@ -16,16 +15,13 @@ HitState::HitState(CaromScene* scene) : State(scene)
 
 void
 HitState::onStateEnter() {
-    auto whiteBall = _scene->getEntitiesOfGroup(grp::WHITEBALL);
-    assert(whiteBall.size() > 0);
-
-    for (auto& e : whiteBall) {
+    for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
         if(e->tryGetComponent<Button>()) {
             e->getComponent<Button>()->setEnabled(true);
         }
     }
 
-    whiteBall[0]->getComponent<WhiteBallScorerComponent>()->refreshOnNewTurn();
+    _scene->getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<WhiteBallScorerComponent>()->refreshOnNewTurn();
 }
 
 void
@@ -43,6 +39,7 @@ HitState::onStateExit() {
 
 bool 
 HitState::checkCondition(State*& state) {
+    // TODO: comprobar si la bola blanca ya ha sido golpeada ARQUITECTURA MIRAR SI ESTO ESTÁ BIEN
     for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)){
         if(e->tryGetComponent<StickInputComponent>() && e->getComponent<StickInputComponent>()->hasShot()) {
             std::cout << "Cambio a Scoring\n";

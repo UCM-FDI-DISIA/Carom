@@ -2,9 +2,7 @@
 
 #include "State.h"
 
-namespace ecs {
 class CaromScene;
-}
 
 class StartMatchState: public State {
 protected:
