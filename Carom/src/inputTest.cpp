@@ -287,8 +287,8 @@ void click_basic_demo()
 
 void // TODO: provisory definition
 createButton() {
-    //ecs::entity_t e = new ecs::Entity(*this);
-    //addComponent<ecs::TransformComponent>(e, pos);
+    //entity_t e = new Entity(*this);
+    //addComponent<TransformComponent>(e, pos);
 }
 
 void rng_basic_demo() 

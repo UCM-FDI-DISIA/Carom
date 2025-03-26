@@ -4,7 +4,7 @@
 
 class ScoringState: public State {
 public:
-    ScoringState(ecs::CaromScene* scene);
+    ScoringState(CaromScene* scene);
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;

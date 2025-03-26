@@ -2,12 +2,12 @@
 
 #include "State.h"
 
-class ecs::CaromScene;
+class CaromScene;
 
 //Este estado se llama cuando se ha ganado una partida de carambola
 class WinMatchState : public State {
 public:
-    WinMatchState(ecs::CaromScene* scene);
+    WinMatchState(CaromScene* scene);
 
     bool checkCondition(State*& state) override;
 
