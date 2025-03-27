@@ -15,6 +15,7 @@ HitState::HitState(ecs::CaromScene* scene) : State(scene)
 
 void
 HitState::onStateEnter() {
+    // std::cout<< "Enter HIT state" << std::endl;
     auto whiteBall = _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL);
     assert(whiteBall.size() > 0);
 
@@ -30,7 +31,7 @@ HitState::onStateEnter() {
 void
 HitState::onStateExit() {
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
-        std::cout << "Saliendo de Hit\n";
+        // std::cout << "Saliendo de Hit\n";
         e->deactivate();
     }
     for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {

@@ -20,6 +20,7 @@ ScoringState::onStateEnter() {
 
 void
 ScoringState::onStateExit() {
+    // std::cout<< "Exit scoring state" << std::endl;
     _scene->setCanFastForward(false);
 }
 

@@ -39,8 +39,6 @@ namespace ecs {
         _rngManager->inseminate(seed);
 
         
-
-
         // Creación del mundo físico
         b2WorldDef worldDef = b2DefaultWorldDef();
         worldDef.gravity = {0.0f, 0.0f};
@@ -305,9 +303,6 @@ namespace ecs {
             _scoreToBeat = 1;
         }
 
-        
-
-        
     }
 
     void CaromScene::setCanFastForward(bool active)
@@ -331,24 +326,23 @@ namespace ecs {
 
     void CaromScene::updateScene()
     {
+        // std::cout<< "Start Change state" << std::endl;
         State* a_stateToChange = nullptr;
         if(_currentState->checkCondition(a_stateToChange)){
             setNewState(a_stateToChange);
         }
-
-        refresh();
-
+        // std::cout<< "End Change state" << std::endl;
+        
         _hitManager->clearAllHits();
 
+        // std::cout<< "START GameScene Update" << std::endl;
         GameScene::update();
+        // std::cout<< "END GameScene Update" << std::endl;
     }
 
-    // called 2x at 60fps an 1x at 120fps
-    // update always runs at 120fps for physics precision
     void CaromScene::update()
     {
-        // iterations purpose for fast forwarding
-        // the main loop still calls update twice at 60fps to update logic at 120fps
+        // Iterations purpose for fast forwarding
         int iterations;
         if (_fastForwardPhysics)
             iterations = _fastForwardIterations;
@@ -356,7 +350,11 @@ namespace ecs {
             iterations = 1;
 
         for (int i = 0; i < iterations; ++i){
+            // std::cout<< "UpdatePhysics 1" << std::endl;
             updatePhysics();
+            // std::cout<< "UpdatePhysics 2" << std::endl;
+            updatePhysics();
+            // std::cout<< "UpdateScene inicio" << std::endl;
             updateScene(); 
         }
     }
@@ -406,65 +404,91 @@ namespace ecs {
 
     void
     CaromScene::manageEnterCollisions(b2ContactEvents contactEvents){
-        
+        if(!_updatePhysics) return;
+
         for(int i = 0; i < contactEvents.beginCount; ++i){
             b2ContactBeginTouchEvent* a_enter = contactEvents.beginEvents + i;
+
+            // Validity check
+            if (!b2Shape_IsValid(a_enter->shapeIdA) || !b2Shape_IsValid(a_enter->shapeIdB))
+                continue;
 
             ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
             ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
 
-            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
-            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
+            // Null check: entities might have been destroyed
+            if (ent1 && ent2) {
+                ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
+                ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
+            }
         }
-
     }
 
     void
     CaromScene::manageExitCollisions(b2ContactEvents contactEvents){
-
         if(!_updatePhysics) return;
-        
+
         for(int i = 0; i < contactEvents.endCount; ++i){
             b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
-        
+
+            // Validity check
+            if (!b2Shape_IsValid(a_exit->shapeIdA) || !b2Shape_IsValid(a_exit->shapeIdB))
+                continue;
+
             ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
             ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
-        
-            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
-            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+
+            // Null check: entities might have been destroyed
+            if (ent1 && ent2) {
+                ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
+                ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+            }
         }
-        
     }
 
     void
     CaromScene::manageEnterTriggers(b2SensorEvents sensorEvents){
-
         if(!_updatePhysics) return;
 
         for(int i = 0; i < sensorEvents.beginCount; ++i){
             b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
 
+            // Validity check
+            if (!b2Shape_IsValid(a_enter->sensorShapeId) || !b2Shape_IsValid(a_enter->visitorShapeId))
+                continue;
+
             ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->sensorShapeId));
             ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
 
-            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+            // Null check: entities might have been destroyed
+            if (sensor && visitor) {
+                sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+            }
         }
     }
 
-    void
-    CaromScene::manageExitTriggers(b2SensorEvents sensorEvents){
-
+    void 
+    CaromScene::manageExitTriggers(b2SensorEvents sensorEvents) {
         if(!_updatePhysics) return;
 
-        for(int i = 0; i < sensorEvents.endCount; ++i){
+        for(int i = 0; i < sensorEvents.endCount; ++i) {
             b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;
-        
+            
+            // Validity check
+            if (!b2Shape_IsValid(a_exit->sensorShapeId) || !b2Shape_IsValid(a_exit->visitorShapeId)){
+                std::cout << "Invalid shape in manageExitTriggers" << std::endl;
+                continue;
+            }
+            
             ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
             ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
-        
-            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+            
+            // Null check: entities might have been destroyed
+            if (sensor && visitor) {
+                std::cout << "Trigger exit" <<  std::endl;
+                sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+            }
         } 
-
     }
 
     TextDisplayComponent*
@@ -513,6 +537,7 @@ namespace ecs {
 
     //---------------------------BOSS---------------------------------
     void CaromScene::playBossTurn() {
+        // std::cout<< "Play Boss Turn" << std::endl;
         clearBossModifiers();
         applyBossModifiers();
     }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ForceAreaComponent.h"
+#include "RenderTextureComponent.h"
 
 
 using isInsideField = bool;
@@ -11,7 +12,10 @@ namespace ecs{
     class HoleComponent : public ForceAreaComponent
     {
     protected:
-        entity_t _nearBody;
+        entity_t _contextEntt;
+        RigidBodyComponent* _contextRB;
+        RenderTextureComponent* _contextRender;
+
         bool _isEmpty;
         float _maxVelocityToFall;
         float _maxDistToFall;
@@ -23,16 +27,15 @@ namespace ecs{
         ~HoleComponent() {}
 
         virtual void onTriggerEnter(entity_t other) override;
-        virtual void onTriggerExit(entity_t other) override; 
-        b2Vec2 calculateForceToApply(entity_t e, Vector2D distanceVec, float other_vel);
+        virtual void onTriggerExit(entity_t other) override;
+        b2Vec2 calculateForceToApply(Vector2D distanceVec);
         virtual void update() override;
 
         void resetChanges();
-        void resetHole(const b2Vec2& pos);
 
     protected:
         virtual void applyForce(entity_t e) override;
-        bool tryToCapture(RigidBodyComponent* other_rb, float centersDist);
+        bool tryToCapture(float centersDist);
     };
 
 }

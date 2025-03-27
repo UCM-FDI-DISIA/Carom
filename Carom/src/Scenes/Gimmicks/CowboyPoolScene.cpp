@@ -257,6 +257,7 @@ namespace ecs{
 
     void CowboyPoolScene::clearBossModifiers()
     {
+        std::cout<< "ClearBossModifiers" << std::endl;
         // Reset hole changes on balls and deactivate it
         for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS)){
             if (e->tryGetComponent<HoleComponent>())
