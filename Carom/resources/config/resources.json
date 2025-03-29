@@ -29,7 +29,7 @@
   ],
   
   "images" : [
-    { "id" : "fondo", "file" : "../../resources/images/fondo.png"},
+    { "id" : "fondo", "file" : "../../resources/images/fondo_blanco.png"},
     { "id" : "marco2", "file" : "../../resources/images/marco2.png"},
     { "id" : "mesa1", "file" : "../../resources/images/mesa1.png"},
     { "id" : "mesa1_sombra", "file" : "../../resources/images/mesa1_sombra.png"},

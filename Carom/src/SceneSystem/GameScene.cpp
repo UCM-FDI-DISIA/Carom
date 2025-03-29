@@ -41,7 +41,7 @@ namespace ecs{
         addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
 
         // Entidad suelo
-        entity_t e_fondo = new Entity(*this, grp::TABLE);
+        entity_t e_fondo = new Entity(*this, grp::TABLE_BACKGROUND);
         b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("fondo_mesa").x, *&sdlutils().svgs().at("game").at("fondo_mesa").y);
         addComponent<TransformComponent>(e_fondo, pos_f);
         addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, scale);
