@@ -26,6 +26,8 @@ namespace ecs{
 
         createBoss();
         initGimmick();
+
+        getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
     }
 
     CowboyPoolScene::~CowboyPoolScene()

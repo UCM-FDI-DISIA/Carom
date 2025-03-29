@@ -67,8 +67,7 @@ namespace ecs {
 
         // Create table with texture and colliders
         createTable();
-        SDL_Color randomColor = generateColor(.7f);
-        getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(randomColor.r, randomColor.g, randomColor.b);
+        
 
         createBackground("suelo");
 
@@ -555,26 +554,5 @@ namespace ecs {
     void CaromScene::applyBossModifiers() {
         std::cout << "aplicando modificador de boss desde CaromScene" << std::endl;
         _currentState->finish();
-    }
-
-    SDL_Color CaromScene::generateColor(float brightness, float saturation){
-        Uint8 randomR = _rngManager->randomRange(0, 255);
-        Uint8 randomG = _rngManager->randomRange(0, 255);
-        Uint8 randomB = _rngManager->randomRange(0, 255);
-        SDL_Color color = {randomR, randomG, randomB, 255 };
-
-        float normalizedR = color.r/255.f;
-        float normalizedG = color.g/255.f;
-        float normalizedB = color.b/255.f;
-        //formula de la luminidad
-        float colorBrightness =  0.299f * normalizedR + 0.587f * normalizedG + 0.114f * normalizedB;
-
-        float conversionValue = brightness/colorBrightness;
-
-        color.r *=conversionValue;
-        color.g *=conversionValue;
-        color.b *=conversionValue;
-
-        return color;
     }
 }
