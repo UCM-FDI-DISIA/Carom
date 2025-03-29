@@ -54,7 +54,7 @@ namespace ecs{
 
         table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1, SDL_Color{0, 150, 80, 255});
         
         // Entre 0 y posiciones-1 elige un indice para que sea el boss.
         int a_bossPosition = _rngm->randomRange(0, HOLES);
