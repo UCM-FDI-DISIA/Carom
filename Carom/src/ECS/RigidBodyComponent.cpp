@@ -94,10 +94,12 @@ RigidBodyComponent::getRotation() const {
 bool
 RigidBodyComponent::isMoving() {
     b2Vec2 vel = getVelocity();
-    if(!(std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2)) > 0.01f)) return false;
+
+    float currentSpeed = std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2));
+    if(currentSpeed > TERMINAL_VELOCITY) return true;
 
     b2Body_SetLinearVelocity(_myB2BodyId, b2Vec2_zero);
-    return true;
+    return false;
 }
 
 /// @brief Recoloca el objeto físico

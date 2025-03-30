@@ -72,6 +72,8 @@ protected:
 
     virtual void updateScale() = 0;
 
+    const float TERMINAL_VELOCITY = 0.02f;
+
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
