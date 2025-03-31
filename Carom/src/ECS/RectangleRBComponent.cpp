@@ -1,6 +1,9 @@
 #include "RectangleRBComponent.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
+
 /// @brief Constructor for Rectangular RB
 /// @param ent the entity
 /// @param pos the position

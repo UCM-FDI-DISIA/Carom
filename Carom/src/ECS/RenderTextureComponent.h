@@ -7,29 +7,41 @@
 class SDL_Rect;
 class Texture;
 
-class RenderTextureComponent : public RenderComponent {
-protected:
-    Texture* _texture;
-    ITransform* _transform;
-    float _scale; // scale de la textura (no su physical body)
+namespace ecs {
+    
+    class RenderTextureComponent : public RenderComponent {
+    protected:
+        Texture* _texture;
+        ITransform* _transform;
+        float _scale; // scale de la textura (no su physical body)
 
-    SDL_Color _color = {255,255,255,0};
-public:
-    __CMPID_DECL__(cmp::RENDER_TEXTURE);
+        SDL_Color _color = {255,255,255,0};
 
-    // The lower the further (for example: 0 = Background, 1 = Foreground)
-    // Mesa: suelo = 0, sombra marco = 1, marco = 2
-    int renderOrder;
+        // See ecs.h for layers enum
+        layerId_t _defaultRenderLayer;
+        layerId_t _renderLayer;
+    public:
+        __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
-    RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale);
-    RenderTextureComponent(Entity*, Texture*, int renderOrder, float scale, SDL_Color tint);
-    ~RenderTextureComponent() {};
 
-    void render(Camera*) override;
-    void init() override;
-    Texture* getTexture() {return _texture;};
-    virtual SDL_Rect getRect() const;
+        RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale);
+        RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Color tint);
+        ~RenderTextureComponent() {};
 
-    void changeColorTint(int r, int g, int b);
-    void resetColorTint();
-};
+        void render() override;
+        void init() override;
+        Texture* getTexture() {return _texture;};
+        virtual SDL_Rect getRect() const;
+
+        layerId_t getRenderLayer() { return _renderLayer; }
+        void setRenderLayer(layerId_t layer);
+        // To go deeper/down n layers
+        void nDownRenderLayer(int n) { _renderLayer -= n; }
+        // To came closer/up n layers
+        void nUpRenderLayer(int n) { _renderLayer += n; }
+        void resetRenderLayer() { _renderLayer = _defaultRenderLayer; }
+
+        void changeColorTint(int r, int g, int b);
+        void resetColorTint();
+    };
+}

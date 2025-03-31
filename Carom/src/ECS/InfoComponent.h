@@ -2,16 +2,16 @@
 #include "Component.h"
 class Entity;
 
-
-class InfoComponent : public Component{
-public:
-    InfoComponent(Entity* ent) : Component(ent) {}
-    virtual ~InfoComponent(){}
-
-private:
-    void init() override {}
+namespace ecs{
+    class InfoComponent : public Component{
+    public:
+        InfoComponent(Entity* ent) : Component(ent) {}
+        virtual ~InfoComponent(){}
     
-    virtual void update() override {}
-    void render(Camera*) override {}
-    void handleEvent() override {}
-};
+        void init() override {}
+        
+        void update() override {}
+        void render() override {}
+        void handleEvent() override {}
+    };
+}

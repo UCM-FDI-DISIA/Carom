@@ -1,6 +1,9 @@
 #include "CircleRBComponent.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
+
 /// @brief Constructor for Circle RB
 /// @param ent the entity
 /// @param pos the position

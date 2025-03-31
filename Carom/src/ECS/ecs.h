@@ -6,6 +6,8 @@
 #include "ecs_defs.h"
 
 // TODO: no completo
+namespace ecs {
+
 // forward declaration of some classes, to be used when we
 // just need to know that they exist
 class EntityManager;
@@ -18,6 +20,7 @@ using cmpId_t = uint8_t;
 using grpId_t = uint8_t;
 using effectId_t = uint8_t;
 using shapeId_t = uint8_t;
+using layerId_t = uint8_t;
 
 
 namespace cmp {
@@ -65,6 +68,14 @@ namespace shape {
 	};
 }
 
+
+namespace renderLayer {
+	enum layerId : layerId_t {
+		_LAYER_LIST_, /* taken from ecs_defs.h */
+		_LAST_LAYER_ID
+	};
+}
+
 constexpr cmpId_t maxComponentId = cmp::cmpId::_LAST_CMP_ID;
 constexpr grpId_t maxGroupId = grp::grpId::_LAST_GRP_ID;
 
@@ -82,3 +93,7 @@ constexpr cmpId_t cmpId = T::id;
 //   enum { id = cmp::TRANSFORM }
 //
 #define __CMPID_DECL__(cId) constexpr static cmpId_t id = cId;
+
+
+} // end of namespace
+

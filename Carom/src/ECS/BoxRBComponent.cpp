@@ -1,6 +1,9 @@
 #include "BoxRBComponent.h"
 #include "CaromScene.h"
 
+using namespace ecs;
+
+
 /// @brief Constructor for Polygon RB
 /// @param ent the entity
 /// @param pos the position

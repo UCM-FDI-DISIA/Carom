@@ -15,6 +15,8 @@
 #include <cmath>
 #include <math.h>
 
+using namespace ecs;
+
 /// @brief Constructor of RigidBody. Receives a Shape class as a parameter depending on which shape is needed (circle, capsule or polygon)
 /// @param ent The owner of the component
 /// @param type The type of the component (kinematic, dynamic or static)
@@ -24,21 +26,13 @@
 /// @param shape The shape of the rigid body. Can be CircleShape, CapsuleShape or PolygonShape.
 RigidBodyComponent::RigidBodyComponent(entity_t ent) : InfoComponent(ent), ITransform()
 {
-
+    _myProps.sleepThreshold = 0.115;
 }
 
 RigidBodyComponent::~RigidBodyComponent()
 {
-    if(_myProps.polyData)
-        delete _myProps.polyData;
+    delete _myB2ShapeDef;
     b2DestroyBody(_myB2BodyId);
-}
-
-void RigidBodyComponent::update() {
-    if (_scaleBuffer.first) {
-        updateScale();
-        _scaleBuffer.first = false;
-    }
 }
 
 void
@@ -97,6 +91,13 @@ RigidBodyComponent::isMoving() {
     return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2)) > 0.01f;
 }
 
+/// @brief Returns the speed of the body
+float
+RigidBodyComponent::getVelocityMag() {
+    b2Vec2 vel = getVelocity();
+    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2));
+}
+
 /// @brief Recoloca el objeto físico
 /// @param newPos Posición cartesiana
 void
@@ -111,15 +112,9 @@ RigidBodyComponent::setRotation(const double& newRot) {
     b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {std::cosf(newRot), std::sinf(newRot)});
 }
 
-/// @brief Setea el cambio de escala del buffer a true y se asigna la escala nueva al buffer \n
-///
-///        Es importante saber que esto solo cambia el buffer, se delega el cambio en la escala
-///        al update
-/// @param newScale escala en R2
 void
-RigidBodyComponent::setScale(const Scale& newScale) {
-    _scaleBuffer.first = true;
-    _scaleBuffer.second = newScale;
+RigidBodyComponent::setScale(const Scale& newScale){
+    _scaleBuffer = {true, newScale};
 }
 
 /// @brief Changes the body type.
@@ -195,6 +190,7 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 void RigidBodyComponent::setDensity(float density)
 {
     _myProps.density = density;
+    calculateMass();
     b2Shape_SetDensity(_myB2ShapeId, density, true);
 }
 
@@ -247,18 +243,14 @@ void RigidBodyComponent::setLinearDamping(float damping)
     b2Body_SetLinearDamping(_myB2BodyId, damping);
 }
 
-void RigidBodyComponent::setBodyEnabled(bool enabled)
-{
-    if(enabled)
-        b2Body_Enable(_myB2BodyId);
-    else 
-        b2Body_Disable(_myB2BodyId);
+void RigidBodyComponent::setEnabled(bool state){
+    Component::setEnabled(state);
+    setBodyEnabled(state);
 }
 
-void
-RigidBodyComponent::setEnabled(bool state) {
-    _isEnable = state;
-    setBodyEnabled(state);
+void RigidBodyComponent::setBodyEnabled(bool enabled){
+    if(enabled) b2Body_Enable(_myB2BodyId);
+    else b2Body_Disable(_myB2BodyId);
 }
 
 /// @brief Function called everytime object enters a collision
@@ -305,9 +297,21 @@ RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
     _collisionEnter.push_back(PC);
 
     PC->setOnDestroy([this]() -> void {
-        _triggerExit.erase(--_triggerExit.end());
-        _triggerEnter.erase(--_triggerEnter.end());
-        _collisionExit.erase(--_collisionExit.end());
-        _collisionEnter.erase(--_collisionEnter.end());
+        std::cout << "triggerexit size: " << _triggerExit.size() << std::endl;
+        if (!_triggerExit.empty()) {
+            _triggerExit.erase(--_triggerExit.end());
+        }
+        std::cout << "triggerenter size: " << _triggerEnter.size() << std::endl;
+        if (!_triggerEnter.empty()) {
+            _triggerEnter.erase(--_triggerEnter.end());
+        }
+        std::cout << "col enter size: " << _collisionExit.size() << std::endl;
+        if (!_collisionExit.empty()) {
+            _collisionExit.erase(--_collisionExit.end());
+        }
+        std::cout << "col exit size: " << _collisionEnter.size() << std::endl;
+        if (!_collisionEnter.empty()) {
+            _collisionEnter.erase(--_collisionEnter.end());
+        }        
     });
 }

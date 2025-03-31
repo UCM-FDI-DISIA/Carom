@@ -2,6 +2,8 @@
 #include "PhysicsComponent.h"
 #include "ecs.h"
 
+namespace ecs{
+
 //cambiar todo esto con herencia del componente de Mika
 class ColorBallScorerComponent : public PhysicsComponent{
     
@@ -17,3 +19,4 @@ public:
         if(isColorBall) ColorHitManager.checkColisions(pos de hit);
     */
 };
+}

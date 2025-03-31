@@ -1,6 +1,8 @@
 #pragma once
 
-class CaromScene;
+namespace ecs {
+    class CaromScene;
+}
 
 //Interfaz de State, que es usada por una maquina de estados para cambiar de estado
 class State{
