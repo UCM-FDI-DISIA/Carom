@@ -15,5 +15,4 @@ public:
     std::vector<entity_t> getBalls();
     entity_t getStick();
     Inventory::Perma getPerma();
-
 };

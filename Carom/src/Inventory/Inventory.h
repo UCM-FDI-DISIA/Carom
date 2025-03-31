@@ -5,9 +5,11 @@
 
 class StickEffetComponent;
 class Entity;
+class Texture;
 class InventoryManager;
 
 class Inventory {
+        const static int MAX_BALLS = 6;
     public:
     struct Perma {
         int hitEase, comboEase, caromEase;
@@ -15,12 +17,23 @@ class Inventory {
         int power;
         float cunning; 
     };  
+
+    struct StickProps {
+        StickEffetComponent* effect;
+        Texture* texture;
+    };
     
+    Inventory() : _perma{0, 0, 0, 0, 0,  1.0f}, _balls(), _stick {nullptr, nullptr} {}
+    Inventory(std::vector<Entity*> balls, StickProps stickEffect, Perma perma)
+        : _perma(perma), _stick(stickEffect), _balls() 
+    {
+        std::copy_n(balls.begin(), MAX_BALLS, _balls.begin());
+    }
+
     private:  
     friend InventoryManager;
-    const static int MAX_BALLS = 6;
     
     std::array<Entity*, MAX_BALLS> _balls;
-    StickEffetComponent* _stick;
+    StickProps _stick;
     Perma _perma;
 };
