@@ -143,8 +143,8 @@ namespace ecs {
         
         auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
 
-        auto effect = addComponent<MagicWandStickEffect>(e);
-        input->registerStickEffect(effect);
+        //auto effect = addComponent<MagicWandStickEffect>(e);
+        //input->registerStickEffect(effect);
 
         //!john cleon's stick shadow
         addComponent<ShadowComponent>(e);

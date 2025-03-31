@@ -3,13 +3,28 @@
     "components": [
         {
             "componentName" : "RigidBodyComponent", 
-            "atributes" : {"b2BodyType" : "static", "pos": {"x": 0, "y": 0}, "density": 1, "friction" : 0.2, "restitution" : 1,
+            "atributes" : {"b2BodyType" : "dynamic", "pos": {"x": 0, "y": 0}, "density": 1, "friction" : 0.2, "restitution" : 1,
                                 "CircleShape" : {"radius": 0.2}
                           }
         },
         {
             "componentName" : "RenderTextureComponent",
             "atributes" : {"textureID" : "bola_blanca", "scale" : 0.2, "layer": 1}
+        },
+        {
+            "componentName" : "BallHandler",
+            "atributes" : {
+                "effects": [{
+                    "componentName" : "BowlingEffect"
+                },
+                {
+                    "componentName" : "X2Effect"
+                },
+                {
+                    "componentName" : "X2Effect"
+                }
+            ]
+            }
         }
     ]
 }

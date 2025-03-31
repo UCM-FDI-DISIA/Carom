@@ -58,9 +58,8 @@ Game::start()
     _sceneManager = new ScenesManager();    
 
     NullState* state = new NullState(nullptr);
-    // ecs::GameScene *ms = new ecs::CaromScene(state, this, nullptr); // ! tst  
-    ecs::GameScene *ms = new ecs::PoolScene(this); //no borrar, pruebas jordi
-    //ecs::GameScene *ms = new ecs::PoolScene(state, this, nullptr); 
+    //ecs::GameScene *ms = new PrefabTestScene(state, this, nullptr); // no borrar, cosas jordi monolito
+    ecs::GameScene *ms = new ecs::PoolScene(this); 
     _sceneManager->pushScene(ms); // ! tst
 }
 

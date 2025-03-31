@@ -62,7 +62,7 @@ namespace ecs
         b2BodyType bodyType;
         if(atributes.at("b2BodyType")->AsString() == "static") bodyType = b2_staticBody;
         else if(atributes.at("b2BodyType")->AsString() == "kinematic") bodyType = b2_kinematicBody;
-        else bodyType = b2_dynamicBody;
+        else if(atributes.at("b2BodyType")->AsString() == "dynamic") bodyType = b2_dynamicBody;
 
         //asigna la posicion
         b2Vec2 pos(atributes.at("pos")->Child("x")->AsNumber(), atributes.at("pos")->Child("y")->AsNumber());
@@ -122,8 +122,7 @@ namespace ecs
 
     void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
         addComponent<BallHandler>(entity);
-        for(auto element : atributes.at("atributes")->Child("effects")->AsArray()){
-            JSONObject atributes = element->Child("atributes")->AsObject();
+        for(auto element : atributes.at("effects")->AsArray()){
             if(element->Child("componentName")->AsString() == "BowlingEffect") 
                 addComponent<BowlingEffect>(entity); 
             else if(element->Child("componentName")->AsString() == "X2Effect")
