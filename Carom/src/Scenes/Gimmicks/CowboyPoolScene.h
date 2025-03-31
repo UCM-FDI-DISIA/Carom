@@ -4,7 +4,7 @@
 
 namespace ecs{
 
-    class CowboyPoolScene : public CaromScene {
+    class CowboyPoolScene : public ecs::CaromScene {
     public:
             CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss);
 

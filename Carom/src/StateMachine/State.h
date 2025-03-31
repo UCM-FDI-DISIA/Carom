@@ -7,7 +7,7 @@ namespace ecs {
 //Interfaz de State, que es usada por una maquina de estados para cambiar de estado
 class State{
 public:
-    inline State(CaromScene* scene) : _scene(scene) {}
+    inline State(ecs::CaromScene* scene) : _scene(scene) {}
 
     //checkea la condicion
     //Si no ha encontrado ninguna condicion valida, devuelve false
@@ -21,5 +21,5 @@ public:
 
     virtual void finish() {};
 protected:
-    CaromScene* _scene;
+    ecs::CaromScene* _scene;
 };

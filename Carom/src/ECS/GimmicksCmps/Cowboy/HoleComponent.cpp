@@ -98,7 +98,7 @@ namespace ecs {
                 {
                     other_rb->setBodyEnabled(false);
                     other_rb->setPosition(_myCenter);
-                    other_render->setRenderLayer(renderLayer::POOL_HOLE);
+                    other_render->setRenderLayer(ecs::renderLayer::POOL_HOLE);
                     other_render->changeColorTint(100, 100, 100);
                     this->setEnabled(false);
                     _isEmpty = false;

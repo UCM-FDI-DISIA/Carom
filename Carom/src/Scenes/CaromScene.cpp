@@ -65,7 +65,7 @@ namespace ecs {
         );
         createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
         // Apply impulse
-        getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
+        getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
         
 
 
@@ -204,7 +204,7 @@ namespace ecs {
             auto& eb = sdlutils().svgs().at("positions").at(s);
             auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
-            createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
+            createEffectBall(ecs::effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
         }
     }
 
@@ -235,9 +235,9 @@ namespace ecs {
             PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
         };
 
-        addComponent<TransformComponent>(a_shadow, b2Vec2{0,0});
-        addComponent<FollowComponent>(a_shadow, entity, true, false, true, a_relPos);
-        addComponent<RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), renderLayer::BALL_SHADOW_ON_TABLE, cast_scale);
+        addComponent<ecs::TransformComponent>(a_shadow, b2Vec2{0,0});
+        addComponent<ecs::FollowComponent>(a_shadow, entity, true, false, true, a_relPos);
+        addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), renderLayer::BALL_SHADOW_ON_TABLE, cast_scale);
 
     }
 
@@ -311,7 +311,7 @@ namespace ecs {
             // Al presionar la "L" te lleva a la escena de ganar.
                 std::cout << "Carga escena de PERDER." << std::endl;
                 NullState* state = new NullState(nullptr);
-                EndScene *ms = new EndGameScene(game); // ! tst  
+                ecs::EndScene *ms = new ecs::EndGameScene(game); // ! tst  
                 game->getScenesManager()->pushScene(ms);
         }
 
@@ -319,7 +319,7 @@ namespace ecs {
             // Al presionar la "W" te lleva a la escena de perder.
                 std::cout << "Carga escena GANAR." << std::endl;
                 NullState* state = new NullState(nullptr);
-                EndScene *ms = new RewardScene(game); // ! tst  
+                ecs::EndScene *ms = new ecs::RewardScene(game); // ! tst  
                 game->getScenesManager()->pushScene(ms);
         }
 
@@ -426,11 +426,11 @@ namespace ecs {
         for(int i = 0; i < contactEvents.beginCount; ++i){
             b2ContactBeginTouchEvent* a_enter = contactEvents.beginEvents + i;
 
-            entity_t ent1 = static_cast<entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
-            entity_t ent2 = static_cast<entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
+            ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
+            ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
 
-            ent1->getComponent<RigidBodyComponent>()->onCollisionEnter(ent2);
-            ent2->getComponent<RigidBodyComponent>()->onCollisionEnter(ent1);
+            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
+            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
         }
 
     }
@@ -443,11 +443,11 @@ namespace ecs {
         for(int i = 0; i < contactEvents.endCount; ++i){
             b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
         
-            entity_t ent1 = static_cast<entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
-            entity_t ent2 = static_cast<entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
+            ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
+            ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
         
-            ent1->getComponent<RigidBodyComponent>()->onCollisionExit(ent2);
-            ent2->getComponent<RigidBodyComponent>()->onCollisionExit(ent1);
+            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
+            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
         }
         
     }
@@ -460,11 +460,11 @@ namespace ecs {
         for(int i = 0; i < sensorEvents.beginCount; ++i){
             b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
 
-            entity_t sensor = static_cast<entity_t>(b2Shape_GetUserData(a_enter->sensorShapeId));
-            entity_t visitor = static_cast<entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
+            ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->sensorShapeId));
+            ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
 
-            sensor->getComponent<RigidBodyComponent>()->onTriggerEnter(visitor);
-            visitor->getComponent<RigidBodyComponent>()->onTriggerEnter(sensor);
+            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+            visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(sensor);
         }
     }
 
@@ -476,11 +476,11 @@ namespace ecs {
         for(int i = 0; i < sensorEvents.endCount; ++i){
             b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;
         
-            entity_t sensor = static_cast<entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
-            entity_t visitor = static_cast<entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
+            ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
+            ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
         
-            sensor->getComponent<RigidBodyComponent>()->onTriggerExit(visitor);
-            visitor->getComponent<RigidBodyComponent>()->onTriggerExit(sensor);
+            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+            visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(sensor);
 
         } 
 
@@ -489,7 +489,7 @@ namespace ecs {
     TextDisplayComponent*
     CaromScene::createScoreUI() {
         //CurrentScore
-        entity_t currentScoreObject = new Entity(*this, grp::SCORE);
+        entity_t currentScoreObject = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(currentScoreObject);
 
         b2Vec2 pos1 = PhysicsConverter::pixel2meter(
@@ -502,7 +502,7 @@ namespace ecs {
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
-        entity_t scoreToBeatObject = new Entity(*this, grp::SCORE);
+        entity_t scoreToBeatObject = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(scoreToBeatObject);
 
         b2Vec2 pos2 = PhysicsConverter::pixel2meter(
@@ -537,7 +537,7 @@ namespace ecs {
     }
 
     void CaromScene::clearBossModifiers() {
-        for(auto& e: getEntitiesOfGroup(grp::BOSS_MODIFIERS))
+        for(auto& e: getEntitiesOfGroup(ecs::grp::BOSS_MODIFIERS))
             setAlive(e, false); // delete boss modifiers
     }
 

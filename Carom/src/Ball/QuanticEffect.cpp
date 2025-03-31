@@ -7,7 +7,7 @@ void QuanticEffect::init()
     BallEffect::init();
 }
 
-void QuanticEffect::onHit(entity_t ent)
+void QuanticEffect::onHit(ecs::entity_t ent)
 {
     _wasHit = true;
 }

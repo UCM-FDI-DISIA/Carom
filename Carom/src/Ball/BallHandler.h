@@ -6,25 +6,25 @@
 namespace ecs {class CaromScene;}
 class BallEffect;
 
-class BallHandler : public PhysicsComponent
+class BallHandler : public ecs::PhysicsComponent
 {
 private:
-    CaromScene* _scene;
+    ecs::CaromScene* _scene;
     std::vector<BallEffect*> _effects;
     static constexpr int EFFECTS_LIMIT = 3;
 
     float _mult = 1;
 public:
-    BallHandler(entity_t ent) : PhysicsComponent(ent) {}
+    BallHandler(ecs::entity_t ent) : ecs::PhysicsComponent(ent) {}
     ~BallHandler() {}
 
     void init() override;
-    void onCollisionEnter(entity_t collision) override; //Se ejecuta cuando la bola golpea otra bola
+    void onCollisionEnter(ecs::entity_t collision) override; //Se ejecuta cuando la bola golpea otra bola
     void onBeingTargeted(); //Se ejecuta cuando esta siendo apuntado por una trayectoria de palo
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 
     bool addEffect(BallEffect* effect);
-    __CMPID_DECL__(cmp::BALL_HANDLER);
+    __CMPID_DECL__(ecs::cmp::BALL_HANDLER);
 
     void addScore(float points); //Se usa para sumar puntos, esta pensado para ser usado por los efectos de bola
     void multScore(float mult); // Se usa para multiplicar la puntuacion, esta pensado para ser usado por los efectos de bola

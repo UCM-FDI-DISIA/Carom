@@ -4,7 +4,7 @@
 
 class HitState: public State {
 public:
-    HitState(CaromScene* scene);
+    HitState(ecs::CaromScene* scene);
     bool checkCondition(State*& state) override;
 
     void onStateEnter() override;

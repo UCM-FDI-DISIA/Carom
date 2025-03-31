@@ -68,7 +68,7 @@ namespace ecs{
 		template<typename T, typename ...Ts>
 		inline T* addComponent(entity_t e, Ts &&... args) {
 			// the component id exists
-			static_assert(cmpId<T> < maxComponentId);
+			static_assert(cmpId<T> < ecs::maxComponentId);
 
 			// create component
 			T *c = new T(e, std::forward<Ts>(args)...);

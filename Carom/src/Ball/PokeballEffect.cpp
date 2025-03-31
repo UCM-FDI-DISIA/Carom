@@ -4,7 +4,7 @@
 #include "Entity.h"
 #include <vector>
 
-void PokeballEffect::onHit(entity_t ent)
+void PokeballEffect::onHit(ecs::entity_t ent)
 {
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
 

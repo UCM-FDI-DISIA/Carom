@@ -98,7 +98,7 @@ PolygonRBComponent::updateScale(){
     b2Shape_SetPolygon(_myB2ShapeId, &a_polygon);
 }
 
-PolygonRBComponent::~PolygonRBComponent()
+ecs::PolygonRBComponent::~PolygonRBComponent()
 {
     delete _myProps.polyData;
 }

@@ -5,13 +5,13 @@
 
 void BallHandler::init()
 {
-    _scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
+    _scene = dynamic_cast<ecs::CaromScene*>(&_myEntity->getScene());
     assert(_scene != nullptr && "Se ha intentado agregar un componente de efecto en una escena que no es la de juego");
 }
 
-void BallHandler::onCollisionEnter(entity_t collision)
+void BallHandler::onCollisionEnter(ecs::entity_t collision)
 {
-    if(collision->getID() == grp::EFFECTBALLS || collision->getID() == grp::WHITEBALL)
+    if(collision->getID() == ecs::grp::EFFECTBALLS || collision->getID() == ecs::grp::WHITEBALL)
     {
         for(BallEffect* effect : _effects)
         {

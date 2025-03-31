@@ -23,19 +23,19 @@ namespace ecs{
     
     void EndScene::createTable()
     {
-        entity_t table = new Entity(*this, grp::DEFAULT);
+        entity_t table = new ecs::Entity(*this, grp::DEFAULT);
             b2Vec2 pos(0,0);
             addComponent<TransformComponent>(table, pos);
             addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
     
-            table = new Entity(*this, grp::DEFAULT);
+            table = new ecs::Entity(*this, grp::DEFAULT);
             addComponent<TransformComponent>(table, pos);
             addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
     }
     
     void EndScene::createText(std::string text)
     {
-        entity_t winContainer = new Entity(*this, grp::SCORE);
+        entity_t winContainer = new Entity(*this, ecs::grp::SCORE);
         _entsRenderable.push_back(winContainer);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
@@ -57,7 +57,7 @@ namespace ecs{
     
     void EndScene::createExitButton()
     {
-        entity_t e = new Entity(*this, grp::DEFAULT);
+        entity_t e = new ecs::Entity(*this, grp::DEFAULT);
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(
             sdlutils().width()/2,
@@ -67,14 +67,14 @@ namespace ecs{
         addComponent<TransformComponent>(e, pos);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::UI, 0.75f);
 
-        Button::TextureButton rButton = Button::TextureButton();
-        addComponent<Button>(e, rButton);
+        ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
+        addComponent<ecs::Button>(e, rButton);
   
         // Para cuando este la MainMenu scene, habria que ponerla aqui.
-        e->getComponent<Button>()->setOnClick([this](){
+        e->getComponent<ecs::Button>()->setOnClick([this](){
             std::cout << "Carga escena PoolScene" << std::endl;
             NullState* state = new NullState(nullptr);
-            PoolScene *ms = new PoolScene(state, game, nullptr); // ! tst  
+            ecs::PoolScene *ms = new ecs::PoolScene(state, game, nullptr); // ! tst  
             game->getScenesManager()->pushScene(ms);
         });          
     }

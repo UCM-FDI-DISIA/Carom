@@ -3,7 +3,7 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 
-LoseMatchState::LoseMatchState(CaromScene* scene) : State(scene)
+LoseMatchState::LoseMatchState(ecs::CaromScene* scene) : State(scene)
 {
 
 }

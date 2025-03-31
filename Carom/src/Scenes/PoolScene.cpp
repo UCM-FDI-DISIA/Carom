@@ -45,12 +45,12 @@ namespace ecs{
 
     void PoolScene::generateRndBallsPos()
     {
-        entity_t table = new Entity(*this, grp::DEFAULT);
+        entity_t table = new ecs::Entity(*this, grp::DEFAULT);
         b2Vec2 pos(0,0);
         addComponent<TransformComponent>(table, pos);
         addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
 
-        table = new Entity(*this, grp::DEFAULT);
+        table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
         addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
         
@@ -61,34 +61,34 @@ namespace ecs{
         // coloca los agujeros de partida
         for(int i = 0; i < HOLES; i++){
 
-            entity_t e = new Entity(*this, grp::POOL_HOLE);
+            entity_t e = new ecs::Entity(*this, grp::POOL_HOLE);
             b2Vec2 pos = _poolPositions[i];
             addComponent<TransformComponent>(e, pos);
             addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, 0.2f);
 
-            Button::TextureButton rButton = Button::TextureButton();
-            addComponent<Button>(e, rButton);
+            ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
+            addComponent<ecs::Button>(e, rButton);
 
 
             if(i == a_bossPosition){ // --- POSICION BOSS.
-                e->getComponent<Button>()->setOnClick([this](){
+                e->getComponent<ecs::Button>()->setOnClick([this](){
                     //std::cout << "Carga escena Boss" << std::endl;
                     //NullState* state = new NullState(nullptr);
-                    //CaromScene *ms = new CaromScene(state, game, nullptr); // ! tst  
+                    //ecs::CaromScene *ms = new ecs::CaromScene(state, game, nullptr); // ! tst  
                     //game->getScenesManager()->pushScene(ms);
                 });
             }
             else{ // --- POSICION COLORES.
-                e->getComponent<Button>()->setOnClick([this](){
+                e->getComponent<ecs::Button>()->setOnClick([this](){
                     std::cout << "Carga escena Carom" << std::endl;
                     NullState* state = new NullState(nullptr);
-                    GameScene *ms = new CaromScene(state, game, nullptr); // ! tst  
+                    ecs::GameScene *ms = new ecs::CaromScene(state, game, nullptr); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }
 
             /* ESTO NO FUNCIONA DA ERROR PERO SE NECESITA.
-            entity_t e = new Entity(*this);
+            ecs::entity_t e = new ecs::Entity(*this);
             _entities.push_back(e); // nota: _entiites heredado
             */
         }

@@ -24,7 +24,7 @@ namespace ecs{
     // TODO: componentes Transform físico y normal
     // Creates a table composed by 3 entities for textures and 4 entities that are the colliders of each side of the table.
     // The table is not an entity per se, is represented by a group of entities.
-    // Those entities are grouped here -> _entsByGroup[grp::TABLE]
+    // Those entities are grouped here -> _entsByGroup[ecs::grp::TABLE]
     void
     GameScene::createTable(){
 
@@ -125,7 +125,7 @@ namespace ecs{
 
     void GameScene::refresh() {
         // removes dead entities from group lists, and also those who do not belong to the group anymore
-        for (grpId_t gId = 0; gId < maxGroupId; gId++) {
+        for (ecs::grpId_t gId = 0; gId < ecs::maxGroupId; gId++) {
             auto &groupEntities = _entsByGroup[gId];
             groupEntities.erase(
                     std::remove_if(groupEntities.begin(), groupEntities.end(),

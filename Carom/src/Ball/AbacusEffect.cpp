@@ -9,7 +9,7 @@ void AbacusEffect::init()
     _handler = _myEntity->getComponent<BallHandler>();
 }
 
-void AbacusEffect::onHit(entity_t ent)
+void AbacusEffect::onHit(ecs::entity_t ent)
 {
     _handler->addScore(_bonusPoints);
 }
