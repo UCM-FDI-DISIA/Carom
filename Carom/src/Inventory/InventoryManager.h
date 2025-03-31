@@ -5,11 +5,19 @@
 #include "Singleton.h"
 #include "Inventory.h"
 
-class entity_t;
 
 class InventoryManager : public Singleton<InventoryManager> {
 
 	friend Singleton<InventoryManager> ;
+
+    Inventory _inventory;
+
+public:
+	InventoryManager();
+
+	virtual ~InventoryManager();
+
+    void swapInventory(Inventory inv);
 
 public:
     // Consultar
