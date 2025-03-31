@@ -118,6 +118,7 @@ namespace ecs
 
     void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
         addComponent<BallHandler>(entity);
+    
     }
 } 
 
