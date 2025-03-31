@@ -12,8 +12,8 @@ class InventoryManager : public Singleton<InventoryManager> {
 	friend Singleton<InventoryManager> ;
 
 public:
-    vector<entity_t> getBalls();
+    std::vector<entity_t> getBalls();
     entity_t getStick();
-    Perma getPerma();
+    Inventory::Perma getPerma();
 
 };
