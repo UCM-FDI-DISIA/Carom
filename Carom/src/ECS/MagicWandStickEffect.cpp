@@ -4,6 +4,7 @@
 #include "RigidBodyComponent.h"
 #include "RenderTextureComponent.h"
 #include "SubdivisionEffect.h"
+#include "StickInputComponent.h"
 #include <box2D/box2D.h>
 
 
@@ -25,6 +26,8 @@ MagicWandStickEffect::applyEffect(entity_t target){
     auto a_ball2 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
     a_targetRB->getFriction(), a_targetRB->getRestitution());
+
+    _myEntity->getComponent<StickInputComponent>()->registerWhiteBall(target); //* Reset the right wb
     
     a_ball1->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball1, target));
     a_ball2->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball2, target));
@@ -39,5 +42,4 @@ MagicWandStickEffect::applyEffect(entity_t target){
     a_2RB->applyForceToCenter(b2RotateVector(rotation2, a_targetRB->getVelocity()));
 
     target->deactivate();
-    // TODO desactivar sombra de bola
 }

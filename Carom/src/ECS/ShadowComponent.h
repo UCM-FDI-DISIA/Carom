@@ -13,6 +13,14 @@ namespace ecs{
             _shadows.resize(0);
         };
 
+        inline ~ShadowComponent(){
+            for(entity_t e : _shadows){
+                e->removeComponent<RenderTextureComponent>();
+                e->deactivate();
+                e->setAlive(false);
+            }
+        }
+
         void addShadow(b2Vec2 displacement, std::string imageName, int renderLayer, float scale, bool copyPosition = true, bool copyRotation = true, bool copyScale = true);
 
         //si se desactiva sus sombras se desactivan, si se activan sus sombras lo hacen
