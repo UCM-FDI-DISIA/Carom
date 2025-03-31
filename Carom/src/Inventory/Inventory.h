@@ -3,8 +3,10 @@
 #include<array>
 #include <vector>
 
+#include "Entity.h"
+
 class StickEffectComponent;
-class Entity;
+
 class Texture;
 class InventoryManager;
 
@@ -24,7 +26,7 @@ class Inventory {
     };
     
     Inventory() : _perma{0, 0, 0, 0, 0,  1.0f}, _balls(), _stick {nullptr, nullptr} {}
-    Inventory(std::vector<Entity*> balls, StickProps stickEffect, Perma perma)
+    Inventory(std::vector<entity_t> balls, StickProps stickEffect, Perma perma)
         : _perma(perma), _stick(stickEffect), _balls() 
     {
         std::copy_n(balls.begin(), MAX_BALLS, _balls.begin());
@@ -33,7 +35,7 @@ class Inventory {
     private:  
     friend InventoryManager;
     
-    std::array<Entity*, MAX_BALLS> _balls;
+    std::array<entity_t, MAX_BALLS> _balls;
     StickProps _stick;
     Perma _perma;
 };
