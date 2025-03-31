@@ -35,16 +35,6 @@ namespace ecs{
         delete _rngm;
     }
 
-    void PoolScene::setNewState(State *s)
-    {
-        // if (_currentState != nullptr) {
-        //     _currentState->onStateExit();
-        //     delete _currentState;
-        // }
-        // _currentState = s;
-        // _currentState->onStateEnter();
-    }
-
     void PoolScene::generateRndBallsPos()
     {
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);
@@ -71,10 +61,13 @@ namespace ecs{
             ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
             addComponent<ecs::Button>(e, rButton);
 
+            
 
             if(i == a_bossPosition){ // --- POSICION BOSS.
+                //createSceneButton(pos.x, pos.y, ms, ecs::grp::POOL_HOLE, ecs::renderLayer::POOL_HOLE, "hole", 0.2f)
+               
                 e->getComponent<ecs::Button>()->setOnClick([this](){
-                    std::cout << "Carga escena Boss" << std::endl;
+                   
                     NullState* state = new NullState(nullptr);
 
                     // !!! CREA BOSSSCENE(CAMBIAR).
@@ -85,7 +78,7 @@ namespace ecs{
             }
             else{ // --- POSICION COLORES.
                 e->getComponent<ecs::Button>()->setOnClick([this](){
-                    std::cout << "Carga escena Carom" << std::endl;
+                   
                     NullState* state = new NullState(nullptr);
 
                     // !!! CREA COWBOYPOOLSCENE(CAMBIAR).

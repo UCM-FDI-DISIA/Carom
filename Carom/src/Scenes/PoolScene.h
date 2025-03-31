@@ -39,10 +39,6 @@ namespace ecs{
     public:
         PoolScene(Game* g);
         ~PoolScene();
-
-        void setNewState(State* s);
-
-        inline GameScene* getRewardScene() const {return _reward;}
     };
 
 }
