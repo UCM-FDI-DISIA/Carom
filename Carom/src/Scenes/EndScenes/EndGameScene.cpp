@@ -15,7 +15,6 @@ namespace ecs{
         );
 
         // Para cuando este la MainMenu scene, habria que ponerla aqui.
-        NullState* state = new NullState(nullptr);
         ecs::GameScene *ms = new ecs::MainMenuScene(game); // ! tst 
 
         entity_t b = createExitButton(

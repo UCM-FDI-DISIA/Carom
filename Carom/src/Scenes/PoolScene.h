@@ -10,7 +10,7 @@ class ScenesManager;
 class RNG_Manager;
 
 namespace ecs{
-    class PoolScene: public GameScene {
+    class PoolScene: public UIScene {
     protected:
         static constexpr int HOLES = 6;
         enum BallTypes{

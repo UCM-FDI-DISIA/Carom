@@ -21,7 +21,7 @@
 
 namespace ecs{
 
-    PoolScene::PoolScene(Game* g) : GameScene(g)
+    PoolScene::PoolScene(Game* g) : UIScene(g)
     {
         _rngm = new RNG_Manager();
 

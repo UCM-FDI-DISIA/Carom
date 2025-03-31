@@ -1,4 +1,5 @@
 #include "RewardScene.h"
+#include "PoolScene.h"
 namespace ecs{
     
     RewardScene::RewardScene(Game *g) : UIScene(g)

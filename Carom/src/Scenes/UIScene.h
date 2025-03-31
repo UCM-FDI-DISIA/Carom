@@ -8,8 +8,6 @@
 #include "Entity.h"
 #include "Button.h"
 #include "PhysicsUtils.h"
-#include "NullState.h"
-#include "PoolScene.h"
 
 namespace ecs{
     class ScenesManager;
