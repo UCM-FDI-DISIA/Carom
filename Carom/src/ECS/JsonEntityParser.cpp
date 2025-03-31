@@ -11,6 +11,14 @@
 #include "PolygonRBComponent.h"
 #include "RectangleRBComponent.h"
 
+#include "BallHandler.h"
+#include "BowlingEffect.h"
+#include "CristalEffect.h"
+#include "AbacusEffect.h"
+#include "PetanqueEffect.h"
+#include "PokeballEffect.h"
+#include "QuanticEffect.h"
+
 #include "RenderTextureComponent.h"
 #include "Texture.h"
 
@@ -24,19 +32,16 @@ namespace ecs
 
         JSONValue* entityElements = JSON::ParseFromFile(file);
         Entity* entity = new Entity(gameScene, (ecs::grp::grpId) entityElements->Child("ID")->AsNumber());
-        //std::cout<<JSON::Stringify(entityElements);
-    
+        
         for(auto element : entityElements->Child("components")->AsArray()){
+            JSONObject atributes = element->Child("atributes")->AsObject();
             if(element->Child("componentName")->AsString() == "TransformComponent"){
-                JSONObject atributes = element->Child("atributes")->AsObject();
                 transformComponent(atributes, entity);
             }
             else if(element->Child("componentName")->AsString() == "RigidBodyComponent"){
-                JSONObject atributes = element->Child("atributes")->AsObject();
                 rigidBodyComponent(atributes, entity);
             }
             else if(element->Child("componentName")->AsString() == "RenderTextureComponent"){
-                JSONObject atributes = element->Child("atributes")->AsObject();
                 renderTextureComponent(atributes, entity);
             }
         }
@@ -109,6 +114,10 @@ namespace ecs
         int layer = atributes.at("layer")->AsNumber();
         
         addComponent<ecs::RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale);
+    }
+
+    void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
+        addComponent<BallHandler>(entity);
     }
 } 
 

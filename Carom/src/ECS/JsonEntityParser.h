@@ -15,6 +15,7 @@ namespace ecs
             static void transformComponent(const JSONObject& atributes, Entity* entity);
             static void rigidBodyComponent(const JSONObject& atributes, Entity* entity);
             static void renderTextureComponent(const JSONObject& atributes, Entity* entity);
+            static void ballHandler(const JSONObject& atributes, Entity* entity);
             
         
         template<typename T, typename ...Ts>
