@@ -3,7 +3,7 @@
 #include<array>
 #include <vector>
 
-class StickEffetComponent;
+class StickEffectComponent;
 class Entity;
 class Texture;
 class InventoryManager;
@@ -19,7 +19,7 @@ class Inventory {
     };  
 
     struct StickProps {
-        StickEffetComponent* effect;
+        StickEffectComponent* effect;
         Texture* texture;
     };
     
