@@ -71,7 +71,6 @@ protected:
     
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
-    virtual void updateScale() = 0;
     
 
     void generateBodyAndShape();
@@ -97,6 +96,7 @@ public:
     inline float getLinearDamping() {return _myProps.linearDamping; }
     inline float getDensity() {return _myProps.density; }
     inline float getMass() {return _myProps.mass; }
+    inline b2BodyType getBodyType() {return _myProps.bodyType; }
     bool isMoving();
     float getVelocityMag();
 

@@ -35,6 +35,14 @@ RigidBodyComponent::~RigidBodyComponent()
     b2DestroyBody(_myB2BodyId);
 }
 
+void RigidBodyComponent::update()
+{
+    if(_scaleBuffer.first){
+        updateScale();
+        _scaleBuffer.first = false;
+    }
+}
+
 void
 RigidBodyComponent::generateBodyAndShape(){
     // ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
