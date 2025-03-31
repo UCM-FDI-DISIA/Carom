@@ -2,6 +2,7 @@
 #include "Tween.h"
 #include "TransformComponent.h"
 
+namespace ecs{
     TweenComponent::TweenComponent(entity_t ent): LogicComponent(ent){
         _tweens = std::vector<Tween*>();
         _paused = false;
@@ -76,3 +77,4 @@
         for(auto t : _tweens) delete t;
         _tweens.resize(0);
     }
+}

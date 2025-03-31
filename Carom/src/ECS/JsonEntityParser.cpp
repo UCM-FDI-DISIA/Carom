@@ -116,7 +116,7 @@
         addComponent<RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale);
     }
 
-    void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
+    void ballHandler(const JSONObject& atributes, Entity* entity){
         addComponent<BallHandler>(entity);
 
         // auto ballEffectArray = atributes.at("effects")->AsArray();
@@ -127,4 +127,5 @@
         // }
     
     }
+} 
 

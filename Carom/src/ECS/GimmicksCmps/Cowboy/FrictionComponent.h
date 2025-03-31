@@ -3,6 +3,8 @@
 #include "ForceFieldComponent.h"
 
 
+namespace ecs{
+
     // Component to be added to an entity with RB set to sensor
     // Objects inside recieve a counter force during motion
     // It doesn't use linearDamping for 2 reasons:
@@ -23,3 +25,5 @@
         virtual void applyForce(entity_t e) override;
 
     };
+
+}

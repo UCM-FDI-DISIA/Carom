@@ -3,7 +3,7 @@
 #include "ecs.h"
 #include <vector>
 
-class CaromScene;
+namespace ecs {class CaromScene;}
 class BallEffect;
 
 class BallHandler : public PhysicsComponent

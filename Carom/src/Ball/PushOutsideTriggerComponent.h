@@ -2,18 +2,20 @@
 
 #include "PhysicsComponent.h"
 
-class RigidBodyComponent;
-class PushOutsideTriggerComponent : public PhysicsComponent {
-    float _force;
-    RigidBodyComponent* _myRigidBody;
-public:
+namespace ecs {
+    class RigidBodyComponent;
+    class PushOutsideTriggerComponent : public PhysicsComponent {
+        float _force;
+        RigidBodyComponent* _myRigidBody;
+    public:
 
-    __CMPID_DECL__(cmp::PUSH_OUTSIDE_TRIGGER);
-    cmpId_t getEffectId() {return cmp::PUSH_OUTSIDE_TRIGGER;};
+        __CMPID_DECL__(cmp::PUSH_OUTSIDE_TRIGGER);
+        cmpId_t getEffectId() {return cmp::PUSH_OUTSIDE_TRIGGER;};
 
-    PushOutsideTriggerComponent(entity_t ent, float force);
-    ~PushOutsideTriggerComponent();
+        PushOutsideTriggerComponent(entity_t ent, float force);
+        ~PushOutsideTriggerComponent();
 
-    void init() override;
-    virtual void onTriggerEnter(entity_t target); 
-};
+        void init() override;
+        virtual void onTriggerEnter(entity_t target); 
+    };
+}

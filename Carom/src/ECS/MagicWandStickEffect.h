@@ -2,6 +2,7 @@
 
 #include "StickEffectComponent.h"
 
+namespace ecs{
 class MagicWandStickEffect : public StickEffectComponent{
 public:
     __CMPID_DECL__(cmp::MAGIC_WAND_STICK);
@@ -12,3 +13,4 @@ public:
     inline void init() {}
     void applyEffect(entity_t target) override;
 };
+}

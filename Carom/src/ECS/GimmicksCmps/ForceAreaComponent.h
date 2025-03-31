@@ -7,6 +7,8 @@
 #include "ForceFieldComponent.h"
 
 
+namespace ecs{
+
     // Component that defines the force of the field: magitude and if its attractive or repulsive.
     // By default the force has the direction from the center of the other body to the center of this body
     // This class can be inherit to override and costumize force definition and conditions to apply force
@@ -31,3 +33,5 @@
 
         virtual void defineCenter(b2Vec2 c);
     };
+
+}

@@ -12,7 +12,6 @@ class Camera;
 class GameScene;
 class Component;
 class CaromScene;
-class JsonEntityParser;
 class PoolScene;
 class RenderTextureComponent;
 
@@ -103,7 +102,6 @@ private:
     friend GameScene;
     friend CaromScene;
     friend PoolScene;
-    friend JsonEntityParser;
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"

@@ -8,6 +8,7 @@
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
+#include "Camera.h"
 
 class Game;
 

@@ -5,6 +5,8 @@
 #include "BallHandler.h"
 #include "GameScene.h"
 
+using namespace ecs;
+
 void
 SubdivisionEffect::onStrikeEnd(){
     _target->activate();

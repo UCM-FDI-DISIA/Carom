@@ -2,22 +2,25 @@
 
 #include "CaromScene.h"
 
-class CowboyPoolScene : public CaromScene {
-public:
-        CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss);
+namespace ecs{
 
-protected:
-    void initGimmick();
-    void applyBossModifiers() override;
+    class CowboyPoolScene : public CaromScene {
+    public:
+            CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss);
 
-    void animateBossHand();
+    protected:
+        void initGimmick();
+        void applyBossModifiers() override;
 
-    // Gimmicks
-    void createSandBank();
+        void animateBossHand();
 
-    // Boss modifiers
-    void createBulletHole(const b2Vec2& pos);  
-    void createBulletHoles(int n);  
+        // Gimmicks
+        void createSandBank();
 
-    bool canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius);
-};
+        // Boss modifiers
+        void createBulletHole(const b2Vec2& pos);  
+        void createBulletHoles(int n);  
+
+        bool canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius);
+    };
+}

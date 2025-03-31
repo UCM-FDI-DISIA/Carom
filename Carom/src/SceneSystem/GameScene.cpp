@@ -7,6 +7,7 @@
 
 #include "GameScene.h"
 #include "../Game.h"
+#include "Camera.h"
 
 GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
 

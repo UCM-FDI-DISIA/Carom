@@ -4,25 +4,27 @@
 #include <box2d/box2d.h>
 
 
-class RigidBodyComponent;
-class ExplosiveEffect : public BallEffect {
-    float _explosionDelay, _explosionStart, _radius, _force;
-    bool _exploded;
-    RigidBodyComponent* _myRigidbody;
+namespace ecs {
+    class RigidBodyComponent;
+    class ExplosiveEffect : public BallEffect {
+        float _explosionDelay, _explosionStart, _radius, _force;
+        bool _exploded;
+        RigidBodyComponent* _myRigidbody;
 
-    void createExplosion();
-public:
+        void createExplosion();
+    public:
 
-    __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
-    cmpId_t getEffectId() {return cmp::EXPLOSIVE_EFFECT;};
+        __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
+        cmpId_t getEffectId() {return cmp::EXPLOSIVE_EFFECT;};
 
-    ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force);
-    ~ExplosiveEffect();
+        ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force);
+        ~ExplosiveEffect();
 
-    void init() override;
-    void update() override;
+        void init() override;
+        void update() override;
 
-    void onHit(entity_t ent) {}
-    void onStrikeEnd() override {}
-    void onBeingTargeted() override {}
-};
+        void onHit(entity_t ent) {}
+        void onStrikeEnd() override {}
+        void onBeingTargeted() override {}
+    };
+}

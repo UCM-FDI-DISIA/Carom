@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "TransformComponent.h"
 #include "PhysicsUtils.h"
+#include "Camera.h"
 #include "GameScene.h"
 
 RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 

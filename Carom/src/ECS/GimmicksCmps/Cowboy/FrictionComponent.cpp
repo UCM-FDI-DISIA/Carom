@@ -6,6 +6,8 @@
 #include "WhiteBallScorerComponent.h"
 
 
+namespace ecs{
+
     FrictionComponent::FrictionComponent(entity_t ent, float frictionCoef)
         : ForceFieldComponent(ent), _mu(frictionCoef)
     {
@@ -34,3 +36,5 @@
             }
         }
     }
+
+}

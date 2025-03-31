@@ -2,7 +2,9 @@
 
 #include "State.h"
 
+namespace ecs {
 class CaromScene;
+}
 
 class BossState: public State {
 protected:

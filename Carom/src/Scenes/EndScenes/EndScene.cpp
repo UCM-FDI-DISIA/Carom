@@ -19,60 +19,63 @@
 #include "Vector2D.h"
 #include <box2d/box2d.h>
 
-void EndScene::createTable()
-{
-    entity_t table = new Entity(*this, grp::DEFAULT);
-        b2Vec2 pos(0,0);
-        addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
+namespace ecs{
+    
+    void EndScene::createTable()
+    {
+        entity_t table = new Entity(*this, grp::DEFAULT);
+            b2Vec2 pos(0,0);
+            addComponent<TransformComponent>(table, pos);
+            addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
+    
+            table = new Entity(*this, grp::DEFAULT);
+            addComponent<TransformComponent>(table, pos);
+            addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
+    }
+    
+    void EndScene::createText(std::string text)
+    {
+        entity_t winContainer = new Entity(*this, grp::SCORE);
+        _entsRenderable.push_back(winContainer);
 
-        table = new Entity(*this, grp::DEFAULT);
-        addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
-}
+        b2Vec2 pos = PhysicsConverter::pixel2meter(
+            sdlutils().width()/2,
+            sdlutils().height()/2
+        );
 
-void EndScene::createText(std::string text)
-{
-    entity_t winContainer = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(winContainer);
+        winContainer->addComponent(new TransformComponent(winContainer, pos));
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(
+            winContainer,           // container
+            renderLayer::SCORE,     // capa renderizado
+            3,                      // tamano fuente
+            text,         // text
+            {255, 255, 255, 255},   // color (blanco)
+            "Basteleur-Moonlight24" // fuente
+        );
+        winContainer->addComponent(currentDisplay);
+    }
+    
+    void EndScene::createExitButton()
+    {
+        entity_t e = new Entity(*this, grp::DEFAULT);
 
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        sdlutils().width()/2,
-        sdlutils().height()/2
-    );
+        b2Vec2 pos = PhysicsConverter::pixel2meter(
+            sdlutils().width()/2,
+            (sdlutils().height()/2) + 250
+        );    
 
-    winContainer->addComponent(new TransformComponent(winContainer, pos));
-    TextDisplayComponent* currentDisplay = new TextDisplayComponent(
-        winContainer,           // container
-        renderLayer::SCORE,     // capa renderizado
-        3,                      // tamano fuente
-        text,         // text
-        {255, 255, 255, 255},   // color (blanco)
-        "Basteleur-Moonlight24" // fuente
-    );
-    winContainer->addComponent(currentDisplay);
-}
+        addComponent<TransformComponent>(e, pos);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::UI, 0.75f);
 
-void EndScene::createExitButton()
-{
-    entity_t e = new Entity(*this, grp::DEFAULT);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        sdlutils().width()/2,
-        (sdlutils().height()/2) + 250
-    );    
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::UI, 0.75f);
-
-    Button::TextureButton rButton = Button::TextureButton();
-    addComponent<Button>(e, rButton);
-
-    // Para cuando este la MainMenu scene, habria que ponerla aqui.
-    e->getComponent<Button>()->setOnClick([this](){
-        std::cout << "Carga escena PoolScene" << std::endl;
-        NullState* state = new NullState(nullptr);
-        PoolScene *ms = new PoolScene(state, game, nullptr); // ! tst  
-        game->getScenesManager()->pushScene(ms);
-    });          
+        Button::TextureButton rButton = Button::TextureButton();
+        addComponent<Button>(e, rButton);
+  
+        // Para cuando este la MainMenu scene, habria que ponerla aqui.
+        e->getComponent<Button>()->setOnClick([this](){
+            std::cout << "Carga escena PoolScene" << std::endl;
+            NullState* state = new NullState(nullptr);
+            PoolScene *ms = new PoolScene(state, game, nullptr); // ! tst  
+            game->getScenesManager()->pushScene(ms);
+        });          
+    }
 }
