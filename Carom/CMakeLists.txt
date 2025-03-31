@@ -148,7 +148,6 @@ add_executable(Carom
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
 
-	src/Inventory/Inventory.cpp
 	src/Inventory/InventoryManager.cpp
 
 )
