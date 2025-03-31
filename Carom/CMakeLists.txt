@@ -73,6 +73,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
+	${CMAKE_SOURCE_DIR}/src/Inventory
 )
 
 # Descomentar lo de abajo si se quiere que no haya ventana
@@ -146,6 +147,10 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+
+	src/Inventory/Inventory.cpp
+	src/Inventory/InventoryManager.cpp
+
 )
 
 # Link Box2D
