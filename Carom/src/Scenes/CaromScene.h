@@ -143,8 +143,5 @@ namespace ecs{
         Boss _boss = Boss::NONE;
         virtual void clearBossModifiers();
         virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
-
-    //-----------------(!test!)WIN/LOOSE(!test!)-----------------------
-    private:
     };
 }

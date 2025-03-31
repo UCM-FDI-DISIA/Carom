@@ -24,6 +24,7 @@
 #include "RewardScene.h"
 #include "EndGameScene.h"
 #include "ScenesManager.h"
+#include "WinMatchState.h"
 
 #include "ShadowComponent.h"
 
@@ -294,15 +295,14 @@ namespace ecs {
         }
 
         if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
-            /*// Al presionar la "W" te lleva a la escena de perder.
+            // Al presionar la "W" te lleva a la escena de perder.
                 std::cout << "Carga escena GANAR." << std::endl;
                 NullState* state = new NullState(nullptr);
                 ecs::GameScene *ms = new ecs::RewardScene(game); // ! tst  
-                game->getScenesManager()->pushScene(ms);*/
+                game->getScenesManager()->pushScene(ms);
 
             // para activar roundwins();
-            _currentScore = 5;
-            _scoreToBeat = 1;
+            //setNewState(new WinMatchState(this));
         }
 
     }
