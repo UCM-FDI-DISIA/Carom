@@ -41,11 +41,11 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     // BALL TEST
     // Converts (x, y) from screen(svg) to meters and to meter coordinates
     b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("bola_blanca").x,
-        *&sdlutils().svgs().at("game").at("bola_blanca").y
+        *&sdlutils().svgElements_table().at("bola_blanca").x,
+        *&sdlutils().svgElements_table().at("bola_blanca").y
     );
     createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1, 10);
-    std::cout << sdlutils().svgs().at("game").size();
+    std::cout << sdlutils().svgElements_table().size();
     // Apply impulse
     getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
 
@@ -90,13 +90,13 @@ entity_t
 CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) 
 {
     // SCALE
-    float svgSize = *&sdlutils().svgs().at("game").at("bola_blanca").width;
+    float svgSize = *&sdlutils().svgElements_table().at("bola_blanca").width;
     float textureSize = sdlutils().images().at("bola_blanca").width();
     float scale = svgSize/textureSize;
 
     entity_t e = new Entity(*this, grp::WHITEBALL);
 
-    float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bola_blanca").width/2);
+    float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
     //! I don't know how to get the radius of the ball
     addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
@@ -119,20 +119,20 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 entity_t CaromScene::createStick()
 {
     // Scale
-    float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
+    float svgSize = *&sdlutils().svgElements_table().at("palo1").width;
     float textureSize = sdlutils().images().at("palo1").width();
     float scale = svgSize/textureSize;
 
     entity_t e = new Entity(*this, grp::PALO);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("palo1").x,
-        *&sdlutils().svgs().at("game").at("palo1").y
+        *&sdlutils().svgElements_table().at("palo1").x,
+        *&sdlutils().svgElements_table().at("palo1").y
     );
 
     addComponent<TransformComponent>(e, pos);
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), 20, scale);
-    addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
+    addComponent<StickInputComponent>(e, *&sdlutils().svgElements_table().at("palo1").height);
 
     //!john cleon's stick shadow
     entity_t stickShadow = new Entity(*this, grp::PALO);
@@ -153,7 +153,7 @@ CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2Bod
     entity_t e = new Entity(*this, grp::EFFECTBALLS);
     
     // RB
-    float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bola_blanca").width/2);
+    float radius = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bola_blanca").width/2);
     addComponent<CircleRBComponent>(e, pos, type, radius);
 
     // RENDER
@@ -173,7 +173,7 @@ void CaromScene::createBallShadow(entity_t entity){
 
     float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
 
-    float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
+    float a_svg_scale = sdlutils().svgElements_table().at("bola_cast_sombra 1").width;
     float cast_scale = a_svg_scale/a_imgScale;
 
     addComponent<TransformComponent>(a_cast, b2Vec2{0,0});
@@ -184,13 +184,13 @@ void CaromScene::createBallShadow(entity_t entity){
     entity_t a_shadow = new Entity(*this, grp::SHADOWS);
 
     a_imgScale = sdlutils().images().at("bola_sombra").width();
-    a_svg_scale = sdlutils().svgs().at("game").at("bola_sombra 1").width;
+    a_svg_scale = sdlutils().svgElements_table().at("bola_sombra 1").width;
     cast_scale = a_svg_scale/a_imgScale;
 
     Vector2D a_relPos{
-        PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").x - sdlutils().svgs().at("game").at("bola_sombra 1").x - 10),
+        PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").x - sdlutils().svgElements_table().at("bola_sombra 1").x - 10),
         
-        PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
+        PhysicsConverter::pixel2meter(sdlutils().svgElements_table().at("bola_blanca").y - sdlutils().svgElements_table().at("bola_sombra 1").y)
     };
 
     addComponent<TransformComponent>(a_shadow, b2Vec2{0,0});
@@ -204,11 +204,11 @@ void CaromScene::createScoreEntity(){
     entity_t e = new Entity(*this, grp::SCORE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("scoreSpriteL").x,
-        *&sdlutils().svgs().at("game").at("scoreSpriteL").y
+        *&sdlutils().svgElements_table().at("scoreSpriteL").x,
+        *&sdlutils().svgElements_table().at("scoreSpriteL").y
     );
 
-    float scale = float(sdlutils().svgs().at("game").at("scoreSpriteL").width) / float(sdlutils().images().at("scoreSprite").width());
+    float scale = float(sdlutils().svgElements_table().at("scoreSpriteL").width) / float(sdlutils().images().at("scoreSprite").width());
 
 
     addComponent<TransformComponent>(e, pos);
@@ -219,8 +219,8 @@ void CaromScene::createScoreEntity(){
     entity_t e1 = new Entity(*this, grp::SCORE);
 
     b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("scoreSpriteR").x,
-        *&sdlutils().svgs().at("game").at("scoreSpriteR").y
+        *&sdlutils().svgElements_table().at("scoreSpriteR").x,
+        *&sdlutils().svgElements_table().at("scoreSpriteR").y
     );
 
     addComponent<TransformComponent>(e1, pos1);
@@ -396,8 +396,8 @@ CaromScene::createScoreUI() {
     _entsRenderable.push_back(currentScoreObject);
 
     b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("scoreTextL").x,
-        *&sdlutils().svgs().at("game").at("scoreTextL").y
+        *&sdlutils().svgElements_table().at("scoreTextL").x,
+        *&sdlutils().svgElements_table().at("scoreTextL").y
     );
 
     currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
@@ -409,8 +409,8 @@ CaromScene::createScoreUI() {
     _entsRenderable.push_back(scoreToBeatObject);
 
     b2Vec2 pos2 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("scoreTextR").x,
-        *&sdlutils().svgs().at("game").at("scoreTextR").y
+        *&sdlutils().svgElements_table().at("scoreTextR").x,
+        *&sdlutils().svgElements_table().at("scoreTextR").y
     );
 
     scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         

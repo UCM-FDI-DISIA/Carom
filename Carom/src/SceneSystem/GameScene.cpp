@@ -8,12 +8,7 @@
 #include "GameScene.h"
 #include "../Game.h"
 
-GameScene::GameScene(Game* game): game(game)
-{
-    Entity* cam = new Entity(*this, grp::CAMERA);
-    addComponent<TransformComponent>(cam, b2Vec2{0,0});
-    
-}
+GameScene::GameScene(Game* game): game(game), _worldCamera(0,0), _UICamera(0,0){ }
 
 GameScene::~GameScene(){};
 
@@ -26,25 +21,25 @@ GameScene::createTable(){
 
     // !---- TEXTURES ----//
     // Set scale (same for all)
-    float svgSize = *&sdlutils().svgs().at("game").at("mesa_marco").width;
+    float svgSize = *&sdlutils().svgElements_table().at("mesa_marco").width;
     float textureSize = sdlutils().images().at("mesa1").width();
     float scale = svgSize/textureSize;
 
     // Entidad marco
     entity_t e_marco = new Entity(*this, grp::TABLE);
-    b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("mesa_marco").x, *&sdlutils().svgs().at("game").at("mesa_marco").y);
+    b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("mesa_marco").x, *&sdlutils().svgElements_table().at("mesa_marco").y);
     addComponent<TransformComponent>(e_marco, pos_m);
     addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), 3, scale);
 
     // Entidad suelo
     entity_t e_fondo = new Entity(*this, grp::TABLE);
-    b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("fondo_mesa").x, *&sdlutils().svgs().at("game").at("fondo_mesa").y);
+    b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("fondo_mesa").x, *&sdlutils().svgElements_table().at("fondo_mesa").y);
     addComponent<TransformComponent>(e_fondo, pos_f);
     addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), 1, scale);
 
     // Entidad sombraMarco
     entity_t e_sombraMarco = new Entity(*this, grp::TABLE);
-    b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("mesa_sombra").x, *&sdlutils().svgs().at("game").at("mesa_sombra").y);
+    b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("mesa_sombra").x, *&sdlutils().svgElements_table().at("mesa_sombra").y);
     addComponent<TransformComponent>(e_sombraMarco, b2Vec2{pos_s.x - 0.2f, pos_s.y - 0.2f});
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), 0, scale);
 
@@ -52,46 +47,46 @@ GameScene::createTable(){
     // Left cushion coll
     entity_t e_coll_left = new Entity(*this, grp::TABLE);
     b2Vec2 pos_coll_left = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("left_cushion_coll").x,
-        *&sdlutils().svgs().at("game").at("left_cushion_coll").y
+        *&sdlutils().svgElements_table().at("left_cushion_coll").x,
+        *&sdlutils().svgElements_table().at("left_cushion_coll").y
     );
 
     addComponent<RectangleRBComponent>(e_coll_left, pos_coll_left, b2_staticBody, 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("left_cushion_coll").width), 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("left_cushion_coll").height));
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("left_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("left_cushion_coll").height));
 
     // Right cushion coll
     entity_t e_coll_right = new Entity(*this, grp::TABLE);
     b2Vec2 pos_coll_right = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("right_cushion_coll").x,
-        *&sdlutils().svgs().at("game").at("right_cushion_coll").y
+        *&sdlutils().svgElements_table().at("right_cushion_coll").x,
+        *&sdlutils().svgElements_table().at("right_cushion_coll").y
     );
 
     addComponent<RectangleRBComponent>(e_coll_right, pos_coll_right, b2_staticBody, 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("right_cushion_coll").width), 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("right_cushion_coll").height));
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("right_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("right_cushion_coll").height));
 
     // Top cushion coll
     entity_t e_coll_top = new Entity(*this, grp::TABLE);
     b2Vec2 pos_coll_top = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("top_cushion_coll").x,
-        *&sdlutils().svgs().at("game").at("top_cushion_coll").y
+        *&sdlutils().svgElements_table().at("top_cushion_coll").x,
+        *&sdlutils().svgElements_table().at("top_cushion_coll").y
     );
 
     addComponent<RectangleRBComponent>(e_coll_top, pos_coll_top, b2_staticBody, 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("top_cushion_coll").width), 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("top_cushion_coll").height));
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("top_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("top_cushion_coll").height));
 
     // Bottom cushion coll
     entity_t e_coll_bottom = new Entity(*this, grp::TABLE);
     b2Vec2 pos_coll_bottom = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("bottom_cushion_coll").x,
-        *&sdlutils().svgs().at("game").at("bottom_cushion_coll").y
+        *&sdlutils().svgElements_table().at("bottom_cushion_coll").x,
+        *&sdlutils().svgElements_table().at("bottom_cushion_coll").y
     );
 
     addComponent<RectangleRBComponent>(e_coll_bottom, pos_coll_bottom, b2_staticBody, 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bottom_cushion_coll").width), 
-        PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("bottom_cushion_coll").height));
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bottom_cushion_coll").width), 
+        PhysicsConverter::pixel2meter(*&sdlutils().svgElements_table().at("bottom_cushion_coll").height));
 }
 
 void GameScene::sortRenderOrder(){
@@ -102,7 +97,7 @@ void GameScene::sortRenderOrder(){
 
 void GameScene::render(){
     for (auto entity : _entsRenderable) {
-        entity->render();
+        entity->render(&_worldCamera);
     }
 }
 
@@ -124,16 +119,20 @@ void GameScene::clear(){
     }
 }
 
-void GameScene::getCamera(){
-    return _camera;
+Camera* GameScene::getWorldCamera(){
+    return &_worldCamera;
 }
 
-void GameScene::setCamera(Entity* e){
-    CameraComponent* c = getComponent<CameraComponent>(e);
-    assert(c != nullptr);
+Camera* GameScene::getUICamera() {
+    return &_UICamera;
+}
 
-    if(_camera != nullptr) _camera->_myEntity->setAlive(false);
-    _camera = c;
+void GameScene::setWorldCamera(b2Vec2 pos){
+    _worldCamera = Camera(pos.x, pos.y);
+}
+
+void GameScene::setUICamera(b2Vec2 pos){
+    _UICamera = Camera(pos.x, pos.y);
 }
 
 void GameScene::createBackground(std::string key){

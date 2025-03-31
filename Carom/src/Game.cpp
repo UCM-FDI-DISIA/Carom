@@ -48,26 +48,22 @@ Game::init() {
         return;
     }
 
-}
-
-void Game::start()
-{
     _sceneManager = new ScenesManager();    
-
-    NullState* state = new NullState(nullptr);
-    //GameScene *ms = new CaromScene(state, this, nullptr); // ! tst  
-    GameScene *ms = new PoolScene(state, this, nullptr);
-    _sceneManager->pushScene(ms); // ! tst
 }
 
 void
-Game::run() {
+Game::start() {
 
     bool exit = false;
 
     auto &ihdlr = ih();
     
     sdlutils().showCursor();
+
+    NullState* state = new NullState(nullptr);
+    //GameScene *ms = new CaromScene(state, this, nullptr); // ! tst  
+    GameScene *ms = new PoolScene(state, this, nullptr);
+    _sceneManager->pushScene(ms); // ! tst
 
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();

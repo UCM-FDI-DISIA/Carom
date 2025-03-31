@@ -68,9 +68,9 @@ void Entity::update(){
         if (component->isEnabled()) component->update();
 }
 
-void Entity::render(){
+void Entity::render(Camera* camera){
     for(Component* component : _currentComponents) 
-        if (component->isEnabled()) component->render();
+        if (component->isEnabled()) component->render(camera);
 }
 
 void Entity::handleEvents(){

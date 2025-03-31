@@ -9,7 +9,7 @@ class ScenesManager;
 class Game {
 public:
 
-    static constexpr float FIXED_TIME_STEP = 1000.0f/60.0f;
+    static constexpr float PHYSICS_TIMESTEP = 1000.0f/120.0f;
 
     Game();
     virtual ~Game();
