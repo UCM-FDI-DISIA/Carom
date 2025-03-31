@@ -7,6 +7,7 @@
  */
 
 #include "ScenesManager.h"
+#include "EndGameScene.h"
 
 using namespace std;
 
@@ -85,6 +86,9 @@ ScenesManager::refresh() {
 }
 
 void 
-ScenesManager::invokeLose(){
-	//TODO
+ScenesManager::invokeLose(Game* g){
+
+    // !!! CREA ENDGAMESCENE.
+    ecs::GameScene*ms = new ecs::EndGameScene(g); // ! tst  
+    pushScene(ms);
 }

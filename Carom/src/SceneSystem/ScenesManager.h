@@ -53,7 +53,7 @@ public:
 	void refresh();
 
 	//Método que crea la escena de derrota, se puede llamar en cualquier momento
-	void invokeLose();
+	void invokeLose(Game* g);
 };
 
 inline void

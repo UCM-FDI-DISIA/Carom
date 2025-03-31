@@ -2,6 +2,7 @@
 #include "CaromScene.h"
 #include "ScenesManager.h"
 #include "NullState.h"
+#include "GameScene.h"
 
 LoseMatchState::LoseMatchState(ecs::CaromScene* scene) : State(scene)
 {
@@ -9,7 +10,8 @@ LoseMatchState::LoseMatchState(ecs::CaromScene* scene) : State(scene)
 }
 
 void LoseMatchState::onStateEnter() {
-    _scene->getScenesManager()->invokeLose();
+
+    _scene->getScenesManager()->invokeLose(_scene->getGame());
 }
 
 void LoseMatchState::onStateExit() {
@@ -17,6 +19,7 @@ void LoseMatchState::onStateExit() {
 }
 
 bool LoseMatchState::checkCondition(State*& state) {
+    
     state = new NullState(_scene);
     return true;
 }
