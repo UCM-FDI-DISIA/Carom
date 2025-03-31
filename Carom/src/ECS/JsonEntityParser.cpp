@@ -18,6 +18,7 @@
 #include "PetanqueEffect.h"
 #include "PokeballEffect.h"
 #include "QuanticEffect.h"
+#include "X2Effect.h"
 
 #include "RenderTextureComponent.h"
 #include "Texture.h"
@@ -43,6 +44,9 @@ namespace ecs
             }
             else if(element->Child("componentName")->AsString() == "RenderTextureComponent"){
                 renderTextureComponent(atributes, entity);
+            }
+            else if(element->Child("componentName")->AsString() == "BallHandler"){
+                ballHandler(atributes, entity);
             }
         }
        return nullptr;
@@ -118,7 +122,23 @@ namespace ecs
 
     void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
         addComponent<BallHandler>(entity);
-    
+        for(auto element : atributes.at("atributes")->Child("effects")->AsArray()){
+            JSONObject atributes = element->Child("atributes")->AsObject();
+            if(element->Child("componentName")->AsString() == "BowlingEffect") 
+                addComponent<BowlingEffect>(entity); 
+            else if(element->Child("componentName")->AsString() == "X2Effect")
+                addComponent<X2Effect>(entity);
+            else if(element->Child("componentName")->AsString() == "AbacusEffect")
+                addComponent<AbacusEffect>(entity);
+            else if(element->Child("componentName")->AsString() == "CristalEffect")
+                addComponent<CristalEffect>(entity);
+            else if(element->Child("componentName")->AsString() == "PetanqueEffect")
+                addComponent<PetanqueEffect>(entity);
+            else if(element->Child("componentName")->AsString() == "PokeballEffect")
+                addComponent<PokeballEffect>(entity);
+            else if(element->Child("componentName")->AsString() == "QuanticEffect")
+                addComponent<QuanticEffect>(entity);
+        }
     }
 } 
 

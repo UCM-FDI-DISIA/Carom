@@ -166,6 +166,7 @@ add_executable(Carom
 	src/Ball/BallEffect.cpp
 	src/Ball/BallHandler.cpp
 	src/Ball/QuanticEffect.cpp
+    src/Ball/X2Effect.cpp
 	src/Ball/PokeballEffect.cpp
 	src/Ball/BowlingEffect.cpp
 	src/Ball/SubdivisionEffect.cpp

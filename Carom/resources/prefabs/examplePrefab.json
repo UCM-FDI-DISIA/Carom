@@ -38,6 +38,21 @@
         {
             "componentName" : "RenderTextureComponent",
             "atributes" : {"textureID" : "tennis_ball", "layer": 1}
+        },
+        {
+            "componentName" : "BallHandler",
+            "atributes" : {
+                "effects": [{
+                    "componentName" : "BowlingEffect"
+                },
+                {
+                    "componentName" : "X2Effect"
+                },
+                {
+                    "componentName" : "X2Effect"
+                }
+            ]
+            }
         }
     ]
 }
