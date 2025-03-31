@@ -41,7 +41,7 @@ namespace ecs{
         addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
 
         // Entidad suelo
-        entity_t e_fondo = new Entity(*this, grp::TABLE);
+        entity_t e_fondo = new Entity(*this, grp::TABLE_BACKGROUND);
         b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("game").at("fondo_mesa").x, *&sdlutils().svgs().at("game").at("fondo_mesa").y);
         addComponent<TransformComponent>(e_fondo, pos_f);
         addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, scale);
@@ -124,6 +124,12 @@ namespace ecs{
     }
 
     void GameScene::refresh() {
+        _entsRenderable.erase(
+            std::remove_if(_entsRenderable.begin(), _entsRenderable.end(),
+                    [this](Entity *e) {
+                        return !isAlive(e);
+                    }), _entsRenderable.end());
+
         // removes dead entities from group lists, and also those who do not belong to the group anymore
         for (ecs::grpId_t gId = 0; gId < ecs::maxGroupId; gId++) {
             auto &groupEntities = _entsByGroup[gId];
@@ -164,7 +170,7 @@ namespace ecs{
         //sprite de suelo
         Entity* a_suelo = new Entity(*this, grp::BACKGROUND);
         addComponent<TransformComponent>(a_suelo, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1);
+        addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1.0f);
     }
 };
 

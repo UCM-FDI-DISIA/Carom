@@ -1,4 +1,4 @@
-// #define _FPS // ! comentar si quieres quitar el cout de FPS
+#define _FPS // ! comentar si quieres quitar el cout de FPS
 
 #include <unordered_map>
 #include <utility>
@@ -10,6 +10,7 @@
 #include "GameScene.h"
 #include "CaromScene.h"
 #include "PoolScene.h"
+#include "MainMenuScene.h"
 #include "NullState.h"
 
 #include "CaromScene.h"
@@ -21,6 +22,8 @@ Game::Game() {}
 
 Game::~Game() {
 
+    delete _sceneManager; // HAS TO BE FIRST
+
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
         InputHandler::Release();
@@ -28,8 +31,6 @@ Game::~Game() {
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
-
-    delete _sceneManager;
 }
 
 void
@@ -49,36 +50,6 @@ Game::init()
                 << std::endl;
         return;
     }
-
-    // Gets refresh rate of monitor to set timestep
-    _displayMode.refresh_rate = getMonitorRefreshRate(sdlutils().window());
-    _timestep = 1000.0f/getMonitorRefreshRate(sdlutils().window()) - 1; // the "-1ms" is to benefit the VSync
-    // _logicTimestep = 
-
-    #ifdef _FPS
-        std::cout << "Monitor refresh rate: " << _displayMode.refresh_rate <<std::endl;
-        std::cout << "Current variable timestep: " << _timestep <<std::endl;
-    #endif
-}
-
-// Used to adapt render fps for different refresh rates hardware
-int Game::getMonitorRefreshRate(SDL_Window* window) 
-{
-    int displayIndex = SDL_GetWindowDisplayIndex(window);
-    if (displayIndex < 0) {
-        std::cerr << "Failed to get display index" << std::endl;
-        return -1;
-    }
-
-    // to get the current display mode
-    SDL_DisplayMode mode;
-    if (SDL_GetCurrentDisplayMode(displayIndex, &mode) != 0) {
-        std::cerr << "Failed to get display mode" << std::endl;
-        return -1;
-    }
-
-    // return the refresh rate in hz
-    return mode.refresh_rate;
 }
 
 void
@@ -112,7 +83,6 @@ void Game::run()
     #endif
 
     // Game loop capped by VSync (but has manual loop control for disabled functionality case)
-    // Monitors with refresh higher than 120hz are capped to 120hz (120 is max)
     while(!exit) {
         // store the current time -- all game objects should use this time when
 		// they need to get the current time. They also have accesse to the time elapsed
@@ -132,11 +102,9 @@ void Game::run()
             continue;
         }
 
-        // So logic always runs at 120fps
-        for (int i = 0; i < _timestep/PHYSICS_TIMESTEP; ++i){
-            _sceneManager->handleEvent();
-            _sceneManager->update();
-        }
+        _sceneManager->handleEvent();
+        _sceneManager->update();
+        _sceneManager->refresh();
 
         if (ihdr.isWindowsFocused()) {
             sdlut.clearRenderer();
@@ -144,7 +112,6 @@ void Game::run()
             sdlut.presentRenderer();
         }
 
-        _sceneManager->refresh();
 
         #if defined(_DEBUG) && defined(_FPS)
             frameCount++;
@@ -157,18 +124,10 @@ void Game::run()
 
         Uint32 elapsed = sdlut.currRealTime() - startTime;
 
-        // SDL_Delay introduce errors for how it works under the hood. 
-        // A way to deal with it is to call it with smaller durations.
-        if (elapsed < _timestep) {
-            Uint32 remainingTime = _timestep - elapsed;
-            while(sdlut.currRealTime() - startTime < _timestep) { // (elapsed < _timestep)
-                if (remainingTime > 1)
-                    SDL_Delay(remainingTime - 1);
-                else
-                    SDL_Delay(1); // Waiting for shorter periods increases precision
-                remainingTime = _timestep - (sdlut.currRealTime() - startTime);
-            }
+        if (elapsed < FIXED_TIMESTEP) {
+                SDL_Delay(FIXED_TIMESTEP - elapsed);
         }
+
 
     }
 

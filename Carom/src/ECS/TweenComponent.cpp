@@ -36,41 +36,54 @@ namespace ecs{
         
     }
     
-    void TweenComponent::easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop, Callback callback){
+    void TweenComponent::easeValue(float* value, float finalValue, float duration, tween::tweenType type, bool loop, Callback callback, Callback onUpdate){
         uint32_t durationMS = duration * 1000;
 
         Tween* t;
         switch (type){
             case tween::LINEAR:
-                t = new LinearTween(value, finalValue, durationMS,loop, callback);
+                t = new LinearTween(value, finalValue, durationMS, loop, callback, onUpdate);
             break;
             case tween::EASE_IN_EXPO:
-                t = new EaseInExponentialTween(value, finalValue, durationMS,loop, callback);
+                t = new EaseInExponentialTween(value, finalValue, durationMS,loop, callback, onUpdate);
             break;
             case tween::EASE_OUT_QUINT:
-                t = new EaseOutQuintTween(value, finalValue, durationMS, loop, callback);
+                t = new EaseOutQuintTween(value, finalValue, durationMS, loop, callback, onUpdate);
             break;
             case tween::EASE_IN_BACK:
-                t = new EaseInBackTween(value, finalValue, durationMS,loop, callback);
+                t = new EaseInBackTween(value, finalValue, durationMS,loop, callback, onUpdate);
             break;
             case tween::EASE_IN_OUT_CUBIC:
-                t = new EaseInOutCubicTween(value, finalValue, durationMS, loop, callback);
+                t = new EaseInOutCubicTween(value, finalValue, durationMS, loop, callback, onUpdate);
             break;
             case tween::EASE_OUT_ELASTIC:
-                t = new EaseOutElasticTween(value, finalValue, durationMS, loop, callback);
+                t = new EaseOutElasticTween(value, finalValue, durationMS, loop, callback, onUpdate);
             break;
         }
     
         _tweens.push_back(t);
     }
     
-    void TweenComponent::easePosition(Vector2D finalPos, float duration, tween::tweenType type, bool loop, Callback callback){
-        easeValue(&_myTr->_position.x, finalPos.getX(), duration, type, loop, callback);
-        easeValue(&_myTr->_position.y, finalPos.getY(), duration, type, loop);
+    void TweenComponent::easePosition(b2Vec2 finalPos, float duration, tween::tweenType type, bool loop, Callback callback, Callback onUpdate){
+        easeValue(&_myTr->_position.y, finalPos.y, duration, type, loop);
+        easeValue(&_myTr->_position.x, finalPos.x, duration, type, loop, callback, onUpdate);
     }
     
     void TweenComponent::easeRotation(float finalRot, float duration, tween::tweenType type,bool loop, Callback callback){
-        easeValue(&_myTr->_rotation, finalRot, duration, type, loop,callback);
+        easeValue(&_myTr->_rotation, finalRot, duration, type, loop, callback);
+    }
+
+    void TweenComponent::easeRotation(float finalRot, b2Vec2 pivotPoint, float duration, tween::tweenType type,bool loop, Callback callback){
+        b2Vec2 initialPos = _myTr->getPosition();
+        float initialRot = _myTr->getRotation();
+        b2Vec2 v = initialPos-pivotPoint;
+        easeValue(&_myTr->_rotation, _myTr->_rotation + finalRot, duration, type, loop, callback, [=](){
+            float diffAngle = initialRot-_myTr->getRotation();
+            float diffRad = diffAngle * M_PI/180;
+
+            b2Vec2 rotatedVector = {v.x*cos(diffRad) - v.y*sin(diffRad), v.x*sin(diffRad) + v.y*cos(diffRad)};
+            _myTr->setPosition(pivotPoint + rotatedVector);
+        });
     }
 
     void TweenComponent::eraseAllTweens(){

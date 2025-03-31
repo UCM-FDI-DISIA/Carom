@@ -10,7 +10,7 @@ namespace ecs{
     
         void init() override {}
         
-        void update() override {}
+        virtual void update() override {}
         void render() override {}
         void handleEvent() override {}
     };

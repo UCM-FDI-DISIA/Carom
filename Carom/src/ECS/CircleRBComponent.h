@@ -9,12 +9,12 @@ namespace ecs{
             bool sensor = false, b2Rot rotation = defaultRotation, float density = 1, 
             float friction = 0.2, float restitution = 1, float linearDamping = 0.45f, 
             bool bullet = true);
-            
-        inline float getRadius() const { return _myProps.radius;}
-        
-    protected:
-        void updateScale() override;
+
+        // void setScale(const Scale& newScale) override;
         void calculateMass() override;
 
+        inline float getRadius() const { return _myProps.radius;}
+    protected:
+        void updateScale() override;
     };
 }

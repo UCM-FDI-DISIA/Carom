@@ -24,7 +24,6 @@ CapsuleRBComponent::CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
     _myProps.dimensions.y = height;
     _myProps.density = density;
     _myProps.friction = friction;
-    _myProps.density = density;
     _myProps.restitution = restitution;
     _myProps.isBullet = bullet;
     _myProps.isSensor = sensor;
@@ -40,7 +39,7 @@ CapsuleRBComponent::CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
     a_capsule.center1 = {pos.x - (width - height)/2, pos.y};
     a_capsule.center2 = {pos.x + (width - height)/2, pos.y};
 
-    b2CreateCapsuleShape(_myB2BodyId, _myB2ShapeDef, &a_capsule);
+    _myB2ShapeId = b2CreateCapsuleShape(_myB2BodyId, _myB2ShapeDef, &a_capsule);
 }
 
 void

@@ -1,8 +1,7 @@
 #pragma once
 #include <utility>
-#include "Vector2D.h"
+#include <box2D/box2D.h>
 
-class b2Vec2;
 class PhysicsConverter{
 public:
     static constexpr float PIXELS_PER_METER = 430.0f;

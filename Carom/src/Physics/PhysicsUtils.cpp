@@ -1,6 +1,5 @@
 #include "PhysicsUtils.h"
 #include "SDLUtils.h"
-#include <box2D/box2D.h>
 #include <math.h>
 
 int PhysicsConverter::meter2pixel(float meters){

@@ -10,6 +10,8 @@
 #include "NullState.h"
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
+
+#include "RewardScene.h"
 //#include "ScoreContainer.h"
 #include "StickInputComponent.h"
 
@@ -19,7 +21,7 @@
 
 namespace ecs{
 
-    PoolScene::PoolScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward) 
+    PoolScene::PoolScene(Game* g) : UIScene(g)
     {
         _rngm = new RNG_Manager();
 
@@ -33,16 +35,6 @@ namespace ecs{
         delete _rngm;
     }
 
-    void PoolScene::setNewState(State *s)
-    {
-        // if (_currentState != nullptr) {
-        //     _currentState->onStateExit();
-        //     delete _currentState;
-        // }
-        // _currentState = s;
-        // _currentState->onStateEnter();
-    }
-
     void PoolScene::generateRndBallsPos()
     {
         entity_t table = new ecs::Entity(*this, grp::DEFAULT);
@@ -52,7 +44,7 @@ namespace ecs{
 
         table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1, SDL_Color{0, 150, 80, 255});
         
         // Entre 0 y posiciones-1 elige un indice para que sea el boss.
         int a_bossPosition = _rngm->randomRange(0, HOLES);
@@ -69,20 +61,29 @@ namespace ecs{
             ecs::Button::TextureButton rButton = ecs::Button::TextureButton();
             addComponent<ecs::Button>(e, rButton);
 
+            
 
             if(i == a_bossPosition){ // --- POSICION BOSS.
+                //createSceneButton(pos.x, pos.y, ms, ecs::grp::POOL_HOLE, ecs::renderLayer::POOL_HOLE, "hole", 0.2f)
+               
                 e->getComponent<ecs::Button>()->setOnClick([this](){
-                    //std::cout << "Carga escena Boss" << std::endl;
-                    //NullState* state = new NullState(nullptr);
-                    //ecs::CaromScene *ms = new ecs::CaromScene(state, game, nullptr); // ! tst  
-                    //game->getScenesManager()->pushScene(ms);
+                   
+                    NullState* state = new NullState(nullptr);
+
+                    // !!! CREA BOSSSCENE(CAMBIAR).
+                    ecs::UIScene* rewardScene = new ecs::RewardScene(game);
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                    game->getScenesManager()->pushScene(ms);
                 });
             }
             else{ // --- POSICION COLORES.
                 e->getComponent<ecs::Button>()->setOnClick([this](){
-                    std::cout << "Carga escena Carom" << std::endl;
+                   
                     NullState* state = new NullState(nullptr);
-                    ecs::GameScene *ms = new ecs::CaromScene(state, game, nullptr); // ! tst  
+
+                    // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
+                    ecs::UIScene* rewardScene = new ecs::RewardScene(game);
+                    ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                     game->getScenesManager()->pushScene(ms);
                 });
             }

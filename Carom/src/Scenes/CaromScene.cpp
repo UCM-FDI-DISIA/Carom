@@ -9,6 +9,7 @@
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
+#include "PolygonRBComponent.h"
 #include "ColorHitManager.h"
 #include "WhiteBallScorerComponent.h"
 #include "StickInputComponent.h"
@@ -17,7 +18,6 @@
 #include "ColorBallScorerComponent.h"
 #include "RNG_Manager.h"
 #include "RandomItem.h"
-#include "FollowComponent.h"
 #include "StartMatchState.h"
 #include "BallHandler.h"
 #include "AbacusEffect.h"
@@ -27,10 +27,13 @@
 #include "MagicWandStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
 #include "NullState.h"
-#include "EndScene.h"
+#include "UIScene.h"
 #include "RewardScene.h"
 #include "EndGameScene.h"
 #include "ScenesManager.h"
+#include "WinMatchState.h"
+
+#include "ShadowComponent.h"
 
 
 namespace ecs {
@@ -44,8 +47,6 @@ namespace ecs {
         _rngManager->inseminate(seed);
 
         
-
-
         // Creación del mundo físico
         b2WorldDef worldDef = b2DefaultWorldDef();
         worldDef.gravity = {0.0f, 0.0f};
@@ -75,6 +76,8 @@ namespace ecs {
 
         // Create table with texture and colliders
         createTable();
+        
+
         createBackground("suelo");
 
         createScoreEntity();
@@ -144,11 +147,8 @@ namespace ecs {
         input->registerStickEffect(effect);
 
         //!john cleon's stick shadow
-        entity_t stickShadow = new Entity(*this, grp::PALO);
-        addComponent<TransformComponent>(stickShadow, pos);
-        addComponent<RenderTextureComponent>(stickShadow, &sdlutils().images().at("palo1_sombra"), renderLayer::STICK_SHADOW, scale);
-        addComponent<FollowComponent>(stickShadow, e, true,true,true, Vector2D{-0.05, -0.05});
-        
+        addComponent<ShadowComponent>(e);
+        getComponent<ShadowComponent>(e)->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
 
         return e;
     }
@@ -210,21 +210,18 @@ namespace ecs {
 
 
     void CaromScene::createBallShadow(entity_t entity){
-        //sombra de reflejo de la bola
-        entity_t a_cast = new Entity(*this, grp::SHADOWS);
+        addComponent<ShadowComponent>(entity);
+        ShadowComponent* comp = getComponent<ShadowComponent>(entity);
 
+        //sombra de reflejo de la bola
         float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
 
         float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
         float cast_scale = a_svg_scale/a_imgScale;
 
-        addComponent<TransformComponent>(a_cast, b2Vec2{0,0});
-        addComponent<FollowComponent>(a_cast, entity, true, false, true, Vector2D(0,0));
-        addComponent<RenderTextureComponent>(a_cast, &sdlutils().images().at("bola_cast_sombra"), renderLayer::BALL_SHADOW_ON_BALL, cast_scale);
+        comp->addShadow({0,0}, "bola_cast_sombra", renderLayer::BALL_SHADOW_ON_BALL, cast_scale, true, false, true);
 
         //sombra de la bola
-        entity_t a_shadow = new Entity(*this, grp::SHADOWS);
-
         a_imgScale = sdlutils().images().at("bola_sombra").width();
         a_svg_scale = sdlutils().svgs().at("game").at("bola_sombra 1").width;
         cast_scale = a_svg_scale/a_imgScale;
@@ -234,10 +231,7 @@ namespace ecs {
             
             PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
         };
-
-        addComponent<ecs::TransformComponent>(a_shadow, b2Vec2{0,0});
-        addComponent<ecs::FollowComponent>(a_shadow, entity, true, false, true, a_relPos);
-        addComponent<ecs::RenderTextureComponent>(a_shadow, &sdlutils().images().at("bola_sombra"), renderLayer::BALL_SHADOW_ON_TABLE, cast_scale);
+        comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
 
     }
 
@@ -311,7 +305,9 @@ namespace ecs {
             // Al presionar la "L" te lleva a la escena de ganar.
                 std::cout << "Carga escena de PERDER." << std::endl;
                 NullState* state = new NullState(nullptr);
-                ecs::EndScene *ms = new ecs::EndGameScene(game); // ! tst  
+
+                // !!! CREA ENDGAMESCENE.
+                ecs::GameScene*ms = new ecs::EndGameScene(game); // ! tst  
                 game->getScenesManager()->pushScene(ms);
         }
 
@@ -319,13 +315,13 @@ namespace ecs {
             // Al presionar la "W" te lleva a la escena de perder.
                 std::cout << "Carga escena GANAR." << std::endl;
                 NullState* state = new NullState(nullptr);
-                ecs::EndScene *ms = new ecs::RewardScene(game); // ! tst  
+                ecs::GameScene *ms = new ecs::RewardScene(game); // ! tst  
                 game->getScenesManager()->pushScene(ms);
+
+            // para activar roundwins();
+            //setNewState(new WinMatchState(this));
         }
 
-        
-
-        
     }
 
     void CaromScene::setCanFastForward(bool active)
@@ -349,22 +345,23 @@ namespace ecs {
 
     void CaromScene::updateScene()
     {
+        // std::cout<< "Start Change state" << std::endl;
         State* a_stateToChange = nullptr;
         if(_currentState->checkCondition(a_stateToChange)){
             setNewState(a_stateToChange);
         }
-
+        // std::cout<< "End Change state" << std::endl;
+        
         _hitManager->clearAllHits();
 
+        // std::cout<< "START GameScene Update" << std::endl;
         GameScene::update();
+        // std::cout<< "END GameScene Update" << std::endl;
     }
 
-    // called 2x at 60fps an 1x at 120fps
-    // update always runs at 120fps for physics precision
     void CaromScene::update()
     {
-        // iterations purpose for fast forwarding
-        // the main loop still calls update twice at 60fps to update logic at 120fps
+        // Iterations purpose for fast forwarding
         int iterations;
         if (_fastForwardPhysics)
             iterations = _fastForwardIterations;
@@ -372,7 +369,11 @@ namespace ecs {
             iterations = 1;
 
         for (int i = 0; i < iterations; ++i){
+            // std::cout<< "UpdatePhysics 1" << std::endl;
             updatePhysics();
+            // std::cout<< "UpdatePhysics 2" << std::endl;
+            updatePhysics();
+            // std::cout<< "UpdateScene inicio" << std::endl;
             updateScene(); 
         }
     }
@@ -422,68 +423,93 @@ namespace ecs {
 
     void
     CaromScene::manageEnterCollisions(b2ContactEvents contactEvents){
-        
+        if(!_updatePhysics) return;
+
         for(int i = 0; i < contactEvents.beginCount; ++i){
             b2ContactBeginTouchEvent* a_enter = contactEvents.beginEvents + i;
+
+            // Validity check
+            if (!b2Shape_IsValid(a_enter->shapeIdA) || !b2Shape_IsValid(a_enter->shapeIdB))
+                continue;
 
             ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
             ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
 
-            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
-            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
+            // Null check: entities might have been destroyed
+            if (ent1 && ent2) {
+                ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent2);
+                ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionEnter(ent1);
+            }
         }
-
     }
 
     void
     CaromScene::manageExitCollisions(b2ContactEvents contactEvents){
-
         if(!_updatePhysics) return;
-        
+
         for(int i = 0; i < contactEvents.endCount; ++i){
             b2ContactEndTouchEvent* a_exit = contactEvents.endEvents + i;
-        
+
+            // Validity check
+            if (!b2Shape_IsValid(a_exit->shapeIdA) || !b2Shape_IsValid(a_exit->shapeIdB))
+                continue;
+
             ecs::entity_t ent1 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdA));
             ecs::entity_t ent2 = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->shapeIdB));
-        
-            ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
-            ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+
+            // Null check: entities might have been destroyed
+            if (ent1 && ent2) {
+                ent1->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent2);
+                ent2->getComponent<ecs::RigidBodyComponent>()->onCollisionExit(ent1);
+            }
         }
-        
     }
 
     void
     CaromScene::manageEnterTriggers(b2SensorEvents sensorEvents){
-
         if(!_updatePhysics) return;
 
         for(int i = 0; i < sensorEvents.beginCount; ++i){
             b2SensorBeginTouchEvent* a_enter = sensorEvents.beginEvents + i;
 
+            // Validity check
+            if (!b2Shape_IsValid(a_enter->sensorShapeId) || !b2Shape_IsValid(a_enter->visitorShapeId))
+                continue;
+
             ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->sensorShapeId));
             ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_enter->visitorShapeId));
 
-            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
-            visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(sensor);
+            // Null check: entities might have been destroyed
+            if (sensor && visitor) {
+                sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(visitor);
+                visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerEnter(sensor);
+            }
         }
     }
 
-    void
-    CaromScene::manageExitTriggers(b2SensorEvents sensorEvents){
-
+    void 
+    CaromScene::manageExitTriggers(b2SensorEvents sensorEvents) {
         if(!_updatePhysics) return;
 
-        for(int i = 0; i < sensorEvents.endCount; ++i){
+        for(int i = 0; i < sensorEvents.endCount; ++i) {
             b2SensorEndTouchEvent* a_exit = sensorEvents.endEvents + i;
-        
+            
+            // Validity check
+            if (!b2Shape_IsValid(a_exit->sensorShapeId) || !b2Shape_IsValid(a_exit->visitorShapeId)){
+                std::cout << "Invalid shape in manageExitTriggers" << std::endl;
+                continue;
+            }
+            
             ecs::entity_t sensor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->sensorShapeId));
             ecs::entity_t visitor = static_cast<ecs::entity_t>(b2Shape_GetUserData(a_exit->visitorShapeId));
-        
-            sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
-            visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(sensor);
-
+            
+            // Null check: entities might have been destroyed
+            if (sensor && visitor) {
+                std::cout << "Trigger exit" <<  std::endl;
+                sensor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(visitor);
+                visitor->getComponent<ecs::RigidBodyComponent>()->onTriggerExit(sensor);
+            }
         } 
-
     }
 
     TextDisplayComponent*
@@ -498,7 +524,7 @@ namespace ecs {
         );
 
         currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, renderLayer::SCORE, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
+        TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, renderLayer::SCORE, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight48");
         currentScoreObject->addComponent(currentDisplay);
 
         //Score to beat
@@ -511,7 +537,7 @@ namespace ecs {
         );
 
         scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
+        scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight48"));
 
         return currentDisplay;
     }
@@ -532,6 +558,7 @@ namespace ecs {
 
     //---------------------------BOSS---------------------------------
     void CaromScene::playBossTurn() {
+        // std::cout<< "Play Boss Turn" << std::endl;
         clearBossModifiers();
         applyBossModifiers();
     }

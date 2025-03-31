@@ -17,13 +17,14 @@ namespace ecs {
     _defaultRenderLayer(renderLayer),
     _scale(scale)
     {
-
+        _defaultColor = _color;
     }
 
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale, SDL_Color tint) 
     : RenderTextureComponent(ent, texture, renderLayer, scale)
     {
         changeColorTint(tint.r, tint.g, tint.b);
+        _defaultColor = _color;
     }
 
     void RenderTextureComponent::init(){
@@ -39,7 +40,15 @@ namespace ecs {
 
     SDL_Rect RenderTextureComponent::getRect() const
     {
-        b2Vec2 physicalPosition = _transform->getPosition();
+        b2Vec2 physicalPosition = b2Vec2_zero;
+
+        if (_isPortion){ // if the rect is a portion of the transform rect the transform position can't be used to render
+            physicalPosition = PhysicsConverter::pixel2meter(_texture->getRect().x + _texture->getRect().w/2, _texture->getRect().y + _texture->getRect().h/2);
+        }
+        else {
+            physicalPosition = _transform->getPosition();
+        }
+
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
         auto [coordinateX, coordinateY] = _myEntity->getScene().getCamera()->getRenderPos({physicalPosition.x, physicalPosition.y});
         
@@ -58,6 +67,12 @@ namespace ecs {
         _myEntity->getScene().sortRenderOrder();
     }
 
+    void RenderTextureComponent::resetRenderLayer()
+    {
+        _renderLayer = _defaultRenderLayer;
+        _myEntity->getScene().sortRenderOrder();
+    }
+
     void RenderTextureComponent::changeColorTint(int r, int g, int b){
         _color.r = r;
         _color.g = g;
@@ -65,8 +80,9 @@ namespace ecs {
     }
 
     void RenderTextureComponent::resetColorTint(){
-        _color.r = 255;
-        _color.g = 255;
-        _color.b = 255;
+        // _color = _defaultColor;
+        _color.r = _defaultColor.r;
+        _color.g = _defaultColor.g;
+        _color.b = _defaultColor.b;
     }
 } 

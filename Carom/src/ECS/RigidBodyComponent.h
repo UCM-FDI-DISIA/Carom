@@ -2,7 +2,6 @@
 #include "PhysicsComponent.h"
 #include "InfoComponent.h"
 #include "ecs.h"
-#include <box2D/box2D.h>
 #include <functional>
 #include <cmath>
 #include <math.h>
@@ -77,6 +76,7 @@ protected:
 
     void generateBodyAndShape();
     virtual void calculateMass() {}
+    virtual void updateScale() = 0;
 
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
@@ -84,6 +84,7 @@ public:
     RigidBodyComponent(entity_t ent);
     virtual ~RigidBodyComponent();
 
+    void update() override;
 
     // Getters
     b2Vec2 getPosition() const override;
@@ -94,7 +95,6 @@ public:
     inline float getRestitution() const {return b2Shape_GetRestitution(_myB2ShapeId);}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
-    inline b2BodyType getBodyType() const {return _myProps.bodyType;}
     inline float getDensity() {return _myProps.density; }
     inline float getMass() {return _myProps.mass; }
     bool isMoving();

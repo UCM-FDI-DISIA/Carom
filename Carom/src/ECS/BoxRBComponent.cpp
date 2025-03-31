@@ -22,7 +22,6 @@ BoxRBComponent::BoxRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyT
     _myProps.length = length;
     _myProps.density = density;
     _myProps.friction = friction;
-    _myProps.density = density;
     _myProps.restitution = restitution;
     _myProps.isBullet = bullet;
     _myProps.isSensor = sensor;
@@ -34,7 +33,7 @@ BoxRBComponent::BoxRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyT
     generateBodyAndShape();
 
     b2Polygon a_box = b2MakeSquare(length/2);
-    b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_box);
+    _myB2ShapeId = b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_box);
 }
 
 void

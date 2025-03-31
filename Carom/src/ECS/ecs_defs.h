@@ -36,7 +36,8 @@
 	FRICTION, \
 	TWEEN, \
 	CAMERA, \
-	HOLE
+	HOLE, \
+	SHADOW
 
 // Groups list - must have at least one element
 //
@@ -44,6 +45,7 @@
 	WHITEBALL, \
 	EFFECTBALLS, \
 	TABLE, \
+	TABLE_BACKGROUND, \
 	PALO, \
 	BACKGROUND, \
 	SCORE, \
@@ -75,8 +77,8 @@
 	SCORE_CONTAINER, \
 	TABLE_BACKGOUND, \
 	GIMMICK, \
-	BALL_SHADOW_ON_TABLE, \
 	POOL_HOLE, \
+	BALL_SHADOW_ON_TABLE, \
 	TABLE_BORDER, \
 	EFFECT_BALL, \
 	WHITE_BALL, \
@@ -84,5 +86,6 @@
 	SCORE, \
 	STICK_SHADOW, \
 	STICK, \
+	BOSS_SHADOW, \
 	BOSS_HAND, \
 	UI

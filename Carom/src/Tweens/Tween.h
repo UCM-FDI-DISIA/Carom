@@ -15,6 +15,7 @@ class Tween{
     uint32_t _startTime;
     
     Callback _callback;
+    Callback _onUpdate;
 
     bool _loop = false;
 
@@ -22,7 +23,7 @@ class Tween{
 
     //std::function<void> _onTweenExit;
 public:
-    Tween(float* start, float end, uint32_t duration, bool loop, Callback callback):_duration(duration){
+    Tween(float* start, float end, uint32_t duration, bool loop, Callback callback, Callback onUpdate):_duration(duration){
         value = start;
         _startValue = *start;
         _endValue = end;
@@ -30,6 +31,7 @@ public:
         _alive = true;
         _loop = loop;
         _callback = callback;
+        _onUpdate = onUpdate;
     };
 
     //aplica la interpolacion de la clase
@@ -51,7 +53,7 @@ public:
                 _endValue = _final;
                 _startTime = sdlutils().currRealTime();
             }
-            
+            _onUpdate();
             return;
         }
         
@@ -60,6 +62,8 @@ public:
         t = easingFunction(t);
 
         *value = interpolation(_startValue, _endValue, t);
+
+        _onUpdate();
     };
     inline float interpolation(float a, float b, float t){ return a + t*(b-a); }
     virtual float easingFunction(float t) = 0;
@@ -73,7 +77,7 @@ public:
 
 class LinearTween: public Tween{
     public:
-    inline LinearTween(float* start, float end, uint32_t duration,bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
+    inline LinearTween(float* start, float end, uint32_t duration,bool loop, Callback callback, Callback onUpdate) : Tween(start, end, duration,loop, callback, onUpdate){}
 
     inline float easingFunction(float t) override{
         return t;
@@ -82,7 +86,7 @@ class LinearTween: public Tween{
 
 class EaseInBackTween: public Tween{
     public:
-    inline EaseInBackTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration, loop, callback){}
+    inline EaseInBackTween(float* start, float end, uint32_t duration, bool loop, Callback callback, Callback onUpdate) : Tween(start, end, duration,loop, callback, onUpdate){}
 
     inline float easingFunction(float t) override{
         float c1 = 1.70158f;
@@ -93,7 +97,7 @@ class EaseInBackTween: public Tween{
 
 class EaseInExponentialTween: public Tween{
     public:
-    inline EaseInExponentialTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration, loop, callback){}
+    inline EaseInExponentialTween(float* start, float end, uint32_t duration, bool loop, Callback callback, Callback onUpdate) : Tween(start, end, duration,loop, callback, onUpdate){}
 
     inline float easingFunction(float t) override{
         if(t ==0) return 0;
@@ -103,7 +107,7 @@ class EaseInExponentialTween: public Tween{
 
 class EaseOutQuintTween: public Tween{
     public:
-    inline EaseOutQuintTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
+    inline EaseOutQuintTween(float* start, float end, uint32_t duration, bool loop, Callback callback, Callback onUpdate) : Tween(start, end, duration,loop, callback, onUpdate){}
 
     inline float easingFunction(float t) override{
         return 1- pow(1-t, 5);
@@ -112,7 +116,7 @@ class EaseOutQuintTween: public Tween{
 
 class EaseInOutCubicTween: public Tween{
     public:
-    inline EaseInOutCubicTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
+    inline EaseInOutCubicTween(float* start, float end, uint32_t duration, bool loop, Callback callback, Callback onUpdate) : Tween(start, end, duration,loop, callback, onUpdate){}
 
     inline float easingFunction(float t) override{
         if(t < 0.5) return 4 * t * t * t;
@@ -123,7 +127,7 @@ class EaseInOutCubicTween: public Tween{
 
 class EaseOutElasticTween: public Tween{
     public:
-    inline EaseOutElasticTween(float* start, float end, uint32_t duration, bool loop, Callback callback) : Tween(start, end, duration,loop, callback){}
+    inline EaseOutElasticTween(float* start, float end, uint32_t duration, bool loop, Callback callback, Callback onUpdate) : Tween(start, end, duration,loop, callback, onUpdate){}
 
     inline float easingFunction(float t) override{
         if(t ==0) return 0;

@@ -21,9 +21,12 @@ namespace ecs {
     class CowboyPoolScene;
     class EndGameScene;
     class RewardScene;
-    class EndScene;
+    class UIScene;
+    class MainMenuScene;
+    class ShadowComponent;
 
     class Entity{
+        friend ShadowComponent;
     public:
         virtual ~Entity();
     
@@ -162,8 +165,9 @@ namespace ecs {
         friend PoolScene;
         friend JsonEntityParser;
         friend EndGameScene;
-        friend EndScene;
+        friend UIScene;
         friend RewardScene;
+        friend MainMenuScene;
         Entity(GameScene& scene, grpId_t gId);
 
         bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"

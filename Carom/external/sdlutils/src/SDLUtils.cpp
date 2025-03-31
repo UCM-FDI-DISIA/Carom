@@ -76,6 +76,9 @@ void SDLUtils::initWindow() {
 	int sdlInit_ret = SDL_Init(SDL_INIT_EVERYTHING);
 	assert(sdlInit_ret == 0);
 
+	// For antialias
+    // SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"); // 1,2,3
+
 #ifdef _DEBUG
 	std::cout << "Creating SDL window" << std::endl;
 #endif

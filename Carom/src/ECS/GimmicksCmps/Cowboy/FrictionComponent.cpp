@@ -19,7 +19,7 @@ namespace ecs{
     {
         auto rb = e->getComponent<RigidBodyComponent>();
 
-        if(bodyIsMoving(*rb)){
+        if(bodyIsMoving(*rb) && rb->getBodyType() == b2_dynamicBody){
 
             float    a_bodyMass = rb->getMass();
             Vector2D a_bodyVel = {rb->getVelocity().x, rb->getVelocity().y};
