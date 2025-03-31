@@ -1,7 +1,6 @@
 #pragma once
 #include "ecs.h"
 
-class Camera;
 class Component
 {
 protected:
@@ -14,7 +13,7 @@ public:
     virtual void init() = 0;
 
     virtual void update() = 0;
-    virtual void render(Camera*) = 0;
+    virtual void render() = 0;
     virtual void handleEvent() = 0;
 
     virtual void setEnabled(bool state);

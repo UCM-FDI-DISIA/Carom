@@ -94,7 +94,7 @@ public:
     void setListAnchor(GameList<Entity>::anchor&& anchor);
 
     void update();
-    void render(Camera* camera); //En posición relativa a la cámara
+    void render(); //En posición relativa a la cámara
     void handleEvents();
 
     GameScene& getScene();
