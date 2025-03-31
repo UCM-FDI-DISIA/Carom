@@ -13,8 +13,7 @@ namespace ecs{
             3 // size.
         );
 
-        NullState* state = new NullState(nullptr);
-        ecs::GameScene *ms = new ecs::PoolScene(state, game, nullptr); // ! tst 
+        ecs::GameScene* ms = new ecs::PoolScene(game); // se crea una nueva poolscene.
         
 
         entity_t b = createSceneButton(

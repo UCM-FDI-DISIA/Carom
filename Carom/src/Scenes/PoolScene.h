@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Texture.h"
 #include "RNG_Manager.h"
+#include "UIScene.h"
 
 class ScenesManager;
 class RNG_Manager;
@@ -36,7 +37,7 @@ namespace ecs{
         void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
 
     public:
-        PoolScene(State* state, Game* g, GameScene* reward);
+        PoolScene(Game* g);
         ~PoolScene();
 
         void setNewState(State* s);

@@ -14,8 +14,7 @@ namespace ecs{
         );
 
         // !!! SE CREA POOLSCENE
-        NullState* state = new NullState(nullptr);
-        ecs::GameScene *ms = new ecs::PoolScene(state, game, nullptr); // ! tst 
+        ecs::GameScene *ms = new ecs::PoolScene(game); // ! tst 
 
         entity_t b = createSceneButton(
             sdlutils().width()/2, // x
