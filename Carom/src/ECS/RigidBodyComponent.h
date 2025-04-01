@@ -12,8 +12,6 @@
 
 class B2Manager;
 
-namespace ecs{
-
 class Entity;
 
 static const b2Rot defaultRotation = {1.0f, 0.0f};
@@ -122,5 +120,4 @@ public:
     void onCollisionExit(entity_t ent);
     void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);
-    };
-}
+};

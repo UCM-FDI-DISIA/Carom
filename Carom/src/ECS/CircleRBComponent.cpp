@@ -1,7 +1,7 @@
 #include "CircleRBComponent.h"
 #include "CaromScene.h"
 
-using namespace ecs;
+using ;
 
 
 /// @brief Constructor for Circle RB

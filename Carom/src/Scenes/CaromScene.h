@@ -10,108 +10,103 @@ class b2WorldId;
 class Vector2D;
 class ScoreContainer;
 
+class ColorHitManager;
+class TextDisplayComponent;
+class CaromScene: public GameScene {
+//--------------------BASIC SCENE FUNCTIONALITY------------------------
+protected:
+    int _remainingHits = 3;
+    ScenesManager* _sceneManager;
+    GameScene* _reward; //La recompensa al completar la escena
+public:
+    CaromScene(State* state, Game* g, GameScene* reward);
+    ~CaromScene();
 
-namespace ecs{
+    inline ScenesManager* getScenesManager() const {return _sceneManager;}
+    //Llama al update de todas las entidades de escena y maneja las físicas
+    void update() override;
 
-    class ColorHitManager;
-    class TextDisplayComponent;
-    class CaromScene: public GameScene {
-    //--------------------BASIC SCENE FUNCTIONALITY------------------------
-    protected:
-        int _remainingHits = 3;
-        ScenesManager* _sceneManager;
-        GameScene* _reward; //La recompensa al completar la escena
-    public:
-        CaromScene(State* state, Game* g, GameScene* reward);
-        ~CaromScene();
+    // ?Métodos para comprobar condiciones de estado 
+    inline int getRemainingHits() { return _remainingHits; }
 
-        inline ScenesManager* getScenesManager() const {return _sceneManager;}
-        //Llama al update de todas las entidades de escena y maneja las físicas
-        void update() override;
+    inline GameScene* getRewardScene() const {return _reward;}
 
-        // ?Métodos para comprobar condiciones de estado 
-        inline int getRemainingHits() { return _remainingHits; }
+//---------------------------STATE MACHINE-----------------------------
+protected:
+    //el estado en el que se encuentra la escena actualmente
+    State* _currentState = nullptr;
+public:
+    //Cambiar el estado actual por uno nuevo. Flujo sería:
+    //- Llama a onStateExit() del estado a cambiar
+    //- Cambia el estado por el nuevo
+    //- Llama a onStateEnter() del nuevo estado
+    void setNewState(State* s);
 
-        inline GameScene* getRewardScene() const {return _reward;}
+    inline State* getCurrentState() { return _currentState; }
 
-    //---------------------------STATE MACHINE-----------------------------
-    protected:
-        //el estado en el que se encuentra la escena actualmente
-        State* _currentState = nullptr;
-    public:
-        //Cambiar el estado actual por uno nuevo. Flujo sería:
-        //- Llama a onStateExit() del estado a cambiar
-        //- Cambia el estado por el nuevo
-        //- Llama a onStateEnter() del nuevo estado
-        void setNewState(State* s);
+//-------------------------------SCORE---------------------------------------
+protected:
+    TextDisplayComponent* _currentScoreDisplay;
+    //Los acumuladores de puntuación
+    int _currentScore = 0, _scoreToBeat = 10; 
+    ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
+public:
+    TextDisplayComponent* createScoreUI();
 
-        inline State* getCurrentState() { return _currentState; }
+    inline ColorHitManager* getColorHitManager() { return _hitManager; }
+    inline double getCurrentScore() { return _currentScore; }
+    inline double getScoreToBeat() { return _scoreToBeat; }
+    // ?Métodos para manejo de puntuación
+    void setScoreToBeat(int newScoreToBeat);
 
-    //-------------------------------SCORE---------------------------------------
-    protected:
-        TextDisplayComponent* _currentScoreDisplay;
-        //Los acumuladores de puntuación
-        int _currentScore = 0, _scoreToBeat = 10; 
-        ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
-    public:
-        TextDisplayComponent* createScoreUI();
+    void addScore(int score);
+    void removeScore(int score);
+    
+    inline bool roundWins() {return _currentScore >= _scoreToBeat; }
 
-        inline ColorHitManager* getColorHitManager() { return _hitManager; }
-        inline double getCurrentScore() { return _currentScore; }
-        inline double getScoreToBeat() { return _scoreToBeat; }
-        // ?Métodos para manejo de puntuación
-        void setScoreToBeat(int newScoreToBeat);
+//------------------------------MANAGERS-------------------------------------
+protected:
+    RNG_Manager* _rngManager;
+//------------------------------PHYSICS--------------------------------------
+protected:
+    b2WorldId _myB2WorldId; //El mundo de box2D
 
-        void addScore(int score);
-        void removeScore(int score);
-        
-        inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+    bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
 
-    //------------------------------MANAGERS-------------------------------------
-    protected:
-        RNG_Manager* _rngManager;
-    //------------------------------PHYSICS--------------------------------------
-    protected:
-        b2WorldId _myB2WorldId; //El mundo de box2D
+    // Dividido /1000 porque b2 trabaja en segundos con float
+    const float _b2timeSteps = Game::FIXED_TIME_STEP / 1000;
+    // Esto de momento se inicializa en 4, no manipular
+    int _b2Substeps = 4;
 
-        bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
+    // Métodos hechos por claridad, puedes meter los 4 bucles for a pelo en el update si eres un terrorista
+    void manageEnterCollisions(b2ContactEvents enterContactEvents);
+    void manageExitCollisions(b2ContactEvents exitContactEvents);
+    void manageEnterTriggers(b2SensorEvents enterSensorEvents);
+    void manageExitTriggers(b2SensorEvents exitSensorEvents);
 
-        // Dividido /1000 porque b2 trabaja en segundos con float
-        const float _b2timeSteps = Game::FIXED_TIME_STEP / 1000;
-        // Esto de momento se inicializa en 4, no manipular
-        int _b2Substeps = 4;
+public:
+    inline void enablePhysics(){_updatePhysics = true;}
+    inline void disablePhysics(){_updatePhysics = false;}
 
-        // Métodos hechos por claridad, puedes meter los 4 bucles for a pelo en el update si eres un terrorista
-        void manageEnterCollisions(b2ContactEvents enterContactEvents);
-        void manageExitCollisions(b2ContactEvents exitContactEvents);
-        void manageEnterTriggers(b2SensorEvents enterSensorEvents);
-        void manageExitTriggers(b2SensorEvents exitSensorEvents);
+    /// @brief Método para que rigidbody component reciba el id del body
+    b2BodyId addBodyToWorld(b2BodyDef bodyDef);
 
-    public:
-        inline void enablePhysics(){_updatePhysics = true;}
-        inline void disablePhysics(){_updatePhysics = false;}
+//---------------------------ENTITY CREATION---------------------------------
+public:
 
-        /// @brief Método para que rigidbody component reciba el id del body
-        b2BodyId addBodyToWorld(b2BodyDef bodyDef);
+    // TODO: provisory definition
+    entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
 
-    //---------------------------ENTITY CREATION---------------------------------
-    public:
+    entity_t createStick();
 
-        // TODO: provisory definition
-        entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer); 
+    // TODO: provisory definition
+    void createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
+                            float density, float friction, float restitution, int layer);
+    void createScoreEntity();
 
-        entity_t createStick();
+    void createBallShadow(entity_t);
 
-        // TODO: provisory definition
-        void createEffectBall(ecs::effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                                float density, float friction, float restitution, int layer);
-        void createScoreEntity();
-
-        void createBallShadow(entity_t);
-
-    private:
-        // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
-        void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-    };
-
-}
+private:
+    // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
+    void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
+};

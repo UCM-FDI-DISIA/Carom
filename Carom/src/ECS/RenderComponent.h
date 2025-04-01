@@ -2,14 +2,12 @@
 #include "Component.h"
 class Entity;
 
-namespace ecs{
-    class RenderComponent : public Component
-    {
-    public:
-        RenderComponent(Entity* ent) : Component(ent) {}
-        virtual ~RenderComponent(){}
+class RenderComponent : public Component
+{
+public:
+    RenderComponent(Entity* ent) : Component(ent) {}
+    virtual ~RenderComponent(){}
 
-        void update() override {}
-        void handleEvent() override {}
-    };
-}
+    void update() override {}
+    void handleEvent() override {}
+};
