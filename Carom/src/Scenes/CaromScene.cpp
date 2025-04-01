@@ -26,6 +26,7 @@
 #include "QuanticEffect.h"
 #include "MagicWandStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
+#include "DonutStickEffect.h"
 #include "NullState.h"
 #include "UIScene.h"
 #include "RewardScene.h"
@@ -143,8 +144,8 @@ namespace ecs {
         
         auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
 
-        //auto effect = addComponent<MagicWandStickEffect>(e);
-        //input->registerStickEffect(effect);
+        auto effect = addComponent<DonutStickEffect>(e);
+        input->registerStickEffect(effect);
 
         //!john cleon's stick shadow
         addComponent<ShadowComponent>(e);

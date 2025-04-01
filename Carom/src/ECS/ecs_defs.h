@@ -37,7 +37,9 @@
 	TWEEN, \
 	CAMERA, \
 	HOLE, \
-	SHADOW
+	SHADOW, \
+	POP_TO_OPPOSITE_EFFECT, \
+	DONUT_STICK
 
 // Groups list - must have at least one element
 //

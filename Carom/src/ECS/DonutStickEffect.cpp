@@ -1,10 +1,15 @@
 #include "DonutStickEffect.h"
-#include "ShowAtOppositeSideComponent.h"
+#include "PopToOppositeSideEffect.h"
+#include "EventOnCollision.h"
 #include "Entity.h"
 
 using namespace ecs;
 
 void
 DonutStickEffect::applyEffect(entity_t target){
-    target->addComponent<ShowAtOppositeSideComponent>(new ShowAtOppositeSideComponent(target));
+    auto popComp = new PopToOppositeSideEffect(target);
+    target->addComponent<PopToOppositeSideEffect>(popComp);
+
+    auto EvtColl = new EventOnCollision(target, [this, popComp, target](entity_t){popComp->popOnCollision(target);}, [](entity_t){} );
+    target->addComponent<EventOnCollision>(EvtColl);
 }

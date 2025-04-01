@@ -172,11 +172,13 @@ add_executable(Carom
 	src/Ball/SubdivisionEffect.cpp
 	src/Ball/ExplosiveEffect.cpp
 	src/Ball/FrictionMultiplierEffect.cpp
+	src/Ball/PopToOppositeSideEffect.cpp
 
 
 	src/ECS/BoxingGloveStickEffect.cpp
 	src/ECS/MagicWandStickEffect.cpp
 	src/ECS/GranadeLauncherStickEffect.cpp
+	src/ECS/DonutStickEffect.cpp
 	src/StateMachine/BossState.cpp
     src/Physics/PhysicsUtils.cpp
 	src/Graphics/GraphicsUtils.cpp

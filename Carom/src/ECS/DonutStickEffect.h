@@ -6,10 +6,11 @@ namespace ecs {
     private:
         float _factor;
     public:
-        __CMPID_DECL__(cmp::BOXING_GLOVE_STICK);
+        __CMPID_DECL__(cmp::DONUT_STICK);
 
         DonutStickEffect(entity_t entity) : StickEffectComponent(entity) {}
         ~DonutStickEffect() {}
         void applyEffect(entity_t target) override;
+        void init() override {}
     };
 }
