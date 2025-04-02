@@ -9,6 +9,7 @@
 class Camera;
 class ITransform;
 struct Animation;
+struct SDL_Rect;
 
 class AnimatorComponent : public LogicComponent {
 private:

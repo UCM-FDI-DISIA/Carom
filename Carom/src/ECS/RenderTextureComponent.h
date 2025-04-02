@@ -29,8 +29,9 @@ public:
     void init() override;
     Texture* getTexture() {return _texture;};
     void setTexture(Texture* tex, float scale);
-    virtual SDL_Rect getRect() const;
 
     void changeColorTint(int r, int g, int b);
     void resetColorTint();
+
+    SDL_Rect getRenderRect() const override;
 };

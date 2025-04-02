@@ -8,7 +8,9 @@ struct Animation;
 
 /// @brief Representa un sprite de una animacion
 struct Frame {
-    /// @brief Tiempo en (1000/60) milisegundos que el fotograma está activo
+    /// @brief Tiempo en (1000/60) milisegundos (1/60 segundos) que el fotograma está activo
+    /// Esto solo vale para añadir los datos de forma mas accesible, para obtener el tiempo real
+    /// se debe utilizar getActiveMiliseconds()
     const int activeTime;
     int frame;
 

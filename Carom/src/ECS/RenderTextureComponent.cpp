@@ -29,7 +29,7 @@ void RenderTextureComponent::init(){
 
 void RenderTextureComponent::render(Camera* camera) {
     _texture->changeColorTint(_color.r, _color.g, _color.b);
-    _texture->render(getRect(), _transform->getRotation());
+    _texture->render(getRenderRect(), _transform->getRotation());
     _texture->changeColorTint(255,255,255);
 }
 
@@ -39,7 +39,7 @@ void RenderTextureComponent::setTexture(Texture* tex, float scale) {
     _scale = scale; 
 }
 
-SDL_Rect RenderTextureComponent::getRect() const
+SDL_Rect RenderTextureComponent::getRenderRect() const
 {
     b2Vec2 physicalPosition = _transform->getPosition();
     //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura

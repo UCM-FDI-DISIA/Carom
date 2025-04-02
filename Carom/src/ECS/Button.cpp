@@ -2,8 +2,10 @@
 #include "Entity.h"
 #include "InputHandler.h"
 #include "Texture.h"
-
+#include "Component.h"
 #include "PhysicsUtils.h"
+
+#include "RenderSpritesheetComponent.h"
 
 void Button::setEnabled(bool state)
 {
@@ -27,7 +29,24 @@ Button::~Button() { delete _buttonArea; }
 
 void Button::init()
 {
-    _buttonArea->setTextureComponent(_myEntity->getComponent<RenderTextureComponent>());
+    // Aquí se está haciendo un compromiso, en vez de pasar el componente de textura que rige
+    // las dimensiones del botón se va a buscar entre los potenciales componentes de renderizado
+    // 
+    // IMPORTANTE
+    // Se va a priorizar siempre a RenderTextureComponent respecto a RenderSpritesheetComponent
+    //
+    // Soy muy consciente de que esto es muy muy poco escalable
+    
+    RenderComponent* a_targetRenderer;
+
+    if (_myEntity->tryGetComponent<RenderTextureComponent>()) {
+        a_targetRenderer = _myEntity->getComponent<RenderTextureComponent>();
+    }
+    else if (_myEntity->tryGetComponent<RenderSpritesheetComponent>()) {
+        a_targetRenderer = _myEntity->getComponent<RenderSpritesheetComponent>();
+    }
+
+    _buttonArea->setRenderer(a_targetRenderer);
     _transform = _myEntity->getComponent<TransformComponent>();
 
     // Si comento esto se muere el programa al hacer hover
@@ -36,8 +55,7 @@ void Button::init()
     setOnExit([this]() -> void {/*std::cout << "exit" << std::endl;*/});
 }
 
-void Button::handleEvent()
-{
+void Button::handleEvent() {
     InputHandler* input = InputHandler::Instance();
 
     if(_buttonArea->isMouseInButton(input->getMousePos())){
@@ -55,18 +73,20 @@ void Button::handleEvent()
     }
 }
 
-void Button::ButtonData::setTextureComponent(RenderTextureComponent* targetRenderer)
-{
+void Button::ButtonData::setRenderer(RenderComponent* targetRenderer) {
     _targetRenderer = targetRenderer;
 }
 
-Button::RadialButton::RadialButton(float factor): _factor(factor){}
-
-void Button::RadialButton::setTextureComponent(RenderTextureComponent* targetRenderer)
+Button::RadialButton::RadialButton(float factor): _factor(factor)
 {
-    ButtonData::setTextureComponent(targetRenderer);
 
-    _radius = std::max(_targetRenderer->getRect().w, _targetRenderer->getRect().h) * _factor;
+}
+
+void Button::RadialButton::setRenderer(RenderComponent* targetRenderer)
+{
+    ButtonData::setRenderer(targetRenderer);
+
+    _radius = std::max(_targetRenderer->getRenderRect().w, _targetRenderer->getRenderRect().h) * _factor;
 }
 
 Button::ButtonData*
@@ -77,7 +97,7 @@ Button::RadialButton::clone()
 
 bool Button::RadialButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
 {
-    SDL_Rect a_textRect = _targetRenderer->getRect();
+    SDL_Rect a_textRect = _targetRenderer->getRenderRect();
     std::pair<Sint32, Sint32> a_buttonCenter = {a_textRect.x+ a_textRect.w/2, a_textRect.y+ a_textRect.h/2};
     Vector2D a_mouseToButtonVec = 
     {
@@ -100,6 +120,6 @@ Button::TextureButton::clone()
 
 bool Button::TextureButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
 {
-    SDL_Rect rect = _targetRenderer->getRect();
+    SDL_Rect rect = _targetRenderer->getRenderRect();
     return InputHandler::Instance()->isMouseInRect(mousePos, rect);
 }

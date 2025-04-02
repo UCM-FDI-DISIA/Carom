@@ -31,12 +31,12 @@ void
 RenderSpritesheetComponent::render(Camera*) {
     _texture->render(
         {_xOriginFrame, _yOriginFrame, _width, _height}, 
-        getRect(),
+        getRenderRect(),
         _transform->getRotation());
 }
 
 SDL_Rect 
-RenderSpritesheetComponent::getRect() const
+RenderSpritesheetComponent::getRenderRect() const
 {
     b2Vec2 physicalPosition = _transform->getPosition();
     //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura

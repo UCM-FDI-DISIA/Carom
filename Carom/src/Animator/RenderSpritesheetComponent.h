@@ -30,6 +30,6 @@ public:
     void init() override;
     void render(Camera*) override;
 
-    SDL_Rect getRect() const;
+    SDL_Rect getRenderRect() const override;
     void setFrame(int frame);
 };

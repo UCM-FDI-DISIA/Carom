@@ -20,7 +20,7 @@ AnimatorComponent::init(){
 
 void
 AnimatorComponent::update() {
-    if (sdlutils().currTime() - _frameStartTimestamp >= _animation->_frameList[_frameIndex].activeTime) {
+    if (sdlutils().currTime() - _frameStartTimestamp >= _animation->_frameList[_frameIndex].getActiveMiliseconds()) {
         
         // Actualiza el timestamp
         _frameStartTimestamp = sdlutils().currTime();

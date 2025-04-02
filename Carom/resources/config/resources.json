@@ -39,7 +39,8 @@
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
-    { "id" : "hole", "file" : "../../resources/images/hole.png"}
+    { "id" : "hole", "file" : "../../resources/images/hole.png"},
+    { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"}
   ],
   
   "messages" : [
@@ -68,16 +69,18 @@
   ],
 
   "animations" : [
-    { "id" : "test",
-      "spriteSheetId" : "bola_blanca",
+    { "id" : "normal_collide_VFX",
+      "spriteSheetId" : "normal_collide_VFX",
       "scale" : 1.0,
       "animType" : "LOOP",
       "framelist": [
         {"frame" : 0, "time" : 10},
-        {"frame" : 1, "time" : 10},
+        {"frame" : 1, "time" : 5},
         {"frame" : 2, "time" : 10},
         {"frame" : 3, "time" : 10},
-        {"frame" : 4, "time" : 10}
+        {"frame" : 4, "time" : 5},
+        {"frame" : 5, "time" : 5},
+        {"frame" : 6, "time" : 5}
       ]
     }
   ]
