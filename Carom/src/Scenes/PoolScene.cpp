@@ -125,5 +125,29 @@ namespace ecs{
         table = new ecs::Entity(*this, grp::DEFAULT);
         addComponent<TransformComponent>(table, pos);
         addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1, SDL_Color{0, 150, 80, 255});
+
+        /*// !---- TEXTURES ----//
+        // Set scale (same for all)
+        float svgSize = *&sdlutils().svgs().at("pool").at("mesa_marco").width;
+        float textureSize = sdlutils().images().at("mesa1").width();
+        float scale = svgSize/textureSize;
+
+        // Entidad marco
+        entity_t e_marco = new Entity(*this, grp::TABLE);
+        b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("pool").at("mesa_marco").x, *&sdlutils().svgs().at("pool").at("mesa_marco").y);
+        addComponent<TransformComponent>(e_marco, pos_m);
+        addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
+
+        // Entidad suelo
+        entity_t e_fondo = new Entity(*this, grp::TABLE_BACKGROUND);
+        b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("pool").at("fondo_mesa").x, *&sdlutils().svgs().at("pool").at("fondo_mesa").y);
+        addComponent<TransformComponent>(e_fondo, pos_f);
+        addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, scale);
+
+        // Entidad sombraMarco
+        entity_t e_sombraMarco = new Entity(*this, grp::TABLE);
+        b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("pool").at("mesa_sombra").x, *&sdlutils().svgs().at("pool").at("mesa_sombra").y);
+        addComponent<TransformComponent>(e_sombraMarco, b2Vec2{pos_s.x - 0.2f, pos_s.y - 0.2f});
+        addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);*/
     }
 }

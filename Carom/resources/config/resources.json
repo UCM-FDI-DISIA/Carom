@@ -74,7 +74,8 @@
     {"id": "grp_cowboy", "file": "../../resources/svg/grp_cowboy.svg"},
     {"id": "positions", "file": "../../resources/svg/positions.svg"},
     {"id": "shot_positions", "file": "../../resources/svg/shot_positions.svg"},
-    {"id": "grp_arena", "file": "../../resources/svg/grp_arena.svg"}
+    {"id": "grp_arena", "file": "../../resources/svg/grp_arena.svg"},
+    {"id": "pool", "file": "../../resources/svg/pool.svg"}
   ]
 
 }
