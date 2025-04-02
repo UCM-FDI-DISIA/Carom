@@ -5,7 +5,6 @@
 #include "Singleton.h"
 #include "Inventory.h"
 
-
 class InventoryManager : public Singleton<InventoryManager> {
 
 	friend Singleton<InventoryManager> ;
@@ -33,10 +32,8 @@ public:
     void swapBall(entity_t in, entity_t out);
     void swapStick();
 
-
 private:
     // Eliminar
     void removeBall();
     void removeStick();
-
 };

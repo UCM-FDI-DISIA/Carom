@@ -24,23 +24,19 @@
 class ScenesManager
 {
 	// Pila (como las de EDA) de punteros inteligentes a estados del juego
-	std::stack<std::shared_ptr<GameScene>> GameScenes;
+	std::stack<GameScene*> GameScenes;
 
 public:
 	~ScenesManager();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
-	void pushScene(std::shared_ptr<GameScene> scene);
+	void pushScene(GameScene* scene);
 	// Reemplaza el estado actual por el nuevo estado
-	void replaceScene(std::shared_ptr<GameScene> scene);
+	void replaceScene(GameScene* scene);
 	// Desapila el estado actual y pasa al siguiente en la pila
 	// (no hace nada si no la pila es vacía)
 	void popScene();
-
-	// Sobrecargas que reciben un puntero normal
-	void pushScene(GameScene* scene);
-	void replaceScene(GameScene* scene);
 
 	bool empty() const;
 	operator bool() const;
@@ -54,17 +50,5 @@ public:
 	//Método que crea la escena de derrota, se puede llamar en cualquier momento
 	void invokeLose();
 };
-
-inline void
-ScenesManager::pushScene(GameScene* scene)
-{
-	pushScene(std::shared_ptr<GameScene>(scene));
-}
-
-inline void
-ScenesManager::replaceScene(GameScene* scene)
-{
-	replaceScene(std::shared_ptr<GameScene>(scene));
-}
 
 #endif // GAME_STATE_MACHINE_H
