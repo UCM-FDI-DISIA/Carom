@@ -19,6 +19,8 @@ namespace ecs {
         SDL_Color _defaultColor;
         SDL_Color _color = {255,255,255,0};
 
+        SDL_Rect _absCenteredRect;
+
         // See ecs.h for layers enum
         ecs::layerId_t _defaultRenderLayer;
         ecs::layerId_t _renderLayer;
@@ -27,6 +29,7 @@ namespace ecs {
 
 
         RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale);
+        RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Rect absCenteredRect);
         RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Color tint);
         ~RenderTextureComponent() {};
 
@@ -34,7 +37,6 @@ namespace ecs {
         void init() override;
         Texture* getTexture() {return _texture;};
         virtual SDL_Rect getRect() const;
-        inline void setPortion(bool isPortion) {_isPortion = isPortion;}
 
         ecs::layerId_t getRenderLayer() { return _renderLayer; }
         void setRenderLayer(ecs::layerId_t layer);

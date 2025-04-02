@@ -81,8 +81,8 @@ Texture::Texture(SDL_Renderer *renderer, const std::string &fileName, const SDL_
 
 	_width = portionSurface->w;
 	_height = portionSurface->h;
-	_x = rect.x;
-	_y = rect.y;
+	// _x = rect.x;
+	// _y = rect.y;
 
 	_texture = SDL_CreateTextureFromSurface(renderer, portionSurface);
 	SDL_FreeSurface(portionSurface);

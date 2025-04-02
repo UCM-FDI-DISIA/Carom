@@ -20,6 +20,13 @@ namespace ecs {
         _defaultColor = _color;
     }
 
+    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale, SDL_Rect absCenteredRect)
+    : RenderTextureComponent(ent, texture, renderLayer, scale)
+    {
+        _absCenteredRect = absCenteredRect;
+        _isPortion = true;
+    }
+
     RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale, SDL_Color tint) 
     : RenderTextureComponent(ent, texture, renderLayer, scale)
     {
@@ -43,7 +50,7 @@ namespace ecs {
         b2Vec2 physicalPosition = b2Vec2_zero;
 
         if (_isPortion){ // if the rect is a portion of the transform rect the transform position can't be used to render
-            physicalPosition = PhysicsConverter::pixel2meter(_texture->getRect().x + _texture->getRect().w/2, _texture->getRect().y + _texture->getRect().h/2);
+            physicalPosition = PhysicsConverter::pixel2meter(_absCenteredRect.x, _absCenteredRect.y);
         }
         else {
             physicalPosition = _transform->getPosition();
