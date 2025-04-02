@@ -5,6 +5,8 @@
 #include "ecs.h"
 #include "RNG_Manager.h"
 
+#include <format>
+
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "PolygonRBComponent.h"
@@ -21,7 +23,12 @@
 
 namespace ecs{
 
-    CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss): CaromScene(state, g, reward){
+    CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss)
+        : CaromScene(state, g, reward)
+        , _sandBanks(0)
+        , _arenaFilenameSVG("grp_arena")
+        , _sandConstrainName("arenaArea")
+    {
         if(isBoss) _boss = Boss::COWBOY_POOL;
 
         createBoss();
@@ -60,65 +67,224 @@ namespace ecs{
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
 
-        // generateSandBanks(3, 2, 100, 200);
+        generateSandBanks(2, 2);
     }
 
-    void CowboyPoolScene::createSandBank(const std::vector<b2Vec2>& vertices, const SDL_Rect& rect, const b2Vec2& unclampedCenter, float friction) 
+    void CowboyPoolScene::createSandBank(Polygon& vertices, float friction, float scale, SDL_Rect sandRect) 
     {
-        int id = _sandBanks;
         Entity* e = new Entity(*this, grp::GIMMICK);
-    
-        // Skip if the SDL_Rect has zero width or height
-        if (rect.w <= 0 || rect.h <= 0) {
-            std::cout << "Skipping sandbank: SDL_Rect has zero width or height" << std::endl;
-            return;
-        }
-    
-        // Use the unclamped center as the position of the physics body (in meters)
-        b2Vec2 pos = unclampedCenter;
-    
-        // Convert vertices to local coordinates by subtracting the body's position
-        std::vector<b2Vec2> localVertices = vertices;
-        for (auto& vertex : localVertices) {
-            vertex -= pos;
-        }
-    
-        // Create the physics body with the adjusted local vertices
-        addComponent<PolygonRBComponent>(e, pos, b2_staticBody, localVertices, 0, true);
-    
-        // Render the texture using the SDL_Rect
-        std::vector<uint8_t> alphaMask = GraphisUtils::computeAlphaMask(vertices, rect, 0.01f);
-        sdlutils().addImage(std::to_string(id), "../../resources/images/arenatest.jpg", rect, alphaMask);
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at(std::to_string(id)), renderLayer::GIMMICK, 1);
-        auto renderCmp =  e->getComponent<RenderTextureComponent>();
-        renderCmp->setPortion(true);
 
+        for (auto& vertex : vertices) {
+            vertex = PhysicsConverter::pixel2meter(vertex.x, vertex.y);
+        }
+        
+        std::cout << "_sandbanks " << _sandBanks << std::endl;
+        addComponent<PolygonRBComponent>(e, b2Vec2_zero, b2_staticBody, vertices, 0);
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at(std::to_string(_sandBanks)), renderLayer::GIMMICK, scale, sandRect);
         addComponent<FrictionComponent>(e, friction);
-    
         _sandBanks++;
     }
 
-    // float minRadius, float maxRadius are in pixels
-    void CowboyPoolScene::generateSandBanks(int n, float friction, float minRadius, float maxRadius)
+    void CowboyPoolScene::pickAndPositionSandPolygons(
+          int                   numPolys
+        , SDL_Rect              areaConstrain
+        , std::vector<Polygon> &choosenPolygons
+        , std::vector<PolyID>  &choosenPolyIDs
+        , std::vector<b2Vec2>  &offsets)
     {
-        std::pair<int, int> areaPos = {*&sdlutils().svgs().at("grp_cowboy").at("arenaArea").x - *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").width/2  , *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").y - *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").height/2};
-        auto [areaPosX, areaPosY] = areaPos;
+        // ! Hardcoded
+        int nAvailablePolygons = 2; // !
+        int nVertices = 8;
 
-        std::pair<int, int> areaSize = {*&sdlutils().svgs().at("grp_cowboy").at("arenaArea").width, *&sdlutils().svgs().at("grp_cowboy").at("arenaArea").height};
-        auto [areaWidth, areaHeight] = areaSize;
+        // In PIXELS, floats
+        std::vector<Polygon> sandBanksPolygons = GraphisUtils::extractPolygons(nAvailablePolygons, nVertices);
 
-        int numPoints = 8; // number of points that define the polygon (box2d max = 8!)
-        std::vector<std::vector<b2Vec2>> sandBanksPolygons = GraphisUtils::generateNonOverlappingPolygons(
-            minRadius, maxRadius, n, numPoints, areaPosX, areaPosY, areaWidth, areaHeight, _rngManager
-        );
+        // For getting a random polygon from svg
+        std::vector<RandomItem<int>> polygons;
+        for(int i = 1; i <= nAvailablePolygons; ++i)
+            polygons.emplace_back(i, 1.0f);
+
+        // numPolys = number of sand banks to generate
+        for (int i = 0; i < numPolys; ++i)
+        {
+            bool found = false;
+            int attempts = 50;
+            std::cout<< "attempts: " << attempts <<std::endl;
+
+            // Try a polygon
+            int polyId = _rngManager->getRandomItem(polygons, true);
+            std::cout << "polyid: " << polyId <<std::endl; 
+            std::vector<b2Vec2> candidatePoly = sandBanksPolygons[polyId - 1];
+
+            // Get center
+            b2Vec2 polyCenter = GraphisUtils::calculatePolygonCenter(candidatePoly);
+
+            while (!found && attempts > 0)
+            {
+                // Generate a radom center in PIXELS
+                b2Vec2 genRandomCenter = {
+                    static_cast<float>
+                    (_rngManager->randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
+                    static_cast<float>
+                    (_rngManager->randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
+                };
+
+                // std::cout << "genCenterX: " << genRandomCenter.x << " genCenterY: " << genRandomCenter.y << std::endl;
+                // std::cout << "centerX: " << polyCenter.x << " centerY: " << polyCenter.y << std::endl;
+
+                // Update vertices positions by offset (distance between gen and original centers)
+                // PIXELS
+                b2Vec2 offset = genRandomCenter - polyCenter;
+                // std::cout << "offsetX: " << offset.x << " offsetY: " << offset.y << std::endl;
+
+                for (auto& vert : candidatePoly){
+                    // std::cout << "Before offset vertX : " << vert.x << " Before offset vertY : " << vert.y << std::endl;
+                    vert += offset;
+                    // std::cout << "After vertX : " << vert.x << " After vertY : " << vert.y << std::endl;
+                }
+                
+                // First polygon
+                if (choosenPolygons.empty()){
+                    found = true;
+                }
+                else { // Try to put it in the table
+                    int j = 0;
+                    bool overlap = false;
+                    while (j < choosenPolygons.size() && !overlap){
+                        overlap = GraphisUtils::doPolygonsOverlap(candidatePoly, choosenPolygons[j]);
+                        ++j;
+                    }
+                    found = !overlap;
+                }
+
+                if (found){
+                    choosenPolygons.push_back(candidatePoly);
+                    choosenPolyIDs.push_back(polyId);
+                    offsets.push_back(offset);
+                }
+                else { // Revert update vertices positions by offset (distance between gen and original centers)
+                    for (auto& vert : candidatePoly){
+                        vert -= offset;
+                    }
+                    attempts--;                    
+                }
+            }
+        }
+    }
+
+    float CowboyPoolScene::processSandTexture(b2Vec2 offset, SDL_Rect areaConstrain, int imgId, SDL_Rect& sandRectCenter)
+    {
+        auto svgElem = sdlutils().svgs().at(_arenaFilenameSVG).at(std::format("sand{}", imgId));
+        auto texture = &sdlutils().images().at(std::format("sand{}", imgId));
+        float svgSize = svgElem.width;
+        float textureSize = sdlutils().images().at(std::format("sand{}", imgId)).width();
+        float scale = svgSize / textureSize;
+
+        // std::cout << "areaConstrain: " << areaConstrain.x << " " << areaConstrain.y << " " << areaConstrain.w << " " << areaConstrain.h << std::endl;
+        // std::cout << "svgElem: " << svgElem.x << " " << svgElem.y << " " << svgElem.width << " " << svgElem.height << std::endl;
     
-        // Get bounding boxes to make a rect that won't exceed area limits
-        auto [boundingBoxes, unclampedCenters] = GraphisUtils::generatePolygonBoundingBoxes(
-            sandBanksPolygons, areaPosX, areaPosY, areaWidth, areaHeight
-        );
+        // Offseted by polygon center
+        // TOP LEFT PIXELS
+        SDL_Rect originalSvgRectAbsTL = GraphisUtils::getTopLeftRect({svgElem.x, svgElem.y}, {svgElem.width, svgElem.height});
+        originalSvgRectAbsTL.x += offset.x;
+        originalSvgRectAbsTL.y += offset.y;
+        // std::cout << "offset: " << offset.x << " " << offset.y << std::endl;
+
+        // Offseted by polygon center
+        // CENTER PIXELS
+        SDL_Rect originalSvgRectAbsCenter = GraphisUtils::getCenterRect({originalSvgRectAbsTL.x, originalSvgRectAbsTL.y}, {originalSvgRectAbsTL.w, originalSvgRectAbsTL.h});
+        // std::cout << "originalSvgRectAbsCenter: " << originalSvgRectAbsCenter.x << " " << originalSvgRectAbsCenter.y << " " << originalSvgRectAbsCenter.w << " " << originalSvgRectAbsCenter.h << std::endl;
+
+        // // ! tst
+        // SDL_Rect originalTextureRect = {
+        //     0, 0,
+        //     texture->width(), texture->height()
+        // };
+        // std::cout << "originaltexturerect: " << originalTextureRect.x << " " << originalTextureRect.y << " " << originalTextureRect.w << " " << originalTextureRect.h << std::endl;
+
+        // For render texture
+        // TOP LEFT PIXELS
+        SDL_Rect partialSvgRectLocal = GraphisUtils::generatePartialRect(originalSvgRectAbsTL, areaConstrain);
+        SDL_Rect partialTextureRectLocal = {
+            (int)(partialSvgRectLocal.x / scale),
+            (int)(partialSvgRectLocal.y / scale),
+            (int)(partialSvgRectLocal.w / scale),
+            (int)(partialSvgRectLocal.h / scale),
+        };
+
+        // !
+        SDL_Rect partialSvgRectLocalCentered = GraphisUtils::getCenterRect(partialSvgRectLocal);
+
+        // std::cout << "partialSVGRectLocal: " << partialSvgRectLocal.x << ", " << partialSvgRectLocal.y << ", " << partialSvgRectLocal.w << ", " << partialSvgRectLocal.h <<std::endl;
+        // std::cout << "partialTEXTURERectLocal: " << partialTextureRectLocal.x << ", " << partialTextureRectLocal.y << ", " << partialTextureRectLocal.w << ", " << partialTextureRectLocal.h <<std::endl;
+
+        // std::cout << "texture rect: " << (int)(originalTextureRect.x * scale) << "  " << (int)(originalTextureRect.y * scale) << std::endl;
+        // int sandRectX_clamped = originalSvgRectAbsCenter.x + (int)(originalTextureRect.x * scale);
+        // int sandRectY_clamped = originalSvgRectAbsCenter.y + (int)(originalTextureRect.y * scale);
+        //
+
+        SDL_Rect sandRectTL = {
+            originalSvgRectAbsTL.x + partialSvgRectLocal.x,
+            originalSvgRectAbsTL.y + partialSvgRectLocal.y,
+            partialSvgRectLocal.w,
+            partialSvgRectLocal.h
+        };
+        sandRectCenter = GraphisUtils::getCenterRect(sandRectTL);
+
+        //
+
+        // std::cout << "sandRectTL: " << sandRectTL.x << ", " << sandRectTL.y << ", " << sandRectTL.w << ", " << sandRectTL.h <<std::endl;
+
+        // int sandRectCenterX_clamped = originalSvgRectAbsCenter.x + (int)(partialSvgRectLocal.x);
+        // int sandRectCenterX_clamped = originalSvgRectAbsCenter.x - (originalSvgRectAbsCenter.w - partialSvgRectLocal.w);
+        // // int sandRectCenterY_clamped = originalSvgRectAbsCenter.y + (int)(partialSvgRectLocal.y);
+        // int sandRectCenterY_clamped = originalSvgRectAbsCenter.y - (originalSvgRectAbsCenter.h - partialSvgRectLocal.h);
+
+        // // Position on screen
+        // sandRectCenter = {originalSvgRectAbsCenter.x, originalSvgRectAbsCenter.y, originalSvgRectAbsCenter.w, originalSvgRectAbsCenter.h};
+        // sandRectCenter = {sandRectCenterX_clamped, sandRectCenterY_clamped, partialSvgRectLocal.w, partialSvgRectLocal.h};
+
+
+        // std::cout << "sandRectCenter: " << sandRectCenter.x << " " << sandRectCenter.y << " " << sandRectCenter.w << " " << sandRectCenter.h << std::endl;
+        // std::cout << "partialTextureRectLocal: " << partialTextureRectLocal.x << " " << partialTextureRectLocal.y << " " << partialTextureRectLocal.w << " " << partialTextureRectLocal.h << std::endl;
+
+        // !
+        std::string imagePath = std::format("../../resources/images/sand{}.png", imgId);
+        // sdlutils().addImage(std::to_string(_sandBanks), imagePath, originalTextureRect);
+        sdlutils().addImage(std::to_string(_sandBanks), imagePath, partialTextureRectLocal);
+
+
+        // std::cout << "texturerect: " << sdlutils().images().at(std::to_string(_sandBanks)).getRect().x << std::endl;
+
+
+        return scale;
+    }
+
+    void CowboyPoolScene::generateSandBanks(int n, float friction)
+    {
+        // Top-Left in pixels
+        IntPair areaPos_PX = 
+        {
+            *&sdlutils().svgs().at(_arenaFilenameSVG).at(_sandConstrainName).x - *&sdlutils().svgs().at(_arenaFilenameSVG).at(_sandConstrainName).width/2,
+            *&sdlutils().svgs().at(_arenaFilenameSVG).at(_sandConstrainName).y - *&sdlutils().svgs().at(_arenaFilenameSVG).at(_sandConstrainName).height/2
+        };
+        IntPair areaSize_PX = 
+        {
+            *&sdlutils().svgs().at(_arenaFilenameSVG).at(_sandConstrainName).width, 
+            *&sdlutils().svgs().at(_arenaFilenameSVG).at(_sandConstrainName).height
+        };
+        SDL_Rect areaConstrain = {areaPos_PX.first, areaPos_PX.second, areaSize_PX.first, areaSize_PX.second};
+
+        std::vector<Polygon> choosenPolygons;
+        std::vector<PolyID> choosenPolyIDs;
+        std::vector<b2Vec2> offsets;
     
-        for (int i = 0; i < sandBanksPolygons.size(); ++i) {
-            createSandBank(sandBanksPolygons[i], boundingBoxes[i], unclampedCenters[i], friction);
+        pickAndPositionSandPolygons(n, areaConstrain, choosenPolygons, choosenPolyIDs, offsets);
+    
+        for (int i = 0; i < choosenPolygons.size(); ++i) {
+            SDL_Rect sandRect;
+            float scale = processSandTexture(offsets[i], areaConstrain, choosenPolyIDs[i], sandRect);
+            createSandBank(choosenPolygons[i], friction, scale, sandRect);
         }
     }
 
