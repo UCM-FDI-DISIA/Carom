@@ -4,16 +4,16 @@
 #include "Game.h"
 #include "Texture.h"
 
-class ScenesManager;
 class RNG_Manager;
 class b2WorldId;
 class Vector2D;
 class ScoreContainer;
 class InputHandler;
+class ScenesManager;
 
 
 namespace ecs{
-
+    
     class ColorHitManager;
     class TextDisplayComponent;
 

@@ -33,6 +33,8 @@ namespace ecs {
 
     CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
     {
+        _sceneManager = game->getScenesManager();
+
         // SEEDING
         // TODO: pasar RNG a sceneManager o Game para que haya uno solo
         _rngManager = new RNG_Manager();
