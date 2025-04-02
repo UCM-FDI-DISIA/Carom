@@ -1,6 +1,8 @@
 #pragma once
 
 #include "StickEffectComponent.h"
+
+//! Doesn't work until physics bugs are solved
 namespace ecs {
     class DonutStickEffect : public StickEffectComponent {
     private:

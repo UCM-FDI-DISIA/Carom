@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BallEffect.h"
+#include "PhysicsUtils.h"
 
 namespace ecs{
 class ITransform;
@@ -9,8 +10,12 @@ class ITransform;
 class PopToOppositeSideEffect : public BallEffect{
 
     ecs::ITransform* _mTrans;
-    float _ballWidth;
-    float _ballHeight;
+
+    //Positions of the table
+    b2Vec2 _leftPos;
+    b2Vec2 _rightPos;
+    b2Vec2 _topPos;
+    b2Vec2 _botPos;
 
 public:
 __CMPID_DECL__(ecs::cmp::POP_TO_OPPOSITE_EFFECT);

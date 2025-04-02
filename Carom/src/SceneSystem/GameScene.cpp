@@ -4,6 +4,7 @@
 #include "TransformComponent.h"
 #include "PhysicsUtils.h"
 #include "RectangleRBComponent.h"
+#include "WallComponent.h"
 
 #include "GameScene.h"
 #include "Game.h"
@@ -55,6 +56,7 @@ namespace ecs{
         // !---- BODIES ----//
         // Left cushion coll
         entity_t e_coll_left = new Entity(*this, grp::TABLE);
+        addComponent<WallComponent>(e_coll_left);
         b2Vec2 pos_coll_left = PhysicsConverter::pixel2meter(
             *&sdlutils().svgs().at("game").at("left_cushion_coll").x,
             *&sdlutils().svgs().at("game").at("left_cushion_coll").y
@@ -66,6 +68,7 @@ namespace ecs{
 
         // Right cushion coll
         entity_t e_coll_right = new Entity(*this, grp::TABLE);
+        addComponent<WallComponent>(e_coll_right);
         b2Vec2 pos_coll_right = PhysicsConverter::pixel2meter(
             *&sdlutils().svgs().at("game").at("right_cushion_coll").x,
             *&sdlutils().svgs().at("game").at("right_cushion_coll").y
@@ -77,6 +80,7 @@ namespace ecs{
 
         // Top cushion coll
         entity_t e_coll_top = new Entity(*this, grp::TABLE);
+        addComponent<WallComponent>(e_coll_top);
         b2Vec2 pos_coll_top = PhysicsConverter::pixel2meter(
             *&sdlutils().svgs().at("game").at("top_cushion_coll").x,
             *&sdlutils().svgs().at("game").at("top_cushion_coll").y
@@ -88,6 +92,7 @@ namespace ecs{
 
         // Bottom cushion coll
         entity_t e_coll_bottom = new Entity(*this, grp::TABLE);
+        addComponent<WallComponent>(e_coll_bottom);
         b2Vec2 pos_coll_bottom = PhysicsConverter::pixel2meter(
             *&sdlutils().svgs().at("game").at("bottom_cushion_coll").x,
             *&sdlutils().svgs().at("game").at("bottom_cushion_coll").y
