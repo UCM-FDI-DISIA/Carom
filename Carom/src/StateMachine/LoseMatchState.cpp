@@ -11,7 +11,7 @@ LoseMatchState::LoseMatchState(ecs::CaromScene* scene) : State(scene)
 
 void LoseMatchState::onStateEnter() {
 
-    _scene->getScenesManager()->invokeLose(_scene->getGame());
+    _scene->getScenesManager()->invokeLose();
 }
 
 void LoseMatchState::onStateExit() {
