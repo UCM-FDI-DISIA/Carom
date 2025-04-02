@@ -35,6 +35,7 @@ namespace ecs{
         b2WorldId _myB2WorldId; //El mundo de box2D
 
         void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
+        void generateTable(); // para generar la mesa.
 
     public:
         PoolScene(Game* g);

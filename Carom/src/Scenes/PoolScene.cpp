@@ -27,6 +27,7 @@ namespace ecs{
 
         // Create table with texture and colliders
         createBackground("suelo");
+        generateTable();
         generateRndBallsPos();
     }
 
@@ -37,14 +38,32 @@ namespace ecs{
 
     void PoolScene::generateRndBallsPos()
     {
-        entity_t table = new ecs::Entity(*this, grp::DEFAULT);
-        b2Vec2 pos(0,0);
-        addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
+        /*
+        ESTE REFACTOR NO VA 
+        // Entre 0 y posiciones-1 elige un indice para que sea el boss.
+        int a_bossPosition = _rngm->randomRange(0, HOLES);
+        std::cout << "Boss hole: " << a_bossPosition << std::endl;
 
-        table = new ecs::Entity(*this, grp::DEFAULT);
-        addComponent<TransformComponent>(table, pos);
-        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1, SDL_Color{0, 150, 80, 255});
+        // coloca los agujeros de partida
+        for(int i = 0; i < HOLES; i++){
+
+            b2Vec2 pos = _poolPositions[i];
+
+            
+            NullState* state = new NullState(nullptr);
+
+            // !!! CREA BOSSSCENE(CAMBIAR).
+            ecs::UIScene* rewardScene = new ecs::RewardScene(game);
+            ecs::CowboyPoolScene *ms = new ecs::CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+
+            if(i == a_bossPosition){ // --- POSICION BOSS.
+                entity_t e = createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f);
+            }
+            else{ // --- POSICION COLORES.
+                entity_t e = createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f);
+            }
+        }
+        */
         
         // Entre 0 y posiciones-1 elige un indice para que sea el boss.
         int a_bossPosition = _rngm->randomRange(0, HOLES);
@@ -94,5 +113,17 @@ namespace ecs{
             */
         }
 
+    }
+
+    void PoolScene::generateTable()
+    {
+        entity_t table = new ecs::Entity(*this, grp::DEFAULT);
+        b2Vec2 pos(0,0);
+        addComponent<TransformComponent>(table, pos);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
+
+        table = new ecs::Entity(*this, grp::DEFAULT);
+        addComponent<TransformComponent>(table, pos);
+        addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1, SDL_Color{0, 150, 80, 255});
     }
 }
