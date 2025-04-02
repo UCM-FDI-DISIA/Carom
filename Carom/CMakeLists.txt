@@ -133,8 +133,8 @@ add_executable(Carom
 	src/ECS/TextDisplayComponent.cpp
 	src/ECS/FollowComponent.cpp
 	
-	src/Animator/FrameAnimatorComponent.cpp
-	src/Animator/Frame.cpp
+	src/Animator/RenderSpriteSheetComponent.cpp
+	src/Animator/AnimatorComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 

@@ -9,8 +9,9 @@ struct Animation;
 
 class RenderSpritesheetComponent : public RenderComponent {
 private:
-    int cols, rows;
-    int frame;
+    int _rows, _cols,
+        _width, _height, 
+        _xOriginFrame, _yOriginFrame;
 
     float _scale;
 
@@ -28,4 +29,7 @@ public:
 
     void init() override;
     void render(Camera*) override;
+
+    SDL_Rect getRect() const;
+    void setFrame(int frame);
 };

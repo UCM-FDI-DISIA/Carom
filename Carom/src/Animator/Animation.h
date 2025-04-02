@@ -8,14 +8,17 @@ struct Frame;
 /// @brief Animación de una spritesheet
 struct Animation {
     
-    Texture* spriteSheet = nullptr;
-    int spriteRows, spriteCols;
-    
-    std::vector<Frame> frameList;
+    Texture* _spriteSheet = nullptr;
+    int _spriteRows, _spriteCols;
+    int _scale;
+
+    std::vector<Frame> _frameList;
 
     enum AnimationType {
         LOOP,
-        DELETE,
-        TURN_OFF
+        KILLMYSELF,
+        TURNOFF
     };
+
+    AnimationType _animType;
 };

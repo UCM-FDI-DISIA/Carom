@@ -14,9 +14,7 @@ _texture(texture),
 _transform(nullptr),
 renderOrder(renderOrder),
 _scale(scale)
-{
-
-}
+{}
 
 RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale, SDL_Color tint) 
 : RenderTextureComponent(ent, texture, renderOrder, scale)

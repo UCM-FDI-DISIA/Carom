@@ -13,7 +13,7 @@
 #include "SoundEffect.h"
 #include "Texture.h"
 #include "VirtualTimer.h"
-#include "Frame.h"
+#include "Animation.h"
 
 class SDLUtils: public Singleton<SDLUtils> {
 
@@ -256,7 +256,7 @@ private:
 	sdl_resource_table<Texture> _msgs; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> _sounds; // sounds map (string -> sound)
 	sdl_resource_table<Music> _musics; // musics map (string -> music)
-	sdl_resource_table<Frame> _animations; // animation frames map (string -> first frame)
+	sdl_resource_table<Animation> _animations; // animation map (string -> animation)
 
 	map_access_wrapper<Font> _fontsAccessWrapper;
 	map_access_wrapper<Texture> _imagesAccessWrapper;
@@ -265,7 +265,7 @@ private:
 	map_access_wrapper<Texture> _msgsAccessWrapper;
 	map_access_wrapper<SoundEffect> _soundsAccessWrapper;
 	map_access_wrapper<Music> _musicsAccessWrapper;
-	map_access_wrapper<Frame> _animationsAccessWrapper;
+	map_access_wrapper<Animation> _animationsAccessWrapper;
 
 	// Esto es una cerdada en efecto, pero es lo que hay
 

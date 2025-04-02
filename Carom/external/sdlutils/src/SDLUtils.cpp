@@ -14,6 +14,8 @@
 #include "nanosvg.h"
 #include "nanosvgrast.h"
 
+#include "Frame.h"
+
 SDLUtils::SDLUtils() :
 		_windowTitle("SDL2 Demo"), //
 		_width(600), //
@@ -302,6 +304,12 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	std::unordered_map<std::string, Animation::AnimationType> animTypesConversor = {
+		{"LOOP", Animation::LOOP},
+		{"KILLMYSELF", Animation::KILLMYSELF},
+		{"DISABLE", Animation::TURNOFF}
+	};
+
 	// load animations
 	jValue = root["animations"];
 	if (jValue != nullptr) {
@@ -311,40 +319,39 @@ void SDLUtils::loadReasources(std::string filename) {
 				if (v->IsObject()) {
 					JSONObject vObj = v->AsObject();
 					std::string key = vObj["id"]->AsString();
-					float scale = vObj["scale"]->AsNumber();
+					Animation anim;
+					anim._animType = animTypesConversor[vObj["animType"]->AsString()];
+					anim._scale = vObj["scale"]->AsNumber();
+					Texture* tex = &images().at(vObj["spriteSheetId"]->AsString());
 
-					std::vector<Frame*> thisAnimation;
 
-					Texture* tex;
-					int frames;
+					JSONValue* fList = vObj["framelist"];
+					_animations.reserve(fList->AsArray().size());
 
-					if (vObj["animation"]->IsArray()) {
-						for (auto &vf : jValue->AsArray()) {
-							if (vf->IsObject()) {
-								JSONObject vfObj = v->AsObject();
-								tex = &images().at(vfObj["textureID"]->AsString());
-								frames = vfObj["frames"]->AsNumber();
-								thisAnimation.push_back(new Frame(frames, tex, scale));
-							}
-						}
+					int frame;
+					int time;
+
+					anim._frameList = std::vector<Frame>();
+
+					for (auto &f : fList->AsArray()) {
+						JSONObject fObj = f->AsObject();
+						frame = fObj["frame"]->AsNumber();
+						time = fObj["time"]->AsNumber();
+
+						anim._frameList.push_back({frame, time});
 					}
 
-					if (thisAnimation.size() > 0) {
-						for (int i = 0; i < thisAnimation.size()-1; ++i) {
-							thisAnimation[i]->setNextframe(thisAnimation[i+1]);
-						}
-					}
 #ifdef _DEBUG
 					std::cout << "Loading frames with id: " << key << std::endl;
 #endif
-					_musics.emplace(key, thisAnimation[0]);
+					_animations.emplace(key, anim);
 				} else {
-					throw "'frames' array in '" + filename
+					throw "'animations' array in '" + filename
 							+ "' includes and invalid value";
 				}
 			}
 		} else {
-			throw "'musics' is not an array";
+			throw "'animations' is not an array";
 		}
 	}
 

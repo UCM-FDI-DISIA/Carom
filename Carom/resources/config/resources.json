@@ -69,10 +69,15 @@
 
   "animations" : [
     { "id" : "test",
+      "spriteSheetId" : "bola_blanca",
       "scale" : 1.0,
-      "animation": [
-        {"textureId" : "bola_blanca", "frames" : 10},
-        {"textureId" : "hole", "frames" : 10}
+      "animType" : "LOOP",
+      "framelist": [
+        {"frame" : 0, "time" : 10},
+        {"frame" : 1, "time" : 10},
+        {"frame" : 2, "time" : 10},
+        {"frame" : 3, "time" : 10},
+        {"frame" : 4, "time" : 10}
       ]
     }
   ]
