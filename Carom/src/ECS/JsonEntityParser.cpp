@@ -23,6 +23,9 @@
 #include "RenderTextureComponent.h"
 #include "Texture.h"
 
+#include "ColorBallScorerComponent.h"
+#include "ColorBallScorerComponent.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -30,10 +33,17 @@
 namespace ecs
 {
     Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
-
         JSONValue* entityElements = JSON::ParseFromFile(file);
-        Entity* entity = new Entity(gameScene, (ecs::grp::grpId) entityElements->Child("ID")->AsNumber());
         
+        Entity* entity = new Entity(gameScene, (ecs::grp::grpId) entityElements->Child("ID")->AsNumber());
+        AddComponentsFromJSON(entity, file);
+        
+       return entity;
+    }
+    
+    void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfile){
+        JSONValue* entityElements = JSON::ParseFromFile(JSONfile);
+
         for(auto element : entityElements->Child("components")->AsArray()){
             JSONObject atributes = element->Child("atributes")->AsObject();
             if(element->Child("componentName")->AsString() == "TransformComponent"){
@@ -48,10 +58,18 @@ namespace ecs
             else if(element->Child("componentName")->AsString() == "BallHandler"){
                 ballHandler(atributes, entity);
             }
+            else if(element->Child("componentName")->AsString() == "ColorBallScorerComponent"){
+                addComponent<ColorBallScorerComponent>(entity);
+            }
         }
-       return nullptr;
     }
-    
+
+    Entity* JsonEntityParser::CreateBallEffect(GameScene& gameScene, std::string file){
+        Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
+
+        return e;
+    }
+
     void JsonEntityParser::transformComponent(const JSONObject& atributes, Entity* entity){
         b2Vec2 position(atributes.at("x")->AsNumber(), atributes.at("y")->AsNumber());
         addComponent<ecs::TransformComponent>(entity, position);
@@ -112,14 +130,14 @@ namespace ecs
 
     void JsonEntityParser::renderTextureComponent(const JSONObject& atributes, Entity* entity){
         std::string key = atributes.at("textureID")->AsString();       
-        
+        std::cout<<key;
         float scale = atributes.at("scale")->AsNumber();
 
         int layer = atributes.at("layer")->AsNumber();
         
-        addComponent<ecs::RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale);
+        addComponent<ecs::RenderTextureComponent>(entity, &sdlutils().images().at(key), layer, scale, SDL_Color{0, 150, 100, 1});
     }
-
+    
     void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
         addComponent<BallHandler>(entity);
         for(auto element : atributes.at("effects")->AsArray()){
@@ -139,5 +157,6 @@ namespace ecs
                 addComponent<QuanticEffect>(entity);
         }
     }
+
 } 
 

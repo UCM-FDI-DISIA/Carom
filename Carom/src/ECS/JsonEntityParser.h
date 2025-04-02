@@ -11,6 +11,8 @@ namespace ecs
     class JsonEntityParser{
         public:
             static Entity* Parse(GameScene& gameScene, std::string JSONfile);
+            static void AddComponentsFromJSON(Entity* e, std::string JSONfile);
+            static Entity* CreateBallEffect(GameScene& gameScene, std::string file);
         private:
             static void transformComponent(const JSONObject& atributes, Entity* entity);
             static void rigidBodyComponent(const JSONObject& atributes, Entity* entity);
