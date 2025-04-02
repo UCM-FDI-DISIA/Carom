@@ -45,5 +45,8 @@ namespace ecs{
         int _sandBanks;
         std::string _arenaFilenameSVG;
         std::string _sandConstrainName;
+        float _sandFriction;
+        int _nAvailablePolygons;
+        int _nVertices;
     };
 }

@@ -28,6 +28,9 @@ namespace ecs{
         , _sandBanks(0)
         , _arenaFilenameSVG("grp_arena")
         , _sandConstrainName("arenaArea")
+        , _sandFriction(2.0f)
+        , _nAvailablePolygons(8)
+        , _nVertices(8)
     {
         if(isBoss) _boss = Boss::COWBOY_POOL;
 
@@ -39,6 +42,7 @@ namespace ecs{
 
     CowboyPoolScene::~CowboyPoolScene()
     {
+        // SDLUtils borra las imágenes, pero si hay reload de la escena necesita estar todo borrado
         for (int i = 0; i < _sandBanks; ++i) {
             sdlutils().deleteImage(std::to_string(i));
         }
@@ -67,7 +71,8 @@ namespace ecs{
         //comportamiento (anyadir entidades de arena en la mesa)
         std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
 
-        generateSandBanks(2, 2);
+        int nBanks = 3; // Number of sandbanks to be generated
+        generateSandBanks(nBanks, _sandFriction);
     }
 
     void CowboyPoolScene::createSandBank(Polygon& vertices, float friction, float scale, SDL_Rect sandRect) 
@@ -77,11 +82,11 @@ namespace ecs{
         for (auto& vertex : vertices) {
             vertex = PhysicsConverter::pixel2meter(vertex.x, vertex.y);
         }
-        
-        std::cout << "_sandbanks " << _sandBanks << std::endl;
-        addComponent<PolygonRBComponent>(e, b2Vec2_zero, b2_staticBody, vertices, 0);
+
+        addComponent<PolygonRBComponent>(e, b2Vec2_zero, b2_staticBody, vertices, 0, true);
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at(std::to_string(_sandBanks)), renderLayer::GIMMICK, scale, sandRect);
         addComponent<FrictionComponent>(e, friction);
+
         _sandBanks++;
     }
 
@@ -92,16 +97,13 @@ namespace ecs{
         , std::vector<PolyID>  &choosenPolyIDs
         , std::vector<b2Vec2>  &offsets)
     {
-        // ! Hardcoded
-        int nAvailablePolygons = 2; // !
-        int nVertices = 8;
-
         // In PIXELS, floats
-        std::vector<Polygon> sandBanksPolygons = GraphisUtils::extractPolygons(nAvailablePolygons, nVertices);
+        std::cout << " _nAvailablePolygons: "<< _nAvailablePolygons <<std::endl;
+        std::vector<Polygon> sandBanksPolygons = GraphisUtils::extractPolygons(_nAvailablePolygons, _nVertices);
 
-        // For getting a random polygon from svg
+        // Getting a random polygon from svg
         std::vector<RandomItem<int>> polygons;
-        for(int i = 1; i <= nAvailablePolygons; ++i)
+        for(int i = 1; i <= _nAvailablePolygons; ++i)
             polygons.emplace_back(i, 1.0f);
 
         // numPolys = number of sand banks to generate
@@ -128,9 +130,6 @@ namespace ecs{
                     static_cast<float>
                     (_rngManager->randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
                 };
-
-                // std::cout << "genCenterX: " << genRandomCenter.x << " genCenterY: " << genRandomCenter.y << std::endl;
-                // std::cout << "centerX: " << polyCenter.x << " centerY: " << polyCenter.y << std::endl;
 
                 // Update vertices positions by offset (distance between gen and original centers)
                 // PIXELS
@@ -180,27 +179,15 @@ namespace ecs{
         float textureSize = sdlutils().images().at(std::format("sand{}", imgId)).width();
         float scale = svgSize / textureSize;
 
-        // std::cout << "areaConstrain: " << areaConstrain.x << " " << areaConstrain.y << " " << areaConstrain.w << " " << areaConstrain.h << std::endl;
-        // std::cout << "svgElem: " << svgElem.x << " " << svgElem.y << " " << svgElem.width << " " << svgElem.height << std::endl;
-    
         // Offseted by polygon center
         // TOP LEFT PIXELS
         SDL_Rect originalSvgRectAbsTL = GraphisUtils::getTopLeftRect({svgElem.x, svgElem.y}, {svgElem.width, svgElem.height});
         originalSvgRectAbsTL.x += offset.x;
         originalSvgRectAbsTL.y += offset.y;
-        // std::cout << "offset: " << offset.x << " " << offset.y << std::endl;
 
         // Offseted by polygon center
         // CENTER PIXELS
-        SDL_Rect originalSvgRectAbsCenter = GraphisUtils::getCenterRect({originalSvgRectAbsTL.x, originalSvgRectAbsTL.y}, {originalSvgRectAbsTL.w, originalSvgRectAbsTL.h});
-        // std::cout << "originalSvgRectAbsCenter: " << originalSvgRectAbsCenter.x << " " << originalSvgRectAbsCenter.y << " " << originalSvgRectAbsCenter.w << " " << originalSvgRectAbsCenter.h << std::endl;
-
-        // // ! tst
-        // SDL_Rect originalTextureRect = {
-        //     0, 0,
-        //     texture->width(), texture->height()
-        // };
-        // std::cout << "originaltexturerect: " << originalTextureRect.x << " " << originalTextureRect.y << " " << originalTextureRect.w << " " << originalTextureRect.h << std::endl;
+        SDL_Rect originalSvgRectAbsCenter = GraphisUtils::getCenterRect(originalSvgRectAbsTL);
 
         // For render texture
         // TOP LEFT PIXELS
@@ -212,16 +199,7 @@ namespace ecs{
             (int)(partialSvgRectLocal.h / scale),
         };
 
-        // !
         SDL_Rect partialSvgRectLocalCentered = GraphisUtils::getCenterRect(partialSvgRectLocal);
-
-        // std::cout << "partialSVGRectLocal: " << partialSvgRectLocal.x << ", " << partialSvgRectLocal.y << ", " << partialSvgRectLocal.w << ", " << partialSvgRectLocal.h <<std::endl;
-        // std::cout << "partialTEXTURERectLocal: " << partialTextureRectLocal.x << ", " << partialTextureRectLocal.y << ", " << partialTextureRectLocal.w << ", " << partialTextureRectLocal.h <<std::endl;
-
-        // std::cout << "texture rect: " << (int)(originalTextureRect.x * scale) << "  " << (int)(originalTextureRect.y * scale) << std::endl;
-        // int sandRectX_clamped = originalSvgRectAbsCenter.x + (int)(originalTextureRect.x * scale);
-        // int sandRectY_clamped = originalSvgRectAbsCenter.y + (int)(originalTextureRect.y * scale);
-        //
 
         SDL_Rect sandRectTL = {
             originalSvgRectAbsTL.x + partialSvgRectLocal.x,
@@ -231,31 +209,8 @@ namespace ecs{
         };
         sandRectCenter = GraphisUtils::getCenterRect(sandRectTL);
 
-        //
-
-        // std::cout << "sandRectTL: " << sandRectTL.x << ", " << sandRectTL.y << ", " << sandRectTL.w << ", " << sandRectTL.h <<std::endl;
-
-        // int sandRectCenterX_clamped = originalSvgRectAbsCenter.x + (int)(partialSvgRectLocal.x);
-        // int sandRectCenterX_clamped = originalSvgRectAbsCenter.x - (originalSvgRectAbsCenter.w - partialSvgRectLocal.w);
-        // // int sandRectCenterY_clamped = originalSvgRectAbsCenter.y + (int)(partialSvgRectLocal.y);
-        // int sandRectCenterY_clamped = originalSvgRectAbsCenter.y - (originalSvgRectAbsCenter.h - partialSvgRectLocal.h);
-
-        // // Position on screen
-        // sandRectCenter = {originalSvgRectAbsCenter.x, originalSvgRectAbsCenter.y, originalSvgRectAbsCenter.w, originalSvgRectAbsCenter.h};
-        // sandRectCenter = {sandRectCenterX_clamped, sandRectCenterY_clamped, partialSvgRectLocal.w, partialSvgRectLocal.h};
-
-
-        // std::cout << "sandRectCenter: " << sandRectCenter.x << " " << sandRectCenter.y << " " << sandRectCenter.w << " " << sandRectCenter.h << std::endl;
-        // std::cout << "partialTextureRectLocal: " << partialTextureRectLocal.x << " " << partialTextureRectLocal.y << " " << partialTextureRectLocal.w << " " << partialTextureRectLocal.h << std::endl;
-
-        // !
         std::string imagePath = std::format("../../resources/images/sand{}.png", imgId);
-        // sdlutils().addImage(std::to_string(_sandBanks), imagePath, originalTextureRect);
         sdlutils().addImage(std::to_string(_sandBanks), imagePath, partialTextureRectLocal);
-
-
-        // std::cout << "texturerect: " << sdlutils().images().at(std::to_string(_sandBanks)).getRect().x << std::endl;
-
 
         return scale;
     }
