@@ -36,14 +36,21 @@
     { "id" : "bola_blanca", "file" : "../../resources/images/bola_blanca.png"},
     { "id" : "bola_sombra", "file" : "../../resources/images/bola_sombra.png"},
     { "id" : "bola_cast_sombra", "file" : "../../resources/images/bola_cast_sombra.png"},
-    {"id": "suelo", "file": "../../resources/images/suelo.png"},
+    { "id": "suelo", "file": "../../resources/images/suelo.png"},
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
     { "id" : "cowboy_hand", "file" : "../../resources/images/cowboy_hand.png"},
     { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"},
-    { "id" : "arena", "file" : "../../resources/images/arenatest.jpg"}
+    { "id" : "sand1", "file" : "../../resources/images/sand1.png"},
+    { "id" : "sand2", "file" : "../../resources/images/sand2.png"},
+    { "id" : "sand3", "file" : "../../resources/images/sand3.png"},
+    { "id" : "sand4", "file" : "../../resources/images/sand4.png"},
+    { "id" : "sand5", "file" : "../../resources/images/sand5.png"},
+    { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
+    { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
+    { "id" : "sand8", "file" : "../../resources/images/sand8.png"}
   ],
   
   "messages" : [
@@ -56,9 +63,9 @@
     { "id" : "gameover", "text" : "GAME OVER", "font" : "ARIAL24", "color" : "0xff0000ff" }
   ],
 
-    "sounds": [
-        {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"}
-    ],
+  "sounds": [
+      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"}
+  ],
 
   "musics": [
     { "id": "beat", "file": "../../resources/sound/beat.wav"},
@@ -69,7 +76,9 @@
     {"id": "game", "file": "../../resources/svg/Game.svg"},
     {"id": "grp_cowboy", "file": "../../resources/svg/grp_cowboy.svg"},
     {"id": "positions", "file": "../../resources/svg/positions.svg"},
-    {"id": "shot_positions", "file": "../../resources/svg/shot_positions.svg"}
+    {"id": "shot_positions", "file": "../../resources/svg/shot_positions.svg"},
+    {"id": "grp_arena", "file": "../../resources/svg/grp_arena.svg"},
+    {"id": "pool", "file": "../../resources/svg/pool.svg"}
   ]
 
 }

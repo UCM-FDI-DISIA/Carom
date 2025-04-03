@@ -1,9 +1,6 @@
 #include "CircleRBComponent.h"
 #include "CaromScene.h"
 
-using namespace ecs;
-
-
 /// @brief Constructor for Circle RB
 /// @param ent the entity
 /// @param pos the position
@@ -79,7 +76,7 @@ CircleRBComponent::updateScale(){
 }
 
 // Calculate mass (circle area as if it was a square)
-void ecs::CircleRBComponent::calculateMass() // TODO EN OTROS RBS
+void CircleRBComponent::calculateMass() // TODO EN OTROS RBS
 {
     _myProps.mass = _myProps.density * _myProps.radius*_myProps.radius;
 }

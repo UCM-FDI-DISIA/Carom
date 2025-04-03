@@ -4,7 +4,6 @@
 #include "RenderTextureComponent.h"
 #include "WallComponent.h"
 
-using namespace ecs;
 
 void
 PopToOppositeSideEffect::init(){
@@ -39,7 +38,7 @@ PopToOppositeSideEffect::onStrikeEnd(){
 }
 
 void 
-PopToOppositeSideEffect::popOnCollision(ecs::entity_t other){
+PopToOppositeSideEffect::popOnCollision(entity_t other){
 
     if(!other->tryGetComponent<WallComponent>()) return;// Only if ball collides with table
 

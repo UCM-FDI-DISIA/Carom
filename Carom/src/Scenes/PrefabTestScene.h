@@ -2,7 +2,7 @@
 
 #include "CaromScene.h"
 
-class PrefabTestScene: public ecs::CaromScene{
+class PrefabTestScene: public CaromScene{
 protected:
     void init() override;
 public:

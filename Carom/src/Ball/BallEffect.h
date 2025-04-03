@@ -4,22 +4,22 @@
 #include "ecs.h"
 #include <string>
 
-namespace ecs
-{class CaromScene;}
 
-class BallEffect : public ecs::Component
+class CaromScene;
+
+class BallEffect : public Component
 {
 protected:
     std::string _name;
     std::string _description;
     BallHandler* _handler;
 public:
-    BallEffect(ecs::entity_t ent) : Component(ent) {}
+    BallEffect(entity_t ent) : Component(ent) {}
     ~BallEffect() {}
 
     virtual void init() override;
 
-    virtual void onHit(ecs::entity_t ent) {};
+    virtual void onHit(entity_t ent) {};
     virtual void onStrikeEnd() {};
     virtual void onBeingTargeted() {};
     virtual void onMultChanged() {};
@@ -27,5 +27,5 @@ public:
     void render() override {}
     void handleEvent() override {}
     virtual void update() override {}
-    virtual ecs::cmpId_t getEffectId() = 0;
+    virtual cmpId_t getEffectId() = 0;
 };

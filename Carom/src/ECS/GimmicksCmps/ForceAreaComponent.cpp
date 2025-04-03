@@ -5,12 +5,12 @@
 #include "WhiteBallScorerComponent.h"
 
 
-ecs::ForceAreaComponent::ForceAreaComponent(entity_t ent, float magnitude, bool attraction)
+ForceAreaComponent::ForceAreaComponent(entity_t ent, float magnitude, bool attraction)
     : ForceFieldComponent(ent), _minMagnitude(magnitude), _attraction(attraction)
 {
 }
 
-void ecs::ForceAreaComponent::defineForce(entity_t e)
+void ForceAreaComponent::defineForce(entity_t e)
 {
     auto rb = e->getComponent<RigidBodyComponent>();
 
@@ -29,7 +29,7 @@ void ecs::ForceAreaComponent::defineForce(entity_t e)
     _myForce = {a_force.getX(), a_force.getY()};
 }
 
-void ecs::ForceAreaComponent::applyForce(entity_t e)
+void ForceAreaComponent::applyForce(entity_t e)
 {
     auto rb = e->getComponent<RigidBodyComponent>();
 
@@ -43,7 +43,7 @@ void ecs::ForceAreaComponent::applyForce(entity_t e)
     }
 }
 
-void ecs::ForceAreaComponent::defineCenter(b2Vec2 c){
+void ForceAreaComponent::defineCenter(b2Vec2 c){
     _myCenter = c;
 }
 

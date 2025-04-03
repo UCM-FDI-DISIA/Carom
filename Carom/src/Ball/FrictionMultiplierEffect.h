@@ -2,21 +2,20 @@
 
 #include "BallEffect.h"
 
-namespace ecs {
-    class RigidBodyComponent;
 
-    /// @brief Cambia el linear damping del objeto en un factor
-    class FrictionMultiplierEffect : public BallEffect {
-        float _frictionFactor;
-        RigidBodyComponent* _rigidBody;        
-    public:
-        __CMPID_DECL__(cmp::FRICTION_MULTIPLIER);
-        ecs::cmpId_t getEffectId() {return ecs::cmp::FRICTION_MULTIPLIER; };
+class RigidBodyComponent;
 
-        FrictionMultiplierEffect(entity_t entity, float friction);
-        ~FrictionMultiplierEffect();
+/// @brief Cambia el linear damping del objeto en un factor
+class FrictionMultiplierEffect : public BallEffect {
+    float _frictionFactor;
+    RigidBodyComponent* _rigidBody;        
+public:
+    __CMPID_DECL__(cmp::FRICTION_MULTIPLIER);
+    cmpId_t getEffectId() {return cmp::FRICTION_MULTIPLIER; };
 
-        void init() override;
-        void onStrikeEnd() override;
-    };
-}
+    FrictionMultiplierEffect(entity_t entity, float friction);
+    ~FrictionMultiplierEffect();
+
+    void init() override;
+    void onStrikeEnd() override;
+};

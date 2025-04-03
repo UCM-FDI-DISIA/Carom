@@ -6,6 +6,9 @@
 #include "RNG_Manager.h"
 
 
+using IntPair = std::pair<int,int>;
+
+
 class GraphisUtils
 {
 public:
@@ -39,4 +42,20 @@ public:
     static std::pair<std::vector<SDL_Rect>, std::vector<b2Vec2>> generatePolygonBoundingBoxes(const std::vector<std::vector<b2Vec2>>& polygons, 
     int areaPosX, int areaPosY, 
     int areaWidth, int areaHeight);
+
+    static std::pair<SDL_Rect, b2Vec2> generatePolygonBoundingBox(const std::vector<b2Vec2>& polygon, 
+        int areaPosX, int areaPosY, 
+        int areaWidth, int areaHeight);
+
+
+    static b2Vec2 calculatePolygonCenter(const std::vector<b2Vec2>& polygon);
+
+    static SDL_Rect generatePartialRect(SDL_Rect originalRect, SDL_Rect areaConstrain);
+
+    static SDL_Rect getTopLeftRect(IntPair center, IntPair size);
+
+    static SDL_Rect getCenterRect(IntPair pos, IntPair size);
+    static SDL_Rect getCenterRect(const SDL_Rect& topleftRect);
+
+    static std::vector<std::vector<b2Vec2>> extractPolygons(int n, int vert);
 };

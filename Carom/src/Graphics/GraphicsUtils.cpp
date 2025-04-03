@@ -1,6 +1,8 @@
 #include "GraphicsUtils.h"
 #include "PhysicsUtils.h"
+#include "SDLUtils.h"
 #include <clipper.h>
+#include <format>
 
 using namespace Clipper2Lib;
 
@@ -369,4 +371,180 @@ GraphisUtils::generatePolygonBoundingBoxes(const std::vector<std::vector<b2Vec2>
     }
 
     return {boundingBoxes, unclampedCenters};
+}
+
+b2Vec2 GraphisUtils::calculatePolygonCenter(const std::vector<b2Vec2> &polygon)
+{
+    b2Vec2 polyCenter;
+
+    auto [firstX, firstY] = polygon[0];
+    int minX = firstX;
+    int maxX = firstX;
+    int minY = firstY;
+    int maxY = firstY;
+
+    // Compute the min and max coordinates of the polygon in pixels
+    for (size_t i = 1; i < polygon.size(); i++) {
+        minX = std::min(minX, (int)polygon[i].x);
+        maxX = std::max(maxX, (int)polygon[i].x);
+        minY = std::min(minY, (int)polygon[i].y);
+        maxY = std::max(maxY, (int)polygon[i].y);
+    }
+
+    // Compute the center in pixels
+    float centerX = minX + (maxX - minX) / 2.0f;
+    float centerY = minY + (maxY - minY) / 2.0f;
+    polyCenter = {centerX, centerY};
+
+    return polyCenter;
+}
+
+
+// TOP LEFT en coord abs
+// Orginal rect in absolute x, y
+// Returns partial rect in local coordinates respect to original
+SDL_Rect GraphisUtils::generatePartialRect(SDL_Rect originalRect, SDL_Rect areaConstrain)
+{
+    int x = originalRect.x;
+    int y = originalRect.y;
+    int w = originalRect.w;
+    int h = originalRect.h;
+    
+    // min and max in absolute
+    int minX = x;
+    int maxX = x + w;
+    int minY = y;
+    int maxY = y + h;
+
+    // SDL_Rect
+    minX = std::max(minX, areaConstrain.x);
+    minY = std::max(minY, areaConstrain.y);
+    maxX = std::min(maxX, areaConstrain.x + areaConstrain.w);
+    maxY = std::min(maxY, areaConstrain.y + areaConstrain.h);
+
+    // Compute width and height after clamping
+    int width = maxX - minX;
+    int height = maxY - minY;
+
+    // Ensure width and height are non-negative
+    width = std::max(width, 0);
+    height = std::max(height, 0);
+
+    // Offset of partial to original rect
+    // Create the SDL_Rect in LOCAL coordinates
+    SDL_Rect rect;
+    rect.x = minX - originalRect.x;
+    rect.y = minY - originalRect.y;
+    rect.w = width;
+    rect.h = height;
+
+    return rect;
+}
+
+// (x,y) from rect absolute coordinates to the screen
+SDL_Rect GraphisUtils::getTopLeftRect(IntPair center, IntPair size)
+{
+    return {center.first - size.first/2, center.second - size.second/2, size.first, size.second};
+}
+
+
+SDL_Rect GraphisUtils::getCenterRect(IntPair pos, IntPair size)
+{
+    return {pos.first + size.first/2, pos.second + size.second/2, size.first, size.second};
+}
+
+SDL_Rect GraphisUtils::getCenterRect(const SDL_Rect &topleftRect)
+{
+    return {topleftRect.x + topleftRect.w/2, topleftRect.y + topleftRect.h/2, topleftRect.w, topleftRect.h};
+}
+
+// Everything in pixels: in and out
+std::pair<SDL_Rect, b2Vec2> GraphisUtils::generatePolygonBoundingBox(const std::vector<b2Vec2> &polygon, int areaPosX, int areaPosY, int areaWidth, int areaHeight)
+{
+    SDL_Rect boundingBox;
+    b2Vec2 unclampedCenter;
+
+    auto [firstX, firstY] = polygon[0];
+    int minX = firstX;
+    int maxX = firstX;
+    int minY = firstY;
+    int maxY = firstY;
+
+    // Compute the min and max coordinates of the polygon in pixels
+    for (size_t i = 1; i < polygon.size(); i++) {
+        minX = std::min(minX, (int)polygon[i].x);
+        maxX = std::max(maxX, (int)polygon[i].x);
+        minY = std::min(minY, (int)polygon[i].y);
+        maxY = std::max(maxY, (int)polygon[i].y);
+    }
+
+    // Compute the center of the unclamped bounding box in pixels
+    float unclampedCenterX = minX + (maxX - minX) / 2.0f;
+    float unclampedCenterY = minY + (maxY - minY) / 2.0f;
+    unclampedCenter = {unclampedCenterX, unclampedCenterY};
+
+    // Now apply clamping to the bounding box to get the SDL_Rect
+    // Clamp the bounding box to the area boundaries
+    // Pixels
+    minX = std::max(minX, areaPosX);
+    minY = std::max(minY, areaPosY);
+    maxX = std::min(maxX, areaPosX + areaWidth);
+    maxY = std::min(maxY, areaPosY + areaHeight);
+
+    // Recompute width and height after clamping
+    int width = maxX - minX;
+    int height = maxY - minY;
+
+    // Ensure width and height are non-negative
+    width = std::max(width, 0);
+    height = std::max(height, 0);
+
+    // Create the SDL_Rect
+    SDL_Rect rect;
+    rect.x = minX;
+    rect.y = minY;
+    rect.w = width;
+    rect.h = height;
+
+    boundingBox = rect;
+
+    return {boundingBox, unclampedCenter};
+}
+
+// On pixels
+std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
+{
+    auto svg = &sdlutils().svgs().at("grp_arena");
+    std::cout << "n: " << n << std::endl;
+    std::vector<std::vector<b2Vec2>> polygons;
+    polygons.reserve(n);
+
+    char idx = 'a';
+
+    for (int i = 0; i < n; ++i)
+    {
+        std::vector<b2Vec2> vertices;
+
+        for (int j = 1; j <= vert; ++j)
+        {
+            std::string str = std::string(1, idx);
+            std::cout << "index = " << str + std::to_string(j) << std::endl;
+
+            b2Vec2 vert = {(float)svg->at(str + std::to_string(j)).x, (float)svg->at(str + std::to_string(j)).y};
+
+            vertices.push_back(vert);
+        }
+        polygons.push_back(vertices);
+        idx += 1;
+    }
+
+    // for (auto& p : polygons){
+    //     for (auto& v : vertices){
+    //         std::cout << "vertice: " << v.x << " " << v.y << std::endl;
+    //     }
+    // }
+
+    // std::cout << "polygons: " << polygons.size() << std::endl;
+
+    return polygons;
 }

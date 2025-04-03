@@ -3,8 +3,6 @@
 #include "RigidBodyComponent.h"
 #include <iostream>
 
-using namespace ecs;
-
 EventOnCollision::EventOnCollision(entity_t ent) : PhysicsComponent(ent)
 {
     _onCollisionEnter = [this](entity_t entity) { std::cout << "Entered with " << entity << std::endl; };

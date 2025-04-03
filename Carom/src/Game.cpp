@@ -1,4 +1,4 @@
-#define _FPS // ! comentar si quieres quitar el cout de FPS
+// #define _FPS // ! comentar si quieres quitar el cout de FPS
 
 #include <unordered_map>
 #include <utility>
@@ -57,10 +57,10 @@ Game::start()
 {
     _sceneManager = new ScenesManager();    
 
-    NullState* state = new NullState(nullptr);
-    //ecs::GameScene *ms = new PrefabTestScene(state, this, nullptr); // no borrar, cosas jordi monolito
-    ecs::GameScene *ms = new ecs::PoolScene(this); 
-    _sceneManager->pushScene(ms); // ! tst
+    // !!! SE CREA MAINMENUSCENE
+    GameScene *ms = new MainMenuScene(this);
+
+    _sceneManager->pushScene(ms);
 }
 
 void Game::run()
@@ -143,7 +143,7 @@ void Game::run()
         _sceneManager = new ScenesManager();    
 
         NullState* state = new NullState(nullptr);
-        ecs::GameScene *ms = new ecs::PoolScene(this);
+        GameScene *ms = new MainMenuScene(this);
     
         _sceneManager->pushScene(ms);
     }

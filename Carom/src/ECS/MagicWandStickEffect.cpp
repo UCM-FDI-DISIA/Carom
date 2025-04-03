@@ -8,8 +8,6 @@
 #include <box2D/box2D.h>
 
 
-using namespace ecs;
-
 void
 MagicWandStickEffect::applyEffect(entity_t target){
     CaromScene* a_scene = static_cast<CaromScene*>(&target->getScene());

@@ -1,18 +1,16 @@
 #include "Component.h"
 
-namespace ecs
-{
-    Component::Component(Entity* ent) : _myEntity(ent), _isEnable(true) {}
 
-    Component::~Component() {}
+Component::Component(Entity* ent) : _myEntity(ent), _isEnable(true) {}
 
-    void
-    Component::setEnabled(bool state) {
-        _isEnable = state;
-    }
+Component::~Component() {}
 
-    bool
-    Component::isEnabled() {
-        return _isEnable;
-    }
+void
+Component::setEnabled(bool state) {
+    _isEnable = state;
+}
+
+bool
+Component::isEnabled() {
+    return _isEnable;
 }

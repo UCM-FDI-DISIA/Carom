@@ -2,25 +2,23 @@
 #include "RigidBodyComponent.h"
 #include "Entity.h"
 
-namespace ecs {
-    
-    FrictionMultiplierEffect::FrictionMultiplierEffect(entity_t entity, float friction) : BallEffect(entity), _frictionFactor(friction)
-    {
 
-    }
+FrictionMultiplierEffect::FrictionMultiplierEffect(entity_t entity, float friction) : BallEffect(entity), _frictionFactor(friction)
+{
 
-    FrictionMultiplierEffect::~FrictionMultiplierEffect(){}
+}
 
-    void FrictionMultiplierEffect::init() {
-        _rigidBody = _myEntity->getComponent<RigidBodyComponent>();
-        assert(_rigidBody != nullptr);
+FrictionMultiplierEffect::~FrictionMultiplierEffect(){}
 
-        _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() * _frictionFactor);
-    }
+void FrictionMultiplierEffect::init() {
+    _rigidBody = _myEntity->getComponent<RigidBodyComponent>();
+    assert(_rigidBody != nullptr);
 
-    void FrictionMultiplierEffect::onStrikeEnd() {
-        std::cout << "LOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() / _frictionFactor);
-        _myEntity->removeComponent<FrictionMultiplierEffect>();
-    }
+    _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() * _frictionFactor);
+}
+
+void FrictionMultiplierEffect::onStrikeEnd() {
+    std::cout << "LOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() / _frictionFactor);
+    _myEntity->removeComponent<FrictionMultiplierEffect>();
 }
