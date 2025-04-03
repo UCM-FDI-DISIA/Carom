@@ -1,4 +1,4 @@
-#define _FPS // ! comentar si quieres quitar el cout de FPS
+// #define _FPS // ! comentar si quieres quitar el cout de FPS
 
 #include <unordered_map>
 #include <utility>

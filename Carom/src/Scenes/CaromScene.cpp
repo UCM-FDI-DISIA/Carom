@@ -271,20 +271,23 @@ CaromScene::~CaromScene(){
 void CaromScene::handleEvent()
 {
     GameScene::handleEvent();
-    // input to fast forward physics
-    if (_canFastForwardPhysics && ih().isKeyDown(SDLK_s))
-        _fastForwardPhysics = true;
-    else
-        _fastForwardPhysics = false;
 
-    // ! DEBUG
-    if(ih().isKeyDown(SDLK_e) && !_canRestart){
-        _canRestart = true;
-    }
-    if (ih().isKeyDown(SDLK_r) && _canRestart){
-        _canRestart = false;
-        game->requestRestart();
-    }
+    #ifdef _DEBUG
+        // input to fast forward physics
+        if (_canFastForwardPhysics && ih().isKeyDown(SDLK_s))
+            _fastForwardPhysics = true;
+        else
+            _fastForwardPhysics = false;
+
+        // ! DEBUG
+        if(ih().isKeyDown(SDLK_e) && !_canRestart){
+            _canRestart = true;
+        }
+        if (ih().isKeyDown(SDLK_r) && _canRestart){
+            _canRestart = false;
+            game->requestRestart();
+        }
+    #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_l)){ 
         // Al presionar la "L" te lleva a la escena de ganar.

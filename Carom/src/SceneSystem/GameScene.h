@@ -33,8 +33,6 @@ protected:
     Game* game;
     CameraComponent* _camera = nullptr;
 
-    bool _canFastForwardPhysics = false;
-
     GameScene(Game* game);
 
     // Create entities that represent and compose the table. The table as a whole is a group.
@@ -139,12 +137,18 @@ public:
     virtual void clear();
     // Set rendering order. Called by render texture component on init.
     void sortRenderOrder();
-    virtual void setCanFastForward(bool active) {};
 
 protected:
 
     virtual void updatePhysics() {};
     virtual void updateScene() {};
+
+#ifdef _DEBUG
+    protected:
+        bool _canFastForwardPhysics = false;
+    public:
+        virtual void setCanFastForward(bool active) {};
+#endif
 };
 
 inline Game*

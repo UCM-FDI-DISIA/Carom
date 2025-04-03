@@ -22,11 +22,6 @@ protected:
     GameScene* _reward; //La recompensa al completar la escena
     int _remainingHits = 3;
 
-    bool _fastForwardPhysics = false;
-    int _fastForwardIterations = 10;
-
-    bool _canRestart = false; // ! DEBUG
-
     void updatePhysics() override;
     void updateScene() override;
 public:
@@ -34,7 +29,6 @@ public:
     virtual ~CaromScene();
 
     void handleEvent() override;
-    void setCanFastForward(bool active) override;
     //Llama al update de todas las entidades de escena y maneja las físicas
     void update() override;
 
@@ -140,4 +134,15 @@ protected:
     Boss _boss = Boss::NONE;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
+
+
+#ifdef _DEBUG
+    public:
+        void setCanFastForward(bool active) override;
+
+    protected:
+        bool _fastForwardPhysics = false;
+        int _fastForwardIterations = 10;
+        bool _canRestart = false;
+#endif
 };
