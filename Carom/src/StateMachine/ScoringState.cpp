@@ -13,8 +13,8 @@ ScoringState::ScoringState(CaromScene* scene) : State(scene)
 
 void
 ScoringState::onStateEnter() {
-        std::cout << "Entrando en Scoring\n";
-
+    std::cout << "Entrando en Scoring\n";
+    _scene->decrementRemainingHits();
 }
 
 void
