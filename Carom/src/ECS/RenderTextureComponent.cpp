@@ -7,17 +7,15 @@
 #include "Camera.h"
 #include "GameScene.h"
 
+RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
+: RenderComponent(ent),
+_texture(texture),
+_transform(nullptr),
+renderOrder(renderOrder),
+_scale(scale)
+{
 
-namespace ecs {
-    RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale) 
-    : RenderComponent(ent),
-    _texture(texture),
-    _transform(nullptr),
-    renderOrder(renderOrder),
-    _scale(scale)
-    {
-
-    }
+}
 
 RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderOrder, float scale, SDL_Color tint) 
 : RenderTextureComponent(ent, texture, renderOrder, scale)
@@ -32,11 +30,11 @@ void RenderTextureComponent::init(){
 
     void RenderTextureComponent::render(Camera* camera) {
         _texture->changeColorTint(_color.r, _color.g, _color.b);
-        _texture->render(getRect(), _transform->getRotation());
+        _texture->render(getRenderRect(), _transform->getRotation());
         _texture->changeColorTint(255,255,255);
     }
 
-    SDL_Rect RenderTextureComponent::getRect() const
+    SDL_Rect RenderTextureComponent::getRenderRect() const
     {
         b2Vec2 physicalPosition = _transform->getPosition();
         //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura

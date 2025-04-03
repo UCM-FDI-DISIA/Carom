@@ -389,6 +389,41 @@ CaromScene::manageExitTriggers(b2SensorEvents sensorEvents){
 
 }
 
+TextDisplayComponent* 
+CaromScene::createRemainingHitsUI() {
+
+    entity_t hitsFrameObject = new Entity(*this, grp::SCORE);
+    _entsRenderable.push_back(hitsFrameObject);
+
+    b2Vec2 framePos = PhysicsConverter::pixel2meter(
+        sdlutils().svgElements_table().at("shotsLeftSprite").x,
+        sdlutils().svgElements_table().at("shotsLeftSprite").y
+    );
+
+    float svgSize = sdlutils().svgElements_table().at("shotsLeftSprite").width;
+    float textureSize = sdlutils().images().at("shotsSprite").width();
+    float scale = svgSize/textureSize;
+    // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
+    hitsFrameObject->addComponent(new TransformComponent(hitsFrameObject, framePos));
+    hitsFrameObject->addComponent(new RenderTextureComponent(hitsFrameObject, &sdlutils().images().at("shotsSprite"), 0, scale));
+    //ShotsLeft text
+    entity_t remainingHitsObject = new Entity(*this, grp::SCORE);
+    _entsRenderable.push_back(remainingHitsObject);
+
+    b2Vec2 textPos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgElements_table().at("shotsLeftText").x,
+        *&sdlutils().svgElements_table().at("shotsLeftText").y
+    );
+
+    // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
+    remainingHitsObject->addComponent(new TransformComponent(remainingHitsObject, textPos));
+    TextDisplayComponent* remainingHitsDisplay = new TextDisplayComponent(remainingHitsObject, 1, 1.0, 
+        std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Bold72");
+    remainingHitsObject->addComponent(remainingHitsDisplay);
+
+    return remainingHitsDisplay;
+}
+
 TextDisplayComponent*
 CaromScene::createScoreUI() {
     //CurrentScore
@@ -427,38 +462,6 @@ void CaromScene::addScore(int score) {
 void CaromScene::removeScore(int score) {
     _currentScore -= score;
     _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
-}
-
-void CaromScene::setScoreToBeat(int score){
-    _scoreToBeat = score; 
-}
-
-TextDisplayComponent*
-CaromScene::createScoreUI() {
-    //CurrentScore
-    entity_t currentScoreObject = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(currentScoreObject);
-    
-    b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgElements_table().at("scoreTextL").x,
-        *&sdlutils().svgElements_table().at("scoreTextL").y
-    );
-    
-    currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-    TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, 1, 1.6, "0", {255, 255, 255, 255}, "Basteleur-Moonlight24");
-    currentScoreObject->addComponent(currentDisplay);
-    //Score to beat
-    entity_t scoreToBeatObject = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(scoreToBeatObject);
-    
-    b2Vec2 pos2 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgElements_table().at("scoreTextR").x,
-        *&sdlutils().svgElements_table().at("scoreTextR").y
-    );
-    scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-    scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, 1, 1.6, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight24"));
-    
-    return currentDisplay;
 }
 
 void CaromScene::setScoreToBeat(int score){
@@ -471,13 +474,4 @@ void CaromScene::decrementRemainingHits()
         --_remainingHits;
         _remainingHitsDisplay->setDisplayedText(std::to_string(_remainingHits));
     }
-}
-
-void CaromScene::removeScore(int score) {
-    _currentScore -= score;
-    _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
-}
-void CaromScene::addScore(int score) {
-    _currentScore += score;
-    _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
 }

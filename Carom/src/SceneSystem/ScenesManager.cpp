@@ -17,9 +17,9 @@ ScenesManager::~ScenesManager()
 }
 
 void
-ScenesManager::pushScene(shared_ptr<GameScene> scene)
+ScenesManager::pushScene(GameScene* scene)
 {
-	GameScenes.push(std::move(scene));
+	GameScenes.push(scene);
 }
 
 void
@@ -42,10 +42,13 @@ ScenesManager::operator bool() const
 }
 
 void
-ScenesManager::replaceScene(shared_ptr<GameScene> scene)
+ScenesManager::replaceScene(GameScene* scene)
 {
-	if (!GameScenes.empty())
-		GameScenes.top() = std::move(scene);
+	if (!GameScenes.empty()) {
+		GameScene* current = GameScenes.top();
+		GameScenes.top() = scene;
+		delete current;
+	}
 }
 
 void
@@ -54,7 +57,7 @@ ScenesManager::update()
 	if (!GameScenes.empty()) {
 		// Esta variable local evita que el estado sea destruido hasta que
 		// acabe esta función si su actualización lo desapila de esta pila
-		shared_ptr<GameScene> current = GameScenes.top();
+		GameScene* current = GameScenes.top();
 		current->update();
 	}
 }
@@ -72,7 +75,7 @@ void
 ScenesManager::handleEvent()
 {
 	if (!GameScenes.empty()) {
-		shared_ptr<GameScene> current = GameScenes.top();
+		GameScene* current = GameScenes.top();
 		current->handleEvent();
 	}
 }
