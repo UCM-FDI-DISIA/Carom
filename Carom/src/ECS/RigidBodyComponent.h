@@ -12,8 +12,6 @@
 
 class B2Manager;
 
-namespace ecs{
-
 class Entity;
 
 static const b2Rot defaultRotation = {1.0f, 0.0f};
@@ -74,6 +72,8 @@ protected:
 
     virtual void updateScale() = 0;
 
+    const float TERMINAL_VELOCITY = 0.02f;
+
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
@@ -107,6 +107,11 @@ public:
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
 
+    void setEnabled(bool state) override;
+
+    // enable or disable body to participate in simulation
+    void setBodyEnabled(bool enabled);
+
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);
     void applyForceToWorld(b2Vec2 force, b2Vec2 origin);
@@ -122,5 +127,4 @@ public:
     void onCollisionExit(entity_t ent);
     void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);
-    };
-}
+};

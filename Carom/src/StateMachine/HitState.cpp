@@ -8,31 +8,31 @@
 #include <iostream>
 
 
-HitState::HitState(ecs::CaromScene* scene) : State(scene) 
+HitState::HitState(CaromScene* scene) : State(scene) 
 {
 
 }
 
 void
 HitState::onStateEnter() {
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
-        if(e->tryGetComponent<ecs::Button>()) {
-            e->getComponent<ecs::Button>()->setEnabled(true);
+    for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
+        if(e->tryGetComponent<Button>()) {
+            e->getComponent<Button>()->setEnabled(true);
         }
     }
 
-    _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)[0]->getComponent<ecs::WhiteBallScorerComponent>()->refreshOnNewTurn();
+    _scene->getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<WhiteBallScorerComponent>()->refreshOnNewTurn();
 }
 
 void
 HitState::onStateExit() {
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)) {
+    for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)) {
         std::cout << "Saliendo de Hit\n";
         e->deactivate();
     }
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::WHITEBALL)) {
-        if(e->tryGetComponent<ecs::Button>()) {
-            e->getComponent<ecs::Button>()->setEnabled(false);
+    for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
+        if(e->tryGetComponent<Button>()) {
+            e->getComponent<Button>()->setEnabled(false);
         }
     }
 }
@@ -40,8 +40,8 @@ HitState::onStateExit() {
 bool 
 HitState::checkCondition(State*& state) {
     // TODO: comprobar si la bola blanca ya ha sido golpeada ARQUITECTURA MIRAR SI ESTO ESTÁ BIEN
-    for (auto& e : _scene->getEntitiesOfGroup(ecs::grp::PALO)){
-        if(e->tryGetComponent<ecs::StickInputComponent>() && e->getComponent<ecs::StickInputComponent>()->hasShot()) {
+    for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)){
+        if(e->tryGetComponent<StickInputComponent>() && e->getComponent<StickInputComponent>()->hasShot()) {
             std::cout << "Cambio a Scoring\n";
             state = new ScoringState(_scene);
             return true;

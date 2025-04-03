@@ -5,8 +5,6 @@
 
 #include "PhysicsUtils.h"
 
-namespace ecs
-{
     void Button::setEnabled(bool state)
     {
         _isEnable = state;
@@ -105,4 +103,3 @@ namespace ecs
         SDL_Rect rect = _targetRenderer->getRect();
         return InputHandler::Instance()->isMouseInRect(mousePos, rect);
     }
-}

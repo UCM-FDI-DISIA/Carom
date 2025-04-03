@@ -8,40 +8,37 @@
 class ScenesManager;
 class RNG_Manager;
 
-namespace ecs{
-    class PoolScene: public GameScene {
-    protected:
-        static constexpr int HOLES = 6;
-        enum BallTypes{
-                ROUND,
-                BOSS
-            };
-
-        const float W = 1.6;
-        const float H = .7f;
-        // Posiciones posibles de agujeros de mesa de pool(por el momento no es exacto).
-        std::vector<b2Vec2> _poolPositions = {
-            b2Vec2(-W, H), // arriba izquierda.
-            b2Vec2(0, H), // arriba centro.
-            b2Vec2(W, H), // arriba derecha.
-            b2Vec2(-W, -H), // abajo izquierda.
-            b2Vec2(0, -H), // abajo centro.
-            b2Vec2(W, -H)  // abajo derecha.
+class PoolScene: public GameScene {
+protected:
+    static constexpr int HOLES = 6;
+    enum BallTypes{
+            ROUND,
+            BOSS
         };
-        
-        RNG_Manager* _rngm; // random manager
-        GameScene* _reward; //La recompensa al completar la escena
-        b2WorldId _myB2WorldId; //El mundo de box2D
 
-        void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
-
-    public:
-        PoolScene(State* state, Game* g, GameScene* reward);
-        ~PoolScene();
-
-        void setNewState(State* s);
-
-        inline GameScene* getRewardScene() const {return _reward;}
+    const float W = 1.6;
+    const float H = .7f;
+    // Posiciones posibles de agujeros de mesa de pool(por el momento no es exacto).
+    std::vector<b2Vec2> _poolPositions = {
+        b2Vec2(-W, H), // arriba izquierda.
+        b2Vec2(0, H), // arriba centro.
+        b2Vec2(W, H), // arriba derecha.
+        b2Vec2(-W, -H), // abajo izquierda.
+        b2Vec2(0, -H), // abajo centro.
+        b2Vec2(W, -H)  // abajo derecha.
     };
+    
+    RNG_Manager* _rngm; // random manager
+    GameScene* _reward; //La recompensa al completar la escena
+    b2WorldId _myB2WorldId; //El mundo de box2D
 
-}
+    void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
+
+public:
+    PoolScene(State* state, Game* g, GameScene* reward);
+    ~PoolScene();
+
+    void setNewState(State* s);
+
+    inline GameScene* getRewardScene() const {return _reward;}
+};

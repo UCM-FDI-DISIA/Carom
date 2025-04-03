@@ -4,7 +4,7 @@
 
 class LoseMatchState : public State {
 public:
-    LoseMatchState(ecs::CaromScene* scene);
+    LoseMatchState(CaromScene* scene);
 
     bool checkCondition(State*& state);
     void onStateEnter() override;

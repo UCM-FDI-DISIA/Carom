@@ -15,8 +15,6 @@
 #include <cmath>
 #include <math.h>
 
-using namespace ecs;
-
 /// @brief Constructor of RigidBody. Receives a Shape class as a parameter depending on which shape is needed (circle, capsule or polygon)
 /// @param ent The owner of the component
 /// @param type The type of the component (kinematic, dynamic or static)
@@ -45,7 +43,7 @@ void RigidBodyComponent::update() {
 
 void
 RigidBodyComponent::generateBodyAndShape(){
-    // ecs::entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
+    // entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
 
     b2BodyDef bodyDef = b2DefaultBodyDef();
     bodyDef.type = _myProps.bodyType;
@@ -96,7 +94,12 @@ RigidBodyComponent::getRotation() const {
 bool
 RigidBodyComponent::isMoving() {
     b2Vec2 vel = getVelocity();
-    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2)) > 0.01f;
+
+    float currentSpeed = std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2));
+    if(currentSpeed > TERMINAL_VELOCITY) return true;
+
+    b2Body_SetLinearVelocity(_myB2BodyId, b2Vec2_zero);
+    return false;
 }
 
 /// @brief Recoloca el objeto físico
@@ -194,7 +197,7 @@ RigidBodyComponent::setDensity(float density, int nShapes){
 
 /// @brief Changes the density of an object
 /// @param density the new density for the shape
-void ecs::RigidBodyComponent::setDensity(float density)
+void RigidBodyComponent::setDensity(float density)
 {
     _myProps.density = density;
     b2Shape_SetDensity(_myB2ShapeId, density, true);
@@ -216,7 +219,7 @@ RigidBodyComponent::setFriction(float friction, int nShapes){
 
 /// @brief Changes the friction of an object
 /// @param density the new friction for the shape
-void ecs::RigidBodyComponent::setFriction(float friction)
+void RigidBodyComponent::setFriction(float friction)
 {
     _myProps.friction = friction;
     b2Shape_SetFriction(_myB2ShapeId, friction);
@@ -237,16 +240,30 @@ RigidBodyComponent::setRestitution(float restitution, int nShapes){
 
 /// @brief Changes the restitution of an object
 /// @param density the new restitution for the shape
-void ecs::RigidBodyComponent::setRestitution(float restitution)
+void RigidBodyComponent::setRestitution(float restitution)
 {
     _myProps.restitution = restitution;
     b2Shape_SetRestitution(_myB2ShapeId, restitution);
 }
 
-void ecs::RigidBodyComponent::setLinearDamping(float damping)
+void RigidBodyComponent::setLinearDamping(float damping)
 {
     _myProps.linearDamping = damping;
     b2Body_SetLinearDamping(_myB2BodyId, damping);
+}
+
+void RigidBodyComponent::setBodyEnabled(bool enabled)
+{
+    if(enabled)
+        b2Body_Enable(_myB2BodyId);
+    else 
+        b2Body_Disable(_myB2BodyId);
+}
+
+void
+RigidBodyComponent::setEnabled(bool state) {
+    _isEnable = state;
+    setBodyEnabled(state);
 }
 
 /// @brief Function called everytime object enters a collision
