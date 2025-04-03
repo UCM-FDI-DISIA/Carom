@@ -10,7 +10,7 @@
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
-#include "Camera.h"
+#include "CameraComponent.h"
 #include "Frame.h"
 #include "CameraComponent.h"
 

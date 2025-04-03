@@ -527,14 +527,13 @@ CaromScene::createRemainingHitsUI() {
     entity_t hitsFrameObject = new Entity(*this, grp::SCORE);
     _entsRenderable.push_back(hitsFrameObject);
 
-    b2Vec2 framePos = PhysicsConverter::pixel2meter(
-        sdlutils().svgElements_table().at("shotsLeftSprite").x,
-        sdlutils().svgElements_table().at("shotsLeftSprite").y
-    );
+    auto shotsLeftSprite = sdlutils().svgs().at("game").at("shotsLeftSprite");
+    b2Vec2 framePos = PhysicsConverter::pixel2meter( shotsLeftSprite.x, shotsLeftSprite.y);
 
-    float svgSize = sdlutils().svgElements_table().at("shotsLeftSprite").width;
+    float svgSize = shotsLeftSprite.width;
     float textureSize = sdlutils().images().at("shotsSprite").width();
     float scale = svgSize/textureSize;
+
     // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
     hitsFrameObject->addComponent(new TransformComponent(hitsFrameObject, framePos));
     hitsFrameObject->addComponent(new RenderTextureComponent(hitsFrameObject, &sdlutils().images().at("shotsSprite"), 0, scale));
@@ -542,10 +541,8 @@ CaromScene::createRemainingHitsUI() {
     entity_t remainingHitsObject = new Entity(*this, grp::SCORE);
     _entsRenderable.push_back(remainingHitsObject);
 
-    b2Vec2 textPos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgElements_table().at("shotsLeftText").x,
-        *&sdlutils().svgElements_table().at("shotsLeftText").y
-    );
+    auto shotsLeftText = sdlutils().svgs().at("game").at("shotsLeftText");
+    b2Vec2 textPos = PhysicsConverter::pixel2meter( shotsLeftText.x, shotsLeftText.y);
 
     // no entiendo por que crear el transform component así, lo he copiado del método createScoreUI()
     remainingHitsObject->addComponent(new TransformComponent(remainingHitsObject, textPos));

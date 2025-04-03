@@ -21,7 +21,6 @@ protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
     GameScene* _reward; //La recompensa al completar la escena
-    int _remainingHits = 3;
 
     void updatePhysics() override;
     void updateScene() override;

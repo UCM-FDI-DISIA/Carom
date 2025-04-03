@@ -40,7 +40,7 @@ void RenderTextureComponent::init(){
 
 void RenderTextureComponent::render() {
     _texture->changeColorTint(_color.r, _color.g, _color.b);
-    _texture->render(getRect(), _transform->getRotation());
+    _texture->render(getRenderRect(), _transform->getRotation());
     _texture->changeColorTint(255,255,255);
 }
 

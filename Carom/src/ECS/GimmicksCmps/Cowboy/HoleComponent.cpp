@@ -67,7 +67,7 @@ void HoleComponent::update()
     if (_isEmpty && _contextEntt) 
     {
         b2Vec2 contextPos = _contextRB->getPosition();
-        float contextRadius = PhysicsConverter::pixel2meter(_contextRender->getRect().w/2);
+        float contextRadius = PhysicsConverter::pixel2meter(_contextRender->getRenderRect().w/2);
 
         Vector2D distanceVec = Vector2D(_myCenter.x - contextPos.x, _myCenter.y - contextPos.y);
         float centersDistance = distanceVec.magnitude();

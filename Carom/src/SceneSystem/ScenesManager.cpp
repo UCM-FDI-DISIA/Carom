@@ -63,17 +63,6 @@ ScenesManager::update()
  }
  
  void
- ScenesManager::update()
- {
-	 if (!GameScenes.empty()) {
-		 // Esta variable local evita que el estado sea destruido hasta que
-		 // acabe esta función si su actualización lo desapila de esta pila
-		 GameScene* current = GameScenes.top();
-		 current->update();
-	 }
- }
- 
- void
  ScenesManager::render() const
  {
 	 if (!GameScenes.empty()) {
@@ -90,15 +79,6 @@ ScenesManager::update()
 		current->handleEvent();
 	 }
  }
-
-void
-ScenesManager::handleEvent()
-{
-	if (!GameScenes.empty()) {
-		GameScene* current = GameScenes.top();
-		current->handleEvent();
-	}
-}
 
 void
 ScenesManager::refresh() {

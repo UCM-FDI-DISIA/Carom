@@ -346,7 +346,7 @@ void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, Twe
 
     b2Vec2 pos = bulletPos[index];
 
-    float halfHandMag = PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(boss)->getRect().h/2);
+    float halfHandMag = PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(boss)->getRenderRect().h/2);
 
     Vector2D dir = Vector2D{startingHandPosition.x - pos.x, startingHandPosition.y - pos.y}.normalize();
 

@@ -12,7 +12,7 @@
 #include "ecs_defs.h"
 
 
-// El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRect para pasarselo a este componente para que pueda funcionar.
+// El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRenderRect para pasarselo a este componente para que pueda funcionar.
 
 /*
 - La bola blanca tiene un radio para detectar el raton
@@ -66,8 +66,8 @@ void StickInputComponent::handleEvent()
 
             //aplicar tween con callback al final
             TweenComponent* _tween = _myEntity->getComponent<TweenComponent>();
-            Vector2D distance = dirNormalized * PhysicsConverter::pixel2meter(_myRender->getRect().w)/2;
-            float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRect().w/2);
+            Vector2D distance = dirNormalized * PhysicsConverter::pixel2meter(_myRender->getRenderRect().w)/2;
+            float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
             _tween->easePosition({_center.x - distance.getX() - dirNormalized.getX() - a_ballRadius,
                                     _center.y - distance.getY() - dirNormalized.getY() - a_ballRadius},
                                     .08f, tween::EASE_IN_EXPO, false, [=](){
@@ -121,7 +121,7 @@ void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
 
     Vector2D a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
                                 _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
-    float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRect().w/2);
+    float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
 
     float distX = PhysicsConverter::pixel2meter(_stickHeight/2) * cosalpha;
     float distY = PhysicsConverter::pixel2meter(_stickHeight/2) * sinalpha;
@@ -151,7 +151,7 @@ void StickInputComponent::registerWhiteBall(entity_t wb)
 {
     _whiteBall = wb;
     _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
-    _minRadiusToPull = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRect().w/2);
+    _minRadiusToPull = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
 }
 
 void StickInputComponent::registerStickEffect(StickEffectComponent* effect) {
