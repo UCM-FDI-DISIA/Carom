@@ -4,7 +4,7 @@
 #include "NullState.h"
 #include "GameScene.h"
 
-LoseMatchState::LoseMatchState(ecs::CaromScene* scene) : State(scene)
+LoseMatchState::LoseMatchState(CaromScene* scene) : State(scene)
 {
 
 }

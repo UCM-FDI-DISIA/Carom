@@ -57,6 +57,5 @@ public:
     static SDL_Rect getCenterRect(IntPair pos, IntPair size);
     static SDL_Rect getCenterRect(const SDL_Rect& topleftRect);
 
-
     static std::vector<std::vector<b2Vec2>> extractPolygons(int n, int vert);
 };

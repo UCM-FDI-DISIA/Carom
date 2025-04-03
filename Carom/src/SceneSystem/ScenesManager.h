@@ -24,16 +24,16 @@
  class ScenesManager
  {
 	 // Pila (como las de EDA) de punteros inteligentes a estados del juego
-	 std::stack<ecs::GameScene*> GameScenes;
+	 std::stack<GameScene*> GameScenes;
  
  public:
 	 ~ScenesManager();
  
 	 // Apila un nuevo estado, que se convierte en el estado actual,
 	 // manteniendo el anterior en la pila
-	 void pushScene(ecs::GameScene* scene);
+	 void pushScene(GameScene* scene);
 	 // Reemplaza el estado actual por el nuevo estado
-	 void replaceScene(ecs::GameScene* scene);
+	 void replaceScene(GameScene* scene);
 	 // Desapila el estado actual y pasa al siguiente en la pila
 	 // (no hace nada si no la pila es vacía)
 	 void popScene();

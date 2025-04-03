@@ -1,9 +1,6 @@
 #include "PolygonRBComponent.h"
 #include "CaromScene.h"
 
-using namespace ecs;
-
-
 /// @brief Constructor for Polygon RB
 /// @param ent the entity
 /// @param pos the position
@@ -46,7 +43,7 @@ PolygonRBComponent::PolygonRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
     _myB2ShapeId = b2CreatePolygonShape(_myB2BodyId, _myB2ShapeDef, &a_polygon);
 }
 
-ecs::PolygonRBComponent::~PolygonRBComponent()
+PolygonRBComponent::~PolygonRBComponent()
 {
     delete _myProps.polyData;
 }

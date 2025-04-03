@@ -17,7 +17,7 @@
  }
  
  void
- ScenesManager::pushScene(ecs::GameScene* scene)
+ ScenesManager::pushScene(GameScene* scene)
  {
 	GameScenes.push(scene);
  }
@@ -42,10 +42,10 @@
  }
  
  void
- ScenesManager::replaceScene(ecs::GameScene* scene)
+ ScenesManager::replaceScene(GameScene* scene)
  {
 	if (!GameScenes.empty()) {
-		ecs::GameScene* current = GameScenes.top();
+		GameScene* current = GameScenes.top();
 		GameScenes.top() = scene;
 		delete current;
 	}
@@ -57,7 +57,7 @@
 	 if (!GameScenes.empty()) {
 		 // Esta variable local evita que el estado sea destruido hasta que
 		 // acabe esta función si su actualización lo desapila de esta pila
-		 ecs::GameScene* current = GameScenes.top();
+		 GameScene* current = GameScenes.top();
 		 current->update();
 	 }
  }
@@ -75,7 +75,7 @@
  ScenesManager::handleEvent()
  {
 	 if (!GameScenes.empty()) {
-		ecs::GameScene* current = GameScenes.top();
+		GameScene* current = GameScenes.top();
 		current->handleEvent();
 	 }
  }

@@ -57,7 +57,7 @@ Game::start()
     _sceneManager = new ScenesManager();    
 
     // !!! SE CREA MAINMENUSCENE
-    ecs::GameScene *ms = new ecs::MainMenuScene(this);
+    GameScene *ms = new MainMenuScene(this);
 
     _sceneManager->pushScene(ms);
 }
@@ -138,7 +138,7 @@ void Game::run()
         _sceneManager = new ScenesManager();    
 
         NullState* state = new NullState(nullptr);
-        ecs::GameScene *ms = new ecs::MainMenuScene(this);
+        GameScene *ms = new MainMenuScene(this);
     
         _sceneManager->pushScene(ms);
     }

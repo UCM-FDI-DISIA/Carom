@@ -4,19 +4,18 @@
 #include <vector>
 #include <functional>
 
-namespace ecs{
-    class EventOnCollision : public PhysicsComponent{
-        private:
-        std::function<void(entity_t)> _onCollisionEnter;
-        std::function<void(entity_t)> _onCollisionExit;
 
-        public:
-        __CMPID_DECL__(cmp::EVENT_ON_COLLISION);
+class EventOnCollision : public PhysicsComponent{
+    private:
+    std::function<void(entity_t)> _onCollisionEnter;
+    std::function<void(entity_t)> _onCollisionExit;
 
-        EventOnCollision(entity_t ent);
-        EventOnCollision(entity_t ent, std::function<void(entity_t)> enter, std::function<void(entity_t)> exit);
+    public:
+    __CMPID_DECL__(cmp::EVENT_ON_COLLISION);
 
-        void onCollisionEnter(entity_t other) override;
-        void onCollisionExit(entity_t other) override;
-    };
-}
+    EventOnCollision(entity_t ent);
+    EventOnCollision(entity_t ent, std::function<void(entity_t)> enter, std::function<void(entity_t)> exit);
+
+    void onCollisionEnter(entity_t other) override;
+    void onCollisionExit(entity_t other) override;
+};

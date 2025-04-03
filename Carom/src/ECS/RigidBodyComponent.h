@@ -9,8 +9,6 @@
 #include "ITransform.h"
 
 
-namespace ecs{
-
 class Entity;
 
 static const b2Rot defaultRotation = {1.0f, 0.0f};
@@ -132,4 +130,3 @@ public:
     void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);
     };
-}
