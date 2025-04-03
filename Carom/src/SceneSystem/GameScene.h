@@ -4,20 +4,23 @@
 #include <list>
 #include <vector>
 #include <array>
+#include <unordered_map>
 #include <box2d/box2d.h>
+
 #include "GameList.h"
 #include "ecs.h"
 #include "Entity.h"
 #include "Camera.h"
-#include <unordered_map>
-#include <vector>
 #include "Frame.h"
+#include "CameraComponent.h"
 
 class Game;
 
+class TweenComponent;
+
 // Declaraciones anticipadas
 
-	/**
+/**
  * Estado abstracto del juego.
  *
  * Mantiene una lista de objetos del juego de los que se hace
@@ -27,120 +30,140 @@ class Game;
 class GameScene
 {
 protected:
-	GameList<Entity> _entities;
-	std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
-	std::vector<entity_t> _entsRenderable;
+    GameList<Entity> _entities;
+    std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
+    std::vector<entity_t> _entsRenderable;
 
-	Game* game;
-	Camera _worldCamera;
-	Camera _UICamera;
+    Game* game;
+    CameraComponent* _camera = nullptr;
 
 	GameScene(Game* game);
+	GameScene();
 
-	// Create entities that represent and compose the table. The table as a whole is a group.
-	void createTable();
-	//creates a background
-	void createBackground(std::string key);
-
-	// Setting the state of the entity (alive or dead)
+	
+	// Este metodo permite un comportamiento de la escena al instanciarla
 	//
-	inline void setAlive(entity_t e, bool alive) {
-		e->setAlive(alive);
-	}
+	inline virtual void init(){}
 
-	// Returns the state of the entity (alive o dead)
-	//
-	inline bool isAlive(entity_t e){
-		return e->isAlive();
-	}
+    // Create entities that represent and compose the table. The table as a whole is a group.
+    void createTable();
+    //creates a background
+    void createBackground(std::string key);
 
-	// Adds a component to an entity. It receives the type T (to be created),
-	// and the list of arguments (if any) to be passed to the constructor.
-	// NOTE: If the entity already has this component no component is added!
-	//
-	template<typename T, typename ...Ts>
-	inline void addComponent(entity_t e, Ts &&... args) {
-		// the component id exists
-		static_assert(cmpId<T> < maxComponentId);
+    // Setting the state of the entity (alive or dead)
+    //
+    inline void setAlive(entity_t e, bool alive) {
+        e->setAlive(alive);
+    }
 
-		// create component
-		T *c = new T(e, std::forward<Ts>(args)...);
+    // Returns the state of the entity (alive o dead)
+    //
+    inline bool isAlive(entity_t e){
+        return e->isAlive();
+    }
 
-		// install the new component if entity doesn't have one of the type
-		if (!e->addComponent<T>(c)) {
-			delete c;
-		}
-	}
+    // Adds a component to an entity. It receives the type T (to be created),
+    // and the list of arguments (if any) to be passed to the constructor.
+    // NOTE: If the entity already has this component no component is added!
+    //
+    template<typename T, typename ...Ts>
+    inline T* addComponent(entity_t e, Ts &&... args) {
+        // the component id exists
+        static_assert(cmpId<T> < maxComponentId);
 
-	// Removes the component T, if any, from the entity.
-	// Returns true if succeded, false if didn't existed.
-	//
-	template<typename T>
-	inline bool removeComponent(entity_t e) {
-		return e->removeComponent<T>();
-	}
+        // create component
+        T *c = new T(e, std::forward<Ts>(args)...);
+
+        // install the new component if entity doesn't have one of the type
+        if (!e->addComponent<T>(c)) {
+            delete c;
+				return nullptr;
+        }
+		return c;
+    }
+
+    // Removes the component T, if any, from the entity.
+    // Returns true if succeded, false if didn't existed.
+    //
+    template<typename T>
+    inline bool removeComponent(entity_t e) {
+        return e->removeComponent<T>();
+    }
 
 public:
-	// Return true if there is a component with identifier T::id in the entity.
-	//
-	template<typename T>
-	inline bool hasComponent(entity_t e) {
-		return e->tryGetComponent();
-	}
+    // Return true if there is a component with identifier T::id in the entity.
+    //
+    template<typename T>
+    inline bool hasComponent(entity_t e) {
+        return e->tryGetComponent();
+    }
 
-	// Returns pointer to the component <T> of the entity.
-	//
-	template<typename T>
-	inline T* getComponent(entity_t e) {
-		return e->getComponent<T>();
-	}
+    // Returns pointer to the component <T> of the entity.
+    //
+    template<typename T>
+    inline T* getComponent(entity_t e) {
+        return e->getComponent<T>();
+    }
 
-	inline GameList<Entity>& getEntities() { 
-		return _entities;
-	}
+    inline GameList<Entity>& getEntities() { 
+        return _entities;
+    }
 
-	// Returns the vector of all entities of a group ID.
-	//
-	inline auto& getEntitiesOfGroup(grpId_t gId) {
-		return _entsByGroup[gId];
-	}
+    // Returns the vector of all entities of a group ID.
+    //
+    inline auto& getEntitiesOfGroup(grpId_t gId) {
+        return _entsByGroup[gId];
+    }
 
-	inline auto& getRenderEntities(){
-		return _entsRenderable;
-	}
+    inline auto& getRenderEntities(){
+        return _entsRenderable;
+    }
 
-	// Enables all entity's components
-	//
-	inline void enableEntity(entity_t e) {
-		e->activate();
-	}
+    // Enables all entity's components
+    //
+    inline void enableEntity(entity_t e) {
+        e->activate();
+    }
 
-	// Disables all entity's components
-	//
-	inline void disableEntity(entity_t e) {
-		e->deactivate();
-	}
+    // Disables all entity's components
+    //
+    inline void disableEntity(entity_t e) {
+        e->deactivate();
+    }
 
-	virtual ~GameScene();
+public:
+    virtual ~GameScene();
 
-	virtual void render();
-	virtual void update();
-	virtual void handleEvent();
+    virtual void render();
+    virtual void update();
+    virtual void handleEvent();
+    virtual void refresh();
 
-	/// Obtiene el juego al que pertenece el estado
-	Game* getGame() const;
-	Camera* getWorldCamera();
-	Camera* getUICamera();
-	void setWorldCamera(b2Vec2 pos);
-	void setUICamera(b2Vec2 pos);
-	/// Elimina los objetos
-	virtual void clear();
-	// Set rendering order. Called by render texture component on init.
-	void sortRenderOrder();
+    /// Obtiene el juego al que pertenece el estado
+    Game* getGame() const;
+    CameraComponent* getCamera();
+    //Must have CameraComponent attached
+    void setCamera(Entity* e);
+    /// Elimina los objetos
+    virtual void clear();
+    // Set rendering order. Called by render texture component on init.
+    void sortRenderOrder();
+
+protected:
+
+    virtual void updatePhysics() {};
+    virtual void updateScene() {};
+
+#ifdef _DEBUG
+protected:
+    bool _canFastForwardPhysics = false;
+public:
+    virtual void setCanFastForward(bool active) {};
+#endif
 };
 
 inline Game*
 GameScene::getGame() const
 {
-	return game;
+    return game;
 }

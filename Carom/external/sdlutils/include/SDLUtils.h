@@ -14,6 +14,9 @@
 #include "Texture.h"
 #include "VirtualTimer.h"
 #include "Animation.h"
+#include "ecs.h"
+
+
 
 class SDLUtils: public Singleton<SDLUtils> {
 
@@ -150,14 +153,36 @@ public:
 		return _imagesAccessWrapper;
 	}
 
-	// TABLE ITEMS svg elements map
-	inline auto& svgElements_table() {
-		return _svgAccessWrapper_table;
+	// Add image manually to the map
+	inline void addImage(const std::string& key, const std::string& filename, const SDL_Rect& rect) {
+		_images.emplace(key, Texture(renderer(), filename, rect));
 	}
 
-	// BALL POSITION svg elements map
-	inline auto& svgElements_ballPos() {
-		return _svgAccessWrapper_ballPos;
+	// Add image with alphamask manually to the map
+	inline void addImage(const std::string& key, const std::string& filename, const SDL_Rect& rect, const std::vector<uint8_t>& alphaMask){
+		_images.emplace(key, Texture(renderer(), filename, rect, alphaMask));
+	}
+
+	// Deleting an image safely
+	inline bool deleteImage(const std::string& key) {
+		try {
+			_imagesAccessWrapper.at(key);
+		} catch (const std::exception& e) {
+			std::cerr << "Warning: " << e.what() << std::endl;
+			return false;
+		}
+		try {
+			_images.erase(key);
+			std::cout << "Successfully deleted image with key: " << key << std::endl;
+			return true;
+		} catch (const std::exception& e) {
+			std::cerr << "Error: Exception while deleting image with key: " << key << ": " << e.what() << std::endl;
+			return false;
+		}
+	}
+
+	inline auto& svgs(){
+		return _svgs;
 	}
 
 	// messages map
@@ -233,14 +258,15 @@ private:
 
 	SDLUtils();
 	bool init(std::string windowTitle, int width, int height);
-	bool init(std::string windowTitle, int width, int height, std::string filename, const char* svgFilename1, const char* svgFilename2);
+	bool init(std::string windowTitle, int width, int height, std::string filename);
 
 	void initWindow();
 	void closeWindow();
 	void initSDLExtensions(); // initialize resources (fonts, textures, audio, etc.)
 	void closeSDLExtensions(); // free resources the
 	void loadReasources(std::string filename); // load resources from the json file
-	void loadSVG(auto& svgMap, const char* filename); // load resources from the svg file
+	sdl_resource_table<svgElem> loadSVG(const char* filename); // load resources from the svg file
+	sdl_resource_table<svgElem> loadSVG(const std::string& filename); // load resources from the svg file
 
 	std::string _windowTitle; // window title
 	int _width; // window width
@@ -251,23 +277,21 @@ private:
 
 	sdl_resource_table<Font> _fonts; // fonts map (string -> font)
 	sdl_resource_table<Texture> _images; // textures map (string -> texture)
-	sdl_resource_table<svgElem> _svg_table; // svg for TABLE ITEMS struct map (string(ID) -> struct)
-	sdl_resource_table<svgElem> _svg_ballPos; // svg for BALL POSITIONS struct map (string(ID) -> struct)
 	sdl_resource_table<Texture> _msgs; // textures map (string -> texture)
 	sdl_resource_table<SoundEffect> _sounds; // sounds map (string -> sound)
 	sdl_resource_table<Music> _musics; // musics map (string -> music)
 	sdl_resource_table<Animation> _animations; // animation map (string -> animation)
+	sdl_resource_table<sdl_resource_table<svgElem>> _svgs; // musics map (string -> svg)
 
 	map_access_wrapper<Font> _fontsAccessWrapper;
 	map_access_wrapper<Texture> _imagesAccessWrapper;
-	map_access_wrapper<svgElem> _svgAccessWrapper_table;
-	map_access_wrapper<svgElem> _svgAccessWrapper_ballPos;
 	map_access_wrapper<Texture> _msgsAccessWrapper;
 	map_access_wrapper<SoundEffect> _soundsAccessWrapper;
 	map_access_wrapper<Music> _musicsAccessWrapper;
 	map_access_wrapper<Animation> _animationsAccessWrapper;
 
 	// Esto es una cerdada en efecto, pero es lo que hay
+	map_access_wrapper<sdl_resource_table<svgElem>> _svgsAccessWrapper;
 
 	RandomNumberGenerator _random; // (pseudo) random numbers generator
 	VirtualTimer _timer; // virtual timer

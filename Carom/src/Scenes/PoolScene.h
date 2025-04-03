@@ -4,11 +4,13 @@
 #include "Game.h"
 #include "Texture.h"
 #include "RNG_Manager.h"
+#include "UIScene.h"
 
 class ScenesManager;
 class RNG_Manager;
 
-class PoolScene: public GameScene {
+
+class PoolScene: public UIScene {
 protected:
     static constexpr int HOLES = 6;
     enum BallTypes{
@@ -33,12 +35,10 @@ protected:
     b2WorldId _myB2WorldId; //El mundo de box2D
 
     void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
+    void generateTable(); // para generar la mesa.
 
 public:
-    PoolScene(State* state, Game* g, GameScene* reward);
+    PoolScene(Game* g);
     ~PoolScene();
-
-    void setNewState(State* s);
-
-    inline GameScene* getRewardScene() const {return _reward;}
 };
+

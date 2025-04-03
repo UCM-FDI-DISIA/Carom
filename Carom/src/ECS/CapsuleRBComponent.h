@@ -1,8 +1,7 @@
 #pragma once
 #include "RigidBodyComponent.h"
 
-class CapsuleRBComponent : public RigidBodyComponent
-{
+class CapsuleRBComponent : public RigidBodyComponent {
 public:
     CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, float width, 
         float height, bool sensor = false, b2Rot rotation = defaultRotation, float density = 1, 

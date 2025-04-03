@@ -1,12 +1,11 @@
 #include "ColorBallScorerComponent.h"
-#include "RigidBodyComponent.h"
 #include "Entity.h"
+#include "GameScene.h"
 #include "CaromScene.h"
+#include "RigidBodyComponent.h"
 #include "ColorHitManager.h"
 
-ColorBallScorerComponent::ColorBallScorerComponent(entity_t ent): PhysicsComponent(ent) {
-    
-}
+ColorBallScorerComponent::ColorBallScorerComponent(entity_t ent) : PhysicsComponent(ent) {}
 
 void ColorBallScorerComponent::onCollisionEnter(entity_t other){
     
