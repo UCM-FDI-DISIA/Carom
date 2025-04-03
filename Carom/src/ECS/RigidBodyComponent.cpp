@@ -94,7 +94,12 @@ RigidBodyComponent::getRotation() const {
 bool
 RigidBodyComponent::isMoving() {
     b2Vec2 vel = getVelocity();
-    return std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2)) > 0.01f;
+
+    float currentSpeed = std::sqrt(std::pow(vel.x, 2) + std::pow(vel.y, 2));
+    if(currentSpeed > TERMINAL_VELOCITY) return true;
+
+    b2Body_SetLinearVelocity(_myB2BodyId, b2Vec2_zero);
+    return false;
 }
 
 /// @brief Recoloca el objeto físico
@@ -245,6 +250,20 @@ void RigidBodyComponent::setLinearDamping(float damping)
 {
     _myProps.linearDamping = damping;
     b2Body_SetLinearDamping(_myB2BodyId, damping);
+}
+
+void RigidBodyComponent::setBodyEnabled(bool enabled)
+{
+    if(enabled)
+        b2Body_Enable(_myB2BodyId);
+    else 
+        b2Body_Disable(_myB2BodyId);
+}
+
+void
+RigidBodyComponent::setEnabled(bool state) {
+    _isEnable = state;
+    setBodyEnabled(state);
 }
 
 /// @brief Function called everytime object enters a collision

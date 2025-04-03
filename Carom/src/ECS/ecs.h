@@ -6,7 +6,6 @@
 #include "ecs_defs.h"
 
 // TODO: no completo
-
 // forward declaration of some classes, to be used when we
 // just need to know that they exist
 class EntityManager;
@@ -83,6 +82,3 @@ constexpr cmpId_t cmpId = T::id;
 //   enum { id = cmp::TRANSFORM }
 //
 #define __CMPID_DECL__(cId) constexpr static cmpId_t id = cId;
-
-// end of namespace
-

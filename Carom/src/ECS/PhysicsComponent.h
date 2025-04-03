@@ -5,7 +5,6 @@
 
 class Camera;
 // * Heredar de esta clase para implementar onCollision y onTrigger
-
 class PhysicsComponent : public Component{
 private:
     std::function<void()> _onDestroy;

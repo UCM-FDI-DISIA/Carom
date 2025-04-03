@@ -72,6 +72,8 @@ protected:
 
     virtual void updateScale() = 0;
 
+    const float TERMINAL_VELOCITY = 0.02f;
+
 public:
     __CMPID_DECL__(cmp::RIGIDBODY);
 
@@ -104,6 +106,11 @@ public:
     void setRestitution(float restitution, int nShapes);
     void setRestitution(float restitution);
     void setLinearDamping(float damping);
+
+    void setEnabled(bool state) override;
+
+    // enable or disable body to participate in simulation
+    void setBodyEnabled(bool enabled);
 
     // Force appliers
     void applyForceToObject(b2Vec2 force, b2Vec2 origin);

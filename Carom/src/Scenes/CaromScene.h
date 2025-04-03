@@ -15,22 +15,22 @@ class TextDisplayComponent;
 class CaromScene: public GameScene {
 //--------------------BASIC SCENE FUNCTIONALITY------------------------
 protected:
-    int _remainingHits = 3;
+    int _remainingHits = 10;
     ScenesManager* _sceneManager;
     GameScene* _reward; //La recompensa al completar la escena
 public:
     CaromScene(State* state, Game* g, GameScene* reward);
     ~CaromScene();
+inline ScenesManager* getScenesManager() const {return _sceneManager;}
+//Llama al update de todas las entidades de escena y maneja las físicas
+void update() override;
 
-    inline ScenesManager* getScenesManager() const {return _sceneManager;}
-    //Llama al update de todas las entidades de escena y maneja las físicas
-    void update() override;
+// ?Métodos para comprobar condiciones de estado 
+inline int getRemainingHits() { return _remainingHits; }
 
-    // ?Métodos para comprobar condiciones de estado 
-    inline int getRemainingHits() { return _remainingHits; }
+inline GameScene* getRewardScene() const {return _reward;}
 
-    inline GameScene* getRewardScene() const {return _reward;}
-
+    void decrementRemainingHits();
 //---------------------------STATE MACHINE-----------------------------
 protected:
     //el estado en el que se encuentra la escena actualmente
@@ -50,9 +50,10 @@ protected:
     //Los acumuladores de puntuación
     int _currentScore = 0, _scoreToBeat = 10; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
+    TextDisplayComponent* _remainingHitsDisplay;
 public:
     TextDisplayComponent* createScoreUI();
-
+    TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
     inline double getCurrentScore() { return _currentScore; }
     inline double getScoreToBeat() { return _scoreToBeat; }

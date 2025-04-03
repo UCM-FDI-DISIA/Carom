@@ -7,13 +7,13 @@
 #include "PhysicsUtils.h"
 
 class InputHandler;
-
 class Entity;
 class RigidBodyComponent;
 class RenderTextureComponent;
 class TransformComponent;
-
-class StickInputComponent : public HandleEventComponent {
+    
+class StickInputComponent : public HandleEventComponent
+{
 public:
     __CMPID_DECL__(cmp::STICK_INPUT);
 

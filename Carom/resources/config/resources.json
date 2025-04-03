@@ -16,6 +16,7 @@
     { "id" : "Basteleur-Bold16", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 16},
     { "id" : "Basteleur-Bold24", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 24},
     { "id" : "Basteleur-Bold48", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 48},
+    { "id" : "Basteleur-Bold72", "file" : "../../resources/fonts/Basteleur-Bold.ttf", "size": 72},
     { "id" : "Bocalupo-Regular16", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 16},
     { "id" : "Bocalupo-Regular24", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 24},
     { "id" : "Bocalupo-Regular48", "file" : "../../resources/fonts/Bocalupo-Regular.ttf", "size": 48},
@@ -40,7 +41,8 @@
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
-    { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"}
+    { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"},
+    { "id" : "shotsSprite", "file" : "../../resources/images/shots_left.png"}
   ],
   
   "messages" : [

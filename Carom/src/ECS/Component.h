@@ -2,7 +2,6 @@
 #include "ecs.h"
 
 class Camera;
-
 class Component
 {
 protected:

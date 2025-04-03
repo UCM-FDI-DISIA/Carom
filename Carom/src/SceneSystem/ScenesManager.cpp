@@ -2,11 +2,11 @@
  * Máquina de estados con punteros inteligentes.
  *
  * @file GameSceneMachine.cpp
- * @author Rubén Rubio
- * @date TPV1 2024
+ * @author Zenith Itadori Llinares
+ * @date  Silksong 2025
  */
 
-#include "ScenesManager.h"
+ #include "ScenesManager.h"
 
 using namespace std;
 

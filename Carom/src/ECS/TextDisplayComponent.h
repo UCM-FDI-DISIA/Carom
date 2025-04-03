@@ -8,7 +8,6 @@
 class Font;
 class Texture;
 class ITransform;
-
 class TextDisplayComponent : public RenderTextureComponent{
     //Atributos del texto
     std::string _text;

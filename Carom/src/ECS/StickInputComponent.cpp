@@ -19,7 +19,6 @@
 - En el momento que se suelte el clic se llama a generar la fuerza sobre la bola en base al modulo entre el palo al centro de la bola
 */
 
-
 // Hay que pasarle el rectangulo para la deteccion de clics.
 StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight)
 { }

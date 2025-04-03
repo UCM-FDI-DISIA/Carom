@@ -2,7 +2,6 @@
 #include "PhysicsComponent.h"
 #include "ecs.h"
 
-
 //cambiar todo esto con herencia del componente de Mika
 class WhiteBallScorerComponent : public PhysicsComponent{
     
