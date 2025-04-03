@@ -69,9 +69,11 @@
   ],
 
   "animations" : [
-    { "id" : "normal_collide_VFX",
+    { "id" : "normal_collide_animation",
       "spriteSheetId" : "normal_collide_VFX",
       "scale" : 1.0,
+      "cols" : 8,
+      "rows" : 1,
       "animType" : "LOOP",
       "framelist": [
         {"frame" : 0, "time" : 10},

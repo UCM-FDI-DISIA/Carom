@@ -320,11 +320,12 @@ void SDLUtils::loadReasources(std::string filename) {
 					JSONObject vObj = v->AsObject();
 					std::string key = vObj["id"]->AsString();
 					Animation anim;
+					anim._spriteSheet = &images().at(vObj["spriteSheetId"]->AsString());
 					anim._animType = animTypesConversor[vObj["animType"]->AsString()];
 					anim._scale = vObj["scale"]->AsNumber();
-					Texture* tex = &images().at(vObj["spriteSheetId"]->AsString());
-
-
+					anim._spriteCols = vObj["cols"]->AsNumber();
+					anim._spriteRows = vObj["rows"]->AsNumber();
+					
 					JSONValue* fList = vObj["framelist"];
 					_animations.reserve(fList->AsArray().size());
 
