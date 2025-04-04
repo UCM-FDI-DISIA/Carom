@@ -23,6 +23,7 @@ class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
+class PauseScene;
 
 class Entity{
     friend ShadowComponent;
@@ -161,6 +162,7 @@ private:
     friend UIScene;
     friend RewardScene;
     friend MainMenuScene;
+    friend PauseScene;
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
