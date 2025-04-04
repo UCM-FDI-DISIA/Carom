@@ -2,18 +2,28 @@
 
 #include <array>
 #include <vector>
+#include <cassert>
 #include "gameList.h"
 #include "ecs.h"
 #include <iostream>
+#include <functional>
 #include "ITransform.h"
 #include "RenderComponent.h"
+#include "Component.h"
 
-class Camera;
-
+class CameraComponent;
 class GameScene;
 class Component;
 class CaromScene;
 class PoolScene;
+class RenderTextureComponent;
+class JsonEntityParser;
+class CowboyPoolScene;
+class EndGameScene;
+class RewardScene;
+class UIScene;
+class MainMenuScene;
+class ShadowComponent;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -122,15 +132,22 @@ public:
     void setListAnchor(GameList<Entity>::anchor&& anchor);
 
     void update();
-    void render(Camera* camera); //En posición relativa a la cámara
+    void render(); //En posición relativa a la cámara
     void handleEvents();
 
-    GameScene& getScene();
+    inline GameScene& getScene() { return _myScene; }
+    inline grp::grpId getID() const {return _id;};
 
 private:
     friend GameScene;
     friend CaromScene;
+    friend CowboyPoolScene;
     friend PoolScene;
+    friend JsonEntityParser;
+    friend EndGameScene;
+    friend UIScene;
+    friend RewardScene;
+    friend MainMenuScene;
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
@@ -140,7 +157,11 @@ private:
     GameList<Entity>::anchor _anchor;
     
     ITransform* _myTransform;
+    grp::grpId _id;
 
+
+    // NO BORRAR
+    // Esto está aquí para evitar dependencia circular con GameScene
     std::vector<entity_t>& getSceneRenderEntities();
 
     template<typename T>

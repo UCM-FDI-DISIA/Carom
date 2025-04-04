@@ -7,11 +7,12 @@
 #include "PhysicsUtils.h"
 
 class InputHandler;
+
 class Entity;
 class RigidBodyComponent;
 class RenderTextureComponent;
 class TransformComponent;
-    
+class StickEffectComponent;   
 class StickInputComponent : public HandleEventComponent
 {
 public:
@@ -28,6 +29,7 @@ public:
     bool hasShot() { return _hasShot; }
     void transformControl(b2Vec2 _mousePos, Vector2D dirNormalized);
     void registerWhiteBall(entity_t wb);
+    void registerStickEffect(StickEffectComponent* effect);
     double rad2degrees(double radians);
 
 private:
@@ -36,12 +38,13 @@ private:
     RigidBodyComponent* _whiteBallRB;
     TransformComponent* _myTransform;
     RenderTextureComponent* _myRender;
+    StickEffectComponent* _myEffect;
     // --- Métodos del HandleEvents.
     bool isMouseOnCircleRadius( double r);
     float getMagFromMouseToCenter();
     // --- Area de clic de la bola.
-    double _minRadiusToPull = 0.12f;
-    double _maxRadiusToPull = 0.8f;
+    double _minRadiusToPull = 0.035f; // when a white ball is registred is updates to ball radius
+    double _maxRadiusToPull = 0.5f;
     float _stickHeight;
 
     bool _behaviourEnabled = false;

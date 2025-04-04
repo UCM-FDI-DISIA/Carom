@@ -11,6 +11,6 @@ private:
     void init() override {}
     
     virtual void update() override {}
-    void render(Camera*) override {}
+    void render() override {}
     void handleEvent() override {}
 };

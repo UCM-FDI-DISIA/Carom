@@ -2,6 +2,7 @@
 #include "ITransform.h"
 #include "Entity.h"
 
+
 FollowComponent::FollowComponent(Entity* e, Entity* target, bool copyPosition, bool copyRotation, bool copyScale, 
     Vector2D relativeDistance): 
     LogicComponent(e),

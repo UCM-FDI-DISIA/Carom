@@ -28,7 +28,7 @@ RenderSpritesheetComponent::init() {
 }
 
 void
-RenderSpritesheetComponent::render(Camera*) {
+RenderSpritesheetComponent::render() {
     _texture->render(
         {_xOriginFrame, _yOriginFrame, _width, _height}, 
         getRenderRect(),
@@ -41,7 +41,7 @@ RenderSpritesheetComponent::getRenderRect() const
     b2Vec2 physicalPosition = _transform->getPosition();
     //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
     auto [coordinateX, coordinateY] = 
-        _myEntity->getScene().getWorldCamera()->getRenderPos({physicalPosition.x, physicalPosition.y});
+        _myEntity->getScene().getCamera()->getRenderPos({physicalPosition.x, physicalPosition.y});
     
     //Adapta el rect para que el objeto apareca en el centro de este
     coordinateX -= _scale * _width / 2;

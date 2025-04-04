@@ -1,6 +1,7 @@
 #pragma once
 #include "RigidBodyComponent.h"
 
+
 class BoxRBComponent : public RigidBodyComponent{
 public:
     BoxRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, float length, 

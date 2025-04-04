@@ -1,4 +1,6 @@
 #include "StickInputComponent.h"
+
+#include "StickEffectComponent.h"
 #include "InputHandler.h"
 #include "Entity.h"
 #include "RigidBodyComponent.h"
@@ -10,7 +12,7 @@
 #include "ecs_defs.h"
 
 
-// El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRect para pasarselo a este componente para que pueda funcionar.
+// El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRenderRect para pasarselo a este componente para que pueda funcionar.
 
 /*
 - La bola blanca tiene un radio para detectar el raton
@@ -19,19 +21,19 @@
 - En el momento que se suelte el clic se llama a generar la fuerza sobre la bola en base al modulo entre el palo al centro de la bola
 */
 
-// Hay que pasarle el rectangulo para la deteccion de clics.
-StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight)
-{ }
-
-// Rigidbody hereda de transform. Rigidbody es un transform.
-void StickInputComponent::init(){
-    _ih = InputHandler::Instance();
-    _myTransform = _myEntity->getComponent<TransformComponent>();
-    _myRender = _myEntity->getComponent<RenderTextureComponent>();
-}
+    // Hay que pasarle el rectangulo para la deteccion de clics.
+    StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight), _myEffect(nullptr)
+    { }
+    
+    // Rigidbody hereda de transform. Rigidbody es un transform.
+    void StickInputComponent::init(){
+        _ih = InputHandler::Instance();
+        _myTransform = _myEntity->getComponent<TransformComponent>();
+        _myRender = _myEntity->getComponent<RenderTextureComponent>();
+    }
 
 void StickInputComponent::handleEvent()
-{
+{   
     //mousePos
     b2Vec2 _mousePos = PhysicsConverter::pixel2meter(_ih->getMousePos().first, _ih->getMousePos().second);
 
@@ -41,18 +43,16 @@ void StickInputComponent::handleEvent()
     // Vector direccion
     Vector2D dir = {_center.x - _mousePos.x, _center.y - _mousePos.y };
     Vector2D dirNormalized = dir.normalize();
-
+    
     if (getMagFromMouseToCenter() > _maxRadiusToPull)
     {
         _mousePos.x = _center.x + (-dirNormalized.getX() * _maxRadiusToPull);
         _mousePos.y = _center.y + (-dirNormalized.getY() * _maxRadiusToPull);
     }
-
+    
     // Controls position and rotation of the transform
-    transformControl(_mousePos, dirNormalized);
-
-    //std::cout << getMagFromMouseToCenter() << "\n";
-
+    transformControl(_mousePos, dir);
+    
     //si dentro del comportamiento se ha soltado el boton izquierdo del raton
     if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0)
     {
@@ -62,11 +62,26 @@ void StickInputComponent::handleEvent()
 
             float impulseMag = MAX_IMPULSE * (dir.magnitude() - _minRadiusToPull)/(_maxRadiusToPull - _minRadiusToPull); // normalizes [0,1]
             b2Vec2 impulseVec = {dirNormalized.getX() * impulseMag, dirNormalized.getY() * impulseMag};
+            
 
-            //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
-            _whiteBallRB->applyImpulseToCenter(impulseVec);
+            //aplicar tween con callback al final
+            TweenComponent* _tween = _myEntity->getComponent<TweenComponent>();
+            Vector2D distance = dirNormalized * PhysicsConverter::pixel2meter(_myRender->getRenderRect().w)/2;
+            float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+            _tween->easePosition({_center.x - distance.getX() - dirNormalized.getX() - a_ballRadius,
+                                    _center.y - distance.getY() - dirNormalized.getY() - a_ballRadius},
+                                    .08f, tween::EASE_IN_EXPO, false, [=](){
+                                    //aplicar fuerza a la bola con la direccion y la fuerza dependiendo de la distancia del raton
+                                    _whiteBallRB->applyImpulseToCenter(impulseVec);
 
-            _hasShot = true; // ! hasShot
+                //aplicar el efecto del palo si lo tiene
+                if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
+
+                _hasShot = true; // ! hasShot
+                                        _hasShot = true;
+
+                                    _myEntity->getScene().getCamera()->shakeCamera(0.15f * impulseMag/MAX_IMPULSE, 0.3f, dirNormalized);
+            });
         }
         
     }
@@ -96,18 +111,31 @@ void StickInputComponent::setEnabled(bool state)
     _isEnable = state;
 }
 
-void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dirNormalized)
+void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
 {
 
-    float cosalpha = dirNormalized * Vector2D(1, 0);
-    float sinalpha = dirNormalized * Vector2D(0, 1);
+    float cosalpha = dir.normalize() * Vector2D(1, 0);
+    float sinalpha = dir.normalize() * Vector2D(0, 1);
+
+    Vector2D a_mousePos = {_mousePos.x, _mousePos.y};
+
+    Vector2D a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
+                                _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
+    float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
 
     float distX = PhysicsConverter::pixel2meter(_stickHeight/2) * cosalpha;
     float distY = PhysicsConverter::pixel2meter(_stickHeight/2) * sinalpha;
+    
+    // when the mouse is inside the ball the stick won't put itself above it
+    if (dir.magnitude() < a_ballRadius) {
+        float a_offset = a_ballRadius - dir.magnitude();
+        distX = (PhysicsConverter::pixel2meter(_stickHeight/2) + a_offset) * cosalpha;
+        distY = (PhysicsConverter::pixel2meter(_stickHeight/2) + a_offset) * sinalpha;
+    }
 
     float newRotation = rad2degrees(std::acos(cosalpha));
     if (sinalpha > 0) newRotation = -newRotation;
-    newRotation = newRotation + 90.0f; // porque la imagen empiza de pie
+    newRotation = newRotation + 90.0f; // porque la imagen empieza de pie
 
     b2Vec2 newPos = {_mousePos.x - distX, _mousePos.y - distY};
 
@@ -123,4 +151,9 @@ void StickInputComponent::registerWhiteBall(entity_t wb)
 {
     _whiteBall = wb;
     _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
+    _minRadiusToPull = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+}
+
+void StickInputComponent::registerStickEffect(StickEffectComponent* effect) {
+    _myEffect = effect;
 }

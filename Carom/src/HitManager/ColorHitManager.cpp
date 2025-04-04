@@ -2,6 +2,7 @@
 #include "CaromScene.h"
 #include "Entity.h"
 
+
 ColorHitManager::ColorHitManager(CaromScene* mainScene){
     _mainScene = mainScene;
 };

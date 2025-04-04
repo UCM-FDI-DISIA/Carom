@@ -2,15 +2,12 @@
 #include "PhysicsComponent.h"
 #include "InfoComponent.h"
 #include "ecs.h"
-#include <box2D/box2D.h>
 #include <functional>
 #include <cmath>
 #include <math.h>
 
 #include "ITransform.h"
 
-
-class B2Manager;
 
 class Entity;
 
@@ -28,13 +25,12 @@ protected:
     
     Scale _myScale = {1.0, 1.0};
 
-    /// @brief Si es true implica que la escala debe ser cambiada a la del segundo componente
-    std::pair<bool, Scale> _scaleBuffer = {false, Scale()};
-
     // Data used for polygons
     struct Polygon{
         std::vector<b2Vec2> vertices;
         float radius;
+
+        Polygon(const std::vector<b2Vec2>& v, float r) : vertices(v), radius(r) {}
     };
 
     struct Props {
@@ -45,11 +41,12 @@ protected:
         float friction;
         float restitution;
         float linearDamping;
-        float sleepThreshold = 0.01;
+        float sleepThreshold;
         bool isBullet;
         bool isSensor;
         bool enableContactEvents;
         bool enableSensorEvents;
+        float mass;
 
         union {
             float radius;
@@ -58,18 +55,24 @@ protected:
             Polygon *polyData = nullptr;
         };
     };
-
+    
     Props _myProps;
-
+    
+    /// @brief Si es true implica que la escala debe ser cambiada a la del segundo componente
+    std::pair<bool, Scale> _scaleBuffer = {false, Scale()};
+    
     // Collision functions
     std::vector<PhysicsComponent*> _collisionEnter = {};
     std::vector<PhysicsComponent*> _collisionExit = {};
     std::vector<PhysicsComponent*> _triggerEnter = {};
     std::vector<PhysicsComponent*> _triggerExit = {};
-
+    
     // Collision suscribers
     void suscribePhysicsComponent(PhysicsComponent* PC);
+    
 
+    void generateBodyAndShape();
+    virtual void calculateMass() {}
     virtual void updateScale() = 0;
 
     const float TERMINAL_VELOCITY = 0.02f;
@@ -82,22 +85,25 @@ public:
 
     void update() override;
 
-    void generateBodyAndShape();
-
     // Getters
     b2Vec2 getPosition() const override;
     Scale getScale() const override;
     double getRotation() const override;
     inline b2BodyId getB2Body() const {return _myB2BodyId;}
+    inline float getFriction() const {return b2Shape_GetFriction(_myB2ShapeId);}
+    inline float getRestitution() const {return b2Shape_GetRestitution(_myB2ShapeId);}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
+    inline float getDensity() {return _myProps.density; }
+    inline float getMass() {return _myProps.mass; }
+    inline b2BodyType getBodyType() {return _myProps.bodyType; }
     bool isMoving();
+    float getVelocityMag();
 
     // Setters
     void setPosition(const b2Vec2& newPos) override;
     void setRotation(const double& newRot) override;
     void setScale(const Scale& newScale) override;
-
     void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes);
     void setDensity(float density);
@@ -127,4 +133,4 @@ public:
     void onCollisionExit(entity_t ent);
     void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);
-};
+    };

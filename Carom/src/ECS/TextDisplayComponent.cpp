@@ -3,12 +3,12 @@
 #include "ITransform.h"
 #include "PhysicsUtils.h"
 #include "Texture.h"
-#include "Camera.h"
 #include "Entity.h"
 #include "SDLUtils.h"
 
-TextDisplayComponent::TextDisplayComponent(Entity* entity, int renderOrder, float displayScale, std::string initialText, SDL_Color color, std::string key)
-    : RenderTextureComponent(entity, _texture, renderOrder, displayScale), _text(initialText), _color(color), _key(key)
+
+TextDisplayComponent::TextDisplayComponent(Entity* entity, int renderLayer, float displayScale, std::string initialText, SDL_Color color, std::string key)
+    : RenderTextureComponent(entity, _texture, renderLayer, displayScale), _text(initialText), _color(color), _key(key)
 {
     reGenerateTexture();
 }

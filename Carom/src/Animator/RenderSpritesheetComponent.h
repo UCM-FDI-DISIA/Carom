@@ -28,7 +28,7 @@ public:
     ~RenderSpritesheetComponent() {}
 
     void init() override;
-    void render(Camera*) override;
+    void render() override;
 
     SDL_Rect getRenderRect() const override;
     void setFrame(int frame);

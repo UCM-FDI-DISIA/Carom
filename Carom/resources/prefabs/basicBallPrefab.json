@@ -1,0 +1,19 @@
+{
+    "ID": 2,
+    "components": [
+        {
+            "componentName" : "RigidBodyComponent", 
+            "atributes" : {"b2BodyType" : "dynamic", "pos": {"x": 0, "y": 0}, "density": 1, "friction" : 0.2, "restitution" : 1,
+                                "CircleShape" : {"radius": 0.125}
+                          }
+        },
+        {
+            "componentName" : "RenderTextureComponent",
+            "atributes" : {"textureID" : "bola_blanca", "scale" : 0.15, "layer": 5}
+        },
+        {
+            "componentName" : "ColorBallScorerComponent",
+            "atributes" : {}
+        }
+    ]
+}

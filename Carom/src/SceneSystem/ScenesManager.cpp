@@ -60,27 +60,35 @@ ScenesManager::update()
 		GameScene* current = GameScenes.top();
 		current->update();
 	}
-}
-
-void
-ScenesManager::render() const
-{
-	if (!GameScenes.empty()) {
+ }
+ 
+ void
+ ScenesManager::render() const
+ {
+	 if (!GameScenes.empty()) {
 		// Asumimos que render (const) no desapilará y destruirá el estado
 		GameScenes.top()->render();
-	}
-}
-
-void
-ScenesManager::handleEvent()
-{
-	if (!GameScenes.empty()) {
+	 }
+ }
+ 
+ void
+ ScenesManager::handleEvent()
+ {
+	 if (!GameScenes.empty()) {
 		GameScene* current = GameScenes.top();
 		current->handleEvent();
+	 }
+ }
+
+void
+ScenesManager::refresh() {
+	if(!GameScenes.empty()) {
+		GameScenes.top()->refresh();
 	}
 }
-
-void 
-ScenesManager::invokeLose(){
-	//TODO
-}
+ 
+ void 
+ ScenesManager::invokeLose(){
+	 //TODO
+ }
+ 
