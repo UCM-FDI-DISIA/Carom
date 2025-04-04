@@ -515,7 +515,6 @@ std::pair<SDL_Rect, b2Vec2> GraphisUtils::generatePolygonBoundingBox(const std::
 std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
 {
     auto svg = &sdlutils().svgs().at("grp_arena");
-    std::cout << "n: " << n << std::endl;
     std::vector<std::vector<b2Vec2>> polygons;
     polygons.reserve(n);
 
@@ -528,7 +527,6 @@ std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
         for (int j = 1; j <= vert; ++j)
         {
             std::string str = std::string(1, idx);
-            std::cout << "index = " << str + std::to_string(j) << std::endl;
 
             b2Vec2 vert = {(float)svg->at(str + std::to_string(j)).x, (float)svg->at(str + std::to_string(j)).y};
 

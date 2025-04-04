@@ -115,11 +115,11 @@ void CowboyPoolScene::pickAndPositionSandPolygons(
     {
         bool found = false;
         int attempts = 50;
-        std::cout<< "attempts: " << attempts <<std::endl;
+        // std::cout<< "attempts: " << attempts <<std::endl;
 
         // Try a polygon
         int polyId = _rngManager->getRandomItem(polygons, true);
-        std::cout << "polyid: " << polyId <<std::endl; 
+        // std::cout << "polyid: " << polyId <<std::endl; 
         std::vector<b2Vec2> candidatePoly = sandBanksPolygons[polyId - 1];
 
         // Get center
