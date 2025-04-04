@@ -6,6 +6,7 @@
 #include "ecs.h"
 #include <iostream>
 #include "ITransform.h"
+#include "RenderComponent.h"
 
 class Camera;
 
@@ -13,7 +14,12 @@ class GameScene;
 class Component;
 class CaromScene;
 class PoolScene;
-class RenderTextureComponent;
+
+// Magia negra para templatizar basada en clases padre
+template <typename T>
+concept DerivedFromRender = std::is_base_of<RenderComponent, T>::value;
+template <typename T>
+concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
 
 class Entity {
 public:
@@ -28,42 +34,65 @@ public:
     }
 
     template<typename T>
-    bool addComponent(T* component){
-        if(_components[cmpId<T>] != nullptr) return false;
+    bool addComponent(T* component) requires (!DerivedFromRender<T> && !DerivedFromTransform<T>){
+        return internalAddComponent(component);
+    }
 
-        // Asigna el transform de la entidad en caso de que no exista ninguno
-        if (dynamic_cast<ITransform*>(component) != nullptr) {
-                _myTransform = dynamic_cast<ITransform*>(component);
-        }
+    template<typename T>
+    bool addComponent(T* renderComp) requires DerivedFromRender<T>{
 
-        _components[cmpId<T>] = component;
-        _currentComponents.push_back(component);
+        bool r = internalAddComponent(renderComp);
 
-        _components[cmpId<T>]->init();
+        if (!r) return false;
+
+        getSceneRenderEntities().push_back(this);
 
         return true;
     }
 
-    // Specialization for adding renderable entities to layer sort vector _entsRenderable
-    template<>
-    bool addComponent<RenderTextureComponent>(RenderTextureComponent* renderComp);
+    template<typename T>
+    bool addComponent(T* transformComp) requires DerivedFromTransform<T> {
+
+        bool r = internalAddComponent(transformComp);
+
+        if (!r) return false;
+
+        _myTransform = transformComp;
+
+        return true;
+    }
 
     template<typename T>
     bool removeComponent(){
-        if(_components[cmpId<T>] == nullptr) return false;
+        internalRemoveComponent<T>();
+    }
 
-        if(dynamic_cast<ITransform*>(_components[cmpId<T>])!= nullptr) _myTransform = nullptr;
 
-        auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
-        _currentComponents.erase(it);
-        _components[cmpId<T>] = nullptr;
+    template<typename T>
+    bool removeComponent() requires DerivedFromRender<T> {
+
+        bool r = internalRemoveComponent<T>();
+
+        if (!r) return false;
+
+        std::vector<entity_t>& entsRenderable = getSceneRenderEntities();
+        auto itR = find(entsRenderable.begin(), entsRenderable.end(), this);
+        entsRenderable.erase(itR);
 
         return true;
     }
 
-    // Specialization for removing renderable entities to layer sort vector _entsRenderable
-    template<>
-    bool removeComponent<RenderTextureComponent>();
+    template<typename T>
+    bool removeComponent() requires DerivedFromTransform<T> {
+
+        bool r = internalRemoveComponent<T>();
+
+        if (!r) return false;
+
+        _myTransform = nullptr;
+
+        return true;
+    }
 
     template<typename T>
     bool tryGetComponent(){
@@ -111,4 +140,31 @@ private:
     GameList<Entity>::anchor _anchor;
     
     ITransform* _myTransform;
+
+    std::vector<entity_t>& getSceneRenderEntities();
+
+    template<typename T>
+    bool internalAddComponent(T* component) {
+        if(_components[cmpId<T>] != nullptr) return false;
+
+        _components[cmpId<T>] = component;
+        _currentComponents.push_back(component);
+        _components[cmpId<T>]->init();
+
+        return true;
+    }
+
+    template<typename T>
+    bool internalRemoveComponent(T* component) {
+        if(_components[cmpId<T>] == nullptr) return false;
+
+        auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
+        _currentComponents.erase(it);
+
+        delete _components[cmpId<T>];
+
+        _components[cmpId<T>] = nullptr;
+
+        return true;
+    }
 };

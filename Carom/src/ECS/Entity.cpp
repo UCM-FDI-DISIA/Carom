@@ -19,6 +19,7 @@ Entity::~Entity(){
         delete component;
 }
 
+/*
 template<>
 bool Entity::addComponent<RenderTextureComponent>(RenderTextureComponent* renderComp) {
     
@@ -33,21 +34,7 @@ bool Entity::addComponent<RenderTextureComponent>(RenderTextureComponent* render
 
     return true;
 }
-
-template <>
-bool Entity::removeComponent<RenderTextureComponent>() {
-    if(_components[cmpId<RenderTextureComponent>] == nullptr) return false;
-
-    auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<RenderTextureComponent>]);
-    _currentComponents.erase(it);
-    _components[cmpId<RenderTextureComponent>] = nullptr;
-
-    auto& entsRenderable = _myScene.getRenderEntities();
-    auto itR = find(entsRenderable.begin(), entsRenderable.end(), this);
-    entsRenderable.erase(itR);
-
-    return true;
-}
+*/
 
 void Entity::activate() {
     for(auto& cmp: _currentComponents)
@@ -80,4 +67,11 @@ void Entity::handleEvents(){
 
 GameScene& Entity::getScene(){
     return _myScene;
+}
+
+// NO BORRAR
+// Esto está aquí para evitar dependencia circular con GameScene
+std::vector<entity_t>& 
+Entity::getSceneRenderEntities() {
+    return _myScene.getRenderEntities();
 }
