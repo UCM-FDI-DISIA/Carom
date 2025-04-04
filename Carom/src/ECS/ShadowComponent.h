@@ -2,10 +2,9 @@
 
 #include "InfoComponent.h"
 #include <vector>
-
+#include "RenderTextureComponent.h"
 
 class Entity;
-
 
 class ShadowComponent: public InfoComponent{
     std::vector<entity_t> _shadows;

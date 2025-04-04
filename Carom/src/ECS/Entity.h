@@ -16,7 +16,6 @@ class GameScene;
 class Component;
 class CaromScene;
 class PoolScene;
-class RenderTextureComponent;
 class JsonEntityParser;
 class CowboyPoolScene;
 class EndGameScene;
@@ -32,6 +31,7 @@ template <typename T>
 concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
 
 class Entity {
+    friend ShadowComponent;
 public:
     virtual ~Entity();
 
@@ -74,7 +74,19 @@ public:
 
     template<typename T>
     bool removeComponent(){
-        internalRemoveComponent<T>();
+        return internalRemoveComponent<T>();
+    }
+
+    template<typename T>
+    bool addComponent(T* component, cmpId_t id){
+        if(_components[id] != nullptr) return false;
+
+        _components[id] = component;
+        _currentComponents.push_back(component);
+        
+        component->init();
+        
+        return true;
     }
 
 
@@ -104,10 +116,29 @@ public:
         return true;
     }
 
+    // todo: adaptar a los casos especiales
+    bool removeComponent(cmpId_t id){
+    auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[id]);
+    _currentComponents.erase(it);
+    _components[id] = nullptr;
+
+    return true;
+    }
+
     template<typename T>
     bool tryGetComponent(){
         if(_components[cmpId<T>] == nullptr) return false;
+        return true;
+    }
 
+    template<typename T>
+    bool tryGetComponent(T*& returnedComponent) {
+        T* comp = dynamic_cast<T*>(_components[cmpId<T>]);
+
+        if(comp == nullptr)
+            return false;
+        
+        returnedComponent = comp;
         return true;
     }
 
@@ -176,7 +207,7 @@ private:
     }
 
     template<typename T>
-    bool internalRemoveComponent(T* component) {
+    bool internalRemoveComponent() {
         if(_components[cmpId<T>] == nullptr) return false;
 
         auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
