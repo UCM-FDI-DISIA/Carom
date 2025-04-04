@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 
+
 class EventOnCollision : public PhysicsComponent{
     private:
     std::function<void(entity_t)> _onCollisionEnter;

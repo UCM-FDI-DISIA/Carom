@@ -1,8 +1,7 @@
 #pragma once
 #include <utility>
-#include "Vector2D.h"
+#include <box2D/box2D.h>
 
-class b2Vec2;
 class PhysicsConverter{
 public:
     static constexpr float PIXELS_PER_METER = 430.0f;
@@ -14,4 +13,6 @@ public:
     static std::pair<int,int> meter2pixel(b2Vec2 physicalVector);
 
     static b2Vec2 pixel2meter(int x, int y);
+
+    static bool circleOverlap(b2Vec2 c1, float r1, b2Vec2 c2, float r2);
 };

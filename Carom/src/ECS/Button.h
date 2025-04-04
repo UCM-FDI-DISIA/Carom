@@ -4,6 +4,8 @@
 #include "TransformComponent.h"
 #include <functional>
 #include "SDL.h"
+#include "RenderComponent.h"
+
 
 class Button : public HandleEventComponent
 {
@@ -23,10 +25,10 @@ public:
 
         /// @brief Pensado para ser llamado dentro del init de Button
         /// @param _targetRenderer Componente de textura que recibe el click
-        virtual void setTextureComponent(RenderTextureComponent* targetRenderer);
+        virtual void setRenderer(RenderComponent* targetRenderer);
         
     protected:
-        RenderTextureComponent* _targetRenderer = nullptr;
+        RenderComponent* _targetRenderer = nullptr;
     };
 
     /// @brief Define un area toroidal a partir de la dimension mayor del objeto renderizable
@@ -36,7 +38,7 @@ public:
         RadialButton(float factor = 1.0f);
 
         ButtonData* clone();
-        void setTextureComponent(RenderTextureComponent* targetRenderer) override;
+        void setRenderer(RenderComponent* targetRenderer) override;
         bool isMouseInButton(std::pair<Sint32, Sint32> mousePos) override;
     private:
         float _radius;

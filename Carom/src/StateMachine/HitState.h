@@ -2,6 +2,9 @@
 
 #include "State.h"
 
+// Forward declarations
+class CaromScene;
+
 class HitState: public State {
 public:
     HitState(CaromScene* scene);
@@ -10,4 +13,3 @@ public:
     void onStateEnter() override;
     void onStateExit() override;
 };
-

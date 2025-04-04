@@ -3,8 +3,8 @@
 #include <box2d/box2d.h>
 
 /// @brief
-///Interfaz para todos los transform, cualquier componente que sea un transform
-///debe heredar de esta clase por cuestiones de polimorfismo.
+///     Interfaz para todos los transform, cualquier componente que sea un transform
+///     debe heredar de esta clase por cuestiones de polimorfismo.
 class ITransform {
     public:
 

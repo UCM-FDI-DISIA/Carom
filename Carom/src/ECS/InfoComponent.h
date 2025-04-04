@@ -2,7 +2,6 @@
 #include "Component.h"
 class Entity;
 
-
 class InfoComponent : public Component{
 public:
     InfoComponent(Entity* ent) : Component(ent) {}
@@ -12,6 +11,6 @@ private:
     void init() override {}
     
     virtual void update() override {}
-    void render(Camera*) override {}
+    void render() override {}
     void handleEvent() override {}
 };

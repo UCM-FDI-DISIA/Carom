@@ -1,19 +1,28 @@
-#include "Game.h"
+// #define _FPS // ! comentar si quieres quitar el cout de FPS
 
-#include "SDLUtils.h"
+#include <unordered_map>
+#include <utility>
+
+#include "Game.h"
 #include "InputHandler.h"
 
 #include "ScenesManager.h"
-#include "GameScene.h" // ! test
-#include "CaromScene.h" // ! test
+#include "GameScene.h"
+#include "CaromScene.h"
 #include "PoolScene.h"
-#include "NullState.h" // ! test
+#include "MainMenuScene.h"
+#include "NullState.h"
 
 #include "CaromScene.h"
+#include "PrefabTestScene.h"
+#include "CowboyPoolScene.h" // ! tst
+
 
 Game::Game() {}
 
 Game::~Game() {
+
+    delete _sceneManager; // HAS TO BE FIRST
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -24,22 +33,16 @@ Game::~Game() {
         SDLUtils::Release();
 }
 
-// TODO
 void
-Game::init() {
+Game::init() 
+{
     // initialize SDL singleton
     // TODO: cargar los recursos correspondientes
-	if (!SDLUtils::Init("Carom", 1920, 1080, 
-            "../../resources/config/resources.json", 
-            "../../resources/svg/Game.svg", 
-            "../../resources/svg/positions.svg"
-        )) {
+	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/resources.json")) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
 		return;
 	}
-    auto utils = SDLUtils::Instance();
-    //utils->toggleFullScreen();
 
 	// initialize InputHandler singleton
     if (!InputHandler::Init()) {
@@ -47,57 +50,101 @@ Game::init() {
                 << std::endl;
         return;
     }
-
-    _sceneManager = new ScenesManager();    
 }
 
 void
-Game::start() {
+Game::start() 
+{
+    _sceneManager = new ScenesManager();    
 
+    // !!! SE CREA MAINMENUSCENE
+    GameScene *ms = new MainMenuScene(this);
+
+    _sceneManager->pushScene(ms);
+}
+
+void Game::run()
+{
     bool exit = false;
 
-    auto &ihdlr = ih();
+    auto& ihdr = ih();
+    auto& sdlut = sdlutils();
     
-    sdlutils().showCursor();
-
-    NullState* state = new NullState(nullptr);
-    //GameScene *ms = new CaromScene(state, this, nullptr); // ! tst  
-    GameScene *ms = new PoolScene(state, this, nullptr);
-    _sceneManager->pushScene(ms); // ! tst
-
+    sdlut.showCursor();
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
+	sdlutils().virtualTimer().resetTime();
+    
+    // for debugging fps
+    #if defined(_DEBUG) && defined(_FPS)
+        int frameCount = 0;
+        int time = 1000;
+    #endif
 
+    // Game loop capped by VSync (but has manual loop control for disabled functionality case)
     while(!exit) {
         // store the current time -- all game objects should use this time when
 		// they need to get the current time. They also have accesse to the time elapsed
 		// between the last two calls to regCurrTime().
 		Uint32 startTime = sdlutils().regCurrTime();
-
-		// refresh the input handler
-		ihdlr.refresh();
-
-		if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdlr.closeWindowEvent()) {
-			exit = true;
-			continue;
-		}
+        sdlutils().virtualTimer().regCurrTime();
         
-        sdlutils().clearRenderer();
+        // refresh the input handler
+        ihdr.refresh();
+        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) {
+            exit = true;
+            continue;
+        }
+
+        if (_restartRequested){
+            restart();
+            continue;
+        }
 
         _sceneManager->handleEvent();
         _sceneManager->update();
+        _sceneManager->refresh();
 
-        if (ihdlr.isWindowsFocused()) {
+        if (ihdr.isWindowsFocused()) {
+            sdlut.clearRenderer();
             _sceneManager->render();
-            sdlutils().presentRenderer();
-            sdlutils().clearRenderer();
+            sdlut.presentRenderer();
         }
 
-        Uint32 elapsed = startTime - sdlutils().currRealTime();
 
-        // Forzado a que el juego no vaya mas rápido que 60 fps
-        if (elapsed < FIXED_TIME_STEP)
-			SDL_Delay(FIXED_TIME_STEP - elapsed);
+        #if defined(_DEBUG) && defined(_FPS)
+            frameCount++;
+            if (sdlutils().currRealTime() >= time){
+                std::cout << "FPS: " << frameCount << std::endl;
+                time = sdlutils().currRealTime() + 1000;
+                frameCount = 0;
+            }
+        #endif
+
+        Uint32 elapsed = sdlut.currRealTime() - startTime;
+
+        if (elapsed < FIXED_TIMESTEP) {
+                SDL_Delay(FIXED_TIMESTEP - elapsed);
+        }
+
+
     }
 
 }
+
+#ifdef _DEBUG
+    void Game::restart()
+    {
+        _restartRequested = false;
+
+        delete _sceneManager;
+        _sceneManager = nullptr;
+
+        _sceneManager = new ScenesManager();    
+
+        NullState* state = new NullState(nullptr);
+        GameScene *ms = new MainMenuScene(this);
+    
+        _sceneManager->pushScene(ms);
+    }
+#endif

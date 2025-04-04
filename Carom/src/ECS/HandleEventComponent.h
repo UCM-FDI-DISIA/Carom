@@ -2,7 +2,6 @@
 #include "Component.h"
 class Entity;
 
-
 class HandleEventComponent : public Component
 {
 public:
@@ -10,5 +9,5 @@ public:
     virtual ~HandleEventComponent(){}
 
     void update() override {}
-    void render(Camera*) override {}
+    void render() override {}
 };

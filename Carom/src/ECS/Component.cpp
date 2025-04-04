@@ -1,5 +1,6 @@
 #include "Component.h"
 
+
 Component::Component(Entity* ent) : _myEntity(ent), _isEnable(true) {}
 
 Component::~Component() {}

@@ -6,9 +6,9 @@
 #include "WallComponent.h"
 #include <algorithm>
 
+
 WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0)
-{
-    
+{ 
 }
 void WhiteBallScorerComponent::onCollisionEnter(entity_t other){
 

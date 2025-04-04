@@ -1,4 +1,5 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
+// With modifications from other people
 
 #pragma once
 
@@ -7,6 +8,7 @@
 #include <string>
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 #include "Font.h"
 
@@ -23,6 +25,12 @@ public:
 
 	// Construct from image
 	Texture(SDL_Renderer *renderer, const std::string &fileName);
+
+	// Construct an image from a rect of an image
+	Texture(SDL_Renderer *renderer, const std::string &fileName, const SDL_Rect& rect);
+
+	// Construct an image from a rect of an image using custom alphamask
+	Texture(SDL_Renderer *renderer, const std::string &fileName, const SDL_Rect& rect, const std::vector<uint8_t>& alphaMask);
 
 	// Construct from text
 	Texture(SDL_Renderer *renderer, const std::string &text, const Font &font,
@@ -85,6 +93,11 @@ public:
 		return { x, y, _width, _height };
 	}
 
+	// Get rect with absolute position (x, y)
+	inline SDL_Rect getRect(){
+		return { _x, _y, _width, _height };
+	}
+
 	// renders the complete texture at a destination rectangle (dest)
 	inline void render(const SDL_Rect &dest) {
 		SDL_Rect src = { 0, 0, _width, _height };
@@ -113,4 +126,6 @@ private:
 	SDL_Renderer *_renderer;
 	int _width;
 	int _height;
+	int _x = 0;
+	int _y = 0;
 };
