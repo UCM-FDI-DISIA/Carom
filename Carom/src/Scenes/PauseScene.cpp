@@ -12,12 +12,12 @@ PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
 
 void
 PauseScene::instantiateInventory(){
-    //float scale = sdlutils().svgs().at("inventory").at("cajon").x / sdlutils().images().at("fondo").getRect().h;
+    float scale = sdlutils().svgs().at("inventory").at("cajon").width / (float)sdlutils().images().at("fondo").getRect().h;
 
     entity_t fondo = new Entity(*this, grp::UI);
     auto tr = addComponent<TransformComponent>(fondo, b2Vec2{0,0});
     tr->setRotation(90);
-    addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("fondo"), renderLayer::GIMMICK, 1);
+    addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("fondo"), renderLayer::GIMMICK, scale);
 }
 
 void PauseScene::render(){
