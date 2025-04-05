@@ -18,5 +18,5 @@ public:
     void onHit(entity_t ent) override;
     __CMPID_DECL__(cmp::ABACUS_EFFECT);
 
-    cmpId_t getEffectId() {return cmp::ABACUS_EFFECT;};
+    cmpId_t getEffectId() override {return cmp::ABACUS_EFFECT;};
 };

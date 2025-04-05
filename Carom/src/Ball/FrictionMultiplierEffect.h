@@ -11,7 +11,7 @@ class FrictionMultiplierEffect : public BallEffect {
     RigidBodyComponent* _rigidBody;        
 public:
     __CMPID_DECL__(cmp::FRICTION_MULTIPLIER);
-    cmpId_t getEffectId() {return cmp::FRICTION_MULTIPLIER; };
+    cmpId_t getEffectId() override {return cmp::FRICTION_MULTIPLIER; };
 
     FrictionMultiplierEffect(entity_t entity, float friction);
     ~FrictionMultiplierEffect();

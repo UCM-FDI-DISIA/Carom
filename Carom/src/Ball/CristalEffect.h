@@ -12,5 +12,5 @@ public:
     void onBeingTargeted() override {}
 
     __CMPID_DECL__(cmp::CRISTAL_EFFECT);
-    cmpId_t getEffectId() {return cmp::CRISTAL_EFFECT;};
+    cmpId_t getEffectId() override {return cmp::CRISTAL_EFFECT;};
 };

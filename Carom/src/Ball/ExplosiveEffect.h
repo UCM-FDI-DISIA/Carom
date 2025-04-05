@@ -14,7 +14,7 @@ class ExplosiveEffect : public BallEffect {
 public:
 
     __CMPID_DECL__(cmp::EXPLOSIVE_EFFECT);
-    cmpId_t getEffectId() {return cmp::EXPLOSIVE_EFFECT;};
+    cmpId_t getEffectId() override {return cmp::EXPLOSIVE_EFFECT;};
 
     ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force);
     ~ExplosiveEffect();

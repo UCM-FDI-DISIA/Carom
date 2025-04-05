@@ -12,5 +12,5 @@ public:
     void init() override;
 
     __CMPID_DECL__(cmp::X2_EFFECT);
-    cmpId_t getEffectId() {return cmp::X2_EFFECT;};
+    cmpId_t getEffectId() override {return cmp::X2_EFFECT;};
 };

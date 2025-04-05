@@ -19,5 +19,5 @@ public:
     void onMultChanged() override;
     __CMPID_DECL__(cmp::BOWLING_EFFECT);
 
-    cmpId_t getEffectId() {return cmp::BOWLING_EFFECT; };
+    cmpId_t getEffectId() override {return cmp::BOWLING_EFFECT; };
 };
