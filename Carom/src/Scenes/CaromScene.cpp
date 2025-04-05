@@ -42,6 +42,9 @@
 
 CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
+    //TODAS las caromScene se pueden pausar
+    createPauseEntity();
+
     _sceneManager = game->getScenesManager();
 
     // SEEDING

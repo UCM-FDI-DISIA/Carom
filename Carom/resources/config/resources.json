@@ -53,7 +53,8 @@
     { "id" : "sand5", "file" : "../../resources/images/sand5.png"},
     { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
-    { "id" : "sand8", "file" : "../../resources/images/sand8.png"}
+    { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
+    { "id" : "drawer", "file" : "../../resources/images/drawer.png"}
   ],
   
   "messages" : [

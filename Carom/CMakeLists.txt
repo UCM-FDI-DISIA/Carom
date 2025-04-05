@@ -209,6 +209,8 @@ add_executable(Carom
 
     src/ECS/TweenComponent.cpp
     src/ECS/ShadowComponent.cpp
+    src/ECS/PauseComponent.cpp
+    src/ECS/UnpauseComponent.cpp
 )
 
 # Link Box2D

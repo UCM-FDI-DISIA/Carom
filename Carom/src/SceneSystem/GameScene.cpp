@@ -8,6 +8,7 @@
 #include "InputHandler.h"
 #include "ScenesManager.h"
 #include "PauseScene.h"
+#include "PauseComponent.h"
 
 #include "GameScene.h"
 #include "Game.h"
@@ -127,9 +128,6 @@ void GameScene::handleEvent(){
     for (auto entity : _entities) {
         entity->handleEvents();
     }
-    if(InputHandler::Instance()->isKeyDown(SDLK_q)){
-        game->getScenesManager()->pushScene(new PauseScene(game, this));
-    }
 }
 
 void GameScene::refresh() {
@@ -180,4 +178,10 @@ void GameScene::createBackground(std::string key){
     Entity* a_suelo = new Entity(*this, grp::BACKGROUND);
     addComponent<TransformComponent>(a_suelo, b2Vec2{0,0});
     addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1.0f);
+}
+
+void GameScene::createPauseEntity(){
+    Entity* e = new Entity(*this, grp::PAUSE_UNPAUSE);
+
+    addComponent<PauseComponent>(e);
 }
