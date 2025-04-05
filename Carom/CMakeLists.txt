@@ -72,6 +72,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
+	${CMAKE_SOURCE_DIR}/src/Inventory
 	${CMAKE_SOURCE_DIR}/src/Animator
 	${CMAKE_SOURCE_DIR}/src/Ball
 	${CMAKE_SOURCE_DIR}/src/Tweens
@@ -156,6 +157,7 @@ add_executable(Carom
 
 	src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
+	src/Scenes/PauseScene.cpp
 
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/EndScenes/RewardScene.cpp
@@ -165,6 +167,8 @@ add_executable(Carom
 	src/StateMachine/ScoringState.cpp
 	src/StateMachine/WinMatchState.cpp
 	src/StateMachine/LoseMatchState.cpp
+
+	src/Inventory/InventoryManager.cpp
 
  	src/Ball/AbacusEffect.cpp
 	src/Ball/PetanqueEffect.cpp

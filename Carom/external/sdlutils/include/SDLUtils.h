@@ -182,7 +182,7 @@ public:
 	}
 
 	inline auto& svgs(){
-		return _svgs;
+		return _svgsAccessWrapper;
 	}
 
 	// messages map

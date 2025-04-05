@@ -24,6 +24,7 @@ class UIScene;
 class MainMenuScene;
 class ShadowComponent;
 class BallEffect;
+class PauseScene;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -164,6 +165,7 @@ private:
     friend UIScene;
     friend RewardScene;
     friend MainMenuScene;
+    friend PauseScene;
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"

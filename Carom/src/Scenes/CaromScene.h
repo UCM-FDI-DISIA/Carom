@@ -139,6 +139,11 @@ protected:
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 
+//------------------------INVENTORY------------------------
+protected: 
+    void loadFromInventory();
+    bool _fromInventory = false;
+
 
 #ifdef _DEBUG
     public:

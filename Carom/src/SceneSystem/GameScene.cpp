@@ -5,6 +5,9 @@
 #include "PhysicsUtils.h"
 #include "RectangleRBComponent.h"
 #include "WallComponent.h"
+#include "InputHandler.h"
+#include "ScenesManager.h"
+#include "PauseScene.h"
 
 #include "GameScene.h"
 #include "Game.h"
@@ -123,6 +126,9 @@ void GameScene::update(){
 void GameScene::handleEvent(){
     for (auto entity : _entities) {
         entity->handleEvents();
+    }
+    if(InputHandler::Instance()->isKeyDown(SDLK_q)){
+        game->getScenesManager()->pushScene(new PauseScene(game, this));
     }
 }
 
