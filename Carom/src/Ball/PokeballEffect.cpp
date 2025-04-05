@@ -10,10 +10,10 @@ void PokeballEffect::onHit(entity_t ent)
 
     for(BallEffect* effect : effects)
     {
-        ent->addComponent(effect, effect->getEffectId());
-        ent->removeComponent(effect->getEffectId());
+        _myEntity->addComponent<BallEffect>(effect);
+        ent->removeComponent(effect);
     }
 
     effects.clear();
-    ent->removeComponent<PokeballEffect>();
+    _myEntity->removeComponent<PokeballEffect>();
 };

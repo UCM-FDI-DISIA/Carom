@@ -23,6 +23,7 @@ class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
+class BallEffect;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -44,14 +45,17 @@ public:
     }
 
     template<typename T>
-    bool addComponent(T* component) requires (!DerivedFromRender<T> && !DerivedFromTransform<T>){
-        return internalAddComponent(component);
+    bool addComponent(T* component) {
+        return internalAddComponent(cmpId<T>, component);
     }
+
+    template<>
+    bool addComponent<BallEffect>(BallEffect* balleffectComp);
 
     template<typename T>
     bool addComponent(T* renderComp) requires DerivedFromRender<T>{
 
-        bool r = internalAddComponent(renderComp);
+        bool r = internalAddComponent(cmpId<T>, renderComp);
 
         if (!r) return false;
 
@@ -63,7 +67,7 @@ public:
     template<typename T>
     bool addComponent(T* transformComp) requires DerivedFromTransform<T> {
 
-        bool r = internalAddComponent(transformComp);
+        bool r = internalAddComponent(cmpId<T>, transformComp);
 
         if (!r) return false;
 
@@ -74,26 +78,13 @@ public:
 
     template<typename T>
     bool removeComponent(){
-        return internalRemoveComponent<T>();
+        return internalRemoveComponent(cmpId<T>);
     }
-
-    template<typename T>
-    bool addComponent(T* component, cmpId_t id){
-        if(_components[id] != nullptr) return false;
-
-        _components[id] = component;
-        _currentComponents.push_back(component);
-        
-        component->init();
-        
-        return true;
-    }
-
 
     template<typename T>
     bool removeComponent() requires DerivedFromRender<T> {
 
-        bool r = internalRemoveComponent<T>();
+        bool r = internalRemoveComponent(cmpId<T>);
 
         if (!r) return false;
 
@@ -107,7 +98,7 @@ public:
     template<typename T>
     bool removeComponent() requires DerivedFromTransform<T> {
 
-        bool r = internalRemoveComponent<T>();
+        bool r = internalRemoveComponent(cmpId<T>);
 
         if (!r) return false;
 
@@ -116,14 +107,8 @@ public:
         return true;
     }
 
-    // todo: adaptar a los casos especiales
-    bool removeComponent(cmpId_t id){
-    auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[id]);
-    _currentComponents.erase(it);
-    _components[id] = nullptr;
-
-    return true;
-    }
+    // Sobrecarga necesitada por ballefect y derivados
+    bool removeComponent(BallEffect* ballEffect);
 
     template<typename T>
     bool tryGetComponent(){
@@ -195,28 +180,6 @@ private:
     // Esto está aquí para evitar dependencia circular con GameScene
     std::vector<entity_t>& getSceneRenderEntities();
 
-    template<typename T>
-    bool internalAddComponent(T* component) {
-        if(_components[cmpId<T>] != nullptr) return false;
-
-        _components[cmpId<T>] = component;
-        _currentComponents.push_back(component);
-        _components[cmpId<T>]->init();
-
-        return true;
-    }
-
-    template<typename T>
-    bool internalRemoveComponent() {
-        if(_components[cmpId<T>] == nullptr) return false;
-
-        auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[cmpId<T>]);
-        _currentComponents.erase(it);
-
-        delete _components[cmpId<T>];
-
-        _components[cmpId<T>] = nullptr;
-
-        return true;
-    }
+    bool internalAddComponent(cmpId_t id, Component* component);
+    bool internalRemoveComponent(cmpId_t id);
 };
