@@ -143,6 +143,8 @@ public:
     //
     void deactivate();
 
+    void setGameScene(GameScene* scene);
+
     void setListAnchor(GameList<Entity>::anchor&& anchor);
     
     void update();
@@ -157,7 +159,7 @@ private:
     friend CaromScene;
     friend CowboyPoolScene;
     friend PoolScene;
-        friend JsonEntityParser;
+    friend JsonEntityParser;
     friend EndGameScene;
     friend UIScene;
     friend RewardScene;

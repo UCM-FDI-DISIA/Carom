@@ -26,7 +26,9 @@ public:
     Inventory::Perma& getPerma();
 
     // Añadir
+    void addWhiteBall(entity_t ball);
     void addBall(entity_t ball);
+    void addStick(entity_t stick);
 
     // Gestionar
     void swapBall(entity_t in, entity_t out); 
@@ -37,6 +39,9 @@ public:
 
 private:
     // Eliminar
-    void removeBall();
+    void removeWhiteBall();
+    void removeBall(entity_t ball);
+    void removeBall(int index);
+    void removeAllBalls();
     void removeStick();
 };
