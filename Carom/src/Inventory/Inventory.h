@@ -11,31 +11,27 @@ class Texture;
 class InventoryManager;
 
 class Inventory {
-        const static int MAX_BALLS = 6;
-    public:
+    const static int MAX_BALLS = 6;
+public:
     struct Perma {
         int hitEase, comboEase, caromEase;
         int charisma;
         int power;
         float cunning; 
     };  
-
-    struct StickProps {
-        StickEffectComponent* effect;
-        Texture* texture;
-    };
     
-    Inventory() : _perma{0, 0, 0, 0, 0,  1.0f}, _balls(), _stick {nullptr, nullptr} {}
-    Inventory(std::vector<entity_t> balls, StickProps stickEffect, Perma perma)
-        : _perma(perma), _stick(stickEffect), _balls() 
+    Inventory() : _perma{0, 0, 0, 0, 0,  1.0f}, _balls(), _whiteBall(nullptr), _stick(nullptr) {}
+    Inventory(std::vector<entity_t> balls, entity_t whiteball, entity_t stick, Perma perma)
+        : _perma(perma), _whiteBall(whiteball), _stick(stick), _balls() 
     {
-        std::copy_n(balls.begin(), MAX_BALLS, _balls.begin());
+        std::copy_n(balls.begin(), MAX_BALLS, _balls.begin()); //Esto convierte el vector de bolas en un array
     }
 
     private:  
     friend InventoryManager;
     
     std::array<entity_t, MAX_BALLS> _balls;
-    StickProps _stick;
+    entity_t _whiteBall;
+    entity_t _stick;
     Perma _perma;
 };

@@ -20,17 +20,20 @@ public:
 
 public:
     // Consultar
-    std::vector<entity_t> getBalls();
-    Texture* getStickTexture();
-    StickEffectComponent* getStickEffect();
+    std::vector<entity_t> getEffectBalls();
+    entity_t getWhiteBall();
+    entity_t getStick();
     Inventory::Perma& getPerma();
 
     // Añadir
     void addBall(entity_t ball);
 
     // Gestionar
-    void swapBall(entity_t in, entity_t out);
-    void swapStick();
+    void swapBall(entity_t in, entity_t out); 
+    //! Veo conveniente solo usar la sobrecarga basada en ínices, pero los dejo los dos de momento
+    void swapBall(entity_t newBall, int indexOfOldBall);
+
+    void swapStick(entity_t newStick);
 
 private:
     // Eliminar
