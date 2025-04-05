@@ -30,7 +30,7 @@ PauseScene::instantiateInventory(){
     tween->easePosition(finalPos, .5f, tween::EASE_OUT_ELASTIC, false, [=](){
         //UNPAUSE ENTITY
         Entity* unpause = new Entity(*this, grp::PAUSE_UNPAUSE);
-        addComponent<UnpauseComponent>(unpause);
+        addComponent<UnpauseComponent>(unpause, tween);
     });
     
 }
