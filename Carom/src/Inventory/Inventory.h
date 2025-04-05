@@ -15,9 +15,9 @@ class Inventory {
 public:
     struct Perma {
         int hitEase, comboEase, caromEase;
-        int charisma;
-        int power;
-        float cunning; 
+        int charisma;   // carisma
+        int power;      // poder
+        float cunning;  // picardía
     };  
     
     Inventory() : _perma{0, 0, 0, 0, 0,  1.0f}, _balls(), _whiteBall(nullptr), _stick(nullptr) {}
