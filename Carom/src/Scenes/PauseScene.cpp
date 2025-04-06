@@ -6,12 +6,11 @@
 #include "UnpauseComponent.h"
 #include "TweenComponent.h"
 #include "PhysicsUtils.h"
+#include "InventoryManager.h"
+#include "FollowComponent.h"
 
 PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     _bottomScene = scene;
-
-    
-
     instantiateInventory();
 }
 
@@ -33,6 +32,22 @@ PauseScene::instantiateInventory(){
         addComponent<UnpauseComponent>(unpause, tween);
     });
     
+    float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
+
+    //auto vBalls = InventoryManager::Instance()->getEffectBalls();
+    for(int i =0; i < 6; i++){
+        std::string key = "ball_" + std::to_string(i+1);
+        entity_t ball = new Entity(*this, grp::UI);
+        addComponent<TransformComponent>(ball, b2Vec2{0,0});
+        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at("bola_blanca"), 100, ballScale);
+        
+        auto ballPos = sdlutils().svgs().at("inventory").at(key);
+        auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
+
+        b2Vec2 relativeDistance = {PhysicsConverter::pixel2meter(ballPos.x - drawerPos.x), PhysicsConverter::pixel2meter(ballPos.y - drawerPos.y)};
+
+        addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
+    }
 }
 
 void PauseScene::render(){
