@@ -122,6 +122,11 @@ public:
         return _entsRenderable;
     }
 
+    inline void addToRenderable(entity_t e) { 
+        _entsRenderable.push_back(e);
+        sortRenderOrder();
+    }
+
     // Enables all entity's components
     //
     inline void enableEntity(entity_t e) {

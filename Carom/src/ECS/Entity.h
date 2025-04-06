@@ -61,7 +61,7 @@ public:
         if (!r) return false;
 
         _myRenderer = renderComp;
-        getSceneRenderEntities().push_back(this);
+        addToSceneRenderableEntities(this);
 
         return true;
     }
@@ -189,6 +189,7 @@ private:
     // NO BORRAR
     // Esto está aquí para evitar dependencia circular con GameScene
     std::vector<entity_t>& getSceneRenderEntities();
+    void addToSceneRenderableEntities(entity_t e);
 
     bool internalAddComponent(cmpId_t id, Component* component);
     bool internalRemoveComponent(cmpId_t id);

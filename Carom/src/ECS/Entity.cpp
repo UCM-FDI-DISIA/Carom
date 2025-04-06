@@ -99,3 +99,8 @@ std::vector<entity_t>&
 Entity::getSceneRenderEntities() {
     return _myScene.getRenderEntities();
 }
+
+void
+Entity::addToSceneRenderableEntities(entity_t e) {
+    _myScene.addToRenderable(e);
+}
