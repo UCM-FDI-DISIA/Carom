@@ -136,6 +136,8 @@ public:
     inline bool isBossMatch() {return _boss != Boss::NONE; }
     void playBossTurn();
 
+    void instantiateBossTableShadow();
+
 protected:
     Boss _boss = Boss::NONE;
     virtual void clearBossModifiers();
