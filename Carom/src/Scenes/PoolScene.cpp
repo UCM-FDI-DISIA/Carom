@@ -102,7 +102,7 @@ void PoolScene::generateRndBallsPos()
 
                 // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, false); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
         }
