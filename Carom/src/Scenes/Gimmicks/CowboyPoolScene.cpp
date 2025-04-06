@@ -32,11 +32,11 @@ CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool 
     , _nAvailablePolygons(8)
     , _nVertices(8)
 {
-    if(isBoss) _boss = Boss::COWBOY_POOL;
+    if(isBoss) {
+        _boss = Boss::COWBOY_POOL;
+        createBoss();
+    }
 
-    std::cout << "CONSTRUCTOR COWBOY" << std::endl;
-
-    createBoss();
     initGimmick();
 
     getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
@@ -52,6 +52,8 @@ CowboyPoolScene::~CowboyPoolScene()
 }
 
 void CowboyPoolScene::createBoss(){
+    std::cout << "creando jefe y sombra" << std::endl;
+    
     //crear jefe
     Entity* boss = new Entity(*this, grp::BOSS_HAND);
     addComponent<TransformComponent>(boss, startingHandPosition);
@@ -64,17 +66,17 @@ void CowboyPoolScene::createBoss(){
     addComponent<TweenComponent>(boss);
 
     //sombra
-    Entity* sombraJefe = new Entity(*this, grp::SHADOWS);
-    addComponent<TransformComponent>(sombraJefe, b2Vec2{0,0});
-    addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW_HAND, scale);
-    addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
+    // Entity* sombraJefe = new Entity(*this, grp::SHADOWS);
+    // addComponent<TransformComponent>(sombraJefe, b2Vec2{0,0});
+    // addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW_HAND, scale);
+    // addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
+
+    CaromScene::instantiateBossTableShadow();
 }
 
 void CowboyPoolScene::initGimmick(){
     //comportamiento (anyadir entidades de arena en la mesa)
     std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
-
-
 
     int nBanks = 3; // Number of sandbanks to be generated
     generateSandBanks(nBanks, _sandFriction);

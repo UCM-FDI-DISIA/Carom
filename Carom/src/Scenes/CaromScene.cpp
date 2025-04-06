@@ -48,7 +48,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     //TODAS las caromScene se pueden pausar
     createPauseEntity();
 
-    instantiateBossTableShadow();
+    // instantiateBossTableShadow();
 
     _sceneManager = game->getScenesManager();
 
@@ -680,12 +680,14 @@ void CaromScene::instantiateBossTableShadow(){
     auto tr = addComponent<TransformComponent>(boss, pos);
     tr->setRotation(25);
     Texture* bossImage = nullptr;
-    if(_boss == Boss::COWBOY_POOL){
-        
-        bossImage = &sdlutils().images().at("cowboy_table_shadow");
+    switch(_boss){
+        case Boss::COWBOY_POOL:
+            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            break;
+        default:
+            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            break;
     }
-    //debug
-    bossImage = &sdlutils().images().at("cowboy_table_shadow");
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
