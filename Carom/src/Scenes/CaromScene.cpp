@@ -156,8 +156,8 @@ entity_t CaromScene::createStick()
     auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
 
     //* Used to add an effect for debugging
-    //auto effect = addComponent<DonutStickEffect>(e);
-    //input->registerStickEffect(effect);
+    auto effect = addComponent<MagicWandStickEffect>(e);
+    input->registerStickEffect(effect);
 
     //!john cleon's stick shadow
     addComponent<ShadowComponent>(e);
