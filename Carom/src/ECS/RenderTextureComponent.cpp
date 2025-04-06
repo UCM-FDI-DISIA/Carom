@@ -9,10 +9,9 @@
 
 
 RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale) 
-: RenderComponent(ent),
+: RenderComponent(ent, renderLayer),
 _texture(texture),
 _transform(nullptr),
-_renderLayer(renderLayer),
 _defaultRenderLayer(renderLayer),
 _scale(scale)
 {

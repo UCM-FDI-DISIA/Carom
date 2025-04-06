@@ -60,6 +60,7 @@ public:
 
         if (!r) return false;
 
+        _myRenderer = renderComp;
         getSceneRenderEntities().push_back(this);
 
         return true;
@@ -88,6 +89,8 @@ public:
         bool r = internalRemoveComponent(cmpId<T>);
 
         if (!r) return false;
+
+        _myRenderer = nullptr;
 
         std::vector<entity_t>& entsRenderable = getSceneRenderEntities();
         auto itR = find(entsRenderable.begin(), entsRenderable.end(), this);
@@ -138,6 +141,8 @@ public:
         return _currentComponents;
     }
 
+    inline RenderComponent* getRenderer() {return _myRenderer;}
+
     // Enables all entity's components
     //
     void activate();
@@ -177,6 +182,7 @@ private:
     ITransform* _myTransform;
     grp::grpId _id;
 
+    RenderComponent* _myRenderer;
 
     // NO BORRAR
     // Esto está aquí para evitar dependencia circular con GameScene

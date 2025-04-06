@@ -21,9 +21,7 @@ private:
 public:
     __CMPID_DECL__(cmp::RENDER_SPRITESHEET);
 
-    int renderOrder;
-
-    RenderSpritesheetComponent(entity_t ent,  Texture*, int renderOrder, 
+    RenderSpritesheetComponent(entity_t ent,  Texture*, layerId_t renderLayer, 
         float scale, int rows = 1, int cols = 1, int frame = 0);
     ~RenderSpritesheetComponent() {}
 

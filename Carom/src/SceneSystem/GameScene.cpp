@@ -106,7 +106,7 @@ GameScene::createTable(){
 
 void GameScene::sortRenderOrder(){
     std::sort(_entsRenderable.begin(), _entsRenderable.end(), [](entity_t a, entity_t b) {
-        return a->getComponent<RenderTextureComponent>()->getRenderLayer() < b->getComponent<RenderTextureComponent>()->getRenderLayer();
+        return a->getRenderer()->getRenderLayer() < b->getRenderer()->getRenderLayer();
     });
 }
 

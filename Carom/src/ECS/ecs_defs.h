@@ -60,7 +60,8 @@
 	BOSS_SHADOW, \
 	GIMMICK, \
 	CAMERA, \
-	UI
+	UI, \
+	FEEDBACK
 
 // Effect list
 // TODO completar	
@@ -83,6 +84,7 @@
 	GIMMICK, \
 	POOL_HOLE, \
 	BALL_SHADOW_ON_TABLE, \
+	FEEDBACK_EFFECT, \
 	TABLE_BORDER, \
 	EFFECT_BALL, \
 	WHITE_BALL, \

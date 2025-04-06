@@ -26,7 +26,7 @@ AnimatorComponent::update() {
         _frameStartTimestamp = sdlutils().currTime();
         
         // Si quedan frames en la animación entra al nuevo frame
-        if (_animation->_frameList.size() -1 < _frameIndex) {
+        if (_animation->_frameList.size() -1 > _frameIndex) {
             _myRenderer->setFrame(_animation->_frameList[++_frameIndex].frame);
         }
         // Si no quedan ejecuta el fin de animación según tipo de animación

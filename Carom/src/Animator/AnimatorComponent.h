@@ -20,7 +20,7 @@ private:
 
     void animationEnd(Animation::AnimationType);
 public:
-    __CMPID_DECL__(cmp::RENDER_SPRITESHEET);
+    __CMPID_DECL__(cmp::ANIMATOR);
 
     AnimatorComponent(entity_t ent,  Animation* anim);
     ~AnimatorComponent() {}

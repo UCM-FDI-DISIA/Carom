@@ -10,7 +10,7 @@ struct Animation {
     
     Texture* _spriteSheet = nullptr;
     int _spriteRows, _spriteCols;
-    int _scale;
+    float _scale;
 
     std::vector<Frame> _frameList;
 

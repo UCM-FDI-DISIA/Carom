@@ -22,7 +22,6 @@ protected:
 
     // See ecs.h for layers enum
     layerId_t _defaultRenderLayer;
-    layerId_t _renderLayer;
 public:
     __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
@@ -37,7 +36,6 @@ public:
     Texture* getTexture() {return _texture;};
     void setTexture(Texture* tex, float scale);
 
-    layerId_t getRenderLayer() { return _renderLayer; }
     void setRenderLayer(layerId_t layer);
     // To go deeper/down n layers
     void nDownRenderLayer(int n) { _renderLayer -= n; }

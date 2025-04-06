@@ -81,18 +81,18 @@
   "animations" : [
     { "id" : "normal_collide_animation",
       "spriteSheetId" : "normal_collide_VFX",
-      "scale" : 1.0,
+      "scale" : 0.5,
       "cols" : 8,
       "rows" : 1,
-      "animType" : "LOOP",
+      "animType" : "KILLMYSELF",
       "framelist": [
-        {"frame" : 0, "time" : 10},
-        {"frame" : 1, "time" : 5},
-        {"frame" : 2, "time" : 10},
-        {"frame" : 3, "time" : 10},
-        {"frame" : 4, "time" : 5},
-        {"frame" : 5, "time" : 5},
-        {"frame" : 6, "time" : 5}
+        {"frame" : 0, "time" : 3},
+        {"frame" : 1, "time" : 2},
+        {"frame" : 2, "time" : 3},
+        {"frame" : 3, "time" : 2},
+        {"frame" : 4, "time" : 1},
+        {"frame" : 5, "time" : 1},
+        {"frame" : 6, "time" : 1}
       ]
     }
   ],

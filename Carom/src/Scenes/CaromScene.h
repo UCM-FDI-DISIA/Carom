@@ -118,6 +118,8 @@ public:
 
     void createScoreEntity();
 
+    void createFeedbackTest(b2Vec2 pos, float rot);
+
 private:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);

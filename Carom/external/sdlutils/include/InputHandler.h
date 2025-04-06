@@ -137,7 +137,7 @@ public:
 	}
 
 	inline bool mouseButtonDownEvent() {
-		std::cout << "Boton: " << _isMouseButtonDownEvent << "\n";
+		//std::cout << "Boton: " << _isMouseButtonDownEvent << "\n";
 		return _isMouseButtonDownEvent;
 	}
 

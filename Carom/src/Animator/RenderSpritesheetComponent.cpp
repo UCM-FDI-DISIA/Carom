@@ -5,10 +5,9 @@
 #include <exception>
 
 RenderSpritesheetComponent::RenderSpritesheetComponent
-    (entity_t ent,  Texture* tex, int renderOrder, float scale, int rows, int cols, int frame)
-: RenderComponent(ent),
+    (entity_t ent,  Texture* tex, layerId_t renderLayer, float scale, int rows, int cols, int frame)
+: RenderComponent(ent, renderLayer),
 _texture(tex),
-renderOrder(renderOrder),
 _scale(scale),
 _rows(rows),
 _cols(cols)
@@ -56,7 +55,7 @@ void
 RenderSpritesheetComponent::setFrame(int frame) {
     if(frame > _rows * _cols || frame < 0) {
         std::string err = "[RenderSpritesheetComponent::setFrame] FUERA DE RANGO: " + std::to_string(frame) + 
-            " no está en el rango de " + std::to_string(_rows) + "x" + std::to_string(_rows);
+            " no esta en el rango de " + std::to_string(_rows) + "x" + std::to_string(_rows);
         throw std::out_of_range(err);
     }
     

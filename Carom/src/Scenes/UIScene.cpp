@@ -19,7 +19,6 @@ void UIScene::createTable()
 void UIScene::createText(std::string text, int x, int y, int size)
 {
     entity_t winContainer = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(winContainer);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
 

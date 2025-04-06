@@ -37,6 +37,9 @@
 #include "InventoryManager.h"
 #include "ShadowComponent.h"
 
+#include "Animation.h"
+#include "RenderSpritesheetComponent.h"
+#include "AnimatorComponent.h"
 
 
 
@@ -268,6 +271,22 @@ void CaromScene::createScoreEntity(){
     addComponent<TransformComponent>(e1, pos1);
     addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
+}
+
+void CaromScene::createFeedbackTest(b2Vec2 pos, float rot) {
+    entity_t e = new Entity(*this, grp::FEEDBACK);
+
+    Animation* a_anim = &sdlutils().animations().at("normal_collide_animation");
+
+    TransformComponent* eTr = new TransformComponent(e, pos);
+    eTr->setRotation(rot);
+    e->addComponent<TransformComponent>(eTr);
+
+    e->addComponent<RenderSpritesheetComponent> (
+        new RenderSpritesheetComponent(e, a_anim->_spriteSheet, renderLayer::FEEDBACK_EFFECT, 
+            a_anim->_scale, a_anim->_spriteRows, a_anim->_spriteCols, a_anim->_frameList[0].frame));
+    
+    e->addComponent<AnimatorComponent>(new AnimatorComponent(e, a_anim));
 }
 
 void CaromScene::setNewState(State* s){
@@ -526,7 +545,6 @@ TextDisplayComponent*
 CaromScene::createRemainingHitsUI() {
 
     entity_t hitsFrameObject = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(hitsFrameObject);
 
     auto shotsLeftSprite = sdlutils().svgs().at("game").at("shotsLeftSprite");
     b2Vec2 framePos = PhysicsConverter::pixel2meter( shotsLeftSprite.x, shotsLeftSprite.y);
@@ -540,7 +558,6 @@ CaromScene::createRemainingHitsUI() {
     hitsFrameObject->addComponent(new RenderTextureComponent(hitsFrameObject, &sdlutils().images().at("shotsSprite"), 0, scale));
     //ShotsLeft text
     entity_t remainingHitsObject = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(remainingHitsObject);
 
     auto shotsLeftText = sdlutils().svgs().at("game").at("shotsLeftText");
     b2Vec2 textPos = PhysicsConverter::pixel2meter( shotsLeftText.x, shotsLeftText.y);
@@ -558,7 +575,6 @@ TextDisplayComponent*
 CaromScene::createScoreUI() {
     //CurrentScore
     entity_t currentScoreObject = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(currentScoreObject);
 
     b2Vec2 pos1 = PhysicsConverter::pixel2meter(
         *&sdlutils().svgs().at("game").at("scoreTextL").x,
@@ -566,12 +582,12 @@ CaromScene::createScoreUI() {
     );
 
     currentScoreObject->addComponent(new TransformComponent(currentScoreObject, pos1));
-    TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, renderLayer::SCORE, 1, "0", {255, 255, 255, 255}, "Basteleur-Moonlight48");
+    TextDisplayComponent* currentDisplay = new TextDisplayComponent(currentScoreObject, renderLayer::SCORE, 1, "0", 
+        {255, 255, 255, 255}, "Basteleur-Moonlight48");
     currentScoreObject->addComponent(currentDisplay);
 
     //Score to beat
     entity_t scoreToBeatObject = new Entity(*this, grp::SCORE);
-    _entsRenderable.push_back(scoreToBeatObject);
 
     b2Vec2 pos2 = PhysicsConverter::pixel2meter(
         *&sdlutils().svgs().at("game").at("scoreTextR").x,
@@ -579,7 +595,8 @@ CaromScene::createScoreUI() {
     );
 
     scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-    scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, "1000", {255, 255, 255, 255}, "Basteleur-Moonlight48"));
+    scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, "1000", 
+        {255, 255, 255, 255}, "Basteleur-Moonlight48"));
 
     return currentDisplay;
 }
