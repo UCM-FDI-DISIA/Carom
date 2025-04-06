@@ -675,7 +675,7 @@ CaromScene::loadFromInventory() {
 }
 
 void CaromScene::instantiateBossTableShadow(){
-    Entity* boss = new Entity(*this, grp::BOSS_SHADOW_HAND);
+    Entity* boss = new Entity(*this, grp::BOSS_SHADOW);
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
     auto tr = addComponent<TransformComponent>(boss, pos);
     tr->setRotation(25);
@@ -688,5 +688,5 @@ void CaromScene::instantiateBossTableShadow(){
     bossImage = &sdlutils().images().at("cowboy_table_shadow");
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
-    addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW_HAND, scale);
+    addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
 }
