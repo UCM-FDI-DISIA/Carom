@@ -18,13 +18,13 @@ void InventoryManager::swapInventory(Inventory inv) {
 
 std::vector<entity_t> 
 InventoryManager::getEffectBalls() {
-    std::vector<entity_t> balls;
-    balls.reserve(_inventory.MAX_BALLS);
+    // std::vector<entity_t> balls;
+    // balls.reserve(_inventory.MAX_BALLS);
 
-    for(entity_t b : _inventory._balls)
-        balls.push_back(b);
+    // for(entity_t b : _inventory._balls)
+    //     balls.push_back(b);
 
-    return balls;
+    return _inventory._balls;
 }
 
 entity_t 
@@ -97,12 +97,19 @@ InventoryManager::removeWhiteBall() {
 
 void 
 InventoryManager::removeBall(entity_t ball) {
-    // TODO
+    auto it = _inventory._balls.begin();
+    while(*it != ball && it != _inventory._balls.end())
+        ++it;
+    if(it == _inventory._balls.end())
+        throw("Error: la bola no se encuentra en el inventario");
+
+    _inventory._balls.erase(it);
 }
 
 void
 InventoryManager::removeBall(int index) {
-    // TODO
+    assert(index < _inventory.MAX_BALLS);
+    _inventory._balls.erase(_inventory._balls.begin() + index);
 }
 
 void InventoryManager::removeAllBalls() {
