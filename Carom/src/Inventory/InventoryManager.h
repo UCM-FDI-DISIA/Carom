@@ -11,28 +11,31 @@ class InventoryManager : public Singleton<InventoryManager> {
 
     Inventory _inventory;
 
-public:
+private:
 	InventoryManager();
-
 	virtual ~InventoryManager();
 
-    void swapInventory(Inventory inv);
-
-public:
+    inline bool init() {
+        _inventory = Inventory();
+        return true;
+    }
+    
+    public:
     // Consultar
     std::vector<entity_t> getEffectBalls();
     entity_t getWhiteBall();
     entity_t getStick();
     Inventory::Perma& getPerma();
-
+    
     // Añadir
     void addWhiteBall(entity_t ball);
     void addBall(entity_t ball);
     void addStick(entity_t stick);
-
+    
     // Gestionar
+    void swapInventory(Inventory inv);
     void swapBall(entity_t in, entity_t out); 
-    //! Veo conveniente solo usar la sobrecarga basada en ínices, pero los dejo los dos de momento
+    //! Veo conveniente solo usar la sobrecarga basada en índices, pero los dejo los dos de momento
     void swapBall(entity_t newBall, int indexOfOldBall);
 
     void swapStick(entity_t newStick);

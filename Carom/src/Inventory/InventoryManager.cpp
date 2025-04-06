@@ -1,8 +1,7 @@
 #include "InventoryManager.h"
 #include "Texture.h"
 
-InventoryManager::InventoryManager() 
-: _inventory(Inventory())
+InventoryManager::InventoryManager()
 {
 
 }

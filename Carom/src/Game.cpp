@@ -5,6 +5,7 @@
 
 #include "Game.h"
 #include "InputHandler.h"
+#include "InventoryManager.h"
 
 #include "ScenesManager.h"
 #include "GameScene.h"
@@ -37,7 +38,6 @@ void
 Game::init() 
 {
     // initialize SDL singleton
-    // TODO: cargar los recursos correspondientes
 	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/resources.json")) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
@@ -47,6 +47,13 @@ Game::init()
 	// initialize InputHandler singleton
     if (!InputHandler::Init()) {
         std::cerr << "Something went wrong while initializing SDLHandler"
+                << std::endl;
+        return;
+    }
+
+    // initialize InventoryManager singleton
+    if(!InventoryManager::Init()) {
+        std::cerr << "Something went wrong while initializing InventoryManager"
                 << std::endl;
         return;
     }
