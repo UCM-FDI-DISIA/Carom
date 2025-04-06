@@ -48,6 +48,8 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     //TODAS las caromScene se pueden pausar
     createPauseEntity();
 
+    instantiateBossTableShadow();
+
     _sceneManager = game->getScenesManager();
 
     // SEEDING
@@ -670,4 +672,21 @@ CaromScene::loadFromInventory() {
     stick->setGameScene(this);
     _entities.push_back(stick);
     _entsRenderable.push_back(stick);
+}
+
+void CaromScene::instantiateBossTableShadow(){
+    Entity* boss = new Entity(*this, grp::BOSS_SHADOW_HAND);
+    b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
+    auto tr = addComponent<TransformComponent>(boss, pos);
+    tr->setRotation(25);
+    Texture* bossImage = nullptr;
+    if(_boss == Boss::COWBOY_POOL){
+        
+        bossImage = &sdlutils().images().at("cowboy_table_shadow");
+    }
+    //debug
+    bossImage = &sdlutils().images().at("cowboy_table_shadow");
+
+    float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
+    addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW_HAND, scale);
 }

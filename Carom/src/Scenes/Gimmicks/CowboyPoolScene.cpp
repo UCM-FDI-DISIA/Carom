@@ -66,7 +66,7 @@ void CowboyPoolScene::createBoss(){
     //sombra
     Entity* sombraJefe = new Entity(*this, grp::SHADOWS);
     addComponent<TransformComponent>(sombraJefe, b2Vec2{0,0});
-    addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW, scale);
+    addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW_HAND, scale);
     addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
 }
 

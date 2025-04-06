@@ -54,7 +54,8 @@
     { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
-    { "id" : "drawer", "file" : "../../resources/images/drawer.png"}
+    { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"}
   ],
   
   "messages" : [
@@ -107,7 +108,8 @@
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
-    {"id": "inventory", "file": "../../resources/svg/inventario.svg"}
+    {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
+    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"}
   ]
 
 }
