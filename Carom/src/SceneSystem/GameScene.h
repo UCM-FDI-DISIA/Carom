@@ -90,6 +90,9 @@ protected:
         return e->removeComponent<T>();
     }
 
+    //creates pause entity with PauseComponent
+    void createPauseEntity();
+
 public:
     // Return true if there is a component with identifier T::id in the entity.
     //

@@ -45,6 +45,9 @@
 
 CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
+    //TODAS las caromScene se pueden pausar
+    createPauseEntity();
+
     _sceneManager = game->getScenesManager();
 
     // SEEDING
@@ -650,18 +653,21 @@ CaromScene::loadFromInventory() {
     _fromInventory = true; //!PROVISIONAL: Para no eliminar la destructora de escena por defecto aún
 
     InventoryManager* inventory = InventoryManager::Instance();
-    entity_t whiteBall = inventory->getWhiteBall();
     
+    entity_t whiteBall = inventory->getWhiteBall();
+    whiteBall->setGameScene(this);
     _entities.push_back(whiteBall);
     _entsRenderable.push_back(whiteBall);
 
     auto effectBalls = inventory->getEffectBalls();
     for(entity_t ball : effectBalls) {
+        ball->setGameScene(this);
         _entities.push_back(ball);
         _entsRenderable.push_back(ball);
     }
 
     entity_t stick = inventory->getStick();
+    stick->setGameScene(this);
     _entities.push_back(stick);
     _entsRenderable.push_back(stick);
 }

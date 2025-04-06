@@ -22,6 +22,7 @@
 
 PoolScene::PoolScene(Game* g) : UIScene(g)
 {
+    createPauseEntity();
     _rngm = new RNG_Manager();
 
     // Create table with texture and colliders

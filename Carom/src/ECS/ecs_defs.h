@@ -41,7 +41,9 @@
 	HOLE, \
 	SHADOW, \
 	POP_TO_OPPOSITE_EFFECT, \
-	DONUT_STICK
+	DONUT_STICK, \
+	PAUSE, \
+	UNPAUSE
 
 // Groups list - must have at least one element
 //
@@ -61,7 +63,8 @@
 	GIMMICK, \
 	CAMERA, \
 	UI, \
-	FEEDBACK
+	FEEDBACK, \
+	PAUSE_UNPAUSE
 
 // Effect list
 // TODO completar	

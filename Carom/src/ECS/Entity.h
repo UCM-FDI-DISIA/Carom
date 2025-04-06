@@ -151,6 +151,8 @@ public:
     //
     void deactivate();
 
+    void setGameScene(GameScene* scene);
+
     void setListAnchor(GameList<Entity>::anchor&& anchor);
 
     void update();

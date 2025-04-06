@@ -33,6 +33,11 @@ void Entity::deactivate() {
         cmp->setEnabled(false);
 }
 
+void Entity::setGameScene(GameScene* scene) {
+    // TODO
+    // _myScene = scene;
+}
+
 void Entity::setListAnchor(GameList<Entity>::anchor&& anchor){
     this->_anchor = std::move(anchor);
 }
