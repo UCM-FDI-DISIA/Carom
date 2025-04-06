@@ -21,7 +21,10 @@ PauseScene::instantiateInventory(){
     entity_t fondo = new Entity(*this, grp::UI);
     b2Vec2 initialPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer_initial_pos").x, sdlutils().height()/2);
     auto tr = addComponent<TransformComponent>(fondo, initialPos);
-    addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("drawer"), renderLayer::GIMMICK, 1);
+
+    float drawerScale =sdlutils().svgs().at("inventory").at("drawer").height/(float) sdlutils().images().at("drawer").getRect().h;
+
+    addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("drawer"), renderLayer::GIMMICK, drawerScale);
     auto tween = addComponent<TweenComponent>(fondo);
 
     //animacion
