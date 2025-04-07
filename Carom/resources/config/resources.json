@@ -31,6 +31,7 @@
   
   "images" : [
     { "id" : "fondo", "file" : "../../resources/images/fondo_blanco.png"},
+    { "id" : "fondo_verde", "file" : "../../resources/images/fondo_verde.png"},
     { "id" : "marco2", "file" : "../../resources/images/marco2.png"},
     { "id" : "mesa1", "file" : "../../resources/images/mesa1.png"},
     { "id" : "mesa1_sombra", "file" : "../../resources/images/mesa1_sombra.png"},
