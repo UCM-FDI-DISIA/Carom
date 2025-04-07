@@ -34,7 +34,6 @@ RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, in
 
 void RenderTextureComponent::init(){
     _transform = _myEntity->getTransform();
-    _myEntity->getScene().sortRenderOrder();
 }
 
 void RenderTextureComponent::render() {

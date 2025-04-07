@@ -29,10 +29,12 @@ class TweenComponent;
  */
 class GameScene
 {
+private:
+    std::vector<entity_t> _entsRenderable;
+
 protected:
     GameList<Entity> _entities;
     std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
-    std::vector<entity_t> _entsRenderable;
 
     Game* game;
     CameraComponent* _camera = nullptr;
@@ -118,11 +120,16 @@ public:
         return _entsByGroup[gId];
     }
 
-    inline auto& getRenderEntities(){
+    inline const auto& getRenderEntities(){
         return _entsRenderable;
     }
 
-    inline void addToRenderable(entity_t e) { 
+    inline void eraseRenderEntity(entity_t e){
+        auto itR = find(_entsRenderable.begin(), _entsRenderable.end(), e);
+        _entsRenderable.erase(itR);
+    }
+
+    inline void pushToRenderEntities(entity_t e) { 
         _entsRenderable.push_back(e);
         sortRenderOrder();
     }

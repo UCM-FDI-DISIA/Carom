@@ -95,12 +95,17 @@ Entity::internalRemoveComponent(cmpId_t id) {
 
 // NO BORRAR
 // Esto está aquí para evitar dependencia circular con GameScene
-std::vector<entity_t>& 
+const std::vector<entity_t>& 
 Entity::getSceneRenderEntities() {
     return _myScene.getRenderEntities();
 }
 
+void 
+Entity::eraseFromRenderEntities(entity_t e){
+    _myScene.eraseRenderEntity(e);
+}
+
 void
-Entity::addToSceneRenderableEntities(entity_t e) {
-    _myScene.addToRenderable(e);
+Entity::addToSceneRenderEntities(entity_t e) {
+    _myScene.pushToRenderEntities(e);
 }

@@ -659,19 +659,19 @@ CaromScene::loadFromInventory() {
     entity_t whiteBall = inventory->getWhiteBall();
     whiteBall->setGameScene(this);
     _entities.push_back(whiteBall);
-    _entsRenderable.push_back(whiteBall);
+    pushToRenderEntities(whiteBall);
 
     auto effectBalls = inventory->getEffectBalls();
     for(entity_t ball : effectBalls) {
         ball->setGameScene(this);
         _entities.push_back(ball);
-        _entsRenderable.push_back(ball);
+        pushToRenderEntities(ball);
     }
 
     entity_t stick = inventory->getStick();
     stick->setGameScene(this);
     _entities.push_back(stick);
-    _entsRenderable.push_back(stick);
+    pushToRenderEntities(stick);
 }
 
 void CaromScene::instantiateBossTableShadow(){
