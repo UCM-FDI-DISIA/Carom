@@ -1,3 +1,7 @@
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 
 #include "RNG_Manager.h"
@@ -16,6 +20,8 @@ void start() {
 
 int main (int, char**)
 {
+    // _CrtSetBreakAlloc(8051);
+
     try {
         start();
     } catch (const std::string &e) { // catch exceptions thrown as strings
@@ -27,6 +33,7 @@ int main (int, char**)
     } catch (...) {
         std::cerr << "Caught and exception of unknown type ...";
     }
-
+ 
+    _CrtDumpMemoryLeaks();
     return 0;
 }
