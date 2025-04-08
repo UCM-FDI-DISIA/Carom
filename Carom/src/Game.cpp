@@ -32,6 +32,9 @@ Game::~Game() {
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
+
+    if (InventoryManager::HasInstance())
+        InventoryManager::Release();
 }
 
 void
