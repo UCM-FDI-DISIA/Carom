@@ -211,6 +211,8 @@ add_executable(Carom
     src/ECS/ShadowComponent.cpp
     src/ECS/PauseComponent.cpp
     src/ECS/UnpauseComponent.cpp
+
+    src/ECS/RandomVibrationComponent.cpp
 )
 
 # Link Box2D

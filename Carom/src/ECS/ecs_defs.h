@@ -43,7 +43,8 @@
 	POP_TO_OPPOSITE_EFFECT, \
 	DONUT_STICK, \
 	PAUSE, \
-	UNPAUSE
+	UNPAUSE, \
+	RANDOM_VIBRATION
 
 // Groups list - must have at least one element
 //

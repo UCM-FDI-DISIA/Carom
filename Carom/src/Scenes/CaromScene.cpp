@@ -36,6 +36,7 @@
 
 #include "InventoryManager.h"
 #include "ShadowComponent.h"
+#include "RandomVibrationComponent.h"
 
 #include "Animation.h"
 #include "RenderSpritesheetComponent.h"
@@ -689,4 +690,5 @@ void CaromScene::instantiateBossTableShadow(){
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
+    addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
 }
