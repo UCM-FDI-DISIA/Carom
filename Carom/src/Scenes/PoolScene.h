@@ -23,9 +23,8 @@ protected:
     b2WorldId _myB2WorldId; //El mundo de box2D
 
     void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
-    void generateTable(); // para generar la mesa.
+
     entity_t generateHole(int i); // para generar el agujero según indice.
-    void generateTableBackground(); // para generar el fondo de la mesa.
 
 public:
     PoolScene(Game* g);

@@ -27,7 +27,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
 
     // Create table with texture and colliders
     createBackground("suelo");
-    generateTable();
+    createTable();
     generateRndBallsPos();
 }
 
@@ -98,40 +98,8 @@ void PoolScene::generateRndBallsPos()
                 game->getScenesManager()->pushScene(ms);
             });
         }
-
-        
     }
 
-    generateTableBackground();
-
-}
-
-void PoolScene::generateTable()
-{
-    // Marco de la mesa.
-    entity_t e = new Entity(*this, grp::TABLE);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("mesa_marco").x,
-        *&sdlutils().svgs().at("pool").at("mesa_marco").y
-    );
-
-    float scale = float(sdlutils().svgs().at("pool").at("mesa_marco").width) / float(sdlutils().images().at("marco2").width());
-
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
-
-    // Sombra de la mesa.
-    entity_t e1 = new Entity(*this, grp::TABLE);
-
-    b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("mesa_sombra").x,
-        *&sdlutils().svgs().at("pool").at("mesa_sombra").y
-    );
-
-    addComponent<TransformComponent>(e1, pos1);
-    addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);
 }
 
 entity_t PoolScene::generateHole(int i)
@@ -140,8 +108,8 @@ entity_t PoolScene::generateHole(int i)
     entity_t e = new Entity(*this, grp::POOL_HOLE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x,
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y + 160
     );
 
     float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
@@ -153,21 +121,4 @@ entity_t PoolScene::generateHole(int i)
     addComponent<Button>(e, rButton);
 
     return e;
-}
-
-void PoolScene::generateTableBackground()
-{
-    // fondo mesa.
-    entity_t e = new Entity(*this, grp::TABLE_BACKGROUND);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("fondo_mesa").x,
-        *&sdlutils().svgs().at("pool").at("fondo_mesa").y
-    );
-
-    float scale = float(sdlutils().svgs().at("pool").at("fondo_mesa").width) / float(sdlutils().images().at("fondo_verde").width());
-
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("fondo_verde"), renderLayer::TABLE_BACKGOUND, scale);
 }
