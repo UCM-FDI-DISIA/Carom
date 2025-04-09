@@ -20,10 +20,11 @@
 #include <box2d/box2d.h>
 
 
-PoolScene::PoolScene(Game* g) : UIScene(g)
+PoolScene::PoolScene(Game* g) 
+    : UIScene(g)
+    , _rngm(g->getScenesManager()->getRGN())
 {
     createPauseEntity();
-    _rngm = new RNG_Manager();
 
     // Create table with texture and colliders
     createBackground("suelo");
@@ -33,7 +34,6 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
 
 PoolScene::~PoolScene()
 {
-    delete _rngm;
 }
 
 void PoolScene::generateRndBallsPos()
@@ -65,7 +65,7 @@ void PoolScene::generateRndBallsPos()
     }
     */
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
-    int a_bossPosition = _rngm->randomRange(0, HOLES);
+    int a_bossPosition = _rngm.randomRange(0, HOLES);
     std::cout << "Boss hole: " << a_bossPosition << std::endl;
 
     // coloca los agujeros de partida
