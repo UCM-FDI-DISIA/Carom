@@ -21,6 +21,11 @@ ScenesManager::ScenesManager()
 
 ScenesManager::~ScenesManager()
 {
+	while (!GameScenes.empty()) {
+        delete GameScenes.top();
+        GameScenes.pop();
+    }
+
 	delete _rngManager;
 }
 
@@ -34,8 +39,10 @@ void
 ScenesManager::popScene()
 {
 	// Si el estado final existe y se deja eliminar
-	if (!GameScenes.empty())
-		GameScenes.pop();
+	if (!GameScenes.empty()) {
+        delete GameScenes.top();
+        GameScenes.pop();
+    }
 }
 
 bool
