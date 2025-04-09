@@ -15,6 +15,7 @@
 #include "GameScene.h"
 #include <SDL.h>
 
+class RNG_Manager;
 /**
  * Máquina de estados del juego.
  *
@@ -25,8 +26,10 @@ class ScenesManager
 {
 	// Pila (como las de EDA) de punteros inteligentes a estados del juego
 	std::stack<GameScene*> GameScenes;
+	RNG_Manager* _rngManager;
 
 public:
+	ScenesManager();
 	~ScenesManager();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
@@ -51,6 +54,8 @@ public:
 
 	//Método que crea la escena de derrota, se puede llamar en cualquier momento
 	void invokeLose();
+
+	inline RNG_Manager& getRGN() { return *_rngManager; };
 };
 
 #endif // GAME_STATE_MACHINE_H

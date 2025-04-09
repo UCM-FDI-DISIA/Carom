@@ -43,7 +43,14 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
+CaromScene::CaromScene(Game* g, GameScene* reward) 
+    : GameScene(g)
+    , _reward(reward)
+    , _updatePhysics(true)
+    , _currentScore(0)
+    , _scoreToBeat(1000)
+    , _currentState(nullptr)
+    , _rngManager(g->getScenesManager()->getRGN())
 {
     //TODAS las caromScene se pueden pausar
     createPauseEntity();
@@ -51,13 +58,6 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     // instantiateBossTableShadow();
 
     _sceneManager = game->getScenesManager();
-
-    // SEEDING
-    // TODO: pasar RNG a sceneManager o Game para que haya uno solo
-    _rngManager = new RNG_Manager();
-    unsigned seed = _rngManager->randomRange(1, 1000000); 
-    _rngManager->inseminate(seed);
-
 
     // Creación del mundo físico
     b2WorldDef worldDef = b2DefaultWorldDef();
@@ -208,7 +208,7 @@ CaromScene::createEffectBalls(int n) {
     for(int i = 1; i <= npos; ++i)
         positions.push_back(RandomItem(i, 1.0f));
 
-    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, n, false);
+    std::vector<int> eb_selected_pos = _rngManager.getRandomItems(positions, n, false);
 
     for(int i = 0; i < n; ++i) {
         std::string s = "bola";

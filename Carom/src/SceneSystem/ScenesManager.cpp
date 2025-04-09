@@ -7,13 +7,21 @@
  */
 
  #include "ScenesManager.h"
+ #include "RNG_Manager.h"
+
 
 using namespace std;
 
+ScenesManager::ScenesManager()
+{
+	_rngManager = new RNG_Manager();
+    unsigned seed = _rngManager->randomRange(1, 1000000); 
+    _rngManager->inseminate(seed);
+}
+
 ScenesManager::~ScenesManager()
 {
-	while (!GameScenes.empty())
-		GameScenes.pop();
+	delete _rngManager;
 }
 
 void

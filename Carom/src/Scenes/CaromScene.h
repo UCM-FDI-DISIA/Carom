@@ -43,7 +43,7 @@ public:
 //---------------------------STATE MACHINE-----------------------------
 protected:
     //el estado en el que se encuentra la escena actualmente
-    State* _currentState = nullptr;
+    State* _currentState;
 public:
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
@@ -77,7 +77,7 @@ public:
 
 //------------------------------MANAGERS-------------------------------------
 protected:
-    RNG_Manager* _rngManager;
+    RNG_Manager& _rngManager;
 
 //------------------------------PHYSICS--------------------------------------
 protected:
