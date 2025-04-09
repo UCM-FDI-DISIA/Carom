@@ -1,0 +1,11 @@
+{
+    "components" :
+    [
+        {
+            "componentName" : "BallHandler",
+            "atributes" : {
+                "effects": []
+            }
+        }
+    ]
+}

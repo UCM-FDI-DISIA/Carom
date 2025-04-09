@@ -30,6 +30,8 @@
 #include <vector>
 #include <string>
 
+#include <iostream>
+#include <fstream>
 
 Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
     JSONValue* entityElements = JSON::ParseFromFile(file);
@@ -157,6 +159,44 @@ void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
         else if(element->Child("componentName")->AsString() == "QuanticEffect")
             addComponent<QuanticEffect>(entity);
     }
+}
+
+void JsonEntityParser::saveBalls(std::vector<Entity*> balls) {
+    for(int i = 0; i < 5; i++) {
+        std::ofstream fileStream("../../resources/prefabs/inventoryData/slot" + std::to_string(i) + ".json");
+        if(fileStream.is_open()) fileStream << "";
+        fileStream.close();
+    }
+
+    for(int i = 0; i < balls.size(); i++) {
+        Entity* currentBall = balls[i];
+        std::vector<BallEffect*> ballEffects = currentBall->getComponent<BallHandler>()->getEffects();
+
+        std::string value = "{\"components\" :[{\"componentName\" : \"BallHandler\",\"atributes\" : {\"effects\": [";
+        
+        for(int i = 0; i < ballEffects.size(); i++) {
+            BallEffect* effect = ballEffects[i];
+
+            value += "{\"componentName\" : ";
+            if (dynamic_cast<AbacusEffect*>(effect) != nullptr) value += "\"AbacusEffect\"";
+            else if (dynamic_cast<BowlingEffect*>(effect) != nullptr) value += "\"BowlingEffect\"";
+            else if (dynamic_cast<X2Effect*>(effect) != nullptr) value += "\"X2Effect\"";
+            else if (dynamic_cast<QuanticEffect*>(effect) != nullptr) value += "\"QuanticEffect\"";
+            else if (dynamic_cast<PokeballEffect*>(effect) != nullptr) value += "\"PokeballEffect\"";
+            else if (dynamic_cast<CristalEffect*>(effect) != nullptr) value += "\"CristalEffect\"";
+            else if (dynamic_cast<PetanqueEffect*>(effect) != nullptr) value += "\"PetanqueEffect\"";
+            value += "}";
+
+            if(i != ballEffects.size() - 1) value += ", ";
+        }
+
+        value += "]}}]}";
+
+        std::ofstream fileStream("../../resources/prefabs/inventoryData/slot" + std::to_string(i) + ".json");
+        if(fileStream.is_open()) fileStream << value;
+        fileStream.close();
+    }
+
 }
 
 

@@ -13,7 +13,7 @@ class RNG_Manager : public Singleton<RNG_Manager>
     RNG_Manager() : _rng(RandomNumberGenerator()) {}
     ~RNG_Manager() {}
 
-    void init() {}
+    bool init() {return true;}
 
     void inseminate(unsigned seed) {
         _rng.Inseminate(seed);

@@ -109,7 +109,7 @@ public:
     entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
                             float density, float friction, float restitution, int layer);
 
-    void createEffectBalls(int n);
+    void createEffectBalls();
     
     void createBallShadow(entity_t);
 
