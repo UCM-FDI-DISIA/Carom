@@ -47,6 +47,9 @@ protected:
 	//
 	inline virtual void init(){}
 
+    // Deletes all entities
+    void clearEntities();
+
     // Create entities that represent and compose the table. The table as a whole is a group.
     void createTable();
     //creates a background

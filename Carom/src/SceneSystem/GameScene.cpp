@@ -22,7 +22,18 @@ GameScene::GameScene(Game* game): game(game)
     setCamera(cam);
 }
 
-GameScene::~GameScene(){}
+GameScene::~GameScene()
+{
+    clearEntities();
+}
+
+void GameScene::clearEntities()
+{
+    for (auto it : _entities) {
+		delete it;
+        it = nullptr;
+	}
+}
 
 // TODO: componentes Transform físico y normal
 // Creates a table composed by 3 entities for textures and 4 entities that are the colliders of each side of the table.
