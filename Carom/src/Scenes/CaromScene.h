@@ -25,7 +25,7 @@ protected:
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g, GameScene* reward);
+    CaromScene(Game* g, GameScene* reward);
     virtual ~CaromScene();
 
     void handleEvent() override;

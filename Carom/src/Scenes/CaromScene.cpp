@@ -64,12 +64,9 @@ CaromScene::CaromScene(Game* g, GameScene* reward)
     worldDef.gravity = {0.0f, 0.0f};
     _myB2WorldId = b2CreateWorld(&worldDef);
     b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
-
-    setNewState(s);
         
     createStick();
     
-
     // WHITE BALL
     // Converts (x, y) from screen(svg) to meters and to meter coordinates
     b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
@@ -89,7 +86,6 @@ CaromScene::CaromScene(Game* g, GameScene* reward)
     // Create table with texture and colliders
     createTable();
     
-
     createBackground("suelo");
 
     createScoreEntity();
@@ -298,6 +294,7 @@ void CaromScene::setNewState(State* s){
     if (_currentState != nullptr) {
         _currentState->onStateExit();
         delete _currentState;
+        _currentState = nullptr;
     }
     _fastForwardPhysics = false;
     _currentState = s;
@@ -306,6 +303,9 @@ void CaromScene::setNewState(State* s){
 
 CaromScene::~CaromScene(){
     if(_currentState != nullptr) delete _currentState;
+
+    // Deletes entities before destroyWorld
+    clearEntities();
 
     // el mundo debe destruirse aquí, recordad que los ids son punteros con sombrero y gabardina
     b2DestroyWorld(_myB2WorldId);

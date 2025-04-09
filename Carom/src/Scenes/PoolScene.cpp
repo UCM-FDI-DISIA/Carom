@@ -78,23 +78,22 @@ void PoolScene::generateRndBallsPos()
             //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
             
             e->getComponent<Button>()->setOnClick([this](){
-                
-                NullState* state = new NullState(nullptr);
 
                 // !!! CREA BOSSSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                // UIScene* rewardScene = nullptr;
+                CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
         }
         else{ // --- POSICION COLORES.
             e->getComponent<Button>()->setOnClick([this](){
-                
-                NullState* state = new NullState(nullptr);
 
                 // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                // UIScene* rewardScene = nullptr;
+
+                CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
         }

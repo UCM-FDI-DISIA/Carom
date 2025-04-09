@@ -1,6 +1,5 @@
 #pragma once
 #include "GameScene.h"
-#include "State.h"
 #include "Game.h"
 #include "Texture.h"
 #include "RNG_Manager.h"
@@ -18,7 +17,7 @@ protected:
             BOSS
         };
 
-    RNG_Manager* _rngm; // random manager
+    RNG_Manager& _rngm; // random manager
     GameScene* _reward; //La recompensa al completar la escena
     b2WorldId _myB2WorldId; //El mundo de box2D
 

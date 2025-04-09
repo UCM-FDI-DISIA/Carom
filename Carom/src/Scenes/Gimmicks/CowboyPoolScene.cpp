@@ -23,8 +23,8 @@
 
 
 
-CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss)
-    : CaromScene(state, g, reward)
+CowboyPoolScene::CowboyPoolScene(Game* g, GameScene* reward, bool isBoss)
+    : CaromScene(g, reward)
     , _sandBanks(0)
     , _arenaFilenameSVG("grp_arena")
     , _sandConstrainName("arenaArea")
@@ -120,7 +120,7 @@ void CowboyPoolScene::pickAndPositionSandPolygons(
         // std::cout<< "attempts: " << attempts <<std::endl;
 
         // Try a polygon
-        int polyId = _rngManager->getRandomItem(polygons, true);
+        int polyId = _rngManager.getRandomItem(polygons, true);
         // std::cout << "polyid: " << polyId <<std::endl; 
         std::vector<b2Vec2> candidatePoly = sandBanksPolygons[polyId - 1];
 
@@ -132,9 +132,9 @@ void CowboyPoolScene::pickAndPositionSandPolygons(
             // Generate a radom center in PIXELS
             b2Vec2 genRandomCenter = {
                 static_cast<float>
-                (_rngManager->randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
+                (_rngManager.randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
                 static_cast<float>
-                (_rngManager->randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
+                (_rngManager.randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
             };
 
             // Update vertices positions by offset (distance between gen and original centers)
@@ -281,7 +281,7 @@ CowboyPoolScene::generateBulletHolesPositions(int n) {
     
     while(n > 0 && positions.size() > 0) {
         // Obtener posición aleatoria para el agujero
-        int id = _rngManager->getRandomItem(positions, true) ;
+        int id = _rngManager.getRandomItem(positions, true) ;
 
         std::string s = "shot_hole";
         if(id > 1)

@@ -23,6 +23,4 @@ protected:
 public:
     UIScene(Game *g) : GameScene(g) {} // para cuando se gana (hay reward).
     virtual ~UIScene() = default;
-
-    void setNewState(State *s);
 };
