@@ -50,6 +50,8 @@ Game::init()
                 << std::endl;
         return;
     }
+
+    RNG_Manager::Init();
 }
 
 void

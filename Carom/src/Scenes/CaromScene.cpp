@@ -45,7 +45,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
 
     // SEEDING
     // TODO: pasar RNG a sceneManager o Game para que haya uno solo
-    _rngManager = new RNG_Manager();
+    _rngManager = RNG_Manager::Instance();
     unsigned seed = _rngManager->randomRange(1, 1000000); 
     _rngManager->inseminate(seed);
 
@@ -180,9 +180,6 @@ CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2Bod
     // TODO: add components according to its id
 
     createBallShadow(e);
-
-    addComponent<BallHandler>(e);
-    addComponent<QuanticEffect>(e);
 
     return e;
 }

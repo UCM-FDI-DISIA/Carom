@@ -66,6 +66,8 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
 Entity* JsonEntityParser::CreateBallEffect(GameScene& gameScene, std::string file){
     Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
 
+    AddComponentsFromJSON(e, file);
+
     return e;
 }
 
