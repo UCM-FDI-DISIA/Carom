@@ -66,7 +66,9 @@ void PoolScene::generateRndBallsPos()
     */
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
     int a_bossPosition = _rngm->randomRange(0, HOLES);
+    #ifdef _DEBUG
     std::cout << "Boss hole: " << a_bossPosition << std::endl;
+    #endif
 
     // coloca los agujeros de partida
     for(int i = 0; i < HOLES; i++){
@@ -121,4 +123,19 @@ entity_t PoolScene::generateHole(int i)
     addComponent<Button>(e, rButton);
 
     return e;
+}
+
+void
+PoolScene::loadRewards() {
+    // TODO: parse all rewards from JSON
+}
+
+
+void
+PoolScene::generateFloorRewards() {
+    // Generar array de todas las recompensas a partir del JSON
+    loadRewards();
+
+    // La partida de Boss no tiene Reward
+    _floorRewards = _rngm->getRandomItems(_rewards, HOLES - 1, false);
 }

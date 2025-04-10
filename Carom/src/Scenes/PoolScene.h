@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "RNG_Manager.h"
 #include "UIScene.h"
+// No sé si es mejor crearme mi propio enum Perma o usar el que ya existe en Inventory.h
+// #include "Inventory.h"
 
 class ScenesManager;
 class RNG_Manager;
@@ -18,13 +20,37 @@ protected:
             BOSS
         };
 
+    enum Instant {
+        FUSION,
+        GUMBALL_MACHINE,
+        STORAGE_ROOM,
+        CAULDRON
+    };
+
+    struct Perma {
+        int hitEase = 0, comboEase = 0, caromEase = 0;
+        int charisma = 0;   // carisma
+        int power = 0;      // poder
+        float cunning = 1.0f;  // picardía
+    };
+
+    struct Reward {
+        Instant instantReward;
+        Perma permanentReward;
+    };
+
     RNG_Manager* _rngm; // random manager
-    GameScene* _reward; //La recompensa al completar la escena
     b2WorldId _myB2WorldId; //El mundo de box2D
+
+    std::vector<RandomItem<Reward>> _rewards; // Todas la posibles recompensas, sacadas del json
+    std::vector<Reward> _floorRewards; // Recompensas de cada agujero del piso
 
     void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
 
     entity_t generateHole(int i); // para generar el agujero según indice.
+
+    void loadRewards(); // Rellena el vector de posibles recompensas
+    void generateFloorRewards(); // genera las recompensas del piso
 
 public:
     PoolScene(Game* g);
