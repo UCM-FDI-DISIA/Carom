@@ -38,32 +38,6 @@ PoolScene::~PoolScene()
 
 void PoolScene::generateRndBallsPos()
 {
-    /*
-    ESTE REFACTOR NO VA 
-    // Entre 0 y posiciones-1 elige un indice para que sea el boss.
-    int a_bossPosition = _rngm->randomRange(0, HOLES);
-    std::cout << "Boss hole: " << a_bossPosition << std::endl;
-
-    // coloca los agujeros de partida
-    for(int i = 0; i < HOLES; i++){
-
-        b2Vec2 pos = _poolPositions[i];
-
-        
-        NullState* state = new NullState(nullptr);
-
-        // !!! CREA BOSSSCENE(CAMBIAR).
-        UIScene* rewardScene = new RewardScene(game);
-        CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
-
-        if(i == a_bossPosition){ // --- POSICION BOSS.
-            entity_t e = createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f);
-        }
-        else{ // --- POSICION COLORES.
-            entity_t e = createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f);
-        }
-    }
-    */
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
     int a_bossPosition = _rngm->randomRange(0, HOLES);
     #ifdef _DEBUG
@@ -76,10 +50,12 @@ void PoolScene::generateRndBallsPos()
         // genera el agujero.
         entity_t e = generateHole(i);
 
+        auto button = e->getComponent<Button>();
+
         if(i == a_bossPosition){ // --- POSICION BOSS.
             //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
             
-            e->getComponent<Button>()->setOnClick([this](){
+            button->setOnClick([this](){
                 
                 NullState* state = new NullState(nullptr);
 
@@ -88,9 +64,13 @@ void PoolScene::generateRndBallsPos()
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
+
+            button->setOnHover([=]() {
+                // TODO: show boss message
+            });
         }
         else{ // --- POSICION COLORES.
-            e->getComponent<Button>()->setOnClick([this](){
+            button->setOnClick([this](){
                 
                 NullState* state = new NullState(nullptr);
 
@@ -98,6 +78,10 @@ void PoolScene::generateRndBallsPos()
                 UIScene* rewardScene = new RewardScene(game);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
+            });
+
+            button->setOnHover([=]() {
+                showReward(i);
             });
         }
     }
@@ -110,7 +94,7 @@ entity_t PoolScene::generateHole(int i)
     entity_t e = new Entity(*this, grp::POOL_HOLE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x + 145, // TODO: mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
         *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y + 160
     );
 
@@ -136,6 +120,12 @@ PoolScene::generateFloorRewards() {
     // Generar array de todas las recompensas a partir del JSON
     loadRewards();
 
-    // La partida de Boss no tiene Reward
-    _floorRewards = _rngm->getRandomItems(_rewards, HOLES - 1, false);
+    _floorRewards = _rngm->getRandomItems(_rewards, HOLES, false);
+}
+
+void
+PoolScene::showReward(int i) {
+    assert(i < HOLES);
+
+    // TODO
 }

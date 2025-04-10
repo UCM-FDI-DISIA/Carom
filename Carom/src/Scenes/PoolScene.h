@@ -51,6 +51,7 @@ protected:
 
     void loadRewards(); // Rellena el vector de posibles recompensas
     void generateFloorRewards(); // genera las recompensas del piso
+    void showReward(int i);
 
 public:
     PoolScene(Game* g);
