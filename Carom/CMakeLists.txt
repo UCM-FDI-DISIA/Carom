@@ -208,6 +208,8 @@ add_executable(Carom
     src/StateMachine/BossState.cpp
 
     src/Scenes/Gimmicks/CowboyPoolScene.cpp
+    src/Scenes/Gimmicks/RussianPyramidScene.cpp
+
 
     src/ECS/TweenComponent.cpp
     src/ECS/ShadowComponent.cpp

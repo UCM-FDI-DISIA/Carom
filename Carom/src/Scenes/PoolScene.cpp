@@ -10,6 +10,7 @@
 #include "NullState.h"
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
+#include "RussianPyramidScene.h" // ! tst
 
 #include "RewardScene.h"
 //#include "ScoreContainer.h"
@@ -83,7 +84,9 @@ void PoolScene::generateRndBallsPos()
 
                 // !!! CREA BOSSSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                // CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst 
+                RussianPyramidScene *ms = new RussianPyramidScene(state, game, rewardScene, true); // ! tst 
+
                 game->getScenesManager()->pushScene(ms);
             });
         }
@@ -94,7 +97,9 @@ void PoolScene::generateRndBallsPos()
 
                 // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                // CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                RussianPyramidScene *ms = new RussianPyramidScene(state, game, rewardScene, true); // ! tst  
+
                 game->getScenesManager()->pushScene(ms);
             });
         }

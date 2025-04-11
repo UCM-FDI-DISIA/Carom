@@ -17,7 +17,7 @@ protected:
 public:
     __CMPID_DECL__(cmp::PYRAMID);
 
-    PyramidComponent(entity_t ent, const b2Vec2& direction, float slope = M_PI/4);
+    PyramidComponent(entity_t ent, const b2Vec2& direction, float slope = M_PI/3.0);
     ~PyramidComponent() {}
     
 protected:

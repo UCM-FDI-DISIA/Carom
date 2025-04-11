@@ -62,4 +62,10 @@ public:
     static std::vector<b2Vec2> sdlrectToPolygon(const SDL_Rect& rect);
 
     static std::vector<std::vector<b2Vec2>> extractPolygons(int n, int vert);
+
+    // Method to extract points (x, y) from elements of an SVG group
+    // n = number of points
+    // name = string part (should be for intance "vert" and the points gathered are vert0, vert1, ... n)
+    // group name at SVG map
+    static std::vector<b2Vec2> extractPointsFromSVG(int n, int startIdx, const std::string& name, const std::string& group);
 };

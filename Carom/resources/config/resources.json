@@ -60,7 +60,8 @@
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"}
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "pyramid0", "file" : "../../resources/images/pyramid0.png"}
   ],
   
   "messages" : [
@@ -114,7 +115,9 @@
     {"id": "lose", "file": "../../resources/svg/lose.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
-    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"}
+    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
+    {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"}
+
   ]
 
 }

@@ -10,7 +10,12 @@ ForceFieldComponent::ForceFieldComponent(entity_t ent)
     : PhysicsComponent(ent)
 {
     _myRB = _myEntity->getComponent<RigidBodyComponent>();
-    _myRadius = PhysicsConverter::pixel2meter(_myEntity->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+
+    if(_myEntity->tryGetComponent<RenderTextureComponent>())
+        _myRadius = PhysicsConverter::pixel2meter(_myEntity->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+    else
+        _myRadius = 0;
+
     _myForce = b2Vec2_zero;
 
     _minForce = 0;

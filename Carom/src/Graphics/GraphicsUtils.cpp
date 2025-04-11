@@ -49,7 +49,7 @@ bool GraphisUtils::arePointsInsideArea(const std::vector<b2Vec2> &points, const 
     for (const auto& v : area) {
         areaPath.push_back(Point64(v.x * scale, v.y * scale));
     }
-    
+
     for (const auto& p : points) {
         Point64 point(p.x * scale, p.y * scale);
 
@@ -580,4 +580,26 @@ std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
     // std::cout << "polygons: " << polygons.size() << std::endl;
 
     return polygons;
+}
+
+std::vector<b2Vec2> GraphisUtils::extractPointsFromSVG(int n, int startIdx, const std::string& name, const std::string& group)
+{
+    auto svg = &sdlutils().svgs().at(group);
+    std::vector<b2Vec2> points;
+    points.reserve(n);
+
+    std::cout << "name: " << name << std::endl;
+
+    for (int i = startIdx; i < n + startIdx; ++i)
+    {
+        std::cout << "point: " << name + std::to_string(i) << std::endl;
+
+        b2Vec2 point = {static_cast<float>(svg->at(name + std::to_string(i)).x)
+                     ,  static_cast<float>(svg->at(name + std::to_string(i)).y)
+                    };
+
+        points.push_back(point);
+    }
+
+    return points;
 }
