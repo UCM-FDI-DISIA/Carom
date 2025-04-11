@@ -13,6 +13,7 @@ class GraphisUtils
 {
 public:
     static bool doPolygonsOverlap(const std::vector<b2Vec2>& verts1, const std::vector<b2Vec2>& verts2, float radius = 0.01f);
+    static bool arePointsInsideArea(const std::vector<b2Vec2>& points, const std::vector<b2Vec2>& area);
 
     // Compute alpha so that pixels outside of shape are set to alpha = 0
     static std::vector<uint8_t> computeAlphaMask(const std::vector<b2Vec2> &polyVerts, const SDL_Rect &rect, float polyRadius = 0.01f);
@@ -56,6 +57,9 @@ public:
 
     static SDL_Rect getCenterRect(IntPair pos, IntPair size);
     static SDL_Rect getCenterRect(const SDL_Rect& topleftRect);
+
+    // Convert a SDL_Rect into a polygon
+    static std::vector<b2Vec2> sdlrectToPolygon(const SDL_Rect& rect);
 
     static std::vector<std::vector<b2Vec2>> extractPolygons(int n, int vert);
 };

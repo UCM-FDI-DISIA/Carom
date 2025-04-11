@@ -41,6 +41,29 @@ bool GraphisUtils::doPolygonsOverlap(const std::vector<b2Vec2> &verts1, const st
     return !solution.empty();
 }
 
+bool GraphisUtils::arePointsInsideArea(const std::vector<b2Vec2> &points, const std::vector<b2Vec2> &area)
+{
+    Path64 areaPath;
+    const double scale = 1000.0;
+
+    for (const auto& v : area) {
+        areaPath.push_back(Point64(v.x * scale, v.y * scale));
+    }
+    
+    for (const auto& p : points) {
+        Point64 point(p.x * scale, p.y * scale);
+
+        Clipper2Lib::PointInPolygonResult result = PointInPolygon(point, areaPath);
+
+        if (result == PointInPolygonResult::IsOutside) {
+            return false; // If any point is not inside, return false
+        }
+    }
+
+    // All points are inside if we reach here
+    return true;
+}
+
 std::vector<uint8_t> GraphisUtils::computeAlphaMask(const std::vector<b2Vec2>& polyVerts, const SDL_Rect& rect, float polyRadius) {
     // Convert the polygon to Clipper2 format
     const double scale = 1000.0; // Scale factor (meters to millimeters)
@@ -509,6 +532,18 @@ std::pair<SDL_Rect, b2Vec2> GraphisUtils::generatePolygonBoundingBox(const std::
     boundingBox = rect;
 
     return {boundingBox, unclampedCenter};
+}
+
+std::vector<b2Vec2> GraphisUtils::sdlrectToPolygon(const SDL_Rect &rect)
+{
+    std::vector<b2Vec2> polygon;
+
+    polygon.push_back({static_cast<float>(rect.x), static_cast<float>(rect.y)});
+    polygon.push_back({static_cast<float>(rect.x + rect.w), static_cast<float>(rect.y)});
+    polygon.push_back({static_cast<float>(rect.x + rect.w), static_cast<float>(rect.y + rect.h)});
+    polygon.push_back({static_cast<float>(rect.x), static_cast<float>(rect.y + rect.h)});
+
+    return polygon;
 }
 
 // On pixels
