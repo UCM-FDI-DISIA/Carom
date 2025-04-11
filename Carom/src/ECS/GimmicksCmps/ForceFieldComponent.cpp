@@ -30,7 +30,7 @@ void ForceFieldComponent::onTriggerEnter(entity_t other)
 {
     if(other->tryGetComponent<RigidBodyComponent>()){
         _rigidbodies.insert_or_assign(other, true);
-        applyForce(other); 
+        applyForce(other->getComponent<RigidBodyComponent>()); 
     }
 }
 
@@ -40,6 +40,11 @@ void ForceFieldComponent::onTriggerExit(entity_t other)
     _rigidbodies[other] = false;
 }
 
+void ForceFieldComponent::applyForce(RigidBodyComponent* rb)
+{
+    rb->applyForceToCenter({_myForce.x, _myForce.y});
+}
+
 // Apply force to all bodies registered and flagged inside
 void ForceFieldComponent::applyForceToAll()
 {
@@ -47,7 +52,7 @@ void ForceFieldComponent::applyForceToAll()
         entity_t entity = (*it).first;
         bool isInside = (*it).second;
         if (isInside)
-            applyForce(entity);
+            applyForce(entity->getComponent<RigidBodyComponent>());
     }
 }
 

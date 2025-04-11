@@ -63,6 +63,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/ECS
     ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps
     ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Cowboy
+    ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Russian
     ${CMAKE_SOURCE_DIR}/src/Physics
     ${CMAKE_SOURCE_DIR}/src/SceneSystem
     ${CMAKE_SOURCE_DIR}/src/StateMachine
@@ -152,6 +153,7 @@ add_executable(Carom
     src/ECS/GimmicksCmps/ForceAreaComponent.cpp
     src/ECS/GimmicksCmps/Cowboy/FrictionComponent.cpp
     src/ECS/GimmicksCmps/Cowboy/HoleComponent.cpp
+    src/ECS/GimmicksCmps/Russian/PyramidComponent.cpp
 
     src/HitManager/ColorHitManager.cpp
 

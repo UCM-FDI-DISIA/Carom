@@ -36,6 +36,7 @@
 	BALL_HANDLER, \
 	FORCE_AREA, \
 	FRICTION, \
+	PYRAMID, \
 	TWEEN, \
 	CAMERA, \
 	HOLE, \
