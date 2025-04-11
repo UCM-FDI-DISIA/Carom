@@ -28,7 +28,8 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     // Create table with texture and colliders
     createBackground("suelo");
     createTable();
-    generateRndBallsPos();
+    generateMatchHoles();
+    generateFloorRewards();
 }
 
 PoolScene::~PoolScene()
@@ -36,23 +37,23 @@ PoolScene::~PoolScene()
     delete _rngm;
 }
 
-void PoolScene::generateRndBallsPos()
+void PoolScene::generateMatchHoles()
 {
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
-    int a_bossPosition = _rngm->randomRange(0, HOLES);
+    _bossHole = _rngm->randomRange(0, HOLES);
     #ifdef _DEBUG
-    std::cout << "Boss hole: " << a_bossPosition << std::endl;
+    std::cout << "Boss hole: " << _bossHole << std::endl;
     #endif
 
     // coloca los agujeros de partida
     for(int i = 0; i < HOLES; i++){
 
         // genera el agujero.
-        entity_t e = generateHole(i);
+        entity_t hole = generateHole(i);
 
-        auto button = e->getComponent<Button>();
+        auto button = hole->getComponent<Button>();
 
-        if(i == a_bossPosition){ // --- POSICION BOSS.
+        if(i == _bossHole){ // --- POSICION BOSS.
             //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
             
             button->setOnClick([this](){
@@ -63,10 +64,6 @@ void PoolScene::generateRndBallsPos()
                 UIScene* rewardScene = new RewardScene(game);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
-            });
-
-            button->setOnHover([=]() {
-                // TODO: show boss message
             });
         }
         else{ // --- POSICION COLORES.
@@ -79,11 +76,23 @@ void PoolScene::generateRndBallsPos()
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
-
-            button->setOnHover([=]() {
-                showReward(i);
-            });
         }
+
+        button->setOnHover([this, i]() {
+            #ifdef _DEBUG
+            std::cout << "Hovering pool hole " << i << std::endl; 
+            #endif
+
+            showReward(i);
+        });
+
+        button->setOnExit([this, i]() {
+            #ifdef _DEBUG
+            std::cout << "Exiting pool hole " << i << std::endl; 
+            #endif
+
+            hideReward(i);
+        });
     }
 
 }
@@ -94,8 +103,8 @@ entity_t PoolScene::generateHole(int i)
     entity_t e = new Entity(*this, grp::POOL_HOLE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x + 145, // TODO: mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y + 160
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x,
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y
     );
 
     float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
@@ -112,6 +121,10 @@ entity_t PoolScene::generateHole(int i)
 void
 PoolScene::loadRewards() {
     // TODO: parse all rewards from JSON
+
+    // PROVISIONAL, para testear
+    for(int i = 0; i < HOLES; i++)
+        _rewards.push_back(RandomItem(Reward(CAULDRON, Perma()), 1.0f));
 }
 
 
@@ -121,11 +134,51 @@ PoolScene::generateFloorRewards() {
     loadRewards();
 
     _floorRewards = _rngm->getRandomItems(_rewards, HOLES, false);
+    
+    // Boss match does not have a reward
+    _floorRewards[_bossHole] = Reward(Instant::DEFAULT, Perma());
+
+    createRewardInfo();
+}
+
+void
+PoolScene::createRewardInfo() {
+    entity_t description;
+    b2Vec2 pos;
+
+    auto texture = &sdlutils().images().at("reward_description_box");
+    float scale = *&sdlutils().svgs().at("pool").at("box_0").width / texture->width();
+
+    for(int i = 0; i < HOLES; ++i) {
+        description = new Entity(*this, grp::REWARD_INFO);
+
+        auto svgElem = *&sdlutils().svgs().at("pool").at("box_" + std::to_string(i));
+        pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
+
+        addComponent<TransformComponent>(description, pos);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+
+        // TODO: Añadir texto de recompensa / partida de boss
+        // en función de _floorRewards[i]
+
+        // pushToRenderEntities(description);
+    }
 }
 
 void
 PoolScene::showReward(int i) {
     assert(i < HOLES);
 
-    // TODO
+    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO);
+    // pushToRenderEntities(descriptions[i]);
+    // descriptions[i]->activate();
+}
+
+void
+PoolScene::hideReward(int i) {
+    assert(i < HOLES);
+
+    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO);
+    // eraseRenderEntity(descriptions[i]);
+        // descriptions[i]->deactivate();
 }

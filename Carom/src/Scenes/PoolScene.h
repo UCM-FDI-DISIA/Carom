@@ -21,6 +21,7 @@ protected:
         };
 
     enum Instant {
+        DEFAULT, // Empty reward
         FUSION,
         GUMBALL_MACHINE,
         STORAGE_ROOM,
@@ -45,13 +46,17 @@ protected:
     std::vector<RandomItem<Reward>> _rewards; // Todas la posibles recompensas, sacadas del json
     std::vector<Reward> _floorRewards; // Recompensas de cada agujero del piso
 
-    void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.
+    int _bossHole;
+
+    void generateMatchHoles(); // para la generación aleatoria de los agujeros de partida.
 
     entity_t generateHole(int i); // para generar el agujero según indice.
 
     void loadRewards(); // Rellena el vector de posibles recompensas
     void generateFloorRewards(); // genera las recompensas del piso
+    void createRewardInfo();
     void showReward(int i);
+    void hideReward(int i);
 
 public:
     PoolScene(Game* g);

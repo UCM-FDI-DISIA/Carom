@@ -64,7 +64,8 @@
 	CAMERA, \
 	UI, \
 	FEEDBACK, \
-	PAUSE_UNPAUSE
+	PAUSE_UNPAUSE, \
+	REWARD_INFO
 
 // Effect list
 // TODO completar	
