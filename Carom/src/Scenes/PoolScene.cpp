@@ -147,7 +147,7 @@ PoolScene::createRewardInfo() {
     b2Vec2 pos;
 
     auto texture = &sdlutils().images().at("reward_description_box");
-    float scale = *&sdlutils().svgs().at("pool").at("box_0").width / texture->width();
+    float scale = static_cast<float>(*&sdlutils().svgs().at("pool").at("box_0").width) / texture->width();
 
     for(int i = 0; i < HOLES; ++i) {
         description = new Entity(*this, grp::REWARD_INFO);
@@ -161,7 +161,7 @@ PoolScene::createRewardInfo() {
         // TODO: Añadir texto de recompensa / partida de boss
         // en función de _floorRewards[i]
 
-        // pushToRenderEntities(description);
+        description->deactivate();
     }
 }
 
@@ -170,8 +170,7 @@ PoolScene::showReward(int i) {
     assert(i < HOLES);
 
     auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO);
-    // pushToRenderEntities(descriptions[i]);
-    // descriptions[i]->activate();
+    descriptions[i]->activate();
 }
 
 void
@@ -179,6 +178,5 @@ PoolScene::hideReward(int i) {
     assert(i < HOLES);
 
     auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO);
-    // eraseRenderEntity(descriptions[i]);
-        // descriptions[i]->deactivate();
+        descriptions[i]->deactivate();
 }
