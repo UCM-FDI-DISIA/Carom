@@ -86,3 +86,23 @@ entity_t UIScene::createSceneButton(int x, int y, GameScene* scene)
     
     return e;
 }
+
+entity_t UIScene::createSVGSceneButton(std::string svg, std::string tag, std::string image)
+{
+    entity_t e = new Entity(*this, grp::DEFAULT);
+
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at(svg).at(tag).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at(svg).at(tag).y + 160
+    );
+
+    float scale = float(sdlutils().svgs().at(svg).at(tag).width) / float(sdlutils().images().at(image).width());
+
+    addComponent<TransformComponent>(e, pos);
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(image), renderLayer::UI, scale);
+
+    Button::TextureButton rButton = Button::TextureButton();
+    addComponent<Button>(e, rButton);
+
+    return e;
+}

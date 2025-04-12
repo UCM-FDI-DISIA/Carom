@@ -20,6 +20,7 @@ protected:
     void createSVGText(std::string id){}
     entity_t createSceneButton(int x, int y, GameScene *scene, grpId_t g, layerId_t r, std::string tex, float size);
     entity_t createSceneButton(int x, int y, GameScene *scene); // crea el boton de cambio de escena.
+    entity_t createSVGSceneButton(std::string svg, std::string tag, std::string image);
 
 public:
     UIScene(Game *g) : GameScene(g) {} // para cuando se gana (hay reward).
