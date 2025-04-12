@@ -12,7 +12,6 @@
 #include "CowboyPoolScene.h"
 
 #include "RewardScene.h"
-//#include "ScoreContainer.h"
 #include "StickInputComponent.h"
 
 #include "Game.h"
@@ -38,32 +37,6 @@ PoolScene::~PoolScene()
 
 void PoolScene::generateRndBallsPos()
 {
-    /*
-    ESTE REFACTOR NO VA 
-    // Entre 0 y posiciones-1 elige un indice para que sea el boss.
-    int a_bossPosition = _rngm->randomRange(0, HOLES);
-    std::cout << "Boss hole: " << a_bossPosition << std::endl;
-
-    // coloca los agujeros de partida
-    for(int i = 0; i < HOLES; i++){
-
-        b2Vec2 pos = _poolPositions[i];
-
-        
-        NullState* state = new NullState(nullptr);
-
-        // !!! CREA BOSSSCENE(CAMBIAR).
-        UIScene* rewardScene = new RewardScene(game);
-        CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
-
-        if(i == a_bossPosition){ // --- POSICION BOSS.
-            entity_t e = createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f);
-        }
-        else{ // --- POSICION COLORES.
-            entity_t e = createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f);
-        }
-    }
-    */
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
     int a_bossPosition = _rngm->randomRange(0, HOLES);
     std::cout << "Boss hole: " << a_bossPosition << std::endl;
@@ -75,13 +48,10 @@ void PoolScene::generateRndBallsPos()
         entity_t e = generateHole(i);
 
         if(i == a_bossPosition){ // --- POSICION BOSS.
-            //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
             
             e->getComponent<Button>()->setOnClick([this](){
-                
+                // !!! CREA BOSSSCENE(CAMBIAR)
                 NullState* state = new NullState(nullptr);
-
-                // !!! CREA BOSSSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
@@ -89,17 +59,14 @@ void PoolScene::generateRndBallsPos()
         }
         else{ // --- POSICION COLORES.
             e->getComponent<Button>()->setOnClick([this](){
-                
+                // !!! CREA COWBOYPOOLSCENE
                 NullState* state = new NullState(nullptr);
-
-                // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
         }
     }
-
 }
 
 entity_t PoolScene::generateHole(int i)

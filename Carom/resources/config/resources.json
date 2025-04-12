@@ -114,7 +114,8 @@
     {"id": "lose", "file": "../../resources/svg/lose.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
-    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"}
+    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
+    {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"}
   ]
 
 }
