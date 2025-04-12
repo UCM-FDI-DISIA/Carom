@@ -57,17 +57,6 @@ void Entity::handleEvents(){
         if (component->isEnabled()) component->handleEvent();
 }
 
-template<>
-bool 
-Entity::addComponent<BallEffect>(BallEffect* effectComp) {
-    return internalAddComponent(effectComp->getEffectId(), effectComp);
-}
-
-bool
-Entity::removeComponent(BallEffect* effectComp) {
-    return internalRemoveComponent(effectComp->getEffectId());
-}
-
 bool
 Entity::internalAddComponent(cmpId_t id, Component* component) {
     if(_components[id] != nullptr) return false;

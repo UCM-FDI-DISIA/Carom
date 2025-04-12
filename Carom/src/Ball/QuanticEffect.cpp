@@ -1,4 +1,3 @@
-#pragma once
 #include "QuanticEffect.h"
 #include "CaromScene.h"
 

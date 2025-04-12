@@ -1,4 +1,3 @@
-#pragma once
 #include "PetanqueEffect.h"
 #include "Entity.h"
 #include "GameScene.h"

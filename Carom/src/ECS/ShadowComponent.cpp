@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Entity.h"
 #include "ShadowComponent.h"
 #include "TransformComponent.h"

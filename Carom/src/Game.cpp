@@ -103,10 +103,12 @@ void Game::run()
             continue;
         }
 
+        #if defined(_DEBUG)
         if (_restartRequested){
             restart();
             continue;
         }
+        #endif
 
         _sceneManager->handleEvent();
         _sceneManager->update();

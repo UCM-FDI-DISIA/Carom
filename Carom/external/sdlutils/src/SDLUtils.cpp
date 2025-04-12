@@ -4,7 +4,7 @@
 
 #include <cassert>
 #include <memory>
-
+#include <SDL.h>
 #include "JSON.h"
 
 #include <stdio.h>

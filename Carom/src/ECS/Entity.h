@@ -10,6 +10,7 @@
 #include "ITransform.h"
 #include "RenderComponent.h"
 #include "Component.h"
+#include "BallEffect.h"
 
 class CameraComponent;
 class GameScene;
@@ -23,7 +24,6 @@ class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
-class BallEffect;
 class PauseScene;
 
 // Magia negra para templatizar basada en clases padre
@@ -31,6 +31,8 @@ template <typename T>
 concept DerivedFromRender = std::is_base_of<RenderComponent, T>::value;
 template <typename T>
 concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
+template <typename T> 
+concept DerivedFromBallEffect = std::is_base_of<BallEffect, T>::value;
 
 class Entity {
     friend ShadowComponent;
@@ -50,8 +52,10 @@ public:
         return internalAddComponent(cmpId<T>, component);
     }
 
-    template<>
-    bool addComponent<BallEffect>(BallEffect* balleffectComp);
+    template<typename T>
+    bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
+        return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
+    }
 
     template<typename T>
     bool addComponent(T* renderComp) requires DerivedFromRender<T>{
@@ -108,8 +112,9 @@ public:
         return true;
     }
 
-    // Sobrecarga necesitada por ballefect y derivados
-    bool removeComponent(BallEffect* ballEffect);
+    bool removeComponent(BallEffect* ballEffect) {
+        return internalRemoveComponent(ballEffect->getEffectId());
+    }
 
     template<typename T>
     bool tryGetComponent(){

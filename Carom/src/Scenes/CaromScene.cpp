@@ -299,7 +299,11 @@ void CaromScene::setNewState(State* s){
         _currentState->onStateExit();
         delete _currentState;
     }
+
+    #if defined (_DEBUG)
     _fastForwardPhysics = false;
+    #endif
+
     _currentState = s;
     _currentState->onStateEnter();
 }
@@ -359,11 +363,13 @@ void CaromScene::handleEvent()
 
 }
 
+#if defined(_DEBUG)
 void CaromScene::setCanFastForward(bool active)
 {
     _canFastForwardPhysics = active;
     _fastForwardPhysics = false;
 }
+#endif
 
 void CaromScene::updatePhysics()
 {
@@ -397,12 +403,11 @@ void CaromScene::updateScene()
 void CaromScene::update()
 {
     // Iterations purpose for fast forwarding
-    int iterations;
+    int iterations = 1;
+    #if defined (_DEBUG)
     if (_fastForwardPhysics)
         iterations = _fastForwardIterations;
-    else
-        iterations = 1;
-
+    #endif
     for (int i = 0; i < iterations; ++i){
         // std::cout<< "UpdatePhysics 1" << std::endl;
         updatePhysics();

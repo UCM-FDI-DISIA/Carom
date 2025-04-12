@@ -1,6 +1,6 @@
 #pragma once
 
-#include <box2D/box2D.h>
+#include <box2d/box2d.h>
 #include "ecs.h"
 #include "Vector2D.h"
 

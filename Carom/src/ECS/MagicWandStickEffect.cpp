@@ -5,7 +5,7 @@
 #include "RenderTextureComponent.h"
 #include "SubdivisionEffect.h"
 #include "StickInputComponent.h"
-#include <box2D/box2D.h>
+#include <box2d/box2d.h>
 
 
 void
