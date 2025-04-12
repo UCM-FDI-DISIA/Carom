@@ -1,7 +1,6 @@
 #pragma once
 #include "UIScene.h"
 
-
 class ScenesManager;
 class MainMenuScene: public UIScene {
 public:

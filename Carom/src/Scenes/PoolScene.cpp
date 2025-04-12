@@ -14,7 +14,6 @@
 #include "CowboyPoolScene.h"
 
 #include "RewardScene.h"
-//#include "ScoreContainer.h"
 #include "StickInputComponent.h"
 
 #include "Game.h"
@@ -100,7 +99,6 @@ void PoolScene::generateMatchHoles()
             hideReward(i);
         });
     }
-
 }
 
 entity_t PoolScene::generateHole(int i)
