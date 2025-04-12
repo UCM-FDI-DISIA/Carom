@@ -31,6 +31,7 @@
   
   "images" : [
     { "id" : "fondo", "file" : "../../resources/images/fondo_blanco.png"},
+    { "id" : "fondo_verde", "file" : "../../resources/images/fondo_verde.png"},
     { "id" : "marco2", "file" : "../../resources/images/marco2.png"},
     { "id" : "mesa1", "file" : "../../resources/images/mesa1.png"},
     { "id" : "mesa1_sombra", "file" : "../../resources/images/mesa1_sombra.png"},
@@ -40,6 +41,10 @@
     { "id": "suelo", "file": "../../resources/images/suelo.png"},
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
+    { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
+    { "id" : "magic_wand_sombra", "file" : "../../resources/images/magic_wand_shadow.png"},
+    { "id" : "donut", "file" : "../../resources/images/donut.png"},
+    { "id" : "donut_sombra", "file" : "../../resources/images/donut_sombra.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
     { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"},
@@ -105,8 +110,8 @@
     {"id": "positions", "file": "../../resources/svg/positions.svg"},
     {"id": "shot_positions", "file": "../../resources/svg/shot_positions.svg"},
     {"id": "grp_arena", "file": "../../resources/svg/grp_arena.svg"},
-    {"id": "pool", "file": "../../resources/svg/pool.svg"},
-    {"id": "pool", "file": "../../resources/svg/pool.svg"},
+    {"id": "win", "file": "../../resources/svg/win.svg"},
+    {"id": "lose", "file": "../../resources/svg/lose.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"}

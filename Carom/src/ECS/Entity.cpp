@@ -57,17 +57,6 @@ void Entity::handleEvents(){
         if (component->isEnabled()) component->handleEvent();
 }
 
-template<>
-bool 
-Entity::addComponent<BallEffect>(BallEffect* effectComp) {
-    return internalAddComponent(effectComp->getEffectId(), effectComp);
-}
-
-bool
-Entity::removeComponent(BallEffect* effectComp) {
-    return internalRemoveComponent(effectComp->getEffectId());
-}
-
 bool
 Entity::internalAddComponent(cmpId_t id, Component* component) {
     if(_components[id] != nullptr) return false;
@@ -95,7 +84,17 @@ Entity::internalRemoveComponent(cmpId_t id) {
 
 // NO BORRAR
 // Esto está aquí para evitar dependencia circular con GameScene
-std::vector<entity_t>& 
+const std::vector<entity_t>& 
 Entity::getSceneRenderEntities() {
     return _myScene.getRenderEntities();
+}
+
+void 
+Entity::eraseFromRenderEntities(entity_t e){
+    _myScene.eraseRenderEntity(e);
+}
+
+void
+Entity::addToSceneRenderEntities(entity_t e) {
+    _myScene.pushToRenderEntities(e);
 }

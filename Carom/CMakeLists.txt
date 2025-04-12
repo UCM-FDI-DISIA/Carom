@@ -141,7 +141,7 @@ add_executable(Carom
     src/ECS/EventOnCollision.cpp
     src/ECS/PhysicsComponent.cpp
 	
-	src/Animator/RenderSpriteSheetComponent.cpp
+	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp

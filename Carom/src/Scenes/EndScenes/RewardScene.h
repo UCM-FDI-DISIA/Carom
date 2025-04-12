@@ -8,5 +8,6 @@ public:
     virtual ~RewardScene() = default;
     
 private:
-    entity_t createContinueButton(int x, int y,GameScene* scene);;
+    entity_t createContinueButton(int x, int y,GameScene* scene);
+    entity_t createSVGContinueButton(std::string tag, std::string image, GameScene *scene);
 };

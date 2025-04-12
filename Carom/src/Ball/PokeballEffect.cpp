@@ -1,4 +1,3 @@
-#pragma once
 #include "PokeballEffect.h"
 #include "BallHandler.h"
 #include "Entity.h"

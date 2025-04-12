@@ -1,4 +1,3 @@
-#pragma once
 #include "X2Effect.h"
 #include "BallHandler.h"
 #include "Entity.h"

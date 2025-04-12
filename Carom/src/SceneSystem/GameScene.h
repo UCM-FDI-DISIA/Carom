@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <box2d/box2d.h>
 
-#include "GameList.h"
+#include "gameList.h"
 #include "ecs.h"
 #include "Entity.h"
 #include "CameraComponent.h"
@@ -29,10 +29,12 @@ class TweenComponent;
  */
 class GameScene
 {
+private:
+    std::vector<entity_t> _entsRenderable;
+
 protected:
     GameList<Entity> _entities;
     std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
-    std::vector<entity_t> _entsRenderable;
 
     Game* game;
     CameraComponent* _camera = nullptr;
@@ -98,7 +100,7 @@ public:
     //
     template<typename T>
     inline bool hasComponent(entity_t e) {
-        return e->tryGetComponent();
+        return e->tryGetComponent<T>();
     }
 
     // Returns pointer to the component <T> of the entity.
@@ -118,8 +120,18 @@ public:
         return _entsByGroup[gId];
     }
 
-    inline auto& getRenderEntities(){
+    inline const auto& getRenderEntities(){
         return _entsRenderable;
+    }
+
+    inline void eraseRenderEntity(entity_t e){
+        auto itR = find(_entsRenderable.begin(), _entsRenderable.end(), e);
+        _entsRenderable.erase(itR);
+    }
+
+    inline void pushToRenderEntities(entity_t e) { 
+        _entsRenderable.push_back(e);
+        sortRenderOrder();
     }
 
     // Enables all entity's components

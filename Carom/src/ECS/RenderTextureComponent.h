@@ -46,5 +46,7 @@ public:
     void changeColorTint(int r, int g, int b);
     void resetColorTint();
 
+    inline int getRenderLayer() {return _renderLayer; };
+
     SDL_Rect getRenderRect() const override;
 };

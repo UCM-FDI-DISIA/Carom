@@ -27,7 +27,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
 
     // Create table with texture and colliders
     createBackground("suelo");
-    generateTable();
+    createTable();
     generateRndBallsPos();
 }
 
@@ -64,7 +64,6 @@ void PoolScene::generateRndBallsPos()
         }
     }
     */
-    
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
     int a_bossPosition = _rngm->randomRange(0, HOLES);
     std::cout << "Boss hole: " << a_bossPosition << std::endl;
@@ -72,15 +71,8 @@ void PoolScene::generateRndBallsPos()
     // coloca los agujeros de partida
     for(int i = 0; i < HOLES; i++){
 
-        entity_t e = new Entity(*this, grp::POOL_HOLE);
-        b2Vec2 pos = _poolPositions[i];
-        addComponent<TransformComponent>(e, pos);
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, 0.2f);
-
-        Button::TextureButton rButton = Button::TextureButton();
-        addComponent<Button>(e, rButton);
-
-        
+        // genera el agujero.
+        entity_t e = generateHole(i);
 
         if(i == a_bossPosition){ // --- POSICION BOSS.
             //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
@@ -106,47 +98,27 @@ void PoolScene::generateRndBallsPos()
                 game->getScenesManager()->pushScene(ms);
             });
         }
-
-        /* ESTO NO FUNCIONA DA ERROR PERO SE NECESITA.
-        entity_t e = new Entity(*this);
-        _entities.push_back(e); // nota: _entiites heredado
-        */
     }
 
 }
 
-void PoolScene::generateTable()
+entity_t PoolScene::generateHole(int i)
 {
-    entity_t table = new Entity(*this, grp::DEFAULT);
-    b2Vec2 pos(0,0);
-    addComponent<TransformComponent>(table, pos);
-    addComponent<RenderTextureComponent>(table, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, 1);
+    // agujero.
+    entity_t e = new Entity(*this, grp::POOL_HOLE);
 
-    table = new Entity(*this, grp::DEFAULT);
-    addComponent<TransformComponent>(table, pos);
-    addComponent<RenderTextureComponent>(table, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, 1, SDL_Color{0, 150, 80, 255});
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y + 160
+    );
 
-    /*// !---- TEXTURES ----//
-    // Set scale (same for all)
-    float svgSize = *&sdlutils().svgs().at("pool").at("mesa_marco").width;
-    float textureSize = sdlutils().images().at("mesa1").width();
-    float scale = svgSize/textureSize;
+    float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
 
-    // Entidad marco
-    entity_t e_marco = new Entity(*this, grp::TABLE);
-    b2Vec2 pos_m = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("pool").at("mesa_marco").x, *&sdlutils().svgs().at("pool").at("mesa_marco").y);
-    addComponent<TransformComponent>(e_marco, pos_m);
-    addComponent<RenderTextureComponent>(e_marco, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
+    addComponent<TransformComponent>(e, pos);
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
 
-    // Entidad suelo
-    entity_t e_fondo = new Entity(*this, grp::TABLE_BACKGROUND);
-    b2Vec2 pos_f = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("pool").at("fondo_mesa").x, *&sdlutils().svgs().at("pool").at("fondo_mesa").y);
-    addComponent<TransformComponent>(e_fondo, pos_f);
-    addComponent<RenderTextureComponent>(e_fondo, &sdlutils().images().at("fondo"), renderLayer::TABLE_BACKGOUND, scale);
+    Button::TextureButton rButton = Button::TextureButton();
+    addComponent<Button>(e, rButton);
 
-    // Entidad sombraMarco
-    entity_t e_sombraMarco = new Entity(*this, grp::TABLE);
-    b2Vec2 pos_s = PhysicsConverter::pixel2meter(*&sdlutils().svgs().at("pool").at("mesa_sombra").x, *&sdlutils().svgs().at("pool").at("mesa_sombra").y);
-    addComponent<TransformComponent>(e_sombraMarco, b2Vec2{pos_s.x - 0.2f, pos_s.y - 0.2f});
-    addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);*/
+    return e;
 }

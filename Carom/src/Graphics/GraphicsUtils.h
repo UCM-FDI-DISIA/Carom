@@ -1,6 +1,6 @@
 #pragma once
 #include <utility>
-#include <box2D/box2D.h>
+#include <box2d/box2d.h>
 #include <vector>
 #include <SDL.h>
 #include "RNG_Manager.h"

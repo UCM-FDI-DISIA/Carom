@@ -49,7 +49,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     //TODAS las caromScene se pueden pausar
     createPauseEntity();
 
-    instantiateBossTableShadow();
+    // instantiateBossTableShadow();
 
     _sceneManager = game->getScenesManager();
 
@@ -300,7 +300,11 @@ void CaromScene::setNewState(State* s){
         _currentState->onStateExit();
         delete _currentState;
     }
+
+    #if defined (_DEBUG)
     _fastForwardPhysics = false;
+    #endif
+
     _currentState = s;
     _currentState->onStateEnter();
 }
@@ -360,11 +364,13 @@ void CaromScene::handleEvent()
 
 }
 
+#if defined(_DEBUG)
 void CaromScene::setCanFastForward(bool active)
 {
     _canFastForwardPhysics = active;
     _fastForwardPhysics = false;
 }
+#endif
 
 void CaromScene::updatePhysics()
 {
@@ -398,12 +404,11 @@ void CaromScene::updateScene()
 void CaromScene::update()
 {
     // Iterations purpose for fast forwarding
-    int iterations;
+    int iterations = 1;
+    #if defined (_DEBUG)
     if (_fastForwardPhysics)
         iterations = _fastForwardIterations;
-    else
-        iterations = 1;
-
+    #endif
     for (int i = 0; i < iterations; ++i){
         // std::cout<< "UpdatePhysics 1" << std::endl;
         updatePhysics();
@@ -660,19 +665,19 @@ CaromScene::loadFromInventory() {
     entity_t whiteBall = inventory->getWhiteBall();
     whiteBall->setGameScene(this);
     _entities.push_back(whiteBall);
-    _entsRenderable.push_back(whiteBall);
+    pushToRenderEntities(whiteBall);
 
     auto effectBalls = inventory->getEffectBalls();
     for(entity_t ball : effectBalls) {
         ball->setGameScene(this);
         _entities.push_back(ball);
-        _entsRenderable.push_back(ball);
+        pushToRenderEntities(ball);
     }
 
     entity_t stick = inventory->getStick();
     stick->setGameScene(this);
     _entities.push_back(stick);
-    _entsRenderable.push_back(stick);
+    pushToRenderEntities(stick);
 }
 
 void CaromScene::instantiateBossTableShadow(){
@@ -681,12 +686,14 @@ void CaromScene::instantiateBossTableShadow(){
     auto tr = addComponent<TransformComponent>(boss, pos);
     tr->setRotation(25);
     Texture* bossImage = nullptr;
-    if(_boss == Boss::COWBOY_POOL){
-        
-        bossImage = &sdlutils().images().at("cowboy_table_shadow");
+    switch(_boss){
+        case Boss::COWBOY_POOL:
+            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            break;
+        default:
+            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            break;
     }
-    //debug
-    bossImage = &sdlutils().images().at("cowboy_table_shadow");
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);

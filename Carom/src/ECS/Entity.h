@@ -10,6 +10,7 @@
 #include "ITransform.h"
 #include "RenderComponent.h"
 #include "Component.h"
+#include "BallEffect.h"
 
 class CameraComponent;
 class GameScene;
@@ -23,7 +24,6 @@ class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
-class BallEffect;
 class PauseScene;
 
 // Magia negra para templatizar basada en clases padre
@@ -31,6 +31,8 @@ template <typename T>
 concept DerivedFromRender = std::is_base_of<RenderComponent, T>::value;
 template <typename T>
 concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
+template <typename T> 
+concept DerivedFromBallEffect = std::is_base_of<BallEffect, T>::value;
 
 class Entity {
     friend ShadowComponent;
@@ -50,8 +52,10 @@ public:
         return internalAddComponent(cmpId<T>, component);
     }
 
-    template<>
-    bool addComponent<BallEffect>(BallEffect* balleffectComp);
+    template<typename T>
+    bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
+        return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
+    }
 
     template<typename T>
     bool addComponent(T* renderComp) requires DerivedFromRender<T>{
@@ -61,7 +65,7 @@ public:
         if (!r) return false;
 
         _myRenderer = renderComp;
-        getSceneRenderEntities().push_back(this);
+        addToSceneRenderEntities(this);
 
         return true;
     }
@@ -91,10 +95,7 @@ public:
         if (!r) return false;
 
         _myRenderer = nullptr;
-
-        std::vector<entity_t>& entsRenderable = getSceneRenderEntities();
-        auto itR = find(entsRenderable.begin(), entsRenderable.end(), this);
-        entsRenderable.erase(itR);
+        eraseFromRenderEntities(this);
 
         return true;
     }
@@ -111,8 +112,9 @@ public:
         return true;
     }
 
-    // Sobrecarga necesitada por ballefect y derivados
-    bool removeComponent(BallEffect* ballEffect);
+    bool removeComponent(BallEffect* ballEffect) {
+        return internalRemoveComponent(ballEffect->getEffectId());
+    }
 
     template<typename T>
     bool tryGetComponent(){
@@ -188,7 +190,9 @@ private:
 
     // NO BORRAR
     // Esto está aquí para evitar dependencia circular con GameScene
-    std::vector<entity_t>& getSceneRenderEntities();
+    const std::vector<entity_t>& getSceneRenderEntities();
+    void eraseFromRenderEntities(entity_t e);
+    void addToSceneRenderEntities(entity_t e);
 
     bool internalAddComponent(cmpId_t id, Component* component);
     bool internalRemoveComponent(cmpId_t id);
