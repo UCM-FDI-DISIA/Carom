@@ -120,6 +120,11 @@ public:
         return _entsByGroup[gId];
     }
 
+    inline void killEntitiesOfGroup(grpId_t gId) {
+        for (auto& e : _entsByGroup[gId])
+            e->setAlive(false);
+    }
+
     inline const auto& getRenderEntities(){
         return _entsRenderable;
     }
