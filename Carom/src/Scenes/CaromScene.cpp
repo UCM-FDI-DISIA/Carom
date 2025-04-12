@@ -29,7 +29,6 @@
 #include "DonutStickEffect.h"
 #include "NullState.h"
 #include "UIScene.h"
-#include "RewardScene.h"
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
@@ -43,7 +42,7 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
+CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
     //TODAS las caromScene se pueden pausar
     createPauseEntity();
@@ -348,11 +347,6 @@ void CaromScene::handleEvent()
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
         // Al presionar la "W" te lleva a la escena de perder.
-            /*std::cout << "Carga escena GANAR." << std::endl;
-            NullState* state = new NullState(nullptr);
-            GameScene *ms = new RewardScene(game); // ! tst  
-            game->getScenesManager()->pushScene(ms);*/
-
         // para activar roundwins();
         _currentScore = 2 * _scoreToBeat;
     }

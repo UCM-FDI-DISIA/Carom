@@ -20,12 +20,11 @@ class CaromScene: public GameScene {
 protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
-    GameScene* _reward; //La recompensa al completar la escena
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g, GameScene* reward);
+    CaromScene(State* state, Game* g);
     virtual ~CaromScene();
 
     void handleEvent() override;
@@ -33,7 +32,6 @@ public:
     void update() override;
 
     inline ScenesManager* getScenesManager() const {return _sceneManager;}
-    inline GameScene* getRewardScene() const {return _reward;}
 
     // Métodos para comprobar condiciones de estado 
     inline int getRemainingHits() { return _remainingHits; }

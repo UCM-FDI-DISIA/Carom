@@ -60,9 +60,7 @@ void PoolScene::generateMatchHoles()
                 
                 NullState* state = new NullState(nullptr);
 
-                // !!! CREA BOSSSCENE(CAMBIAR).
-                UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
         }
@@ -71,9 +69,7 @@ void PoolScene::generateMatchHoles()
                 
                 NullState* state = new NullState(nullptr);
 
-                // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
-                UIScene* rewardScene = new RewardScene(game);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
                 game->getScenesManager()->pushScene(ms);
             });
         }

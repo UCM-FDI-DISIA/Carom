@@ -23,8 +23,8 @@
 
 
 
-CowboyPoolScene::CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss)
-    : CaromScene(state, g, reward)
+CowboyPoolScene::CowboyPoolScene(State* state, Game* g, bool isBoss)
+    : CaromScene(state, g)
     , _sandBanks(0)
     , _arenaFilenameSVG("grp_arena")
     , _sandConstrainName("arenaArea")

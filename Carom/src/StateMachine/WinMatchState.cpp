@@ -9,8 +9,7 @@ WinMatchState::WinMatchState(CaromScene* scene) : State(scene)
 }
 
 void WinMatchState::onStateEnter(){
-    auto scene = _scene->getRewardScene();
-    _scene->getScenesManager()->pushScene(scene);
+    
 }
 
 void WinMatchState::onStateExit() {
