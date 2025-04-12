@@ -2,7 +2,8 @@
 #include "PoolScene.h"
 #include "ScenesManager.h"
 
-    
+// TODO: refactorizar -> recibir recompensa
+
 RewardScene::RewardScene(Game *g) : UIScene(g)
 {
     createBackground("suelo");

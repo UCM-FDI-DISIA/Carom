@@ -41,8 +41,8 @@ void UIScene::createText(std::string text, int x, int y, int size)
     TextDisplayComponent* currentDisplay = new TextDisplayComponent(
         winContainer,           // container
         renderLayer::SCORE,     // capa renderizado
-        size,                      // tamano fuente
-        text,         // text
+        size,                   // tamano fuente
+        text,                   // text
         {255, 255, 255, 255},   // color (blanco)
         "Basteleur-Moonlight60" // fuente
     );
