@@ -122,21 +122,13 @@ add_executable(Carom
 	src/ECS/CapsuleRBComponent.cpp
     src/ECS/Entity.cpp
     src/ECS/Component.cpp
-    src/ECS/RenderTextureComponent.cpp
 
-    src/ECS/TransformComponent.cpp
-    src/ECS/RigidBodyComponent.cpp
-    src/ECS/StickInputComponent.cpp
-    src/ECS/Button.cpp
-    src/ECS/BoxRBComponent.cpp
-    src/ECS/RectangleRBComponent.cpp
-    src/ECS/PolygonRBComponent.cpp
-    src/ECS/CircleRBComponent.cpp
-    src/ECS/CapsuleRBComponent.cpp
+    src/ECS/RenderTextureComponent.cpp
+	src/ECS/TextDisplayComponent.cpp
+    src/ECS/RewardInfoDisplayComponent.cpp
 
     src/ECS/ColorBallScorerComponent.cpp
     src/ECS/WhiteBallScorerComponent.cpp
-	src/ECS/TextDisplayComponent.cpp
 	src/ECS/FollowComponent.cpp
     src/ECS/EventOnCollision.cpp
     src/ECS/PhysicsComponent.cpp
