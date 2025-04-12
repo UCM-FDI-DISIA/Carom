@@ -121,8 +121,11 @@ public:
     }
 
     inline void killEntitiesOfGroup(grpId_t gId) {
-        for (auto& e : _entsByGroup[gId])
+        for (auto& e : _entsByGroup[gId]) {
+            if (e->tryGetComponent<RenderTextureComponent>())
+                eraseRenderEntity(e);
             e->setAlive(false);
+        }
     }
 
     inline const auto& getRenderEntities(){
