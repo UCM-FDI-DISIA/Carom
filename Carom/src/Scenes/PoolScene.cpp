@@ -9,6 +9,7 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 #include "CaromScene.h"
+#include "RewardScene.h"
 #include "CowboyPoolScene.h"
 
 #include "RewardScene.h"
@@ -59,8 +60,11 @@ void PoolScene::generateMatchHoles()
             button->setOnClick([this](){
                 
                 NullState* state = new NullState(nullptr);
-
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
+                
+                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
+                
+                game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
             });
         }
@@ -68,8 +72,11 @@ void PoolScene::generateMatchHoles()
             button->setOnClick([this](){
                 
                 NullState* state = new NullState(nullptr);
-
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
+                
+                RewardScene* rs = new RewardScene(game);
+
+                game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
             });
         }
