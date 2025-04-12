@@ -64,8 +64,16 @@
     { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
+    
+    { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
 
-    { "id" : "drawer", "file" : "../../resources/images/drawer.png"}
+    { "id" : "RectangleControls", "file" : "../../resources/images/RectangleControls.png"},
+    { "id" : "RectangleCredits", "file" : "../../resources/images/RectangleCredits.png"},
+    { "id" : "RectangleMENU", "file" : "../../resources/images/RectangleMENU.png"},
+    { "id" : "RectanglePlay", "file" : "../../resources/images/RectanglePlay.png"},
+    { "id" : "RectangleSettings", "file" : "../../resources/images/RectangleSettings.png"},
+    { "id" : "RectangleTitle", "file" : "../../resources/images/RectangleTitle.png"},
+    { "id" : "menuBackground", "file" : "../../resources/images/menuBackground.png"}
   ],
   
   "messages" : [
