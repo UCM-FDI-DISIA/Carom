@@ -11,6 +11,8 @@ class JsonEntityParser{
         static Entity* Parse(GameScene& gameScene, std::string JSONfile);
         static void AddComponentsFromJSON(Entity* e, std::string JSONfile);
         static Entity* CreateBallEffect(GameScene& gameScene, std::string file);
+        inline static bool FileIsEmpty(std::string JSONfile) { return JSON::ParseFromFile(JSONfile) == NULL; }
+        static void saveBalls(std::vector<Entity*> balls);
     private:
         static void transformComponent(const JSONObject& atributes, Entity* entity);
         static void rigidBodyComponent(const JSONObject& atributes, Entity* entity);

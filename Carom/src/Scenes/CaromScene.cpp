@@ -34,6 +34,8 @@
 #include "WinMatchState.h"
 
 #include "InventoryManager.h"
+#include "JsonEntityParser.h"
+
 #include "ShadowComponent.h"
 #include "RandomVibrationComponent.h"
 
@@ -54,7 +56,7 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
 
     // SEEDING
     // TODO: pasar RNG a sceneManager o Game para que haya uno solo
-    _rngManager = new RNG_Manager();
+    _rngManager = RNG_Manager::Instance();
     unsigned seed = _rngManager->randomRange(1, 1000000); 
     _rngManager->inseminate(seed);
 
@@ -84,7 +86,7 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
 
     // EFFECT BALLS
     int n_eb = 3; // TODO: obetener esto de config
-    createEffectBalls(n_eb);
+    createEffectBalls();
 
     // Create table with texture and colliders
     createTable();
@@ -190,9 +192,6 @@ CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2Bod
 
     createBallShadow(e);
 
-    addComponent<BallHandler>(e);
-    addComponent<QuanticEffect>(e);
-
     return e;
 }
 
@@ -200,17 +199,27 @@ CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2Bod
 /// @brief Creates and randomly places as many effect balls as specified
 /// @param n Number of balls to place
 void 
-CaromScene::createEffectBalls(int n) {
+CaromScene::createEffectBalls() {
+    std::vector<std::string> occupedSlotsPaths;
+
+    for(int i = 0; i < 4; i++){
+        std::string path = "../../resources/prefabs/inventoryData/slot" + std::to_string(i) + ".json";
+        if(JsonEntityParser::FileIsEmpty(path) == false) {
+            occupedSlotsPaths.push_back(path);
+        }
+    }
+
     int npos = sdlutils().svgs().at("positions").size();
-    assert(n <= npos);
+    assert(occupedSlotsPaths.size() <= npos);
 
     std::vector<RandomItem<int>> positions;
     for(int i = 1; i <= npos; ++i)
         positions.push_back(RandomItem(i, 1.0f));
 
-    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, n, false);
+    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, occupedSlotsPaths.size(), false);
 
-    for(int i = 0; i < n; ++i) {
+    for(int i = 0; i < occupedSlotsPaths.size(); ++i) {
+        std::string slotPath = occupedSlotsPaths[i];
         std::string s = "bola";
         if(eb_selected_pos[i] > 1)
             s += ("_" + std::to_string(eb_selected_pos[i]));
@@ -218,7 +227,8 @@ CaromScene::createEffectBalls(int n) {
         auto& eb = sdlutils().svgs().at("positions").at(s);
         auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
-        createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
+        entity_t ball = createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
+        JsonEntityParser::AddComponentsFromJSON(ball, slotPath);
     }
 }
 

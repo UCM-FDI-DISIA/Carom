@@ -3,14 +3,17 @@
 #include <vector>
 #include "RandomNumberGenerator.h"
 #include "RandomItem.h"
+#include "SDLUtils.h"
 
-class RNG_Manager
+class RNG_Manager : public Singleton<RNG_Manager>
 {
     RandomNumberGenerator _rng;
 
     public:
     RNG_Manager() : _rng(RandomNumberGenerator()) {}
     ~RNG_Manager() {}
+
+    bool init() {return true;}
 
     void inseminate(unsigned seed) {
         _rng.Inseminate(seed);

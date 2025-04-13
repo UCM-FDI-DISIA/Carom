@@ -2,6 +2,7 @@
 #include "CaromScene.h"
 #include "ScenesManager.h"
 #include "NullState.h"
+#include "JsonEntityParser.h"
 
 WinMatchState::WinMatchState(CaromScene* scene) : State(scene) 
 {
@@ -10,6 +11,10 @@ WinMatchState::WinMatchState(CaromScene* scene) : State(scene)
 
 void WinMatchState::onStateEnter(){
     
+    JsonEntityParser::saveBalls(_scene->getEntitiesOfGroup(grp::EFFECTBALLS));
+    //deberia popear escena
+    //auto scene = _scene->getRewardScene();
+    //_scene->getScenesManager()->pushScene(scene);
 }
 
 void WinMatchState::onStateExit() {
