@@ -9,7 +9,7 @@ PyramidComponent::PyramidComponent(entity_t ent, const b2Vec2& direction, float 
 {
     // Tunning:
     _minForce = 0.018f; // float a_mag = rb->getMass() * _g * sin(M_PI/3.0);
-    _maxForce = 0.10f;
+    _maxForce = 0.09f;
 }
 
 

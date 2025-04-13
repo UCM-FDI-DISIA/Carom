@@ -12,10 +12,9 @@
 #include "Entity.h"
 #include "CameraComponent.h"
 #include "Frame.h"
-#include "CameraComponent.h"
+#include "RenderTextureComponent.h"
 
 class Game;
-
 class TweenComponent;
 
 // Declaraciones anticipadas

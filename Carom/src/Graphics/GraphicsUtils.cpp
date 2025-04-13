@@ -603,3 +603,8 @@ std::vector<b2Vec2> GraphisUtils::extractPointsFromSVG(int n, int startIdx, cons
 
     return points;
 }
+
+void GraphisUtils::coutRect(const SDL_Rect &rect)
+{
+    std::cout << "Rect x: " << rect.x << ", y: " << rect.y << ", w: " << rect.w << ", h: " << rect.h << std::endl;
+}

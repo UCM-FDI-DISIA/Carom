@@ -61,7 +61,11 @@
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
-    { "id" : "pyramid0", "file" : "../../resources/images/pyramid0.png"}
+    { "id" : "pyramid0", "file" : "../../resources/images/pyramid0.png"},
+    { "id" : "pyramid1", "file" : "../../resources/images/pyramid1.png"},
+    { "id" : "pyramid2", "file" : "../../resources/images/pyramid2.png"},
+    { "id" : "pyramid3", "file" : "../../resources/images/pyramid3.png"},
+    { "id" : "pyramid4", "file" : "../../resources/images/pyramid4.png"}
   ],
   
   "messages" : [

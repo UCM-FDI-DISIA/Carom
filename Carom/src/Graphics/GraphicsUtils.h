@@ -68,4 +68,6 @@ public:
     // name = string part (should be for intance "vert" and the points gathered are vert0, vert1, ... n)
     // group name at SVG map
     static std::vector<b2Vec2> extractPointsFromSVG(int n, int startIdx, const std::string& name, const std::string& group);
+
+    static void coutRect(const SDL_Rect& rect);
 };

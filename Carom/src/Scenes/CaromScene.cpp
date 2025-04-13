@@ -310,8 +310,6 @@ CaromScene::~CaromScene(){
     // el mundo debe destruirse aquí, recordad que los ids son punteros con sombrero y gabardina
     b2DestroyWorld(_myB2WorldId);
 
-    killEntitiesOfGroup(grp::GIMMICK);
-
     delete _hitManager;
 }
 

@@ -21,7 +21,7 @@ RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* rewar
     : CaromScene(state, g, reward)
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
-    , _nAvailablePyramids(1)
+    , _nAvailablePyramids(5)
 
 {
     if(isBoss) {
@@ -71,7 +71,7 @@ void RussianPyramidScene::initGimmick(){
     //comportamiento (anyadir entidades de arena en la mesa)
     std::cout<< "RussianPyramidScene Gimmick Instantiated" << std::endl;
 
-    int nPyramids = 1; // TODO
+    int nPyramids = 2; // TODO
     generatePyramids(nPyramids);
 }
 
@@ -136,7 +136,6 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
         {
             bool found = false;
             int attempts = 50;
-            std::cout<< "attempts: " << attempts <<std::endl;
     
             // Try a polygon
             int polyId = _rngManager->getRandomItem(polygons, true);
@@ -147,7 +146,10 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
     
             while (!found && attempts > 0)
             {
+                std::cout<< "attempts: " << attempts <<std::endl;
+
                 // Generate a radom center in PIXELS
+                // GraphisUtils::coutRect(areaConstrain);
                 b2Vec2 genRandomPosition = {
                     static_cast<float>
                     (_rngManager->randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
@@ -174,6 +176,7 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
                     bool overlap = false;
                     // Check if pyramid overlap with previous ones
                     while (j < choosenPolygons.size() && !overlap) {
+                        std::cout << "j = " << j << std::endl;
                         overlap = GraphisUtils::doPolygonsOverlap(candidatePoly, choosenPolygons[j]);
                         ++j;
                     }
