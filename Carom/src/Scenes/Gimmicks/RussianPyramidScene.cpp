@@ -116,6 +116,23 @@ void RussianPyramidScene::createPyramid(std::vector<b2Vec2> &points, std::vector
     addComponent<TransformComponent>(img, pos);
     addComponent<RenderTextureComponent>(img, &sdlutils().images().at(id), renderLayer::GIMMICK, scale);
 
+    // // ! GUILLE
+    // // Render entity for the piramid SHADOW
+    // // SCALE
+    // std::string name = "pyramidShadow";
+    // std::string index = std::to_string(polyId);
+    // std::string id = name + index;
+
+    // // Scale debe ser igual?
+    // // float svgSize = *&sdlutils().svgs().at(_pyramidFilenameSVG).at(id).width;
+    // // float textureSize = sdlutils().images().at(id).width();
+    // // float scale = svgSize/textureSize;
+
+    // Entity* imgShadow = new Entity(*this, grp::GIMMICK);
+    // b2Vec2 posS = points[0]; // the peak is the center
+    // addComponent<TransformComponent>(imgShadow, posS);
+    // addComponent<RenderTextureComponent>(imgShadow, &sdlutils().images().at(id), renderLayer::GIMMICK, scale); // ! GUILLE: cambiar capa de renderizado
+
 }
 
 void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL_Rect& areaConstrain, std::vector<Polygon> &choosenPolygons, std::vector<std::vector<b2Vec2>> &auxPoints, std::vector<int> &polyIds)
