@@ -135,7 +135,7 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
         for (int i = 0; i < numPolys; ++i)
         {
             bool found = false;
-            int attempts = 50;
+            int attempts = 100;
     
             // Try a polygon
             int polyId = _rngManager->getRandomItem(polygons, true);
