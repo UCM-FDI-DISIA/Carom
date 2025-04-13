@@ -31,7 +31,7 @@ RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* rewar
 
     initGimmick();
 
-    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
+    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(237, 191, 47);
 }
 
 RussianPyramidScene::~RussianPyramidScene()

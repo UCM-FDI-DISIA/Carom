@@ -65,7 +65,8 @@
     { "id" : "pyramid1", "file" : "../../resources/images/pyramid1.png"},
     { "id" : "pyramid2", "file" : "../../resources/images/pyramid2.png"},
     { "id" : "pyramid3", "file" : "../../resources/images/pyramid3.png"},
-    { "id" : "pyramid4", "file" : "../../resources/images/pyramid4.png"}
+    { "id" : "pyramid4", "file" : "../../resources/images/pyramid4.png"},
+    { "id" : "pyramid_shadow", "file" : "../../resources/images/pyramid_shadow.png"}
   ],
   
   "messages" : [
