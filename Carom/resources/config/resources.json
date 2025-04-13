@@ -66,7 +66,11 @@
     { "id" : "pyramid2", "file" : "../../resources/images/pyramid2.png"},
     { "id" : "pyramid3", "file" : "../../resources/images/pyramid3.png"},
     { "id" : "pyramid4", "file" : "../../resources/images/pyramid4.png"},
-    { "id" : "pyramid_shadow", "file" : "../../resources/images/pyramid_shadow.png"}
+    { "id" : "pyramid_shadow0", "file" : "../../resources/images/pyramid_shadow0.png"},
+    { "id" : "pyramid_shadow1", "file" : "../../resources/images/pyramid_shadow1.png"},
+    { "id" : "pyramid_shadow2", "file" : "../../resources/images/pyramid_shadow2.png"},
+    { "id" : "pyramid_shadow3", "file" : "../../resources/images/pyramid_shadow3.png"},
+    { "id" : "pyramid_shadow4", "file" : "../../resources/images/pyramid_shadow4.png"}
   ],
   
   "messages" : [

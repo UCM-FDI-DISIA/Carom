@@ -15,6 +15,7 @@
 #include "FollowComponent.h"
 #include "PyramidComponent.h"
 #include "StickInputComponent.h"
+#include "ShadowComponent.h"
 
 
 RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* reward, bool isBoss)
@@ -116,22 +117,19 @@ void RussianPyramidScene::createPyramid(std::vector<b2Vec2> &points, std::vector
     addComponent<TransformComponent>(img, pos);
     addComponent<RenderTextureComponent>(img, &sdlutils().images().at(id), renderLayer::GIMMICK, scale);
 
-    // // ! GUILLE
+    // ! GUILLE
     // // Render entity for the piramid SHADOW
     // // SCALE
-    // std::string name = "pyramidShadow";
-    // std::string index = std::to_string(polyId);
-    // std::string id = name + index;
+    std::string nameS = "pyramid_shadow";
+    std::string idS = nameS + index;
 
     // // Scale debe ser igual?
-    // // float svgSize = *&sdlutils().svgs().at(_pyramidFilenameSVG).at(id).width;
-    // // float textureSize = sdlutils().images().at(id).width();
-    // // float scale = svgSize/textureSize;
+    float svgSizeS = *&sdlutils().svgs().at(_pyramidFilenameSVG).at(idS).width;
+    float textureSizeS = sdlutils().images().at(idS).width();
+    float scaleS = svgSizeS/textureSizeS;
 
-    // Entity* imgShadow = new Entity(*this, grp::GIMMICK);
-    // b2Vec2 posS = points[0]; // the peak is the center
-    // addComponent<TransformComponent>(imgShadow, posS);
-    // addComponent<RenderTextureComponent>(imgShadow, &sdlutils().images().at(id), renderLayer::GIMMICK, scale); // ! GUILLE: cambiar capa de renderizado
+    auto shadow = addComponent<ShadowComponent>(img);
+    shadow->addShadow(pos, idS, renderLayer::PYRAMID_SHADOW, scaleS, false,false,false);
 
 }
 
