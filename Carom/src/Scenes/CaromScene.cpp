@@ -153,11 +153,11 @@ entity_t CaromScene::createStick()
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
     addComponent<TweenComponent>(e);
     
-    auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
+    _stickInput = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
 
     //* Used to add an effect for debugging
     //auto effect = addComponent<DonutStickEffect>(e);
-    //input->registerStickEffect(effect);
+    //_stickInput->registerStickEffect(effect);
 
     //!john cleon's stick shadow
     addComponent<ShadowComponent>(e);

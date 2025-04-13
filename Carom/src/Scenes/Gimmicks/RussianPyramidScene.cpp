@@ -14,6 +14,7 @@
 #include "CircleRBComponent.h"
 #include "FollowComponent.h"
 #include "PyramidComponent.h"
+#include "StickInputComponent.h"
 
 
 RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* reward, bool isBoss)
@@ -39,7 +40,13 @@ RussianPyramidScene::~RussianPyramidScene()
 
 void RussianPyramidScene::createBoss(){
     // std::cout << "creando jefe y sombra" << std::endl;
-    
+
+    //Asignar el array de todas las bolas
+    _allBalls = getEntitiesOfGroup(grp::EFFECTBALLS);
+    _currentWhiteBall = getEntitiesOfGroup(grp::WHITEBALL)[0];
+    _allBalls.push_back(_currentWhiteBall);
+
+
     // //crear jefe
     // Entity* boss = new Entity(*this, grp::BOSS_HAND);
     // addComponent<TransformComponent>(boss, startingHandPosition);
@@ -255,12 +262,17 @@ void RussianPyramidScene::generatePyramids(int n)
 
 void
 RussianPyramidScene::applyBossModifiers() {
-    // std::cout << "aplicando modificador de boss desde RussianPyramidScene" << std::endl;
+    std::cout << "aplicando modificador de boss desde RussianPyramidScene" << std::endl;
 
-    // int n = sdlutils().rand().nextInt(1,4);
-    // std::vector<b2Vec2> bulletPositions = generateBulletHolesPositions(n);
-    // TweenComponent* t = getComponent<TweenComponent>(getEntitiesOfGroup(grp::BOSS_HAND)[0]);
-    // moveAndShoot(0, bulletPositions, t);
+    //--Asignar la nueva bola blanca
+    entity_t newWhiteBall = nullptr;
+    do {
+        newWhiteBall = _allBalls[sdlutils().rand().nextInt(0, _allBalls.size())]; //!Esto se debe cambiar para usar el rngManager
+    } while(newWhiteBall != _currentWhiteBall);
+    _stickInput->registerWhiteBall(newWhiteBall);
+
+    //--Animación mostrando el cambio entre bolas
+    //TODO
 }
 
 void RussianPyramidScene::clearBossModifiers()

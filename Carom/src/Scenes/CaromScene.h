@@ -13,6 +13,7 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
+class StickInputComponent;
 
     
 class CaromScene: public GameScene {
@@ -120,10 +121,10 @@ public:
 
     void createFeedbackTest(b2Vec2 pos, float rot);
 
-private:
+protected:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-
+    StickInputComponent* _stickInput;
 
 //---------------------------BOSS---------------------------------
 public:

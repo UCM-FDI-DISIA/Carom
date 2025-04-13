@@ -39,5 +39,8 @@ private:
     std::string _pyramidFilenameSVG;
     std::string _areaConstrainName;
     int _nAvailablePyramids;
+
+    std::vector<entity_t> _allBalls;
+    entity_t _currentWhiteBall;
 };
 
