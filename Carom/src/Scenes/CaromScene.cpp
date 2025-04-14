@@ -200,26 +200,32 @@ CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2Bod
 /// @param n Number of balls to place
 void 
 CaromScene::createEffectBalls() {
-    std::vector<std::string> occupedSlotsPaths;
+    //nombres de cada child en inventory.json
+    std::vector<std::string> occupedSlotsKeys;
+    //ruta de inventory.json
+    auto pathToInventory = "../../resources/prefabs/inventoryData/inventory.json";
 
+    //almacena el nombre de cada slot en occupiedSlots
     for(int i = 0; i < 4; i++){
-        std::string path = "../../resources/prefabs/inventoryData/slot" + std::to_string(i) + ".json";
-        if(JsonEntityParser::FileIsEmpty(path) == false) {
-            occupedSlotsPaths.push_back(path);
+        std::string key = "slot" + std::to_string(i);
+        if(JsonEntityParser::FileIsEmpty(pathToInventory) == false) {
+            occupedSlotsKeys.push_back(key);
         }
     }
 
+    //----GENERACION DE POSICIONES----
     int npos = sdlutils().svgs().at("positions").size();
-    assert(occupedSlotsPaths.size() <= npos);
+    assert(occupedSlotsKeys.size() <= npos);
 
     std::vector<RandomItem<int>> positions;
     for(int i = 1; i <= npos; ++i)
         positions.push_back(RandomItem(i, 1.0f));
 
-    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, occupedSlotsPaths.size(), false);
+    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, occupedSlotsKeys.size(), false);
 
-    for(int i = 0; i < occupedSlotsPaths.size(); ++i) {
-        std::string slotPath = occupedSlotsPaths[i];
+    //--crea la bola y le mete los componentes de inventory.json/slot
+    for(int i = 0; i < occupedSlotsKeys.size(); ++i) {
+        std::string slotPath = occupedSlotsKeys[i];
         std::string s = "bola";
         if(eb_selected_pos[i] > 1)
             s += ("_" + std::to_string(eb_selected_pos[i]));
@@ -228,7 +234,7 @@ CaromScene::createEffectBalls() {
         auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
         entity_t ball = createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
-        JsonEntityParser::AddComponentsFromJSON(ball, slotPath);
+        JsonEntityParser::AddComponentsFromJSON(ball, pathToInventory, slotPath);
     }
 }
 

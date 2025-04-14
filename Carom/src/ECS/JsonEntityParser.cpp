@@ -33,19 +33,25 @@
 #include <iostream>
 #include <fstream>
 
-Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
+Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file, std::string childName){
     JSONValue* entityElements = JSON::ParseFromFile(file);
     
     Entity* entity = new Entity(gameScene, (grp::grpId) entityElements->Child("ID")->AsNumber());
-    AddComponentsFromJSON(entity, file);
+    AddComponentsFromJSON(entity, file, childName);
     
     return entity;
 }
 
-void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfile){
+void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfile, std::string childName){
     JSONValue* entityElements = JSON::ParseFromFile(JSONfile);
 
-    for(auto element : entityElements->Child("components")->AsArray()){
+    JSONArray componentArray;
+    
+
+    if(childName == "NONE") componentArray = entityElements->Child("components")->AsArray();
+    else componentArray = entityElements->Child(childName.c_str())->Child("components")->AsArray();
+
+    for(auto element : componentArray){
         JSONObject atributes = element->Child("atributes")->AsObject();
         if(element->Child("componentName")->AsString() == "TransformComponent"){
             transformComponent(atributes, entity);
@@ -65,10 +71,10 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
     }
 }
 
-Entity* JsonEntityParser::CreateBallEffect(GameScene& gameScene, std::string file){
+Entity* JsonEntityParser::CreateBallEffect(GameScene& gameScene, std::string file, std::string childName){
     Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
 
-    AddComponentsFromJSON(e, file);
+    AddComponentsFromJSON(e, file, childName);
 
     return e;
 }
