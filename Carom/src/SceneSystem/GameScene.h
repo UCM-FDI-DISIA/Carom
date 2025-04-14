@@ -45,6 +45,10 @@ protected:
 	// Este metodo permite un comportamiento de la escena al instanciarla
 	//
 	inline virtual void init(){}
+    virtual void initObjects(){}
+    virtual void initFunctionalities(){}
+    virtual void initGimmick(){}
+    virtual void initBoss(){}
 
     // Create entities that represent and compose the table. The table as a whole is a group.
     void createTable();

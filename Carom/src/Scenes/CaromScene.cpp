@@ -45,11 +45,20 @@
 
 CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
-    //TODAS las caromScene se pueden pausar
-    createPauseEntity();
+}
 
-    // instantiateBossTableShadow();
+void CaromScene::init()
+{
+    initFunctionalities();
+    initGimmick();
+    initObjects();
+    initBoss();
 
+    setNewState(new StartMatchState(this));
+}
+
+void CaromScene::initFunctionalities()
+{
     _sceneManager = game->getScenesManager();
 
     // SEEDING
@@ -58,18 +67,24 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     unsigned seed = _rngManager->randomRange(1, 1000000); 
     _rngManager->inseminate(seed);
 
-
     // Creación del mundo físico
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = {0.0f, 0.0f};
     _myB2WorldId = b2CreateWorld(&worldDef);
     b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
 
-    setNewState(s);
-        
+    _hitManager = new ColorHitManager(this);
+}
+
+void CaromScene::initObjects()
+{
+    //TODAS las caromScene se pueden pausar
+    createPauseEntity();
+
+    createScoreEntity();
+
     createStick();
     
-
     // WHITE BALL
     // Converts (x, y) from screen(svg) to meters and to meter coordinates
     b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
@@ -77,11 +92,7 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
     createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
-    // Apply impulse
-    getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
         
-
-
     // EFFECT BALLS
     int n_eb = 3; // TODO: obetener esto de config
     createEffectBalls(n_eb);
@@ -89,17 +100,10 @@ CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _re
     // Create table with texture and colliders
     createTable();
     
-
     createBackground("suelo");
-
-    createScoreEntity();
-
-    _hitManager = new ColorHitManager(this);
 
     _currentScoreDisplay = createScoreUI();
     _remainingHitsDisplay = createRemainingHitsUI();
-
-    setNewState(new StartMatchState(this));
 }
 
 entity_t

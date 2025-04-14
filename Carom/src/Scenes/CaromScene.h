@@ -29,6 +29,12 @@ public:
     CaromScene(State* state, Game* g, GameScene* reward);
     virtual ~CaromScene();
 
+    void init() override;
+    void initObjects() override;
+    void initFunctionalities() override;
+    void initGimmick() override {};
+    void initBoss() override{};
+
     void handleEvent() override;
     //Llama al update de todas las entidades de escena y maneja las físicas
     void update() override;
@@ -113,7 +119,7 @@ public:
     entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
                             float density, float friction, float restitution, int layer);
 
-    void createEffectBalls(int n);
+    virtual void createEffectBalls(int n);
     
     void createBallShadow(entity_t);
 
