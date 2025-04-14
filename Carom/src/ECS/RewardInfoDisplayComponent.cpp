@@ -8,11 +8,11 @@
 #include "SDLUtils.h"
 
 RewardInfoDisplayComponent::RewardInfoDisplayComponent(
-    Entity* entity, layerId_t renderLayer, float scale, 
+    Entity* entity, layerId_t renderLayer, 
     Body title, Body rewardName, Body rewardType, Body rewardDescription, 
     Uint32 wrapLength, int offsetX, int offsetY)
 
-: RenderTextureComponent(entity, _texture, renderLayer, scale)
+: RenderTextureComponent(entity, _texture, renderLayer, title.scale)
 , _title(title)
 , _rewardName(rewardName)
 , _rewardType(rewardType)
@@ -32,25 +32,25 @@ RewardInfoDisplayComponent::render() {
     double rotation = _transform->getRotation();
 
     _texture->changeColorTint(_color.r, _color.g, _color.b);
-    _texture->render(getRenderRect(_texture), rotation);
+    _texture->render(getRenderRect(_texture, _title.scale), rotation);
     _texture->changeColorTint(255,255,255);
     
-    int offset = getRenderRect(_texture).h + getRenderRect(_texture).h/2;
+    int offset = getRenderRect(_texture, _title.scale).h + getRenderRect(_texture, _title.scale).h * 2.f/5.f;
 
     _rewardNameTexture->changeColorTint(_color.r, _color.g, _color.b);
-    _rewardNameTexture->render(getRenderRect(_rewardNameTexture, offset), rotation);
+    _rewardNameTexture->render(getRenderRect(_rewardNameTexture, _rewardName.scale, offset), rotation);
     _rewardNameTexture->changeColorTint(255,255,255);
 
-    offset += getRenderRect(_rewardNameTexture).h * 3.f/4.f;
+    offset += getRenderRect(_rewardNameTexture, _rewardName.scale).h * 3.f/4.f;
 
     _rewardTypeTexture->changeColorTint(_color.r, _color.g, _color.b);
-    _rewardTypeTexture->render(getRenderRect(_rewardTypeTexture, offset), rotation);
+    _rewardTypeTexture->render(getRenderRect(_rewardTypeTexture, _rewardType.scale, offset), rotation);
     _rewardTypeTexture->changeColorTint(255,255,255);
 
-    offset += getRenderRect(_rewardDescTexture).h;
+    offset += getRenderRect(_rewardTypeTexture, _rewardType.scale).h;
 
     _rewardDescTexture->changeColorTint(_color.r, _color.g, _color.b);
-    _rewardDescTexture->render(getRenderRect(_rewardDescTexture, offset), rotation);
+    _rewardDescTexture->render(getRenderRect(_rewardDescTexture, _rewardDescription.scale, offset), rotation);
     _rewardDescTexture->changeColorTint(255,255,255);
 
 }
@@ -59,7 +59,7 @@ RewardInfoDisplayComponent::render() {
 /// @param t Text texture to get render rect from
 /// @param offset Y offset between texts
 SDL_Rect
-RewardInfoDisplayComponent::getRenderRect(Texture* t, int offset) const {
+RewardInfoDisplayComponent::getRenderRect(Texture* t, float scale, int offset) const {
     b2Vec2 physicalPosition = _transform->getPosition();
 
     //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
@@ -68,9 +68,9 @@ RewardInfoDisplayComponent::getRenderRect(Texture* t, int offset) const {
     
     //Adapta el rect para que el objeto apareca en el centro de este
     coordinateX += _offsetX;
-    coordinateY -= _scale*t->height() / 2;
+    coordinateY -= scale*t->height() / 2;
 
-    SDL_Rect dest = build_sdlrect(coordinateX, coordinateY, t->width()*_scale, t->height()*_scale);
+    SDL_Rect dest = build_sdlrect(coordinateX, coordinateY, t->width()*scale, t->height()*scale);
 
     return dest;
 }

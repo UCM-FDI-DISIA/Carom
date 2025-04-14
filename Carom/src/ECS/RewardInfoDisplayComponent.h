@@ -12,10 +12,13 @@ public:
         std::string text;
         std::string font;
         SDL_Color color;
+        float scale = 1.0f;
     };
 
 protected:
-    Body _title; // su textura es _texture
+    Body _title; 
+    // su textura es _texture
+    // su escala es _scale
     
     Body _rewardName;
     Texture* _rewardNameTexture;
@@ -38,14 +41,14 @@ public:
     /// @param title Texto, fuente y color para el renderizado del título
     /// @param rewardName, rewardType, rewardDescription Info de la recompensa (textos, fuentes y colores)
     /// @param wrapLength Longitud de línea
-    RewardInfoDisplayComponent(Entity* entity, layerId_t renderLayer, float scale, 
+    RewardInfoDisplayComponent(Entity* entity, layerId_t renderLayer, 
         Body title, Body rewardName, Body rewardType, Body rewardDescription, 
         Uint32 wrapLength = 0, int offsetX = 0, int offsetY = 0);
 
 
     void render() override;
 
-    SDL_Rect getRenderRect(Texture* t, int offset = 0) const;
+    SDL_Rect getRenderRect(Texture* t, float scale, int offset = 0) const;
 };
 
 

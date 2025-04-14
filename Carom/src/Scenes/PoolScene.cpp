@@ -170,12 +170,12 @@ PoolScene::createRewardInfo() {
         // en función de _floorRewards[i]
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
-        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, scale*1.5,
-                body_t{"Recompensas de partida", "Bocalupo-Regular48", {255, 255, 255, 255}},
-                body_t{"Instant 1", "Aladin-Regular48", {255,255,255,255}},
-                body_t{"Recompensa instantánea", "Aladin-Regular24", {255, 255, 255, 150}},
+        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
+                body_t{"Recompensas de partida", "Bocalupo-Regular48", {255, 255, 255, 255}, scale*1.5f},
+                body_t{"Instant 1", "Aladin-Regular48", {255,255,255,255}, scale*1.5f},
+                body_t{"Recompensa instantánea", "Aladin-Regular24", {255, 255, 255, 150}, scale*2.f},
                 body_t{"Lore ipsum dolor sit amer bla bla bla descripcion super larga para ver si coge varias lineas", 
-                        "Aladin-Regular24", {255,255,255,255}},
+                        "Aladin-Regular24", {255,255,255,255}, scale*2.f},
                 texture->width() - 50
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
                 // , -PhysicsConverter::pixel2meter(texture->width()/2), -PhysicsConverter::pixel2meter(texture->height()/2)
