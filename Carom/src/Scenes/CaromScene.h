@@ -13,6 +13,7 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
+class StickInputComponent;
 
     
 class CaromScene: public GameScene {
@@ -27,6 +28,12 @@ protected:
 public:
     CaromScene(Game* g, GameScene* reward);
     virtual ~CaromScene();
+
+    void init() override;
+    void initObjects() override;
+    void initFunctionalities() override;
+    void initGimmick() override {};
+    void initBoss() override{};
 
     void handleEvent() override;
     //Llama al update de todas las entidades de escena y maneja las físicas
@@ -112,7 +119,7 @@ public:
     entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
                             float density, float friction, float restitution, int layer);
 
-    void createEffectBalls(int n);
+    virtual void createEffectBalls(int n);
     
     void createBallShadow(entity_t);
 
@@ -120,10 +127,10 @@ public:
 
     void createFeedbackTest(b2Vec2 pos, float rot);
 
-private:
+protected:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-
+    StickInputComponent* _stickInput;
 
 //---------------------------BOSS---------------------------------
 public:

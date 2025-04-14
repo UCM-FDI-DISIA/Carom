@@ -3,8 +3,17 @@
 
 
 class ScenesManager;
-class MainMenuScene: public UIScene {
+class PoolScene;
+
+class MainMenuScene: public UIScene 
+{
+protected:
+    PoolScene* _poolScene;
+
 public:
     MainMenuScene(Game* g);
-    virtual ~MainMenuScene() = default;
+    virtual ~MainMenuScene();
+
+    void initObjects() override;
+    void initFunctionalities() override;
 };

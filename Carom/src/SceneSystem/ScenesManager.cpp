@@ -14,9 +14,6 @@ using namespace std;
 
 ScenesManager::ScenesManager()
 {
-	_rngManager = new RNG_Manager();
-    unsigned seed = _rngManager->randomRange(1, 1000000); 
-    _rngManager->inseminate(seed);
 }
 
 ScenesManager::~ScenesManager()
@@ -25,13 +22,12 @@ ScenesManager::~ScenesManager()
         delete GameScenes.top();
         GameScenes.pop();
     }
-
-	delete _rngManager;
 }
 
 void
 ScenesManager::pushScene(GameScene* scene)
 {
+	scene->init();
 	GameScenes.push(scene);
 }
 

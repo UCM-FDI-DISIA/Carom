@@ -10,7 +10,7 @@ class TweenComponent;
 class RussianPyramidScene : public CaromScene 
 {
 public:
-    RussianPyramidScene(State* state, Game* g, GameScene* reward, bool isBoss);
+    RussianPyramidScene(Game* g, GameScene* reward, bool isBoss);
     virtual ~RussianPyramidScene();
 
 protected:

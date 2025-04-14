@@ -10,6 +10,7 @@
 #include "NullState.h"
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
+#include "RussianPyramidScene.h" // ! tst
 
 #include "RewardScene.h"
 //#include "ScoreContainer.h"
@@ -20,20 +21,41 @@
 #include <box2d/box2d.h>
 
 
-PoolScene::PoolScene(Game* g) 
-    : UIScene(g)
-    , _rngm(g->getScenesManager()->getRGN())
+PoolScene::PoolScene(Game* game) 
+    : UIScene(game)
+    , _rngm(game->getRGN())
+{
+}
+
+PoolScene::~PoolScene()
+{
+    if(this->isInitialized()) {
+        if (!_reward->isInitialized()){
+            delete _reward;
+            _reward = nullptr;
+        }
+    
+        if (!_scene->isInitialized()){
+            delete _scene;
+            _scene = nullptr;
+        }
+    }
+}
+
+void PoolScene::initFunctionalities()
+{
+    _reward = new RewardScene(game);
+    _scene = new RussianPyramidScene(game, _reward, true);
+}
+
+void PoolScene::initObjects()
 {
     createPauseEntity();
 
     // Create table with texture and colliders
     createBackground("suelo");
-    generateTable();
+    createTable();
     generateRndBallsPos();
-}
-
-PoolScene::~PoolScene()
-{
 }
 
 void PoolScene::generateRndBallsPos()
@@ -79,58 +101,29 @@ void PoolScene::generateRndBallsPos()
             
             e->getComponent<Button>()->setOnClick([this](){
 
-                // !!! CREA BOSSSCENE(CAMBIAR).
-                UIScene* rewardScene = new RewardScene(game);
-                // UIScene* rewardScene = nullptr;
-                CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
-                game->getScenesManager()->pushScene(ms);
+                // // !!! CREA BOSSSCENE(CAMBIAR).
+                // UIScene* rewardScene = new RewardScene(game);
+                // // CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst 
+                // RussianPyramidScene *ms = new RussianPyramidScene(game, rewardScene, true); // ! tst 
+                // ms->init();
+
+                game->getScenesManager()->pushScene(_scene);
             });
         }
         else{ // --- POSICION COLORES.
             e->getComponent<Button>()->setOnClick([this](){
 
-                // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
-                UIScene* rewardScene = new RewardScene(game);
-                // UIScene* rewardScene = nullptr;
-
-                CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
-                game->getScenesManager()->pushScene(ms);
+                // // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
+                // UIScene* rewardScene = new RewardScene(game);
+                // // CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
+                // RussianPyramidScene *ms = new RussianPyramidScene(game, rewardScene, true); // ! tst  
+                // ms->init();
+                
+                game->getScenesManager()->pushScene(_scene);
             });
         }
-
-        
     }
 
-    generateTableBackground();
-
-}
-
-void PoolScene::generateTable()
-{
-    // Marco de la mesa.
-    entity_t e = new Entity(*this, grp::TABLE);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("mesa_marco").x,
-        *&sdlutils().svgs().at("pool").at("mesa_marco").y
-    );
-
-    float scale = float(sdlutils().svgs().at("pool").at("mesa_marco").width) / float(sdlutils().images().at("marco2").width());
-
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("mesa1"), renderLayer::TABLE_BORDER, scale);
-
-    // Sombra de la mesa.
-    entity_t e1 = new Entity(*this, grp::TABLE);
-
-    b2Vec2 pos1 = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("mesa_sombra").x,
-        *&sdlutils().svgs().at("pool").at("mesa_sombra").y
-    );
-
-    addComponent<TransformComponent>(e1, pos1);
-    addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);
 }
 
 entity_t PoolScene::generateHole(int i)
@@ -139,8 +132,8 @@ entity_t PoolScene::generateHole(int i)
     entity_t e = new Entity(*this, grp::POOL_HOLE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x,
-        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at("pool").at("hole " + std::to_string(i)).y + 160
     );
 
     float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
@@ -152,21 +145,4 @@ entity_t PoolScene::generateHole(int i)
     addComponent<Button>(e, rButton);
 
     return e;
-}
-
-void PoolScene::generateTableBackground()
-{
-    // fondo mesa.
-    entity_t e = new Entity(*this, grp::TABLE_BACKGROUND);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("pool").at("fondo_mesa").x,
-        *&sdlutils().svgs().at("pool").at("fondo_mesa").y
-    );
-
-    float scale = float(sdlutils().svgs().at("pool").at("fondo_mesa").width) / float(sdlutils().images().at("fondo_verde").width());
-
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("fondo_verde"), renderLayer::TABLE_BACKGOUND, scale);
 }

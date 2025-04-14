@@ -12,10 +12,9 @@
 #include "Entity.h"
 #include "CameraComponent.h"
 #include "Frame.h"
-#include "CameraComponent.h"
+#include "RenderTextureComponent.h"
 
 class Game;
-
 class TweenComponent;
 
 // Declaraciones anticipadas
@@ -31,10 +30,11 @@ class GameScene
 {
 private:
     std::vector<entity_t> _entsRenderable;
-
+    
 protected:
     GameList<Entity> _entities;
     std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
+    bool _initialized;
 
     Game* game;
     CameraComponent* _camera = nullptr;
@@ -45,7 +45,10 @@ protected:
 	
 	// Este metodo permite un comportamiento de la escena al instanciarla
 	//
-	inline virtual void init(){}
+    virtual void initObjects(){}
+    virtual void initFunctionalities(){}
+    virtual void initGimmick(){}
+    virtual void initBoss(){}
 
     // Deletes all entities
     void clearEntities();
@@ -99,6 +102,9 @@ protected:
     void createPauseEntity();
 
 public:
+    inline virtual void init(){}
+    inline bool isInitialized() { return _initialized; }
+
     // Return true if there is a component with identifier T::id in the entity.
     //
     template<typename T>
@@ -121,6 +127,14 @@ public:
     //
     inline auto& getEntitiesOfGroup(grpId_t gId) {
         return _entsByGroup[gId];
+    }
+
+    inline void killEntitiesOfGroup(grpId_t gId) {
+        for (auto& e : _entsByGroup[gId]) {
+            if (e->tryGetComponent<RenderTextureComponent>())
+                eraseRenderEntity(e);
+            e->setAlive(false);
+        }
     }
 
     inline const auto& getRenderEntities(){

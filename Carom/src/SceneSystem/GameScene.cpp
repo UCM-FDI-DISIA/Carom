@@ -13,7 +13,9 @@
 #include "GameScene.h"
 #include "Game.h"
 
-GameScene::GameScene(Game* game): game(game)
+GameScene::GameScene(Game* game)
+    : game(game)
+    , _initialized(false)
 {
     Entity* cam = new Entity(*this, grp::CAMERA);
     addComponent<TransformComponent>(cam, b2Vec2{0,0});

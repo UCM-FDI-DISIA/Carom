@@ -1,7 +1,28 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
 
-MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
+MainMenuScene::MainMenuScene(Game *g) 
+    : UIScene(g)
+    , _poolScene(nullptr)
+{
+}
+
+MainMenuScene::~MainMenuScene()
+{
+    if(isInitialized()) {
+        if (!_poolScene->isInitialized()) {
+            delete _poolScene;
+            _poolScene = nullptr;
+        }
+    }
+}
+
+void MainMenuScene::initFunctionalities()
+{
+    _poolScene = new PoolScene(game);
+}
+
+void MainMenuScene::initObjects()
 {
     createBackground("suelo");
 
@@ -13,13 +34,10 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
         2 // size.
     );
 
-    // !!! SE CREA POOLSCENE
-    GameScene *ms = new PoolScene(game); // ! tst 
-
     entity_t b = createSceneButton(
         sdlutils().width()/2, // x
         (sdlutils().height()/2), // y
-        ms // scene
+        _poolScene // scene
     );
 
     createText("Comenzar Partida.", // text
@@ -32,7 +50,7 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     entity_t c = createSceneButton(
         sdlutils().width()/2, // x
         (sdlutils().height()/2) + 250, // y
-        ms // scene
+        _poolScene // scene
     );
 
     createText("Cargar Partida.", // text
