@@ -72,7 +72,7 @@ void RussianPyramidScene::initGimmick(){
     //comportamiento (anyadir entidades de arena en la mesa)
     std::cout<< "RussianPyramidScene Gimmick Instantiated" << std::endl;
 
-    int nPyramids = 2; // TODO
+    int nPyramids = 1;
     generatePyramids(nPyramids);
 }
 
@@ -117,20 +117,16 @@ void RussianPyramidScene::createPyramid(std::vector<b2Vec2> &points, std::vector
     addComponent<TransformComponent>(img, pos);
     addComponent<RenderTextureComponent>(img, &sdlutils().images().at(id), renderLayer::GIMMICK, scale);
 
-    // ! GUILLE
-    // // Render entity for the piramid SHADOW
-    // // SCALE
+    // Render entity for the piramid SHADOW
     std::string nameS = "pyramid_shadow";
     std::string idS = nameS + index;
 
-    // // Scale debe ser igual?
     float svgSizeS = *&sdlutils().svgs().at(_pyramidFilenameSVG).at(idS).width;
     float textureSizeS = sdlutils().images().at(idS).width();
     float scaleS = svgSizeS/textureSizeS;
 
     auto shadow = addComponent<ShadowComponent>(img);
     shadow->addShadow(pos, idS, renderLayer::PYRAMID_SHADOW, scaleS, false,false,false);
-
 }
 
 void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL_Rect& areaConstrain, std::vector<Polygon> &choosenPolygons, std::vector<std::vector<b2Vec2>> &auxPoints, std::vector<int> &polyIds)
