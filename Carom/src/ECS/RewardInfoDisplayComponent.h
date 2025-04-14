@@ -26,6 +26,8 @@ protected:
     Body _rewardDescription;
     Texture* _rewardDescTexture;
     Uint32 _wrapLength;
+
+    int _offsetX, _offsetY;
     
     void generateTextures();
 
@@ -38,7 +40,7 @@ public:
     /// @param wrapLength Longitud de línea
     RewardInfoDisplayComponent(Entity* entity, layerId_t renderLayer, float scale, 
         Body title, Body rewardName, Body rewardType, Body rewardDescription, 
-        Uint32 wrapLength = 0);
+        Uint32 wrapLength = 0, int offsetX = 0, int offsetY = 0);
 
 
     void render() override;

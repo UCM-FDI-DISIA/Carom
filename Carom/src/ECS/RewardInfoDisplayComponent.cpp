@@ -10,14 +10,16 @@
 RewardInfoDisplayComponent::RewardInfoDisplayComponent(
     Entity* entity, layerId_t renderLayer, float scale, 
     Body title, Body rewardName, Body rewardType, Body rewardDescription, 
-    Uint32 wrapLength)
+    Uint32 wrapLength, int offsetX, int offsetY)
 
 : RenderTextureComponent(entity, _texture, renderLayer, scale)
 , _title(title)
 , _rewardName(rewardName)
 , _rewardType(rewardType)
 , _rewardDescription(rewardDescription)
-, _wrapLength(wrapLength) 
+, _wrapLength(wrapLength)
+, _offsetX(offsetX) 
+, _offsetY(offsetY) 
 {
     generateTextures();
 }
@@ -33,13 +35,13 @@ RewardInfoDisplayComponent::render() {
     _texture->render(getRenderRect(_texture), rotation);
     _texture->changeColorTint(255,255,255);
     
-    int offset = getRenderRect(_texture).h;
+    int offset = getRenderRect(_texture).h + getRenderRect(_texture).h/2;
 
     _rewardNameTexture->changeColorTint(_color.r, _color.g, _color.b);
     _rewardNameTexture->render(getRenderRect(_rewardNameTexture, offset), rotation);
     _rewardNameTexture->changeColorTint(255,255,255);
 
-    offset += getRenderRect(_rewardNameTexture).h;
+    offset += getRenderRect(_rewardNameTexture).h * 3.f/4.f;
 
     _rewardTypeTexture->changeColorTint(_color.r, _color.g, _color.b);
     _rewardTypeTexture->render(getRenderRect(_rewardTypeTexture, offset), rotation);
@@ -54,16 +56,18 @@ RewardInfoDisplayComponent::render() {
 }
 
 
+/// @param t Text texture to get render rect from
+/// @param offset Y offset between texts
 SDL_Rect
 RewardInfoDisplayComponent::getRenderRect(Texture* t, int offset) const {
     b2Vec2 physicalPosition = _transform->getPosition();
 
     //Obtiene la posición de pantalla a partir de la posición física para renderizar la textura
     auto [coordinateX, coordinateY] = _myEntity->getScene().getCamera()->getRenderPos({physicalPosition.x, physicalPosition.y});
-    coordinateY += offset;
+    coordinateY += (_offsetY + offset);
     
     //Adapta el rect para que el objeto apareca en el centro de este
-    coordinateX -= _scale*t->width() / 2;
+    coordinateX += _offsetX;
     coordinateY -= _scale*t->height() / 2;
 
     SDL_Rect dest = build_sdlrect(coordinateX, coordinateY, t->width()*_scale, t->height()*_scale);
