@@ -8,10 +8,14 @@ class GameScene;
 
 class JsonEntityParser{
     public:
+        //instancia una entidad con los componentes de JSONfile en la escena
         static Entity* Parse(GameScene& gameScene, std::string JSONfile);
+        //añade componentes del JSONfile a la entidad
         static void AddComponentsFromJSON(Entity* e, std::string JSONfile);
+        // a partir del prefab de una bola, añade los componentes del JSONfile
         static Entity* CreateBallEffect(GameScene& gameScene, std::string file);
         inline static bool FileIsEmpty(std::string JSONfile) { return JSON::ParseFromFile(JSONfile) == NULL; }
+        //sobrescribe los archivos de slot del inventario
         static void saveBalls(std::vector<Entity*> balls);
     private:
         static void transformComponent(const JSONObject& atributes, Entity* entity);
