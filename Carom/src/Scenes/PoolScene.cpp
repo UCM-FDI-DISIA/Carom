@@ -156,6 +156,7 @@ PoolScene::createRewardInfo() {
     float scale = static_cast<float>(*&sdlutils().svgs().at("pool").at("box_0").width) / texture->width();
 
     for(int i = 0; i < HOLES; ++i) {
+        // FONDO
         description = new Entity(*this, grp::REWARD_INFO_BG);
 
         auto svgElem = *&sdlutils().svgs().at("pool").at("box_" + std::to_string(i));
@@ -166,6 +167,7 @@ PoolScene::createRewardInfo() {
 
         description->deactivate();
 
+        // TEXTO
         // Añadir texto de recompensa / TODO: texto de partida de boss
         // en función de _floorRewards[i]
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
@@ -175,10 +177,9 @@ PoolScene::createRewardInfo() {
                 body_t{"Instant 1", "Aladin-Regular48", {255,255,255,255}, scale*1.5f},
                 body_t{"Recompensa instantánea", "Aladin-Regular24", {255, 255, 255, 150}, scale*2.f},
                 body_t{"Lore ipsum dolor sit amer bla bla bla descripcion super larga para ver si coge varias lineas", 
-                        "Aladin-Regular24", {255,255,255,255}, scale*2.f},
-                texture->width() - 50
+                        "Aladin-Regular24", {255,255,255,255}, scale*2.f}
+                , texture->width() * scale - 25
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
-                // , -PhysicsConverter::pixel2meter(texture->width()/2), -PhysicsConverter::pixel2meter(texture->height()/2)
             );
         description->deactivate();
     }

@@ -41,6 +41,7 @@ public:
     /// @param title Texto, fuente y color para el renderizado del título
     /// @param rewardName, rewardType, rewardDescription Info de la recompensa (textos, fuentes y colores)
     /// @param wrapLength Longitud de línea
+    /// @param offsetX, offsetY Offset de los textos con respecto al transform de su entidad (para que la textura no se ponga en el centro)
     RewardInfoDisplayComponent(Entity* entity, layerId_t renderLayer, 
         Body title, Body rewardName, Body rewardType, Body rewardDescription, 
         Uint32 wrapLength = 0, int offsetX = 0, int offsetY = 0);

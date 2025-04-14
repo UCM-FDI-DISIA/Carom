@@ -47,7 +47,8 @@ RewardInfoDisplayComponent::render() {
     _rewardTypeTexture->render(getRenderRect(_rewardTypeTexture, _rewardType.scale, offset), rotation);
     _rewardTypeTexture->changeColorTint(255,255,255);
 
-    offset += getRenderRect(_rewardTypeTexture, _rewardType.scale).h;
+    offset += (getRenderRect(_rewardTypeTexture, _rewardType.scale).h 
+            + getRenderRect(_rewardTypeTexture, _rewardType.scale).h/2);
 
     _rewardDescTexture->changeColorTint(_color.r, _color.g, _color.b);
     _rewardDescTexture->render(getRenderRect(_rewardDescTexture, _rewardDescription.scale, offset), rotation);
@@ -84,5 +85,5 @@ RewardInfoDisplayComponent::generateTextures() {
     _rewardTypeTexture = new Texture(sdlutils().renderer(), _rewardType.text, 
                     sdlutils().fonts().at(_rewardType.font), _rewardType.color);
     _rewardDescTexture = new Texture(sdlutils().renderer(), _rewardDescription.text, 
-                    sdlutils().fonts().at(_rewardDescription.font), _rewardDescription.color);
+                    sdlutils().fonts().at(_rewardDescription.font), _rewardDescription.color, _wrapLength);
 }
