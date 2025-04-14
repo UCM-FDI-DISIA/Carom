@@ -60,7 +60,17 @@
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"}
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "pyramid0", "file" : "../../resources/images/pyramid0.png"},
+    { "id" : "pyramid1", "file" : "../../resources/images/pyramid1.png"},
+    { "id" : "pyramid2", "file" : "../../resources/images/pyramid2.png"},
+    { "id" : "pyramid3", "file" : "../../resources/images/pyramid3.png"},
+    { "id" : "pyramid4", "file" : "../../resources/images/pyramid4.png"},
+    { "id" : "pyramid_shadow0", "file" : "../../resources/images/pyramid_shadow0.png"},
+    { "id" : "pyramid_shadow1", "file" : "../../resources/images/pyramid_shadow1.png"},
+    { "id" : "pyramid_shadow2", "file" : "../../resources/images/pyramid_shadow2.png"},
+    { "id" : "pyramid_shadow3", "file" : "../../resources/images/pyramid_shadow3.png"},
+    { "id" : "pyramid_shadow4", "file" : "../../resources/images/pyramid_shadow4.png"}
   ],
   
   "messages" : [
@@ -114,7 +124,9 @@
     {"id": "lose", "file": "../../resources/svg/lose.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
-    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"}
+    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
+    {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"}
+
   ]
 
 }

@@ -18,6 +18,7 @@ class CaromScene;
 class PoolScene;
 class JsonEntityParser;
 class CowboyPoolScene;
+class RussianPyramidScene;
 class EndGameScene;
 class RewardScene;
 class UIScene;
@@ -170,6 +171,8 @@ private:
     friend RewardScene;
     friend MainMenuScene;
     friend PauseScene;
+    friend RussianPyramidScene;
+    
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
