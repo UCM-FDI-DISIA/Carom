@@ -78,6 +78,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Tweens
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
+	${CMAKE_SOURCE_DIR}/src/Rewards
 )
 
 # Crear ejecutable

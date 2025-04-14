@@ -5,8 +5,8 @@
 #include "Texture.h"
 #include "RNG_Manager.h"
 #include "UIScene.h"
-// No sé si es mejor crearme mi propio enum Perma o usar el que ya existe en Inventory.h
-// #include "Inventory.h"
+#include "Reward.h"
+
 
 class ScenesManager;
 class RNG_Manager;
@@ -20,25 +20,6 @@ protected:
             BOSS
         };
 
-    enum Instant {
-        DEFAULT, // Empty reward
-        FUSION,
-        GUMBALL_MACHINE,
-        STORAGE_ROOM,
-        CAULDRON
-    };
-
-    struct Perma {
-        int hitEase = 0, comboEase = 0, caromEase = 0;
-        int charisma = 0;   // carisma
-        int power = 0;      // poder
-        float cunning = 1.0f;  // picardía
-    };
-
-    struct Reward {
-        Instant instantReward;
-        Perma permanentReward;
-    };
 
     RNG_Manager* _rngm; // random manager
     b2WorldId _myB2WorldId; //El mundo de box2D

@@ -7,34 +7,43 @@
 
 
 class RewardInfoDisplayComponent : public RenderTextureComponent {
-    std::string _titleText;
-    std::string _titleFont;
+public:
+    struct Body {
+        std::string text;
+        std::string font;
+        SDL_Color color;
+    };
 
-    std::vector<std::string> _rewardText;
-    std::vector<std::string> _descriptionText;
-    std::string _bodyFont;
-
-    SDL_Color _color;
+protected:
+    Body _title; // su textura es _texture
     
-    void reGenerateTexture();
+    Body _rewardName;
+    Texture* _rewardNameTexture;
+
+    Body _rewardType;
+    Texture* _rewardTypeTexture;
+    
+    Body _rewardDescription;
+    Texture* _rewardDescTexture;
+    Uint32 _wrapLength;
+    
+    void generateTextures();
 
 public:
     /// @brief Constructor del componente para mostrar las recompensas en la mesa de Pool
     /// @param entity La entidad a la que pertenece
     /// @param scale la escala del rect donde se crea el texto
-    /// @param titleText El texto de título que renderiza
-    /// @param rewardText El nombre de las recompensas
-    /// @param descText Breve descripción de cada recompensa
-    /// @param color El color del texto a mostrar
-    /// @param titleFont La key con la que buscar la fuente en el resources.json
-    /// @param bodyFont La key con la que buscar la fuente en el resources.json
+    /// @param title Texto, fuente y color para el renderizado del título
+    /// @param rewardName, rewardType, rewardDescription Info de la recompensa (textos, fuentes y colores)
+    /// @param wrapLength Longitud de línea
     RewardInfoDisplayComponent(Entity* entity, layerId_t renderLayer, float scale, 
-        std::string titleText, std::vector<std::string> rewardText, std::vector<std::string> descText,
-        SDL_Color color, std::string titleFont, std::string bodyFont);
+        Body title, Body rewardName, Body rewardType, Body rewardDescription, 
+        Uint32 wrapLength = 0);
 
-    void changeFont(std::string key);
-    void setColor(SDL_Color);
-    void setTitleText(std::string text);
+
+    void render() override;
+
+    SDL_Rect getRenderRect(Texture* t, int offset = 0) const;
 };
 
 

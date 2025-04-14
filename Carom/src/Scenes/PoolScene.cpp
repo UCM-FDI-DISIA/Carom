@@ -127,7 +127,7 @@ PoolScene::loadRewards() {
 
     // PROVISIONAL, para testear
     for(int i = 0; i < HOLES; i++)
-        _rewards.push_back(RandomItem(Reward(CAULDRON, Perma()), 1.0f));
+        _rewards.push_back(RandomItem(Reward(Reward::CAULDRON, Reward::Perma()), 1.0f));
 }
 
 
@@ -138,8 +138,8 @@ PoolScene::generateFloorRewards() {
 
     _floorRewards = _rngm->getRandomItems(_rewards, HOLES, false);
     
-    // Boss match does not have a reward
-    _floorRewards[_bossHole] = Reward(Instant::DEFAULT, Perma());
+    // Boss match does not have a reward (default reward)
+    _floorRewards[_bossHole] = Reward();
 
     createRewardInfo();
 }
