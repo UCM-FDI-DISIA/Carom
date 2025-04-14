@@ -49,45 +49,7 @@ void UIScene::createText(std::string text, int x, int y, int size)
     winContainer->addComponent(currentDisplay);
 }
 
-entity_t UIScene::createSceneButton(int x, int y, GameScene* scene, grpId_t g, layerId_t r, std::string tex, float size)
-{
-    entity_t e = new Entity(*this, g);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);    
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(tex), r, size);
-
-    Button::TextureButton rButton = Button::TextureButton();
-    addComponent<Button>(e, rButton);
-
-    e->getComponent<Button>()->setOnClick([this, scene](){
-        game->getScenesManager()->pushScene(scene);
-    });   
-    
-    return e;
-}
-
-entity_t UIScene::createSceneButton(int x, int y, GameScene* scene)
-{
-    entity_t e = new Entity(*this, grp::DEFAULT);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);    
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::UI, 0.75f);
-
-    Button::TextureButton rButton = Button::TextureButton();
-    addComponent<Button>(e, rButton);
-
-    e->getComponent<Button>()->setOnClick([this, scene](){
-        game->getScenesManager()->pushScene(scene);
-    });   
-    
-    return e;
-}
-
-entity_t UIScene::createSVGSceneButton(std::string svg, std::string tag, std::string image)
+entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string image, bool isButton)
 {
     entity_t e = new Entity(*this, grp::DEFAULT);
 
@@ -101,8 +63,10 @@ entity_t UIScene::createSVGSceneButton(std::string svg, std::string tag, std::st
     addComponent<TransformComponent>(e, pos);
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at(image), renderLayer::UI, scale);
 
-    Button::TextureButton rButton = Button::TextureButton();
-    addComponent<Button>(e, rButton);
+    if(isButton){
+        Button::TextureButton rButton = Button::TextureButton();
+        addComponent<Button>(e, rButton);
+    }
 
     return e;
 }
