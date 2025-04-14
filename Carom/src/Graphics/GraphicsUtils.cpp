@@ -588,11 +588,11 @@ std::vector<b2Vec2> GraphisUtils::extractPointsFromSVG(int n, int startIdx, cons
     std::vector<b2Vec2> points;
     points.reserve(n);
 
-    std::cout << "name: " << name << std::endl;
+    // std::cout << "name: " << name << std::endl;
 
     for (int i = startIdx; i < n + startIdx; ++i)
     {
-        std::cout << "point: " << name + std::to_string(i) << std::endl;
+        // std::cout << "point: " << name + std::to_string(i) << std::endl;
 
         b2Vec2 point = {static_cast<float>(svg->at(name + std::to_string(i)).x)
                      ,  static_cast<float>(svg->at(name + std::to_string(i)).y)

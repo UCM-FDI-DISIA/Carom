@@ -23,20 +23,30 @@ RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* rewar
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
-
+    , _isBoss(isBoss)
 {
-    if(isBoss) {
-        _boss = Boss::RUSSIAN_PYRAMID;
-        createBoss();
-    }
-
-    initGimmick();
-
-    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(237, 191, 47);
 }
 
 RussianPyramidScene::~RussianPyramidScene()
 {
+}
+
+void RussianPyramidScene::initGimmick(){
+    //comportamiento (anyadir entidades de arena en la mesa)
+    std::cout<< "RussianPyramidScene Gimmick Instantiated" << std::endl;
+
+    int nPyramids = 1;
+    generatePyramids(nPyramids);
+}
+
+void RussianPyramidScene::initBoss()
+{
+    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(237, 191, 47);
+
+    if(_isBoss) {
+        _boss = Boss::RUSSIAN_PYRAMID;
+        createBoss();
+    }
 }
 
 void RussianPyramidScene::createBoss(){
@@ -68,12 +78,48 @@ void RussianPyramidScene::createBoss(){
     // CaromScene::instantiateBossTableShadow();
 }
 
-void RussianPyramidScene::initGimmick(){
-    //comportamiento (anyadir entidades de arena en la mesa)
-    std::cout<< "RussianPyramidScene Gimmick Instantiated" << std::endl;
+/// @brief Creates and randomly places as many effect balls as specified
+/// @param n Number of balls to place
+void 
+RussianPyramidScene::createEffectBalls(int n) 
+{
+    int npos = sdlutils().svgs().at("positions").size();
+    assert(n <= npos);
 
-    int nPyramids = 1;
-    generatePyramids(nPyramids);
+    std::vector<std::string> validPositions;
+
+    for(int i = 1; i <= npos; ++i) 
+    {
+        std::string s = "bola";
+        if(i > 1)
+            s += ("_" + std::to_string(i));
+        
+        auto& eb = sdlutils().svgs().at("positions").at(s);
+        auto ballPos = GraphisUtils::sdlrectToPolygon(
+            GraphisUtils::getTopLeftRect({eb.x, eb.y}, {eb.width, eb.height})
+        );
+
+        bool overlap = false;
+        for (int i = 0; i < _pyramidBasePolys.size() && !overlap; ++i)
+            overlap = GraphisUtils::doPolygonsOverlap(ballPos, _pyramidBasePolys[i]);
+
+        if (!overlap)
+            validPositions.push_back(s);
+    }
+
+    std::vector<RandomItem<std::string>> validPositionsRandom;
+    for(int i = 0; i < validPositions.size(); ++i)
+        validPositionsRandom.push_back(RandomItem(validPositions[i], 1.0f));
+
+    std::vector<std::string> eb_selected_pos = _rngManager->getRandomItems(validPositionsRandom, n, false);
+
+    for(int i = 0; i < n; ++i) 
+    {        
+        auto& eb = sdlutils().svgs().at("positions").at(eb_selected_pos[i]);
+        auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
+
+        createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
+    }
 }
 
 void RussianPyramidScene::createPyramid(std::vector<b2Vec2> &points, std::vector<b2Vec2> &auxPoints, int polyId)
@@ -157,7 +203,7 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
     
             while (!found && attempts > 0)
             {
-                std::cout<< "attempts: " << attempts <<std::endl;
+                assert(attempts > 1);
 
                 // Generate a radom center in PIXELS
                 // GraphisUtils::coutRect(areaConstrain);
@@ -172,13 +218,9 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
                 // PIXELS
                 b2Vec2 offset = genRandomPosition - polyCenter;
                 polyCenter = genRandomPosition;
-                // std::cout << "offsetX: " << offset.x << " offsetY: " << offset.y << std::endl;
     
-                for (auto& vert : candidatePoly){
-                    // std::cout << "Before offset vertX : " << vert.x << " Before offset vertY : " << vert.y << std::endl;
+                for (auto& vert : candidatePoly)
                     vert += offset;
-                    // std::cout << "After vertX : " << vert.x << " After vertY : " << vert.y << std::endl;
-                }
                 
                 // Check if all of the pyramid is inside area
                 if (GraphisUtils::arePointsInsideArea(candidatePoly, areaPolygon))
@@ -187,7 +229,6 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
                     bool overlap = false;
                     // Check if pyramid overlap with previous ones
                     while (j < choosenPolygons.size() && !overlap) {
-                        std::cout << "j = " << j << std::endl;
                         overlap = GraphisUtils::doPolygonsOverlap(candidatePoly, choosenPolygons[j]);
                         ++j;
                     }
@@ -195,6 +236,7 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
                 }
     
                 if (found){
+                    _pyramidBasePolys.push_back(candidatePoly);
                     candidatePoly.insert(candidatePoly.begin(), polyCenter); // pushes front the peak
                     choosenPolygons.push_back(candidatePoly);
                     auxPoints.push_back(getAuxPoints(4, polyId, offset)); // TODO: hardcoded n=4

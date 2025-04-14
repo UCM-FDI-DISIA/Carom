@@ -14,11 +14,14 @@ public:
     virtual ~RussianPyramidScene();
 
 protected:
-    void initGimmick();
+    virtual void initGimmick() override;
+    virtual void initBoss() override;
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 
     void createBoss();
+
+    virtual void createEffectBalls(int n) override;
 
     // Gimmicks
     void createPyramid(std::vector<b2Vec2> &points, std::vector<b2Vec2> &auxPoints, int polyId);
@@ -39,8 +42,11 @@ private:
     std::string _pyramidFilenameSVG;
     std::string _areaConstrainName;
     int _nAvailablePyramids;
+    std::vector<Polygon> _pyramidBasePolys;
 
     std::vector<entity_t> _allBalls;
     entity_t _currentWhiteBall;
+
+    bool _isBoss;
 };
 
