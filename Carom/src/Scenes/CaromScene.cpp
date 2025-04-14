@@ -45,7 +45,7 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
+CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(10)
 {
     //TODAS las caromScene se pueden pausar
     createPauseEntity();

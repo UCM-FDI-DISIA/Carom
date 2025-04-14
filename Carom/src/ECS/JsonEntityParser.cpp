@@ -185,17 +185,17 @@ void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
 }
 
 void JsonEntityParser::saveBalls(std::vector<Entity*> balls) {
-    for(int i = 0; i < 5; i++) {
-        std::ofstream fileStream("../../resources/prefabs/inventoryData/slot" + std::to_string(i) + ".json");
-        if(fileStream.is_open()) fileStream << "";
-        fileStream.close();
-    }
+    std::ofstream fileStream("../../resources/prefabs/inventoryData/inventory.json");
+    if(fileStream.is_open()) fileStream << "";
+    fileStream.close();
 
+    //texto representado en el json
+    std::string value = "{";
     for(int i = 0; i < balls.size(); i++) {
         Entity* currentBall = balls[i];
         std::vector<BallEffect*> ballEffects = currentBall->getComponent<BallHandler>()->getEffects();
 
-        std::string value = "{\"components\" :[{\"componentName\" : \"BallHandler\",\"atributes\" : {\"effects\": [";
+        value += "\"slot" +std::to_string(i) +  "\":{\"components\" :[{\"componentName\" : \"BallHandler\",\"atributes\" : {\"effects\": [";
         
         for(int i = 0; i < ballEffects.size(); i++) {
             BallEffect* effect = ballEffects[i];
@@ -210,16 +210,17 @@ void JsonEntityParser::saveBalls(std::vector<Entity*> balls) {
             else if (dynamic_cast<PetanqueEffect*>(effect) != nullptr) value += "\"PetanqueEffect\"";
             value += "}";
 
-            if(i != ballEffects.size() - 1) value += ", ";
+            if(i != ballEffects.size() - 1) value += ",";
         }
 
         value += "]}}]}";
-
-        std::ofstream fileStream("../../resources/prefabs/inventoryData/slot" + std::to_string(i) + ".json");
-        if(fileStream.is_open()) fileStream << value;
-        fileStream.close();
+        if(i < balls.size()-1) value +=",";
     }
+    value += "}";
 
+    std::ofstream fileStream2("../../resources/prefabs/inventoryData/inventory.json");
+    if(fileStream2.is_open()) fileStream2 << value;
+    fileStream2.close();
 }
 
 
