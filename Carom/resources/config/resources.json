@@ -66,7 +66,7 @@
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-
+    
     { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
     { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
     { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
