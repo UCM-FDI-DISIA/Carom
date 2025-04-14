@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "JSONValue.h"
 #include <string>
-
+#include <box2d/box2d.h>
 
 class GameScene;
 
@@ -15,7 +15,7 @@ class JsonEntityParser{
         static void AddComponentsFromJSON(Entity* e, std::string JSONfile, std::string childName = "NONE");
 
         // a partir del prefab de una bola, añade los componentes del JSONfile
-        static Entity* CreateBallEffect(GameScene& gameScene, std::string file, std::string childName = "NONE");
+        static Entity* createEffectBall(GameScene& gameScene, std::string file, std::string childName = "NONE", b2Vec2 pos= {0.f,0.f});
 
         inline static bool FileIsEmpty(std::string JSONfile) { return JSON::ParseFromFile(JSONfile) == NULL; }
         //sobrescribe los archivos de slot del inventario

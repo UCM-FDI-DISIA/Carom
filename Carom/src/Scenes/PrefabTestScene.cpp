@@ -6,5 +6,5 @@ PrefabTestScene::PrefabTestScene(State* state, Game* g) : CaromScene(state, g){
 }
 
 void PrefabTestScene::init(){
-    JsonEntityParser::CreateBallEffect(*this, "../../resources/prefabs/basicBallPrefab.json");
+    JsonEntityParser::createEffectBall(*this, "../../resources/prefabs/basicBallPrefab.json");
 }

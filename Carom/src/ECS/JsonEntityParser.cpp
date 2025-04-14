@@ -10,6 +10,7 @@
 #include "CircleRBComponent.h"
 #include "PolygonRBComponent.h"
 #include "RectangleRBComponent.h"
+#include "PhysicsUtils.h"
 
 #include "BallHandler.h"
 #include "BowlingEffect.h"
@@ -46,7 +47,6 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
     JSONValue* entityElements = JSON::ParseFromFile(JSONfile);
 
     JSONArray componentArray;
-    
 
     if(childName == "NONE") componentArray = entityElements->Child("components")->AsArray();
     else componentArray = entityElements->Child(childName.c_str())->Child("components")->AsArray();
@@ -71,11 +71,28 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
     }
 }
 
-Entity* JsonEntityParser::CreateBallEffect(GameScene& gameScene, std::string file, std::string childName){
-    Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
+Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
+    //no es bueno pillar la info base de un json porque no se ajusta al SVG
+    //Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
+
+    // Scale
+    float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
+    float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
+    float scale = svgSize/textureSize;        
+    
+    entity_t e = new Entity(gameScene, grp::EFFECTBALLS);
+    
+    // RB
+    float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
+    addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius);
+
+    // RENDER
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::EFFECT_BALL, scale, SDL_Color{0, 150, 100, 1});
+
+    // SCORE
+    addComponent<ColorBallScorerComponent>(e);
 
     AddComponentsFromJSON(e, file, childName);
-
     return e;
 }
 

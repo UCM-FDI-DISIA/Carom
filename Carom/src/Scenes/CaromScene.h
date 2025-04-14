@@ -107,9 +107,6 @@ public:
 
     entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
-    entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                            float density, float friction, float restitution, int layer);
-
     void createEffectBalls();
     
     void createBallShadow(entity_t);

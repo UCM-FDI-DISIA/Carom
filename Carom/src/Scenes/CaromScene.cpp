@@ -168,33 +168,6 @@ entity_t CaromScene::createStick()
     return e;
 }
 
-    
-entity_t
-CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
-    // Scale
-    float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
-    float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
-    float scale = svgSize/textureSize;        
-    
-    entity_t e = new Entity(*this, grp::EFFECTBALLS);
-    
-    // RB
-    float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
-    addComponent<CircleRBComponent>(e, pos, type, radius);
-
-    // RENDER
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::EFFECT_BALL, scale, SDL_Color{0, 150, 100, 1});
-
-    // SCORE
-    addComponent<ColorBallScorerComponent>(e);
-
-    // TODO: add components according to its id
-
-    createBallShadow(e);
-
-    return e;
-}
-
 
 /// @brief Creates and randomly places as many effect balls as specified
 /// @param n Number of balls to place
@@ -233,8 +206,10 @@ CaromScene::createEffectBalls() {
         auto& eb = sdlutils().svgs().at("positions").at(s);
         auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
 
-        entity_t ball = createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
-        JsonEntityParser::AddComponentsFromJSON(ball, pathToInventory, slotPath);
+        //entity_t ball = createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
+        auto ball = JsonEntityParser::createEffectBall(*this, pathToInventory, slotPath, eb_pos);
+
+        createBallShadow(ball);
     }
 }
 
