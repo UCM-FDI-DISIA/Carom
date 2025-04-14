@@ -61,13 +61,21 @@
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
-    { "id" : "RectangleControls", "file" : "../../resources/images/RectangleControls.png"},
-    { "id" : "RectangleCredits", "file" : "../../resources/images/RectangleCredits.png"},
-    { "id" : "RectangleMENU", "file" : "../../resources/images/RectangleMENU.png"},
-    { "id" : "RectanglePlay", "file" : "../../resources/images/RectanglePlay.png"},
-    { "id" : "RectangleSettings", "file" : "../../resources/images/RectangleSettings.png"},
-    { "id" : "RectangleTitle", "file" : "../../resources/images/RectangleTitle.png"},
-    { "id" : "menuBackground", "file" : "../../resources/images/menuBackground.png"}
+    { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
+    { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
+    { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
+    { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
+    { "id" : "RectanglePlay", "file" : "../../resources/images/mainmenu/RectanglePlay.png"},
+    { "id" : "RectangleSettings", "file" : "../../resources/images/mainmenu/RectangleSettings.png"},
+    { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
+    { "id" : "menuBackground", "file" : "../../resources/images/mainmenu/menuBackground.png"},
+    { "id" : "C", "file" : "../../resources/images/mainmenu/C.png"},
+    { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
+    { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
+    { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
+    { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
+    { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
+    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"}
   ],
   
   "messages" : [

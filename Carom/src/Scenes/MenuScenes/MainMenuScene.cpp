@@ -4,59 +4,44 @@
 
 MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
 {
-    entity_t a_bg = createBackground("menuBackground");
+    // tag del svg al que nos referimos segun el JSON.
+    std::string SVGTag = "mainMenu";
 
-    // --- PANELES.
-    std::vector<entity_t> button;
-    button.emplace_back(createSVGSceneButton("mainMenu", "RectangleMENU", "RectangleMENU")); // no se acciona [0]
-    button.emplace_back(createSVGSceneButton("mainMenu", "RectangleTitle", "RectangleTitle")); // no se acciona [1]
-    button.emplace_back(createSVGSceneButton("mainMenu", "RectanglePlay", "RectanglePlay")); // [2]
-    button.emplace_back(createSVGSceneButton("mainMenu", "RectangleSettings", "RectangleSettings")); // [3]
-    button.emplace_back(createSVGSceneButton("mainMenu", "RectangleControls", "RectangleControls")); // [4]
-    button.emplace_back(createSVGSceneButton("mainMenu", "RectangleCredits", "RectangleCredits")); // [5]
+    // --- BACKGROUND.
+    entity_t x_bg = createBackground("fondoMainMenu"); // fondo.
+    entity_t a_bg = createBackground("menuBackground"); // mesa fondo.
 
     // ajustando fondo.
     b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y - PhysicsConverter::pixel2meter(147)};
     a_bg->getTransform()->setPosition(pos);
-    
-    // --- TEXTOS.
-    createText("Carom", // text
-        button[1]->getTransform()->getPosition().x, // x
-        button[1]->getTransform()->getPosition().y, // y
-        2 // size.
-    );
 
-    createText("Play", // text
-        button[2]->getTransform()->getPosition().x, // x
-        button[2]->getTransform()->getPosition().y, // y
-        1 // scale
-    );
-    
-    button[2]->getComponent<Button>()->setOnClick([this](){
+    // --- PANELES.
+    std::vector<entity_t> pannels;
+    //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); // [0]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU", false)); // [1]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle", false)); // [2]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleSettings", "RectangleSettings", true)); // [4]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); // [6]
+
+    // Hacer que se pueda accionar el boton de Play
+    pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         GameScene *ms = new PoolScene(game); // ! tst 
         getGame()->getScenesManager()->pushScene(ms);
     });  
 
-    createText("Settings", // text
-        button[3]->getTransform()->getPosition().x, // x
-        button[3]->getTransform()->getPosition().y, // y
-        1 // scale
-    );
-
-    createText("Controls", // text
-        button[4]->getTransform()->getPosition().x, // x
-        button[4]->getTransform()->getPosition().y, // y
-        1 // scale
-    );
-
-    createText("Credits", // text
-        button[5]->getTransform()->getPosition().x, // x
-        button[5]->getTransform()->getPosition().y, // y
-        1 // scale
-    );
-
-    for(int i = 1; i < 6; i++){
-        std::cout << "b" << i << ". x: " << button[i]->getTransform()->getPosition().x << "y: " << button[i]->getTransform()->getPosition().y << std::endl;
-    }
+    // TODO: Hacer que se pueda accionar el boton de Settings
+    // TODO: Hacer que se pueda accionar el boton de Controls
+    // TODO: Hacer que se pueda accionar el boton de Credits
+    
+    // --- TEXTOS.
+    std::vector<entity_t> texts;
+    texts.emplace_back(createSVGImage(SVGTag, "C", "C", false));
+    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits", false));
 }

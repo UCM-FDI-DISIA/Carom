@@ -17,7 +17,7 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
 
     GameScene* ms = new PoolScene(game); // se crea una nueva poolscene.
 
-    entity_t b = createSVGSceneButton("win", "scoreSprite", "scoreSprite");
+    entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 
     b->getComponent<Button>()->setOnClick([this, ms](){
 
