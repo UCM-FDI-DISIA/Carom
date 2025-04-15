@@ -16,6 +16,8 @@
 #include "PyramidComponent.h"
 #include "StickInputComponent.h"
 #include "ShadowComponent.h"
+#include "ColorBallScorerComponent.h"
+#include "WhiteBallScorerComponent.h"
 
 
 RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* reward, bool isBoss)
@@ -52,11 +54,16 @@ void RussianPyramidScene::initBoss()
 void RussianPyramidScene::createBoss(){
     // std::cout << "creando jefe y sombra" << std::endl;
 
-    //Asignar el array de todas las bolas
+    //--Asignar el array de todas las bolas
     _allBalls = getEntitiesOfGroup(grp::EFFECTBALLS);
     _currentWhiteBall = getEntitiesOfGroup(grp::WHITEBALL)[0];
     _allBalls.push_back(_currentWhiteBall);
 
+    //--Crear el indicador
+    _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
+    addComponent<TransformComponent>(_indicator, b2Vec2_zero);
+    addComponent<FollowComponent>(_indicator, _currentWhiteBall, true, false, true, Vector2D(0, 0));
+    //addComponent<RenderTextureComponent>(_indicator);
 
     // //crear jefe
     // Entity* boss = new Entity(*this, grp::BOSS_HAND);
@@ -318,26 +325,43 @@ void RussianPyramidScene::generatePyramids(int n)
 
 void
 RussianPyramidScene::applyBossModifiers() {
-    std::cout << "aplicando modificador de boss desde RussianPyramidScene" << std::endl;
+    #if defined (_DEBUG)
+    std::cout << "Aplicando modificadores de RussianPyramid" << std::endl;
+    #endif
 
     //--Asignar la nueva bola blanca
     entity_t newWhiteBall = nullptr;
     do {
         newWhiteBall = _allBalls[sdlutils().rand().nextInt(0, _allBalls.size())]; //!Esto se debe cambiar para usar el rngManager
-    } while(newWhiteBall != _currentWhiteBall);
+    } while(newWhiteBall != _currentWhiteBall && newWhiteBall != getEntitiesOfGroup(grp::WHITEBALL)[0]);
     _stickInput->registerWhiteBall(newWhiteBall);
+    _currentWhiteBall = newWhiteBall;
 
-    //--Animación mostrando el cambio entre bolas
-    //TODO
+    //--Alterar los componentes de la nueva bola blanca
+    _currentWhiteBall->deactivateComponentsOfType<BallEffect>();
+    _currentWhiteBall->deactivateComponentsOfType<ColorBallScorerComponent>();
+    addComponent<WhiteBallScorerComponent>(_currentWhiteBall);
+
+    //--Activar el indicador en la nueva bola blanca
+    auto follow = getComponent<FollowComponent>(_indicator);
+    follow->setTarget(_currentWhiteBall);
+    _indicator->activateComponentsOfType<RenderComponent>();
 }
 
 void RussianPyramidScene::clearBossModifiers()
 {
-    // std::cout<< "ClearBossModifiers" << std::endl;
-    // // Reset hole changes on balls and deactivate it
-    // for(auto& e: getEntitiesOfGroup(grp::BOSS_MODIFIERS)){
-    //     if (e->tryGetComponent<HoleComponent>())
-    //         e->getComponent<HoleComponent>()->resetChanges();
-    //     e->setAlive(false);
-    // }
+    #if defined(_DEBUG)
+    std::cout<< "Eliminando modificadores de RussianPyramid" << std::endl;
+    #endif
+
+    //--Devolver la bola a su estado original
+    _currentWhiteBall->activateComponentsOfType<BallEffect>();
+    _currentWhiteBall->activateComponentsOfType<ColorBallScorerComponent>();
+
+    //Esto para asegurarnos de que no rompemos la bola blanca original (aunque no debería elegirse)
+    if(_currentWhiteBall != getEntitiesOfGroup(grp::WHITEBALL)[0]) 
+        _currentWhiteBall->removeComponent<WhiteBallScorerComponent>();
+
+    //--Hacer desaparecer el indicador
+    _indicator->deactivateComponentsOfType<RenderComponent>();
 }
