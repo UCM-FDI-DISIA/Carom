@@ -22,7 +22,7 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
     b->getComponent<Button>()->setOnClick([this, ms](){
 
         game->getScenesManager()->popScene(); // Poppea la loose.
-        game->getScenesManager()->popScene(); // Poppea la carom.
+        // game->getScenesManager()->popScene(); // Poppea la carom.
         game->getScenesManager()->popScene(); // Poppea la pool.
         game->getScenesManager()->popScene(); // Poppea la mainMenuScene.
         game->getScenesManager()->pushScene(ms);

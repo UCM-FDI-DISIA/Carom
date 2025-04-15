@@ -71,7 +71,8 @@ void PoolScene::generateMatchHoles()
             
             button->setOnClick([=](){
                 hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
-                
+                hideReward(i);
+
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
                 
@@ -82,7 +83,9 @@ void PoolScene::generateMatchHoles()
             });
         }
         else{ // --- POSICION COLORES.
-            button->setOnClick([this](){
+            button->setOnClick([=](){
+                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
+                hideReward(i);
                 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  

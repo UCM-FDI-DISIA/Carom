@@ -338,7 +338,7 @@ void CaromScene::handleEvent()
     #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_l)){ 
-        // Al presionar la "L" te lleva a la escena de ganar.
+        // Al presionar la "L" te lleva a la escena de perder.
             /*std::cout << "Carga escena de PERDER." << std::endl;
             NullState* state = new NullState(nullptr);
 
@@ -351,7 +351,7 @@ void CaromScene::handleEvent()
     }
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
-        // Al presionar la "W" te lleva a la escena de perder.
+        // Al presionar la "W" te lleva a la escena de ganar.
         // para activar roundwins();
         _currentScore = 2 * _scoreToBeat;
     }

@@ -16,14 +16,13 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         3 // size.
     );
 
-    GameScene* ms = new PoolScene(game); // se crea una nueva poolscene.
+    // GameScene* ms = new PoolScene(game); // se crea una nueva poolscene.
 
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 
-    b->getComponent<Button>()->setOnClick([this, ms](){
+    b->getComponent<Button>()->setOnClick([this](){
 
         game->getScenesManager()->popScene(); // Poppea la win.
-        game->getScenesManager()->pushScene(ms);
     }); 
 
     createText("Terminar.", // text
