@@ -8,6 +8,8 @@ using strength = int;
 using skillType = int;
 using skill = std::pair<skillType, strength>;
 
+/// @brief Incrementa el valor de una jugada (Golpe, Combo o Carambola) a elegir entre dos
+/// @name Soltura
 class SkillReward : public Reward {
 protected:
     enum SkillType {
@@ -29,5 +31,9 @@ public:
         //     skill(sk , ...),
         //     skill(st , ...)
         // );
+    }
+
+    void applyReward() override {
+        // TODO selección de skill y añadirlo al inventario
     }
 };

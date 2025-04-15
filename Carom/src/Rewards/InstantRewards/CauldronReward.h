@@ -17,7 +17,7 @@ public:
     }
 
     void applyReward() override {
-        // TODO selección de efecto y apliarlo a la bola seleccionada
+        // TODO selección de efecto y aplicarlo a la bola seleccionada
     }
     
 };

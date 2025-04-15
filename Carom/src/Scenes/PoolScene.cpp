@@ -12,9 +12,11 @@
 #include "CaromScene.h"
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
-
-#include "RewardScene.h"
 #include "StickInputComponent.h"
+
+#include "DefaultReward.h"
+#include "BossReward.h"
+// #include ...Reward.h
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -128,7 +130,7 @@ PoolScene::loadRewards() {
 
     // PROVISIONAL, para testear
     for(int i = 0; i < HOLES; i++)
-        _rewards.push_back(RandomItem(Reward(Reward::CAULDRON, Reward::Perma()), 1.0f));
+        _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<DefaultReward>(), 1.0f));
 }
 
 
@@ -139,8 +141,8 @@ PoolScene::generateFloorRewards() {
 
     _floorRewards = _rngm->getRandomItems(_rewards, HOLES, false);
     
-    // Boss match does not have a reward (default reward)
-    _floorRewards[_bossHole] = Reward();
+    // Swaps boss hole assigned reward for a Boss Reward
+    _floorRewards[_bossHole] = std::make_shared<BossReward>();
 
     createRewardInfo();
 }
@@ -166,7 +168,7 @@ PoolScene::createRewardInfo() {
         description->deactivate();
 
         // TEXTO
-        // Añadir texto de recompensa / TODO: texto de partida de boss
+        // TODO: Añadir texto de recompensa / texto de partida de boss
         // en función de _floorRewards[i]
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
