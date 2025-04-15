@@ -21,8 +21,11 @@ private:
     
     public:
     static const int MAX_BALLS = 6;
-    // Consultar
-    std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>());
+    // Recibe una COPIA de las bolas del inventario, es decir, las genera a partir del json
+    //
+    //@param positions
+    //Debe ser un vector de tamaño MAX_BALLS, ya que sino todas las bolas tendran posicion 0,0
+    std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions);
     entity_t getStick(GameScene& scene);
     Inventory::Perma& getPerma();
     
