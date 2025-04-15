@@ -3,8 +3,10 @@
 #include <fstream>
 #include <iostream>
 #include "GameScene.h"
-
 #include "JsonEntityParser.h"
+
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 InventoryManager::InventoryManager()
 {
@@ -27,7 +29,7 @@ void InventoryManager::loadInventoryWithPath(std::string path){
     std::string line;
 
     std::ifstream ini_file {path};
-    std::ofstream out_file {"../../resources/prefabs/inventoryData/inventory.json"};
+    std::ofstream out_file {pathToInventory};
  
     if(ini_file && out_file){
  
@@ -46,18 +48,17 @@ std::vector<entity_t>
 InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions) {
     std::vector<entity_t> balls;
     balls.reserve(MAX_BALLS);
-    std::string file = "../../resources/prefabs/inventoryData/inventory.json";
 
     if(positions.size() != MAX_BALLS){
         for(int i =0; i < MAX_BALLS; i++){
             std::string childName = "slot" + std::to_string(i);
-            balls.emplace_back(JsonEntityParser::createEffectBall(scene, file, childName));
+            balls.emplace_back(JsonEntityParser::createEffectBall(scene, pathToInventory, childName));
         }
     }
     else{
         for(int i =0; i < MAX_BALLS; i++){
             std::string childName = "slot" + std::to_string(i);
-            balls.emplace_back(JsonEntityParser::createEffectBall(scene, file, childName, positions[i]));
+            balls.emplace_back(JsonEntityParser::createEffectBall(scene, pathToInventory, childName, positions[i]));
         }
     }
 
@@ -68,7 +69,8 @@ entity_t
 InventoryManager::getStick(GameScene& scene) {
     //! TO DO
     //retorna el objeto de stick en el json
-    return nullptr;
+    auto e = JsonEntityParser::Parse(scene, pathToInventory, "stick");
+    return e;
 }
 
 Inventory::Perma& 
@@ -80,7 +82,25 @@ InventoryManager::getPerma() {
 }
 void 
 InventoryManager::addBall(entity_t ball) {
-    //! TO DO
+
+    bool found = false;
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+    //recorre el mapa en busca de un slot vacio
+    for(int i =0; i < MAX_BALLS && !found; i++){
+        //si no existe el slot i, es el que va a usar
+        std::string key = "slot" + std::to_string(i);
+        if(data.find(key) == data.end()){
+            data[key]["components"][0]["componentName"] = "BallHandler";
+            data[key]["components"][0]["atributes"]["effects"] = JsonEntityParser::getBallEffects(ball);
+            found = true;
+        }
+    }
+
+    //update data
+    std::ofstream fileStream(pathToInventory);
+    if(fileStream.is_open()) fileStream << data;
+    fileStream.close();
 }
 
 void
@@ -90,13 +110,31 @@ InventoryManager::addStick(entity_t stick) {
 
 void 
 InventoryManager::swapBall(entity_t newBall, int indexOfOldBall) {
-    //! TO DO
-}
+    
+    assert(indexOfOldBall >= 0 && indexOfOldBall < MAX_BALLS);
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
 
+    data["slot" + std::to_string(indexOfOldBall)]["components"][0]["atributes"]["effects"] = JsonEntityParser::getBallEffects(newBall);
+
+    //update data
+    std::ofstream fileStream(pathToInventory);
+    if(fileStream.is_open()) fileStream << data;
+    fileStream.close();
+}
 
 void
 InventoryManager::removeBall(int index) {
-    //! TO DO
+    
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    data.erase("slot" + std::to_string(index));
+
+    //update data
+    std::ofstream fileStream(pathToInventory);
+    if(fileStream.is_open()) fileStream << data;
+    fileStream.close();
 }
 
 void InventoryManager::removeAllBalls() {

@@ -20,6 +20,8 @@ class JsonEntityParser{
         inline static bool FileIsEmpty(std::string JSONfile) { return JSON::ParseFromFile(JSONfile) == NULL; }
         //sobrescribe los archivos de slot del inventario
         static void saveBalls(std::vector<Entity*> balls);
+
+        static std::vector<std::string> getBallEffects(entity_t ball);
     private:
         static void transformComponent(const JSONObject& atributes, Entity* entity);
         static void rigidBodyComponent(const JSONObject& atributes, Entity* entity);

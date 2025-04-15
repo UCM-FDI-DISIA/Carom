@@ -6,9 +6,6 @@
 
 #include "Game.h"
 
-// Inclusión para el jasón
-#include <nlohmann/json.hpp>
-
 /*
 la ruta para acceder a la mierda esta por codigo es
 

@@ -21,6 +21,7 @@ private:
     
     public:
     static const int MAX_BALLS = 6;
+    const std::string pathToInventory = "../../resources/prefabs/inventoryData/inventory.json";
     // Recibe una COPIA de las bolas del inventario, es decir, las genera a partir del json
     //
     //@param positions

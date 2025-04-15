@@ -222,4 +222,23 @@ void JsonEntityParser::saveBalls(std::vector<Entity*> balls) {
     fileStream2.close();
 }
 
+std::vector<std::string> JsonEntityParser::getBallEffects(entity_t ball){
+    std::vector<std::string> res;
+    std::vector<BallEffect*> ballEffects = ball->getComponent<BallHandler>()->getEffects();
+
+    for(int i = 0; i < ballEffects.size(); i++) {
+        BallEffect* effect = ballEffects[i];
+        if (dynamic_cast<AbacusEffect*>(effect) != nullptr) res.push_back ("AbacusEffect");
+        else if (dynamic_cast<BowlingEffect*>(effect) != nullptr) res.push_back("BowlingEffect");
+        else if (dynamic_cast<X2Effect*>(effect) != nullptr) res.push_back("X2Effect");
+        else if (dynamic_cast<QuanticEffect*>(effect) != nullptr) res.push_back("QuanticEffect");
+        else if (dynamic_cast<PokeballEffect*>(effect) != nullptr) res.push_back("PokeballEffect");
+        else if (dynamic_cast<CristalEffect*>(effect) != nullptr) res.push_back("CristalEffect");
+        else if (dynamic_cast<PetanqueEffect*>(effect) != nullptr) res.push_back("PetanqueEffect");
+    }
+
+    return res;
+
+};
+
 
