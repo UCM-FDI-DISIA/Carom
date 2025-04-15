@@ -15,6 +15,10 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
 # Force Box2D to use dynamic runtime
 set_target_properties(box2d PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
+# nlohmann_json
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/nlohmann_json-3.12.0)
+
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
     include_directories(
@@ -217,6 +221,9 @@ add_executable(Carom
 
 # Link Box2D
 target_link_libraries(Carom PRIVATE box2d)
+
+# Link nlohmann_json
+target_link_libraries(Carom PRIVATE nlohmann_json::nlohmann_json)
 
 # Ensure consistent runtime for Carom
 if (CMAKE_HOST_WIN32)
