@@ -183,7 +183,7 @@ CaromScene::createEffectBalls() {
 
     std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, InventoryManager::MAX_BALLS, false);
     std::vector<b2Vec2> randomPositions;
-    //--crea la bola y le mete los componentes de inventory.json/slot
+
     for(int i = 0; i < InventoryManager::MAX_BALLS; ++i) {
         std::string s = "bola";
         if(eb_selected_pos[i] > 1)
@@ -192,9 +192,12 @@ CaromScene::createEffectBalls() {
         auto& eb = sdlutils().svgs().at("positions").at(s);
         auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
         randomPositions.push_back(eb_pos);
-        //entity_t ball = createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
     }
+
+    //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
     auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, randomPositions);
+
+    //AÑADIR SOMBRAS
     for(auto ball : ballsVector){
         if(ball!= nullptr){
             createBallShadow(ball);
