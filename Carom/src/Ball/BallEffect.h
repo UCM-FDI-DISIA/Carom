@@ -4,7 +4,6 @@
 #include "ecs.h"
 #include <string>
 
-
 class CaromScene;
 
 class BallEffect : public Component

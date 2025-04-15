@@ -63,8 +63,12 @@ void RussianPyramidScene::createBoss(){
     _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
     addComponent<TransformComponent>(_indicator, b2Vec2_zero);
     addComponent<FollowComponent>(_indicator, _currentWhiteBall, true, false, true, Vector2D(0, 0));
-    //addComponent<RenderTextureComponent>(_indicator);
 
+    float scale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x;
+    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("bola_blanca"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, scale);
+
+    //--Crear el jefe
+    //TODO
     // //crear jefe
     // Entity* boss = new Entity(*this, grp::BOSS_HAND);
     // addComponent<TransformComponent>(boss, startingHandPosition);

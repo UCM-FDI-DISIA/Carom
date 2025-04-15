@@ -152,13 +152,13 @@ public:
     template<typename T>
     void activateComponentsOfType() {
         for(Component* component : _currentComponents)
-            if(dynamic_cast<T>(component) != nullptr) component->setEnabled(true);
+            if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(true);
     }
 
     template<typename T>
     void deactivateComponentsOfType() {
         for(Component* component : _currentComponents)
-            if(dynamic_cast<T>(component) != nullptr) component->setEnabled(false);
+            if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(false);
     }
 
     void setGameScene(GameScene* scene);

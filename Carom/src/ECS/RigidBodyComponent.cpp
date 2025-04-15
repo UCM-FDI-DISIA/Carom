@@ -79,7 +79,6 @@ RigidBodyComponent::getPosition() const {
 ITransform::Scale
 RigidBodyComponent::getScale() const {
     return _myScale;
-    
 }
 
 /// @brief Accesor de rotación
