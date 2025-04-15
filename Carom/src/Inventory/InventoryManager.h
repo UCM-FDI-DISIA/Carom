@@ -1,10 +1,14 @@
 #pragma once
 
 #include <vector>
+#include <nlohmann/json.hpp>
 
 #include "Singleton.h"
 #include "Inventory.h"
 class GameScene;
+using json = nlohmann::json;
+
+
 class InventoryManager : public Singleton<InventoryManager> {
 
 	friend Singleton<InventoryManager> ;
@@ -18,6 +22,10 @@ private:
     
     void loadInventoryWithPath(std::string path);
 
+    void updateData(json data);
+    int getParameterValue(std::string key);
+    void setParameterValue(std::string key, int value);
+
     
     public:
     static const int MAX_BALLS = 6;
@@ -28,7 +36,6 @@ private:
     //Debe ser un vector de tamaño MAX_BALLS, ya que sino todas las bolas tendran posicion 0,0
     std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions);
     entity_t getStick(GameScene& scene);
-    Inventory::Perma& getPerma();
     
     // Añadir
     void addBall(entity_t ball);
@@ -41,6 +48,25 @@ private:
     void loadSavedInventory();
     //! Veo conveniente solo usar la sobrecarga basada en índices, pero los dejo los dos de momento
     void swapBall(entity_t newBall, int indexOfOldBall);
+
+    //Perma
+    int getHitEase();
+    void setHitEase(int i);
+
+    int getComboEase();
+    void setComboEase(int i);
+
+    int getCaromEase();
+    void setCaromEase(int i);
+
+    int getCharisma();
+    void setCharisma(int i);
+
+    int getPower();
+    void setPower(int i);
+
+    float getCunning();
+    void setCunning(float f);
 
 private:
     // Eliminar

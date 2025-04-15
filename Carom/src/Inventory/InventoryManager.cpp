@@ -5,9 +5,6 @@
 #include "GameScene.h"
 #include "JsonEntityParser.h"
 
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
-
 InventoryManager::InventoryManager()
 {
 
@@ -73,13 +70,6 @@ InventoryManager::getStick(GameScene& scene) {
     return e;
 }
 
-Inventory::Perma& 
-InventoryManager::getPerma() {
-    //! TO DO
-    //retorna el perma del json
-    Inventory::Perma perma{0,0,0,0,0,1.0f};
-    return perma;
-}
 void 
 InventoryManager::addBall(entity_t ball) {
 
@@ -98,9 +88,7 @@ InventoryManager::addBall(entity_t ball) {
     }
 
     //update data
-    std::ofstream fileStream(pathToInventory);
-    if(fileStream.is_open()) fileStream << data;
-    fileStream.close();
+    updateData(data);
 }
 
 void
@@ -122,9 +110,7 @@ InventoryManager::swapBall(entity_t newBall, int indexOfOldBall) {
     data["slot" + std::to_string(indexOfOldBall)]["components"][0]["atributes"]["effects"] = JsonEntityParser::getBallEffects(newBall);
 
     //update data
-    std::ofstream fileStream(pathToInventory);
-    if(fileStream.is_open()) fileStream << data;
-    fileStream.close();
+    updateData(data);
 }
 
 void
@@ -136,9 +122,7 @@ InventoryManager::removeBall(int index) {
     data.erase("slot" + std::to_string(index));
 
     //update data
-    std::ofstream fileStream(pathToInventory);
-    if(fileStream.is_open()) fileStream << data;
-    fileStream.close();
+    updateData(data);
 }
 
 void InventoryManager::removeAllBalls() {
@@ -151,9 +135,7 @@ void InventoryManager::removeAllBalls() {
     }
 
     //update data
-    std::ofstream fileStream(pathToInventory);
-    if(fileStream.is_open()) fileStream << data;
-    fileStream.close();
+    updateData(data);
 }
 
 void InventoryManager::removeStick() {
@@ -172,7 +154,60 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
     }
 
     //update data
+    updateData(data);
+}
+
+void InventoryManager::updateData(json data){
     std::ofstream fileStream(pathToInventory);
     if(fileStream.is_open()) fileStream << data;
     fileStream.close();
+}
+
+//------------------------------------- P E R M A ----------------------------------------
+
+int InventoryManager::getHitEase(){ return getParameterValue("hitEase");}
+void InventoryManager::setHitEase(int i){setParameterValue("hitEase", i);}
+
+int InventoryManager::getComboEase(){return getParameterValue("comboEase");}
+void InventoryManager::setComboEase(int i){setParameterValue("comboEase", i);}
+
+int InventoryManager::getCaromEase(){return getParameterValue("caromEase");}
+void InventoryManager::setCaromEase(int i){setParameterValue("caromEase", i);}
+
+int InventoryManager::getCharisma(){return getParameterValue("charisma");}
+void InventoryManager::setCharisma(int i){setParameterValue("charisma", i);}
+
+int InventoryManager::getPower(){return getParameterValue("power");}
+void InventoryManager::setPower(int i){setParameterValue("power", i);}
+
+float InventoryManager::getCunning(){
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    return data["cunning"];
+}
+
+void InventoryManager::setCunning(float f){
+    std::ifstream fs(pathToInventory);
+    json data = json::parse(fs);
+
+    data["cunning"] = f;
+
+    updateData(data);
+}
+
+int InventoryManager::getParameterValue(std::string key){
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    return data[key];
+}
+
+void InventoryManager::setParameterValue(std::string key, int value){
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    data[key] = value;
+
+    updateData(data);
 }
