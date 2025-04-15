@@ -1,1 +1,62 @@
-{"slot0":{"components" :[{"componentName" : "BallHandler","atributes" : {"effects": []}}]},"slot1":{"components" :[{"componentName" : "BallHandler","atributes" : {"effects": []}}]},"slot2":{"components" :[{"componentName" : "BallHandler","atributes" : {"effects": []}}]},"slot3":{"components" :[{"componentName" : "BallHandler","atributes" : {"effects": []}}]},"slot4":{"components" :[{"componentName" : "BallHandler","atributes" : {"effects": []}}]},"slot5":{"components" :[{"componentName" : "BallHandler","atributes" : {"effects": []}}]}}
+{
+  "slot0": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": []
+        }
+      }
+    ]
+  },
+  "slot1": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": []
+        }
+      }
+    ]
+  },
+  "slot2": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": []
+        }
+      }
+    ]
+  },
+  "slot3": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": []
+        }
+      }
+    ]
+  },
+  "slot4": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": []
+        }
+      }
+    ]
+  },
+  "slot5": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": []
+        }
+      }
+    ]
+  }
+}

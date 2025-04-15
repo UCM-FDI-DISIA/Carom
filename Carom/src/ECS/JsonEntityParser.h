@@ -18,8 +18,6 @@ class JsonEntityParser{
         static Entity* createEffectBall(GameScene& gameScene, std::string file, std::string childName = "NONE", b2Vec2 pos= {0.f,0.f});
 
         inline static bool FileIsEmpty(std::string JSONfile) { return JSON::ParseFromFile(JSONfile) == NULL; }
-        //sobrescribe los archivos de slot del inventario
-        static void saveBalls(std::vector<Entity*> balls);
 
         static std::vector<std::string> getBallEffects(entity_t ball);
     private:

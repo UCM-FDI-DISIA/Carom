@@ -33,6 +33,8 @@ private:
     // Añadir
     void addBall(entity_t ball);
     void addStick(entity_t stick);
+
+    void saveBalls(std::vector<entity_t> balls);
     
     // Gestionar
     void loadStartingInventory();

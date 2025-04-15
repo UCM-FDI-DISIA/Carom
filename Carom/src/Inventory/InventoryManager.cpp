@@ -106,6 +106,10 @@ InventoryManager::addBall(entity_t ball) {
 void
 InventoryManager::addStick(entity_t stick) {
     //! TO DO
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    //data["stick"] = 
 }
 
 void 
@@ -138,7 +142,7 @@ InventoryManager::removeBall(int index) {
 }
 
 void InventoryManager::removeAllBalls() {
-    //! TO DO
+    
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
@@ -154,4 +158,21 @@ void InventoryManager::removeAllBalls() {
 
 void InventoryManager::removeStick() {
     //! TO DO
+}
+
+//guarda las bolas de la partida en el inventario.json por si hubiera ocurrido algun cambio durante la partida
+void InventoryManager::saveBalls(std::vector<entity_t> balls){
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    removeAllBalls();
+
+    for(int i =0; i < balls.size(); i++){
+        data["slot" + std::to_string(i)]["components"][0]["atributes"]["effects"] = JsonEntityParser::getBallEffects(balls[i]);
+    }
+
+    //update data
+    std::ofstream fileStream(pathToInventory);
+    if(fileStream.is_open()) fileStream << data;
+    fileStream.close();
 }
