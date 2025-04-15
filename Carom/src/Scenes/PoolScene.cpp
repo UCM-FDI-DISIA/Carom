@@ -16,6 +16,14 @@
 
 #include "DefaultReward.h"
 #include "BossReward.h"
+#include "FusionReward.h"
+#include "GumballReward.h"
+#include "StickReward.h"
+#include "CauldronReward.h"
+#include "SkillReward.h"
+#include "CharismaReward.h"
+#include "PowerReward.h"
+#include "CunningReward.h"
 // #include ...Reward.h
 
 #include "Game.h"
@@ -61,7 +69,8 @@ void PoolScene::generateMatchHoles()
         if(i == _bossHole){ // --- POSICION BOSS.
             //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
             
-            button->setOnClick([this](){
+            button->setOnClick([=](){
+                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
                 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
@@ -95,7 +104,7 @@ void PoolScene::generateMatchHoles()
 
         button->setOnExit([this, i]() {
             #ifdef _DEBUG
-            std::cout << "Exiting pool hole " << i << std::endl; 
+            std::cout << "Exiting pool hole " << i << std::endl;
             #endif
 
             hideReward(i);
@@ -128,9 +137,16 @@ void
 PoolScene::loadRewards() {
     // TODO: parse all rewards from JSON
 
-    // PROVISIONAL, para testear
-    for(int i = 0; i < HOLES; i++)
-        _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<DefaultReward>(), 1.0f));
+    // PROVISIONAL, para testear      
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<FusionReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<GumballReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<StickReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CauldronReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<SkillReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CharismaReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<PowerReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CunningReward>(), 1.0f));
+
 }
 
 
@@ -139,7 +155,7 @@ PoolScene::generateFloorRewards() {
     // Generar array de todas las recompensas a partir del JSON
     loadRewards();
 
-    _floorRewards = _rngm->getRandomItems(_rewards, HOLES, false);
+    _floorRewards = _rngm->getRandomItems(_rewards, HOLES, true); // Se puede repetir tipo de recompensa
     
     // Swaps boss hole assigned reward for a Boss Reward
     _floorRewards[_bossHole] = std::make_shared<BossReward>();

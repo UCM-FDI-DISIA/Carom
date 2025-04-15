@@ -30,29 +30,43 @@ void
 RewardInfoDisplayComponent::render() {
     
     double rotation = _transform->getRotation();
+    int offset = 0;
 
-    _texture->changeColorTint(_color.r, _color.g, _color.b);
-    _texture->render(getRenderRect(_texture, _title.scale), rotation);
-    _texture->changeColorTint(255,255,255);
-    
-    int offset = getRenderRect(_texture, _title.scale).h + getRenderRect(_texture, _title.scale).h * 2.f/5.f;
+    if(_texture != nullptr) {
+        _texture->changeColorTint(_color.r, _color.g, _color.b);
+        _texture->render(getRenderRect(_texture, _title.scale), rotation);
+        _texture->changeColorTint(255,255,255);
+        
+        offset += (getRenderRect(_texture, _title.scale).h 
+                + getRenderRect(_texture, _title.scale).h * 2.f/5.f);
+    }
 
-    _rewardNameTexture->changeColorTint(_color.r, _color.g, _color.b);
-    _rewardNameTexture->render(getRenderRect(_rewardNameTexture, _rewardName.scale, offset), rotation);
-    _rewardNameTexture->changeColorTint(255,255,255);
+    if(_rewardNameTexture != nullptr) {
 
-    offset += getRenderRect(_rewardNameTexture, _rewardName.scale).h * 3.f/4.f;
+        _rewardNameTexture->changeColorTint(_color.r, _color.g, _color.b);
+        _rewardNameTexture->render(getRenderRect(_rewardNameTexture, _rewardName.scale, offset), rotation);
+        _rewardNameTexture->changeColorTint(255,255,255);
+        
+        offset += getRenderRect(_rewardNameTexture, _rewardName.scale).h * 3.f/4.f;
+    }
+    else offset += _rewardName.scale * 15;
 
-    _rewardTypeTexture->changeColorTint(_color.r, _color.g, _color.b);
-    _rewardTypeTexture->render(getRenderRect(_rewardTypeTexture, _rewardType.scale, offset), rotation);
-    _rewardTypeTexture->changeColorTint(255,255,255);
+    if(_rewardTypeTexture != nullptr) {   
+        
+        _rewardTypeTexture->changeColorTint(_color.r, _color.g, _color.b);
+        _rewardTypeTexture->render(getRenderRect(_rewardTypeTexture, _rewardType.scale, offset), rotation);
+        _rewardTypeTexture->changeColorTint(255,255,255);
+        
+        offset += (getRenderRect(_rewardTypeTexture, _rewardType.scale).h 
+                + getRenderRect(_rewardTypeTexture, _rewardType.scale).h/2);
+    }
 
-    offset += (getRenderRect(_rewardTypeTexture, _rewardType.scale).h 
-            + getRenderRect(_rewardTypeTexture, _rewardType.scale).h/2);
+    if(_rewardDescTexture != nullptr) {
 
-    _rewardDescTexture->changeColorTint(_color.r, _color.g, _color.b);
-    _rewardDescTexture->render(getRenderRect(_rewardDescTexture, _rewardDescription.scale, offset), rotation);
-    _rewardDescTexture->changeColorTint(255,255,255);
+        _rewardDescTexture->changeColorTint(_color.r, _color.g, _color.b);
+        _rewardDescTexture->render(getRenderRect(_rewardDescTexture, _rewardDescription.scale, offset), rotation);
+        _rewardDescTexture->changeColorTint(255,255,255);
+    }
 
 }
 
@@ -79,11 +93,22 @@ RewardInfoDisplayComponent::getRenderRect(Texture* t, float scale, int offset) c
 
 void 
 RewardInfoDisplayComponent::generateTextures() {
-    _texture = new Texture(sdlutils().renderer(), _title.text, sdlutils().fonts().at(_title.font), _title.color);
-    _rewardNameTexture = new Texture(sdlutils().renderer(), _rewardName.text, 
-                    sdlutils().fonts().at(_rewardName.font), _rewardName.color);
-    _rewardTypeTexture = new Texture(sdlutils().renderer(), _rewardType.text, 
-                    sdlutils().fonts().at(_rewardType.font), _rewardType.color);
-    _rewardDescTexture = new Texture(sdlutils().renderer(), _rewardDescription.text, 
-                    sdlutils().fonts().at(_rewardDescription.font), _rewardDescription.color, _wrapLength);
+    _title.text != " " 
+        ? _texture = new Texture(sdlutils().renderer(), _title.text, sdlutils().fonts().at(_title.font), _title.color)
+        : _texture = nullptr;
+
+    _rewardName.text != " "
+        ? _rewardNameTexture = new Texture(sdlutils().renderer(), _rewardName.text, 
+                                        sdlutils().fonts().at(_rewardName.font), _rewardName.color)
+        : _rewardNameTexture = nullptr;
+
+    _rewardType.text != " "
+        ? _rewardTypeTexture = new Texture(sdlutils().renderer(), _rewardType.text, 
+                                        sdlutils().fonts().at(_rewardType.font), _rewardType.color)
+        : _rewardTypeTexture = nullptr;
+
+    _rewardDescription.text != " "
+        ? _rewardDescTexture = new Texture(sdlutils().renderer(), _rewardDescription.text, 
+                                        sdlutils().fonts().at(_rewardDescription.font), _rewardDescription.color, _wrapLength)
+        : _rewardDescTexture = nullptr;
 }

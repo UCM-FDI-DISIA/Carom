@@ -175,13 +175,13 @@
     },
     { 
       "id" : "boss_rewardName_pool", 
-      "text" : "Gana esta partida para avanzar de piso y obtener las bolas restantes en la mesa", 
+      "text" : " ", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
       "id" : "boss_rewardDesc_pool", 
-      "text" : " ", 
+      "text" : "Gana esta partida para avanzar de piso y obtener las bolas restantes en la mesa", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
