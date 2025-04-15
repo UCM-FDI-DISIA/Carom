@@ -159,7 +159,7 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
 
 void InventoryManager::updateData(json data){
     std::ofstream fileStream(pathToInventory);
-    if(fileStream.is_open()) fileStream << data;
+    if(fileStream.is_open()) fileStream << data.dump(3);
     fileStream.close();
 }
 
