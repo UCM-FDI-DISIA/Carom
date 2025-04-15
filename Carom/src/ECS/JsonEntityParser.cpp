@@ -72,9 +72,8 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
 }
 
 Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
-    //no es bueno pillar la info base de un json porque no se ajusta al SVG
-    //Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
-
+    //si en el svg no existe slotX, devuelve nullptr
+    if(!JSON::ParseFromFile(file)->HasChild(childName.c_str())) return nullptr;
     // Scale
     float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
     float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball

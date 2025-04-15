@@ -85,7 +85,6 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
 
 
     // EFFECT BALLS
-    int n_eb = 3; // TODO: obetener esto de config
     createEffectBalls();
 
     // Create table with texture and colliders
@@ -173,43 +172,33 @@ entity_t CaromScene::createStick()
 /// @param n Number of balls to place
 void 
 CaromScene::createEffectBalls() {
-    //nombres de cada child en inventory.json
-    std::vector<std::string> occupedSlotsKeys;
-    //ruta de inventory.json
-    auto pathToInventory = "../../resources/prefabs/inventoryData/inventory.json";
-
-    //almacena el nombre de cada slot en occupiedSlots
-    for(int i = 0; i < 4; i++){
-        std::string key = "slot" + std::to_string(i);
-        if(JsonEntityParser::FileIsEmpty(pathToInventory) == false) {
-            occupedSlotsKeys.push_back(key);
-        }
-    }
+    
 
     //----GENERACION DE POSICIONES----
     int npos = sdlutils().svgs().at("positions").size();
-    assert(occupedSlotsKeys.size() <= npos);
 
     std::vector<RandomItem<int>> positions;
     for(int i = 1; i <= npos; ++i)
         positions.push_back(RandomItem(i, 1.0f));
 
-    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, occupedSlotsKeys.size(), false);
-
+    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, InventoryManager::MAX_BALLS, false);
+    std::vector<b2Vec2> randomPositions;
     //--crea la bola y le mete los componentes de inventory.json/slot
-    for(int i = 0; i < occupedSlotsKeys.size(); ++i) {
-        std::string slotPath = occupedSlotsKeys[i];
+    for(int i = 0; i < InventoryManager::MAX_BALLS; ++i) {
         std::string s = "bola";
         if(eb_selected_pos[i] > 1)
             s += ("_" + std::to_string(eb_selected_pos[i]));
         
         auto& eb = sdlutils().svgs().at("positions").at(s);
         auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
-
+        randomPositions.push_back(eb_pos);
         //entity_t ball = createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
-        auto ball = JsonEntityParser::createEffectBall(*this, pathToInventory, slotPath, eb_pos);
-
-        createBallShadow(ball);
+    }
+    auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, randomPositions);
+    for(auto ball : ballsVector){
+        if(ball!= nullptr){
+            createBallShadow(ball);
+        }
     }
 }
 
@@ -643,26 +632,28 @@ void CaromScene::applyBossModifiers() {
 
 void 
 CaromScene::loadFromInventory() {
+    /*
     _fromInventory = true; //!PROVISIONAL: Para no eliminar la destructora de escena por defecto aún
 
     InventoryManager* inventory = InventoryManager::Instance();
     
-    entity_t whiteBall = inventory->getWhiteBall();
+    entity_t whiteBall = createWhiteBall();
     whiteBall->setGameScene(this);
     _entities.push_back(whiteBall);
     pushToRenderEntities(whiteBall);
 
-    auto effectBalls = inventory->getEffectBalls();
+    auto effectBalls = inventory->getEffectBalls(this);
     for(entity_t ball : effectBalls) {
         ball->setGameScene(this);
         _entities.push_back(ball);
         pushToRenderEntities(ball);
     }
 
-    entity_t stick = inventory->getStick();
+    entity_t stick = inventory->getStick(this);
     stick->setGameScene(this);
     _entities.push_back(stick);
     pushToRenderEntities(stick);
+    */
 }
 
 void CaromScene::instantiateBossTableShadow(){

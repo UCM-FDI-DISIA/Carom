@@ -1,5 +1,10 @@
 #include "InventoryManager.h"
 #include "Texture.h"
+#include <fstream>
+#include <iostream>
+#include "GameScene.h"
+
+#include "JsonEntityParser.h"
 
 InventoryManager::InventoryManager()
 {
@@ -10,117 +15,94 @@ InventoryManager::~InventoryManager() {
 
 }
 
-void InventoryManager::swapInventory(Inventory inv) {
-    removeStick();
-    removeAllBalls();
-    _inventory = inv;
+void InventoryManager::loadStartingInventory(){
+    loadInventoryWithPath("../../resources/prefabs/inventoryData/storedInventory.json");
+}
+
+void InventoryManager::loadSavedInventory(){
+    loadInventoryWithPath("../../resources/prefabs/inventoryData/savedInventory.json");
+}
+
+void InventoryManager::loadInventoryWithPath(std::string path){
+    std::string line;
+
+    std::ifstream ini_file {path};
+    std::ofstream out_file {"../../resources/prefabs/inventoryData/inventory.json"};
+ 
+    if(ini_file && out_file){
+ 
+        while(std::getline(ini_file,line)){
+            out_file << line << "\n";
+        }
+        std::cout << "Loaded " << path << " Correctly" << std::endl;
+ 
+    } else {
+        //Something went wrong
+        printf("Cannot read File");
+    }
 }
 
 std::vector<entity_t> 
-InventoryManager::getEffectBalls() {
-    // std::vector<entity_t> balls;
-    // balls.reserve(_inventory.MAX_BALLS);
+InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions) {
+    std::vector<entity_t> balls;
+    balls.reserve(MAX_BALLS);
+    std::string file = "../../resources/prefabs/inventoryData/inventory.json";
 
-    // for(entity_t b : _inventory._balls)
-    //     balls.push_back(b);
+    if(positions.size() != MAX_BALLS){
+        for(int i =0; i < MAX_BALLS; i++){
+            std::string childName = "slot" + std::to_string(i);
+            balls.emplace_back(JsonEntityParser::createEffectBall(scene, file, childName));
+        }
+    }
+    else{
+        for(int i =0; i < MAX_BALLS; i++){
+            std::string childName = "slot" + std::to_string(i);
+            balls.emplace_back(JsonEntityParser::createEffectBall(scene, file, childName, positions[i]));
+        }
+    }
 
-    return _inventory._balls;
+    return balls;
 }
 
 entity_t 
-InventoryManager::getWhiteBall() {
-    return _inventory._whiteBall;
-}
-
-entity_t 
-InventoryManager::getStick() {
-    return _inventory._stick;
+InventoryManager::getStick(GameScene& scene) {
+    //! TO DO
+    //retorna el objeto de stick en el json
+    return nullptr;
 }
 
 Inventory::Perma& 
 InventoryManager::getPerma() {
-    return _inventory._perma;
+    //! TO DO
+    //retorna el perma del json
+    Inventory::Perma perma{0,0,0,0,0,1.0f};
+    return perma;
 }
-
-void
-InventoryManager::addWhiteBall(entity_t ball) {
-    if(_inventory._whiteBall != nullptr)
-        delete _inventory._whiteBall;
-    _inventory._whiteBall = ball;
-}
-
 void 
 InventoryManager::addBall(entity_t ball) {
-    int size = _inventory._balls.size();
-
-    assert(size < _inventory.MAX_BALLS); // Can't add ball, inventory is full
-    
-    _inventory._balls[size] = ball;
+    //! TO DO
 }
 
 void
 InventoryManager::addStick(entity_t stick) {
-    if(_inventory._stick != nullptr)
-        removeStick();
-    _inventory._stick = stick;
-}
-
-void 
-InventoryManager::swapBall(entity_t in, entity_t out) {
-    int index = 0;
-    while(index < _inventory._balls.size() && _inventory._balls[index] != out) ++index;
-    if(index >= _inventory._balls.size()) throw("Error: la bola no se encuentra en el inventario"); //!Debería incluso lanzar excepción
-
-    delete _inventory._balls[index];
-    _inventory._balls[index] = in;
+    //! TO DO
 }
 
 void 
 InventoryManager::swapBall(entity_t newBall, int indexOfOldBall) {
-    delete _inventory._balls[indexOfOldBall];
-    _inventory._balls[indexOfOldBall] = newBall;
+    //! TO DO
 }
 
-
-void 
-InventoryManager::swapStick(entity_t newStick) {
-    removeStick();
-    _inventory._stick = newStick;
-}
-
-void
-InventoryManager::removeWhiteBall() {
-    assert(_inventory._whiteBall != nullptr);
-    delete _inventory._whiteBall;
-    _inventory._whiteBall = nullptr;
-}
-
-void 
-InventoryManager::removeBall(entity_t ball) {
-    auto it = _inventory._balls.begin();
-    while(*it != ball && it != _inventory._balls.end())
-        ++it;
-    if(it == _inventory._balls.end())
-        throw("Error: la bola no se encuentra en el inventario");
-
-    _inventory._balls.erase(it);
-}
 
 void
 InventoryManager::removeBall(int index) {
-    assert(index < _inventory.MAX_BALLS);
-    _inventory._balls.erase(_inventory._balls.begin() + index);
+    //! TO DO
 }
 
 void InventoryManager::removeAllBalls() {
-    for(entity_t b : _inventory._balls) {
-        delete b;
-        b = nullptr;
-    }
+    //! TO DO
 }
 
 void InventoryManager::removeStick() {
-    assert(_inventory._stick != nullptr);
-    delete _inventory._stick;
-    _inventory._stick = nullptr;
+    //! TO DO
 }
