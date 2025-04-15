@@ -139,6 +139,17 @@ InventoryManager::removeBall(int index) {
 
 void InventoryManager::removeAllBalls() {
     //! TO DO
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    for(int i =0; i < MAX_BALLS; i++){
+        data.erase("slot" + std::to_string(i));
+    }
+
+    //update data
+    std::ofstream fileStream(pathToInventory);
+    if(fileStream.is_open()) fileStream << data;
+    fileStream.close();
 }
 
 void InventoryManager::removeStick() {
