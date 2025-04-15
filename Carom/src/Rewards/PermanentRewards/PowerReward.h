@@ -2,14 +2,13 @@
 
 #include "Reward.h"
 
-/// @brief Añade una tirada máxima
-/// @name Poder
+/// @brief Poder: Añade una tirada máxima
 class PowerReward : public Reward {
 protected:
     int _value;
 
 public:
-    PowerReward() : Reward(Type::PERMANENT) {
+    PowerReward() : Reward("power", Type::PERMANENT) {
         // _value = rng.getRndRange(...)
     }
 

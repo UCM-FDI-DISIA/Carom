@@ -2,14 +2,13 @@
 
 #include "Reward.h"
 
-/// @brief Añades a una bola de tu kit uno de dos efectos a elegir.
-/// @name Caldero
+/// @brief Caldero: Añades a una bola de tu kit uno de dos efectos a elegir.
 class CauldronReward : public Reward {
 protected:
     // pair<effect, effect> _effects // prefabs de efectos aleatorios entre los que elige el jugador
 
 public:
-    CauldronReward() : Reward(Type::INSTANT) {
+    CauldronReward() : Reward("cauldron", Type::INSTANT) {
         // TODO
         // Seleccion de efectos recompensa aleatorios
         // _effect.first = rng.get(...)

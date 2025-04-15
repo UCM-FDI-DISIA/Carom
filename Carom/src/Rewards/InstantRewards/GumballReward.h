@@ -2,14 +2,13 @@
 
 #include "Reward.h"
 
-/// @brief Recibe una bola aleatoria
-/// @name Máquina de chicles
+/// @brief Máquina de chicles: Recibe una bola aleatoria
 class GumballReward : public Reward {
 protected:
     // ball_t _ball // prefab de bola aleatoria que va a recibir el jugador
 
 public:
-    GumballReward() : Reward(Type::INSTANT) {
+    GumballReward() : Reward("gumball", Type::INSTANT) {
         // TODO
         // Seleccion de bola recompensa aleatoria
         // _ball = rng.get(...)

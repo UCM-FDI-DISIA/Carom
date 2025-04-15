@@ -170,14 +170,40 @@ PoolScene::createRewardInfo() {
         // TEXTO
         // TODO: Añadir texto de recompensa / texto de partida de boss
         // en función de _floorRewards[i]
+        Text title, rewardName, rewardType, rewardDesc;
+
+        switch(_floorRewards[i]->getType()) {
+            case Reward::Type::INSTANT:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("instantReward_pool");
+                break;
+            case Reward::Type::PERMANENT:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("permanentReward_pool");
+                break;
+            case Reward::Type::BOSS:
+                title = sdlutils().texts().at("bossTitle_pool");
+                rewardType = sdlutils().texts().at("bossReward_pool");
+                break;
+            default:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("reward_pool");
+                break;
+        }
+
+        rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
+        rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        // rewardName = sdlutils().texts().at("cauldron_rewardName_pool");
+        // rewardDesc = sdlutils().texts().at("cauldron_rewardDesc_pool");
+        
+
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
-                body_t{"Recompensas de partida", "Bocalupo-Regular48", {255, 255, 255, 255}, scale*1.5f},
-                body_t{"Instant 1", "Aladin-Regular48", {255,255,255,255}, scale*1.5f},
-                body_t{"Recompensa instantánea", "Aladin-Regular24", {255, 255, 255, 150}, scale*2.f},
-                body_t{"Lore ipsum dolor sit amer bla bla bla descripcion super larga para ver si coge varias lineas", 
-                        "Aladin-Regular24", {255,255,255,255}, scale*2.f}
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{rewardName.text, rewardName.font, rewardName.color, scale*1.5f},
+                body_t{rewardType.text, rewardType.font, rewardType.color, scale*2.f},
+                body_t{rewardDesc.text, rewardDesc.font, rewardDesc.color, scale*2.f}
                 , texture->width() * scale - 25
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );

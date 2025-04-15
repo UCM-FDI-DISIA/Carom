@@ -2,11 +2,10 @@
 
 #include "Reward.h"
 
-/// @brief Escoges dos bolas, que se fusionarán en una sola con los Efectos de ambas
-/// @name Fusión
+/// @brief Fusión: Escoges dos bolas, que se fusionarán en una sola con los Efectos de ambas
 class FusionReward : public Reward {
 public:
-    FusionReward() : Reward(Type::INSTANT) {
+    FusionReward() : Reward("fusion", Type::INSTANT) {
 
     }
 

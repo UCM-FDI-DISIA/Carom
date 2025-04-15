@@ -79,6 +79,9 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
 	${CMAKE_SOURCE_DIR}/src/Rewards
+	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
+	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
+	${CMAKE_SOURCE_DIR}/src/Text
 )
 
 # Crear ejecutable

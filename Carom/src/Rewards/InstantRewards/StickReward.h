@@ -2,14 +2,13 @@
 
 #include "Reward.h"
 
-/// @brief Te da a elegir uno entre dos palos (puedes no escoger ninguno)
-/// @name Desván
+/// @brief Desván: Te da a elegir uno entre dos palos (puedes no escoger ninguno)
 class StickReward : public Reward {
 protected:
     // pair<stick, stick> _sticks // prefabs de palos aleatorios entre los que elige el jugador
 
 public:
-    StickReward() : Reward(Type::INSTANT) {
+    StickReward() : Reward("stick", Type::INSTANT) {
         // TODO
         // Seleccion de palos recompensa aleatorios
         // _stick.first = rng.get(...)
