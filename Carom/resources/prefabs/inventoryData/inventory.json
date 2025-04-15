@@ -1,61 +1,67 @@
 {
+  "caromEase": 0,
+  "charisma": 0,
+  "comboEase": 0,
+  "cunning": 1.0,
+  "hitEase": 0,
+  "power": 0,
   "slot0": {
     "components": [
       {
-        "componentName": "BallHandler",
         "atributes": {
           "effects": []
-        }
+        },
+        "componentName": "BallHandler"
       }
     ]
   },
   "slot1": {
     "components": [
       {
-        "componentName": "BallHandler",
         "atributes": {
           "effects": []
-        }
+        },
+        "componentName": "BallHandler"
       }
     ]
   },
   "slot2": {
     "components": [
       {
-        "componentName": "BallHandler",
         "atributes": {
           "effects": []
-        }
+        },
+        "componentName": "BallHandler"
       }
     ]
   },
   "slot3": {
     "components": [
       {
-        "componentName": "BallHandler",
         "atributes": {
           "effects": []
-        }
+        },
+        "componentName": "BallHandler"
       }
     ]
   },
   "slot4": {
     "components": [
       {
-        "componentName": "BallHandler",
         "atributes": {
           "effects": []
-        }
+        },
+        "componentName": "BallHandler"
       }
     ]
   },
   "slot5": {
     "components": [
       {
-        "componentName": "BallHandler",
         "atributes": {
           "effects": []
-        }
+        },
+        "componentName": "BallHandler"
       }
     ]
   }
