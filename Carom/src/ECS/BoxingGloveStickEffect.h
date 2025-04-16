@@ -2,8 +2,11 @@
 
 #include "StickEffectComponent.h"
 
+class InventoryManager;
+
 class BoxingGloveStickEffect : public StickEffectComponent {
 private:
+friend InventoryManager;
     float _factor;
 public:
     __CMPID_DECL__(cmp::BOXING_GLOVE_STICK);

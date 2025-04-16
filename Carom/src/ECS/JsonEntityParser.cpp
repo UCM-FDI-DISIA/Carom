@@ -275,6 +275,3 @@ void JsonEntityParser::grenadeLauncherStickEffect(const JSONObject& atributes, E
     renderTexture->setTexture(&sdlutils().images().at("lanzagranadas"));
     e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "lanzagranadas_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
 }
-
-
-

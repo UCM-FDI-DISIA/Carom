@@ -4,6 +4,12 @@
 #include <iostream>
 #include "GameScene.h"
 #include "JsonEntityParser.h"
+#include "StickInputComponent.h"
+
+#include "DonutStickEffect.h"
+#include "MagicWandStickEffect.h"
+#include "BoxingGloveStickEffect.h"
+#include "GranadeLauncherStickEffect.h"
 
 InventoryManager::InventoryManager()
 {
@@ -92,10 +98,36 @@ InventoryManager::addBall(entity_t ball) {
 void
 InventoryManager::addStick(entity_t stick) {
     //! TO DO
+    removeStick();
+
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
-    //data["stick"] = 
+    //GUARDAR NUEVO STICK
+    auto stickInput = stick->getComponent<StickInputComponent>();
+    assert(stickInput != nullptr);
+    auto stickEffect = stickInput->getStickEffect();
+
+    if(dynamic_cast<DonutStickEffect*>(stickEffect) != nullptr){
+        data["stick"]["components"][0]["componentName"] = "DonutStickEffect";
+    }
+    else if(dynamic_cast<MagicWandStickEffect*>(stickEffect) != nullptr){
+        data["stick"]["components"][0]["componentName"] = "MagicWandStickEffect";
+    }
+    else if(dynamic_cast<BoxingGloveStickEffect*>(stickEffect) != nullptr){
+        auto boxing = dynamic_cast<BoxingGloveStickEffect*>(stickEffect);
+        data["stick"]["components"][0]["componentName"] = "BoxingGloveStickEffect";
+        data["stick"]["components"][0]["atributes"]["factor"] = boxing->_factor;
+    }
+    else if(dynamic_cast<GranadeLauncherStickEffect*>(stickEffect) != nullptr){
+        auto granade = dynamic_cast<GranadeLauncherStickEffect*>(stickEffect);
+        data["stick"]["components"][0]["componentName"] = "GrenadeLauncherStickEffect";
+        data["stick"]["components"][0]["atributes"]["explosionDelay"] = granade->_explosionDelay;
+        data["stick"]["components"][0]["atributes"]["explosionForce"] = granade->_explosionForce;
+        data["stick"]["components"][0]["atributes"]["radius"] = granade->_radius;
+    }
+
+    updateData(data);
 }
 
 void 
@@ -138,6 +170,14 @@ void InventoryManager::removeAllBalls() {
 
 void InventoryManager::removeStick() {
     //! TO DO
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    //vacia components
+    data["stick"]["components"] = std::vector<int>();
+
+    //update data
+    updateData(data);
 }
 
 //guarda las bolas de la partida en el inventario.json por si hubiera ocurrido algun cambio durante la partida

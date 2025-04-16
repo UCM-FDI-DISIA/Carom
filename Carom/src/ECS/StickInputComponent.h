@@ -32,6 +32,8 @@ public:
     void registerStickEffect(StickEffectComponent* effect);
     double rad2degrees(double radians);
 
+    inline StickEffectComponent* getStickEffect(){return _myEffect;}
+
 private:
     InputHandler* _ih;
     entity_t _whiteBall;
