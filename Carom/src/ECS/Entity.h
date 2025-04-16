@@ -10,6 +10,7 @@
 #include "ITransform.h"
 #include "RenderComponent.h"
 #include "Component.h"
+#include "BallEffect.h"
 
 class CameraComponent;
 class GameScene;
@@ -24,7 +25,6 @@ class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
-class BallEffect;
 class PauseScene;
 
 // Magia negra para templatizar basada en clases padre

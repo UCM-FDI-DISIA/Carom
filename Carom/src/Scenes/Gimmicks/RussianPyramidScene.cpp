@@ -26,6 +26,8 @@ RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* rewar
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
     , _isBoss(isBoss)
+    , _allBalls()
+    , _currentWhiteBall(nullptr)
 {
 }
 
@@ -54,10 +56,7 @@ void RussianPyramidScene::initBoss()
 void RussianPyramidScene::createBoss(){
     // std::cout << "creando jefe y sombra" << std::endl;
 
-    //--Asignar el array de todas las bolas
-    _allBalls = getEntitiesOfGroup(grp::EFFECTBALLS);
-    _currentWhiteBall = getEntitiesOfGroup(grp::WHITEBALL)[0];
-    _allBalls.push_back(_currentWhiteBall);
+    
 
     //--Crear el indicador
     _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
@@ -333,11 +332,14 @@ RussianPyramidScene::applyBossModifiers() {
     std::cout << "Aplicando modificadores de RussianPyramid" << std::endl;
     #endif
 
+    //--Make sure the balls array is not null
+    if(_currentWhiteBall == nullptr && !tryInitializeBallArray()) return;
+
     //--Asignar la nueva bola blanca
     entity_t newWhiteBall = nullptr;
     do {
         newWhiteBall = _allBalls[sdlutils().rand().nextInt(0, _allBalls.size())]; //!Esto se debe cambiar para usar el rngManager
-    } while(newWhiteBall != _currentWhiteBall && newWhiteBall != getEntitiesOfGroup(grp::WHITEBALL)[0]);
+    } while(newWhiteBall == _currentWhiteBall || newWhiteBall == getEntitiesOfGroup(grp::WHITEBALL)[0]);
     _stickInput->registerWhiteBall(newWhiteBall);
     _currentWhiteBall = newWhiteBall;
 
@@ -358,6 +360,8 @@ void RussianPyramidScene::clearBossModifiers()
     std::cout<< "Eliminando modificadores de RussianPyramid" << std::endl;
     #endif
 
+    if(_currentWhiteBall == nullptr) return;
+
     //--Devolver la bola a su estado original
     _currentWhiteBall->activateComponentsOfType<BallEffect>();
     _currentWhiteBall->activateComponentsOfType<ColorBallScorerComponent>();
@@ -368,4 +372,16 @@ void RussianPyramidScene::clearBossModifiers()
 
     //--Hacer desaparecer el indicador
     _indicator->deactivateComponentsOfType<RenderComponent>();
+}
+
+bool 
+RussianPyramidScene::tryInitializeBallArray() {
+    auto whiteBallgroup = getEntitiesOfGroup(grp::WHITEBALL);
+    if(whiteBallgroup.size() == 0) return false;
+
+    _currentWhiteBall = whiteBallgroup[0];
+    _allBalls = getEntitiesOfGroup(grp::EFFECTBALLS);
+    _allBalls.push_back(_currentWhiteBall);
+    
+    return true;
 }

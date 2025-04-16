@@ -19,6 +19,8 @@ protected:
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 
+    bool tryInitializeBallArray();
+
     void createBoss();
 
     virtual void createEffectBalls(int n) override;

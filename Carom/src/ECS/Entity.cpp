@@ -5,7 +5,6 @@
 #include "GameScene.h"
 #include "CowboyPoolScene.h"
 #include "ShadowComponent.h"
-#include "BallEffect.h"
 
 #include <algorithm>
 
