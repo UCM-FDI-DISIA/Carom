@@ -70,7 +70,8 @@
     { "id" : "pyramid_shadow1", "file" : "../../resources/images/pyramid_shadow1.png"},
     { "id" : "pyramid_shadow2", "file" : "../../resources/images/pyramid_shadow2.png"},
     { "id" : "pyramid_shadow3", "file" : "../../resources/images/pyramid_shadow3.png"},
-    { "id" : "pyramid_shadow4", "file" : "../../resources/images/pyramid_shadow4.png"}
+    { "id" : "pyramid_shadow4", "file" : "../../resources/images/pyramid_shadow4.png"}, 
+    { "id" : "russian_indicator", "file" : "../../resources/images/light1.png"}
   ],
   
   "messages" : [
