@@ -79,6 +79,11 @@ void Game::run()
     auto& sdlut = sdlutils();
     
     sdlut.showCursor();
+
+    SDL_Surface *surface = IMG_Load("../../resources/images/cursor.png");
+    SDL_Cursor *cursor = SDL_CreateColorCursor(surface, 0, 0);
+    SDL_SetCursor(cursor);
+
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
 	sdlutils().virtualTimer().resetTime();
