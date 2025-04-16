@@ -20,6 +20,7 @@ private:
         return true;
     }
     
+    //carga el inventario con el path
     void loadInventoryWithPath(std::string path);
 
     void updateData(json data);
@@ -44,8 +45,15 @@ private:
     void saveBalls(std::vector<entity_t> balls);
     
     // Gestionar
+    //inventario predefinido, con el kit basico de una nueva partida
     void loadStartingInventory();
+
+    //inventario guardado de una partida anterior
     void loadSavedInventory();
+    
+    //copia inventory.json a savedInventory.json, para asi guardar la partida
+    void exportInventoryToSave();
+
     //! Veo conveniente solo usar la sobrecarga basada en índices, pero los dejo los dos de momento
     void swapBall(entity_t newBall, int indexOfOldBall);
 

@@ -21,7 +21,7 @@ InventoryManager::~InventoryManager() {
 }
 
 void InventoryManager::loadStartingInventory(){
-    loadInventoryWithPath("../../resources/prefabs/inventoryData/storedInventory.json");
+    loadInventoryWithPath("../../resources/prefabs/inventoryData/startingInventory.json");
 }
 
 void InventoryManager::loadSavedInventory(){
@@ -40,6 +40,25 @@ void InventoryManager::loadInventoryWithPath(std::string path){
             out_file << line << "\n";
         }
         std::cout << "Loaded " << path << " Correctly" << std::endl;
+ 
+    } else {
+        //Something went wrong
+        printf("Cannot read File");
+    }
+}
+
+void InventoryManager::exportInventoryToSave(){
+    std::string line;
+
+    std::ifstream ini_file {pathToInventory};
+    std::ofstream out_file {"../../resources/prefabs/inventoryData/savedInventory.json"};
+ 
+    if(ini_file && out_file){
+ 
+        while(std::getline(ini_file,line)){
+            out_file << line << "\n";
+        }
+        std::cout << "Loaded " << pathToInventory << " Correctly" << std::endl;
  
     } else {
         //Something went wrong
