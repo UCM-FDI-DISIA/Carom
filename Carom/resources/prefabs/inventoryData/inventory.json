@@ -73,7 +73,7 @@
                "explosionForce": 3,
                "radius": 3
             },
-            "componentName": "DonutStickEffect"
+            "componentName": "MagicWandStickEffect"
          }
       ]
    }
