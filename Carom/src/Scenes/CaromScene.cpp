@@ -126,7 +126,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
             e->activate();
     });
 
-        addComponent<BallHandler>(e);
+    addComponent<BallHandler>(e);
     
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
@@ -608,28 +608,7 @@ void CaromScene::applyBossModifiers() {
 
 void 
 CaromScene::loadFromInventory() {
-    /*
-    _fromInventory = true; //!PROVISIONAL: Para no eliminar la destructora de escena por defecto aún
-
-    InventoryManager* inventory = InventoryManager::Instance();
     
-    entity_t whiteBall = createWhiteBall();
-    whiteBall->setGameScene(this);
-    _entities.push_back(whiteBall);
-    pushToRenderEntities(whiteBall);
-
-    auto effectBalls = inventory->getEffectBalls(this);
-    for(entity_t ball : effectBalls) {
-        ball->setGameScene(this);
-        _entities.push_back(ball);
-        pushToRenderEntities(ball);
-    }
-
-    entity_t stick = inventory->getStick(this);
-    stick->setGameScene(this);
-    _entities.push_back(stick);
-    pushToRenderEntities(stick);
-    */
 }
 
 void CaromScene::instantiateBossTableShadow(){

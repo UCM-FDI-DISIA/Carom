@@ -24,6 +24,7 @@ public:
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 
     bool addEffect(BallEffect* effect);
+    void removeAllEffects();
     __CMPID_DECL__(cmp::BALL_HANDLER);
 
     void addScore(float points); //Se usa para sumar puntos, esta pensado para ser usado por los efectos de bola

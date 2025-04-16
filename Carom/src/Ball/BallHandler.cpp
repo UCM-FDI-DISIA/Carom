@@ -64,3 +64,7 @@ bool BallHandler::addEffect(BallEffect* effect)
         return true;
     } else return false;
 }
+
+void BallHandler::removeAllEffects(){
+    _effects.clear();
+}
