@@ -67,17 +67,32 @@
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
 
-    { "id" : "drawer", "file" : "../../resources/images/drawer.png"}
+    { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
+    
+    { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
+    { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
+    { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
+    { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
+    { "id" : "RectanglePlay", "file" : "../../resources/images/mainmenu/RectanglePlay.png"},
+    { "id" : "RectangleSettings", "file" : "../../resources/images/mainmenu/RectangleSettings.png"},
+    { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
+    { "id" : "menuBackground", "file" : "../../resources/images/mainmenu/menuBackground.png"},
+    { "id" : "C", "file" : "../../resources/images/mainmenu/C.png"},
+    { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
+    { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
+    { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
+    { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
+    { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
+    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"}
   ],
   
   "messages" : [
     { "id" : "PressAnyKey", "text" : "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
-    { "id" : "HelloSDL", "text" : "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" },
-    { "id" : "addstars", "text" : "Press SPACE to add stars to eat!", "font" : "ARIAL16", "color" : "0x00ff00ff" },
     { "id" : "paused", "text" : "Press any key to continue", "font" : "ARIAL24", "color" : "0xffffffff" },
     { "id" : "newgame", "text" : "Press any key to start a new Game", "font" : "ARIAL24", "color" : "0x0000ffff" },
     { "id" : "newround", "text" : "Press ENTER to start a new Round", "font" : "ARIAL24", "color" : "0xffffffff" },
     { "id" : "gameover", "text" : "GAME OVER", "font" : "ARIAL24", "color" : "0xff0000ff" }
+    
   ],
 
   "sounds": [
@@ -111,6 +126,165 @@
     }
   ],
 
+  "texts" : [
+    { 
+      "id" : "rewardTitle_pool", 
+      "text" : "Recompensas de partida", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "reward_pool", 
+      "text" : " ", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
+    },
+    { 
+      "id" : "bossTitle_pool", 
+      "text" : "Partida de Jefe", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "bossReward_pool", 
+      "text" : " ", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
+    },
+    { 
+      "id" : "instantReward_pool", 
+      "text" : "Recompensa instantanea", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
+    },
+    { 
+      "id" : "permanentReward_pool", 
+      "text" : "Recompensa permanente", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
+    },
+    { 
+      "id" : "default_rewardName_pool", 
+      "text" : "Esto va a desaparecer", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "default_rewardDesc_pool", 
+      "text" : "Esto tambien va a desaparecer", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "boss_rewardName_pool", 
+      "text" : " ", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "boss_rewardDesc_pool", 
+      "text" : "Gana esta partida para avanzar de piso y obtener las bolas restantes en la mesa", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "fusion_rewardName_pool", 
+      "text" : "Fusion", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "fusion_rewardDesc_pool", 
+      "text" : "Escoges dos bolas, que se fusionaran en una sola con los _efectos_ de ambas.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "gumball_rewardName_pool", 
+      "text" : "Maquina de chicles", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "gumball_rewardDesc_pool", 
+      "text" : "Recibe una bola aleatoria.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "stick_rewardName_pool", 
+      "text" : "Desvan", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "stick_rewardDesc_pool", 
+      "text" : "Te dan a elegir uno entre dos palos (puedes no escoger ninguno).", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "cauldron_rewardName_pool", 
+      "text" : "Caldero", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "cauldron_rewardDesc_pool", 
+      "text" : "Anades a una bola de tu kit uno de dos efectos a elegir.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "skill_rewardName_pool", 
+      "text" : "Soltura", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "skill_rewardDesc_pool", 
+      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) a elegir entre dos", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "charisma_rewardName_pool", 
+      "text" : "Carisma", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "charisma_rewardDesc_pool", 
+      "text" : "Incrementa el valor base de la puntuacion.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "power_rewardName_pool", 
+      "text" : "Poder", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "power_rewardDesc_pool", 
+      "text" : "Anade una tirada maxima", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "cunning_rewardName_pool", 
+      "text" : "Picardia", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "cunning_rewardDesc_pool", 
+      "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    }
+  ],
+
   "svgs": [
     {"id": "game", "file": "../../resources/svg/Game.svg"},
     {"id": "grp_cowboy", "file": "../../resources/svg/grp_cowboy.svg"},
@@ -121,7 +295,8 @@
     {"id": "lose", "file": "../../resources/svg/lose.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
-    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"}
+    {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
+    {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"}
   ]
 
 }

@@ -39,7 +39,7 @@ public:
     void setRenderLayer(layerId_t layer);
     // To go deeper/down n layers
     void nDownRenderLayer(int n) { _renderLayer -= n; }
-    // To came closer/up n layers
+    // To come closer/up n layers
     void nUpRenderLayer(int n) { _renderLayer += n; }
     void resetRenderLayer();
 

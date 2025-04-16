@@ -179,6 +179,11 @@ Texture::Texture(SDL_Renderer *renderer, const std::string &text,
 	constructFromText(renderer, text, font, &fgColor, &bgColor);
 }
 
+Texture::Texture(SDL_Renderer *renderer, const std::string &text,
+    const Font &font, const SDL_Color &fgColor, const Uint32 &wrapLegth) {
+    constructFromTextWrap(renderer, text, font, &fgColor, wrapLegth);
+}
+
 void Texture::constructFromText(SDL_Renderer *renderer, const std::string &text,
 		const Font &font, const SDL_Color *fgColor, const SDL_Color *bgColor) {
 
@@ -197,4 +202,21 @@ void Texture::constructFromText(SDL_Renderer *renderer, const std::string &text,
 	_texture = SDL_CreateTextureFromSurface(renderer, textSurface);
 	SDL_FreeSurface(textSurface);
 	assert(_texture != nullptr);
+}
+
+void Texture::constructFromTextWrap(SDL_Renderer *renderer, const std::string &text,
+    const Font &font, const SDL_Color *fgColor, const Uint32 &wrapLegth) {
+
+    assert(renderer != nullptr);
+    _renderer = renderer;
+
+    SDL_Surface *textSurface = font.renderText(text, *fgColor, wrapLegth);
+    assert(textSurface != nullptr);
+
+    _width = textSurface->w;
+    _height = textSurface->h;
+
+    _texture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_FreeSurface(textSurface);
+    assert(_texture != nullptr);
 }

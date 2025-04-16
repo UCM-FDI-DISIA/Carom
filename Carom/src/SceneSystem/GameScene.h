@@ -50,7 +50,7 @@ protected:
     // Create entities that represent and compose the table. The table as a whole is a group.
     void createTable();
     //creates a background
-    void createBackground(std::string key);
+    entity_t createBackground(std::string key);
 
     // Setting the state of the entity (alive or dead)
     //

@@ -66,7 +66,8 @@
 	UI, \
 	FEEDBACK, \
 	PAUSE_UNPAUSE, \
-	REWARD_INFO
+	REWARD_INFO_BG, \
+	REWARD_INFO_TEXT
 
 // Effect list
 // TODO completar	

@@ -1,6 +1,7 @@
 #include "PoolScene.h"
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
+#include "RewardInfoDisplayComponent.h"
 #include "RigidBodyComponent.h"
 #include "ColorHitManager.h"
 #include "Entity.h"
@@ -11,15 +12,26 @@
 #include "CaromScene.h"
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
-
-#include "RewardScene.h"
-//#include "ScoreContainer.h"
 #include "StickInputComponent.h"
+
+#include "DefaultReward.h"
+#include "BossReward.h"
+#include "FusionReward.h"
+#include "GumballReward.h"
+#include "StickReward.h"
+#include "CauldronReward.h"
+#include "SkillReward.h"
+#include "CharismaReward.h"
+#include "PowerReward.h"
+#include "CunningReward.h"
+// #include ...Reward.h
 
 #include "Game.h"
 #include "Vector2D.h"
 #include <box2d/box2d.h>
 
+
+using body_t = RewardInfoDisplayComponent::Body;
 
 PoolScene::PoolScene(Game* g) : UIScene(g)
 {
@@ -57,7 +69,8 @@ void PoolScene::generateMatchHoles()
         if(i == _bossHole){ // --- POSICION BOSS.
             //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
             
-            button->setOnClick([this](){
+            button->setOnClick([=](){
+                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
                 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
@@ -91,13 +104,12 @@ void PoolScene::generateMatchHoles()
 
         button->setOnExit([this, i]() {
             #ifdef _DEBUG
-            std::cout << "Exiting pool hole " << i << std::endl; 
+            std::cout << "Exiting pool hole " << i << std::endl;
             #endif
 
             hideReward(i);
         });
     }
-
 }
 
 entity_t PoolScene::generateHole(int i)
@@ -125,9 +137,16 @@ void
 PoolScene::loadRewards() {
     // TODO: parse all rewards from JSON
 
-    // PROVISIONAL, para testear
-    for(int i = 0; i < HOLES; i++)
-        _rewards.push_back(RandomItem(Reward(CAULDRON, Perma()), 1.0f));
+    // PROVISIONAL, para testear      
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<FusionReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<GumballReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<StickReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CauldronReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<SkillReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CharismaReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<PowerReward>(), 1.0f));
+    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CunningReward>(), 1.0f));
+
 }
 
 
@@ -136,10 +155,10 @@ PoolScene::generateFloorRewards() {
     // Generar array de todas las recompensas a partir del JSON
     loadRewards();
 
-    _floorRewards = _rngm->getRandomItems(_rewards, HOLES, false);
+    _floorRewards = _rngm->getRandomItems(_rewards, HOLES, true); // Se puede repetir tipo de recompensa
     
-    // Boss match does not have a reward
-    _floorRewards[_bossHole] = Reward(Instant::DEFAULT, Perma());
+    // Swaps boss hole assigned reward for a Boss Reward
+    _floorRewards[_bossHole] = std::make_shared<BossReward>();
 
     createRewardInfo();
 }
@@ -153,7 +172,8 @@ PoolScene::createRewardInfo() {
     float scale = static_cast<float>(*&sdlutils().svgs().at("pool").at("box_0").width) / texture->width();
 
     for(int i = 0; i < HOLES; ++i) {
-        description = new Entity(*this, grp::REWARD_INFO);
+        // FONDO
+        description = new Entity(*this, grp::REWARD_INFO_BG);
 
         auto svgElem = *&sdlutils().svgs().at("pool").at("box_" + std::to_string(i));
         pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
@@ -161,9 +181,48 @@ PoolScene::createRewardInfo() {
         addComponent<TransformComponent>(description, pos);
         addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
 
-        // TODO: Añadir texto de recompensa / partida de boss
-        // en función de _floorRewards[i]
+        description->deactivate();
 
+        // TEXTO
+        // TODO: Añadir texto de recompensa / texto de partida de boss
+        // en función de _floorRewards[i]
+        Text title, rewardName, rewardType, rewardDesc;
+
+        switch(_floorRewards[i]->getType()) {
+            case Reward::Type::INSTANT:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("instantReward_pool");
+                break;
+            case Reward::Type::PERMANENT:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("permanentReward_pool");
+                break;
+            case Reward::Type::BOSS:
+                title = sdlutils().texts().at("bossTitle_pool");
+                rewardType = sdlutils().texts().at("bossReward_pool");
+                break;
+            default:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("reward_pool");
+                break;
+        }
+
+        rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
+        rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        // rewardName = sdlutils().texts().at("cauldron_rewardName_pool");
+        // rewardDesc = sdlutils().texts().at("cauldron_rewardDesc_pool");
+        
+
+        description = new Entity(*this, grp::REWARD_INFO_TEXT);
+        addComponent<TransformComponent>(description, pos);
+        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{rewardName.text, rewardName.font, rewardName.color, scale*1.5f},
+                body_t{rewardType.text, rewardType.font, rewardType.color, scale*2.f},
+                body_t{rewardDesc.text, rewardDesc.font, rewardDesc.color, scale*2.f}
+                , texture->width() * scale - 25
+                , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
+            );
         description->deactivate();
     }
 }
@@ -172,7 +231,10 @@ void
 PoolScene::showReward(int i) {
     assert(i < HOLES);
 
-    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO);
+    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
+    descriptions[i]->activate();
+
+    descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->activate();
 }
 
@@ -180,6 +242,9 @@ void
 PoolScene::hideReward(int i) {
     assert(i < HOLES);
 
-    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO);
-        descriptions[i]->deactivate();
+    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
+    descriptions[i]->deactivate();
+
+    descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
+    descriptions[i]->deactivate();
 }

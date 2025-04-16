@@ -14,6 +14,7 @@
 #include "Texture.h"
 #include "VirtualTimer.h"
 #include "Animation.h"
+#include "Text.h"
 #include "ecs.h"
 
 
@@ -195,14 +196,19 @@ public:
 		return _soundsAccessWrapper;
 	}
 
-	// musics maps
+	// musics map
 	inline auto& musics() {
 		return _musicsAccessWrapper;
 	}
 
-	// animations maps
+	// animations map
 	inline auto& animations() {
 		return _animationsAccessWrapper;
+	}
+
+	// texts map
+	inline auto& texts() {
+		return _textsAccessWrapper;
 	}
 
 	// Access to the random number generator. It is important to always
@@ -281,6 +287,7 @@ private:
 	sdl_resource_table<SoundEffect> _sounds; // sounds map (string -> sound)
 	sdl_resource_table<Music> _musics; // musics map (string -> music)
 	sdl_resource_table<Animation> _animations; // animation map (string -> animation)
+	sdl_resource_table<Text> _texts; // texts map (string -> text)
 	sdl_resource_table<sdl_resource_table<svgElem>> _svgs; // musics map (string -> svg)
 
 	map_access_wrapper<Font> _fontsAccessWrapper;
@@ -289,6 +296,7 @@ private:
 	map_access_wrapper<SoundEffect> _soundsAccessWrapper;
 	map_access_wrapper<Music> _musicsAccessWrapper;
 	map_access_wrapper<Animation> _animationsAccessWrapper;
+	map_access_wrapper<Text> _textsAccessWrapper;
 
 	// Esto es una cerdada en efecto, pero es lo que hay
 	map_access_wrapper<sdl_resource_table<svgElem>> _svgsAccessWrapper;
