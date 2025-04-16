@@ -20,15 +20,15 @@
 #include "WhiteBallScorerComponent.h"
 
 
-RussianPyramidScene::RussianPyramidScene(State* state, Game* g, GameScene* reward, bool isBoss)
-    : CaromScene(state, g, reward)
+RussianPyramidScene::RussianPyramidScene(Game* g, GameScene* reward, bool isBoss)
+    : CaromScene(g, reward)
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
-    , _isBoss(isBoss)
     , _allBalls()
     , _currentWhiteBall(nullptr)
 {
+    _isBoss = isBoss;
 }
 
 RussianPyramidScene::~RussianPyramidScene()
@@ -58,6 +58,7 @@ void RussianPyramidScene::createBoss(){
 
     
 
+    // !!!
     //--Crear el indicador
     _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
     addComponent<TransformComponent>(_indicator, b2Vec2_zero);
@@ -65,6 +66,7 @@ void RussianPyramidScene::createBoss(){
 
     float scale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x;
     addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("bola_blanca"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, scale);
+    // !!!
 
     //--Crear el jefe
     //TODO
@@ -121,7 +123,7 @@ RussianPyramidScene::createEffectBalls(int n)
     for(int i = 0; i < validPositions.size(); ++i)
         validPositionsRandom.push_back(RandomItem(validPositions[i], 1.0f));
 
-    std::vector<std::string> eb_selected_pos = _rngManager->getRandomItems(validPositionsRandom, n, false);
+    std::vector<std::string> eb_selected_pos = _rngManager.getRandomItems(validPositionsRandom, n, false);
 
     for(int i = 0; i < n; ++i) 
     {        
@@ -205,7 +207,7 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
             int attempts = 100;
     
             // Try a polygon
-            int polyId = _rngManager->getRandomItem(polygons, true);
+            int polyId = _rngManager.getRandomItem(polygons, true);
             std::vector<b2Vec2> candidatePoly = pyramidPolygons[polyId];
     
             // Get peak ("center")
@@ -219,9 +221,9 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
                 // GraphisUtils::coutRect(areaConstrain);
                 b2Vec2 genRandomPosition = {
                     static_cast<float>
-                    (_rngManager->randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
+                    (_rngManager.randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
                     static_cast<float>
-                    (_rngManager->randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
+                    (_rngManager.randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
                 };
 
                 // Update vertices positions by offset (distance between gen and original centers)
@@ -352,6 +354,8 @@ RussianPyramidScene::applyBossModifiers() {
     auto follow = getComponent<FollowComponent>(_indicator);
     follow->setTarget(_currentWhiteBall);
     _indicator->activateComponentsOfType<RenderComponent>();
+
+    _currentState->finish();
 }
 
 void RussianPyramidScene::clearBossModifiers()

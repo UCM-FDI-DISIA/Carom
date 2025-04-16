@@ -43,7 +43,13 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* g, GameScene* reward) : GameScene(g), _reward(reward), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
+CaromScene::CaromScene(Game* game, GameScene* reward) 
+    : GameScene(game)
+    , _reward(reward)
+    , _updatePhysics(true)
+    , _currentScore(0)
+    , _scoreToBeat(1000)
+    , _rngManager(game->getRGN())
 {
 }
 
@@ -60,12 +66,6 @@ void CaromScene::init()
 void CaromScene::initFunctionalities()
 {
     _sceneManager = game->getScenesManager();
-
-    // SEEDING
-    // TODO: pasar RNG a sceneManager o Game para que haya uno solo
-    _rngManager = new RNG_Manager();
-    unsigned seed = _rngManager->randomRange(1, 1000000); 
-    _rngManager->inseminate(seed);
 
     // Creación del mundo físico
     b2WorldDef worldDef = b2DefaultWorldDef();
@@ -129,7 +129,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
             e->activate();
     });
 
-        addComponent<BallHandler>(e);
+    addComponent<BallHandler>(e);
     
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
@@ -212,7 +212,7 @@ CaromScene::createEffectBalls(int n) {
     for(int i = 1; i <= npos; ++i)
         positions.push_back(RandomItem(i, 1.0f));
 
-    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, n, false);
+    std::vector<int> eb_selected_pos = _rngManager.getRandomItems(positions, n, false);
 
     for(int i = 0; i < n; ++i) {
         std::string s = "bola";
@@ -543,7 +543,7 @@ CaromScene::manageExitTriggers(b2SensorEvents sensorEvents) {
         
         // Null check: entities might have been destroyed
         if (sensor && visitor) {
-            std::cout << "Trigger exit" <<  std::endl;
+            // std::cout << "Trigger exit" <<  std::endl;
             sensor->getComponent<RigidBodyComponent>()->onTriggerExit(visitor);
                 visitor->getComponent<RigidBodyComponent>()->onTriggerExit(sensor);
         }
@@ -637,7 +637,7 @@ void CaromScene::decrementRemainingHits()
 //---------------------------BOSS---------------------------------
 
 void CaromScene::playBossTurn() {
-    // std::cout<< "Play Boss Turn" << std::endl;
+    std::cout<< "Play Boss Turn" << std::endl;
     clearBossModifiers();
     applyBossModifiers();
 }

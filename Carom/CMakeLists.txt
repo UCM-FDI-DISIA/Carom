@@ -163,12 +163,6 @@ add_executable(Carom
 
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/EndScenes/RewardScene.cpp
-	
-	src/StateMachine/StartMatchState.cpp
-	src/StateMachine/HitState.cpp
-	src/StateMachine/ScoringState.cpp
-	src/StateMachine/WinMatchState.cpp
-	src/StateMachine/LoseMatchState.cpp
 
 	src/Inventory/InventoryManager.cpp
 
@@ -190,7 +184,7 @@ add_executable(Carom
 	src/ECS/MagicWandStickEffect.cpp
 	src/ECS/GranadeLauncherStickEffect.cpp
 	src/ECS/DonutStickEffect.cpp
-	src/StateMachine/BossState.cpp
+
     src/Physics/PhysicsUtils.cpp
 	src/Graphics/GraphicsUtils.cpp
 

@@ -84,8 +84,8 @@ void PoolScene::generateRndBallsPos()
 
                 // !!! CREA BOSSSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                // CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst 
-                RussianPyramidScene *ms = new RussianPyramidScene(state, game, rewardScene, true); // ! tst 
+                // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
+                RussianPyramidScene *ms = new RussianPyramidScene(game, rewardScene, true); // ! tst 
                 ms->init();
 
                 game->getScenesManager()->pushScene(ms);
@@ -98,8 +98,8 @@ void PoolScene::generateRndBallsPos()
 
                 // !!! CREA COWBOYPOOLSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                // CowboyPoolScene *ms = new CowboyPoolScene(state, game, rewardScene, true); // ! tst  
-                RussianPyramidScene *ms = new RussianPyramidScene(state, game, rewardScene, true); // ! tst  
+                // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
+                RussianPyramidScene *ms = new RussianPyramidScene(game, rewardScene, true); // ! tst  
                 ms->init();
                 
                 game->getScenesManager()->pushScene(ms);

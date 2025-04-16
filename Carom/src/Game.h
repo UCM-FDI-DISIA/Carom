@@ -6,6 +6,10 @@ class ScenesManager;
 #include "SDLUtils.h"
 #include "Texture.h"
 
+class ScenesManager;
+class RNG_Manager;
+class MainMenuScene;
+
 class Game {
 public:
 
@@ -27,9 +31,12 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
+    inline RNG_Manager& getRGN() { return *_rngManager; };
     
 protected:
     ScenesManager* _sceneManager;
+    MainMenuScene* _mainMenuScene;
+    RNG_Manager* _rngManager;
 
 private:
     Texture* _t;

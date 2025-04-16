@@ -14,11 +14,13 @@ class TweenComponent;
 class CowboyPoolScene : public CaromScene {
     b2Vec2 startingHandPosition = {2, 3};
 public:
-        CowboyPoolScene(State* state, Game* g, GameScene* reward, bool isBoss);
+        CowboyPoolScene(Game* g, GameScene* reward, bool isBoss);
         virtual ~CowboyPoolScene();
 
 protected:
-    void initGimmick();
+
+    void initGimmick() override;
+    void initBoss() override;
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 

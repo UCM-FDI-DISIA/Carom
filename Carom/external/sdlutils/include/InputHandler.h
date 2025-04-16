@@ -147,7 +147,7 @@ public:
 
 	inline int getMouseButtonState(uint8_t b) {
 		assert(b < _LAST_MOUSEBUTTON_VALUE);
-		std::cout << "State: " << _mbState[b] << "\n";
+		// std::cout << "State: " << _mbState[b] << "\n";
 		return _mbState[b];
 	}
 

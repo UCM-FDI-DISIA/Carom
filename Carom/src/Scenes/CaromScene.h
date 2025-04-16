@@ -22,11 +22,12 @@ protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
     GameScene* _reward; //La recompensa al completar la escena
+    bool _isBoss = false;
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g, GameScene* reward);
+    CaromScene(Game* g, GameScene* reward);
     virtual ~CaromScene();
 
     void init() override;
@@ -84,7 +85,7 @@ public:
 
 //------------------------------MANAGERS-------------------------------------
 protected:
-    RNG_Manager* _rngManager;
+    RNG_Manager& _rngManager;
 
 //------------------------------PHYSICS--------------------------------------
 protected:

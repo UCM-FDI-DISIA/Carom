@@ -24,6 +24,7 @@ Game::Game() {}
 Game::~Game() {
 
     delete _sceneManager; // HAS TO BE FIRST
+    delete _rngManager;
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -57,6 +58,10 @@ Game::init()
                 << std::endl;
         return;
     }
+
+    _rngManager = new RNG_Manager();
+    unsigned seed = _rngManager->randomRange(1, 1000000); 
+    _rngManager->inseminate(seed);
 }
 
 void
