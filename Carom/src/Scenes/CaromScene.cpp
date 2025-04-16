@@ -45,7 +45,7 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(10)
+CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
     //TODAS las caromScene se pueden pausar
     createPauseEntity();
@@ -556,7 +556,7 @@ CaromScene::createScoreUI() {
     );
 
     scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-    scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, "1000", 
+    scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, std::to_string(_scoreToBeat), 
         {255, 255, 255, 255}, "Basteleur-Moonlight48"));
 
     return currentDisplay;

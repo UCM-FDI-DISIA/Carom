@@ -55,7 +55,7 @@ public:
 protected:
     TextDisplayComponent* _currentScoreDisplay;
     //Los acumuladores de puntuación
-    int _currentScore = 0, _scoreToBeat = 10; 
+    int _currentScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
 public:
