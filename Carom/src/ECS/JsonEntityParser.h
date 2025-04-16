@@ -25,10 +25,17 @@ class JsonEntityParser{
         static void rigidBodyComponent(const JSONObject& atributes, Entity* entity);
         static void renderTextureComponent(const JSONObject& atributes, Entity* entity);
         static void ballHandler(const JSONObject& atributes, Entity* entity);
+
+        //-palos
+        static void stickInputComponent(Entity* e);
+        static void donutStickEffect(Entity* e);
+        static void magicWandStickEffect(Entity* e);
+        static void boxingGloveStickEffect(Entity* e);
+        static void grenadeLauncherStickEffect(Entity* e);
         
     
     template<typename T, typename ...Ts>
-        inline static void addComponent(Entity* e, Ts &&... args) {
+        inline static T addComponent(Entity* e, Ts &&... args) {
             // the component id exists
             static_assert(cmpId<T> <maxComponentId);
             // create component
@@ -37,6 +44,8 @@ class JsonEntityParser{
             if (!e->addComponent<T>(c)) {
                 delete c;
             }
+
+            
         }
     };
 

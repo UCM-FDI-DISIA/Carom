@@ -20,7 +20,7 @@ public:
 
     static constexpr float MAX_IMPULSE = 0.04f;
 
-    StickInputComponent(Entity* e, float height); 
+    StickInputComponent(Entity* e); 
     void init() override;
     void handleEvent() override;
 
@@ -45,7 +45,6 @@ private:
     // --- Area de clic de la bola.
     double _minRadiusToPull = 0.035f; // when a white ball is registred is updates to ball radius
     double _maxRadiusToPull = 0.5f;
-    float _stickHeight;
 
     bool _behaviourEnabled = false;
     bool _hasShot = false;

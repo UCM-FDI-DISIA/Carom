@@ -22,7 +22,7 @@
 */
 
     // Hay que pasarle el rectangulo para la deteccion de clics.
-    StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight), _myEffect(nullptr)
+    StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e), _myEffect(nullptr)
     { }
     
     // Rigidbody hereda de transform. Rigidbody es un transform.
@@ -122,15 +122,16 @@ void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
     Vector2D a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
                                 _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
     float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+    float a_stickHeight = _myRender->getRenderRect().h;
 
-    float distX = PhysicsConverter::pixel2meter(_stickHeight/2) * cosalpha;
-    float distY = PhysicsConverter::pixel2meter(_stickHeight/2) * sinalpha;
+    float distX = PhysicsConverter::pixel2meter(a_stickHeight/2) * cosalpha;
+    float distY = PhysicsConverter::pixel2meter(a_stickHeight/2) * sinalpha;
     
     // when the mouse is inside the ball the stick won't put itself above it
     if (dir.magnitude() < a_ballRadius) {
         float a_offset = a_ballRadius - dir.magnitude();
-        distX = (PhysicsConverter::pixel2meter(_stickHeight/2) + a_offset) * cosalpha;
-        distY = (PhysicsConverter::pixel2meter(_stickHeight/2) + a_offset) * sinalpha;
+        distX = (PhysicsConverter::pixel2meter(a_stickHeight/2) + a_offset) * cosalpha;
+        distY = (PhysicsConverter::pixel2meter(a_stickHeight/2) + a_offset) * sinalpha;
     }
 
     float newRotation = rad2degrees(std::acos(cosalpha));

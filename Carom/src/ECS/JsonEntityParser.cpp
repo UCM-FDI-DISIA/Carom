@@ -27,6 +27,14 @@
 #include "ColorBallScorerComponent.h"
 #include "ColorBallScorerComponent.h"
 
+#include "DonutStickEffect.h"
+#include "MagicWandStickEffect.h"
+#include "BoxingGloveStickEffect.h"
+#include "GranadeLauncherStickEffect.h"
+#include "StickInputComponent.h"
+
+#include "ShadowComponent.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -53,20 +61,37 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
 
     for(auto element : componentArray){
         JSONObject atributes = element->Child("atributes")->AsObject();
-        if(element->Child("componentName")->AsString() == "TransformComponent"){
+        std::string componentName = element->Child("componentName")->AsString();
+
+        if(componentName == "TransformComponent"){
             transformComponent(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "RigidBodyComponent"){
+        else if(componentName == "RigidBodyComponent"){
             rigidBodyComponent(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "RenderTextureComponent"){
+        else if(componentName == "RenderTextureComponent"){
             renderTextureComponent(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "BallHandler"){
+        else if(componentName == "BallHandler"){
             ballHandler(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "ColorBallScorerComponent"){
+        else if(componentName == "ColorBallScorerComponent"){
             addComponent<ColorBallScorerComponent>(entity);
+        }
+        else if (componentName == "StickInputComponent"){
+            stickInputComponent(entity);
+        }
+        else if (componentName == "DonutStickEffect"){
+            donutStickEffect(entity);
+        }
+        else if (componentName == "MagicWandStickEffect"){
+            magicWandStickEffect(entity);
+        }
+        else if (componentName =="BoxingGloveStickEffect"){
+            boxingGloveStickEffect(entity);
+        }
+        else if (componentName == "GrenadeLauncherStickEffect"){
+            grenadeLauncherStickEffect(entity);
         }
     }
 }
@@ -201,5 +226,35 @@ std::vector<std::string> JsonEntityParser::getBallEffects(entity_t ball){
     return res;
 
 };
+
+void JsonEntityParser::stickInputComponent(Entity* e){
+    addComponent<StickInputComponent>(e);
+}
+void JsonEntityParser::donutStickEffect(Entity* e){
+    addComponent<DonutStickEffect>(e);
+    addComponent<ShadowComponent>(e);
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("donut"), renderTexture->getScale());
+    e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "donut_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
+}
+void JsonEntityParser::magicWandStickEffect(Entity* e){
+    addComponent<MagicWandStickEffect>(e);
+    addComponent<ShadowComponent>(e);
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("magic_wand"), renderTexture->getScale());
+    e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "magic_wand_shadow", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
+}
+void JsonEntityParser::boxingGloveStickEffect(Entity* e){
+    addComponent<BoxingGloveStickEffect>(e);
+}
+void JsonEntityParser::grenadeLauncherStickEffect(Entity* e){
+    addComponent<GranadeLauncherStickEffect>(e);
+
+    addComponent<ShadowComponent>(e);
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("lanzagranadas"), renderTexture->getScale());
+    e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "lanzagranadas_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
+}
+
 
 
