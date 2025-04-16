@@ -3,6 +3,8 @@
 #include "EventOnCollision.h"
 #include "Entity.h"
 
+#include "StickInputComponent.h"
+
 
 void
 DonutStickEffect::applyEffect(entity_t target){

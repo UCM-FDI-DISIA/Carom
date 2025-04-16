@@ -65,8 +65,7 @@ InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions
 entity_t 
 InventoryManager::getStick(GameScene& scene) {
     //retorna el objeto de stick en el json
-    Entity* palo = new Entity(scene, grp::PALO);
-    return e;
+    return JsonEntityParser::createStick(scene, pathToInventory, "stick");
 }
 
 void 

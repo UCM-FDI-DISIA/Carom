@@ -10,7 +10,6 @@ public:
 
     GranadeLauncherStickEffect(entity_t ent, float radius, float explosionForce, float explosionDelay);
     ~GranadeLauncherStickEffect();
-
-    void init() override;
+    
     void applyEffect(entity_t ball) override;
 };

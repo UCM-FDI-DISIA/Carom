@@ -10,11 +10,6 @@ GranadeLauncherStickEffect::GranadeLauncherStickEffect(entity_t ent, float force
 GranadeLauncherStickEffect::~GranadeLauncherStickEffect() {}
 
 void 
-GranadeLauncherStickEffect::init(){
-
-} 
-
-void 
 GranadeLauncherStickEffect::applyEffect(entity_t ball){
     ball->addComponent<ExplosiveEffect>(new ExplosiveEffect(ball, _explosionDelay, _radius, _explosionForce));
 } 

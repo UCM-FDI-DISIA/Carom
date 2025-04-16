@@ -60,7 +60,8 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
     else componentArray = entityElements->Child(childName.c_str())->Child("components")->AsArray();
 
     for(auto element : componentArray){
-        JSONObject atributes = element->Child("atributes")->AsObject();
+        JSONObject atributes;
+        if(element->HasChild("atributes")) atributes = element->Child("atributes")->AsObject();
         std::string componentName = element->Child("componentName")->AsString();
 
         if(componentName == "TransformComponent"){
@@ -82,16 +83,16 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
             stickInputComponent(entity);
         }
         else if (componentName == "DonutStickEffect"){
-            donutStickEffect(entity);
+            donutStickEffect(atributes,entity);
         }
         else if (componentName == "MagicWandStickEffect"){
-            magicWandStickEffect(entity);
+            magicWandStickEffect(atributes,entity);
         }
         else if (componentName =="BoxingGloveStickEffect"){
-            boxingGloveStickEffect(entity);
+            boxingGloveStickEffect(atributes,entity);
         }
         else if (componentName == "GrenadeLauncherStickEffect"){
-            grenadeLauncherStickEffect(entity);
+            grenadeLauncherStickEffect(atributes,entity);
         }
     }
 }
@@ -117,6 +118,25 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
     addComponent<ColorBallScorerComponent>(e);
 
     AddComponentsFromJSON(e, file, childName);
+    return e;
+}
+
+Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
+    // Scale
+    float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
+    float textureSize = sdlutils().images().at("palo1").width();
+    float scale = svgSize/textureSize;
+
+    entity_t e = new Entity(gameScene, grp::PALO);
+    
+    addComponent<TransformComponent>(e, pos);
+
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
+    addComponent<TweenComponent>(e);
+    addComponent<StickInputComponent>(e);
+
+    AddComponentsFromJSON(e, file, childName);
+
     return e;
 }
 
@@ -230,29 +250,29 @@ std::vector<std::string> JsonEntityParser::getBallEffects(entity_t ball){
 void JsonEntityParser::stickInputComponent(Entity* e){
     addComponent<StickInputComponent>(e);
 }
-void JsonEntityParser::donutStickEffect(Entity* e){
+void JsonEntityParser::donutStickEffect(const JSONObject& atributes,Entity* e){
     addComponent<DonutStickEffect>(e);
     addComponent<ShadowComponent>(e);
     auto renderTexture = e->getComponent<RenderTextureComponent>();
-    renderTexture->setTexture(&sdlutils().images().at("donut"), renderTexture->getScale());
+    renderTexture->setTexture(&sdlutils().images().at("donut"));
     e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "donut_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
 }
-void JsonEntityParser::magicWandStickEffect(Entity* e){
+void JsonEntityParser::magicWandStickEffect(const JSONObject& atributes,Entity* e){
     addComponent<MagicWandStickEffect>(e);
     addComponent<ShadowComponent>(e);
     auto renderTexture = e->getComponent<RenderTextureComponent>();
-    renderTexture->setTexture(&sdlutils().images().at("magic_wand"), renderTexture->getScale());
+    renderTexture->setTexture(&sdlutils().images().at("magic_wand"));
     e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "magic_wand_shadow", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
 }
-void JsonEntityParser::boxingGloveStickEffect(Entity* e){
-    addComponent<BoxingGloveStickEffect>(e);
+void JsonEntityParser::boxingGloveStickEffect(const JSONObject& atributes, Entity* e){
+    addComponent<BoxingGloveStickEffect>(e, atributes.at("factor")->AsNumber());
 }
-void JsonEntityParser::grenadeLauncherStickEffect(Entity* e){
-    addComponent<GranadeLauncherStickEffect>(e);
+void JsonEntityParser::grenadeLauncherStickEffect(const JSONObject& atributes, Entity* e){
+    addComponent<GranadeLauncherStickEffect>(e, atributes.at("radius")->AsNumber(), atributes.at("explosionForce")->AsNumber(), atributes.at("explosionDelay")->AsNumber());
 
     addComponent<ShadowComponent>(e);
     auto renderTexture = e->getComponent<RenderTextureComponent>();
-    renderTexture->setTexture(&sdlutils().images().at("lanzagranadas"), renderTexture->getScale());
+    renderTexture->setTexture(&sdlutils().images().at("lanzagranadas"));
     e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "lanzagranadas_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
 }
 

@@ -89,3 +89,7 @@ void RenderTextureComponent::resetColorTint(){
     _color.g = _defaultColor.g;
     _color.b = _defaultColor.b;
 }
+
+void RenderTextureComponent::setTexture(Texture* tex){
+    _texture = tex;
+}

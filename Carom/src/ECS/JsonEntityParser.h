@@ -17,6 +17,8 @@ class JsonEntityParser{
         // a partir del prefab de una bola, añade los componentes del JSONfile
         static Entity* createEffectBall(GameScene& gameScene, std::string file, std::string childName = "NONE", b2Vec2 pos= {0.f,0.f});
 
+        static Entity* createStick(GameScene& gameScene, std::string file, std::string childName = "NONE", b2Vec2 pos = {0.f,0.f});
+
         inline static bool FileIsEmpty(std::string JSONfile) { return JSON::ParseFromFile(JSONfile) == NULL; }
 
         static std::vector<std::string> getBallEffects(entity_t ball);
@@ -28,14 +30,14 @@ class JsonEntityParser{
 
         //-palos
         static void stickInputComponent(Entity* e);
-        static void donutStickEffect(Entity* e);
-        static void magicWandStickEffect(Entity* e);
-        static void boxingGloveStickEffect(Entity* e);
-        static void grenadeLauncherStickEffect(Entity* e);
+        static void donutStickEffect(const JSONObject& atributes,Entity* e);
+        static void magicWandStickEffect(const JSONObject& atributes,Entity* e);
+        static void boxingGloveStickEffect(const JSONObject& atributes,Entity* e);
+        static void grenadeLauncherStickEffect(const JSONObject& atributes,Entity* e);
         
     
     template<typename T, typename ...Ts>
-        inline static T addComponent(Entity* e, Ts &&... args) {
+        inline static void addComponent(Entity* e, Ts &&... args) {
             // the component id exists
             static_assert(cmpId<T> <maxComponentId);
             // create component

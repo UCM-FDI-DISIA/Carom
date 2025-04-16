@@ -43,9 +43,11 @@
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
-    { "id" : "magic_wand_sombra", "file" : "../../resources/images/magic_wand_shadow.png"},
+    { "id" : "magic_wand_shadow", "file" : "../../resources/images/magic_wand_shadow.png"},
     { "id" : "donut", "file" : "../../resources/images/donut.png"},
     { "id" : "donut_sombra", "file" : "../../resources/images/donut_sombra.png"},
+    { "id" : "lanzagranadas", "file" : "../../resources/images/lanzagranadas.png"},
+    { "id" : "lanzagranadas_sombra", "file" : "../../resources/images/lanzagranadas_sombra.png"},
 
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "reward_description_box", "file" : "../../resources/images/reward_description_box.png"},

@@ -34,7 +34,7 @@ public:
     void render() override;
     void init() override;
     Texture* getTexture() {return _texture;};
-    void setTexture(Texture* tex, float scale);
+    void setTexture(Texture* tex);
 
     void setRenderLayer(layerId_t layer);
     // To go deeper/down n layers
