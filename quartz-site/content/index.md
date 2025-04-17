@@ -11,6 +11,7 @@ title: Carom Wiki
 - [[Sobre EC]]
 - [[Índice box2D]]
 - [[Sistema de representación]]
+- [[Listado de componentes]]
 
 ## Gestión general de grupo
 
