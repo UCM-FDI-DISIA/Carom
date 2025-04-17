@@ -9,6 +9,9 @@
 #include "InventoryManager.h"
 #include "FollowComponent.h"
 
+#include <iostream>
+#include <fstream>
+
 PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     _bottomScene = scene;
     instantiateInventory();
@@ -37,18 +40,28 @@ PauseScene::instantiateInventory(){
     
     float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
 
-    auto vBalls = InventoryManager::Instance()->getEffectBalls(*this, std::vector<b2Vec2>{});
     for(int i =0; i < InventoryManager::Instance()->MAX_BALLS; i++){
-        if(vBalls[i] != nullptr){
-            std::string key = "ball_" + std::to_string(i+1);
-        
-            auto ballPos = sdlutils().svgs().at("inventory").at(key);
-            auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
+        std::string key = "ball_" + std::to_string(i+1);
+        std::string slot = "slot" + std::to_string(i);
 
-            b2Vec2 relativeDistance = {PhysicsConverter::pixel2meter(ballPos.x - drawerPos.x), PhysicsConverter::pixel2meter(ballPos.y - drawerPos.y)};
+        std::ifstream f(InventoryManager::Instance()->pathToInventory);
+        json data = json::parse(f);
+        std::string textureKey = "bola_blanca";
+        if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
+            textureKey = data[slot]["components"][0]["atributes"]["effects"][0];
+        } 
+    
+        auto ballPos = sdlutils().svgs().at("inventory").at(key);
+        auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
 
-            addComponent<FollowComponent>(vBalls[i], fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
-        }
+        b2Vec2 relativeDistance = {PhysicsConverter::pixel2meter(ballPos.x - drawerPos.x), PhysicsConverter::pixel2meter(ballPos.y - drawerPos.y)};
+
+        Entity* ball = new Entity(*this, grp::UI);
+
+        addComponent<TransformComponent>(ball, b2Vec2{0,0});
+        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), 100, ballScale);
+
+        addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
         
     }
 }
