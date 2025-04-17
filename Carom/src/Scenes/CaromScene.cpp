@@ -117,16 +117,19 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     entity_t e = new Entity(*this, grp::WHITEBALL);
 
     float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
-    //! I don't know how to get the radius of the ball
     addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, scale);
     addComponent<WhiteBallScorerComponent>(e);
+
     Button::RadialButton rButton = Button::RadialButton(2.0);
     addComponent<Button>(e, rButton);
     e->getComponent<Button>()->setOnClick([this](){
-        for (auto& e : getEntitiesOfGroup(grp::PALO))
+        for (auto& e : getEntitiesOfGroup(grp::PALO)) {
             e->activate();
+            e->getComponent<RenderTextureComponent>()->setEnabled(false);
+            e->getComponent<ShadowComponent>()->setEnabled(false);
+        }
     });
 
     addComponent<BallHandler>(e);
