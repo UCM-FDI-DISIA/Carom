@@ -32,6 +32,7 @@
 #include "BoxingGloveStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
 #include "StickInputComponent.h"
+#include "InventoryManager.h"
 
 #include "ShadowComponent.h"
 
@@ -112,7 +113,14 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
     addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius);
 
     // RENDER
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::EFFECT_BALL, scale, SDL_Color{0, 150, 100, 1});
+    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    json data = json::parse(f);
+    std::string textureKey = "bola_blanca";
+    if(data[childName]["components"][0]["atributes"]["effects"].size() >0){
+        textureKey = data[childName]["components"][0]["atributes"]["effects"][0]["componentName"];
+    } 
+
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale);
 
     // SCORE
     addComponent<ColorBallScorerComponent>(e);
