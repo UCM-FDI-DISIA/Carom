@@ -15,6 +15,23 @@ void Button::setEnabled(bool state)
     }
 }
 
+void Button::setEntity(entity_t other)
+{
+    _myEntity = other;
+
+    RenderComponent* a_targetRenderer;
+
+    if (_myEntity->tryGetComponent<RenderTextureComponent>()) {
+        a_targetRenderer = _myEntity->getComponent<RenderTextureComponent>();
+    }
+    else if (_myEntity->tryGetComponent<RenderSpritesheetComponent>()) {
+        a_targetRenderer = _myEntity->getComponent<RenderSpritesheetComponent>();
+    }
+
+    _buttonArea->setRenderer(a_targetRenderer);
+    _transform = _myEntity->getComponent<TransformComponent>();
+}
+
 Button::Button(Entity* ent) : HandleEventComponent(ent), _onHover(), _onClick(), _onExit(), _isInside()
 {
     _buttonArea = new Button::TextureButton();
@@ -37,17 +54,7 @@ void Button::init()
     //
     // Soy muy consciente de que esto es muy muy poco escalable
     
-    RenderComponent* a_targetRenderer;
-
-    if (_myEntity->tryGetComponent<RenderTextureComponent>()) {
-        a_targetRenderer = _myEntity->getComponent<RenderTextureComponent>();
-    }
-    else if (_myEntity->tryGetComponent<RenderSpritesheetComponent>()) {
-        a_targetRenderer = _myEntity->getComponent<RenderSpritesheetComponent>();
-    }
-
-    _buttonArea->setRenderer(a_targetRenderer);
-    _transform = _myEntity->getComponent<TransformComponent>();
+    setEntity(_myEntity);
 
     // Si comento esto se muere el programa al hacer hover
     setOnHover([this]() -> void {/*std::cout << "hover" << std::endl;*/});

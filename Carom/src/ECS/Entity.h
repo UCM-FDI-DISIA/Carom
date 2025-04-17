@@ -134,6 +134,21 @@ public:
         return static_cast<T*>(_components[cmpId<T>]);
     }
 
+    // ! NO ESTA PENSADO PARA USAR EN TRANSFORM O RENDER
+    // hay que mirar a ver si funcionaria
+    template<typename T>
+    void stealComponent(entity_t from){
+        assert(from->tryGetComponent<T>() && !this->tryGetComponent<T>());
+
+        T* cmp = from->getComponent<T>();
+        cmp->setEntity(this);
+        bool s = this->internalAddComponent(cmpId<T>, cmp, false);
+        assert(s);
+
+        s = from->internalRemoveComponent(cmpId<T>, false);
+        assert(s);
+    }
+
     inline ITransform* getTransform() {return _myTransform;}
     std::vector<Component*> getAllComponents(){
         return _currentComponents;
@@ -204,6 +219,6 @@ private:
     void eraseFromRenderEntities(entity_t e);
     void addToSceneRenderEntities(entity_t e);
 
-    bool internalAddComponent(cmpId_t id, Component* component);
-    bool internalRemoveComponent(cmpId_t id);
+    bool internalAddComponent(cmpId_t id, Component* component, bool initCmp = true);
+    bool internalRemoveComponent(cmpId_t id, bool deleteCmp = true);
 };
