@@ -269,9 +269,9 @@ RigidBodyComponent::setEnabled(bool state) {
 /// @brief Function called everytime object enters a collision
 /// @param ent object that collides with this rigidbody
 void 
-RigidBodyComponent::onCollisionEnter(entity_t ent){
+RigidBodyComponent::onCollisionEnter(entity_t ent, b2Manifold& contactData){
     for(PhysicsComponent* PC : _collisionEnter){
-        PC->onCollisionEnter(ent);
+        PC->onCollisionEnter(ent, contactData);
     }
 }
 

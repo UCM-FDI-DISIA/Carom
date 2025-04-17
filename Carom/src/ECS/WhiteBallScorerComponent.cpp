@@ -12,7 +12,7 @@
 WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0)
 { 
 }
-void WhiteBallScorerComponent::onCollisionEnter(entity_t other){
+void WhiteBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& contactData){
                                                 // ¿Esto está bien?
     if(other->tryGetComponent<WallComponent>() && _previouslyHit) _cushions++;
     else if(other->tryGetComponent<ColorBallScorerComponent>()){

@@ -19,7 +19,7 @@ public:
     ~BallHandler() {}
 
     void init() override;
-    void onCollisionEnter(entity_t collision) override; //Se ejecuta cuando la bola golpea otra bola
+    void onCollisionEnter(entity_t collision, b2Manifold& contactData) override; //Se ejecuta cuando la bola golpea otra bola
     void onBeingTargeted(); //Se ejecuta cuando esta siendo apuntado por una trayectoria de palo
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 

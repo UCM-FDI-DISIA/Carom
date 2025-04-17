@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "ecs.h"
+#include <box2d/box2d.h>
 #include <functional>
 
 class CameraComponent;
@@ -18,7 +18,7 @@ public:
     inline virtual void update() override {}
     inline virtual void render() override {}
 
-    virtual void onCollisionEnter(entity_t collision) {}
+    virtual void onCollisionEnter(entity_t collision, b2Manifold &contactData) {}
     virtual void onCollisionExit(entity_t collision) {}
 
     virtual void onTriggerEnter(entity_t target) {}

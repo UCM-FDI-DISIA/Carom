@@ -129,7 +129,7 @@ public:
     void applyImpulseToCenter(b2Vec2 impulse);
 
     //onCollision and onTrigger Methods
-    void onCollisionEnter(entity_t ent);
+    void onCollisionEnter(entity_t ent, b2Manifold& contactData);
     void onCollisionExit(entity_t ent);
     void onTriggerEnter(entity_t ent);
     void onTriggerExit(entity_t ent);

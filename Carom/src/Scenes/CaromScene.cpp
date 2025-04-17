@@ -425,11 +425,12 @@ CaromScene::manageEnterCollisions(b2ContactEvents contactEvents){
 
         entity_t ent1 = static_cast<entity_t>(b2Shape_GetUserData(a_enter->shapeIdA));
         entity_t ent2 = static_cast<entity_t>(b2Shape_GetUserData(a_enter->shapeIdB));
+        b2Manifold contactData = a_enter->manifold;
 
         // Null check: entities might have been destroyed
         if (ent1 && ent2) {
-            ent1->getComponent<RigidBodyComponent>()->onCollisionEnter(ent2);
-            ent2->getComponent<RigidBodyComponent>()->onCollisionEnter(ent1);
+            ent1->getComponent<RigidBodyComponent>()->onCollisionEnter(ent2, contactData);
+            ent2->getComponent<RigidBodyComponent>()->onCollisionEnter(ent1, contactData);
         }
     }
 }
