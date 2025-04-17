@@ -18,6 +18,7 @@
 #include "ShadowComponent.h"
 #include "ColorBallScorerComponent.h"
 #include "WhiteBallScorerComponent.h"
+#include "Button.h"
 
 
 RussianPyramidScene::RussianPyramidScene(Game* g, GameScene* reward, bool isBoss)
@@ -45,6 +46,8 @@ void RussianPyramidScene::initGimmick(){
 
 void RussianPyramidScene::initBoss()
 {
+    _originalWhiteBall = getEntitiesOfGroup(grp::WHITEBALL)[0];
+
     getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(237, 191, 47);
 
     if(_isBoss) {
@@ -56,9 +59,6 @@ void RussianPyramidScene::initBoss()
 void RussianPyramidScene::createBoss(){
     // std::cout << "creando jefe y sombra" << std::endl;
 
-    
-
-    // !!!
     //--Crear el indicador
     _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
     addComponent<TransformComponent>(_indicator, b2Vec2_zero);
@@ -66,7 +66,6 @@ void RussianPyramidScene::createBoss(){
 
     float scale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x / 2;
     addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, scale);
-    // !!!
 
     //--Crear el jefe
     //TODO
@@ -340,10 +339,12 @@ RussianPyramidScene::applyBossModifiers() {
     //--Asignar la nueva bola blanca
     entity_t newWhiteBall = nullptr;
     do {
-        newWhiteBall = _allBalls[sdlutils().rand().nextInt(0, _allBalls.size())]; //!Esto se debe cambiar para usar el rngManager
-    } while(newWhiteBall == _currentWhiteBall || newWhiteBall == getEntitiesOfGroup(grp::WHITEBALL)[0]);
+        newWhiteBall = _allBalls[_rngManager.randomRange(0, _allBalls.size())];
+    } while(newWhiteBall == _currentWhiteBall || newWhiteBall == _originalWhiteBall);
     _stickInput->registerWhiteBall(newWhiteBall);
+    newWhiteBall->stealComponent<Button>(_currentWhiteBall);
     _currentWhiteBall = newWhiteBall;
+    getEntitiesOfGroup(grp::WHITEBALL)[0] = _currentWhiteBall;
 
     //--Alterar los componentes de la nueva bola blanca
     _currentWhiteBall->deactivateComponentsOfType<BallEffect>();

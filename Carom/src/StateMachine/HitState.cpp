@@ -37,6 +37,7 @@ HitState::onStateExit() {
     }
     for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
         if(e->tryGetComponent<Button>()) {
+            std::cout << "BUTTON DISABLE" << std::endl;
             e->getComponent<Button>()->setEnabled(false);
         }
     }
@@ -44,7 +45,8 @@ HitState::onStateExit() {
 
 bool 
 HitState::checkCondition(State*& state) {
-    for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)){
+    std::cout << "checkCondition hitState" <<std::endl;
+    for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)) { 
         if(e->tryGetComponent<StickInputComponent>() && e->getComponent<StickInputComponent>()->hasShot()) {
             std::cout << "Cambio a Scoring\n";
             state = new ScoringState(_scene);
