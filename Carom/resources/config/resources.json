@@ -83,7 +83,15 @@
     { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
     { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
     { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
-    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"}
+    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
+
+    { "id" : "BowlingEffect", "file" : "../../resources/images/bowling.png"},
+    { "id" : "X2Effect", "file" : "../../resources/images/x2.png"},
+    { "id" : "AbacusEffect", "file" : "../../resources/images/abaco.png"},
+    { "id" : "CristalEffect", "file" : "../../resources/images/cristal.png"},
+    { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
+    { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "QuanticEffect", "file" : "../../resources/images/poke.png"}
   ],
   
   "messages" : [

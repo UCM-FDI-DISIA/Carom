@@ -9,7 +9,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "CristalEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -19,7 +21,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "AbacusEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -29,7 +33,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "BowlingEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -39,7 +45,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "X2Effect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -49,7 +57,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "PokeballEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -59,7 +69,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "PetanqueEffect"
+              }]
             },
             "componentName": "BallHandler"
          }

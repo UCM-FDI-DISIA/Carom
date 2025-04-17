@@ -50,7 +50,7 @@ PauseScene::instantiateInventory(){
         json data = json::parse(f);
         std::string textureKey = "bola_blanca";
         if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
-            textureKey = data[slot]["components"][0]["atributes"]["effects"][0];
+            textureKey = data[slot]["components"][0]["atributes"]["effects"][0]["componentName"];
         } 
     
         auto ballPos = sdlutils().svgs().at("inventory").at(key);
