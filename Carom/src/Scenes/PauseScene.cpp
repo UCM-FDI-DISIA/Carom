@@ -9,6 +9,8 @@
 #include "InventoryManager.h"
 #include "FollowComponent.h"
 
+#include "ShadowComponent.h"
+
 #include <iostream>
 #include <fstream>
 
@@ -27,7 +29,7 @@ PauseScene::instantiateInventory(){
 
     float drawerScale =sdlutils().svgs().at("inventory").at("drawer").height/(float) sdlutils().images().at("drawer").getRect().h;
 
-    addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("drawer"), renderLayer::GIMMICK, drawerScale);
+    addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("drawer"), renderLayer::BACKGROUND, drawerScale);
     auto tween = addComponent<TweenComponent>(fondo);
 
     //animacion
@@ -59,14 +61,46 @@ PauseScene::instantiateInventory(){
         Entity* ball = new Entity(*this, grp::UI);
 
         addComponent<TransformComponent>(ball, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), 100, ballScale);
+        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);
 
         addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
-        
+        createBallShadow(ball);
     }
 }
 
 void PauseScene::render(){
     _bottomScene->render();
     GameScene::render();
+}
+
+void PauseScene::createBallShadow(entity_t entity){
+    addComponent<ShadowComponent>(entity);
+    ShadowComponent* comp = getComponent<ShadowComponent>(entity);
+
+    //sombra de reflejo de la bola
+    float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
+
+    comp->addShadow({0,0}, "bola_cast_sombra", renderLayer::BALL_SHADOW_ON_BALL, ballScale, true, false, true);
+
+    //sombra de la bola
+    float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
+
+    float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
+    float normal_ball_scale = a_svg_scale/a_imgScale;
+    float scaleFactor = ballScale/normal_ball_scale;
+
+    //sombra de la bola
+    a_imgScale = sdlutils().images().at("bola_sombra").width();
+    a_svg_scale = sdlutils().svgs().at("game").at("bola_sombra 1").width;
+    float cast_scale = a_svg_scale/a_imgScale;
+    cast_scale *= scaleFactor;
+
+
+    Vector2D a_relPos{
+        PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").x - sdlutils().svgs().at("game").at("bola_sombra 1").x - 10) *scaleFactor,
+        
+        PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)*scaleFactor
+    };
+    comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
+
 }
