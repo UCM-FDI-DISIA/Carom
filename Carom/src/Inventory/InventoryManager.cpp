@@ -67,7 +67,7 @@ void InventoryManager::exportInventoryToSave(){
 }
 
 std::vector<entity_t> 
-InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions) {
+InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{}) {
     std::vector<entity_t> balls;
     balls.reserve(MAX_BALLS);
 
