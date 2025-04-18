@@ -46,6 +46,10 @@ void BallHandler::multScore(float mult)
     _scene->addScore(_scene->getCurrentScore() * (mult - 1));
 }
 
+void BallHandler::multRoundScore(float mult){
+    _scene->addScore(_scene->getRoundScore() * (mult - 1));
+}
+
 void BallHandler::setMult(float newMult)
 {
     _mult = newMult;

@@ -62,6 +62,7 @@ public:
     TextDisplayComponent* createScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
+    inline double getRoundScore() {return _roundScore; }
     inline double getCurrentScore() { return _currentScore; }
     inline double getScoreToBeat() { return _scoreToBeat; }
 
