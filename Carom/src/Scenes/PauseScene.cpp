@@ -8,6 +8,7 @@
 #include "PhysicsUtils.h"
 #include "InventoryManager.h"
 #include "FollowComponent.h"
+#include "StickInputComponent.h"
 
 #include "ShadowComponent.h"
 
@@ -40,14 +41,16 @@ PauseScene::instantiateInventory(){
         addComponent<UnpauseComponent>(unpause, tween);
     });
     
+    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    json data = json::parse(f);
+    //balls
     float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
 
     for(int i =0; i < InventoryManager::Instance()->MAX_BALLS; i++){
         std::string key = "ball_" + std::to_string(i+1);
         std::string slot = "slot" + std::to_string(i);
 
-        std::ifstream f(InventoryManager::Instance()->pathToInventory);
-        json data = json::parse(f);
+        
         std::string textureKey = "bola_blanca";
         if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
             textureKey = data[slot]["components"][0]["atributes"]["effects"][0]["componentName"];
@@ -65,6 +68,29 @@ PauseScene::instantiateInventory(){
 
         addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
         createBallShadow(ball);
+    }
+
+    //palo
+    entity_t palo = InventoryManager::Instance()->getStick(*this);
+    removeComponent<StickInputComponent>(palo);
+    
+    auto renderText = getComponent<RenderTextureComponent>(palo);
+    float stickTextScale = renderText->getTexture()->width();
+    float stickSVGScale = sdlutils().svgs().at("inventory").at("stick").width;
+    float stickScale = stickSVGScale/stickTextScale;
+
+    renderText->setScale(stickScale);
+
+    auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
+    auto stickPos = sdlutils().svgs().at("inventory").at("stick");
+    b2Vec2 relativeDistance = {PhysicsConverter::pixel2meter(stickPos.x - drawerPos.x), PhysicsConverter::pixel2meter(stickPos.y - drawerPos.y)};
+
+    addComponent<FollowComponent>(palo, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
+
+    for(auto shadow : getComponent<ShadowComponent>(palo)->getShadows()){
+        getComponent<RenderTextureComponent>(shadow)->setScale(stickScale);
+        auto follow = getComponent<FollowComponent>(shadow);
+        follow->setRelativeDistance(follow->getRelativeDistance()/2);
     }
 }
 
