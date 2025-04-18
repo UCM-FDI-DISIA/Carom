@@ -36,6 +36,9 @@ ScoringState::onStateExit() {
             e->getComponent<BallHandler>()->onStrikeEnd();
         }
     }
+
+    _scene->addPointsFromRound();
+    
     #ifdef _DEBUG
         _scene->setCanFastForward(false);
     #endif

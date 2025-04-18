@@ -564,13 +564,30 @@ CaromScene::createScoreUI() {
 }
 
 void CaromScene::addScore(int score) {
+    _roundScore += score;
+    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
+    // TODO Set the round points diplay
+}
+
+void CaromScene::addToTotalScore(int score) {
     _currentScore += score;
     _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
 }
 
 void CaromScene::removeScore(int score) {
+    _roundScore -= score;
+    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
+    // TODO Set the round points display
+}
+
+void CaromScene::removeFromTotalScore(int score) {
     _currentScore -= score;
     _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
+}
+
+void CaromScene::addPointsFromRound(){
+    addToTotalScore(_roundScore);
+    removeScore(_roundScore);
 }
 
 void CaromScene::setScoreToBeat(int score){

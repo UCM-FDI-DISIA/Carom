@@ -55,7 +55,7 @@ public:
 protected:
     TextDisplayComponent* _currentScoreDisplay;
     //Los acumuladores de puntuación
-    int _currentScore = 0, _scoreToBeat = 1000; 
+    int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
 public:
@@ -68,9 +68,13 @@ public:
     // ?Métodos para manejo de puntuación
     void setScoreToBeat(int newScoreToBeat);
     void addScore(int score);
+    void addToTotalScore(int score);
     void removeScore(int score);
+    void removeFromTotalScore(int score);
+
+    void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
-    inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+    inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
         b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
