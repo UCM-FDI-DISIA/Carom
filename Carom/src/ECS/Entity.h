@@ -134,7 +134,7 @@ public:
         return static_cast<T*>(_components[cmpId<T>]);
     }
 
-    // ! NO ESTA PENSADO PARA USAR EN TRANSFORM O RENDER
+    // ! IMPORTANTE : NO ESTA PENSADO PARA USAR EN TRANSFORM O RENDER
     // hay que mirar a ver si funcionaria
     template<typename T>
     void stealComponent(entity_t from){

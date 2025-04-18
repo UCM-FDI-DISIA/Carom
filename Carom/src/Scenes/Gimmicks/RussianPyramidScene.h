@@ -51,5 +51,7 @@ private:
     entity_t _originalWhiteBall;
 
     entity_t _indicator;
-};
+    b2Vec2 startingHandPosition = {2, 3};
 
+    void changeWhiteBallAnimation();
+};

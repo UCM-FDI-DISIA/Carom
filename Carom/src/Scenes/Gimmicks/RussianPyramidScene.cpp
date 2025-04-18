@@ -27,7 +27,6 @@ RussianPyramidScene::RussianPyramidScene(Game* g, GameScene* reward, bool isBoss
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
     , _allBalls()
-    , _currentWhiteBall(nullptr)
 {
     _isBoss = isBoss;
 }
@@ -57,28 +56,26 @@ void RussianPyramidScene::initBoss()
 }
 
 void RussianPyramidScene::createBoss(){
-    // std::cout << "creando jefe y sombra" << std::endl;
+    tryInitializeBallArray();
 
     //--Crear el indicador
     _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
     addComponent<TransformComponent>(_indicator, b2Vec2_zero);
     addComponent<FollowComponent>(_indicator, _currentWhiteBall, true, false, true, Vector2D(0, 0));
 
-    float scale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x / 2;
-    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, scale);
+    float wbScale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x / 2;
+    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, wbScale);
 
     //--Crear el jefe
-    //TODO
-    // //crear jefe
-    // Entity* boss = new Entity(*this, grp::BOSS_HAND);
-    // addComponent<TransformComponent>(boss, startingHandPosition);
+    entity_t boss = new Entity(*this, grp::BOSS_HAND);
+    addComponent<TransformComponent>(boss, startingHandPosition);
 
-    // float svgSize = *&sdlutils().svgs().at("grp_cowboy").at("cowboy_hand 1").width;
-    // float textureSize = sdlutils().images().at("cowboy_hand").width();
-    // float scale = svgSize/textureSize;
+    float svgSize = *&sdlutils().svgs().at("grp_cowboy").at("cowboy_hand 1").width;
+    float textureSize = sdlutils().images().at("russian_hand").width();
+    float bossScale = svgSize/textureSize;
 
-    // addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("cowboy_hand"), renderLayer::BOSS_HAND, scale);
-    // addComponent<TweenComponent>(boss);
+    addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("russian_hand"), renderLayer::BOSS_HAND, bossScale);
+    addComponent<TweenComponent>(boss);
 
     // //sombra
     // // Entity* sombraJefe = new Entity(*this, grp::SHADOWS);
@@ -351,12 +348,8 @@ RussianPyramidScene::applyBossModifiers() {
     _currentWhiteBall->deactivateComponentsOfType<ColorBallScorerComponent>();
     addComponent<WhiteBallScorerComponent>(_currentWhiteBall);
 
-    //--Activar el indicador en la nueva bola blanca
-    auto follow = getComponent<FollowComponent>(_indicator);
-    follow->setTarget(_currentWhiteBall);
-    _indicator->activateComponentsOfType<RenderComponent>();
-
-    _currentState->finish();
+    //--Tween del jefe
+    changeWhiteBallAnimation();
 }
 
 void RussianPyramidScene::clearBossModifiers()
@@ -389,4 +382,47 @@ RussianPyramidScene::tryInitializeBallArray() {
     _allBalls.push_back(_currentWhiteBall);
     
     return true;
+}
+
+void 
+RussianPyramidScene::changeWhiteBallAnimation() {
+    entity_t boss = getEntitiesOfGroup(grp::BOSS_HAND)[0];
+    auto tween = boss->getComponent<TweenComponent>();
+    auto whiteBallPos = _currentWhiteBall->getTransform()->getPosition();
+
+    float halfHandMag = PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(boss)->getRenderRect().h/2);
+
+    Vector2D dir = Vector2D{startingHandPosition.x - whiteBallPos.x, startingHandPosition.y - whiteBallPos.y}.normalize();
+    b2Vec2 handPos = whiteBallPos + b2Vec2{dir.getX() * halfHandMag , dir.getY() * halfHandMag};
+
+    //Tween hacia la nueva bola
+    tween->easePosition(handPos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
+        tween->easePosition(handPos, .2f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
+        getCamera()->shakeCamera(.2f, .3f, dir*-1);
+
+        auto follow = getComponent<FollowComponent>(_indicator);
+        follow->setTarget(_currentWhiteBall);
+        _indicator->activateComponentsOfType<RenderComponent>();
+
+        tween->easePosition(startingHandPosition, 1.0f, tween::EASE_IN_OUT_CUBIC, false, [=]() {_currentState->finish();});
+        });}, 
+    [=](){
+        float radiansConversion = M_PI/180.0f;
+        float handRot = (boss->getTransform()->getRotation()-90) * radiansConversion;
+        Vector2D handDir = Vector2D{float(cos(handRot)), float(sin(handRot))}.normalize();
+
+        b2Vec2 handEndPos = boss->getTransform()->getPosition() + b2Vec2{handDir.getX() * halfHandMag, handDir.getY()*halfHandMag};
+
+        Vector2D dir = Vector2D{handEndPos.x - startingHandPosition.x, handEndPos.y - startingHandPosition.y}.normalize();
+        //en radianes
+        float angle = atan(dir.getX()/dir.getY());
+        //en grados
+        angle = angle * (180/M_PI);
+
+        boss->getTransform()->setRotation(angle);
+    });
+
+    
+
+    
 }
