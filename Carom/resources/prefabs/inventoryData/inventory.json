@@ -9,9 +9,9 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  "CristalEffect"
-               ]
+               "effects": [{
+                  "componentName" : "CristalEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -21,9 +21,9 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  "AbacusEffect"
-               ]
+               "effects": [{
+                  "componentName" : "AbacusEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -33,9 +33,9 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  "BowlingEffect"
-               ]
+               "effects": [{
+                  "componentName" : "BowlingEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -45,9 +45,9 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  "X2Effect"
-               ]
+               "effects": [{
+                  "componentName" : "X2Effect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -57,7 +57,9 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [{
+                  "componentName" : "PokeballEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -67,9 +69,9 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  "PetanqueEffect"
-               ]
+               "effects": [{
+                  "componentName" : "PetanqueEffect"
+              }]
             },
             "componentName": "BallHandler"
          }
@@ -83,7 +85,7 @@
                "explosionForce": 3,
                "radius": 3
             },
-            "componentName": ""
+            "componentName": "MagicWandStickEffect"
          }
       ]
    }
