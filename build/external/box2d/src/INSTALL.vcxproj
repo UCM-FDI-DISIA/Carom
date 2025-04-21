@@ -195,7 +195,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\glope\Desktop\Carom\build\external\nlohmann_json-3.12.0\ALL_BUILD.vcxproj">
+    <ProjectReference Include="C:\Users\glope\Desktop\Carom\build\external\box2d\ALL_BUILD.vcxproj">
       <Project>{9BDCA718-D71B-35D8-8C10-7E1193F2A89B}</Project>
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
