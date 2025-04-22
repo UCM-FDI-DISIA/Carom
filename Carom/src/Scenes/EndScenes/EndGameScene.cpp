@@ -28,9 +28,5 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
         game->getScenesManager()->pushScene(ms);
     }); 
 
-    createText("Terminar.", // text
-        sdlutils().width()/2 , // x
-        (sdlutils().height()/2 + 150), // y
-        2 // size
-    );
+    createSVGImage("lose", "loseButtonText", "loseButtonText", false);
 }

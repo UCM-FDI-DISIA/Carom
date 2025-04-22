@@ -81,7 +81,9 @@
     { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
     { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
     { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
-    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"}
+    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
+    { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
+    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"}
   ],
   
   "messages" : [

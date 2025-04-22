@@ -25,9 +25,5 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         game->getScenesManager()->popScene(); // Poppea la win.
     }); 
 
-    createText("Terminar.", // text
-        sdlutils().width()/2 , // x
-        (sdlutils().height()/2 + 150), // y
-        2 // size
-    );
+    createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
 }
