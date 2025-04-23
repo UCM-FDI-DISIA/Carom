@@ -24,6 +24,8 @@ protected:
     RNG_Manager* _rngm; // random manager
     b2WorldId _myB2WorldId; //El mundo de box2D
 
+
+    // --- AGUJEROS Y RECOMPENSAS ---
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
     std::vector<std::shared_ptr<Reward>> _floorRewards; // Recompensas de cada agujero del piso
 
@@ -38,6 +40,14 @@ protected:
     void createRewardInfo();
     void showReward(int i);
     void hideReward(int i);
+    // ----------
+
+    // --- EFECTOS DE BOLAS ---
+    std::vector<RandomItem<std::shared_ptr<Reward>>> _ballEffects; // vector de todos los posibles efectos de bolas.
+    void loadBallEffects(); // rellena un vector de todos los posibles efectos de bolas.
+    entity_t generateBall(int i); // genera una bola aleatoriamente con el efecto correspondiente.
+    void generateBalls();
+    // ----------
 
 public:
     PoolScene(Game* g);

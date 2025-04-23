@@ -296,7 +296,8 @@
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
-    {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"}
+    {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
+    {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"}
   ]
 
 }

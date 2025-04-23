@@ -14,6 +14,8 @@
 #include "CowboyPoolScene.h"
 #include "StickInputComponent.h"
 
+
+// --- rewards ---
 #include "DefaultReward.h"
 #include "BossReward.h"
 #include "FusionReward.h"
@@ -25,6 +27,22 @@
 #include "PowerReward.h"
 #include "CunningReward.h"
 // #include ...Reward.h
+
+// --- ball effects ---
+#include "AbacusEffect.h"
+#include "BowlingEffect.h"
+#include "CristalEffect.h"
+#include "ExplosiveEffect.h"
+#include "FrictionMultiplierEffect.h"
+#include "PetanqueEffect.h"
+#include "PokeballEffect.h"
+#include "PopToOppositeSideEffect.h"
+#include "QuanticEffect.h"
+#include "SubdivisionEffect.h"
+#include "X2Effect.h"
+#include "BallEffect.h"
+
+// hola
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -250,4 +268,46 @@ PoolScene::hideReward(int i) {
 
     descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->deactivate();
+}
+
+void PoolScene::loadBallEffects()
+{
+    /*
+    --- Bolas:
+    "AbacusEffect.h"
+    "BowlingEffect.h"
+    "CristalEffect.h"
+    "ExplosiveEffect.h"
+    "FrictionMultiplierEffect.h"
+    "PetanqueEffect.h"
+    "PokeballEffect.h"
+    "PopToOppositeSideEffect.h"
+    "QuanticEffect.h"
+    "SubdivisionEffect.h"
+    "X2Effect.h"
+    */
+
+   // TODO: Preguntar a Andrea como lo ha hecho esto...
+   
+   /*+
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<AbacusEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<BowlingEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<CristalEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<ExplosiveEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<FrictionMultiplierEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<PetanqueEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<PokeballEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<PopToOppositeSideEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<QuanticEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<SubdivisionEffect>(), 1.0f));
+    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<X2Effect>(), 1.0f));*/
+}
+
+entity_t PoolScene::generateBall(int i)
+{
+    return entity_t();
+}
+
+void PoolScene::generateBalls()
+{
 }
