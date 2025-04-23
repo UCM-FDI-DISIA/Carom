@@ -24,6 +24,7 @@ public:
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 
     bool addEffect(BallEffect* effect);
+    bool removeEffect(BallEffect* effect);
     void removeAllEffects();
     __CMPID_DECL__(cmp::BALL_HANDLER);
 

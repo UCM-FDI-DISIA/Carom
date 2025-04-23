@@ -69,6 +69,14 @@ bool BallHandler::addEffect(BallEffect* effect)
     } else return false;
 }
 
+bool BallHandler::removeEffect(BallEffect* effect) {
+    auto it = find(_effects.begin(), _effects.end(), effect);
+    _effects.erase(it);
+
+    return true;
+}
+
+
 void BallHandler::removeAllEffects(){
     _effects.clear();
 }

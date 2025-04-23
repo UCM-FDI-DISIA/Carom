@@ -11,6 +11,7 @@
 #include "RenderComponent.h"
 #include "Component.h"
 #include "BallEffect.h"
+#include "BallHandler.h"
 
 class CameraComponent;
 class GameScene;
@@ -112,7 +113,17 @@ public:
         return true;
     }
 
+    template<typename T>
+    bool removeComponent() requires DerivedFromBallEffect<T> {
+        auto ballHandler = getComponent<BallHandler>();
+        auto effect = getComponent<T>();
+        ballHandler->removeEffect(effect);
+        return internalRemoveComponent(effect->getEffectId());
+    }
+
     bool removeComponent(BallEffect* ballEffect) {
+        auto ballHandler = getComponent<BallHandler>();
+        ballHandler->removeEffect(ballEffect);
         return internalRemoveComponent(ballEffect->getEffectId());
     }
 
