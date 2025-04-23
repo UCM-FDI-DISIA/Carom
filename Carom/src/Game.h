@@ -2,6 +2,8 @@
 
 class ScenesManager;
 
+#include "ProgressionManager.h"
+
 #include "SDL_video.h"
 #include "SDLUtils.h"
 #include "Texture.h"
@@ -27,9 +29,11 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
+    inline ProgressionManager* getProgressionManager() {return _progressionManager;}
     
 protected:
     ScenesManager* _sceneManager;
+    ProgressionManager* _progressionManager;
 
 private:
     Texture* _t;

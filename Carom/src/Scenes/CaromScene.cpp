@@ -42,8 +42,9 @@
 #include "Animation.h"
 #include "RenderSpritesheetComponent.h"
 #include "AnimatorComponent.h"
+#include "ProgressionManager.h"
 
-
+#include "PoolScene.h"
 
 CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
@@ -57,6 +58,9 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
     // SEEDING
     // TODO: pasar RNG a sceneManager o Game para que haya uno solo
     _rngManager = RNG_Manager::Instance();
+
+    int baseScore = isBossMatch() ? 20 : 10;
+    _scoreToBeat = game->getProgressionManager()->getScoreToBeat(baseScore);
 
     // Creación del mundo físico
     b2WorldDef worldDef = b2DefaultWorldDef();
@@ -644,4 +648,12 @@ void CaromScene::instantiateBossTableShadow(){
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
     addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+}
+
+void CaromScene::winRound() {
+    if(isBossMatch()) {
+        game->getProgressionManager()->anteUp();
+        game->getScenesManager()->popScene();
+        game->getScenesManager()->pushScene(new PoolScene(game));
+    }
 }

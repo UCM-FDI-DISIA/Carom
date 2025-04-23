@@ -58,6 +58,7 @@ Game::init()
         return;
     }
     RNG_Manager::Init();
+    _progressionManager = new ProgressionManager();
 }
 
 void

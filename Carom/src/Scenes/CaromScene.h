@@ -13,7 +13,6 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
-
     
 class CaromScene: public GameScene {
 //--------------------BASIC SCENE FUNCTIONALITY------------------------
@@ -89,7 +88,7 @@ protected:
     bool _updatePhysics; // * Se usa para gestionar problemas con las físicas
 
     // Dividido /1000 porque b2 trabaja en segundos con float
-    float const _b2timeSteps = Game::FIXED_TIMESTEP / 2000.0f;
+    float const _b2timeSteps = 2000.0f;
     // Esto de momento se inicializa en 4, no manipular
     int _b2Substeps = 4;
 
@@ -119,6 +118,8 @@ public:
     void createScoreEntity();
 
     void createFeedbackTest(b2Vec2 pos, float rot);
+
+    void winRound();
 
 private:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
