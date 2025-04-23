@@ -49,6 +49,7 @@
 
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "reward_description_box", "file" : "../../resources/images/reward_description_box.png"},
+    {"id" : "inventory_description_box", "file": "../../resources/images/inv_description.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
     { "id" : "shotsSprite", "file" : "../../resources/images/shots_left.png"},
     { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"},

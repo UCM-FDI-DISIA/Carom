@@ -54,7 +54,7 @@ entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string i
     entity_t e = new Entity(*this, grp::DEFAULT);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at(svg).at(tag).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at(svg).at(tag).x + 145, // ! mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
         *&sdlutils().svgs().at(svg).at(tag).y + 160
     );
 
