@@ -2,9 +2,11 @@
 #include "GameScene.h"
 #include "Game.h"
 
+#include <memory>
+
 class PauseScene: public GameScene{
     //escena sobre la que renderizar
-    GameScene* _bottomScene = nullptr;
+    GameScene* _bottomScene;
 
     void instantiateInventory();
 public:

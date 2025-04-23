@@ -1,6 +1,8 @@
 #pragma once
 #include "UIScene.h"
 
+#include <memory>
+
 class ScenesManager;
 class RewardScene: public UIScene {
 public:
@@ -8,5 +10,5 @@ public:
     virtual ~RewardScene() = default;
     
 private:
-    entity_t createContinueButton(int x, int y,GameScene* scene);;
+    entity_t createContinueButton(int x, int y, std::shared_ptr<GameScene> scene);;
 };

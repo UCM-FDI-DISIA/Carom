@@ -43,7 +43,7 @@
 
 
 
-CaromScene::CaromScene(Game* game, GameScene* reward) 
+CaromScene::CaromScene(Game* game, std::shared_ptr<GameScene> reward) 
     : GameScene(game)
     , _reward(reward)
     , _updatePhysics(true)

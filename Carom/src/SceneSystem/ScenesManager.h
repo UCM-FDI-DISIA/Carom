@@ -25,7 +25,7 @@ class RNG_Manager;
 class ScenesManager
 {
 	// Pila (como las de EDA) de punteros inteligentes a estados del juego
-	std::stack<GameScene*> GameScenes;
+	std::stack<std::shared_ptr<GameScene>> _gameScenes;
 
 public:
 	ScenesManager();
@@ -33,9 +33,9 @@ public:
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
-	void pushScene(GameScene* scene);
+	void pushScene(std::shared_ptr<GameScene> scene);
 	// Reemplaza el estado actual por el nuevo estado
-	void replaceScene(GameScene* scene);
+	void replaceScene(std::shared_ptr<GameScene> scene);
 	// Desapila el estado actual y pasa al siguiente en la pila
 	// (no hace nada si no la pila es vacía)
 	void popScene();

@@ -3,23 +3,26 @@
 
 MainMenuScene::MainMenuScene(Game *g) 
     : UIScene(g)
-    , _poolScene(nullptr)
 {
 }
 
 MainMenuScene::~MainMenuScene()
 {
+    /* Como es sharedptr poolscene esta mierda ya no hace falta
+    
     if(isInitialized()) {
         if (!_poolScene->isInitialized()) {
             delete _poolScene;
             _poolScene = nullptr;
         }
     }
+    
+    */
 }
 
 void MainMenuScene::initFunctionalities()
 {
-    _poolScene = new PoolScene(game);
+    _poolScene = std::make_shared<PoolScene>(game);
 }
 
 void MainMenuScene::initObjects()

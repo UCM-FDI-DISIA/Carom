@@ -56,7 +56,7 @@ void UIScene::createText(std::string text, int x, int y, int size)
     winContainer->addComponent(currentDisplay);
 }
 
-entity_t UIScene::createSceneButton(int x, int y, GameScene* scene, grpId_t g, layerId_t r, std::string tex, float size)
+entity_t UIScene::createSceneButton(int x, int y, std::shared_ptr<GameScene> scene, grpId_t g, layerId_t r, std::string tex, float size)
 {
     entity_t e = new Entity(*this, g);
 
@@ -75,7 +75,7 @@ entity_t UIScene::createSceneButton(int x, int y, GameScene* scene, grpId_t g, l
     return e;
 }
 
-entity_t UIScene::createSceneButton(int x, int y, GameScene* scene)
+entity_t UIScene::createSceneButton(int x, int y, std::shared_ptr<GameScene> scene)
 {
     entity_t e = new Entity(*this, grp::DEFAULT);
 

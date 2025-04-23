@@ -2,6 +2,8 @@
 #include "UIScene.h"
 #include "MainMenuScene.h"
 
+#include <memory>
+
 class ScenesManager;
 class GameScene;
 
@@ -11,5 +13,5 @@ public:
     virtual ~EndGameScene() = default;
 
 private:
-    entity_t createExitButton(int x, int y, GameScene* scene);
+    entity_t createExitButton(int x, int y, std::shared_ptr<GameScene> scene);
 };

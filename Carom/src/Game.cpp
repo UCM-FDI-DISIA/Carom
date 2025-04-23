@@ -17,7 +17,7 @@
 #include "CaromScene.h"
 #include "PrefabTestScene.h"
 
-
+#include <memory>
 
 Game::Game() {}
 
@@ -71,7 +71,7 @@ void
 Game::start() 
 {
     _sceneManager = new ScenesManager();    
-    _mainMenuScene = new MainMenuScene(this);
+    _mainMenuScene = std::make_shared<MainMenuScene>(this);
 
     _sceneManager->pushScene(_mainMenuScene);
 }
@@ -155,7 +155,7 @@ void Game::run()
 
         _sceneManager = new ScenesManager();    
 
-        GameScene *ms = new MainMenuScene(this);
+        std::shared_ptr<GameScene> ms = std::make_shared<GameScene>(this);
     
         _sceneManager->pushScene(ms);
     }

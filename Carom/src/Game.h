@@ -3,6 +3,8 @@
 #include "SDLUtils.h"
 #include "Texture.h"
 
+#include <memory>
+
 class ScenesManager;
 class RNG_Manager;
 class MainMenuScene;
@@ -32,7 +34,7 @@ public:
     
 protected:
     ScenesManager* _sceneManager;
-    MainMenuScene* _mainMenuScene;
+    std::shared_ptr<MainMenuScene> _mainMenuScene;
     RNG_Manager* _rngManager;
 
 private:

@@ -15,7 +15,7 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
     );
 
     // Para cuando este la MainMenu scene, habria que ponerla aqui.
-    GameScene *ms = new MainMenuScene(game); // ! tst 
+    std::shared_ptr<GameScene> ms = std::make_shared<MainMenuScene>(game); // ! tst 
 
     entity_t b = createExitButton(
         sdlutils().width()/2, // x
@@ -32,7 +32,7 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
 }
 
 entity_t 
-EndGameScene::createExitButton(int x, int y, GameScene *scene){
+EndGameScene::createExitButton(int x, int y, std::shared_ptr<GameScene> scene){
     entity_t e = new Entity(*this, grp::DEFAULT);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);    

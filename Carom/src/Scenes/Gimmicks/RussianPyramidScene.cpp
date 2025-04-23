@@ -18,7 +18,7 @@
 #include "ShadowComponent.h"
 
 
-RussianPyramidScene::RussianPyramidScene(Game* game, GameScene* reward, bool isBoss)
+RussianPyramidScene::RussianPyramidScene(Game* game, std::shared_ptr<GameScene> reward, bool isBoss)
     : CaromScene(game, reward)
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")

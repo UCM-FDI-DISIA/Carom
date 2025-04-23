@@ -18,57 +18,53 @@ ScenesManager::ScenesManager()
 
 ScenesManager::~ScenesManager()
 {
-	while (!GameScenes.empty()) {
-        delete GameScenes.top();
-        GameScenes.pop();
+	while (!_gameScenes.empty()) {
+        _gameScenes.pop();
     }
 }
 
 void
-ScenesManager::pushScene(GameScene* scene)
+ScenesManager::pushScene(std::shared_ptr<GameScene> scene)
 {
 	scene->init();
-	GameScenes.push(scene);
+	_gameScenes.push(scene);
 }
 
 void
 ScenesManager::popScene()
 {
 	// Si el estado final existe y se deja eliminar
-	if (!GameScenes.empty()) {
-        delete GameScenes.top();
-        GameScenes.pop();
+	if (!_gameScenes.empty()) {
+        _gameScenes.pop();
     }
 }
 
 bool
 ScenesManager::empty() const
 {
-	return GameScenes.empty();
+	return _gameScenes.empty();
 }
 
 ScenesManager::operator bool() const
 {
-	return !GameScenes.empty();
+	return !_gameScenes.empty();
 }
 
 void
-ScenesManager::replaceScene(GameScene* scene)
+ScenesManager::replaceScene(std::shared_ptr<GameScene> scene)
 {
-	if (!GameScenes.empty()) {
-		GameScene* current = GameScenes.top();
-		GameScenes.top() = scene;
-		delete current;
+	if (!_gameScenes.empty()) {
+		_gameScenes.top() = scene;
 	}
 }
 
 void
 ScenesManager::update()
 {
-	if (!GameScenes.empty()) {
+	if (!_gameScenes.empty()) {
 		// Esta variable local evita que el estado sea destruido hasta que
 		// acabe esta función si su actualización lo desapila de esta pila
-		GameScene* current = GameScenes.top();
+		std::shared_ptr<GameScene> current = _gameScenes.top();
 		current->update();
 	}
  }
@@ -76,25 +72,25 @@ ScenesManager::update()
  void
  ScenesManager::render() const
  {
-	 if (!GameScenes.empty()) {
+	 if (!_gameScenes.empty()) {
 		// Asumimos que render (const) no desapilará y destruirá el estado
-		GameScenes.top()->render();
+		_gameScenes.top()->render();
 	 }
  }
  
  void
  ScenesManager::handleEvent()
  {
-	 if (!GameScenes.empty()) {
-		GameScene* current = GameScenes.top();
+	 if (!_gameScenes.empty()) {
+		std::shared_ptr<GameScene> current = _gameScenes.top();
 		current->handleEvent();
 	 }
  }
 
 void
 ScenesManager::refresh() {
-	if(!GameScenes.empty()) {
-		GameScenes.top()->refresh();
+	if(!_gameScenes.empty()) {
+		_gameScenes.top()->refresh();
 	}
 }
  

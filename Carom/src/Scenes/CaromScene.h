@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "ecs.h"
 
+#include <memory>
+
 class RNG_Manager;
 class b2WorldId;
 class Vector2D;
@@ -21,12 +23,12 @@ class CaromScene: public GameScene {
 protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
-    GameScene* _reward; //La recompensa al completar la escena
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(Game* g, GameScene* reward);
+    CaromScene(Game* g, std::shared_ptr<GameScene> reward);
     virtual ~CaromScene();
 
     void init() override;
@@ -40,7 +42,7 @@ public:
     void update() override;
 
     inline ScenesManager* getScenesManager() const {return _sceneManager;}
-    inline GameScene* getRewardScene() const {return _reward;}
+    inline std::shared_ptr<GameScene> getRewardScene() const {return _reward;}
 
     // Métodos para comprobar condiciones de estado 
     inline int getRemainingHits() { return _remainingHits; }

@@ -38,10 +38,6 @@ protected:
 
     Game* game;
     CameraComponent* _camera = nullptr;
-
-	GameScene(Game* game);
-	GameScene();
-
 	
 	// Este metodo permite un comportamiento de la escena al instanciarla
 	//
@@ -102,6 +98,9 @@ protected:
     void createPauseEntity();
 
 public:
+
+    GameScene(Game* game);
+
     inline virtual void init(){}
     inline bool isInitialized() { return _initialized; }
 

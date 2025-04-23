@@ -5,6 +5,8 @@
 #include "RNG_Manager.h"
 #include "UIScene.h"
 
+#include <memory>
+
 class ScenesManager;
 class RNG_Manager;
 
@@ -18,8 +20,10 @@ protected:
         };
 
     RNG_Manager& _rngm; // random manager
-    GameScene* _reward; //La recompensa al completar la escena
-    GameScene* _scene;
+
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
+    std::shared_ptr<GameScene> _scene;
+    
     b2WorldId _myB2WorldId; //El mundo de box2D
 
     void generateRndBallsPos(); // para la generación aleatoria de la pos de las bolas.

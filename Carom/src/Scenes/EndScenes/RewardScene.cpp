@@ -15,7 +15,7 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         3 // size.
     );
 
-    GameScene* ms = new PoolScene(game); // se crea una nueva poolscene.
+    std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
     
 
     entity_t b = createContinueButton(
@@ -32,7 +32,7 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
 }
 
 entity_t 
-    RewardScene::createContinueButton(int x, int y, GameScene *scene){
+    RewardScene::createContinueButton(int x, int y, std::shared_ptr<GameScene> scene){
     entity_t e = new Entity(*this, grp::DEFAULT);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);    

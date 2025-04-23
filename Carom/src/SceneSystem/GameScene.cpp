@@ -165,7 +165,6 @@ void GameScene::refresh() {
                             }
                         }), groupEntities.end());
     }
-    
 }
 
 void GameScene::clear(){
