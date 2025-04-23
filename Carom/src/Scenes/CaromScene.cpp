@@ -57,9 +57,6 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
     // SEEDING
     // TODO: pasar RNG a sceneManager o Game para que haya uno solo
     _rngManager = RNG_Manager::Instance();
-    unsigned seed = _rngManager->randomRange(1, 1000000); 
-    _rngManager->inseminate(seed);
-
 
     // Creación del mundo físico
     b2WorldDef worldDef = b2DefaultWorldDef();
