@@ -10,6 +10,9 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 #include "CaromScene.h"
+#include "CowboyPoolScene.h"
+#include "RussianPyramidScene.h" // ! tst
+
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
 #include "StickInputComponent.h"
@@ -73,11 +76,13 @@ void PoolScene::generateMatchHoles()
                 hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
                 
                 NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
-                
-                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
-                game->getScenesManager()->pushScene(rs);
+
+                // !!! CREA BOSSSCENE(CAMBIAR).
+                UIScene* rewardScene = new RewardScene(game);
+                // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
+                RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst 
+                ms->init();
+
                 game->getScenesManager()->pushScene(ms);
             });
         }
@@ -85,11 +90,15 @@ void PoolScene::generateMatchHoles()
             button->setOnClick([this](){
                 
                 NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
                 
                 RewardScene* rs = new RewardScene(game);
 
-                game->getScenesManager()->pushScene(rs);
+                // !!! CREA RUSSIAN PYRAMID(CAMBIAR).
+                UIScene* rewardScene = new RewardScene(game);
+                // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
+                RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst  
+                ms->init();
+                
                 game->getScenesManager()->pushScene(ms);
             });
         }

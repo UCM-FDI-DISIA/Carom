@@ -41,6 +41,29 @@ bool GraphisUtils::doPolygonsOverlap(const std::vector<b2Vec2> &verts1, const st
     return !solution.empty();
 }
 
+bool GraphisUtils::arePointsInsideArea(const std::vector<b2Vec2> &points, const std::vector<b2Vec2> &area)
+{
+    Path64 areaPath;
+    const double scale = 1000.0;
+
+    for (const auto& v : area) {
+        areaPath.push_back(Point64(v.x * scale, v.y * scale));
+    }
+
+    for (const auto& p : points) {
+        Point64 point(p.x * scale, p.y * scale);
+
+        Clipper2Lib::PointInPolygonResult result = PointInPolygon(point, areaPath);
+
+        if (result == PointInPolygonResult::IsOutside) {
+            return false; // If any point is not inside, return false
+        }
+    }
+
+    // All points are inside if we reach here
+    return true;
+}
+
 std::vector<uint8_t> GraphisUtils::computeAlphaMask(const std::vector<b2Vec2>& polyVerts, const SDL_Rect& rect, float polyRadius) {
     // Convert the polygon to Clipper2 format
     const double scale = 1000.0; // Scale factor (meters to millimeters)
@@ -511,6 +534,18 @@ std::pair<SDL_Rect, b2Vec2> GraphisUtils::generatePolygonBoundingBox(const std::
     return {boundingBox, unclampedCenter};
 }
 
+std::vector<b2Vec2> GraphisUtils::sdlrectToPolygon(const SDL_Rect &rect)
+{
+    std::vector<b2Vec2> polygon;
+
+    polygon.push_back({static_cast<float>(rect.x), static_cast<float>(rect.y)});
+    polygon.push_back({static_cast<float>(rect.x + rect.w), static_cast<float>(rect.y)});
+    polygon.push_back({static_cast<float>(rect.x + rect.w), static_cast<float>(rect.y + rect.h)});
+    polygon.push_back({static_cast<float>(rect.x), static_cast<float>(rect.y + rect.h)});
+
+    return polygon;
+}
+
 // On pixels
 std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
 {
@@ -545,4 +580,31 @@ std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
     // std::cout << "polygons: " << polygons.size() << std::endl;
 
     return polygons;
+}
+
+std::vector<b2Vec2> GraphisUtils::extractPointsFromSVG(int n, int startIdx, const std::string& name, const std::string& group)
+{
+    auto svg = &sdlutils().svgs().at(group);
+    std::vector<b2Vec2> points;
+    points.reserve(n);
+
+    // std::cout << "name: " << name << std::endl;
+
+    for (int i = startIdx; i < n + startIdx; ++i)
+    {
+        // std::cout << "point: " << name + std::to_string(i) << std::endl;
+
+        b2Vec2 point = {static_cast<float>(svg->at(name + std::to_string(i)).x)
+                     ,  static_cast<float>(svg->at(name + std::to_string(i)).y)
+                    };
+
+        points.push_back(point);
+    }
+
+    return points;
+}
+
+void GraphisUtils::coutRect(const SDL_Rect &rect)
+{
+    std::cout << "Rect x: " << rect.x << ", y: " << rect.y << ", w: " << rect.w << ", h: " << rect.h << std::endl;
 }

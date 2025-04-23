@@ -11,7 +11,6 @@
 class FrictionComponent : public ForceFieldComponent
 { 
     float _mu; // friction coeficient (no distinction dynamic/static)
-    const float _g = 9.8f; // """"gravity""""
     
 public:
     __CMPID_DECL__(cmp::FRICTION);
@@ -20,6 +19,6 @@ public:
     virtual ~FrictionComponent() {}
     
 protected:
-    virtual void applyForce(entity_t e) override;
-
+    virtual void applyForce(RigidBodyComponent* rb) override;
+    virtual void calculateMyForceVector(RigidBodyComponent* rb, const Vector2D& direction);
 };

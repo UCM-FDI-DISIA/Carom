@@ -21,10 +21,12 @@ __CMPID_DECL__(cmp::FOLLOW);
     inline bool getCopyPosition(){return _copyPosition;}
     inline bool getCopyRotation(){return _copyRotation;}
     inline bool getCopyScale(){return _copyScale;}
+    inline Entity* getTarget() { return _targetToCopy; }
 
     //setters
     inline void setRelativeDistance(Vector2D newDistance){_relativeDistance = newDistance;}
     inline void setCopyPosition(bool boolean){_copyPosition = boolean;}
     inline void setCopyRotation(bool boolean){_copyRotation = boolean;}
     inline void setCopyScale(bool boolean){_copyScale = boolean;}
+    inline void setTarget(entity_t newTarget) { _targetToCopy = newTarget; }
 };

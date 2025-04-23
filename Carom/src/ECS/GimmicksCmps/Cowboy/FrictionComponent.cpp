@@ -13,24 +13,24 @@ FrictionComponent::FrictionComponent(entity_t ent, float frictionCoef)
     _maxForce = 2.0f;
 }
 
-void FrictionComponent::applyForce(entity_t e)
+void FrictionComponent::applyForce(RigidBodyComponent* rb)
 {
-    auto rb = e->getComponent<RigidBodyComponent>();
-
-    if(bodyIsMoving(*rb) && rb->getBodyType() == b2_dynamicBody){
-
-        float    a_bodyMass = rb->getMass();
-        Vector2D a_bodyVel = {rb->getVelocity().x, rb->getVelocity().y};
-        float a_mag = (_mu * a_bodyMass * _g) * a_bodyVel.magnitude();
-
-        // Friction magnitude capped by _maxForce
-        Vector2D a_frictionForce = a_bodyVel.normalize() * (-1) * b2ClampFloat(a_mag, 0, _maxForce);
+    if(bodyIsMoving(*rb) && rb->getBodyType() == b2_dynamicBody) {
         
-        rb->applyForceToCenter({a_frictionForce.getX(), a_frictionForce.getY()});
-
-        if (e->tryGetComponent<WhiteBallScorerComponent>()){
-            // TODO:
-            // _myEntity->getScene().getCamera()->shakeCamera(0.15f, 0.3f);
-        }
+        calculateMyForceVector(rb, Vector2D());
+        rb->applyForceToCenter({_myForce.x, _myForce.y});
     }
+}
+
+void
+FrictionComponent::calculateMyForceVector(RigidBodyComponent* rb, const Vector2D& direction)
+{
+    float    a_bodyMass = rb->getMass();
+    Vector2D a_bodyVel = {rb->getVelocity().x, rb->getVelocity().y};
+    float    a_mag = (_mu * a_bodyMass * _g) * a_bodyVel.magnitude();
+
+    // Friction magnitude capped by _maxForce
+    Vector2D a_frictionForce = a_bodyVel.normalize() * (-1) * b2ClampFloat(a_mag, 0, _maxForce);
+
+    _myForce = {a_frictionForce.getX(), a_frictionForce.getY()};
 }

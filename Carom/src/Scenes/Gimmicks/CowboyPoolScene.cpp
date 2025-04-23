@@ -32,14 +32,6 @@ CowboyPoolScene::CowboyPoolScene(State* state, Game* g, bool isBoss)
     , _nAvailablePolygons(8)
     , _nVertices(8)
 {
-    if(isBoss) {
-        _boss = Boss::COWBOY_POOL;
-        createBoss();
-    }
-
-    initGimmick();
-
-    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
 }
 
 CowboyPoolScene::~CowboyPoolScene()
@@ -80,6 +72,16 @@ void CowboyPoolScene::initGimmick(){
 
     int nBanks = 3; // Number of sandbanks to be generated
     generateSandBanks(nBanks, _sandFriction);
+}
+
+void CowboyPoolScene::initBoss()
+{
+    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
+
+    if(isBossMatch()) {
+        _boss = Boss::COWBOY_POOL;
+        createBoss();
+    }
 }
 
 void CowboyPoolScene::createSandBank(Polygon& vertices, float friction, float scale, SDL_Rect sandRect) 
