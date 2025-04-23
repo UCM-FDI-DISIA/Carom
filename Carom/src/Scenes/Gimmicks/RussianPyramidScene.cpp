@@ -72,7 +72,7 @@ void RussianPyramidScene::createBoss(){
 
     float svgSize = *&sdlutils().svgs().at(_pyramidFilenameSVG).at("russian_boss_hand").width;
     float textureSize = sdlutils().images().at("russian_hand").width();
-    float bossScale = svgSize/textureSize;
+    float bossScale = (svgSize/textureSize) * 0.8;
 
     addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("russian_hand"), renderLayer::BOSS_HAND, bossScale);
     addComponent<TweenComponent>(boss);
