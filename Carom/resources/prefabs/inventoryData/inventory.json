@@ -65,7 +65,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -86,7 +90,6 @@
       ]
    },
    "stick": {
-      "components": [
-      ]
+      "components": []
    }
 }
