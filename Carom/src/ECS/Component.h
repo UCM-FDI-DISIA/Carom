@@ -12,6 +12,8 @@ public:
     Component(entity_t ent);
     virtual ~Component() = 0;
 
+    inline virtual void setEntity(entity_t other) { _myEntity = other; }
+    
     virtual void init() = 0;
 
     virtual void update() = 0;

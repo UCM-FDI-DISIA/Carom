@@ -46,6 +46,10 @@ void BallHandler::multScore(float mult)
     _scene->addScore(_scene->getCurrentScore() * (mult - 1));
 }
 
+void BallHandler::multRoundScore(float mult){
+    _scene->addScore(_scene->getRoundScore() * (mult - 1));
+}
+
 void BallHandler::setMult(float newMult)
 {
     _mult = newMult;
@@ -63,6 +67,13 @@ bool BallHandler::addEffect(BallEffect* effect)
         _effects.push_back(effect);
         return true;
     } else return false;
+}
+
+bool BallHandler::removeEffect(BallEffect* effect) {
+    auto it = find(_effects.begin(), _effects.end(), effect);
+    _effects.erase(it);
+
+    return true;
 }
 
 void BallHandler::removeAllEffects(){

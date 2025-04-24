@@ -13,6 +13,7 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
+class StickInputComponent;
 
     
 class CaromScene: public GameScene {
@@ -26,6 +27,12 @@ protected:
 public:
     CaromScene(State* state, Game* g);
     virtual ~CaromScene();
+
+    void init() override;
+    void initObjects() override;
+    void initFunctionalities() override;
+    void initGimmick() override {};
+    void initBoss() override{};
 
     void handleEvent() override;
     //Llama al update de todas las entidades de escena y maneja las físicas
@@ -55,22 +62,27 @@ public:
 protected:
     TextDisplayComponent* _currentScoreDisplay;
     //Los acumuladores de puntuación
-    int _currentScore = 0, _scoreToBeat = 1000; 
+    int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
 public:
     TextDisplayComponent* createScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
+    inline double getRoundScore() {return _roundScore; }
     inline double getCurrentScore() { return _currentScore; }
     inline double getScoreToBeat() { return _scoreToBeat; }
 
     // ?Métodos para manejo de puntuación
     void setScoreToBeat(int newScoreToBeat);
     void addScore(int score);
+    void addToTotalScore(int score);
     void removeScore(int score);
+    void removeFromTotalScore(int score);
+
+    void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
-    inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+    inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
         b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
@@ -107,7 +119,7 @@ public:
 
     entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
-    void createEffectBalls();
+    virtual void createEffectBalls();
     
     void createBallShadow(entity_t);
 
@@ -115,10 +127,10 @@ public:
 
     void createFeedbackTest(b2Vec2 pos, float rot);
 
-private:
+protected:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-
+    StickInputComponent* _stickInput;
 
 //---------------------------BOSS---------------------------------
 public:

@@ -12,10 +12,9 @@
 #include "Entity.h"
 #include "CameraComponent.h"
 #include "Frame.h"
-#include "CameraComponent.h"
+#include "RenderTextureComponent.h"
 
 class Game;
-
 class TweenComponent;
 
 // Declaraciones anticipadas
@@ -46,6 +45,10 @@ protected:
 	// Este metodo permite un comportamiento de la escena al instanciarla
 	//
 	inline virtual void init(){}
+    virtual void initObjects(){}
+    virtual void initFunctionalities(){}
+    virtual void initGimmick(){}
+    virtual void initBoss(){}
 
     // Create entities that represent and compose the table. The table as a whole is a group.
     void createTable();
@@ -118,6 +121,14 @@ public:
     //
     inline auto& getEntitiesOfGroup(grpId_t gId) {
         return _entsByGroup[gId];
+    }
+
+    inline void killEntitiesOfGroup(grpId_t gId) {
+        for (auto& e : _entsByGroup[gId]) {
+            if (e->tryGetComponent<RenderTextureComponent>())
+                eraseRenderEntity(e);
+            e->setAlive(false);
+        }
     }
 
     inline const auto& getRenderEntities(){

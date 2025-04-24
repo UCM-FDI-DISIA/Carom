@@ -47,11 +47,20 @@
 
 CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
 {
-    //TODAS las caromScene se pueden pausar
-    createPauseEntity();
+}
 
-    // instantiateBossTableShadow();
+void CaromScene::init()
+{
+    initFunctionalities();
+    initGimmick();
+    initObjects();
+    initBoss();
 
+    setNewState(new StartMatchState(this));
+}
+
+void CaromScene::initFunctionalities()
+{
     _sceneManager = game->getScenesManager();
 
     // SEEDING
@@ -67,11 +76,18 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
     _myB2WorldId = b2CreateWorld(&worldDef);
     b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
 
-    setNewState(s);
-        
+    _hitManager = new ColorHitManager(this);
+}
+
+void CaromScene::initObjects()
+{
+    //TODAS las caromScene se pueden pausar
+    createPauseEntity();
+
+    createScoreEntity();
+
     createStick();
     
-
     // WHITE BALL
     // Converts (x, y) from screen(svg) to meters and to meter coordinates
     b2Vec2 wb_pos = PhysicsConverter::pixel2meter(
@@ -79,28 +95,17 @@ CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) ,
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
     createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
-    // Apply impulse
-    getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<RigidBodyComponent>()->applyImpulseToCenter({0.0f, 0.0f});
         
-
-
     // EFFECT BALLS
     createEffectBalls();
 
     // Create table with texture and colliders
     createTable();
     
-
     createBackground("suelo");
-
-    createScoreEntity();
-
-    _hitManager = new ColorHitManager(this);
 
     _currentScoreDisplay = createScoreUI();
     _remainingHitsDisplay = createRemainingHitsUI();
-
-    setNewState(new StartMatchState(this));
 }
 
 entity_t
@@ -114,16 +119,19 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     entity_t e = new Entity(*this, grp::WHITEBALL);
 
     float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
-    //! I don't know how to get the radius of the ball
     addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
 
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, scale);
     addComponent<WhiteBallScorerComponent>(e);
+
     Button::RadialButton rButton = Button::RadialButton(2.0);
     addComponent<Button>(e, rButton);
     e->getComponent<Button>()->setOnClick([this](){
-        for (auto& e : getEntitiesOfGroup(grp::PALO))
+        for (auto& e : getEntitiesOfGroup(grp::PALO)) {
             e->activate();
+            e->getComponent<RenderTextureComponent>()->setEnabled(false);
+            e->getComponent<ShadowComponent>()->setEnabled(false);
+        }
     });
 
     addComponent<BallHandler>(e);
@@ -496,7 +504,7 @@ CaromScene::manageExitTriggers(b2SensorEvents sensorEvents) {
         
         // Null check: entities might have been destroyed
         if (sensor && visitor) {
-            std::cout << "Trigger exit" <<  std::endl;
+            // std::cout << "Trigger exit" <<  std::endl;
             sensor->getComponent<RigidBodyComponent>()->onTriggerExit(visitor);
                 visitor->getComponent<RigidBodyComponent>()->onTriggerExit(sensor);
         }
@@ -564,13 +572,30 @@ CaromScene::createScoreUI() {
 }
 
 void CaromScene::addScore(int score) {
+    _roundScore += score;
+    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
+    // TODO Set the round points diplay
+}
+
+void CaromScene::addToTotalScore(int score) {
     _currentScore += score;
     _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
 }
 
 void CaromScene::removeScore(int score) {
+    _roundScore -= score;
+    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
+    // TODO Set the round points display
+}
+
+void CaromScene::removeFromTotalScore(int score) {
     _currentScore -= score;
     _currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
+}
+
+void CaromScene::addPointsFromRound(){
+    addToTotalScore(_roundScore);
+    removeScore(_roundScore);
 }
 
 void CaromScene::setScoreToBeat(int score){
@@ -590,7 +615,7 @@ void CaromScene::decrementRemainingHits()
 //---------------------------BOSS---------------------------------
 
 void CaromScene::playBossTurn() {
-    // std::cout<< "Play Boss Turn" << std::endl;
+    std::cout<< "Play Boss Turn" << std::endl;
     clearBossModifiers();
     applyBossModifiers();
 }
