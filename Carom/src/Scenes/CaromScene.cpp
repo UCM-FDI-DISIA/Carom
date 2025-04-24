@@ -406,6 +406,11 @@ b2BodyId CaromScene::addBodyToWorld(b2BodyDef bodyDef){
     return b2CreateBody(_myB2WorldId, &bodyDef);
 }
 
+b2RayResult 
+CaromScene::castRayToWorld(b2Vec2 origin, b2Vec2 translation) {
+    return b2World_CastRayClosest(_myB2WorldId, origin, translation, b2DefaultQueryFilter());
+}
+
 void CaromScene::drawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius)
 {
     const int32_t diameter = (radius * 2);
