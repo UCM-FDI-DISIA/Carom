@@ -102,6 +102,7 @@ public:
 
     /// @brief Método para que rigidbody component reciba el id del body
     b2BodyId addBodyToWorld(b2BodyDef bodyDef);
+    b2RayResult castRayToWorld(b2Vec2 origin, b2Vec2 translation);
 
 //---------------------------ENTITY CREATION---------------------------------
 public:
