@@ -45,7 +45,8 @@
 	DONUT_STICK, \
 	PAUSE, \
 	UNPAUSE, \
-	RANDOM_VIBRATION
+	RANDOM_VIBRATION, \
+	DIALOGUE
 
 // Groups list - must have at least one element
 //
