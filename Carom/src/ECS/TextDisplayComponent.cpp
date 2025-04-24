@@ -38,5 +38,6 @@ TextDisplayComponent::setDisplayedText(std::string text) {
 
 void 
 TextDisplayComponent::reGenerateTexture() {
+    if(_texture != nullptr) delete _texture;
     _texture = new Texture(sdlutils().renderer(), _text, sdlutils().fonts().at(_key), _color);
 }
