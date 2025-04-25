@@ -140,8 +140,6 @@ void Game::run()
         if (elapsed < FIXED_TIMESTEP) {
                 SDL_Delay(FIXED_TIMESTEP - elapsed);
         }
-
-
     }
 
 }

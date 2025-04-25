@@ -56,6 +56,8 @@ public:
 
     template<typename T>
     bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
+        auto ballHandler = getComponent<BallHandler>();
+        ballHandler->addEffect(ballEffectComp);
         return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
     }
 

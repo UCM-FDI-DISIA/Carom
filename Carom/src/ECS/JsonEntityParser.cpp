@@ -283,7 +283,7 @@ void JsonEntityParser::boxingGloveStickEffect(const JSONObject& atributes, Entit
     addComponent<BoxingGloveStickEffect>(e, atributes.at("factor")->AsNumber());
 }
 void JsonEntityParser::grenadeLauncherStickEffect(const JSONObject& atributes, Entity* e){
-    addComponent<GranadeLauncherStickEffect>(e, atributes.at("radius")->AsNumber(), atributes.at("explosionForce")->AsNumber(), atributes.at("explosionDelay")->AsNumber());
+    addComponent<GranadeLauncherStickEffect>(e, atributes.at("explosionForce")->AsNumber(), atributes.at("explosionDelay")->AsNumber(), atributes.at("radius")->AsNumber());
 
     auto renderTexture = e->getComponent<RenderTextureComponent>();
     renderTexture->setTexture(&sdlutils().images().at("lanzagranadas"));

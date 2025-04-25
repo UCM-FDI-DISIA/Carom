@@ -7,6 +7,7 @@
 #include <cmath>
 
 
+
 ExplosiveEffect::ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force) 
     : BallEffect(ent), _explosionDelay(timeForExplosion), _radius(radius), _force(force), _exploded(false)
 {
@@ -17,17 +18,17 @@ ExplosiveEffect::~ExplosiveEffect() {}
 
 void 
 ExplosiveEffect::init(){
-    _explosionStart = sdlutils().virtualTimer().currTime();
+    _explosionStart = sdlutils().currRealTime();
     _myRigidbody = _myEntity->getComponent<RigidBodyComponent>();
 }
 
 void 
 ExplosiveEffect::update() {
-    if(!_exploded && sdlutils().virtualTimer().currTime() - _explosionStart >= _explosionDelay) {
+    if(!_exploded && sdlutils().currRealTime() - _explosionStart >= _explosionDelay) {
         createExplosion();
         _exploded = true;
     }
-    else if(_exploded && sdlutils().virtualTimer().currTime() - _explosionStart >= _explosionDelay + 1000.0f) {
+    else if(_exploded && sdlutils().currRealTime() - _explosionStart >= _explosionDelay + 1000.0f) {
         _myEntity->removeComponent<ExplosiveEffect>();
     }
 }
@@ -35,10 +36,12 @@ ExplosiveEffect::update() {
 void 
 ExplosiveEffect::createExplosion() {
     //Agitar cámara
-    //TODO transformar esto en una entidad con el componente de empuje
     auto balls = _myEntity->getScene().getEntitiesOfGroup(grp::EFFECTBALLS);
+    balls.push_back(_myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]);
     
     for(auto ball : balls) {
+        if(ball == _myEntity) continue; //Troubleshooting para russianPyramid
+
         auto targetRB = ball->getComponent<RigidBodyComponent>();
         b2Vec2 distance = targetRB->getPosition() - _myRigidbody->getPosition();
 
