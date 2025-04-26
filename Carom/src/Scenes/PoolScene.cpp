@@ -61,7 +61,8 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
         "Basteleur-Moonlight60" // fuente
     );
 
-    addComponent<DialogueTextComponent>(prueba, a, "hola que tal estamos gente hahaha");
+    auto dialogue = addComponent<DialogueTextComponent>(prueba, a);
+    dialogue->addDialogue("hola que tal estamos gente hahaha");
 }
 
 PoolScene::~PoolScene()

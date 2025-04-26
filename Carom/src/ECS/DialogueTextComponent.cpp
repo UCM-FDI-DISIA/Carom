@@ -3,10 +3,40 @@
 #include "Entity.h"
 #include "SDLUtils.h"
 
+#include "InputHandler.h"
+
 void DialogueTextComponent::init(){
 }
 
 void DialogueTextComponent::update(){
+    if(_dialogues.size() > 0)
+    _dialogues.front().update(_textDisplay);
+}
+
+void DialogueTextComponent::handleEvent(){
+    auto input = InputHandler::Instance();
+    if((input->mouseButtonDownEvent() && input->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT))){
+        if(_dialogues.size() > 0){
+            //si el texto que se muestra es distinto al que debe aparecer, lo completa
+            if(_dialogues.front().getTextToPrint() != _textDisplay->getDisplayedText()){
+                _textDisplay->setDisplayedText(_dialogues.front().getTextToPrint());
+            }
+            else{
+                //si no, pasas al sifuiente
+                _dialogues.front().playCallback();
+                _dialogues.pop();
+
+                _textDisplay->setDisplayedText(" ");
+            }
+        }
+    }
+}
+
+void DialogueTextComponent::addDialogue(std::string textToPrint, std::function<void()> callbackOnEnd){
+    _dialogues.emplace(DialogueContainer(textToPrint, callbackOnEnd));
+}
+
+void DialogueTextComponent::DialogueContainer::update(TextDisplayComponent* _textDisplay){
     if(_textDisplay->getDisplayedText() != _textToPrint && _lastTime + MILISECONDS_BETWEEN_CHARS <= sdlutils().currRealTime()){
         _lastTime = sdlutils().currRealTime();
         
@@ -18,4 +48,9 @@ void DialogueTextComponent::update(){
 
         _textDisplay->setDisplayedText(displayedText);
     }
+}
+
+DialogueTextComponent::DialogueContainer::DialogueContainer(std::string textToPrint, std::function<void()> callbackOnEnd ):
+    _textToPrint(textToPrint), _callbackOnEnd(callbackOnEnd), _lastTime(0)
+    {
 }
