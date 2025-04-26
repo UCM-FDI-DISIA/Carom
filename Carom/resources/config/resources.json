@@ -40,6 +40,22 @@
     { "id" : "bola_cast_sombra", "file" : "../../resources/images/bola_cast_sombra.png"},
     { "id": "suelo", "file": "../../resources/images/suelo.png"},
 
+    { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
+    { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
+    { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
+    { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
+    { "id" : "RectanglePlay", "file" : "../../resources/images/mainmenu/RectanglePlay.png"},
+    { "id" : "RectangleSettings", "file" : "../../resources/images/mainmenu/RectangleSettings.png"},
+    { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
+    { "id" : "menuBackground", "file" : "../../resources/images/mainmenu/menuBackground.png"},
+    { "id" : "C", "file" : "../../resources/images/mainmenu/C.png"},
+    { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
+    { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
+    { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
+    { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
+    { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
+    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
+
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
@@ -67,23 +83,29 @@
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
 
+    { "id" : "pyramid0", "file" : "../../resources/images/pyramid0.png"},
+    { "id" : "pyramid1", "file" : "../../resources/images/pyramid1.png"},
+    { "id" : "pyramid2", "file" : "../../resources/images/pyramid2.png"},
+    { "id" : "pyramid3", "file" : "../../resources/images/pyramid3.png"},
+    { "id" : "pyramid4", "file" : "../../resources/images/pyramid4.png"},
+    { "id" : "pyramid_shadow0", "file" : "../../resources/images/pyramid_shadow0.png"},
+    { "id" : "pyramid_shadow1", "file" : "../../resources/images/pyramid_shadow1.png"},
+    { "id" : "pyramid_shadow2", "file" : "../../resources/images/pyramid_shadow2.png"},
+    { "id" : "pyramid_shadow3", "file" : "../../resources/images/pyramid_shadow3.png"},
+    { "id" : "pyramid_shadow4", "file" : "../../resources/images/pyramid_shadow4.png"}, 
+    { "id" : "russian_indicator", "file" : "../../resources/images/light1.png"}, 
+    { "id" : "russian_hand", "file" : "../../resources/images/russian_boss.png"},
+
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-    
-    { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
-    { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
-    { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
-    { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
-    { "id" : "RectanglePlay", "file" : "../../resources/images/mainmenu/RectanglePlay.png"},
-    { "id" : "RectangleSettings", "file" : "../../resources/images/mainmenu/RectangleSettings.png"},
-    { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
-    { "id" : "menuBackground", "file" : "../../resources/images/mainmenu/menuBackground.png"},
-    { "id" : "C", "file" : "../../resources/images/mainmenu/C.png"},
-    { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
-    { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
-    { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
-    { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
-    { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
-    { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"}
+
+    { "id" : "BowlingEffect", "file" : "../../resources/images/bowling.png"},
+    { "id" : "X2Effect", "file" : "../../resources/images/x2.png"},
+    { "id" : "AbacusEffect", "file" : "../../resources/images/abaco.png"},
+    { "id" : "CristalEffect", "file" : "../../resources/images/cristal.png"},
+    { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
+    { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "QuanticEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"}
   ],
   
   "messages" : [
@@ -296,7 +318,8 @@
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
-    {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"}
+    {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
+    {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"}
   ]
 
 }

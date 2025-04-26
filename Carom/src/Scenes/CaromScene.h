@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "ecs.h"
 
+#include <memory>
+
 class RNG_Manager;
 class b2WorldId;
 class Vector2D;
@@ -13,24 +15,34 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
+class StickInputComponent;
+
     
 class CaromScene: public GameScene {
 //--------------------BASIC SCENE FUNCTIONALITY------------------------
 protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g);
+    CaromScene(State* state, Game* g, std::shared_ptr<GameScene> reward);
     virtual ~CaromScene();
+
+    void init() override;
+    void initObjects() override;
+    void initFunctionalities() override;
+    void initGimmick() override {};
+    void initBoss() override{};
 
     void handleEvent() override;
     //Llama al update de todas las entidades de escena y maneja las físicas
     void update() override;
 
     inline ScenesManager* getScenesManager() const {return _sceneManager;}
+    inline std::shared_ptr<GameScene> getRewardScene() const {return _reward;}
 
     // Métodos para comprobar condiciones de estado 
     inline int getRemainingHits() { return _remainingHits; }
@@ -40,7 +52,7 @@ public:
 //---------------------------STATE MACHINE-----------------------------
 protected:
     //el estado en el que se encuentra la escena actualmente
-    State* _currentState = nullptr;
+    State* _currentState;
 public:
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
@@ -111,7 +123,7 @@ public:
 
     entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
-    void createEffectBalls();
+    virtual void createEffectBalls();
     
     void createBallShadow(entity_t);
 
@@ -121,10 +133,10 @@ public:
 
     void winRound();
 
-private:
+protected:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-
+    StickInputComponent* _stickInput;
 
 //---------------------------BOSS---------------------------------
 public:
@@ -141,6 +153,7 @@ public:
 
 protected:
     Boss _boss = Boss::NONE;
+    bool _isBoss = false;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 

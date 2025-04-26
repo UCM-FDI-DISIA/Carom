@@ -67,7 +67,7 @@ void InventoryManager::exportInventoryToSave(){
 }
 
 std::vector<entity_t> 
-InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions) {
+InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{}) {
     std::vector<entity_t> balls;
     balls.reserve(MAX_BALLS);
 
@@ -207,7 +207,11 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
     removeAllBalls();
 
     for(int i =0; i < balls.size(); i++){
-        data["slot" + std::to_string(i)]["components"][0]["atributes"]["effects"] = JsonEntityParser::getBallEffects(balls[i]);
+        auto info = JsonEntityParser::getBallEffects(balls[i]);
+        for(int j =0; j < info.size(); j++){
+
+            data["slot" + std::to_string(i)]["components"][0]["atributes"]["effects"][j]["componentName"] = info[j];
+        }
     }
 
     //update data

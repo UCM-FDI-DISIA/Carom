@@ -2,11 +2,14 @@
 
 #include "ProgressionManager.h"
 
-#include "SDL_video.h"
 #include "SDLUtils.h"
 #include "Texture.h"
 
+#include <memory>
+
 class ScenesManager;
+class RNG_Manager;
+class MainMenuScene;
 class ProgressionManager;
 
 class Game {
@@ -35,6 +38,7 @@ public:
 protected:
     ScenesManager* _sceneManager;
     ProgressionManager* _progressionManager;
+    std::shared_ptr<MainMenuScene> _mainMenuScene;
 
 private:
     Texture* _t;

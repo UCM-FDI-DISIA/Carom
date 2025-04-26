@@ -6,6 +6,7 @@
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
+#include "ShadowComponent.h"
 #include "algorithm"
 #include <cmath>
 #include "GameScene.h"
@@ -21,16 +22,16 @@
 - En el momento que se suelte el clic se llama a generar la fuerza sobre la bola en base al modulo entre el palo al centro de la bola
 */
 
-    // Hay que pasarle el rectangulo para la deteccion de clics.
-    StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e), _myEffect(nullptr)
-    { }
-    
-    // Rigidbody hereda de transform. Rigidbody es un transform.
-    void StickInputComponent::init(){
-        _ih = InputHandler::Instance();
-        _myTransform = _myEntity->getComponent<TransformComponent>();
-        _myRender = _myEntity->getComponent<RenderTextureComponent>();
-    }
+// Hay que pasarle el rectangulo para la deteccion de clics.
+StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e), _myEffect(nullptr)
+{ }
+
+// Rigidbody hereda de transform. Rigidbody es un transform.
+void StickInputComponent::init(){
+    _ih = InputHandler::Instance();
+    _myTransform = _myEntity->getComponent<TransformComponent>();
+    _myRender = _myEntity->getComponent<RenderTextureComponent>();
+}
 
 void StickInputComponent::handleEvent()
 {   
@@ -78,9 +79,8 @@ void StickInputComponent::handleEvent()
                 if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
 
                 _hasShot = true; // ! hasShot
-                                        _hasShot = true;
 
-                                    _myEntity->getScene().getCamera()->shakeCamera(0.15f * impulseMag/MAX_IMPULSE, 0.3f, dirNormalized);
+                _myEntity->getScene().getCamera()->shakeCamera(0.15f * impulseMag/MAX_IMPULSE, 0.3f, dirNormalized);
             });
         }
         
@@ -142,6 +142,9 @@ void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
 
     _myTransform->setPosition(newPos);
     _myTransform->setRotation(newRotation);
+
+    _myEntity->getComponent<RenderTextureComponent>()->setEnabled(true);
+    _myEntity->getComponent<ShadowComponent>()->setEnabled(true);
 }
 
 double StickInputComponent::rad2degrees(double radians){
@@ -150,6 +153,7 @@ double StickInputComponent::rad2degrees(double radians){
 
 void StickInputComponent::registerWhiteBall(entity_t wb)
 {
+    assert(wb != nullptr);
     _whiteBall = wb;
     _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
     _minRadiusToPull = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);

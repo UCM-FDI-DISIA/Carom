@@ -21,10 +21,8 @@
 #include "FollowComponent.h"
 
 
-
-
-CowboyPoolScene::CowboyPoolScene(State* state, Game* g, bool isBoss)
-    : CaromScene(state, g)
+CowboyPoolScene::CowboyPoolScene(State* state, Game* g, std::shared_ptr<GameScene> reward, bool isBoss)
+    : CaromScene(state, g, reward)
     , _sandBanks(0)
     , _arenaFilenameSVG("grp_arena")
     , _sandConstrainName("arenaArea")
@@ -32,22 +30,25 @@ CowboyPoolScene::CowboyPoolScene(State* state, Game* g, bool isBoss)
     , _nAvailablePolygons(8)
     , _nVertices(8)
 {
-    if(isBoss) {
-        _boss = Boss::COWBOY_POOL;
-        createBoss();
-    }
-
-    initGimmick();
-
-    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
+    _isBoss = isBoss;
 }
 
 CowboyPoolScene::~CowboyPoolScene()
 {
     std::cout << "DESTRUCTOR COWBOY" << std::endl;
     // SDLUtils borra las imágenes, pero si hay reload de la escena necesita estar todo borrado
-    for (int i = 0; i < _sandBanks; ++i) {
-        sdlutils().deleteImage(std::to_string(i));
+    if(SDLUtils::HasInstance())
+        for (int i = 0; i < _sandBanks; ++i)
+            sdlutils().deleteImage(std::to_string(i));
+}
+
+void CowboyPoolScene::initBoss()
+{
+    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
+
+    if(_isBoss) {
+        _boss = Boss::COWBOY_POOL;
+        createBoss();
     }
 }
 

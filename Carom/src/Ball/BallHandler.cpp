@@ -76,7 +76,6 @@ bool BallHandler::removeEffect(BallEffect* effect) {
     return true;
 }
 
-
 void BallHandler::removeAllEffects(){
     _effects.clear();
 }

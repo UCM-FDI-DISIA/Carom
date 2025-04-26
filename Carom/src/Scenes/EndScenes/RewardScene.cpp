@@ -16,7 +16,7 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         3 // size.
     );
 
-    GameScene* ms = new PoolScene(game); // se crea una nueva poolscene.
+    std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
 
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 

@@ -9,7 +9,14 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "CristalEffect"
+                  },
+                  {
+                     "componentName": "CristalEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -19,7 +26,14 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  },
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -29,7 +43,14 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "BowlingEffect"
+                  },
+                  {
+                     "componentName": "BowlingEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -39,7 +60,14 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  },
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -49,7 +77,14 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  },
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -59,7 +94,14 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  },
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -69,11 +111,11 @@
       "components": [
          {
             "atributes": {
-               "explosionDelay": 3.4,
+               "explosionDelay": 3000,
                "explosionForce": 3,
-               "radius": 3
+               "radius": 1
             },
-            "componentName": "MagicWandStickEffect"
+            "componentName": "GrenadeLauncherStickEffect"
          }
       ]
    }

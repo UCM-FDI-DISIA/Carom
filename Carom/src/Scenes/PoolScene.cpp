@@ -10,6 +10,9 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 #include "CaromScene.h"
+#include "CowboyPoolScene.h"
+#include "RussianPyramidScene.h" // ! tst
+
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
 #include "StickInputComponent.h"
@@ -33,21 +36,33 @@
 
 using body_t = RewardInfoDisplayComponent::Body;
 
-PoolScene::PoolScene(Game* g) : UIScene(g)
+PoolScene::PoolScene(Game* game) 
+    : UIScene(game)
+    , _rngm(RNG_Manager::Instance())
+{
+}
+
+PoolScene::~PoolScene()
+{
+    std::cout << "DESTRUCTOR POOLSCENE" << std::endl;
+    // Como son shareds los punteros ya no hace falta esta movida
+}
+
+void PoolScene::initFunctionalities()
+{
+    _reward = std::make_shared<RewardScene>(game);
+    _scene = std::make_shared<CowboyPoolScene>(new NullState(), game, _reward, true);
+}
+
+void PoolScene::initObjects()
 {
     createPauseEntity();
-    _rngm = new RNG_Manager();
 
     // Create table with texture and colliders
     createBackground("suelo");
     createTable();
     generateMatchHoles();
     generateFloorRewards();
-}
-
-PoolScene::~PoolScene()
-{
-    delete _rngm;
 }
 
 void PoolScene::generateMatchHoles()
@@ -72,25 +87,33 @@ void PoolScene::generateMatchHoles()
             button->setOnClick([=](){
                 hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
                 
-                NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
-                
-                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(ms);
+                // ! LEAK
+                // NullState* state = new NullState(nullptr);
+
+                // // !!! CREA BOSSSCENE(CAMBIAR).
+                // UIScene* rewardScene = new RewardScene(game);
+                // // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
+                // RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst 
+                // ms->init();
+
+                game->getScenesManager()->pushScene(_scene);
             });
         }
         else{ // --- POSICION COLORES.
             button->setOnClick([this](){
                 
-                NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
+                // ! LEAK
+                // NullState* state = new NullState(nullptr);
                 
-                RewardScene* rs = new RewardScene(game);
+                // RewardScene* rs = new RewardScene(game);
 
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(ms);
+                // // !!! CREA RUSSIAN PYRAMID(CAMBIAR).
+                // UIScene* rewardScene = new RewardScene(game);
+                // // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
+                // RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst  
+                // ms->init();
+                
+                game->getScenesManager()->pushScene(_scene);
             });
         }
 

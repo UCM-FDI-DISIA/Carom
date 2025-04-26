@@ -15,15 +15,22 @@
 #include "NullState.h"
 
 #include "CaromScene.h"
-#include "PrefabTestScene.h"
-#include "CowboyPoolScene.h" // ! tst
 
+#include <memory>
 
 Game::Game() {}
 
-Game::~Game() {
-
+Game::~Game() 
+{
+    delete _progressionManager;
     delete _sceneManager; // HAS TO BE FIRST
+    _mainMenuScene.reset();
+
+    if (RNG_Manager::HasInstance())
+        RNG_Manager::Release();
+
+    if (InventoryManager::HasInstance())
+    InventoryManager::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -57,19 +64,27 @@ Game::init()
                 << std::endl;
         return;
     }
-    RNG_Manager::Init();
-    _progressionManager = new ProgressionManager();
+
+    // initialize InventoryManager singleton
+    if(!RNG_Manager::Init()) {
+        std::cerr << "Something went wrong while initializing RNG_Manager"
+                << std::endl;
+        return;
+    }
 }
 
 void
 Game::start() 
 {
-    _sceneManager = new ScenesManager();    
+    unsigned seed = RNG_Manager::Instance()->randomRange(1, 1000000); 
+    RNG_Manager::Instance()->inseminate(seed);
 
-    // !!! SE CREA MAINMENUSCENE
-    GameScene *ms = new MainMenuScene(this);
+    _sceneManager = new ScenesManager();
+    _progressionManager = new ProgressionManager();
 
-    _sceneManager->pushScene(ms);
+    _mainMenuScene = std::make_shared<MainMenuScene>(this);
+
+    _sceneManager->pushScene(_mainMenuScene);
 }
 
 void Game::run()
@@ -142,8 +157,6 @@ void Game::run()
         if (elapsed < FIXED_TIMESTEP) {
                 SDL_Delay(FIXED_TIMESTEP - elapsed);
         }
-
-
     }
 
 }
@@ -158,8 +171,7 @@ void Game::run()
 
         _sceneManager = new ScenesManager();    
 
-        NullState* state = new NullState(nullptr);
-        GameScene *ms = new MainMenuScene(this);
+        std::shared_ptr<GameScene> ms = std::make_shared<GameScene>(this);
     
         _sceneManager->pushScene(ms);
     }
