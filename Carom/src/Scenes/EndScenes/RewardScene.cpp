@@ -2,7 +2,8 @@
 #include "PoolScene.h"
 #include "ScenesManager.h"
 
-    
+// TODO: refactorizar -> recibir recompensa
+
 RewardScene::RewardScene(Game *g) : UIScene(g)
 {
     createBackground("suelo");
@@ -16,38 +17,18 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
     );
 
     std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
-    
 
-    entity_t b = createContinueButton(
-        sdlutils().width()/2, // x
-        (sdlutils().height()/2) + 250, // y
-        ms // scene
-    );
+    entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
+
+    b->getComponent<Button>()->setOnClick([this, ms](){
+
+        game->getScenesManager()->popScene(); // Poppea la win.
+        game->getScenesManager()->pushScene(ms);
+    }); 
 
     createText("Terminar.", // text
         sdlutils().width()/2 , // x
         (sdlutils().height()/2 + 150), // y
         2 // size
     );
-}
-
-entity_t 
-    RewardScene::createContinueButton(int x, int y, std::shared_ptr<GameScene> scene){
-    entity_t e = new Entity(*this, grp::DEFAULT);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);    
-
-    addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::UI, 0.75f);
-
-    Button::TextureButton rButton = Button::TextureButton();
-    addComponent<Button>(e, rButton);
-
-    e->getComponent<Button>()->setOnClick([this, scene](){
-
-        game->getScenesManager()->popScene(); // Poppea la win.
-        game->getScenesManager()->pushScene(scene); // 
-    });   
-    
-    return e;
 }

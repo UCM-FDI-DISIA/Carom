@@ -28,7 +28,7 @@ protected:
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(Game* g, std::shared_ptr<GameScene> reward);
+    CaromScene(State* state, Game* g, std::shared_ptr<GameScene> reward);
     virtual ~CaromScene();
 
     void init() override;
@@ -66,27 +66,32 @@ public:
 protected:
     TextDisplayComponent* _currentScoreDisplay;
     //Los acumuladores de puntuación
-    int _currentScore = 0, _scoreToBeat = 10; 
+    int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
 public:
     TextDisplayComponent* createScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
+    inline double getRoundScore() {return _roundScore; }
     inline double getCurrentScore() { return _currentScore; }
     inline double getScoreToBeat() { return _scoreToBeat; }
 
     // ?Métodos para manejo de puntuación
     void setScoreToBeat(int newScoreToBeat);
     void addScore(int score);
+    void addToTotalScore(int score);
     void removeScore(int score);
+    void removeFromTotalScore(int score);
+
+    void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
-    inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+    inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
         b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
 protected:
-    RNG_Manager& _rngManager;
+    RNG_Manager* _rngManager;
 
 //------------------------------PHYSICS--------------------------------------
 protected:
@@ -118,10 +123,7 @@ public:
 
     entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
-    entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                            float density, float friction, float restitution, int layer);
-
-    virtual void createEffectBalls(int n);
+    virtual void createEffectBalls();
     
     void createBallShadow(entity_t);
 

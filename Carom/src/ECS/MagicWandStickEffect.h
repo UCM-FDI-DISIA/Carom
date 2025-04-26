@@ -9,7 +9,5 @@ public:
 
     MagicWandStickEffect(entity_t ent) : StickEffectComponent(ent) {}
     ~MagicWandStickEffect() {}
-
-    inline void init() {}
     void applyEffect(entity_t target) override;
 };

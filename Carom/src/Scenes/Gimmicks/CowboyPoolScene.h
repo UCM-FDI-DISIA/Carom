@@ -15,12 +15,13 @@ class TweenComponent;
 class CowboyPoolScene : public CaromScene {
     b2Vec2 startingHandPosition = {2, 3};
 public:
-        CowboyPoolScene(Game* g, std::shared_ptr<GameScene> reward, bool isBoss);
+        CowboyPoolScene(State* state, Game* g, std::shared_ptr<GameScene> reward, bool isBoss);
         virtual ~CowboyPoolScene();
 
 protected:
+
+    void initGimmick() override;
     void initBoss() override;
-    void initGimmick();
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 

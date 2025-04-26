@@ -10,6 +10,8 @@
 #include "ITransform.h"
 #include "RenderComponent.h"
 #include "Component.h"
+#include "BallEffect.h"
+#include "BallHandler.h"
 
 class CameraComponent;
 class GameScene;
@@ -24,7 +26,6 @@ class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
-class BallEffect;
 class PauseScene;
 
 // Magia negra para templatizar basada en clases padre
@@ -32,6 +33,8 @@ template <typename T>
 concept DerivedFromRender = std::is_base_of<RenderComponent, T>::value;
 template <typename T>
 concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
+template <typename T> 
+concept DerivedFromBallEffect = std::is_base_of<BallEffect, T>::value;
 
 class Entity {
     friend ShadowComponent;
@@ -51,8 +54,12 @@ public:
         return internalAddComponent(cmpId<T>, component);
     }
 
-    template<>
-    bool addComponent<BallEffect>(BallEffect* balleffectComp);
+    template<typename T>
+    bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
+        auto ballHandler = getComponent<BallHandler>();
+        ballHandler->addEffect(ballEffectComp);
+        return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
+    }
 
     template<typename T>
     bool addComponent(T* renderComp) requires DerivedFromRender<T>{
@@ -109,8 +116,19 @@ public:
         return true;
     }
 
-    // Sobrecarga necesitada por ballefect y derivados
-    bool removeComponent(BallEffect* ballEffect);
+    template<typename T>
+    bool removeComponent() requires DerivedFromBallEffect<T> {
+        auto ballHandler = getComponent<BallHandler>();
+        auto effect = getComponent<T>();
+        ballHandler->removeEffect(effect);
+        return internalRemoveComponent(effect->getEffectId());
+    }
+
+    bool removeComponent(BallEffect* ballEffect) {
+        auto ballHandler = getComponent<BallHandler>();
+        ballHandler->removeEffect(ballEffect);
+        return internalRemoveComponent(ballEffect->getEffectId());
+    }
 
     template<typename T>
     bool tryGetComponent(){
@@ -134,6 +152,21 @@ public:
         return static_cast<T*>(_components[cmpId<T>]);
     }
 
+    // ! IMPORTANTE : NO ESTA PENSADO PARA USAR EN TRANSFORM O RENDER
+    // hay que mirar a ver si funcionaria
+    template<typename T>
+    void stealComponent(entity_t from){
+        assert(from->tryGetComponent<T>() && !this->tryGetComponent<T>());
+
+        T* cmp = from->getComponent<T>();
+        cmp->setEntity(this);
+        bool s = this->internalAddComponent(cmpId<T>, cmp, false);
+        assert(s);
+
+        s = from->internalRemoveComponent(cmpId<T>, false);
+        assert(s);
+    }
+
     inline ITransform* getTransform() {return _myTransform;}
     std::vector<Component*> getAllComponents(){
         return _currentComponents;
@@ -148,6 +181,18 @@ public:
     // Disables all entity's components
     //
     void deactivate();
+
+    template<typename T>
+    void activateComponentsOfType() {
+        for(Component* component : _currentComponents)
+            if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(true);
+    }
+
+    template<typename T>
+    void deactivateComponentsOfType() {
+        for(Component* component : _currentComponents)
+            if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(false);
+    }
 
     void setGameScene(GameScene* scene);
 
@@ -192,6 +237,6 @@ private:
     void eraseFromRenderEntities(entity_t e);
     void addToSceneRenderEntities(entity_t e);
 
-    bool internalAddComponent(cmpId_t id, Component* component);
-    bool internalRemoveComponent(cmpId_t id);
+    bool internalAddComponent(cmpId_t id, Component* component, bool initCmp = true);
+    bool internalRemoveComponent(cmpId_t id, bool deleteCmp = true);
 };

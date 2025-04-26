@@ -1,4 +1,3 @@
-#pragma once
 #include "BowlingEffect.h"
 #include "RigidBodyComponent.h"
 #include "Entity.h"

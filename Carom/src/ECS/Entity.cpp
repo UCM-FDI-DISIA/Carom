@@ -5,7 +5,6 @@
 #include "GameScene.h"
 #include "CowboyPoolScene.h"
 #include "ShadowComponent.h"
-#include "BallEffect.h"
 
 #include <algorithm>
 
@@ -57,36 +56,28 @@ void Entity::handleEvents(){
         if (component->isEnabled()) component->handleEvent();
 }
 
-template<>
-bool 
-Entity::addComponent<BallEffect>(BallEffect* effectComp) {
-    return internalAddComponent(effectComp->getEffectId(), effectComp);
-}
-
 bool
-Entity::removeComponent(BallEffect* effectComp) {
-    return internalRemoveComponent(effectComp->getEffectId());
-}
-
-bool
-Entity::internalAddComponent(cmpId_t id, Component* component) {
+Entity::internalAddComponent(cmpId_t id, Component* component, bool initCmp) {
     if(_components[id] != nullptr) return false;
 
     _components[id] = component;
     _currentComponents.push_back(component);
-    _components[id]->init();
+
+    if (initCmp) 
+        _components[id]->init();
 
     return true;
 }
 
 bool
-Entity::internalRemoveComponent(cmpId_t id) {
+Entity::internalRemoveComponent(cmpId_t id, bool deleteCmp) {
     if(_components[id] == nullptr) return false;
 
     auto it = find(_currentComponents.begin(), _currentComponents.end(), _components[id]);
     _currentComponents.erase(it);
 
-    delete _components[id];
+    if (deleteCmp)
+        delete _components[id];
 
     _components[id] = nullptr;
 

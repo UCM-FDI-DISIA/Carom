@@ -1,4 +1,3 @@
-#pragma once
 #include "QuanticEffect.h"
 #include "CaromScene.h"
 
@@ -16,7 +15,7 @@ void QuanticEffect::onStrikeEnd()
 {
     if(!_wasHit)
     {
-        _handler->multScore(2 * _handler->getMult());
+        _handler->multRoundScore(2 * _handler->getMult());
     }
     else _wasHit = false;
 }

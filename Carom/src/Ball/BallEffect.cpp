@@ -10,3 +10,7 @@ void BallEffect::init()
 
     _handler->addEffect(this);
 }
+
+BallEffect::~BallEffect(){
+    
+}

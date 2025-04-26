@@ -30,12 +30,10 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
-    inline RNG_Manager& getRGN() { return *_rngManager; };
     
 protected:
     ScenesManager* _sceneManager;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
-    RNG_Manager* _rngManager;
 
 private:
     Texture* _t;

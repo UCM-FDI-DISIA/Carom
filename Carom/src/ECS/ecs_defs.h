@@ -44,7 +44,8 @@
 	POP_TO_OPPOSITE_EFFECT, \
 	DONUT_STICK, \
 	PAUSE, \
-	UNPAUSE
+	UNPAUSE, \
+	RANDOM_VIBRATION
 
 // Groups list - must have at least one element
 //
@@ -65,7 +66,9 @@
 	CAMERA, \
 	UI, \
 	FEEDBACK, \
-	PAUSE_UNPAUSE
+	PAUSE_UNPAUSE, \
+	REWARD_INFO_BG, \
+	REWARD_INFO_TEXT
 
 // Effect list
 // TODO completar	
@@ -90,6 +93,7 @@
 	BALL_SHADOW_ON_TABLE, \
 	FEEDBACK_EFFECT, \
 	TABLE_BORDER, \
+	RUSSIAN_PYRAMID_INDICATOR, \
 	EFFECT_BALL, \
 	WHITE_BALL, \
 	BALL_SHADOW_ON_BALL, \

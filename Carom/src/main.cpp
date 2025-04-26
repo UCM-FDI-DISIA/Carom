@@ -10,6 +10,12 @@
 
 #include "Game.h"
 
+/*
+la ruta para acceder a la mierda esta por codigo es
+
+nlohmann::json
+*/
+
 void start() {
     Game g;
 

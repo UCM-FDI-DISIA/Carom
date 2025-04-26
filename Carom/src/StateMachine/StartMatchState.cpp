@@ -9,6 +9,7 @@ StartMatchState::StartMatchState(CaromScene* scene): State(scene) {
 
 void
 StartMatchState::onStateEnter() {
+    std::cout << "start match state" << std::endl;
     for(auto& e: _scene->getEntitiesOfGroup(grp::PALO))
         e->deactivate();
     // TODO: mostrar puntuación

@@ -10,7 +10,7 @@ class TweenComponent;
 class RussianPyramidScene : public CaromScene 
 {
 public:
-    RussianPyramidScene(Game* g, std::shared_ptr<GameScene> reward, bool isBoss);
+    RussianPyramidScene(State* state, Game* g, std::shared_ptr<GameScene> reward, bool isBoss);
     virtual ~RussianPyramidScene();
 
 protected:
@@ -19,9 +19,11 @@ protected:
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 
+    bool tryInitializeBallArray();
+
     void createBoss();
 
-    virtual void createEffectBalls(int n) override;
+    virtual void createEffectBalls() override;
 
     // Gimmicks
     void createPyramid(std::vector<b2Vec2> &points, std::vector<b2Vec2> &auxPoints, int polyId);
@@ -46,6 +48,10 @@ private:
 
     std::vector<entity_t> _allBalls;
     entity_t _currentWhiteBall;
+    entity_t _originalWhiteBall;
 
+    entity_t _indicator;
+    b2Vec2 startingHandPosition = {2, 3};
+
+    void changeWhiteBallAnimation();
 };
-

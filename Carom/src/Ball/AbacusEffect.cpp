@@ -1,4 +1,3 @@
-#pragma once
 #include "AbacusEffect.h"
 #include "Entity.h"
 #include "BallHandler.h"

@@ -40,6 +40,10 @@ public:
 	Texture(SDL_Renderer *renderer, const std::string &text, const Font &font,
 			const SDL_Color &fgColor, const SDL_Color &bgColor);
 
+	// Construct from text with wrap
+	Texture(SDL_Renderer *renderer, const std::string &text,
+		const Font &font, const SDL_Color &fgColor, const Uint32 &wrapLegth);
+
 
 	virtual ~Texture() {
 		if (_texture != nullptr)
@@ -121,6 +125,10 @@ private:
 	void constructFromText(SDL_Renderer *renderer, const std::string &text,
 			const Font &font, const SDL_Color *fgColor,
 			const SDL_Color *bgColor = nullptr);
+
+	// Construct from text with wrap
+	void constructFromTextWrap(SDL_Renderer *renderer, const std::string &text,
+		const Font &font, const SDL_Color *fgColor, const Uint32 &wrapLegth = 0);
 
 	SDL_Texture *_texture;
 	SDL_Renderer *_renderer;

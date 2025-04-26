@@ -9,7 +9,7 @@ void BallHandler::init()
     assert(_scene != nullptr && "Se ha intentado agregar un componente de efecto en una escena que no es la de juego");
 }
 
-void BallHandler::onCollisionEnter(entity_t collision)
+void BallHandler::onCollisionEnter(entity_t collision, b2Manifold& contactData)
 {
     if(collision->getID() == grp::EFFECTBALLS || collision->getID() == grp::WHITEBALL)
     {
@@ -46,6 +46,10 @@ void BallHandler::multScore(float mult)
     _scene->addScore(_scene->getCurrentScore() * (mult - 1));
 }
 
+void BallHandler::multRoundScore(float mult){
+    _scene->addScore(_scene->getRoundScore() * (mult - 1));
+}
+
 void BallHandler::setMult(float newMult)
 {
     _mult = newMult;
@@ -63,4 +67,15 @@ bool BallHandler::addEffect(BallEffect* effect)
         _effects.push_back(effect);
         return true;
     } else return false;
+}
+
+bool BallHandler::removeEffect(BallEffect* effect) {
+    auto it = find(_effects.begin(), _effects.end(), effect);
+    _effects.erase(it);
+
+    return true;
+}
+
+void BallHandler::removeAllEffects(){
+    _effects.clear();
 }

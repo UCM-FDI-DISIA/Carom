@@ -1,4 +1,3 @@
-#pragma once
 #include "PokeballEffect.h"
 #include "BallHandler.h"
 #include "Entity.h"
@@ -15,5 +14,6 @@ void PokeballEffect::onHit(entity_t ent)
     }
 
     effects.clear();
+    _myEntity->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->removeComponent<PokeballEffect>();
 };

@@ -16,15 +16,21 @@
 #include "PyramidComponent.h"
 #include "StickInputComponent.h"
 #include "ShadowComponent.h"
+#include "ColorBallScorerComponent.h"
+#include "WhiteBallScorerComponent.h"
+#include "Button.h"
+#include "InventoryManager.h"
 
 
-RussianPyramidScene::RussianPyramidScene(Game* game, std::shared_ptr<GameScene> reward, bool isBoss)
-    : CaromScene(game, reward)
+RussianPyramidScene::RussianPyramidScene(State* state, Game* game, std::shared_ptr<GameScene> reward, bool isBoss)
+    : CaromScene(state, game, reward)
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
+    , _allBalls()
 {
     _isBoss = isBoss;
+    _boss = RUSSIAN_PYRAMID;
 }
 
 RussianPyramidScene::~RussianPyramidScene()
@@ -41,33 +47,37 @@ void RussianPyramidScene::initGimmick(){
 
 void RussianPyramidScene::initBoss()
 {
+    _originalWhiteBall = getEntitiesOfGroup(grp::WHITEBALL)[0];
+
     getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(237, 191, 47);
 
-    if(_isBoss) {
+    if(isBossMatch()) {
         _boss = Boss::RUSSIAN_PYRAMID;
         createBoss();
     }
 }
 
 void RussianPyramidScene::createBoss(){
-    // std::cout << "creando jefe y sombra" << std::endl;
+    tryInitializeBallArray();
 
-    //Asignar el array de todas las bolas
-    _allBalls = getEntitiesOfGroup(grp::EFFECTBALLS);
-    _currentWhiteBall = getEntitiesOfGroup(grp::WHITEBALL)[0];
-    _allBalls.push_back(_currentWhiteBall);
+    //--Crear el indicador
+    _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
+    addComponent<TransformComponent>(_indicator, b2Vec2_zero);
+    addComponent<FollowComponent>(_indicator, _currentWhiteBall, true, false, true, Vector2D(0, 0));
 
+    float wbScale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x / 2;
+    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, wbScale);
 
-    // //crear jefe
-    // Entity* boss = new Entity(*this, grp::BOSS_HAND);
-    // addComponent<TransformComponent>(boss, startingHandPosition);
+    //--Crear el jefe
+    entity_t boss = new Entity(*this, grp::BOSS_HAND);
+    addComponent<TransformComponent>(boss, startingHandPosition);
 
-    // float svgSize = *&sdlutils().svgs().at("grp_cowboy").at("cowboy_hand 1").width;
-    // float textureSize = sdlutils().images().at("cowboy_hand").width();
-    // float scale = svgSize/textureSize;
+    float svgSize = *&sdlutils().svgs().at(_pyramidFilenameSVG).at("russian_boss_hand").width;
+    float textureSize = sdlutils().images().at("russian_hand").width();
+    float bossScale = (svgSize/textureSize) * 0.8;
 
-    // addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("cowboy_hand"), renderLayer::BOSS_HAND, scale);
-    // addComponent<TweenComponent>(boss);
+    addComponent<RenderTextureComponent>(boss, &sdlutils().images().at("russian_hand"), renderLayer::BOSS_HAND, bossScale);
+    addComponent<TweenComponent>(boss);
 
     // //sombra
     // // Entity* sombraJefe = new Entity(*this, grp::SHADOWS);
@@ -81,10 +91,9 @@ void RussianPyramidScene::createBoss(){
 /// @brief Creates and randomly places as many effect balls as specified
 /// @param n Number of balls to place
 void 
-RussianPyramidScene::createEffectBalls(int n) 
+RussianPyramidScene::createEffectBalls() 
 {
     int npos = sdlutils().svgs().at("positions").size();
-    assert(n <= npos);
 
     std::vector<std::string> validPositions;
 
@@ -111,14 +120,21 @@ RussianPyramidScene::createEffectBalls(int n)
     for(int i = 0; i < validPositions.size(); ++i)
         validPositionsRandom.push_back(RandomItem(validPositions[i], 1.0f));
 
-    std::vector<std::string> eb_selected_pos = _rngManager.getRandomItems(validPositionsRandom, n, false);
-
-    for(int i = 0; i < n; ++i) 
+    std::vector<std::string> eb_selected_pos = _rngManager->getRandomItems(validPositionsRandom, InventoryManager::Instance()->MAX_BALLS, false);
+    std::vector<b2Vec2> physical_selected_pos;
+    for(int i = 0; i < eb_selected_pos.size(); ++i) 
     {        
         auto& eb = sdlutils().svgs().at("positions").at(eb_selected_pos[i]);
         auto eb_pos = PhysicsConverter::pixel2meter(eb.x, eb.y);
+        physical_selected_pos.push_back(eb_pos);
+    }
 
-        createEffectBall(effect::NULO, eb_pos, b2_dynamicBody, 1, 0.2, 1, renderLayer::EFFECT_BALL);
+    auto balls = InventoryManager::Instance()->getEffectBalls(*this, physical_selected_pos);
+
+    for(entity_t ball : balls){
+        if(ball != nullptr) {
+            CaromScene::createBallShadow(ball);
+        }
     }
 }
 
@@ -195,7 +211,7 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
             int attempts = 100;
     
             // Try a polygon
-            int polyId = _rngManager.getRandomItem(polygons, true);
+            int polyId = _rngManager->getRandomItem(polygons, true);
             std::vector<b2Vec2> candidatePoly = pyramidPolygons[polyId];
     
             // Get peak ("center")
@@ -209,9 +225,9 @@ void RussianPyramidScene::pickAndPositionPyramidPolygons(int numPolys, const SDL
                 // GraphisUtils::coutRect(areaConstrain);
                 b2Vec2 genRandomPosition = {
                     static_cast<float>
-                    (_rngManager.randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
+                    (_rngManager->randomRange(areaConstrain.x, areaConstrain.x + areaConstrain.w)),
                     static_cast<float>
-                    (_rngManager.randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
+                    (_rngManager->randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
                 };
 
                 // Update vertices positions by offset (distance between gen and original centers)
@@ -318,26 +334,105 @@ void RussianPyramidScene::generatePyramids(int n)
 
 void
 RussianPyramidScene::applyBossModifiers() {
-    std::cout << "aplicando modificador de boss desde RussianPyramidScene" << std::endl;
+    #if defined (_DEBUG)
+    std::cout << "Aplicando modificadores de RussianPyramid" << std::endl;
+    #endif
+
+    //--Make sure the balls array is not null
+    if(_currentWhiteBall == nullptr && !tryInitializeBallArray()) return;
 
     //--Asignar la nueva bola blanca
     entity_t newWhiteBall = nullptr;
     do {
-        newWhiteBall = _allBalls[sdlutils().rand().nextInt(0, _allBalls.size())]; //!Esto se debe cambiar para usar el rngManager
-    } while(newWhiteBall != _currentWhiteBall);
+        newWhiteBall = _allBalls[_rngManager->randomRange(0, _allBalls.size())];
+    } while(newWhiteBall == _currentWhiteBall || newWhiteBall == _originalWhiteBall);
     _stickInput->registerWhiteBall(newWhiteBall);
+    newWhiteBall->stealComponent<Button>(_currentWhiteBall);
+    _currentWhiteBall = newWhiteBall;
+    getEntitiesOfGroup(grp::WHITEBALL)[0] = _currentWhiteBall;
 
-    //--Animación mostrando el cambio entre bolas
-    //TODO
+    //--Alterar los componentes de la nueva bola blanca
+    _currentWhiteBall->deactivateComponentsOfType<BallEffect>();
+    _currentWhiteBall->deactivateComponentsOfType<ColorBallScorerComponent>();
+    addComponent<WhiteBallScorerComponent>(_currentWhiteBall);
+
+    //--Tween del jefe
+    changeWhiteBallAnimation();
 }
 
 void RussianPyramidScene::clearBossModifiers()
 {
-    // std::cout<< "ClearBossModifiers" << std::endl;
-    // // Reset hole changes on balls and deactivate it
-    // for(auto& e: getEntitiesOfGroup(grp::BOSS_MODIFIERS)){
-    //     if (e->tryGetComponent<HoleComponent>())
-    //         e->getComponent<HoleComponent>()->resetChanges();
-    //     e->setAlive(false);
-    // }
+    #if defined(_DEBUG)
+    std::cout<< "Eliminando modificadores de RussianPyramid" << std::endl;
+    #endif
+
+    if(_currentWhiteBall == nullptr) return;
+
+    //--Devolver la bola a su estado original
+    _currentWhiteBall->activateComponentsOfType<BallEffect>();
+    _currentWhiteBall->activateComponentsOfType<ColorBallScorerComponent>();
+
+    //Esto para asegurarnos de que no rompemos la bola blanca original (aunque no debería elegirse)
+    if(_currentWhiteBall != getEntitiesOfGroup(grp::WHITEBALL)[0]) 
+        _currentWhiteBall->removeComponent<WhiteBallScorerComponent>();
+
+    //--Hacer desaparecer el indicador
+    _indicator->deactivateComponentsOfType<RenderComponent>();
+}
+
+bool 
+RussianPyramidScene::tryInitializeBallArray() {
+    auto whiteBallgroup = getEntitiesOfGroup(grp::WHITEBALL);
+    if(whiteBallgroup.size() == 0) return false;
+
+    _currentWhiteBall = whiteBallgroup[0];
+    _allBalls = getEntitiesOfGroup(grp::EFFECTBALLS);
+    _allBalls.push_back(_currentWhiteBall);
+
+    _stickInput = getComponent<StickInputComponent>(getEntitiesOfGroup(grp::PALO)[0]);
+    
+    return true;
+}
+
+void 
+RussianPyramidScene::changeWhiteBallAnimation() {
+    entity_t boss = getEntitiesOfGroup(grp::BOSS_HAND)[0];
+    auto tween = boss->getComponent<TweenComponent>();
+    auto whiteBallPos = _currentWhiteBall->getTransform()->getPosition();
+
+    float halfHandMag = PhysicsConverter::pixel2meter(getComponent<RenderTextureComponent>(boss)->getRenderRect().h/2);
+
+    Vector2D dir = Vector2D{startingHandPosition.x - whiteBallPos.x, startingHandPosition.y - whiteBallPos.y}.normalize();
+    b2Vec2 handPos = whiteBallPos + b2Vec2{dir.getX() * halfHandMag , dir.getY() * halfHandMag};
+
+    //Tween hacia la nueva bola
+    tween->easePosition(handPos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
+        tween->easePosition(handPos, .2f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
+        getCamera()->shakeCamera(.2f, .3f, dir*-1);
+
+        auto follow = getComponent<FollowComponent>(_indicator);
+        follow->setTarget(_currentWhiteBall);
+        _indicator->activateComponentsOfType<RenderComponent>();
+
+        tween->easePosition(startingHandPosition, 1.0f, tween::EASE_IN_OUT_CUBIC, false, [=]() {_currentState->finish();});
+        });}, 
+    [=](){
+        float radiansConversion = M_PI/180.0f;
+        float handRot = (boss->getTransform()->getRotation()-90) * radiansConversion;
+        Vector2D handDir = Vector2D{float(cos(handRot)), float(sin(handRot))}.normalize();
+
+        b2Vec2 handEndPos = boss->getTransform()->getPosition() + b2Vec2{handDir.getX() * halfHandMag, handDir.getY()*halfHandMag};
+
+        Vector2D dir = Vector2D{handEndPos.x - startingHandPosition.x, handEndPos.y - startingHandPosition.y}.normalize();
+        //en radianes
+        float angle = atan(dir.getX()/dir.getY());
+        //en grados
+        angle = angle * (180/M_PI);
+
+        boss->getTransform()->setRotation(angle);
+    });
+
+    
+
+    
 }

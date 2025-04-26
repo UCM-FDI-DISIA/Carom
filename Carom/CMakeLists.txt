@@ -20,6 +20,10 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
 # Force Box2D to use dynamic runtime
 set_target_properties(box2d PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 
+# nlohmann_json
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory(${CMAKE_SOURCE_DIR}/external/nlohmann_json-3.12.0)
+
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
     include_directories(
@@ -84,6 +88,10 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Tweens
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
+	${CMAKE_SOURCE_DIR}/src/Rewards
+	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
+	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
+	${CMAKE_SOURCE_DIR}/src/Text
 )
 
 # Crear ejecutable
@@ -128,26 +136,18 @@ add_executable(Carom
 	src/ECS/CapsuleRBComponent.cpp
     src/ECS/Entity.cpp
     src/ECS/Component.cpp
-    src/ECS/RenderTextureComponent.cpp
 
-    src/ECS/TransformComponent.cpp
-    src/ECS/RigidBodyComponent.cpp
-    src/ECS/StickInputComponent.cpp
-    src/ECS/Button.cpp
-    src/ECS/BoxRBComponent.cpp
-    src/ECS/RectangleRBComponent.cpp
-    src/ECS/PolygonRBComponent.cpp
-    src/ECS/CircleRBComponent.cpp
-    src/ECS/CapsuleRBComponent.cpp
+    src/ECS/RenderTextureComponent.cpp
+	src/ECS/TextDisplayComponent.cpp
+    src/ECS/RewardInfoDisplayComponent.cpp
 
     src/ECS/ColorBallScorerComponent.cpp
     src/ECS/WhiteBallScorerComponent.cpp
-	src/ECS/TextDisplayComponent.cpp
 	src/ECS/FollowComponent.cpp
     src/ECS/EventOnCollision.cpp
     src/ECS/PhysicsComponent.cpp
 	
-	src/Animator/RenderSpriteSheetComponent.cpp
+	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
@@ -162,18 +162,11 @@ add_executable(Carom
 
     src/HitManager/ColorHitManager.cpp
 
-	src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
 	src/Scenes/PauseScene.cpp
 
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/EndScenes/RewardScene.cpp
-	
-	src/StateMachine/StartMatchState.cpp
-	src/StateMachine/HitState.cpp
-	src/StateMachine/ScoringState.cpp
-	src/StateMachine/WinMatchState.cpp
-	src/StateMachine/LoseMatchState.cpp
 
 	src/Inventory/InventoryManager.cpp
 
@@ -195,7 +188,7 @@ add_executable(Carom
 	src/ECS/MagicWandStickEffect.cpp
 	src/ECS/GranadeLauncherStickEffect.cpp
 	src/ECS/DonutStickEffect.cpp
-	src/StateMachine/BossState.cpp
+
     src/Physics/PhysicsUtils.cpp
 	src/Graphics/GraphicsUtils.cpp
 
@@ -220,10 +213,15 @@ add_executable(Carom
     src/ECS/ShadowComponent.cpp
     src/ECS/PauseComponent.cpp
     src/ECS/UnpauseComponent.cpp
+
+    src/ECS/RandomVibrationComponent.cpp
 )
 
 # Link Box2D
 target_link_libraries(Carom PRIVATE box2d)
+
+# Link nlohmann_json
+target_link_libraries(Carom PRIVATE nlohmann_json::nlohmann_json)
 
 # Ensure consistent runtime for Carom
 if (CMAKE_HOST_WIN32)

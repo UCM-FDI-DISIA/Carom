@@ -14,4 +14,6 @@ public:
     PauseScene(Game* game, GameScene* sceneToRenderOnTop);
 
     void render() override;
+
+    void createBallShadow(entity_t e);
 };

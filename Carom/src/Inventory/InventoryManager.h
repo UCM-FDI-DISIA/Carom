@@ -1,49 +1,83 @@
 #pragma once
 
 #include <vector>
+#include <nlohmann/json.hpp>
 
 #include "Singleton.h"
 #include "Inventory.h"
+class GameScene;
+using json = nlohmann::json;
+
 
 class InventoryManager : public Singleton<InventoryManager> {
 
 	friend Singleton<InventoryManager> ;
-
-    Inventory _inventory;
-
 private:
 	InventoryManager();
 	virtual ~InventoryManager();
 
     inline bool init() {
-        _inventory = Inventory();
         return true;
     }
     
+    //carga el inventario con el path
+    void loadInventoryWithPath(std::string path);
+
+    void updateData(json data);
+    int getParameterValue(std::string key);
+    void setParameterValue(std::string key, int value);
+
+    
     public:
-    // Consultar
-    std::vector<entity_t> getEffectBalls();
-    entity_t getWhiteBall();
-    entity_t getStick();
-    Inventory::Perma& getPerma();
+    static const int MAX_BALLS = 6;
+    const std::string pathToInventory = "../../resources/prefabs/inventoryData/inventory.json";
+    // Recibe una COPIA de las bolas del inventario, es decir, las genera a partir del json
+    //
+    //@param positions
+    //Debe ser un vector de tamaño MAX_BALLS, ya que sino todas las bolas tendran posicion 0,0
+    std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions);
+    entity_t getStick(GameScene& scene);
     
     // Añadir
-    void addWhiteBall(entity_t ball);
     void addBall(entity_t ball);
     void addStick(entity_t stick);
+
+    void saveBalls(std::vector<entity_t> balls);
     
     // Gestionar
-    void swapInventory(Inventory inv);
-    void swapBall(entity_t in, entity_t out); 
+    //inventario predefinido, con el kit basico de una nueva partida
+    void loadStartingInventory();
+
+    //inventario guardado de una partida anterior
+    void loadSavedInventory();
+    
+    //copia inventory.json a savedInventory.json, para asi guardar la partida
+    void exportInventoryToSave();
+
     //! Veo conveniente solo usar la sobrecarga basada en índices, pero los dejo los dos de momento
     void swapBall(entity_t newBall, int indexOfOldBall);
 
-    void swapStick(entity_t newStick);
+    //Perma
+    int getHitEase();
+    void setHitEase(int i);
+
+    int getComboEase();
+    void setComboEase(int i);
+
+    int getCaromEase();
+    void setCaromEase(int i);
+
+    int getCharisma();
+    void setCharisma(int i);
+
+    int getPower();
+    void setPower(int i);
+
+    float getCunning();
+    void setCunning(float f);
 
 private:
     // Eliminar
-    void removeWhiteBall();
-    void removeBall(entity_t ball);
     void removeBall(int index);
     void removeAllBalls();
     void removeStick();

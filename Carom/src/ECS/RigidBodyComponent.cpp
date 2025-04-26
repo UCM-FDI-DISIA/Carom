@@ -1,5 +1,3 @@
-#pragma once
-
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
 
@@ -79,7 +77,6 @@ RigidBodyComponent::getPosition() const {
 ITransform::Scale
 RigidBodyComponent::getScale() const {
     return _myScale;
-    
 }
 
 /// @brief Accesor de rotación
@@ -120,7 +117,7 @@ RigidBodyComponent::setPosition(const b2Vec2& newPos) {
 /// @param newRot 
 void
 RigidBodyComponent::setRotation(const double& newRot) {
-    b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {std::cosf(newRot), std::sinf(newRot)});
+    b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {(float)std::cos(newRot), (float)std::sin(newRot)});
 }
 
 void
@@ -271,9 +268,9 @@ RigidBodyComponent::setEnabled(bool state) {
 /// @brief Function called everytime object enters a collision
 /// @param ent object that collides with this rigidbody
 void 
-RigidBodyComponent::onCollisionEnter(entity_t ent){
+RigidBodyComponent::onCollisionEnter(entity_t ent, b2Manifold& contactData){
     for(PhysicsComponent* PC : _collisionEnter){
-        PC->onCollisionEnter(ent);
+        PC->onCollisionEnter(ent, contactData);
     }
 }
 

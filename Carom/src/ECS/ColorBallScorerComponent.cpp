@@ -7,7 +7,7 @@
 
 ColorBallScorerComponent::ColorBallScorerComponent(entity_t ent) : PhysicsComponent(ent) {}
 
-void ColorBallScorerComponent::onCollisionEnter(entity_t other){
+void ColorBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& contactData){
     
     // si choca con una bola de color...
     if(other->tryGetComponent<ColorBallScorerComponent>()){
