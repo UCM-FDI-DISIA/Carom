@@ -47,6 +47,5 @@ private:
     std::vector<entity_t> _allBalls;
     entity_t _currentWhiteBall;
 
-    bool _isBoss;
 };
 

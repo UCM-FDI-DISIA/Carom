@@ -23,8 +23,8 @@ RussianPyramidScene::RussianPyramidScene(Game* game, std::shared_ptr<GameScene> 
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
-    , _isBoss(isBoss)
 {
+    _isBoss = isBoss;
 }
 
 RussianPyramidScene::~RussianPyramidScene()

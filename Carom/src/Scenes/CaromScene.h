@@ -149,6 +149,7 @@ public:
 
 protected:
     Boss _boss = Boss::NONE;
+    bool _isBoss = false;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 

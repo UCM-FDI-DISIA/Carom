@@ -19,6 +19,7 @@ public:
         virtual ~CowboyPoolScene();
 
 protected:
+    void initBoss() override;
     void initGimmick();
     void applyBossModifiers() override;
     void clearBossModifiers() override;

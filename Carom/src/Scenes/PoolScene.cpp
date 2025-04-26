@@ -29,13 +29,14 @@ PoolScene::PoolScene(Game* game)
 
 PoolScene::~PoolScene()
 {
+    std::cout << "DESTRUCTOR POOLSCENE" << std::endl;
     // Como son shareds los punteros ya no hace falta esta movida
 }
 
 void PoolScene::initFunctionalities()
 {
     _reward = std::make_shared<RewardScene>(game);
-    _scene = std::make_shared<RussianPyramidScene>(game, _reward, true);
+    _scene = std::make_shared<CowboyPoolScene>(game, _reward, true);
 }
 
 void PoolScene::initObjects()

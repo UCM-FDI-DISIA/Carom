@@ -25,6 +25,10 @@ Game::~Game()
 {
     delete _sceneManager; // HAS TO BE FIRST
     delete _rngManager;
+    _mainMenuScene.reset();
+
+    if (InventoryManager::HasInstance())
+    InventoryManager::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -33,9 +37,6 @@ Game::~Game()
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
-
-    if (InventoryManager::HasInstance())
-        InventoryManager::Release();
 }
 
 void
