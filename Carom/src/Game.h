@@ -1,12 +1,13 @@
 #pragma once
 
-class ScenesManager;
-
 #include "ProgressionManager.h"
 
 #include "SDL_video.h"
 #include "SDLUtils.h"
 #include "Texture.h"
+
+class ScenesManager;
+class ProgressionManager;
 
 class Game {
 public:
