@@ -30,6 +30,7 @@
 // #include ...Reward.h
 #include "DialogueTextComponent.h"
 #include "TextDisplayComponent.h"
+#include "RandomVibrationComponent.h"
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -61,8 +62,14 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
         "Basteleur-Moonlight60" // fuente
     );
 
+    addComponent<RandomVibrationComponent>(prueba, .05f, 5);
+
     auto dialogue = addComponent<DialogueTextComponent>(prueba, a);
-    dialogue->addDialogue("hola que tal estamos gente hahaha");
+    dialogue->addDialogue("Mami");
+    dialogue->addDialogue("a mi me gusta tu descendencia entera");
+    dialogue->addDialogue("(pol que)");
+    dialogue->addDialogue("polque ella me hace");
+    dialogue->addDialogue("la mama de la mama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de lamama de la");
 }
 
 PoolScene::~PoolScene()

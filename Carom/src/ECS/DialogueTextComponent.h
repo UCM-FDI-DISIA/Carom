@@ -10,7 +10,7 @@ class DialogueTextComponent : public Component{
 
     class DialogueContainer{
         int _lastTime;
-        const int MILISECONDS_BETWEEN_CHARS = 200;
+        const int MILISECONDS_BETWEEN_CHARS = 60;
         std::string _textToPrint;
         int _index =0;
     
