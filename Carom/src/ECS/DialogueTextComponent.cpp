@@ -7,13 +7,13 @@ void DialogueTextComponent::init(){
 }
 
 void DialogueTextComponent::update(){
-    if(_textDisplay->getDisplayedText() != _textToPrint && _lastTime + MILISECONDS_BETWEEN_CHARS >= sdlutils().currTime()){
-        _lastTime = sdlutils().currTime();
-
-        std::string displayedText = _textDisplay->getDisplayedText();
-        char charToAdd = _textToPrint[displayedText.size()];
-
-        displayedText += charToAdd;
+    if(_textDisplay->getDisplayedText() != _textToPrint && _lastTime + MILISECONDS_BETWEEN_CHARS <= sdlutils().currRealTime()){
+        _lastTime = sdlutils().currRealTime();
+        
+        std::string displayedText = _textToPrint;
+        displayedText.resize(_index+1);
+        _index++;
+        
         //REPRODUCIR SONIDO CORRESPONDIENTE
 
         _textDisplay->setDisplayedText(displayedText);

@@ -10,7 +10,7 @@ class Texture;
     
 class RenderTextureComponent : public RenderComponent {
 protected:
-    Texture* _texture;
+    Texture* _texture = nullptr;
     ITransform* _transform;
     float _scale; // scale de la textura (no su physical body)
     bool _isPortion = false; // If the rect is a portion of a rect

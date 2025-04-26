@@ -9,6 +9,7 @@ class DialogueTextComponent : public LogicComponent{
 
     int _lastTime;
 
+    int _index =0;
     TextDisplayComponent* _textDisplay;
 public:
     __CMPID_DECL__(cmp::DIALOGUE);

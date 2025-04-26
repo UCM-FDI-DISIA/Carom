@@ -28,6 +28,8 @@
 #include "PowerReward.h"
 #include "CunningReward.h"
 // #include ...Reward.h
+#include "DialogueTextComponent.h"
+#include "TextDisplayComponent.h"
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -46,6 +48,20 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     createTable();
     generateMatchHoles();
     generateFloorRewards();
+
+    //!tst borrar
+    Entity* prueba = new Entity(*this, grp::UI);
+
+    addComponent<TransformComponent>(prueba, b2Vec2{0.f,0.f});
+    auto a = addComponent<TextDisplayComponent>(prueba,           // container
+        renderLayer::UI,     // capa renderizado
+        1.f,                   // tamano fuente
+        " ",                   // text
+        SDL_Color{255, 255, 255, 255},   // color (blanco)
+        "Basteleur-Moonlight60" // fuente
+    );
+
+    addComponent<DialogueTextComponent>(prueba, a, "hola que tal estamos gente hahaha");
 }
 
 PoolScene::~PoolScene()

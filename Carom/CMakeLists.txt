@@ -134,6 +134,7 @@ add_executable(Carom
 
     src/ECS/RenderTextureComponent.cpp
 	src/ECS/TextDisplayComponent.cpp
+    src/ECS/DialogueTextComponent.cpp
     src/ECS/RewardInfoDisplayComponent.cpp
 
     src/ECS/ColorBallScorerComponent.cpp
