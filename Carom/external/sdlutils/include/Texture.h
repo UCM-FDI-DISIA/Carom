@@ -115,6 +115,10 @@ public:
 		render(src, dest, rotation);
 	}
 
+	inline int render(const SDL_Rect& dest, SDL_Vertex* vertices, int verticesNumber, int* indexes, int indexesSize){
+		return SDL_RenderGeometry(getRenderer(), _texture, vertices, verticesNumber, indexes, indexesSize);
+	}
+
 	inline void changeColorTint(int r, int g, int b){
 		SDL_SetTextureColorMod(_texture, r, g, b);
 	}

@@ -31,6 +31,7 @@
 #include "DialogueTextComponent.h"
 #include "TextDisplayComponent.h"
 #include "RandomVibrationComponent.h"
+#include "WobblyRenderTextureComponent.h"
 
 #include "Game.h"
 #include "Vector2D.h"
@@ -54,7 +55,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     Entity* prueba = new Entity(*this, grp::UI);
 
     addComponent<TransformComponent>(prueba, b2Vec2{0.f,0.f});
-    auto a = addComponent<TextDisplayComponent>(prueba,           // container
+    auto a = addComponent<WobblyRenderTextureComponent>(prueba,           // container
         renderLayer::UI,     // capa renderizado
         1.f,                   // tamano fuente
         " ",                   // text

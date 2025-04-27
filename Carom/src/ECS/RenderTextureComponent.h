@@ -31,7 +31,7 @@ public:
     RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Color tint);
     ~RenderTextureComponent() {};
 
-    void render() override;
+    virtual void render() override;
     void init() override;
     Texture* getTexture() {return _texture;};
     void setTexture(Texture* tex);
