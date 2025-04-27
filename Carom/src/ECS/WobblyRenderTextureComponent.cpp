@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include "SDLUtils.h"
 
+#include <algorithm>
+
 WobblyRenderTextureComponent::WobblyRenderTextureComponent(Entity* entity, layerId_t renderLayer, float displayScale, 
     std::string initialText, SDL_Color color, std::string key): TextDisplayComponent(entity, renderLayer, displayScale, initialText, color, key){
 
@@ -28,8 +30,15 @@ void WobblyRenderTextureComponent::render(){
         if(i < VERTICES_BY_WIDTH) posY = textureRect.y;
         else posY = textureRect.y + textureRect.h;
 
+        posY += 50*sin(float(3*(float) posX / sdlutils().width()+ (float)sdlutils().currRealTime()/1000));
+
         vertex.position = SDL_FPoint{posX, posY};
-        vertex.tex_coord = SDL_FPoint{(posX - textureRect.x)/textureRect.w, (posY-textureRect.y)/textureRect.h};
+        float yTexCoord;
+        if(i < VERTICES_BY_WIDTH) yTexCoord = 0;
+        else yTexCoord = 1;
+        vertex.tex_coord = SDL_FPoint{(posX - textureRect.x)/textureRect.w, yTexCoord};
+        vertex.tex_coord.x = std::clamp(vertex.tex_coord.x, 0.f, 1.f);
+        vertex.tex_coord.y = std::clamp(vertex.tex_coord.y, 0.f, 1.f);
 
         textureVertices.push_back(vertex);
     }
