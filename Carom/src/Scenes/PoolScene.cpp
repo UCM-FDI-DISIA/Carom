@@ -378,28 +378,11 @@ void PoolScene::createBallInfo()
 
         description->deactivate();
 
-        // --- TEXTO
-        Text title, rewardName, rewardType, rewardDesc;
-
         /*
-        switch(_floorRewards[i]->getType()) {
-            case Reward::Type::INSTANT:
-                title = sdlutils().texts().at("rewardTitle_pool");
-                rewardType = sdlutils().texts().at("instantReward_pool");
-                break;
-            case Reward::Type::PERMANENT:
-                title = sdlutils().texts().at("rewardTitle_pool");
-                rewardType = sdlutils().texts().at("permanentReward_pool");
-                break;
-            case Reward::Type::BOSS:
-                title = sdlutils().texts().at("bossTitle_pool");
-                rewardType = sdlutils().texts().at("bossReward_pool");
-                break;
-            default:
-                title = sdlutils().texts().at("rewardTitle_pool");
-                rewardType = sdlutils().texts().at("reward_pool");
-                break;
-        }
+        // --- TEXTO
+        Text title, ballName, ballDesc;
+
+        title = sdlutils().texts().at("rewardTitle_pool");
 
         rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
         rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
@@ -414,8 +397,7 @@ void PoolScene::createBallInfo()
                 , texture->width() * scale - 25
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );
-        description->deactivate();
-        */
+        description->deactivate();*/
     }
 }
 
