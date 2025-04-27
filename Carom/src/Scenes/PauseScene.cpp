@@ -8,9 +8,10 @@
 #include "PhysicsUtils.h"
 #include "InventoryManager.h"
 #include "FollowComponent.h"
-#include "RewardInfoDisplayComponent.h"
+#include "BallInfoDisplayComponent.h"
+#include "Button.h"
 
-using body_t = RewardInfoDisplayComponent::Body;
+using body_t = BallInfoDisplayComponent::Body;
 
 PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     _bottomScene = scene;
@@ -53,6 +54,25 @@ PauseScene::instantiateInventory(){
         b2Vec2 relativeDistance = {PhysicsConverter::pixel2meter(ballPos.x - drawerPos.x), PhysicsConverter::pixel2meter(ballPos.y - drawerPos.y)};
 
         addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
+
+        Button::TextureButton rButton = Button::TextureButton();
+        auto button = addComponent<Button>(ball, rButton);
+
+        button->setOnHover([this, i]() {
+            #ifdef _DEBUG
+            std::cout << "Hovering effect ball " << i << std::endl; 
+            #endif
+
+            showBall(i);
+        });
+
+        button->setOnExit([this, i]() {
+            #ifdef _DEBUG
+            std::cout << "Exiting effect ball " << i << std::endl; 
+            #endif
+    
+                hideBall(i);
+            });
     }
 
     createBallInfo();
@@ -67,57 +87,55 @@ PauseScene::createBallInfo() {
     float scale = static_cast<float>(*&sdlutils().svgs().at("inventory").at("ball_Info_0").width) / texture->width();
 
     // Cargamos primero las bolas
-    for(int i = 1; i <= InventoryManager::Instance()->getEffectBalls().size(); ++i) {
+    // ! InventoryManager::Instance()->getEffectBalls().size() <- Esto en vez del 6 cuando acabe de debugear
+    for(int i = 0; i < 6; ++i) {
         // FONDO
         description = new Entity(*this, grp::BALL_INFO_BG);
 
         auto svgElem = *&sdlutils().svgs().at("inventory").at("ball_Info_" + std::to_string(i));
         pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
+        pos.y -= 0.5;
 
         addComponent<TransformComponent>(description, pos);
-        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+        addComponent<RenderTextureComponent>(description, texture, 101, scale * 1.5f);
 
-        //description->deactivate(); // * Temporalmente
+        description->deactivate();
 
         // TEXTO
         // Añadir texto de recompensa / TODO: texto de partida de boss
         // en función de _floorRewards[i]
         description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
-        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
-                body_t{"Recompensas de partida", "Bocalupo-Regular48", {255, 255, 255, 255}, scale*1.5f},
-                body_t{"Instant 1", "Aladin-Regular48", {255,255,255,255}, scale*1.5f},
-                body_t{"Recompensa instantánea", "Aladin-Regular24", {255, 255, 255, 150}, scale*2.f},
+        addComponent<BallInfoDisplayComponent>(description, 101, 
+                body_t{"Bola", "Bocalupo-Regular48", {255, 255, 255, 255}, scale*1.5f},
                 body_t{"Lore ipsum dolor sit amer bla bla bla descripcion super larga para ver si coge varias lineas", 
-                        "Aladin-Regular24", {255,255,255,255}, scale*2.f}
-                , texture->width() * scale - 25
-                , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
+                        "Aladin-Regular24", {255,255,255,255}, scale*1.5f}
+                , texture->width() * scale - 60
+                , -texture->width()/2 * scale, -texture->height()/2 * scale
             );
-        //description->deactivate(); // * Temporalmente
+        description->deactivate();
     }
 }
-/*
-void
-PoolScene::showReward(int i) {
-    assert(i < HOLES);
 
-    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
+void
+PauseScene::showBall(int i) {
+
+    auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
     descriptions[i]->activate();
 
-    descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
+    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->activate();
 }
 
 void
-PoolScene::hideReward(int i) {
-    assert(i < HOLES);
+PauseScene::hideBall(int i) {
 
-    auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
+    auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
     descriptions[i]->deactivate();
 
-    descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
+    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->deactivate();
-}*/
+}
 
 void PauseScene::render(){
     _bottomScene->render();
