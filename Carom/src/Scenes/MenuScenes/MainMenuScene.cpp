@@ -18,8 +18,8 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     // --- PANELES.
     std::vector<entity_t> pannels;
     //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); // [0]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU", false)); // [1]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle", false)); // [2]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); // [1]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); // [2]
     pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleSettings", "RectangleSettings", true)); // [4]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
@@ -38,10 +38,10 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     
     // --- TEXTOS.
     std::vector<entity_t> texts;
-    texts.emplace_back(createSVGImage(SVGTag, "C", "C", false));
-    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits", false));
+    texts.emplace_back(createSVGImage(SVGTag, "C", "C"));
+    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM"));
+    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play"));
+    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings"));
+    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls"));
+    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits"));
 }

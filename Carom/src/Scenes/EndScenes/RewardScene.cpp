@@ -25,5 +25,5 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         game->getScenesManager()->popScene(); // Poppea la win.
     }); 
 
-    createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
+    createSVGImage("win", "rewardButtonText", "rewardButtonText");
 }

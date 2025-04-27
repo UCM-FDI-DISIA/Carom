@@ -28,5 +28,5 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
         game->getScenesManager()->pushScene(ms);
     }); 
 
-    createSVGImage("lose", "loseButtonText", "loseButtonText", false);
+    createSVGImage("lose", "loseButtonText", "loseButtonText");
 }

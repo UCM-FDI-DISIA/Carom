@@ -14,7 +14,7 @@ class RNG_Manager;
 
 class PoolScene: public UIScene {
 protected:
-    static constexpr int HOLES = 6;
+    static constexpr int POSITIONS = 6;
     enum BallTypes{
             ROUND,
             BOSS
@@ -43,10 +43,17 @@ protected:
     // ----------
 
     // --- EFECTOS DE BOLAS ---
-    std::vector<RandomItem<std::shared_ptr<Reward>>> _ballEffects; // vector de todos los posibles efectos de bolas.
+    //std::vector<RandomItem<std::shared_ptr<BallEffect>>> _ballEffects; // vector de todos los posibles efectos de bolas.
+    std::vector<std::shared_ptr<Reward>> _ballEffects; // efectos de cada bola de PoolScene.
+
     void loadBallEffects(); // rellena un vector de todos los posibles efectos de bolas.
-    entity_t generateBall(int i); // genera una bola aleatoriamente con el efecto correspondiente.
-    void generateBalls();
+
+    void generateBalls(); // genera las bolas.
+
+    void createBallInfo(); // crea la info de cada bola.
+
+    void showBallEffect(int i); // muestra bola.
+    void hideBallEffect(int i); // esconde bola.
     // ----------
 
 public:

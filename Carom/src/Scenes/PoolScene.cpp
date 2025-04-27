@@ -71,13 +71,13 @@ PoolScene::~PoolScene()
 void PoolScene::generateMatchHoles()
 {
     // Entre 0 y posiciones-1 elige un indice para que sea el boss.
-    _bossHole = _rngm->randomRange(0, HOLES);
+    _bossHole = _rngm->randomRange(0, POSITIONS);
     #ifdef _DEBUG
     std::cout << "Boss hole: " << _bossHole << std::endl;
     #endif
 
     // coloca los agujeros de partida
-    for(int i = 0; i < HOLES; i++){
+    for(int i = 0; i < POSITIONS; i++){
 
         // genera el agujero.
         entity_t hole = generateHole(i);
@@ -176,7 +176,7 @@ PoolScene::generateFloorRewards() {
     // Generar array de todas las recompensas a partir del JSON
     loadRewards();
 
-    _floorRewards = _rngm->getRandomItems(_rewards, HOLES, true); // Se puede repetir tipo de recompensa
+    _floorRewards = _rngm->getRandomItems(_rewards, POSITIONS, true); // Se puede repetir tipo de recompensa
     
     // Swaps boss hole assigned reward for a Boss Reward
     _floorRewards[_bossHole] = std::make_shared<BossReward>();
@@ -192,7 +192,7 @@ PoolScene::createRewardInfo() {
     auto texture = &sdlutils().images().at("reward_description_box");
     float scale = static_cast<float>(*&sdlutils().svgs().at("pool").at("box_0").width) / texture->width();
 
-    for(int i = 0; i < HOLES; ++i) {
+    for(int i = 0; i < POSITIONS; ++i) {
         // FONDO
         description = new Entity(*this, grp::REWARD_INFO_BG);
 
@@ -250,7 +250,7 @@ PoolScene::createRewardInfo() {
 
 void
 PoolScene::showReward(int i) {
-    assert(i < HOLES);
+    assert(i < POSITIONS);
 
     auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
     descriptions[i]->activate();
@@ -261,7 +261,7 @@ PoolScene::showReward(int i) {
 
 void
 PoolScene::hideReward(int i) {
-    assert(i < HOLES);
+    assert(i < POSITIONS);
 
     auto descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
     descriptions[i]->deactivate();
@@ -286,28 +286,157 @@ void PoolScene::loadBallEffects()
     "SubdivisionEffect.h"
     "X2Effect.h"
     */
-
-   // TODO: Preguntar a Andrea como lo ha hecho esto...
-   
-   /*+
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<AbacusEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<BowlingEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<CristalEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<ExplosiveEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<FrictionMultiplierEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<PetanqueEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<PokeballEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<PopToOppositeSideEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<QuanticEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<SubdivisionEffect>(), 1.0f));
-    _ballEffects.push_back(RandomItem<std::shared_ptr<BallEffect>>(std::make_shared<X2Effect>(), 1.0f));*/
-}
-
-entity_t PoolScene::generateBall(int i)
-{
-    return entity_t();
 }
 
 void PoolScene::generateBalls()
 {
+    // coloca los agujeros de partida
+    for(int i = 0; i < POSITIONS; i++){
+
+        // genera el la bola
+        entity_t ball = createSVGImage(
+            "ballspool",                 // tag
+            "bola_" + std::to_string(i), // svg
+            "bola_montada",              // image
+            true,                        // button
+            grp::POOL_BALLS,             // group
+            renderLayer::WHITE_BALL      // renderlayer
+        );
+
+        Button* button = ball->getComponent<Button>();
+
+        if(i == _bossHole){ // --- POSICION BOSS.
+            //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
+            
+            button->setOnClick([=](){
+                ball->setAlive(false); // Quita la bola si se ha jugado la partida.
+                //hideReward(i);
+
+                NullState* state = new NullState(nullptr);
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
+                
+                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
+                
+                game->getScenesManager()->pushScene(rs);
+                game->getScenesManager()->pushScene(ms);
+            });
+        }
+        else{ // --- POSICION COLORES.
+            button->setOnClick([=](){
+                ball->setAlive(false); // Quita la bola si se ha jugado la partida.
+                //hideReward(i);
+                
+                NullState* state = new NullState(nullptr);
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
+                
+                RewardScene* rs = new RewardScene(game);
+
+                game->getScenesManager()->pushScene(rs);
+                game->getScenesManager()->pushScene(ms);
+            });
+        }
+
+        button->setOnHover([this, i]() {
+            #ifdef _DEBUG
+            std::cout << "Hovering pool hole " << i << std::endl; 
+            #endif
+
+            showReward(i);
+        });
+
+        button->setOnExit([this, i]() {
+            #ifdef _DEBUG
+            std::cout << "Exiting pool hole " << i << std::endl;
+            #endif
+
+            hideReward(i);
+        });
+        
+
+    }
+}
+
+void PoolScene::createBallInfo()
+{
+    entity_t description;
+    b2Vec2 pos;
+
+    Texture* texture = &sdlutils().images().at("reward_description_box");
+    float scale = static_cast<float>(*&sdlutils().svgs().at("ballspool").at("bolamsg_0").width) / texture->width();
+
+    for(int i = 0; i < POSITIONS; ++i) {
+        // --- FONDO
+        description = new Entity(*this, grp::BALL_INFO_BG);
+
+        pos = PhysicsConverter::pixel2meter(
+            *&sdlutils().svgs().at("ballspool").at("bolamsg_" + std::to_string(i)).x, 
+            *&sdlutils().svgs().at("ballspool").at("bolamsg_" + std::to_string(i)).y
+        );
+
+        addComponent<TransformComponent>(description, pos);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+
+        description->deactivate();
+
+        // --- TEXTO
+        Text title, rewardName, rewardType, rewardDesc;
+
+        /*
+        switch(_floorRewards[i]->getType()) {
+            case Reward::Type::INSTANT:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("instantReward_pool");
+                break;
+            case Reward::Type::PERMANENT:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("permanentReward_pool");
+                break;
+            case Reward::Type::BOSS:
+                title = sdlutils().texts().at("bossTitle_pool");
+                rewardType = sdlutils().texts().at("bossReward_pool");
+                break;
+            default:
+                title = sdlutils().texts().at("rewardTitle_pool");
+                rewardType = sdlutils().texts().at("reward_pool");
+                break;
+        }
+
+        rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
+        rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+
+        description = new Entity(*this, grp::REWARD_INFO_TEXT);
+        addComponent<TransformComponent>(description, pos);
+        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{rewardName.text, rewardName.font, rewardName.color, scale*1.5f},
+                body_t{rewardType.text, rewardType.font, rewardType.color, scale*2.f},
+                body_t{rewardDesc.text, rewardDesc.font, rewardDesc.color, scale*2.f}
+                , texture->width() * scale - 25
+                , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
+            );
+        description->deactivate();
+        */
+    }
+}
+
+void PoolScene::showBallEffect(int i)
+{
+    assert(i < POSITIONS);
+
+    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+    descriptions[i]->activate();
+
+    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+    descriptions[i]->activate();
+}
+
+void PoolScene::hideBallEffect(int i)
+{
+    assert(i < POSITIONS);
+
+    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+    descriptions[i]->deactivate();
+
+    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+    descriptions[i]->deactivate();
 }
