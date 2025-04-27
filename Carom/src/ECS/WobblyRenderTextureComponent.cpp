@@ -30,7 +30,7 @@ void WobblyRenderTextureComponent::render(){
         if(i < VERTICES_BY_WIDTH) posY = textureRect.y;
         else posY = textureRect.y + textureRect.h;
 
-        posY += 50*sin(float(3*(float) posX / sdlutils().width()+ (float)sdlutils().currRealTime()/1000));
+        posY += _height*sin(float(_speed*(float) posX / sdlutils().width()+ (float)sdlutils().currRealTime()/1000));
 
         vertex.position = SDL_FPoint{posX, posY};
         float yTexCoord;
