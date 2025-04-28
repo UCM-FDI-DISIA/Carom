@@ -41,12 +41,12 @@ protected:
     void showReward(int i);
     void hideReward(int i);
     // ----------
-
+    
     // --- EFECTOS DE BOLAS ---
     //std::vector<RandomItem<std::shared_ptr<BallEffect>>> _ballEffects; // vector de todos los posibles efectos de bolas.
     std::vector<std::shared_ptr<Reward>> _ballEffects; // efectos de cada bola de PoolScene.
-
-    void loadBallEffects(); // rellena un vector de todos los posibles efectos de bolas.
+    
+    std::string randomBallEffect(); // da un efecto de bola aleatorio.
 
     void generateBalls(); // genera las bolas.
 

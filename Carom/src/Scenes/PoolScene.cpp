@@ -270,22 +270,42 @@ PoolScene::hideReward(int i) {
     descriptions[i]->deactivate();
 }
 
-void PoolScene::loadBallEffects()
+std::string PoolScene::randomBallEffect()
 {
     /*
     --- Bolas:
-    "AbacusEffect.h"
-    "BowlingEffect.h"
-    "CristalEffect.h"
-    "ExplosiveEffect.h"
-    "FrictionMultiplierEffect.h"
-    "PetanqueEffect.h"
-    "PokeballEffect.h"
-    "PopToOppositeSideEffect.h"
-    "QuanticEffect.h"
-    "SubdivisionEffect.h"
-    "X2Effect.h"
+    0- AbacusEffect
+    1- BowlingEffect
+    2- CristalEffect
+    3- ExplosiveEffect
+    4- FrictionMultiplierEffect
+    5- PetanqueEffect
+    6- PokeballEffect
+    7- PopToOppositeSideEffect
+    8- QuanticEffect
+    9- SubdivisionEffect
+    10- X2Effect
     */
+
+    int n = _rngm->randomRange(0, 11); // numero aleatorio entre 0 y 11.
+    std::string be;
+    switch (n)
+    {
+    case 0: be = "ABACUS_EFFECT"; break;
+    case 1: be = "BOWLING_EFFECT"; break;
+    case 2: be = "CRISTAL_EFFECT"; break;
+    case 3: be = "EXPLOSIVE_EFFECT"; break;
+    case 4: be = "FRICTION_MULTIPLIER"; break;
+    case 5: be = "PETANQUE_EFFECT"; break;
+    case 6: be = "POKEBALL_EFFECT"; break;
+    case 7: be = "POP_TO_OPPOSITE_EFFECT"; break;
+    case 8: be = "QUANTIC_EFFECT"; break;
+    case 9: be = "SUBDIVISION_EFFECT"; break;
+    case 10: be = "X2_EFFECT"; break;
+    default: break;
+    }
+
+    return be;
 }
 
 void PoolScene::generateBalls()
@@ -293,7 +313,7 @@ void PoolScene::generateBalls()
     // coloca los agujeros de partida
     for(int i = 0; i < POSITIONS; i++){
 
-        // genera el la bola
+        // genera la bola
         entity_t ball = createSVGImage(
             "ballspool",                 // tag
             "bola_" + std::to_string(i), // svg
@@ -305,12 +325,11 @@ void PoolScene::generateBalls()
 
         Button* button = ball->getComponent<Button>();
 
+        // TODO: animaciones de la bola entrando al agujero.
         if(i == _bossHole){ // --- POSICION BOSS.
-            //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
-            
             button->setOnClick([=](){
                 ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-                //hideReward(i);
+                hideReward(i);
 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
@@ -321,10 +340,10 @@ void PoolScene::generateBalls()
                 game->getScenesManager()->pushScene(ms);
             });
         }
-        else{ // --- POSICION COLORES.
+        else{ // --- POSICION EFECTOS.
             button->setOnClick([=](){
                 ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-                //hideReward(i);
+                hideReward(i);
                 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
@@ -337,18 +356,10 @@ void PoolScene::generateBalls()
         }
 
         button->setOnHover([this, i]() {
-            #ifdef _DEBUG
-            std::cout << "Hovering pool hole " << i << std::endl; 
-            #endif
-
             showReward(i);
         });
 
         button->setOnExit([this, i]() {
-            #ifdef _DEBUG
-            std::cout << "Exiting pool hole " << i << std::endl;
-            #endif
-
             hideReward(i);
         });
         
@@ -378,15 +389,17 @@ void PoolScene::createBallInfo()
 
         description->deactivate();
 
-        /*
         // --- TEXTO
         Text title, ballName, ballDesc;
 
-        title = sdlutils().texts().at("rewardTitle_pool");
+        title = sdlutils().texts().at("ballEffectTitle_pool");
 
-        rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
-        rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        std::string randomBall = randomBallEffect();
 
+        ballName = sdlutils().texts().at(randomBall + "_name_pool");
+        ballDesc = sdlutils().texts().at(randomBall + "_desc_pool");
+
+        /*
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
