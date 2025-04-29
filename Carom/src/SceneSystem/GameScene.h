@@ -30,25 +30,24 @@ class GameScene
 {
 private:
     std::vector<entity_t> _entsRenderable;
-
+    
 protected:
     GameList<Entity> _entities;
     std::array<std::vector<entity_t>, maxGroupId> _entsByGroup;
+    bool _initialized;
 
     Game* game;
     CameraComponent* _camera = nullptr;
-
-	GameScene(Game* game);
-	GameScene();
-
 	
 	// Este metodo permite un comportamiento de la escena al instanciarla
 	//
-	inline virtual void init(){}
     virtual void initObjects(){}
     virtual void initFunctionalities(){}
     virtual void initGimmick(){}
     virtual void initBoss(){}
+
+    // Deletes all entities
+    void clearEntities();
 
     // Create entities that represent and compose the table. The table as a whole is a group.
     void createTable();
@@ -99,6 +98,12 @@ protected:
     void createPauseEntity();
 
 public:
+
+    GameScene(Game* game);
+
+    inline virtual void init(){}
+    inline bool isInitialized() { return _initialized; }
+
     // Return true if there is a component with identifier T::id in the entity.
     //
     template<typename T>

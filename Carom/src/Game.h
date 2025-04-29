@@ -1,10 +1,9 @@
 #pragma once
 
-class ScenesManager;
-
-#include "SDL_video.h"
 #include "SDLUtils.h"
 #include "Texture.h"
+
+#include <memory>
 
 class ScenesManager;
 class RNG_Manager;
@@ -31,12 +30,10 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
-    inline RNG_Manager& getRGN() { return *_rngManager; };
     
 protected:
     ScenesManager* _sceneManager;
-    MainMenuScene* _mainMenuScene;
-    RNG_Manager* _rngManager;
+    std::shared_ptr<MainMenuScene> _mainMenuScene;
 
 private:
     Texture* _t;

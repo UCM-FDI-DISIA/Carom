@@ -45,7 +45,14 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* g) : GameScene(g), _updatePhysics(true) , _currentScore(0), _scoreToBeat(1000)
+CaromScene::CaromScene( Game* game, std::shared_ptr<GameScene> reward, State* s) 
+    : GameScene(game)
+    , _reward(reward)
+    , _updatePhysics(true)
+    , _currentScore(0)
+    , _scoreToBeat(1000)
+    , _currentState(s)
+    , _rngManager(RNG_Manager::Instance())
 {
 }
 
@@ -56,26 +63,23 @@ void CaromScene::init()
     initObjects();
     initBoss();
 
+    if(_currentState == nullptr)
     setNewState(new StartMatchState(this));
+
+    _initialized = true;
 }
 
 void CaromScene::initFunctionalities()
 {
     _sceneManager = game->getScenesManager();
 
-    // SEEDING
-    // TODO: pasar RNG a sceneManager o Game para que haya uno solo
     _rngManager = RNG_Manager::Instance();
-    unsigned seed = _rngManager->randomRange(1, 1000000); 
-    _rngManager->inseminate(seed);
-
 
     // Creación del mundo físico
     b2WorldDef worldDef = b2DefaultWorldDef();
     worldDef.gravity = {0.0f, 0.0f};
     _myB2WorldId = b2CreateWorld(&worldDef);
     b2World_SetRestitutionThreshold(_myB2WorldId, 0.01); // para la bola rebotear más realisticamente
-
     _hitManager = new ColorHitManager(this);
 }
 
@@ -85,7 +89,7 @@ void CaromScene::initObjects()
     createPauseEntity();
 
     createScoreEntity();
-
+    
     createStick();
     
     // WHITE BALL
@@ -262,6 +266,7 @@ void CaromScene::setNewState(State* s){
     if (_currentState != nullptr) {
         _currentState->onStateExit();
         delete _currentState;
+        _currentState = nullptr;
     }
 
     #if defined (_DEBUG)
@@ -272,13 +277,20 @@ void CaromScene::setNewState(State* s){
     _currentState->onStateEnter();
 }
 
-CaromScene::~CaromScene(){
-    if(_currentState != nullptr) delete _currentState;
+CaromScene::~CaromScene()
+{
+    if(isInitialized()) 
+    {
+        if(_currentState != nullptr) delete _currentState;
 
-    // el mundo debe destruirse aquí, recordad que los ids son punteros con sombrero y gabardina
-    b2DestroyWorld(_myB2WorldId);
-
-    delete _hitManager;
+        // Deletes entities before destroyWorld
+        clearEntities();
+    
+        // el mundo debe destruirse aquí, recordad que los ids son punteros con sombrero y gabardina
+        b2DestroyWorld(_myB2WorldId);
+    
+        delete _hitManager;
+    }
 }
 
 void CaromScene::handleEvent()

@@ -22,13 +22,14 @@
 #include "InventoryManager.h"
 
 
-RussianPyramidScene::RussianPyramidScene(Game* g, State* state, bool isBoss)
-    : CaromScene(state, g)
+RussianPyramidScene::RussianPyramidScene(Game* game, std::shared_ptr<GameScene> reward, bool isBoss, State* state)
+    : CaromScene(game, reward, state)
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)
     , _allBalls()
 {
+    _isBoss = isBoss;
     _boss = RUSSIAN_PYRAMID;
 }
 
@@ -84,7 +85,7 @@ void RussianPyramidScene::createBoss(){
     // // addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW_HAND, scale);
     // // addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
 
-    // CaromScene::instantiateBossTableShadow();
+     CaromScene::instantiateBossTableShadow();
 }
 
 /// @brief Creates and randomly places as many effect balls as specified
@@ -344,7 +345,7 @@ RussianPyramidScene::applyBossModifiers() {
     entity_t newWhiteBall = nullptr;
     do {
         newWhiteBall = _allBalls[_rngManager->randomRange(0, _allBalls.size())];
-    } while(newWhiteBall == _currentWhiteBall || newWhiteBall == _originalWhiteBall);
+    } while(newWhiteBall == _currentWhiteBall);
     _stickInput->registerWhiteBall(newWhiteBall);
     newWhiteBall->stealComponent<Button>(_currentWhiteBall);
     _currentWhiteBall = newWhiteBall;

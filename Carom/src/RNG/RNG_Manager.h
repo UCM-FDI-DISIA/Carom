@@ -68,4 +68,5 @@ class RNG_Manager : public Singleton<RNG_Manager>
     };
 
     private:
+        friend Singleton;
 };

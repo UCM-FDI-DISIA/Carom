@@ -16,13 +16,20 @@
 
 #include "CaromScene.h"
 
-
+#include <memory>
 
 Game::Game() {}
 
-Game::~Game() {
-
+Game::~Game() 
+{
     delete _sceneManager; // HAS TO BE FIRST
+    _mainMenuScene.reset();
+
+    if (RNG_Manager::HasInstance())
+        RNG_Manager::Release();
+
+    if (InventoryManager::HasInstance())
+    InventoryManager::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -56,18 +63,25 @@ Game::init()
                 << std::endl;
         return;
     }
-    RNG_Manager::Init();
+
+    // initialize InventoryManager singleton
+    if(!RNG_Manager::Init()) {
+        std::cerr << "Something went wrong while initializing RNG_Manager"
+                << std::endl;
+        return;
+    }
 }
 
 void
 Game::start() 
 {
+    unsigned seed = RNG_Manager::Instance()->randomRange(1, 1000000); 
+    RNG_Manager::Instance()->inseminate(seed);
+
     _sceneManager = new ScenesManager();    
+    _mainMenuScene = std::make_shared<MainMenuScene>(this);
 
-    // !!! SE CREA MAINMENUSCENE
-    GameScene *ms = new MainMenuScene(this);
-
-    _sceneManager->pushScene(ms);
+    _sceneManager->pushScene(_mainMenuScene);
 }
 
 void Game::run()
@@ -154,8 +168,7 @@ void Game::run()
 
         _sceneManager = new ScenesManager();    
 
-        NullState* state = new NullState(nullptr);
-        GameScene *ms = new MainMenuScene(this);
+        std::shared_ptr<GameScene> ms = std::make_shared<GameScene>(this);
     
         _sceneManager->pushScene(ms);
     }

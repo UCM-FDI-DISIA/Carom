@@ -18,6 +18,11 @@ _key(key)
     reGenerateTexture();
 }
 
+TextDisplayComponent::~TextDisplayComponent()
+{
+    delete _texture;
+}
+
 void 
 TextDisplayComponent::changeFont(std::string key) {
     _key = key;

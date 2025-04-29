@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "ecs.h"
 
+#include <memory>
+
 class RNG_Manager;
 class b2WorldId;
 class Vector2D;
@@ -21,11 +23,13 @@ class CaromScene: public GameScene {
 protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g);
+//si quieres que caromScene comience con un estado distinto al de la partida normal, introduce el estado nuevo
+    CaromScene(Game* g, std::shared_ptr<GameScene> reward, State* state = nullptr);
     virtual ~CaromScene();
 
     void init() override;
@@ -39,6 +43,7 @@ public:
     void update() override;
 
     inline ScenesManager* getScenesManager() const {return _sceneManager;}
+    inline std::shared_ptr<GameScene> getRewardScene() const {return _reward;}
 
     // Métodos para comprobar condiciones de estado 
     inline int getRemainingHits() { return _remainingHits; }
@@ -48,7 +53,7 @@ public:
 //---------------------------STATE MACHINE-----------------------------
 protected:
     //el estado en el que se encuentra la escena actualmente
-    State* _currentState = nullptr;
+    State* _currentState;
 public:
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
@@ -147,6 +152,7 @@ public:
 
 protected:
     Boss _boss = Boss::NONE;
+    bool _isBoss = false;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 

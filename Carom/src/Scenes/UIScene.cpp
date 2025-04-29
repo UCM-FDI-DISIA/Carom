@@ -3,6 +3,13 @@
 #include "TextDisplayComponent.h"
 #include "ScenesManager.h"
 
+void UIScene::init()
+{
+    initFunctionalities();
+    initObjects();
+
+    _initialized = true;
+}
 
 void UIScene::createTable()
 {

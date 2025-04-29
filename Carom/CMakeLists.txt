@@ -9,6 +9,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Memory leak
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-D_CRTDBG_MAP_ALLOC)
+endif()
+
 # Box2D
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
 

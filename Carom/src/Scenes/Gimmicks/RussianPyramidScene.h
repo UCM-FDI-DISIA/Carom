@@ -10,7 +10,7 @@ class TweenComponent;
 class RussianPyramidScene : public CaromScene 
 {
 public:
-    RussianPyramidScene(Game* g, State* state, bool isBoss);
+    RussianPyramidScene(Game* g, std::shared_ptr<GameScene> reward, bool isBoss, State* state = nullptr);
     virtual ~RussianPyramidScene();
 
 protected:
