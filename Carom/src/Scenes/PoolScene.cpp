@@ -83,7 +83,7 @@ void PoolScene::generateMatchHoles()
 
                 // !!! CREA BOSSSCENE(CAMBIAR).
                 UIScene* rewardScene = new RewardScene(game);
-                // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
+                //CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
                 RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst 
                 ms->init();
 

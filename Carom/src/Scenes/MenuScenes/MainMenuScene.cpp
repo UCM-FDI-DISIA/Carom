@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
 #include "ScenesManager.h"
+#include "TutorialScene.h"
 
 MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
 {
@@ -30,6 +31,7 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
         // !!! SE CREA POOLSCENE
         GameScene *ms = new PoolScene(game); // ! tst 
         getGame()->getScenesManager()->pushScene(ms);
+        getGame()->getScenesManager()->pushScene(new TutorialScene(game, ms));
     });  
 
     // TODO: Hacer que se pueda accionar el boton de Settings
