@@ -13,6 +13,7 @@
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
 #include "StickInputComponent.h"
+#include "TweenComponent.h"
 
 
 // --- rewards ---
@@ -63,6 +64,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     createTable();
 
     generateMatchHoles();
+    generateBalls();
     generateFloorRewards();
 
     generateBalls();
@@ -86,6 +88,7 @@ void PoolScene::generateMatchHoles()
 
         // genera el agujero.
         entity_t hole = generateHole(i);
+        _holes.push_back(hole);
 
         auto button = hole->getComponent<Button>();
 
@@ -292,20 +295,19 @@ PoolScene::randomBallEffect()
 
     int n = _rngm->randomRange(0, 11); // numero aleatorio entre 0 y 11.
     std::string be;
-    switch (n)
-    {
-    case 0: be = "ABACUS_EFFECT"; break;
-    case 1: be = "BOWLING_EFFECT"; break;
-    case 2: be = "CRISTAL_EFFECT"; break;
-    case 3: be = "EXPLOSIVE_EFFECT"; break;
-    case 4: be = "FRICTION_MULTIPLIER"; break;
-    case 5: be = "PETANQUE_EFFECT"; break;
-    case 6: be = "POKEBALL_EFFECT"; break;
-    case 7: be = "POP_TO_OPPOSITE_EFFECT"; break;
-    case 8: be = "QUANTIC_EFFECT"; break;
-    case 9: be = "SUBDIVISION_EFFECT"; break;
-    case 10: be = "X2_EFFECT"; break;
-    default: break;
+    switch (n) {
+        case 0: be = "ABACUS_EFFECT"; break;
+        case 1: be = "BOWLING_EFFECT"; break;
+        case 2: be = "CRISTAL_EFFECT"; break;
+        case 3: be = "EXPLOSIVE_EFFECT"; break;
+        case 4: be = "FRICTION_MULTIPLIER"; break;
+        case 5: be = "PETANQUE_EFFECT"; break;
+        case 6: be = "POKEBALL_EFFECT"; break;
+        case 7: be = "POP_TO_OPPOSITE_EFFECT"; break;
+        case 8: be = "QUANTIC_EFFECT"; break;
+        case 9: be = "SUBDIVISION_EFFECT"; break;
+        case 10: be = "X2_EFFECT"; break;
+        default: break;
     }
 
     return be;
@@ -319,57 +321,46 @@ PoolScene::generateBalls()
 
         // genera la bola
         entity_t ball = createSVGImage(
-            "ballspool",                 // tag
-            "bola_" + std::to_string(i), // svg
+            "ballspool",                 // svg
+            "bola_" + std::to_string(i), // tag
             "bola_montada",              // image
             true,                        // button
             grp::POOL_BALLS,             // group
             renderLayer::WHITE_BALL      // renderlayer
         );
 
+        _balls.push_back(ball);
+
+        auto tween = addComponent<TweenComponent>(ball);
+        ITransform* ballTransform = ball->getTransform();
         Button* button = ball->getComponent<Button>();
 
         // TODO: animaciones de la bola entrando al agujero.
-        if(i == _bossHole){ // --- POSICION BOSS.
-            button->setOnClick([=](){
-                ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-                // hideReward(i); TODO DESCOMENTAR
+        bool isBoss = i == _bossHole;
 
+        button->setOnClick([=](){
+            hideReward(i);
+            tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
+                ball->setAlive(false); // Quita la bola si se ha jugado la partida.
+    
                 NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, isBoss); // ! tst  
                 
                 RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
                 
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
             });
-        }
-        else{ // --- POSICION EFECTOS.
-            button->setOnClick([=](){
-                ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-                // hideReward(i); TODO DESCOMENTAR
-                
-                NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
-                
-                RewardScene* rs = new RewardScene(game);
-
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(ms);
-            });
-        }
-
-        /* TODO: DESCOMENTAR
-        button->setOnHover([this, i]() {
-            showBallEffect(i);
         });
 
-        button->setOnExit([this, i]() {
-            hideBallEffect(i);
-        });
-        */
-        
+        //TODO
+        // button->setOnHover([this, i]() {
+        //     showBallEffect(i);
+        // });
 
+        // button->setOnExit([this, i]() {
+        //     hideBallEffect(i);
+        // });
     }
 }
 

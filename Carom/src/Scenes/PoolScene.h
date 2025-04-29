@@ -24,6 +24,7 @@ protected:
     RNG_Manager* _rngm; // random manager
     b2WorldId _myB2WorldId; //El mundo de box2D
 
+    std::vector<entity_t> _holes, _balls;
 
     // --- AGUJEROS Y RECOMPENSAS ---
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
