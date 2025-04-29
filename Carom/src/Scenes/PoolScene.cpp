@@ -65,7 +65,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     generateMatchHoles();
     generateFloorRewards();
 
-    //generateBalls() TODO: INVESTIGAR POR QUE NO VA.
+    generateBalls();
 }
 
 PoolScene::~PoolScene()
@@ -333,7 +333,7 @@ PoolScene::generateBalls()
         if(i == _bossHole){ // --- POSICION BOSS.
             button->setOnClick([=](){
                 ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-                hideReward(i);
+                // hideReward(i); TODO DESCOMENTAR
 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
@@ -347,7 +347,7 @@ PoolScene::generateBalls()
         else{ // --- POSICION EFECTOS.
             button->setOnClick([=](){
                 ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-                hideReward(i);
+                // hideReward(i); TODO DESCOMENTAR
                 
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
@@ -359,6 +359,7 @@ PoolScene::generateBalls()
             });
         }
 
+        /* TODO: DESCOMENTAR
         button->setOnHover([this, i]() {
             showBallEffect(i);
         });
@@ -366,6 +367,7 @@ PoolScene::generateBalls()
         button->setOnExit([this, i]() {
             hideBallEffect(i);
         });
+        */
         
 
     }
