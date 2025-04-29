@@ -291,6 +291,12 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
+      "id" : "ballEffectType_pool", 
+      "text" : "TODO", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
+    },
+    { 
       "id" : "ABACUS_EFFECT_name_pool", 
       "text" : "Abaco", 
       "font" : "Aladin-Regular48", 

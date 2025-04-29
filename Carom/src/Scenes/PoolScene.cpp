@@ -48,6 +48,8 @@
 #include "Vector2D.h"
 #include <box2d/box2d.h>
 
+#include <iostream>
+
 
 using body_t = RewardInfoDisplayComponent::Body;
 
@@ -59,8 +61,11 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     // Create table with texture and colliders
     createBackground("suelo");
     createTable();
+
     generateMatchHoles();
     generateFloorRewards();
+
+    //generateBalls() TODO: INVESTIGAR POR QUE NO VA.
 }
 
 PoolScene::~PoolScene()
@@ -133,7 +138,8 @@ void PoolScene::generateMatchHoles()
     }
 }
 
-entity_t PoolScene::generateHole(int i)
+entity_t 
+PoolScene::generateHole(int i)
 {
     // agujero.
     entity_t e = new Entity(*this, grp::POOL_HOLE);
@@ -169,7 +175,6 @@ PoolScene::loadRewards() {
     _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CunningReward>(), 1.0f));
 
 }
-
 
 void
 PoolScene::generateFloorRewards() {
@@ -230,9 +235,6 @@ PoolScene::createRewardInfo() {
 
         rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
         rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
-        // rewardName = sdlutils().texts().at("cauldron_rewardName_pool");
-        // rewardDesc = sdlutils().texts().at("cauldron_rewardDesc_pool");
-        
 
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
@@ -270,7 +272,8 @@ PoolScene::hideReward(int i) {
     descriptions[i]->deactivate();
 }
 
-std::string PoolScene::randomBallEffect()
+std::string 
+PoolScene::randomBallEffect()
 {
     /*
     --- Bolas:
@@ -308,7 +311,8 @@ std::string PoolScene::randomBallEffect()
     return be;
 }
 
-void PoolScene::generateBalls()
+void 
+PoolScene::generateBalls()
 {
     // coloca los agujeros de partida
     for(int i = 0; i < POSITIONS; i++){
@@ -356,18 +360,19 @@ void PoolScene::generateBalls()
         }
 
         button->setOnHover([this, i]() {
-            showReward(i);
+            showBallEffect(i);
         });
 
         button->setOnExit([this, i]() {
-            hideReward(i);
+            hideBallEffect(i);
         });
         
 
     }
 }
 
-void PoolScene::createBallInfo()
+void 
+PoolScene::createBallInfo()
 {
     entity_t description;
     b2Vec2 pos;
@@ -390,7 +395,7 @@ void PoolScene::createBallInfo()
         description->deactivate();
 
         // --- TEXTO
-        Text title, ballName, ballDesc;
+        Text title, ballName, ballDesc, ballType;
 
         title = sdlutils().texts().at("ballEffectTitle_pool");
 
@@ -398,23 +403,25 @@ void PoolScene::createBallInfo()
 
         ballName = sdlutils().texts().at(randomBall + "_name_pool");
         ballDesc = sdlutils().texts().at(randomBall + "_desc_pool");
+        ballType = sdlutils().texts().at("ballEffectType_pool");
 
-        /*
-        description = new Entity(*this, grp::REWARD_INFO_TEXT);
+        // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
+        description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
                 body_t{title.text, title.font, title.color, scale*1.5f},
-                body_t{rewardName.text, rewardName.font, rewardName.color, scale*1.5f},
-                body_t{rewardType.text, rewardType.font, rewardType.color, scale*2.f},
-                body_t{rewardDesc.text, rewardDesc.font, rewardDesc.color, scale*2.f}
+                body_t{ballType.text, ballType.font, ballType.color, scale*2.f},
+                body_t{ballName.text, ballName.font, ballName.color, scale*1.5f},
+                body_t{ballDesc.text, ballDesc.font, ballDesc.color, scale*2.f}
                 , texture->width() * scale - 25
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );
-        description->deactivate();*/
+        description->deactivate();
     }
 }
 
-void PoolScene::showBallEffect(int i)
+void 
+PoolScene::showBallEffect(int i)
 {
     assert(i < POSITIONS);
 
@@ -425,7 +432,8 @@ void PoolScene::showBallEffect(int i)
     descriptions[i]->activate();
 }
 
-void PoolScene::hideBallEffect(int i)
+void 
+PoolScene::hideBallEffect(int i)
 {
     assert(i < POSITIONS);
 
