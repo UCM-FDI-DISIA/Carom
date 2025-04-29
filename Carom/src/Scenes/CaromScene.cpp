@@ -45,13 +45,13 @@
 
 
 
-CaromScene::CaromScene(State* s, Game* game, std::shared_ptr<GameScene> reward) 
+CaromScene::CaromScene( Game* game, std::shared_ptr<GameScene> reward, State* s) 
     : GameScene(game)
     , _reward(reward)
     , _updatePhysics(true)
     , _currentScore(0)
     , _scoreToBeat(1000)
-    , _currentState(nullptr)
+    , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
 {
 }
@@ -63,6 +63,7 @@ void CaromScene::init()
     initObjects();
     initBoss();
 
+    if(_currentState == nullptr)
     setNewState(new StartMatchState(this));
 
     _initialized = true;

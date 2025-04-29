@@ -21,8 +21,8 @@
 #include "FollowComponent.h"
 
 
-CowboyPoolScene::CowboyPoolScene(State* state, Game* g, std::shared_ptr<GameScene> reward, bool isBoss)
-    : CaromScene(state, g, reward)
+CowboyPoolScene::CowboyPoolScene(Game* g, std::shared_ptr<GameScene> reward, bool isBoss, State* state)
+    : CaromScene(g, reward, state)
     , _sandBanks(0)
     , _arenaFilenameSVG("grp_arena")
     , _sandConstrainName("arenaArea")

@@ -28,7 +28,8 @@ protected:
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g, std::shared_ptr<GameScene> reward);
+//si quieres que caromScene comience con un estado distinto al de la partida normal, introduce el estado nuevo
+    CaromScene(Game* g, std::shared_ptr<GameScene> reward, State* state = nullptr);
     virtual ~CaromScene();
 
     void init() override;
