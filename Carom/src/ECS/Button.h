@@ -77,5 +77,8 @@ public:
     void setOnExit(std::function<void()> f) {_onExit = f;};
     void setOnDisable(std::function<void()> f) {_onDisable = f;};
 
+    inline std::function<void()> getOnClick() { return _onClick; }
+    inline std::function<void()> getOnHover() { return _onHover; }
+
     __CMPID_DECL__(cmp::BUTTON);
 };

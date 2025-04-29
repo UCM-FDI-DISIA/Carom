@@ -51,6 +51,8 @@ protected:
     void hideBallEffect(int i); // esconde bola.
     // ----------
 
+    void createCallbacks();
+
 public:
     PoolScene(Game* g);
     ~PoolScene();

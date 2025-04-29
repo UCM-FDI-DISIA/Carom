@@ -67,7 +67,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     generateBalls();
     generateFloorRewards();
 
-    generateBalls();
+    createCallbacks();
 }
 
 PoolScene::~PoolScene()
@@ -85,59 +85,8 @@ void PoolScene::generateMatchHoles()
 
     // coloca los agujeros de partida
     for(int i = 0; i < POSITIONS; i++){
-
-        // genera el agujero.
         entity_t hole = generateHole(i);
         _holes.push_back(hole);
-
-        auto button = hole->getComponent<Button>();
-
-        if(i == _bossHole){ // --- POSICION BOSS.
-            //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
-            
-            button->setOnClick([=](){
-                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
-                hideReward(i);
-
-                NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
-                
-                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(ms);
-            });
-        }
-        else{ // --- POSICION COLORES.
-            button->setOnClick([=](){
-                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
-                hideReward(i);
-                
-                NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
-                
-                RewardScene* rs = new RewardScene(game);
-
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(ms);
-            });
-        }
-
-        button->setOnHover([this, i]() {
-            #ifdef _DEBUG
-            std::cout << "Hovering pool hole " << i << std::endl; 
-            #endif
-
-            showReward(i);
-        });
-
-        button->setOnExit([this, i]() {
-            #ifdef _DEBUG
-            std::cout << "Exiting pool hole " << i << std::endl;
-            #endif
-
-            hideReward(i);
-        });
     }
 }
 
@@ -317,8 +266,7 @@ void
 PoolScene::generateBalls()
 {
     // coloca los agujeros de partida
-    for(int i = 0; i < POSITIONS; i++){
-
+    for(int i = 0; i < POSITIONS; i++) {
         // genera la bola
         entity_t ball = createSVGImage(
             "ballspool",                 // svg
@@ -328,38 +276,9 @@ PoolScene::generateBalls()
             grp::POOL_BALLS,             // group
             renderLayer::WHITE_BALL      // renderlayer
         );
-
+        addComponent<TweenComponent>(ball);
+        
         _balls.push_back(ball);
-
-        auto tween = addComponent<TweenComponent>(ball);
-        Button* button = ball->getComponent<Button>();
-
-        // TODO: animaciones de la bola entrando al agujero.
-        bool isBoss = i == _bossHole;
-
-        button->setOnClick([=](){
-            hideReward(i);
-            tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
-                ball->setAlive(false); // Quita la bola si se ha jugado la partida.
-    
-                NullState* state = new NullState(nullptr);
-                CowboyPoolScene *ms = new CowboyPoolScene(state, game, isBoss); // ! tst  
-                
-                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(ms);
-            });
-        });
-
-        //TODO
-        // button->setOnHover([this, i]() {
-        //     showBallEffect(i);
-        // });
-
-        // button->setOnExit([this, i]() {
-        //     hideBallEffect(i);
-        // });
     }
 }
 
@@ -434,4 +353,49 @@ PoolScene::hideBallEffect(int i)
 
     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->deactivate();
+}
+
+void
+PoolScene::createCallbacks() {
+    for(int i = 0; i < POSITIONS; ++i) {
+        Button* holeButton = getComponent<Button>(_holes[i]);
+        Button* ballButton = getComponent<Button>(_balls[i]);
+
+        TweenComponent* tween = getComponent<TweenComponent>(_balls[i]);
+
+        bool isBoss = i == _bossHole;
+        holeButton->setOnClick([=](){
+            hideReward(i);
+            tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
+                _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
+    
+                NullState* state = new NullState(nullptr);
+                CowboyPoolScene *ms = new CowboyPoolScene(state, game, isBoss); // ! tst  
+                
+                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
+                
+                game->getScenesManager()->pushScene(rs);
+                game->getScenesManager()->pushScene(ms);
+            });
+        });
+
+        ballButton->setOnClick(holeButton->getOnClick());
+
+        //TODO
+        // button->setOnHover([this, i]() {
+        //     showBallEffect(i);
+        // });
+
+        // button->setOnExit([this, i]() {
+        //     hideBallEffect(i);
+        // });
+
+        holeButton->setOnHover([this, i]() {
+            showReward(i);
+        });
+
+        holeButton->setOnExit([this, i]() {
+            hideReward(i);
+        });
+    }
 }
