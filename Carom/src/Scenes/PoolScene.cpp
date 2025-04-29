@@ -332,7 +332,6 @@ PoolScene::generateBalls()
         _balls.push_back(ball);
 
         auto tween = addComponent<TweenComponent>(ball);
-        ITransform* ballTransform = ball->getTransform();
         Button* button = ball->getComponent<Button>();
 
         // TODO: animaciones de la bola entrando al agujero.
