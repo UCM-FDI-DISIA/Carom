@@ -29,7 +29,7 @@ protected:
     void updateScene() override;
 public:
 //si quieres que caromScene comience con un estado distinto al de la partida normal, introduce el estado nuevo
-    CaromScene(Game* g, std::shared_ptr<GameScene> reward, State* state = nullptr);
+    CaromScene(Game* g, State* state = nullptr);
     virtual ~CaromScene();
 
     void init() override;
