@@ -33,6 +33,4 @@ public:
     void setDisplayedText(std::string text);
 
     std::string getDisplayedText(){ return _text;}
-
-    ~TextDisplayComponent(){delete _texture;}
 };
