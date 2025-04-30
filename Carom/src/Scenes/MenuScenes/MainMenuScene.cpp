@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
 #include "ScenesManager.h"
+#include "AudioManager.h"
 
 MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
 {
@@ -31,6 +32,24 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
         GameScene *ms = new PoolScene(game); // ! tst 
         getGame()->getScenesManager()->pushScene(ms);
     });  
+
+
+    //Esto no tiene que llegar a develop, es para debug
+    am = new AudioManager();
+    pannels[3]->getComponent<Button>()->setOnClick([this](){
+        
+        am->playMusicTrack(0);
+    });
+
+    pannels[4]->getComponent<Button>()->setOnClick([this](){
+        
+        am->pauseMusicTrack(0);
+    });
+
+    pannels[5]->getComponent<Button>()->setOnClick([this](){
+        
+        am->resumeMusicTrack(0);
+    });
 
     // TODO: Hacer que se pueda accionar el boton de Settings
     // TODO: Hacer que se pueda accionar el boton de Controls

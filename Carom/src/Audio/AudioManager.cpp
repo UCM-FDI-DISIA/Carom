@@ -1,10 +1,24 @@
 #include "AudioManager.h"
-#include "SDLUtils.h"
+
 
 AudioManager::AudioManager(){
     
 }
 
-void AudioManager::playMusic(){
-    sdlutils().musics().at("imperial_march").play(2);
+void AudioManager::playMusicTrack(std::string trackId){
+    if(musicTrack.contains(trackId)){
+        musicTrack[trackId].play();
+    }
+}
+
+void AudioManager::resumeMusicTrack(int track){
+    sdlutils().musics().at("imperial_march").resumeMusic();
+}
+
+void AudioManager::pauseMusicTrack(int track){
+    sdlutils().musics().at("imperial_march").pauseMusic();
+}
+
+void AudioManager::playSoundEfect(){
+
 }
