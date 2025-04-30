@@ -15,14 +15,8 @@ class RNG_Manager;
 class PoolScene: public UIScene {
 protected:
     static constexpr int POSITIONS = 6;
-    enum BallTypes{
-            ROUND,
-            BOSS
-        };
-
-
+    
     RNG_Manager* _rngm; // random manager
-    b2WorldId _myB2WorldId; //El mundo de box2D
 
     std::vector<entity_t> _holes, _balls;
 
@@ -44,6 +38,17 @@ protected:
     // ----------
     
     // --- EFECTOS DE BOLAS ---
+    /*
+    0- AbacusEffect
+    1- BowlingEffect
+    2- CristalEffect
+    3- PetanqueEffect
+    4- PokeballEffect
+    5- QuanticEffect
+    6- X2Effect
+    Nota: el resto de efectos de bolas se ponen con palos, entonces no contarian para la Pool
+    */
+
     std::string randomBallEffect(); // da un efecto de bola aleatorio.
     void generateBalls(); // genera las bolas.
     void createBallInfo(); // crea la info de cada bola.
@@ -51,7 +56,9 @@ protected:
     void hideBallEffect(int i); // esconde bola.
     // ----------
 
+    // --- CALLBACKS ---
     void createCallbacks();
+    // ----------
 
 public:
     PoolScene(Game* g);

@@ -66,6 +66,7 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     generateMatchHoles();
     generateBalls();
     generateFloorRewards();
+    createBallInfo();
 
     createCallbacks();
 }
@@ -227,21 +228,7 @@ PoolScene::hideReward(int i) {
 std::string 
 PoolScene::randomBallEffect()
 {
-    /*
-    --- Bolas:
-    0- AbacusEffect
-    1- BowlingEffect
-    2- CristalEffect
-    3- ExplosiveEffect
-    4- FrictionMultiplierEffect
-    5- PetanqueEffect
-    6- PokeballEffect
-    7- PopToOppositeSideEffect
-    8- QuanticEffect
-    9- SubdivisionEffect
-    10- X2Effect
-    */
-
+    // TODO: hacer los random ball effects pero con el BallCompsInfo.
     int n = _rngm->randomRange(0, 11); // numero aleatorio entre 0 y 11.
     std::string be;
     switch (n) {
@@ -290,6 +277,8 @@ PoolScene::createBallInfo()
 
     Texture* texture = &sdlutils().images().at("reward_description_box");
     float scale = static_cast<float>(*&sdlutils().svgs().at("ballspool").at("bolamsg_0").width) / texture->width();
+    // TODO: al ballspool accede bien
+    
 
     for(int i = 0; i < POSITIONS; ++i) {
         // --- FONDO
@@ -305,6 +294,7 @@ PoolScene::createBallInfo()
 
         description->deactivate();
 
+        
         // --- TEXTO
         Text title, ballName, ballDesc, ballType;
 
@@ -328,6 +318,7 @@ PoolScene::createBallInfo()
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );
         description->deactivate();
+        
     }
 }
 
@@ -381,14 +372,14 @@ PoolScene::createCallbacks() {
 
         ballButton->setOnClick(holeButton->getOnClick());
 
-        //TODO
-        // button->setOnHover([this, i]() {
-        //     showBallEffect(i);
-        // });
+        // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
+        ballButton->setOnHover([this, i]() {
+             showBallEffect(i);
+         });
 
-        // button->setOnExit([this, i]() {
-        //     hideBallEffect(i);
-        // });
+        ballButton->setOnExit([this, i]() {
+             hideBallEffect(i);
+         });
 
         holeButton->setOnHover([this, i]() {
             showReward(i);
