@@ -9,6 +9,9 @@ class PauseScene: public GameScene{
     GameScene* _bottomScene;
 
     void instantiateInventory();
+    void createBallInfo();
+    void showBall(int i);
+    void hideBall(int i);
 public:
 
     PauseScene(Game* game, GameScene* sceneToRenderOnTop);
