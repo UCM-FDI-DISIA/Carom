@@ -15,5 +15,5 @@ public:
 
     void playSoundEfect();
 protected:
-    std::unordered_map<std::string, Music> musicTrack;
+    std::unordered_map<std::string, Music&> musicTrack;
 };
