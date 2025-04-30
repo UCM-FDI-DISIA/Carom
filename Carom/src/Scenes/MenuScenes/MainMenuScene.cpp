@@ -44,6 +44,8 @@ void MainMenuScene::initObjects()
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
+        TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
+        getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));
     });  
 
     // TODO: Hacer que se pueda accionar el boton de Settings
