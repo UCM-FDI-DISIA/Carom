@@ -22,8 +22,8 @@
 #include "InventoryManager.h"
 
 
-RussianPyramidScene::RussianPyramidScene(Game* game, std::shared_ptr<GameScene> reward, bool isBoss, State* state)
-    : CaromScene(game, reward, state)
+RussianPyramidScene::RussianPyramidScene(Game* game, bool isBoss, State* state)
+    : CaromScene(game, state)
     , _pyramidFilenameSVG("grp_pyramids")
     , _areaConstrainName("area")
     , _nAvailablePyramids(5)

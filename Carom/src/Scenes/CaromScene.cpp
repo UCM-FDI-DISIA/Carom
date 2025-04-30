@@ -45,9 +45,8 @@
 
 
 
-CaromScene::CaromScene( Game* game, std::shared_ptr<GameScene> reward, State* s) 
+CaromScene::CaromScene( Game* game, State* s) 
     : GameScene(game)
-    , _reward(reward)
     , _updatePhysics(true)
     , _currentScore(0)
     , _scoreToBeat(1000)
