@@ -9,6 +9,7 @@
 #include "NullState.h"
 #include "RussianPyramidScene.h"
 #include "InventoryManager.h"
+#include "TutorialOneHitState.h"
 
 TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameScene(game), _bottomScene(sceneToRenderOnTop){
 
@@ -36,7 +37,11 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("Te hemos estado esperando durante todo este tiempo");
     dialogue->addDialogue("y por fin estás aquí");
     dialogue->addDialogue("Primero lo importante: ¿sabes jugar?", [=](){
-        game->getScenesManager()->pushScene(std::shared_ptr<CaromScene>(new CaromScene(game)));
+
+        auto a = std::shared_ptr<CaromScene>(new CaromScene(game));
+        a.get()->setNewState(new TutorialOneHitState(a.get()));
+
+        game->getScenesManager()->pushScene(a);
     });
 }
 
