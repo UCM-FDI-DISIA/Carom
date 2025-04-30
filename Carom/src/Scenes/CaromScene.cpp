@@ -368,6 +368,8 @@ void CaromScene::updateScene()
     // std::cout<< "End Change state" << std::endl;
     
     _hitManager->clearAllHits();
+    CircleRBComponent* whTr = getEntitiesOfGroup(grp::WHITEBALL)[0]->getComponent<CircleRBComponent>();
+    std::cout << "Posicion bola blanca: " << whTr->getPosition().x << " " << whTr->getPosition().y << std::endl;
 
     // std::cout<< "START GameScene Update" << std::endl;
     GameScene::update();

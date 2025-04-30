@@ -77,8 +77,7 @@ void StickInputComponent::handleEvent()
 
                 //aplicar el efecto del palo si lo tiene
                 if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
-
-                _hasShot = true; // ! hasShot
+                _tween->easePosition({_center.x, _center.y}, 0.5f, tween::EASE_IN_EXPO, false, [=](){ _hasShot = true;}); // ! hasShot
 
                 _myEntity->getScene().getCamera()->shakeCamera(0.15f * impulseMag/MAX_IMPULSE, 0.3f, dirNormalized);
             });
