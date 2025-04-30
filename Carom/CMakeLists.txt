@@ -220,6 +220,8 @@ add_executable(Carom
     src/ECS/WobblyRenderTextureComponent.cpp
 
     src/Scenes/TutorialScene.cpp
+
+    src/StateMachine/TutorialOneHitState.cpp
 )
 
 # Link Box2D

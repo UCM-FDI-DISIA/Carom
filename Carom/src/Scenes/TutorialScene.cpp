@@ -36,7 +36,7 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("Te hemos estado esperando durante todo este tiempo");
     dialogue->addDialogue("y por fin estás aquí");
     dialogue->addDialogue("Primero lo importante: ¿sabes jugar?", [=](){
-        game->getScenesManager()->popScene();
+        game->getScenesManager()->pushScene(std::shared_ptr<CaromScene>(new CaromScene(game)));
     });
 }
 
