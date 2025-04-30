@@ -15,15 +15,21 @@
 #include "NullState.h"
 
 #include "CaromScene.h"
-#include "PrefabTestScene.h"
-#include "CowboyPoolScene.h" // ! tst
 
+#include <memory>
 
 Game::Game() {}
 
-Game::~Game() {
-
+Game::~Game() 
+{
     delete _sceneManager; // HAS TO BE FIRST
+    _mainMenuScene.reset();
+
+    if (RNG_Manager::HasInstance())
+        RNG_Manager::Release();
+
+    if (InventoryManager::HasInstance())
+    InventoryManager::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -57,17 +63,25 @@ Game::init()
                 << std::endl;
         return;
     }
+
+    // initialize InventoryManager singleton
+    if(!RNG_Manager::Init()) {
+        std::cerr << "Something went wrong while initializing RNG_Manager"
+                << std::endl;
+        return;
+    }
 }
 
 void
 Game::start() 
 {
+    unsigned seed = RNG_Manager::Instance()->randomRange(1, 1000000); 
+    RNG_Manager::Instance()->inseminate(seed);
+
     _sceneManager = new ScenesManager();    
+    _mainMenuScene = std::make_shared<MainMenuScene>(this);
 
-    // !!! SE CREA MAINMENUSCENE
-    GameScene *ms = new MainMenuScene(this);
-
-    _sceneManager->pushScene(ms);
+    _sceneManager->pushScene(_mainMenuScene);
 }
 
 void Game::run()
@@ -78,6 +92,11 @@ void Game::run()
     auto& sdlut = sdlutils();
     
     sdlut.showCursor();
+
+    SDL_Surface *surface = IMG_Load("../../resources/images/cursor.png");
+    SDL_Cursor *cursor = SDL_CreateColorCursor(surface, 33, 0);
+    SDL_SetCursor(cursor);
+
 	// reset the time before starting - so we calculate correct delta-time in the first iteration
 	sdlutils().resetTime();
 	sdlutils().virtualTimer().resetTime();
@@ -135,8 +154,6 @@ void Game::run()
         if (elapsed < FIXED_TIMESTEP) {
                 SDL_Delay(FIXED_TIMESTEP - elapsed);
         }
-
-
     }
 
 }
@@ -151,8 +168,7 @@ void Game::run()
 
         _sceneManager = new ScenesManager();    
 
-        NullState* state = new NullState(nullptr);
-        GameScene *ms = new MainMenuScene(this);
+        std::shared_ptr<GameScene> ms = std::make_shared<GameScene>(this);
     
         _sceneManager->pushScene(ms);
     }

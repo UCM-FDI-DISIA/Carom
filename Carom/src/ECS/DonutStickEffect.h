@@ -13,5 +13,4 @@ public:
     DonutStickEffect(entity_t entity) : StickEffectComponent(entity) {}
     ~DonutStickEffect() {}
     void applyEffect(entity_t target) override;
-    void init() override {}
 };

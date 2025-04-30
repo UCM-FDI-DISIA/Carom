@@ -15,7 +15,7 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
     );
 
     // Para cuando este la MainMenu scene, habria que ponerla aqui.
-    GameScene *ms = new MainMenuScene(game); // ! tst 
+    std::shared_ptr<GameScene> ms = std::make_shared<MainMenuScene>(game); // ! tst 
 
     entity_t b = createSVGImage("lose", "scoreSprite", "scoreSprite", true);
 

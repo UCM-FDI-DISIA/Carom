@@ -10,6 +10,7 @@
 #include "CircleRBComponent.h"
 #include "PolygonRBComponent.h"
 #include "RectangleRBComponent.h"
+#include "PhysicsUtils.h"
 
 #include "BallHandler.h"
 #include "BowlingEffect.h"
@@ -26,45 +27,126 @@
 #include "ColorBallScorerComponent.h"
 #include "ColorBallScorerComponent.h"
 
+#include "DonutStickEffect.h"
+#include "MagicWandStickEffect.h"
+#include "BoxingGloveStickEffect.h"
+#include "GranadeLauncherStickEffect.h"
+#include "StickInputComponent.h"
+#include "InventoryManager.h"
+
+#include "ShadowComponent.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
 
+#include <iostream>
+#include <fstream>
 
-Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file){
+Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file, std::string childName){
     JSONValue* entityElements = JSON::ParseFromFile(file);
     
     Entity* entity = new Entity(gameScene, (grp::grpId) entityElements->Child("ID")->AsNumber());
-    AddComponentsFromJSON(entity, file);
+    AddComponentsFromJSON(entity, file, childName);
     
     return entity;
 }
 
-void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfile){
+void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfile, std::string childName){
     JSONValue* entityElements = JSON::ParseFromFile(JSONfile);
 
-    for(auto element : entityElements->Child("components")->AsArray()){
-        JSONObject atributes = element->Child("atributes")->AsObject();
-        if(element->Child("componentName")->AsString() == "TransformComponent"){
+    JSONArray componentArray;
+
+    if(childName == "NONE") componentArray = entityElements->Child("components")->AsArray();
+    else componentArray = entityElements->Child(childName.c_str())->Child("components")->AsArray();
+
+    for(auto element : componentArray){
+        JSONObject atributes;
+        if(element->HasChild("atributes")) atributes = element->Child("atributes")->AsObject();
+        std::string componentName = element->Child("componentName")->AsString();
+
+        if(componentName == "TransformComponent"){
             transformComponent(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "RigidBodyComponent"){
+        else if(componentName == "RigidBodyComponent"){
             rigidBodyComponent(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "RenderTextureComponent"){
+        else if(componentName == "RenderTextureComponent"){
             renderTextureComponent(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "BallHandler"){
+        else if(componentName == "BallHandler"){
             ballHandler(atributes, entity);
         }
-        else if(element->Child("componentName")->AsString() == "ColorBallScorerComponent"){
+        else if(componentName == "ColorBallScorerComponent"){
             addComponent<ColorBallScorerComponent>(entity);
+        }
+        else if (componentName == "StickInputComponent"){
+            stickInputComponent(entity);
+        }
+        else if (componentName == "DonutStickEffect"){
+            donutStickEffect(atributes,entity);
+        }
+        else if (componentName == "MagicWandStickEffect"){
+            magicWandStickEffect(atributes,entity);
+        }
+        else if (componentName =="BoxingGloveStickEffect"){
+            boxingGloveStickEffect(atributes,entity);
+        }
+        else if (componentName == "GrenadeLauncherStickEffect"){
+            grenadeLauncherStickEffect(atributes,entity);
         }
     }
 }
 
-Entity* JsonEntityParser::CreateBallEffect(GameScene& gameScene, std::string file){
-    Entity* e = Parse(gameScene, "../../resources/prefabs/basicBallPrefab.json");
+Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
+    //si en el svg no existe slotX, devuelve nullptr
+    if(!JSON::ParseFromFile(file)->HasChild(childName.c_str())) return nullptr;
+    // Scale
+    float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
+    float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
+    float scale = svgSize/textureSize;        
+    
+    entity_t e = new Entity(gameScene, grp::EFFECTBALLS);
+    
+    // RB
+    float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
+    addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius);
+
+    // RENDER
+    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    json data = json::parse(f);
+    std::string textureKey = "bola_blanca";
+    if(data[childName]["components"][0]["atributes"]["effects"].size() >0){
+        textureKey = data[childName]["components"][0]["atributes"]["effects"][0]["componentName"];
+    } 
+
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale);
+
+    // SCORE
+    addComponent<ColorBallScorerComponent>(e);
+
+    AddComponentsFromJSON(e, file, childName);
+    return e;
+}
+
+Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
+    // Scale
+    float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
+    float textureSize = sdlutils().images().at("palo1").width();
+    float scale = svgSize/textureSize;
+
+    entity_t e = new Entity(gameScene, grp::PALO);
+    
+    addComponent<TransformComponent>(e, pos);
+
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
+    addComponent<TweenComponent>(e);
+    addComponent<StickInputComponent>(e);
+    addComponent<ShadowComponent>(e);
+
+    e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
+
+    AddComponentsFromJSON(e, file, childName);
 
     return e;
 }
@@ -157,4 +239,55 @@ void JsonEntityParser::ballHandler(const JSONObject& atributes, Entity* entity){
     }
 }
 
+std::vector<std::string> JsonEntityParser::getBallEffects(entity_t ball){
+    std::vector<std::string> res;
+    std::vector<BallEffect*> ballEffects = ball->getComponent<BallHandler>()->getEffects();
 
+    for(int i = 0; i < ballEffects.size(); i++) {
+        BallEffect* effect = ballEffects[i];
+        if (dynamic_cast<AbacusEffect*>(effect) != nullptr) res.push_back ("AbacusEffect");
+        else if (dynamic_cast<BowlingEffect*>(effect) != nullptr) res.push_back("BowlingEffect");
+        else if (dynamic_cast<X2Effect*>(effect) != nullptr) res.push_back("X2Effect");
+        else if (dynamic_cast<QuanticEffect*>(effect) != nullptr) res.push_back("QuanticEffect");
+        else if (dynamic_cast<PokeballEffect*>(effect) != nullptr) res.push_back("PokeballEffect");
+        else if (dynamic_cast<CristalEffect*>(effect) != nullptr) res.push_back("CristalEffect");
+        else if (dynamic_cast<PetanqueEffect*>(effect) != nullptr) res.push_back("PetanqueEffect");
+    }
+
+    return res;
+
+};
+
+void JsonEntityParser::stickInputComponent(Entity* e){
+    addComponent<StickInputComponent>(e);
+}
+void JsonEntityParser::donutStickEffect(const JSONObject& atributes,Entity* e){
+    addComponent<DonutStickEffect>(e);
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("donut"));
+
+    auto shadowComponent = e->getComponent<ShadowComponent>();
+    shadowComponent->getShadows().clear();
+    shadowComponent->addShadow(b2Vec2{-0.05, -0.05}, "donut_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
+}
+void JsonEntityParser::magicWandStickEffect(const JSONObject& atributes,Entity* e){
+    addComponent<MagicWandStickEffect>(e);
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("magic_wand"));
+
+    auto shadowComponent = e->getComponent<ShadowComponent>();
+    shadowComponent->getShadows().clear();
+    shadowComponent->addShadow(b2Vec2{-0.05, -0.05}, "magic_wand_shadow", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
+}
+void JsonEntityParser::boxingGloveStickEffect(const JSONObject& atributes, Entity* e){
+    addComponent<BoxingGloveStickEffect>(e, atributes.at("factor")->AsNumber());
+}
+void JsonEntityParser::grenadeLauncherStickEffect(const JSONObject& atributes, Entity* e){
+    addComponent<GranadeLauncherStickEffect>(e, atributes.at("explosionForce")->AsNumber(), atributes.at("explosionDelay")->AsNumber(), atributes.at("radius")->AsNumber());
+
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("lanzagranadas"));
+    auto shadowComponent = e->getComponent<ShadowComponent>();
+    shadowComponent->getShadows().clear();
+    shadowComponent->addShadow(b2Vec2{-0.05, -0.05}, "lanzagranadas_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
+}

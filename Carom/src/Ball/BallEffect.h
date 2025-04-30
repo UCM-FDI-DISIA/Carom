@@ -4,7 +4,6 @@
 #include "ecs.h"
 #include <string>
 
-
 class CaromScene;
 
 class BallEffect : public Component
@@ -16,7 +15,7 @@ protected:
 public:
 
     BallEffect(entity_t ent) : Component(ent) {}
-    ~BallEffect() {}
+    ~BallEffect();
 
     virtual void init() override;
 

@@ -1,12 +1,13 @@
 #pragma once
 #include "GameScene.h"
-#include "State.h"
 #include "Game.h"
 #include "Texture.h"
 #include "RNG_Manager.h"
 #include "UIScene.h"
 #include "Reward.h"
 
+
+#include <memory>
 
 class ScenesManager;
 class RNG_Manager;
@@ -20,8 +21,11 @@ protected:
             BOSS
         };
 
-
     RNG_Manager* _rngm; // random manager
+
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
+    std::shared_ptr<GameScene> _scene;
+    
     b2WorldId _myB2WorldId; //El mundo de box2D
 
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
@@ -42,5 +46,8 @@ protected:
 public:
     PoolScene(Game* g);
     ~PoolScene();
+
+    void initObjects() override;
+    void initFunctionalities() override;
 };
 

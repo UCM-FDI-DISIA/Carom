@@ -9,12 +9,16 @@
 #include "Button.h"
 #include "PhysicsUtils.h"
 
+#include <memory>
 
 class ScenesManager;
 class TextDisplayComponent;
 
 class UIScene: public GameScene {
 protected:
+    virtual void initObjects(){}
+    virtual void initFunctionalities(){}
+
     void createTable(); // para que se genere la mesa.
     void createText(std::string text, int x, int y, int size);       // para q salga el texto de ganar o perdr.
     void createSVGText(std::string id){}
@@ -24,5 +28,5 @@ public:
     UIScene(Game *g) : GameScene(g) {} // para cuando se gana (hay reward).
     virtual ~UIScene() = default;
 
-    void setNewState(State *s);
+    virtual void init() override;
 };

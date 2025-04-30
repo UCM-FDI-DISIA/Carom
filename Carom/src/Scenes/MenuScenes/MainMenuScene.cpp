@@ -2,7 +2,21 @@
 #include "PoolScene.h"
 #include "ScenesManager.h"
 
-MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
+MainMenuScene::MainMenuScene(Game *g) 
+    : UIScene(g)
+{
+}
+
+MainMenuScene::~MainMenuScene()
+{
+}
+
+void MainMenuScene::initFunctionalities()
+{
+    _poolScene = std::make_shared<PoolScene>(game);
+}
+
+void MainMenuScene::initObjects()
 {
     // tag del svg al que nos referimos segun el JSON.
     std::string SVGTag = "mainMenu";
@@ -28,8 +42,7 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     // Hacer que se pueda accionar el boton de Play
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
-        GameScene *ms = new PoolScene(game); // ! tst 
-        getGame()->getScenesManager()->pushScene(ms);
+        getGame()->getScenesManager()->pushScene(_poolScene);
     });  
 
     // TODO: Hacer que se pueda accionar el boton de Settings

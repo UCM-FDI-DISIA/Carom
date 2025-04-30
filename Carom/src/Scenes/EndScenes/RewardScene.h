@@ -1,6 +1,8 @@
 #pragma once
 #include "UIScene.h"
 
+#include <memory>
+
 class ScenesManager;
 class Reward;
 
