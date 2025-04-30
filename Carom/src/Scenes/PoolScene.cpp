@@ -76,7 +76,7 @@ void PoolScene::generateMatchHoles()
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, true); // ! tst  
                 
-                RewardScene* rs = new RewardScene(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
+                RewardScene* rs = new RewardScene(game, _floorRewards[i]); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
                 
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
@@ -90,7 +90,7 @@ void PoolScene::generateMatchHoles()
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, false); // ! tst  
                 
-                RewardScene* rs = new RewardScene(game);
+                RewardScene* rs = new RewardScene(game, _floorRewards[i]);
 
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
@@ -212,8 +212,6 @@ PoolScene::createRewardInfo() {
 
         rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
         rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
-        // rewardName = sdlutils().texts().at("cauldron_rewardName_pool");
-        // rewardDesc = sdlutils().texts().at("cauldron_rewardDesc_pool");
         
 
         description = new Entity(*this, grp::REWARD_INFO_TEXT);

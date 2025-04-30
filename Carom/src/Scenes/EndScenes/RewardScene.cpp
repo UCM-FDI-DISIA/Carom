@@ -4,7 +4,7 @@
 
 // TODO: refactorizar -> recibir recompensa
 
-RewardScene::RewardScene(Game *g) : UIScene(g)
+RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
 {
     createBackground("suelo");
 
@@ -16,7 +16,6 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         3 // size.
     );
 
-    // GameScene* ms = new PoolScene(game); // se crea una nueva poolscene.
 
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 
