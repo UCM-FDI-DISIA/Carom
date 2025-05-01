@@ -651,19 +651,28 @@ CaromScene::loadFromInventory() {
 void CaromScene::instantiateBossTableShadow(){
     Entity* boss = new Entity(*this, grp::BOSS_SHADOW);
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
-    auto tr = addComponent<TransformComponent>(boss, pos);
+    auto tr = addComponent<TransformComponent>(boss, b2Vec2{2.f,2.f});
     tr->setRotation(25);
     Texture* bossImage = nullptr;
     switch(_boss){
         case Boss::COWBOY_POOL:
             bossImage = &sdlutils().images().at("cowboy_table_shadow");
             break;
+        case Boss::RUSSIAN_PYRAMID:
+            bossImage = &sdlutils().images().at("pyramid_table_shadow");
+            break;
         default:
-            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            bossImage = &sdlutils().images().at("pyramid_table_shadow");
             break;
     }
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
-    addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+
+    auto tweens = addComponent<TweenComponent>(boss);
+    tweens->easePosition(pos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+        addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+    });
+
+    
 }
