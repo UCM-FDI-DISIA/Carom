@@ -21,6 +21,7 @@ using body_t = BallInfoDisplayComponent::Body;
 
 PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     _bottomScene = scene;
+    _ballIDs.reserve(InventoryManager::Instance()->MAX_BALLS);
     instantiateInventory();
 }
 
@@ -58,7 +59,17 @@ PauseScene::instantiateInventory(){
         std::string textureKey = "bola_blanca";
         if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
             textureKey = data[slot]["components"][0]["atributes"]["effects"][0]["componentName"];
-        } 
+        }
+
+        // We know which effect has the ball for its texture
+        if(textureKey == "BowlingEffect") _ballIDs.push_back(BOWLING);
+        else if(textureKey == "X2Effect") _ballIDs.push_back(X2);
+        else if(textureKey == "AbacusEffect") _ballIDs.push_back(ABBACUS);
+        else if(textureKey == "CristalEffect") _ballIDs.push_back(CRISTAL);
+        else if(textureKey == "PetanqueEffect") _ballIDs.push_back(PETANQUE);
+        else if(textureKey == "PokeballEffect") _ballIDs.push_back(POKEBALL);
+        else if(textureKey == "QuanticEffect") _ballIDs.push_back(QUANTIC);
+        else _ballIDs[i] = NORMAL;
     
         auto ballPos = sdlutils().svgs().at("inventory").at(key);
         auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
@@ -128,8 +139,7 @@ PauseScene::createBallInfo() {
     float scale = static_cast<float>(*&sdlutils().svgs().at("inventory").at("ball_Info_0").width) / texture->width();
 
     // Cargamos primero las bolas
-    // ! InventoryManager::Instance()->getEffectBalls().size() <- Esto en vez del 6 cuando acabe de debugear
-    for(int i = 0; i < 6; ++i) {
+    for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; ++i) {
         // FONDO
         description = new Entity(*this, grp::BALL_INFO_BG);
 
@@ -145,12 +155,48 @@ PauseScene::createBallInfo() {
         // TEXTO
         // Añadir texto de recompensa / TODO: texto de partida de boss
         // en función de _floorRewards[i]
+        Text title, desc;
+
+        switch(_ballIDs[i]){
+            case BOWLING:
+                title = sdlutils().texts().at("bowling_ballName_pool");
+                desc = sdlutils().texts().at("bowling_ballDesc_pool");
+                break;
+            case X2:
+                title = sdlutils().texts().at("x2_ballName_pool");
+                desc = sdlutils().texts().at("x2_ballDesc_pool");
+                break;
+            case ABBACUS:
+                title = sdlutils().texts().at("abbacus_ballName_pool");
+                desc = sdlutils().texts().at("abbacus_ballDesc_pool");
+                break;
+            case CRISTAL:
+                title = sdlutils().texts().at("cristal_ballName_pool");
+                desc = sdlutils().texts().at("cristal_ballDesc_pool");
+                break;
+            case PETANQUE:
+                title = sdlutils().texts().at("petanque_ballName_pool");
+                desc = sdlutils().texts().at("petanque_ballDesc_pool");
+                break;
+            case POKEBALL:
+                title = sdlutils().texts().at("poke_ballName_pool");
+                desc = sdlutils().texts().at("poke_ballDesc_pool");
+                break;
+            case QUANTIC:
+                title = sdlutils().texts().at("quantic_ballName_pool");
+                desc = sdlutils().texts().at("quantic_ballDesc_pool");
+                break;
+            default:
+                title = sdlutils().texts().at("normal_ballName_pool");
+                desc = sdlutils().texts().at("normal_ballDesc_pool");
+                break;
+        }
+
         description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         addComponent<BallInfoDisplayComponent>(description, 101, 
-                body_t{"Bola", "Bocalupo-Regular48", {255, 255, 255, 255}, scale*1.5f},
-                body_t{"Lore ipsum dolor sit amer bla bla bla descripcion super larga para ver si coge varias lineas", 
-                        "Aladin-Regular24", {255,255,255,255}, scale*1.5f}
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{desc.text, desc.font, desc.color, scale*1.5f}
                 , texture->width() * scale - 60
                 , -texture->width()/2 * scale, -texture->height()/2 * scale
             );

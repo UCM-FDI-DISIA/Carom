@@ -305,6 +305,102 @@
       "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_ballName_pool", 
+      "text" : "Bola de carambola", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "cristal_ballName_pool", 
+      "text" : "Bola de cristal", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "bowling_ballName_pool", 
+      "text" : "Bola de bolos", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "poke_ballName_pool", 
+      "text" : "Bola de poke", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "x2_ballName_pool", 
+      "text" : "Bola x2", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "abbacus_ballName_pool", 
+      "text" : "Cuenta de abaco", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "quantic_ballName_pool", 
+      "text" : "Bola cuantica", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "petanque_ballName_pool", 
+      "text" : "Bola de petanca", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_ballDesc_pool", 
+      "text" : "Una bola normal y corriente", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "cristal_ballDesc_pool", 
+      "text" : "La linea guia tiene mas alcance, pero hay una probabilidad de que la bola se rompa", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "bowling_ballDesc_pool", 
+      "text" : "Golpea con mas fuerza y es mas dificil de mover, pero ocupa 2 espacios", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "poke_ballDesc_pool", 
+      "text" : "Absorbe los efectos de la primera bola que golpee, pero la hace desaparecer", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "x2_ballDesc_pool", 
+      "text" : "Todos los efectos de esta bola con numeros afectan el doble", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "abbacus_ballDesc_pool", 
+      "text" : "Al ser golpeada suma puntuacion a mayores de la normal", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "quantic_ballDesc_pool", 
+      "text" : "Si no es golpeada, la puntuacion de la ronda se multiplica por 2, pero al ser golpeada multiplica tu puntuacion por 0.8", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "petanque_ballDesc_pool", 
+      "text" : "Cuanto mas cerca queda de la bola, multiplicara la puntuacion de la ronda por un numero mayor, pero si esta muy lejos ese numero puede ser menor que 1", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     }
   ],
 
