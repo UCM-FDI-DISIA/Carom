@@ -9,7 +9,7 @@ class PauseScene: public GameScene{
     GameScene* _bottomScene;
 
     enum ballID{
-        NORMAL,
+        NORMAL_BALL,
         CRISTAL,
         BOWLING,
         POKEBALL,
@@ -19,12 +19,28 @@ class PauseScene: public GameScene{
         PETANQUE
     };
 
+    enum stickID{
+        NORMAL_STICK,
+        GRENADE,
+        DONUT,
+        BOXING,
+        WAND
+    };
+
     std::vector<ballID> _ballIDs;
+    stickID _stickID;
 
     void instantiateInventory();
+
+    // Ball info handling
     void createBallInfo();
     void showBall(int i);
     void hideBall(int i);
+
+    // Stick info handling
+    void createStickInfo();
+    void showStick();
+    void hideStick();
 public:
 
     PauseScene(Game* game, GameScene* sceneToRenderOnTop);

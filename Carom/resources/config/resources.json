@@ -401,6 +401,66 @@
       "text" : "Cuanto mas cerca queda de la bola, multiplicara la puntuacion de la ronda por un numero mayor, pero si esta muy lejos ese numero puede ser menor que 1", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_stickName_pool", 
+      "text" : "Palo de carambola", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "grenade_stickName_pool", 
+      "text" : "Lanzagranadas", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "donut_stickName_pool", 
+      "text" : "Donut", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "boxing_stickName_pool", 
+      "text" : "Guante de boxeo", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "wand_stickName_pool", 
+      "text" : "Varita magica", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_stickDesc_pool", 
+      "text" : "Un palo normal y corriente.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "grenade_stickDesc_pool", 
+      "text" : "Golpea la bola con mucha fuerza. Al hacerlo pone un temporizador para que la bola explote, empujando a otras y desapareciendo.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "donut_stickDesc_pool", 
+      "text" : "Convierte la mesa en un toroide. Si una bola choca con una pared, saldra por la otra en su lugar.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "boxing_stickDesc_pool", 
+      "text" : "La bola golpeada pierde menos fuerza por rebote.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "wand_stickDesc_pool", 
+      "text" : "La bola golpeada se divide en dos que salen a 45 grados con respecto a la original. Al final del golpe solo queda una de las dos.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     }
   ],
 
