@@ -48,8 +48,17 @@ void DialogueTextComponent::DialogueContainer::update(TextDisplayComponent* _tex
         
         //REPRODUCIR SONIDO CORRESPONDIENTE
         char charToPlay = displayedText[displayedText.size()-1];
+        if(charToPlay == 'ñ') charToPlay = 'n';
+        else if(charToPlay == 'á') charToPlay = 'a';
+        else if(charToPlay == 'é') charToPlay = 'e';
+        else if(charToPlay == 'í') charToPlay = 'i';
+        else if (charToPlay == 'ó') charToPlay = 'o';
+
         if(displayedText.size() > 0 && charToPlay >= 'a' && charToPlay<='z'){
-            sdlutils().soundEffects().at("sound_" + std::to_string(charToPlay)).play();
+            
+            std::string lol = "sound_";
+            lol.push_back(charToPlay);
+            sdlutils().soundEffects().at(lol).play();
         }
 
         _textDisplay->setDisplayedText(displayedText);
