@@ -43,6 +43,11 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
         game->getScenesManager()->pushScene(a);
     });
+
+    dialogue->addDialogue("Veo que sí que te acuerdas...");
+    dialogue->addDialogue("Perfecto");
+    dialogue->addDialogue("Ahora, veamos si puedes hacer algún truco");
+    
 }
 
 void TutorialScene::render(){

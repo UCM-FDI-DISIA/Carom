@@ -7,7 +7,7 @@ public:
     ScoringState(CaromScene* scene);
     virtual bool checkCondition(State*& state) override;
 
-    void onStateEnter() override;
+    virtual void onStateEnter() override;
     void onStateExit() override;
 };
 

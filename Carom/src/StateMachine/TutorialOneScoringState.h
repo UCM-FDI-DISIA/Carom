@@ -8,4 +8,5 @@ public:
     TutorialOneScoringState(CaromScene* scene);
 
     bool checkCondition(State*& state) override;
+    void onStateEnter() override {}
 };
