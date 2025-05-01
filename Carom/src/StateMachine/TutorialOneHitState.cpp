@@ -8,8 +8,11 @@ TutorialOneHitState::TutorialOneHitState(CaromScene* scene): State(scene){
 }
 
 bool TutorialOneHitState::checkCondition(State*& state){
-    return _scene->getCurrentScore()>0 || _scene->getRoundScore()>0;
-    state = new NullState();
+    if(_scene->getCurrentScore()>0 || _scene->getRoundScore()>0){
+        state = new NullState(_scene);
+        return true;
+    }
+    return false;
 }
 void TutorialOneHitState::onStateEnter(){
     
