@@ -1,18 +1,10 @@
 #pragma once
-#include "State.h"
+#include "HitState.h"
 
 
-class CaromScene;
-
-class TutorialOneHitState: public State {
-protected:
-    bool _finished = false;
-public:
-    TutorialOneHitState(CaromScene* scene);
-
+class TutorialOneHitState: public HitState {
+    public:
     bool checkCondition(State*& state) override;
-    void onStateEnter() override;
-    void onStateExit() override;
 
-    inline void finish() override {_finished = true; }
+    TutorialOneHitState(CaromScene* scene);
 };

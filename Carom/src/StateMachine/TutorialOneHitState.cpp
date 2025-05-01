@@ -2,22 +2,16 @@
 #include "CaromScene.h"
 #include "NullState.h"
 #include "ScenesManager.h"
+#include "TutorialOneScoringState.h"
 
-TutorialOneHitState::TutorialOneHitState(CaromScene* scene): State(scene){
+TutorialOneHitState::TutorialOneHitState(CaromScene* scene): HitState(scene){
 
 }
 
 bool TutorialOneHitState::checkCondition(State*& state){
-    if(_scene->getCurrentScore()>0 || _scene->getRoundScore()>0){
-        state = new NullState(_scene);
+    if(HitState::checkCondition(state)){
+        state = new TutorialOneScoringState(_scene);
         return true;
     }
     return false;
-}
-void TutorialOneHitState::onStateEnter(){
-    
-}
-
-void TutorialOneHitState::onStateExit(){
-    _scene->getScenesManager()->popScene();
 }

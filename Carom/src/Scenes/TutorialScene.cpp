@@ -9,7 +9,7 @@
 #include "NullState.h"
 #include "RussianPyramidScene.h"
 #include "InventoryManager.h"
-#include "TutorialOneHitState.h"
+#include "TutorialOneStartMatchState.h"
 
 TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameScene(game), _bottomScene(sceneToRenderOnTop){
 
@@ -39,7 +39,7 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("Primero lo importante: ¿sabes jugar?", [=](){
 
         auto a = std::shared_ptr<CaromScene>(new CaromScene(game));
-        a.get()->setNewState(new TutorialOneHitState(a.get()));
+        a.get()->setNewState(new TutorialOneStartMatchState(a.get()));
 
         game->getScenesManager()->pushScene(a);
     });

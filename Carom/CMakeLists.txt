@@ -222,6 +222,8 @@ add_executable(Carom
     src/Scenes/TutorialScene.cpp
 
     src/StateMachine/TutorialOneHitState.cpp
+    src/StateMachine/TutorialOneScoringState.cpp
+    src/StateMachine/TutorialOneStartMatchState.cpp
 )
 
 # Link Box2D
