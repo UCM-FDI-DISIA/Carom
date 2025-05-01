@@ -118,7 +118,35 @@
   ],
 
   "sounds": [
-      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"}
+      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"},
+      {"id": "sound_a", "file": "../../resources/sound/malco/sound_a.wav"},
+      {"id": "sound_b", "file": "../../resources/sound/malco/sound_b.wav"},
+      {"id": "sound_c", "file": "../../resources/sound/malco/sound_c.wav"},
+      {"id": "sound_d", "file": "../../resources/sound/malco/sound_d.wav"},
+      {"id": "sound_e", "file": "../../resources/sound/malco/sound_e.wav"},
+      {"id": "sound_f", "file": "../../resources/sound/malco/sound_f.wav"},
+      {"id": "sound_g", "file": "../../resources/sound/malco/sound_g.wav"},
+      {"id": "sound_h", "file": "../../resources/sound/malco/sound_h.wav"},
+      {"id": "sound_i", "file": "../../resources/sound/malco/sound_i.wav"},
+      {"id": "sound_j", "file": "../../resources/sound/malco/sound_j.wav"},
+      {"id": "sound_k", "file": "../../resources/sound/malco/sound_k.wav"},
+      {"id": "sound_l", "file": "../../resources/sound/malco/sound_l.wav"},
+      {"id": "sound_m", "file": "../../resources/sound/malco/sound_m.wav"},
+      {"id": "sound_n", "file": "../../resources/sound/malco/sound_n.wav"},
+      {"id": "sound_ñ", "file": "../../resources/sound/malco/sound_ñ.wav"},
+      {"id": "sound_o", "file": "../../resources/sound/malco/sound_o.wav"},
+      {"id": "sound_p", "file": "../../resources/sound/malco/sound_p.wav"},
+      {"id": "sound_q", "file": "../../resources/sound/malco/sound_q.wav"},
+      {"id": "sound_r", "file": "../../resources/sound/malco/sound_r.wav"},
+      {"id": "sound_s", "file": "../../resources/sound/malco/sound_s.wav"},
+      {"id": "sound_t", "file": "../../resources/sound/malco/sound_t.wav"},
+      {"id": "sound_u", "file": "../../resources/sound/malco/sound_u.wav"},
+      {"id": "sound_v", "file": "../../resources/sound/malco/sound_v.wav"},
+      {"id": "sound_w", "file": "../../resources/sound/malco/sound_w.wav"},
+      {"id": "sound_x", "file": "../../resources/sound/malco/sound_x.wav"},
+      {"id": "sound_y", "file": "../../resources/sound/malco/sound_y.wav"},
+      {"id": "sound_z", "file": "../../resources/sound/malco/sound_z.wav"}
+
   ],
 
   "musics" : [
