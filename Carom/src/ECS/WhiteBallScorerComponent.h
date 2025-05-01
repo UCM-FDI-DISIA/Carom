@@ -14,7 +14,7 @@ public:
     WhiteBallScorerComponent(entity_t ent);
 
     // funcion q se activa al colisionar con "other".
-    void onCollisionEnter(entity_t other) override; 
+    void onCollisionEnter(entity_t other, b2Manifold& contactData) override; 
 
     //setea cushions a 0 y previously hit a false al comienzo del turno
     void refreshOnNewTurn();

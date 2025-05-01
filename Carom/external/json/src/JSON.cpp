@@ -78,6 +78,7 @@ JSONValue *JSON::Parse(const char *data)
 		return NULL;
 
 	// We need the start of a value here now...
+	std::cerr << "Parsing starts with:\n" << std::string(data, 100) << "\n";
 	JSONValue *value = JSONValue::Parse(&data);
 	if (value == NULL)
 		return NULL;

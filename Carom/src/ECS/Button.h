@@ -13,6 +13,8 @@ public:
 
     void setEnabled(bool state) override;
 
+    void setEntity(entity_t other) override;
+
     class ButtonData
     {
     public:

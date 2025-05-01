@@ -10,7 +10,7 @@
 
 using isInsideField = bool;
 
-
+class Vector2D;
 class Entity;
 // Abstract component class for entities that induce force on other entities within its bounderies
 // Registers entities with RB on trigger enter.
@@ -26,6 +26,8 @@ protected:
     float _myRadius; // radius in meters of the sensor
     b2Vec2 _myForce; // force applied to bodies
 
+    const float _g = 9.8f; // """"gravity""""
+
     float _minForce;
     float _maxForce; // cap
     float _minVelocity; // default = 0 => no bottom bounderies for velocity of a body to apply a force 
@@ -40,7 +42,8 @@ protected:
     virtual void onTriggerEnter(entity_t other) override;
     virtual void onTriggerExit(entity_t other) override; 
 
-    virtual void applyForce(entity_t e) = 0;
+    virtual void calculateMyForceVector(RigidBodyComponent* rb, const Vector2D& direction) {}
+    virtual void applyForce(RigidBodyComponent* rb);
     virtual void applyForceToAll();
     virtual bool bodyIsMoving(RigidBodyComponent &rb);
 };

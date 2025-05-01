@@ -2,6 +2,7 @@
 
 #include<array>
 #include <vector>
+#include <string>
 
 #include "Entity.h"
 
@@ -12,7 +13,7 @@ class InventoryManager;
 
 class Inventory {
     const static int MAX_BALLS = 6;
-public:
+    public:
     struct Perma {
         int hitEase, comboEase, caromEase;
         int charisma;   // carisma

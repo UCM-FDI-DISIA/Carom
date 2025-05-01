@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "ecs.h"
 
+#include <memory>
+
 class RNG_Manager;
 class b2WorldId;
 class Vector2D;
@@ -13,6 +15,7 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
+class StickInputComponent;
 
     
 class CaromScene: public GameScene {
@@ -20,20 +23,27 @@ class CaromScene: public GameScene {
 protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
-    GameScene* _reward; //La recompensa al completar la escena
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g, GameScene* reward);
+//si quieres que caromScene comience con un estado distinto al de la partida normal, introduce el estado nuevo
+    CaromScene(Game* g, State* state = nullptr);
     virtual ~CaromScene();
+
+    void init() override;
+    void initObjects() override;
+    void initFunctionalities() override;
+    void initGimmick() override {};
+    void initBoss() override{};
 
     void handleEvent() override;
     //Llama al update de todas las entidades de escena y maneja las físicas
     void update() override;
 
     inline ScenesManager* getScenesManager() const {return _sceneManager;}
-    inline GameScene* getRewardScene() const {return _reward;}
+    inline std::shared_ptr<GameScene> getRewardScene() const {return _reward;}
 
     // Métodos para comprobar condiciones de estado 
     inline int getRemainingHits() { return _remainingHits; }
@@ -43,7 +53,7 @@ public:
 //---------------------------STATE MACHINE-----------------------------
 protected:
     //el estado en el que se encuentra la escena actualmente
-    State* _currentState = nullptr;
+    State* _currentState;
 public:
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
@@ -57,22 +67,27 @@ public:
 protected:
     TextDisplayComponent* _currentScoreDisplay;
     //Los acumuladores de puntuación
-    int _currentScore = 0, _scoreToBeat = 10; 
+    int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
 public:
     TextDisplayComponent* createScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
+    inline double getRoundScore() {return _roundScore; }
     inline double getCurrentScore() { return _currentScore; }
     inline double getScoreToBeat() { return _scoreToBeat; }
 
     // ?Métodos para manejo de puntuación
     void setScoreToBeat(int newScoreToBeat);
     void addScore(int score);
+    void addToTotalScore(int score);
     void removeScore(int score);
+    void removeFromTotalScore(int score);
+
+    void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
-    inline bool roundWins() {return _currentScore >= _scoreToBeat; }
+    inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
         b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
@@ -110,10 +125,7 @@ public:
 
     entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
-    entity_t createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, 
-                            float density, float friction, float restitution, int layer);
-
-    void createEffectBalls(int n);
+    virtual void createEffectBalls();
     
     void createBallShadow(entity_t);
 
@@ -121,10 +133,10 @@ public:
 
     void createFeedbackTest(b2Vec2 pos, float rot);
 
-private:
+protected:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-
+    StickInputComponent* _stickInput;
 
 //---------------------------BOSS---------------------------------
 public:
@@ -141,6 +153,7 @@ public:
 
 protected:
     Boss _boss = Boss::NONE;
+    bool _isBoss = false;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 

@@ -1,0 +1,36 @@
+{
+  "slot0": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": [
+          ]
+        }
+      }
+    ]
+  },
+  "slot1": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": [
+          ]
+        }
+      }
+    ]
+  },
+
+  "slot3": {
+    "components": [
+      {
+        "componentName": "BallHandler",
+        "atributes": {
+          "effects": [
+          ]
+        }
+      }
+    ]
+  }
+}

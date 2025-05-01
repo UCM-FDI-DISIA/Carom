@@ -28,6 +28,7 @@ SDLUtils::SDLUtils() :
 		_soundsAccessWrapper(_sounds, "Sounds Table"), //
 		_musicsAccessWrapper(_musics, "Musics Table"), //
 		_animationsAccessWrapper(_animations, "Animations Table"),
+		_textsAccessWrapper(_texts, "Texts Table"),
 		_svgsAccessWrapper(_svgs, "SVGs Table"), //
 		_currTime(0), //
 		_deltaTime(0) //
@@ -95,6 +96,9 @@ void SDLUtils::initWindow() {
 #ifdef _DEBUG
 	std::cout << "Creating SDL renderer" << std::endl;
 #endif
+	// Texture anti-aliasing
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"); // "1" = linear filtering
+	
 	// Create the renderer
 	_renderer = SDL_CreateRenderer(_window, -1,
 			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -362,6 +366,43 @@ void SDLUtils::loadReasources(std::string filename) {
 		}
 	}
 
+	// load texts
+	jValue = root["texts"];
+	if (jValue != nullptr) {
+		if (jValue->IsArray()) {
+			_texts.reserve(jValue->AsArray().size()); // reserve enough space to avoid resizing
+
+			for (auto &v : jValue->AsArray()) {
+				if (v->IsObject()) {
+					JSONObject vObj = v->AsObject();
+					std::string key = vObj["id"]->AsString();
+
+					Text text;
+					text.text = vObj["text"]->AsString();
+					text.font = vObj["font"]->AsString();
+					
+					vObj = vObj["color"]->AsObject();
+					int r = vObj["r"]->AsNumber();
+					int g = vObj["g"]->AsNumber();
+					int b = vObj["b"]->AsNumber();
+					int a = vObj["a"]->AsNumber();
+					text.color = SDL_Color(r,g,b,a);
+					
+#ifdef _DEBUG
+std::cout << "Loading text with id: " << key << std::endl;
+#endif			
+
+					_texts.emplace(key, text);
+				} else {
+					throw "'texts' array in '" + filename
+						+ "' includes and invalid value";
+				}
+			}
+		} else {
+			throw "'texts' is not an array";
+		}
+	}	
+
 	//load svgs
 	jValue = root["svgs"];
 	if (jValue != nullptr) {
@@ -432,6 +473,7 @@ void SDLUtils::closeSDLExtensions() {
 	_msgs.clear();
 	_images.clear();
 	_fonts.clear();
+	_animations.clear();
 
 	Mix_Quit(); // quit SDL_mixer
 	IMG_Quit(); // quit SDL_image

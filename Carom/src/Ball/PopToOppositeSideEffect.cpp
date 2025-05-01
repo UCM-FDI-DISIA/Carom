@@ -3,6 +3,7 @@
 #include "SDLUtils.h"
 #include "RenderTextureComponent.h"
 #include "WallComponent.h"
+#include "EventOnCollision.h"
 
 
 void
@@ -34,7 +35,10 @@ PopToOppositeSideEffect::init(){
 
 void 
 PopToOppositeSideEffect::onStrikeEnd(){
+    _myEntity->removeComponent<EventOnCollision>();
+    _myEntity->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->removeComponent<PopToOppositeSideEffect>();
+
 }
 
 void 

@@ -77,7 +77,6 @@ RigidBodyComponent::getPosition() const {
 ITransform::Scale
 RigidBodyComponent::getScale() const {
     return _myScale;
-    
 }
 
 /// @brief Accesor de rotación
@@ -269,9 +268,9 @@ RigidBodyComponent::setEnabled(bool state) {
 /// @brief Function called everytime object enters a collision
 /// @param ent object that collides with this rigidbody
 void 
-RigidBodyComponent::onCollisionEnter(entity_t ent){
+RigidBodyComponent::onCollisionEnter(entity_t ent, b2Manifold& contactData){
     for(PhysicsComponent* PC : _collisionEnter){
-        PC->onCollisionEnter(ent);
+        PC->onCollisionEnter(ent, contactData);
     }
 }
 
@@ -310,19 +309,19 @@ RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
     _collisionEnter.push_back(PC);
 
     PC->setOnDestroy([this]() -> void {
-        std::cout << "triggerexit size: " << _triggerExit.size() << std::endl;
+        // std::cout << "triggerexit size: " << _triggerExit.size() << std::endl;
         if (!_triggerExit.empty()) {
             _triggerExit.erase(--_triggerExit.end());
         }
-        std::cout << "triggerenter size: " << _triggerEnter.size() << std::endl;
+        // std::cout << "triggerenter size: " << _triggerEnter.size() << std::endl;
         if (!_triggerEnter.empty()) {
             _triggerEnter.erase(--_triggerEnter.end());
         }
-        std::cout << "col enter size: " << _collisionExit.size() << std::endl;
+        // std::cout << "col enter size: " << _collisionExit.size() << std::endl;
         if (!_collisionExit.empty()) {
             _collisionExit.erase(--_collisionExit.end());
         }
-        std::cout << "col exit size: " << _collisionEnter.size() << std::endl;
+        // std::cout << "col exit size: " << _collisionEnter.size() << std::endl;
         if (!_collisionEnter.empty()) {
             _collisionEnter.erase(--_collisionEnter.end());
         }        

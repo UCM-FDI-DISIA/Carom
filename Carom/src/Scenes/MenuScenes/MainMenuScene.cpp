@@ -1,43 +1,60 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
+#include "ScenesManager.h"
 
-MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
+MainMenuScene::MainMenuScene(Game *g) 
+    : UIScene(g)
 {
-    createBackground("suelo");
+}
 
-    createTable();
+MainMenuScene::~MainMenuScene()
+{
+}
 
-    createText("Carom Titulo de Ejemplo", // text
-        sdlutils().width()/2, // x
-        sdlutils().height()/2 - 250, // y
-        2 // size.
-    );
+void MainMenuScene::initFunctionalities()
+{
+    _poolScene = std::make_shared<PoolScene>(game);
+}
 
-    // !!! SE CREA POOLSCENE
-    GameScene *ms = new PoolScene(game); // ! tst 
+void MainMenuScene::initObjects()
+{
+    // tag del svg al que nos referimos segun el JSON.
+    std::string SVGTag = "mainMenu";
 
-    entity_t b = createSceneButton(
-        sdlutils().width()/2, // x
-        (sdlutils().height()/2), // y
-        ms // scene
-    );
+    // --- BACKGROUND.
+    entity_t x_bg = createBackground("fondoMainMenu"); // fondo.
+    entity_t a_bg = createBackground("menuBackground"); // mesa fondo.
 
-    createText("Comenzar Partida.", // text
-        sdlutils().width()/2 , // x
-        (sdlutils().height()/2 - 100), // y
-        1 // scale
-    );
+    // ajustando fondo.
+    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y - PhysicsConverter::pixel2meter(147)};
+    a_bg->getTransform()->setPosition(pos);
 
-    // modificar luego, ahora te comienza este tambien partida.
-    entity_t c = createSceneButton(
-        sdlutils().width()/2, // x
-        (sdlutils().height()/2) + 250, // y
-        ms // scene
-    );
+    // --- PANELES.
+    std::vector<entity_t> pannels;
+    //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); // [0]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU", false)); // [1]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle", false)); // [2]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleSettings", "RectangleSettings", true)); // [4]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); // [6]
 
-    createText("Cargar Partida.", // text
-        sdlutils().width()/2 , // x
-        (sdlutils().height()/2 + 150), // y
-        1 // scale
-    );
+    // Hacer que se pueda accionar el boton de Play
+    pannels[2]->getComponent<Button>()->setOnClick([this](){
+        // !!! SE CREA POOLSCENE
+        getGame()->getScenesManager()->pushScene(_poolScene);
+    });  
+
+    // TODO: Hacer que se pueda accionar el boton de Settings
+    // TODO: Hacer que se pueda accionar el boton de Controls
+    // TODO: Hacer que se pueda accionar el boton de Credits
+    
+    // --- TEXTOS.
+    std::vector<entity_t> texts;
+    texts.emplace_back(createSVGImage(SVGTag, "C", "C", false));
+    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls", false));
+    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits", false));
 }

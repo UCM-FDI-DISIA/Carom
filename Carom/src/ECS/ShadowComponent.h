@@ -35,5 +35,9 @@ public:
         }
     }
 
+    inline std::vector<entity_t> getShadows(){
+        return _shadows;
+    }
+
     
 };

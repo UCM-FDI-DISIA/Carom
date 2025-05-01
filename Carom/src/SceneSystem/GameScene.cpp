@@ -13,7 +13,9 @@
 #include "GameScene.h"
 #include "Game.h"
 
-GameScene::GameScene(Game* game): game(game)
+GameScene::GameScene(Game* game)
+    : game(game)
+    , _initialized(false)
 {
     Entity* cam = new Entity(*this, grp::CAMERA);
     addComponent<TransformComponent>(cam, b2Vec2{0,0});
@@ -22,7 +24,18 @@ GameScene::GameScene(Game* game): game(game)
     setCamera(cam);
 }
 
-GameScene::~GameScene(){}
+GameScene::~GameScene()
+{
+    clearEntities();
+}
+
+void GameScene::clearEntities()
+{
+    for (auto it : _entities) {
+		delete it;
+        it = nullptr;
+	}
+}
 
 // TODO: componentes Transform físico y normal
 // Creates a table composed by 3 entities for textures and 4 entities that are the colliders of each side of the table.
@@ -152,7 +165,6 @@ void GameScene::refresh() {
                             }
                         }), groupEntities.end());
     }
-    
 }
 
 void GameScene::clear(){
@@ -173,11 +185,13 @@ void GameScene::setCamera(Entity* e){
     _camera = c;
 }
 
-void GameScene::createBackground(std::string key){
+entity_t GameScene::createBackground(std::string key){
     //sprite de suelo
     Entity* a_suelo = new Entity(*this, grp::BACKGROUND);
     addComponent<TransformComponent>(a_suelo, b2Vec2{0,0});
     addComponent<RenderTextureComponent>(a_suelo, &sdlutils().images().at(key), renderLayer::BACKGROUND, 1.0f);
+
+    return a_suelo;
 }
 
 void GameScene::createPauseEntity(){

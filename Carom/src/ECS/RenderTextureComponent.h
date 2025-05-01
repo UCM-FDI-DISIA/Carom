@@ -34,12 +34,12 @@ public:
     void render() override;
     void init() override;
     Texture* getTexture() {return _texture;};
-    void setTexture(Texture* tex, float scale);
+    void setTexture(Texture* tex);
 
     void setRenderLayer(layerId_t layer);
     // To go deeper/down n layers
     void nDownRenderLayer(int n) { _renderLayer -= n; }
-    // To came closer/up n layers
+    // To come closer/up n layers
     void nUpRenderLayer(int n) { _renderLayer += n; }
     void resetRenderLayer();
 
@@ -47,6 +47,9 @@ public:
     void resetColorTint();
 
     inline int getRenderLayer() {return _renderLayer; };
+
+    inline float getScale(){return _scale;}
+    inline void setScale(float s) {_scale = s;}
 
     SDL_Rect getRenderRect() const override;
 };

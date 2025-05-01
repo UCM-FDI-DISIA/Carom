@@ -11,7 +11,7 @@ public:
     ColorBallScorerComponent(entity_t ent);
     
     // se activa al entrar en colision una bola de color con ent.
-    void onCollisionEnter(entity_t ent) override;
+    void onCollisionEnter(entity_t ent, b2Manifold& contactData) override;
 
     /*
         ON HIT ENTER

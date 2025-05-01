@@ -21,7 +21,7 @@ public:
 
     static constexpr float MAX_IMPULSE = 0.04f;
 
-    StickInputComponent(Entity* e, float height); 
+    StickInputComponent(Entity* e); 
     void init() override;
     void handleEvent() override;
 
@@ -37,6 +37,8 @@ public:
     void registerStickEffect(StickEffectComponent* effect);
     void registerAimLine(entity_t aL);
     double rad2degrees(double radians);
+
+    inline StickEffectComponent* getStickEffect(){return _myEffect;}
 
 private:
     InputHandler* _ih;
@@ -55,7 +57,6 @@ private:
     // --- Area de clic de la bola.
     double _minRadiusToPull = 0.035f; // when a white ball is registred is updates to ball radius
     double _maxRadiusToPull = 0.5f;
-    float _stickHeight;
 
     bool _behaviourEnabled = false;
     bool _hasShot = false;
