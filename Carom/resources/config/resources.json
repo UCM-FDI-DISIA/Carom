@@ -68,6 +68,15 @@
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
     
+    { "id" : "BowlingEffect", "file" : "../../resources/images/bowling.png"},
+    { "id" : "X2Effect", "file" : "../../resources/images/x2.png"},
+    { "id" : "AbacusEffect", "file" : "../../resources/images/abaco.png"},
+    { "id" : "CristalEffect", "file" : "../../resources/images/cristal.png"},
+    { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
+    { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "QuanticEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+
     { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
     { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
     { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},

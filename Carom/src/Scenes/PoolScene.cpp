@@ -386,3 +386,37 @@ PoolScene::createCallbacks() {
         });
     }
 }
+
+void 
+PoolScene::initBallsInfo() {
+    std::vector<RandomItem<EffectType>> allEffects(NUM_EFFECTS);
+
+    for(int i = 0; i < NUM_EFFECTS; ++i) allEffects[i] = {EffectType(i), 1.0 / NUM_EFFECTS};
+
+    for(int i = 0; i < POSITIONS; ++i) {
+        addNewEffect(i, 1.0f, allEffects);
+    }
+}
+
+void 
+PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects) {
+    if(_rngm->randomRange(0.0f, 1.0f) >= chance) return;
+
+    _ballsInfo[index].effects.push_back(_rngm->getRandomItem(possibleEffects, true));
+
+    addNewEffect(index, _chanceForMultipleEffect, possibleEffects);
+}
+
+std::string 
+PoolScene::getTextureName(EffectType effect) {
+    switch(effect){
+        case ABBACUS: return "AbacusEffect";
+        case BOWLING: return "BowlingEffect";
+        case CRISTAL: return "CristalEffect";
+        case PETANQUE: return "PetanqueEffect";
+        case POKEBALL: return "PokeballEffect";
+        case QUANTIC: return "QuanticEffect";
+        case X2: return "X2Effect";
+    }
+}
+

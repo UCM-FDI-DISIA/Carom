@@ -19,6 +19,26 @@ protected:
     RNG_Manager* _rngm; // random manager
 
     std::vector<entity_t> _holes, _balls;
+    
+    enum EffectType {
+        ABBACUS,
+        BOWLING,
+        CRISTAL,
+        PETANQUE,
+        POKEBALL,
+        QUANTIC,
+        X2,
+        NUM_EFFECTS
+    };
+
+    struct BallInfo{
+        std::vector<EffectType> effects;
+        bool free = true;
+    };
+
+    std::vector<BallInfo> _ballsInfo;
+    const float _chanceForMultipleEffect = 0.1f;
+
 
     // --- AGUJEROS Y RECOMPENSAS ---
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
@@ -54,6 +74,11 @@ protected:
     void createBallInfo(); // crea la info de cada bola.
     void showBallEffect(int i); // muestra bola.
     void hideBallEffect(int i); // esconde bola.
+
+    void initBallsInfo();
+    void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);
+    std::string getTextureName(EffectType effect);
+
     // ----------
 
     // --- CALLBACKS ---
