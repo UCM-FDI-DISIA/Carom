@@ -33,6 +33,7 @@
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
+#include "RenderArrayComponent.h"
 
 #include "InventoryManager.h"
 #include "ShadowComponent.h"
@@ -124,9 +125,12 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     e->getComponent<Button>()->setOnClick([this](){
         for (auto& e : getEntitiesOfGroup(grp::PALO))
             e->activate();
+
+        for (auto& e : getEntitiesOfGroup(grp::AIM_LINE))
+            e->activate();
     });
 
-        addComponent<BallHandler>(e);
+    addComponent<BallHandler>(e);
     
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
@@ -137,6 +141,12 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 
 entity_t CaromScene::createStick()
 {
+/// LINEA DE APUNTADO
+    entity_t aimline = new Entity(*this, grp::AIM_LINE);
+    auto a = addComponent<TransformComponent>(aimline, b2Vec2());
+    auto b = addComponent<RenderArrayComponent>(aimline, &sdlutils().images().at("line"), renderLayer::STICK, 0.5, 1.0);
+
+/// PALO
     // Scale
     float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
     float textureSize = sdlutils().images().at("palo1").width();
@@ -155,6 +165,8 @@ entity_t CaromScene::createStick()
     addComponent<TweenComponent>(e);
     
     auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
+
+    input->registerAimLine(aimline);
 
     //* Used to add an effect for debugging
     //auto effect = addComponent<DonutStickEffect>(e);

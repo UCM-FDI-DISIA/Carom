@@ -66,7 +66,8 @@
 	CAMERA, \
 	UI, \
 	FEEDBACK, \
-	PAUSE_UNPAUSE
+	PAUSE_UNPAUSE, \
+	AIM_LINE
 
 // Effect list
 // TODO completar	

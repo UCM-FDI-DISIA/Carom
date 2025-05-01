@@ -60,7 +60,8 @@
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"}
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "line", "file" : "../../resources/images/line.png"}
   ],
   
   "messages" : [

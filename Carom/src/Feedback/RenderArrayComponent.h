@@ -12,7 +12,7 @@ private:
     float   _arrayLength, 
             _scale,
             _gapScale,
-            _scaledHeight;
+            _scaledWidth;
 
     Texture* _texture;
     ITransform* _myTransform;
@@ -30,5 +30,7 @@ public:
 
     SDL_Rect getRenderRect() const override;
 
+    /// @brief Setea hasta cuan lejos va a renderizar
+    /// @param length longitud EN ESCALA RENDER (pixels, not meter)
     void setLength(float length);
 };
