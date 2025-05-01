@@ -63,10 +63,12 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
     createBackground("suelo");
     createTable();
 
+    initRandomEffects();
+
     generateMatchHoles();
     generateBalls();
     generateFloorRewards();
-    createBallInfo();
+    createBallInfoText();
 
     createCallbacks();
 }
@@ -254,7 +256,7 @@ PoolScene::generateBalls()
         entity_t ball = createSVGImage(
             "ballspool",                 // svg
             "bola_" + std::to_string(i), // tag
-            "bola_montada",              // image
+            getTextureName(_ballsInfo[i].effects[0]),              // image
             true,                        // button
             grp::POOL_BALLS,             // group
             renderLayer::WHITE_BALL      // renderlayer
@@ -266,7 +268,7 @@ PoolScene::generateBalls()
 }
 
 void 
-PoolScene::createBallInfo()
+PoolScene::createBallInfoText()
 {
     entity_t description;
     b2Vec2 pos;
@@ -296,10 +298,10 @@ PoolScene::createBallInfo()
 
         title = sdlutils().texts().at("ballEffectTitle_pool");
 
-        std::string randomBall = randomBallEffect();
+        std::string ballEffect = getTextureName(_ballsInfo[i].effects[0]);
 
-        ballName = sdlutils().texts().at(randomBall + "_name_pool");
-        ballDesc = sdlutils().texts().at(randomBall + "_desc_pool");
+        ballName = sdlutils().texts().at(ballEffect + "_name_pool");
+        ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
         ballType = sdlutils().texts().at("ballEffectType_pool");
 
         // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
@@ -314,7 +316,6 @@ PoolScene::createBallInfo()
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );
         description->deactivate();
-        
     }
 }
 
@@ -355,6 +356,7 @@ PoolScene::createCallbacks() {
             hideReward(i);
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
+                _ballsInfo[i].free = false;
     
                 NullState* state = new NullState(nullptr);
                 CowboyPoolScene *ms = new CowboyPoolScene(state, game, isBoss); // ! tst  
@@ -388,10 +390,13 @@ PoolScene::createCallbacks() {
 }
 
 void 
-PoolScene::initBallsInfo() {
-    std::vector<RandomItem<EffectType>> allEffects(NUM_EFFECTS);
+PoolScene::initRandomEffects() {
+    _ballsInfo = std::vector<BallInfo>(POSITIONS);
 
-    for(int i = 0; i < NUM_EFFECTS; ++i) allEffects[i] = {EffectType(i), 1.0 / NUM_EFFECTS};
+    std::vector<RandomItem<EffectType>> allEffects;
+
+    constexpr float equalChance = 1.0 / int(NUM_EFFECTS);
+    for(int i = 0; i < NUM_EFFECTS; ++i) allEffects.push_back({EffectType(i), equalChance});
 
     for(int i = 0; i < POSITIONS; ++i) {
         addNewEffect(i, 1.0f, allEffects);
@@ -418,5 +423,6 @@ PoolScene::getTextureName(EffectType effect) {
         case QUANTIC: return "QuanticEffect";
         case X2: return "X2Effect";
     }
+    return "";
 }
 

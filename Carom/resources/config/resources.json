@@ -74,7 +74,7 @@
     { "id" : "CristalEffect", "file" : "../../resources/images/cristal.png"},
     { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
     { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
-    { "id" : "QuanticEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "QuanticEffect", "file" : "../../resources/images/x2.png"},
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
 
     { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
@@ -306,85 +306,85 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
     },
     { 
-      "id" : "ABACUS_EFFECT_name_pool", 
+      "id" : "AbacusEffect_name_pool", 
       "text" : "Abaco", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "ABACUS_EFFECT_desc_pool", 
-      "text" : "Suma al ser golpeada 'TODO'", 
+      "id" : "AbacusEffect_desc_pool", 
+      "text" : "Suma su valor al ser golpeada", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "BOWLING_EFFECT_name_pool", 
+      "id" : "BowlingEffect_name_pool", 
       "text" : "Pesado", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "BOWLING_EFFECT_desc_pool", 
+      "id" : "BowlingEffect_desc_pool", 
       "text" : "La bola es un 50% mas pesada", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "CRISTAL_EFFECT_name_pool", 
+      "id" : "CristalEffect_name_pool", 
       "text" : "Bola de Cristal", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "CRISTAL_EFFECT_desc_pool", 
+      "id" : "CristalEffect_desc_pool", 
       "text" : "Extiende la linea de guia de la bola blanca hasta 3 rebotes si se esta apuntando hacia ella", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "PETANQUE_EFFECT_name_pool", 
+      "id" : "PetanqueEffect_name_pool", 
       "text" : "Petanca", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "PETANQUE_EFFECT_desc_pool", 
+      "id" : "PetanqueEffect_desc_pool", 
       "text" : "Cuanto mas cerca este de la bola blanca al final de la partida mas se multiplicara la puntuacion final", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "POKEBALL_EFFECT_name_pool", 
+      "id" : "PokeballEffect_name_pool", 
       "text" : "Pokeball", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "POKEBALL_EFFECT_desc_pool", 
+      "id" : "PokeballEffect_desc_pool", 
       "text" : "Absorbe todos los efectos de la primera bola con la que colisione", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "QUANTIC_EFFECT_name_pool", 
+      "id" : "QuanticEffect_name_pool", 
       "text" : "Cuantica", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "QUANTIC_EFFECT_desc_pool", 
+      "id" : "QuanticEffect_desc_pool", 
       "text" : "X2 puntos al final del tiro si no es golpeada", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "X2_EFFECT_name_pool", 
+      "id" : "X2Effect_name_pool", 
       "text" : "X2", 
       "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "X2_EFFECT_desc_pool", 
+      "id" : "X2Effect_desc_pool", 
       "text" : "Todos los otros efectos de esta bola que contengan numeros afectan el doble", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}

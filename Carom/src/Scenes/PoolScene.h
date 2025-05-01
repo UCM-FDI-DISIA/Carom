@@ -71,11 +71,11 @@ protected:
 
     std::string randomBallEffect(); // da un efecto de bola aleatorio.
     void generateBalls(); // genera las bolas.
-    void createBallInfo(); // crea la info de cada bola.
+    void createBallInfoText(); // crea la info de cada bola.
     void showBallEffect(int i); // muestra bola.
     void hideBallEffect(int i); // esconde bola.
 
-    void initBallsInfo();
+    void initRandomEffects();
     void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);
     std::string getTextureName(EffectType effect);
 
