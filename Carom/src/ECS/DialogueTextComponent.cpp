@@ -14,6 +14,8 @@ void DialogueTextComponent::update(){
 }
 
 void DialogueTextComponent::handleEvent(){
+    if(!_canSkip) return;
+    
     auto input = InputHandler::Instance();
     if((input->mouseButtonDownEvent() && input->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT))){
         if(_dialogues.size() > 0){

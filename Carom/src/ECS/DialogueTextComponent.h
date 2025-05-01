@@ -25,9 +25,10 @@ class DialogueTextComponent : public Component{
 
     std::queue<DialogueContainer> _dialogues;
     TextDisplayComponent* _textDisplay;
+    bool _canSkip;
 public:
     __CMPID_DECL__(cmp::DIALOGUE);
-    inline DialogueTextComponent(entity_t e,TextDisplayComponent* textDisplay): Component(e),_textDisplay(textDisplay){}
+    inline DialogueTextComponent(entity_t e,TextDisplayComponent* textDisplay, bool canSkip = true): Component(e),_textDisplay(textDisplay), _canSkip(canSkip){}
 
     void update() override;
     void init() override;

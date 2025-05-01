@@ -25,6 +25,9 @@ bool TutorialOneScoringState::checkCondition(State*& state){
 
     //UNA VEZ QUE NO SE MUEVAN:
     if(_scene->getCurrentScore()>0 || _scene->getRoundScore()>0){
+        //pop a la escena de texto
+        _scene->getScenesManager()->popScene();
+        //pop a esta escena
         _scene->getScenesManager()->popScene();
     }
 

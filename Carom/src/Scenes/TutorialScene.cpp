@@ -10,6 +10,7 @@
 #include "RussianPyramidScene.h"
 #include "InventoryManager.h"
 #include "TutorialOneStartMatchState.h"
+#include "TextHelperScene.h"
 
 TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameScene(game), _bottomScene(sceneToRenderOnTop){
 
@@ -42,6 +43,8 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
         a.get()->setNewState(new TutorialOneStartMatchState(a.get()));
 
         game->getScenesManager()->pushScene(a);
+
+        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a.get(), "prueba")));
     });
 
     dialogue->addDialogue("Veo que sí que te acuerdas...");
