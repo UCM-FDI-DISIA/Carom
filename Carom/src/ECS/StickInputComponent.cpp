@@ -24,8 +24,10 @@
 */
 
 // Hay que pasarle el rectangulo para la deteccion de clics.
-StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight), _myEffect(nullptr)
-{ }
+StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e), _myEffect(nullptr)
+{ 
+    _myCaromScene = dynamic_cast<CaromScene*>(&e->getScene());
+}
 
 // Rigidbody hereda de transform. Rigidbody es un transform.
 void StickInputComponent::init(){
