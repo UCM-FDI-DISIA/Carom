@@ -45,7 +45,7 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
         game->getScenesManager()->pushScene(a);
 
-        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a.get(), "prueba")));
+        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a.get(), "Golpeas arrastrando el ratón")));
     });
 
     dialogue->addDialogue("Veo que sí que te acuerdas...");
