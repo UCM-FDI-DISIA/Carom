@@ -229,20 +229,16 @@ std::string
 PoolScene::randomBallEffect()
 {
     // TODO: hacer los random ball effects pero con el BallCompsInfo.
-    int n = _rngm->randomRange(0, 11); // numero aleatorio entre 0 y 11.
+    int n = _rngm->randomRange(0, 7); // numero aleatorio entre 0 y 7.
     std::string be;
     switch (n) {
         case 0: be = "ABACUS_EFFECT"; break;
         case 1: be = "BOWLING_EFFECT"; break;
         case 2: be = "CRISTAL_EFFECT"; break;
-        case 3: be = "EXPLOSIVE_EFFECT"; break;
-        case 4: be = "FRICTION_MULTIPLIER"; break;
-        case 5: be = "PETANQUE_EFFECT"; break;
-        case 6: be = "POKEBALL_EFFECT"; break;
-        case 7: be = "POP_TO_OPPOSITE_EFFECT"; break;
-        case 8: be = "QUANTIC_EFFECT"; break;
-        case 9: be = "SUBDIVISION_EFFECT"; break;
-        case 10: be = "X2_EFFECT"; break;
+        case 3: be = "PETANQUE_EFFECT"; break;
+        case 4: be = "POKEBALL_EFFECT"; break;
+        case 5: be = "QUANTIC_EFFECT"; break;
+        case 6: be = "X2_EFFECT"; break;
         default: break;
     }
 

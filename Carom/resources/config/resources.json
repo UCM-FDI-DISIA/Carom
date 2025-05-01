@@ -333,30 +333,6 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "EXPLOSIVE_EFFECT_name_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular48", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "EXPLOSIVE_EFFECT_desc_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular24", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "FRICTION_MULTIPLIER_name_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular48", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "FRICTION_MULTIPLIER_desc_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular24", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
       "id" : "PETANQUE_EFFECT_name_pool", 
       "text" : "Petanca", 
       "font" : "Aladin-Regular48", 
@@ -381,18 +357,6 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "POP_TO_OPPOSITE_EFFECT_name_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular48", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "POP_TO_OPPOSITE_EFFECT_desc_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular24", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
       "id" : "QUANTIC_EFFECT_name_pool", 
       "text" : "Cuantica", 
       "font" : "Aladin-Regular48", 
@@ -401,18 +365,6 @@
     { 
       "id" : "QUANTIC_EFFECT_desc_pool", 
       "text" : "X2 puntos al final del tiro si no es golpeada", 
-      "font" : "Aladin-Regular24", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "SUBDIVISION_EFFECT_name_pool", 
-      "text" : "TODO", 
-      "font" : "Aladin-Regular48", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "SUBDIVISION_EFFECT_desc_pool", 
-      "text" : "TODO", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
