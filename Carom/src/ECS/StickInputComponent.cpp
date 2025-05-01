@@ -158,10 +158,8 @@ void StickInputComponent::aimLineTransformControl(Vector2D dir)
 {
     if (_aimLine != nullptr && _myCaromScene != nullptr)
     {
-        Vector2D a_dirInvert = dir*-1;
-
-        float a_cosalpha = a_dirInvert.normalize() * Vector2D(1, 0);
-        float a_sinalpha = a_dirInvert.normalize() * Vector2D(0, 1);
+        float a_cosalpha = dir.normalize() * Vector2D(1, 0);
+        float a_sinalpha = dir.normalize() * Vector2D(0, 1);
     
         float a_ballRadius = 
             PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
@@ -169,23 +167,19 @@ void StickInputComponent::aimLineTransformControl(Vector2D dir)
         b2Vec2 a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
             _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
     
-        b2Vec2 a_physical_lineStart = b2Vec2(a_ballCenter.x - a_cosalpha * a_ballRadius, 
-            a_ballCenter.y - a_sinalpha * a_ballRadius);
+        b2Vec2 a_physical_lineStart = b2Vec2(a_ballCenter.x + a_cosalpha * a_ballRadius, 
+            a_ballCenter.y + a_sinalpha * a_ballRadius);
 
-        b2RayResult rayResult = _myCaromScene->castRayToWorld(a_ballCenter, b2Vec2(-(a_ballCenter.x + a_cosalpha * 100.f), 
-            - (a_ballCenter.y + a_sinalpha * 100.f)));
+        b2RayResult rayResult = _myCaromScene->castRayToWorld(a_ballCenter, b2Vec2((a_ballCenter.x + a_cosalpha * 100.f), 
+            (a_ballCenter.y + a_sinalpha * 100.f)));
+
+        // Si alguien pregunta por como va esta mierda, ya ni se como va, maldigo a la geometría
 
         _aimLine->getComponent<RenderArrayComponent>()->
             setLength(PhysicsConverter::meter2pixel(b2Length(rayResult.point - a_physical_lineStart)));
             
         _aimLine->getComponent<TransformComponent>()->setPosition(a_physical_lineStart);
-
-        float a_newRotation = rad2degrees(std::acos(a_cosalpha));
-        if (a_sinalpha > 0) a_newRotation = -a_newRotation;
-
-        auto a = rayResult.point - a_physical_lineStart;
-
-        _aimLine->getComponent<TransformComponent>()->setRotation(rad2degrees(atan2(a.y, a.x)));
+        _aimLine->getComponent<TransformComponent>()->setRotation(rad2degrees(atan2(a_sinalpha, a_cosalpha)));
         
     }
 }
