@@ -26,7 +26,7 @@ void MainMenuScene::initObjects()
     entity_t a_bg = createBackground("menuBackground"); // mesa fondo.
 
     // ajustando fondo.
-    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y - PhysicsConverter::pixel2meter(147)};
+    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y};
     a_bg->getTransform()->setPosition(pos);
 
     // --- PANELES.
