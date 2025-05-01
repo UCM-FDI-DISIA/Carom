@@ -39,7 +39,8 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("y por fin estás aquí");
     dialogue->addDialogue("Primero lo importante: ¿sabes jugar?", [=](){
 
-        auto a = std::shared_ptr<CaromScene>(new CaromScene(game));
+        auto caromOne = new CaromScene(game);
+        auto a = std::shared_ptr<CaromScene>(caromOne);
         a.get()->setNewState(new TutorialOneStartMatchState(a.get()));
 
         game->getScenesManager()->pushScene(a);

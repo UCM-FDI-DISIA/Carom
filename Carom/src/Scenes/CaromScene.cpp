@@ -280,7 +280,10 @@ CaromScene::~CaromScene()
 {
     if(isInitialized()) 
     {
-        if(_currentState != nullptr) delete _currentState;
+        if(_currentState != nullptr) {
+            delete _currentState;
+            _currentState = nullptr;
+        }
 
         // Deletes entities before destroyWorld
         clearEntities();
@@ -289,6 +292,7 @@ CaromScene::~CaromScene()
         b2DestroyWorld(_myB2WorldId);
     
         delete _hitManager;
+        _hitManager = nullptr;
     }
 }
 

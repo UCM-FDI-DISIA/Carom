@@ -8,6 +8,6 @@ public:
     virtual bool checkCondition(State*& state) override;
 
     virtual void onStateEnter() override;
-    void onStateExit() override;
+    virtual void onStateExit() override;
 };
 
