@@ -7,6 +7,8 @@
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
 #include "ShadowComponent.h"
+#include "RenderArrayComponent.h"
+#include "CaromScene.h"
 #include "algorithm"
 #include <cmath>
 #include "GameScene.h"
@@ -22,7 +24,7 @@
 */
 
 // Hay que pasarle el rectangulo para la deteccion de clics.
-StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e), _myEffect(nullptr)
+StickInputComponent::StickInputComponent(Entity* e, float stickHeight) : HandleEventComponent(e), _stickHeight(stickHeight), _myEffect(nullptr)
 { }
 
 // Rigidbody hereda de transform. Rigidbody es un transform.
@@ -30,6 +32,8 @@ void StickInputComponent::init(){
     _ih = InputHandler::Instance();
     _myTransform = _myEntity->getComponent<TransformComponent>();
     _myRender = _myEntity->getComponent<RenderTextureComponent>();
+
+    _myCaromScene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
 }
 
 void StickInputComponent::handleEvent()
@@ -52,10 +56,18 @@ void StickInputComponent::handleEvent()
     
     // Controls position and rotation of the transform
     transformControl(_mousePos, dir);
+
+    // Controla posicion de la linea de apuntado y asigna longitud
+    aimLineTransformControl(dir);
     
     //si dentro del comportamiento se ha soltado el boton izquierdo del raton
     if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0)
     {
+        if (_aimLine != nullptr)
+        {
+            _aimLine->getComponent<RenderArrayComponent>()->setLength(0.0);
+        }
+
         if(!isMouseOnCircleRadius(_minRadiusToPull)){
 
             if(dir.magnitude() > _maxRadiusToPull) dir = dir.normalize() * _maxRadiusToPull;
@@ -78,6 +90,7 @@ void StickInputComponent::handleEvent()
                 if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
 
                 _hasShot = true; // ! hasShot
+                _hasShot = true;
 
                 _myEntity->getScene().getCamera()->shakeCamera(0.15f * impulseMag/MAX_IMPULSE, 0.3f, dirNormalized);
             });
@@ -146,6 +159,42 @@ void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
     _myEntity->getComponent<ShadowComponent>()->setEnabled(true);
 }
 
+void StickInputComponent::aimLineTransformControl(Vector2D dir)
+{
+    if (_aimLine != nullptr && _myCaromScene != nullptr)
+    {
+        Vector2D a_dirInvert = dir*-1;
+
+        float a_cosalpha = a_dirInvert.normalize() * Vector2D(1, 0);
+        float a_sinalpha = a_dirInvert.normalize() * Vector2D(0, 1);
+    
+        float a_ballRadius = 
+            PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+    
+        b2Vec2 a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
+            _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
+    
+        b2Vec2 a_physical_lineStart = b2Vec2(a_ballCenter.x - a_cosalpha * a_ballRadius, 
+            a_ballCenter.y - a_sinalpha * a_ballRadius);
+
+        b2RayResult rayResult = _myCaromScene->castRayToWorld(a_ballCenter, b2Vec2(-(a_ballCenter.x + a_cosalpha * 100.f), 
+            - (a_ballCenter.y + a_sinalpha * 100.f)));
+
+        _aimLine->getComponent<RenderArrayComponent>()->
+            setLength(PhysicsConverter::meter2pixel(b2Length(rayResult.point - a_physical_lineStart)));
+            
+        _aimLine->getComponent<TransformComponent>()->setPosition(a_physical_lineStart);
+
+        float a_newRotation = rad2degrees(std::acos(a_cosalpha));
+        if (a_sinalpha > 0) a_newRotation = -a_newRotation;
+
+        auto a = rayResult.point - a_physical_lineStart;
+
+        _aimLine->getComponent<TransformComponent>()->setRotation(rad2degrees(atan2(a.y, a.x)));
+        
+    }
+}
+
 double StickInputComponent::rad2degrees(double radians){
     return radians * (180.0f / M_PI);
 }
@@ -160,4 +209,9 @@ void StickInputComponent::registerWhiteBall(entity_t wb)
 
 void StickInputComponent::registerStickEffect(StickEffectComponent* effect) {
     _myEffect = effect;
+}
+
+void StickInputComponent:: registerAimLine(entity_t aL)
+{
+    _aimLine = aL;
 }
