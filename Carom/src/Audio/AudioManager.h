@@ -1,19 +1,24 @@
 #pragma once
-#include <unordered_map>
+#include <array>
 #include <string>
-#include "SDLUtils.h"
+
+class Music;
+
+enum trackName{
+    MARCHA_IMPERIAL,
+    BEAT,
+    NUM_TRACKS
+};
 
 class AudioManager{
 public:
-    
     AudioManager();
-    
-    void addNewTrack(std::string trackId);
-    void playMusicTrack(std::string trackId);
-    void pauseMusicTrack(int track);
-    void resumeMusicTrack(int track);
+    void playMusicTrack(trackName trackID);
+    void pauseMusicTrack(trackName trackID);
+    void resumeMusicTrack(trackName trackID);
 
-    void playSoundEfect();
+    void playSoundEfect(std::string soundID, int volume = 70);
+
 protected:
-    std::unordered_map<std::string, Music&> musicTrack;
+    std::array<Music&, NUM_TRACKS> musicTrack;
 };
