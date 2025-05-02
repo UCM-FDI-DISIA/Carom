@@ -44,7 +44,7 @@ public:
 	}
 
 	inline float nextFloat(float low, float high) {
-		assert(low < high);
+		assert(low <= high);
 		return low + nextFloat() * (high-low);
 	}
 
