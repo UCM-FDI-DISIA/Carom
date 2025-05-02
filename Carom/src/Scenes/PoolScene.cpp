@@ -307,7 +307,7 @@ PoolScene::createBallInfoText()
         // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
         description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
-        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
+        RewardInfoDisplayComponent* a_desc = addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
                 body_t{title.text, title.font, title.color, scale*1.5f},
                 body_t{ballType.text, ballType.font, ballType.color, scale*2.f},
                 body_t{ballName.text, ballName.font, ballName.color, scale*1.5f},
@@ -316,6 +316,12 @@ PoolScene::createBallInfoText()
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );
         description->deactivate();
+
+        /*
+        Text prueba = sdlutils().texts().at("ABACUS_EFFECT_name_pool");
+        body_t test = {prueba.text, prueba.font, prueba.color, scale*1.5f};
+        a_desc->setTitle(test);
+        */
     }
 }
 
@@ -345,10 +351,22 @@ PoolScene::hideBallEffect(int i)
 
 void 
 PoolScene::scrollBallEffect(int i) {
-    RewardInfoDisplayComponent* infoDisplay = getComponent<RewardInfoDisplayComponent>(getEntitiesOfGroup(grp::BALL_INFO_BG)[i]);
-
+    
     if(_ballsInfo[i].scrollIndex == _ballsInfo[i].effects.size() - 1) _ballsInfo[i].scrollIndex == 0;
     else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
+    
+    std::string ballEffect = getTextureName(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]);
+    
+    RewardInfoDisplayComponent* infoDisplay = getComponent<RewardInfoDisplayComponent>(getEntitiesOfGroup(grp::BALL_INFO_BG)[i]);
+
+    auto texture = &sdlutils().images().at("reward_description_box");
+    float scale = static_cast<float>(*&sdlutils().svgs().at("ballspool").at("bolamsg_0").width) / texture->width();
+
+    Text ballName = sdlutils().texts().at(ballEffect + "_name_pool");
+    Text ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
+
+    infoDisplay->setRewardName(body_t{ballName.text, ballName.font, ballName.color, scale * 1.5f});
+    infoDisplay->setRewardDesc(body_t{ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f});
 }
 
 void
@@ -385,11 +403,15 @@ PoolScene::createCallbacks() {
         // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
         ballButton->setOnHover([this, i]() {
              showBallEffect(i);
-         });
+        });
 
         ballButton->setOnExit([this, i]() {
              hideBallEffect(i);
-         });
+        });
+
+        ballButton->setOnRightClick([this, i]() {
+            scrollBallEffect(i);
+        });
 
         holeButton->setOnHover([this, i]() {
             showReward(i);

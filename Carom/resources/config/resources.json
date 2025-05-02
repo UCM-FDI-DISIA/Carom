@@ -295,13 +295,13 @@
     },
     { 
       "id" : "ballEffectTitle_pool", 
-      "text" : "Efecto de bola", 
+      "text" : "Efecto de bola:", 
       "font" : "Bocalupo-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
       "id" : "ballEffectType_pool", 
-      "text" : "TODO", 
+      "text" : " ", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
     },
