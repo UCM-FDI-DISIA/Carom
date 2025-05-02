@@ -3,24 +3,24 @@
 
 AudioManager::AudioManager(){
     musicTrack ={
-        sdlutils().musics().at("imperial_march"),
-        sdlutils().musics().at("beat")
+        &sdlutils().soundEffects().at("imperial_march"),
+        &sdlutils().soundEffects().at("beat")
     };
 }
 
 void AudioManager::playMusicTrack(trackName trackName){
-    //musicTrack[trackName].play();
+    musicTrack[trackName]->play(-1, trackName);
 }
 
 void AudioManager::resumeMusicTrack(trackName trackName){
-    //musicTrack[trackName].resumeMusic();
+    musicTrack[trackName]->resumeChannel(trackName);
 }
 
 void AudioManager::pauseMusicTrack(trackName trackName){
-    //musicTrack[trackName].pauseMusic();
+    musicTrack[trackName]->pauseChannel(trackName);
 }
 
 void AudioManager::playSoundEfect(std::string soundID, int volume){
-    /*sdlutils().soundEffects().at(soundID).setVolume(volume);
-    sdlutils().soundEffects().at(soundID).play();*/
+    sdlutils().soundEffects().at(soundID).setVolume(volume);
+    sdlutils().soundEffects().at(soundID).play();
 }

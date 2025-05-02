@@ -96,7 +96,9 @@
   ],
 
   "sounds": [
-      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"}
+      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"},
+      {"id" : "beat", "file" : "../../resources/sound/beat.wav"},
+      {"id": "imperial_march", "file": "../../resources/sound/imperial_march.wav"}
   ],
 
   "musics" : [

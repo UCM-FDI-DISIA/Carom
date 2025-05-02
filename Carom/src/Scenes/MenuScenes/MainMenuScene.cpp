@@ -1,7 +1,7 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
 #include "ScenesManager.h"
-//#include "AudioManager.h"
+#include "AudioManager.h"
 
 MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
 {
@@ -35,10 +35,10 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
 
 
     //Esto no tiene que llegar a develop, es para debug
-    /*am = new AudioManager();
+    am = new AudioManager();
     pannels[3]->getComponent<Button>()->setOnClick([this](){
-        
         am->playMusicTrack(MARCHA_IMPERIAL);
+        am->playMusicTrack(BEAT);
     });
     pannels[4]->getComponent<Button>()->setOnClick([this](){
         
@@ -47,7 +47,7 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     pannels[5]->getComponent<Button>()->setOnClick([this](){
         
         am->resumeMusicTrack(MARCHA_IMPERIAL);
-    });*/
+    });
 
     // TODO: Hacer que se pueda accionar el boton de Settings
     // TODO: Hacer que se pueda accionar el boton de Controls

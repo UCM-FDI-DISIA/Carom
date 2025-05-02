@@ -2,7 +2,7 @@
 #include <array>
 #include <string>
 
-class Music;
+class SoundEffect;
 
 enum trackName{
     MARCHA_IMPERIAL,
@@ -20,5 +20,5 @@ public:
     void playSoundEfect(std::string soundID, int volume = 70);
 
 protected:
-    std::array<Music&, NUM_TRACKS> musicTrack;
+    std::array<SoundEffect*, NUM_TRACKS> musicTrack;
 };
