@@ -152,7 +152,6 @@ public:
 
 protected:
     Boss _boss = Boss::NONE;
-    bool _isBoss = false;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 
@@ -171,4 +170,10 @@ protected:
         int _fastForwardIterations = 10;
         bool _canRestart = false;
 #endif
+
+// -----------------INDICATOR----------------------
+protected:
+    entity_t _indicator;
+    void createIndicator(entity_t whiteBall);
+    void changeIndicator(entity_t whiteBall);
 };

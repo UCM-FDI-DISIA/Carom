@@ -7,6 +7,7 @@
 #include "InputHandler.h"
 
 #include "TransformComponent.h"
+#include "FollowComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
 #include "PolygonRBComponent.h"
@@ -142,6 +143,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
     createBallShadow(e);
+    createIndicator(e);
 
     return e;
 }
@@ -676,3 +678,19 @@ void CaromScene::instantiateBossTableShadow(){
 
     
 }
+
+void 
+CaromScene::createIndicator(entity_t whiteBall) {
+    _indicator = new Entity(*this, grp::FEEDBACK);
+    addComponent<TransformComponent>(_indicator, b2Vec2_zero);
+    addComponent<FollowComponent>(_indicator, whiteBall, true, false, false, Vector2D(0, 0));
+
+    float wbScale = whiteBall->getTransform()->getScale().x / 2;
+    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, wbScale);
+}
+
+void 
+CaromScene::changeIndicator(entity_t whiteBall) {
+    getComponent<FollowComponent>(_indicator)->setTarget(whiteBall);
+}
+

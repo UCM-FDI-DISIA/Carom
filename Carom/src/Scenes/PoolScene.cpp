@@ -51,7 +51,7 @@ PoolScene::~PoolScene()
 void PoolScene::initFunctionalities()
 {
     _reward = std::make_shared<RewardScene>(game);
-    _scene = std::make_shared<RussianPyramidScene>(game, true);
+    _scene = std::make_shared<RussianPyramidScene>(game, false);
 }
 
 void PoolScene::initObjects()
