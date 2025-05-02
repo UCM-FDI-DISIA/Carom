@@ -343,6 +343,14 @@ PoolScene::hideBallEffect(int i)
     descriptions[i]->deactivate();
 }
 
+void 
+PoolScene::scrollBallEffect(int i) {
+    RewardInfoDisplayComponent* infoDisplay = getComponent<RewardInfoDisplayComponent>(getEntitiesOfGroup(grp::BALL_INFO_BG)[i]);
+
+    if(_ballsInfo[i].scrollIndex == _ballsInfo[i].effects.size() - 1) _ballsInfo[i].scrollIndex == 0;
+    else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
+}
+
 void
 PoolScene::createCallbacks() {
     for(int i = 0; i < POSITIONS; ++i) {
@@ -426,7 +434,7 @@ PoolScene::getTextureName(EffectType effect) {
         case POKEBALL: return "PokeballEffect";
         case QUANTIC: return "QuanticEffect";
         case X2: return "X2Effect";
+        default: "";
     }
-    return "";
 }
 

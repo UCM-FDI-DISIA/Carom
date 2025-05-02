@@ -33,12 +33,14 @@ protected:
 
     struct BallInfo{
         std::vector<EffectType> effects;
+        int scrollIndex = 0;
         bool free = true;
     };
 
     std::vector<BallInfo> _ballsInfo;
     const float _chanceForMultipleEffect = 0.1f;
 
+    std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
 
     // --- AGUJEROS Y RECOMPENSAS ---
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
@@ -74,6 +76,7 @@ protected:
     void createBallInfoText(); // crea la info de cada bola.
     void showBallEffect(int i); // muestra bola.
     void hideBallEffect(int i); // esconde bola.
+    void scrollBallEffect(int i); //Cambia el efecto que se muestra
 
     void initRandomEffects();
     void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);
