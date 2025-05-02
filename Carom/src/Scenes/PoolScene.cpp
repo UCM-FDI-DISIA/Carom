@@ -370,6 +370,10 @@ PoolScene::createCallbacks() {
 
         ballButton->setOnClick(holeButton->getOnClick());
 
+        ballButton->setOnRightClick([=](){
+            // TODO: muestra el efecto multiple (segunda pantalla de efecto.)
+        });
+
         // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
         ballButton->setOnHover([this, i]() {
              showBallEffect(i);
