@@ -10,7 +10,7 @@
 
 class ScenesManager;
 class RNG_Manager;
-
+class RewardInfoDisplayComponent;
 
 class PoolScene: public UIScene {
 protected:
@@ -38,7 +38,8 @@ protected:
     };
 
     std::vector<BallInfo> _ballsInfo;
-    const float _chanceForMultipleEffect = 0.1f;
+    const float _chanceForMultipleEffect = 0.25f;
+    std::vector<RewardInfoDisplayComponent*> _effectRewardBoxes;
 
     std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
 
@@ -60,16 +61,6 @@ protected:
     // ----------
     
     // --- EFECTOS DE BOLAS ---
-    /*
-    0- AbacusEffect
-    1- BowlingEffect
-    2- CristalEffect
-    3- PetanqueEffect
-    4- PokeballEffect
-    5- QuanticEffect
-    6- X2Effect
-    Nota: el resto de efectos de bolas se ponen con palos, entonces no contarian para la Pool
-    */
 
     std::string randomBallEffect(); // da un efecto de bola aleatorio.
     void generateBalls(); // genera las bolas.

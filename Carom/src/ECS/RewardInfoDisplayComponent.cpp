@@ -92,39 +92,25 @@ RewardInfoDisplayComponent::getRenderRect(Texture* t, float scale, int offset) c
 
 void RewardInfoDisplayComponent::setTitle(Body title)
 {
-    _title.text = title.text;
-    _title.scale = title.scale;
-    _title.font = title.font;
-    _title.color = title.color;
+    _title = title;
+    generateTextures();
 }
 
 void RewardInfoDisplayComponent::setRewardName(Body name)
 {
-    _rewardName.text = name.text;
-    _rewardName.scale = name.scale;
-    _rewardName.font = name.font;
-    _rewardName.color = name.color;
-
+   _rewardName = name;
     generateTextures();
 }
 
 void RewardInfoDisplayComponent::setRewardType(Body type)
 {
-    _rewardType.text = type.text;
-    _rewardType.scale = type.scale;
-    _rewardType.font = type.font;
-    _rewardType.color = type.color;
-
+    _rewardType = type;
     generateTextures();
 }
 
 void RewardInfoDisplayComponent::setRewardDesc(Body desc)
 {
-    _rewardDescription.text = desc.text;
-    _rewardDescription.scale = desc.scale;
-    _rewardDescription.font = desc.font;
-    _rewardDescription.color = desc.color;
-
+   _rewardDescription = desc;
     generateTextures();
 }
 

@@ -246,7 +246,6 @@ void CaromScene::createBallShadow(entity_t entity){
         PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
     };
     comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
-
 }
 
 void CaromScene::createScoreEntity(){

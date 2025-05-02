@@ -263,6 +263,7 @@ PoolScene::generateBalls()
         );
         addComponent<TweenComponent>(ball);
         
+        createBallShadow(ball);
         _balls.push_back(ball);
     }
 }
@@ -317,11 +318,7 @@ PoolScene::createBallInfoText()
             );
         description->deactivate();
 
-        /*
-        Text prueba = sdlutils().texts().at("ABACUS_EFFECT_name_pool");
-        body_t test = {prueba.text, prueba.font, prueba.color, scale*1.5f};
-        a_desc->setTitle(test);
-        */
+        _effectRewardBoxes.push_back(a_desc);
     }
 }
 
@@ -352,21 +349,22 @@ PoolScene::hideBallEffect(int i)
 void 
 PoolScene::scrollBallEffect(int i) {
     
-    if(_ballsInfo[i].scrollIndex == _ballsInfo[i].effects.size() - 1) _ballsInfo[i].scrollIndex == 0;
+    if(_ballsInfo[i].scrollIndex == (_ballsInfo[i].effects.size() - 1)) _ballsInfo[i].scrollIndex = 0;
     else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
     
     std::string ballEffect = getTextureName(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]);
     
-    RewardInfoDisplayComponent* infoDisplay = getComponent<RewardInfoDisplayComponent>(getEntitiesOfGroup(grp::BALL_INFO_BG)[i]);
-
     auto texture = &sdlutils().images().at("reward_description_box");
     float scale = static_cast<float>(*&sdlutils().svgs().at("ballspool").at("bolamsg_0").width) / texture->width();
 
     Text ballName = sdlutils().texts().at(ballEffect + "_name_pool");
     Text ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
 
-    infoDisplay->setRewardName(body_t{ballName.text, ballName.font, ballName.color, scale * 1.5f});
-    infoDisplay->setRewardDesc(body_t{ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f});
+    body_t nameBody = {ballName.text, ballName.font, ballName.color, scale * 1.5f};
+    _effectRewardBoxes[i]->setRewardType(nameBody);
+
+    body_t descBody = {ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f};
+    _effectRewardBoxes[i]->setRewardDesc(descBody);
 }
 
 void
@@ -426,13 +424,12 @@ PoolScene::createCallbacks() {
 void 
 PoolScene::initRandomEffects() {
     _ballsInfo = std::vector<BallInfo>(POSITIONS);
-
     std::vector<RandomItem<EffectType>> allEffects;
-
     constexpr float equalChance = 1.0 / int(NUM_EFFECTS);
-    for(int i = 0; i < NUM_EFFECTS; ++i) allEffects.push_back({EffectType(i), equalChance});
 
     for(int i = 0; i < POSITIONS; ++i) {
+    
+        for(int i = 0; i < NUM_EFFECTS; ++i) allEffects.push_back({EffectType(i), equalChance});
         addNewEffect(i, 1.0f, allEffects);
     }
 }
@@ -441,6 +438,7 @@ void
 PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects) {
     if(_rngm->randomRange(0.0f, 1.0f) >= chance) return;
 
+    if(possibleEffects.size() == 0) return;
     _ballsInfo[index].effects.push_back(_rngm->getRandomItem(possibleEffects, true));
 
     addNewEffect(index, _chanceForMultipleEffect, possibleEffects);
