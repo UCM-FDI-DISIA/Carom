@@ -301,7 +301,7 @@
     },
     { 
       "id" : "ballEffectType_pool", 
-      "text" : "TODO", 
+      "text" : " ", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
     },

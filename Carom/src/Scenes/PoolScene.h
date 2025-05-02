@@ -74,6 +74,7 @@ protected:
     void createBallInfoText(); // crea la info de cada bola.
     void showBallEffect(int i); // muestra bola.
     void hideBallEffect(int i); // esconde bola.
+    void scrollBallEffect(int i); 
 
     void initRandomEffects();
     void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);

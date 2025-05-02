@@ -307,7 +307,7 @@ PoolScene::createBallInfoText()
         // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
         description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
-        addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
+        RewardInfoDisplayComponent* a_desc = addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
                 body_t{title.text, title.font, title.color, scale*1.5f},
                 body_t{ballType.text, ballType.font, ballType.color, scale*2.f},
                 body_t{ballName.text, ballName.font, ballName.color, scale*1.5f},
@@ -316,6 +316,12 @@ PoolScene::createBallInfoText()
                 , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
             );
         description->deactivate();
+
+        /*
+        Text prueba = sdlutils().texts().at("ABACUS_EFFECT_name_pool");
+        body_t test = {prueba.text, prueba.font, prueba.color, scale*1.5f};
+        a_desc->setTitle(test);
+        */
     }
 }
 
@@ -342,7 +348,6 @@ PoolScene::hideBallEffect(int i)
     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->deactivate();
 }
-
 void
 PoolScene::createCallbacks() {
     for(int i = 0; i < POSITIONS; ++i) {
