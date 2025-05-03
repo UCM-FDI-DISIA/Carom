@@ -88,7 +88,7 @@ public:
     void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
     inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
-        b2Vec2 distanceToWhiteBall(b2Vec2 point);
+    b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
 protected:

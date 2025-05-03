@@ -50,6 +50,11 @@ public:
     void render() override;
 
     SDL_Rect getRenderRect(Texture* t, float scale, int offset = 0) const;
+
+    void setTitle(Body title);
+    void setRewardName(Body name);
+    void setRewardType(Body type);
+    void setRewardDesc(Body desc);
 };
 
 
