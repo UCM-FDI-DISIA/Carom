@@ -38,7 +38,6 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     am = new AudioManager();
     pannels[3]->getComponent<Button>()->setOnClick([this](){
         am->playMusicTrack(MARCHA_IMPERIAL);
-        am->playMusicTrack(BEAT);
     });
     pannels[4]->getComponent<Button>()->setOnClick([this](){
         
@@ -46,7 +45,7 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     });
     pannels[5]->getComponent<Button>()->setOnClick([this](){
         
-        am->resumeMusicTrack(MARCHA_IMPERIAL);
+        am->playSoundEfect("gunshot");
     });
 
     // TODO: Hacer que se pueda accionar el boton de Settings
