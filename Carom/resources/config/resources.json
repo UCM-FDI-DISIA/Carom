@@ -67,15 +67,6 @@
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-    
-    { "id" : "BowlingEffect", "file" : "../../resources/images/bowling.png"},
-    { "id" : "X2Effect", "file" : "../../resources/images/x2.png"},
-    { "id" : "AbacusEffect", "file" : "../../resources/images/abaco.png"},
-    { "id" : "CristalEffect", "file" : "../../resources/images/cristal.png"},
-    { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
-    { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
-    { "id" : "QuanticEffect", "file" : "../../resources/images/quantic.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
 
     { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
     { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
@@ -137,7 +128,8 @@
     { "id" : "russian_boss_shadow", "file" : "../../resources/images/russian_boss_shadow.png"},
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "line", "file" : "../../resources/images/line.png"},
     { "id" : "BowlingEffect", "file" : "../../resources/images/bowling.png"},
     { "id" : "X2Effect", "file" : "../../resources/images/x2.png"},
     { "id" : "AbacusEffect", "file" : "../../resources/images/abaco.png"},
@@ -156,7 +148,10 @@
     { "id" : "PetanqueSheet", "file" : "../../resources/images/balleffect_sheets/petanca-sheet.png"},
     { "id" : "PokeballSheet", "file" : "../../resources/images/balleffect_sheets/poke-sheet.png"},
     { "id" : "QuanticSheet", "file" : "../../resources/images/balleffect_sheets/quantic-sheet.png"},
-    { "id" : "X2Sheet", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"}
+    { "id" : "X2Sheet", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
+    
+    { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
+    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"}
   ],
   
   "messages" : [
