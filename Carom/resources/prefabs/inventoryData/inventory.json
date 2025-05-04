@@ -90,6 +90,15 @@
       ]
    },
    "stick": {
-      "components": []
+      "components":  [
+         {
+            "atributes": {
+               "explosionDelay": 3000,
+               "explosionForce": 3,
+               "radius": 1
+            },
+            "componentName": "StickInputComponent"
+         }
+      ]
    }
 }
