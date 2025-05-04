@@ -14,6 +14,9 @@ public:
 
     static constexpr float FIXED_TIMESTEP = 1000.0f/60.0f;
 
+    static constexpr int BALL_ROLLING_ROWS = 1;
+    static constexpr int BALL_ROLLING_COLS = 8;
+
     Game();
     virtual ~Game();
 
