@@ -7,6 +7,7 @@
 #include "InputHandler.h"
 
 #include "TransformComponent.h"
+#include "FollowComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
 #include "PolygonRBComponent.h"
@@ -146,6 +147,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
     createBallShadow(e);
+    createIndicator(e);
 
     return e;
 }
@@ -216,7 +218,6 @@ void CaromScene::createBallShadow(entity_t entity){
         PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
     };
     comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
-
 }
 
 void CaromScene::createScoreEntity(){
@@ -316,7 +317,7 @@ void CaromScene::handleEvent()
     #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_l)){ 
-        // Al presionar la "L" te lleva a la escena de ganar.
+        // Al presionar la "L" te lleva a la escena de perder.
             /*std::cout << "Carga escena de PERDER." << std::endl;
             NullState* state = new NullState(nullptr);
 
@@ -329,7 +330,7 @@ void CaromScene::handleEvent()
     }
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
-        // Al presionar la "W" te lleva a la escena de perder.
+        // Al presionar la "W" te lleva a la escena de ganar.
         // para activar roundwins();
         _currentScore = 2 * _scoreToBeat;
     }
@@ -659,19 +660,44 @@ CaromScene::loadFromInventory() {
 void CaromScene::instantiateBossTableShadow(){
     Entity* boss = new Entity(*this, grp::BOSS_SHADOW);
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
-    auto tr = addComponent<TransformComponent>(boss, pos);
+    auto tr = addComponent<TransformComponent>(boss, b2Vec2{2.f,2.f});
     tr->setRotation(25);
     Texture* bossImage = nullptr;
     switch(_boss){
         case Boss::COWBOY_POOL:
             bossImage = &sdlutils().images().at("cowboy_table_shadow");
             break;
+        case Boss::RUSSIAN_PYRAMID:
+            bossImage = &sdlutils().images().at("pyramid_table_shadow");
+            break;
         default:
-            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            bossImage = &sdlutils().images().at("pyramid_table_shadow");
             break;
     }
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
-    addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+
+    auto tweens = addComponent<TweenComponent>(boss);
+    tweens->easePosition(pos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+        addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+    });
+
+    
 }
+
+void 
+CaromScene::createIndicator(entity_t whiteBall) {
+    _indicator = new Entity(*this, grp::FEEDBACK);
+    addComponent<TransformComponent>(_indicator, b2Vec2_zero);
+    addComponent<FollowComponent>(_indicator, whiteBall, true, false, false, Vector2D(0, 0));
+
+    float wbScale = whiteBall->getTransform()->getScale().x / 2;
+    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, wbScale);
+}
+
+void 
+CaromScene::changeIndicator(entity_t whiteBall) {
+    getComponent<FollowComponent>(_indicator)->setTarget(whiteBall);
+}
+
