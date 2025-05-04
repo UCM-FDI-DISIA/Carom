@@ -125,6 +125,7 @@ add_executable(Carom
     src/SceneSystem/ScenesManager.cpp
     src/ECS/CameraComponent.cpp
 
+    src/ECS/RenderComponent.cpp
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
 	src/ECS/JsonEntityParser.cpp
@@ -151,6 +152,7 @@ add_executable(Carom
 	
 	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
+    src/Animator/BallRollerAnimatorComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 
