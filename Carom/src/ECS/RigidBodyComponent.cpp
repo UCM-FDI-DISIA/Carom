@@ -84,7 +84,7 @@ RigidBodyComponent::getScale() const {
 double
 RigidBodyComponent::getRotation() const {
     b2Rot a_b2r = b2Body_GetRotation(_myB2BodyId);
-    return b2Atan2(a_b2r.s, a_b2r.c);
+    return b2Atan2(a_b2r.s, a_b2r.c);// * 180. / B2_PI;
 }
 
 /// @brief Returns a bool indicating whether the body is moving
