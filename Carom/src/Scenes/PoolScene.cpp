@@ -83,7 +83,7 @@ void PoolScene::initObjects()
     createBackground("suelo");
     createTable();
 
-    initRandomEffects();
+    initDeterministicEffects();
 
     generateMatchHoles();
     generateBalls();
@@ -446,6 +446,15 @@ PoolScene::initRandomEffects() {
         addNewEffect(i, 1.0f, allEffects);
     }
 }
+
+void 
+PoolScene::initDeterministicEffects() {
+    _ballsInfo = std::vector<BallInfo>(POSITIONS);
+    
+    for(int i = 0; i < POSITIONS; ++i) 
+        _ballsInfo[i].effects.push_back(EffectType(i));
+}
+
 
 void 
 PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects) {

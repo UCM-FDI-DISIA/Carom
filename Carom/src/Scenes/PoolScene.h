@@ -81,6 +81,7 @@ protected:
     void scrollBallEffect(int i); //Cambia el efecto que se muestra
 
     void initRandomEffects();
+    void initDeterministicEffects();
     void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);
     std::string getTextureName(EffectType effect);
 
