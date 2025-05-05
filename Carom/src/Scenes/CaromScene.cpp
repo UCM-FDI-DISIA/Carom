@@ -105,7 +105,7 @@ void CaromScene::initObjects()
 
     // Create table with texture and colliders
     createTable();
-    
+    getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 191, 255);
     createBackground("suelo");
 
     _currentScoreDisplay = createScoreUI();
