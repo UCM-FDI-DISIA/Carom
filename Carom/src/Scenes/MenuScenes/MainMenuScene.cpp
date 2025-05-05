@@ -37,15 +37,15 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
     //Esto no tiene que llegar a develop, es para debug
     am = new AudioManager();
     pannels[3]->getComponent<Button>()->setOnClick([this](){
-        am->playMusicTrack(MARCHA_IMPERIAL);
+        am->playMusicTrack(MAIN_THEME);
+        am->playMusicTrack(PAUSE_THEME);
+        am->setVolumeMusicTrack(MAIN_THEME, 0);
     });
     pannels[4]->getComponent<Button>()->setOnClick([this](){
-        
-        am->pauseMusicTrack(MARCHA_IMPERIAL);
+        am->changeToMainTheme();
     });
     pannels[5]->getComponent<Button>()->setOnClick([this](){
-        
-        am->playSoundEfect("gunshot");
+        am->changeToPauseTheme();
     });
 
     // TODO: Hacer que se pueda accionar el boton de Settings

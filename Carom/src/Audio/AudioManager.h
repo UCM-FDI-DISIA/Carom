@@ -7,6 +7,8 @@ class SoundEffect;
 enum trackName{
     MARCHA_IMPERIAL,
     BEAT,
+    PAUSE_THEME,
+    MAIN_THEME,
     NUM_TRACKS
 };
 
@@ -18,6 +20,8 @@ public:
     void pauseMusicTrack(trackName trackID);
     void resumeMusicTrack(trackName trackID);
     void setVolumeMusicTrack(trackName trackID, int volume = 128);
+    void changeToPauseTheme();
+    void changeToMainTheme();
 
     void playSoundEfect(std::string soundID, int volume = 128);
 
