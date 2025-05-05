@@ -21,7 +21,7 @@ public:
 
     static constexpr float MAX_IMPULSE = 0.04f;
 
-    StickInputComponent(Entity* e); 
+    StickInputComponent(Entity* e, float stickHeight); 
     void init() override;
     void handleEvent() override;
 
