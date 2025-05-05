@@ -92,7 +92,6 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
 	${CMAKE_SOURCE_DIR}/src/Text
-    ${CMAKE_SOURCE_DIR}/src/Feedback
 )
 
 # Crear ejecutable
@@ -185,6 +184,7 @@ add_executable(Carom
 	src/Ball/FrictionMultiplierEffect.cpp
 	src/Ball/PopToOppositeSideEffect.cpp
 
+
 	src/ECS/BoxingGloveStickEffect.cpp
 	src/ECS/MagicWandStickEffect.cpp
 	src/ECS/GranadeLauncherStickEffect.cpp
@@ -216,8 +216,6 @@ add_executable(Carom
     src/ECS/UnpauseComponent.cpp
 
     src/ECS/RandomVibrationComponent.cpp
-
-    src/Feedback/RenderArrayComponent.cpp
 )
 
 # Link Box2D
