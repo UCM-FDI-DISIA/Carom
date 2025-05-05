@@ -92,6 +92,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
 	${CMAKE_SOURCE_DIR}/src/Text
+    ${CMAKE_SOURCE_DIR}/src/Progression
 )
 
 # Crear ejecutable
@@ -232,6 +233,7 @@ add_executable(Carom
 
     src/Scenes/HelperScene.cpp
     src/Scenes/TextHelperScene.cpp
+    src/Progression/ProgressionManager.cpp
 )
 
 # Link Box2D

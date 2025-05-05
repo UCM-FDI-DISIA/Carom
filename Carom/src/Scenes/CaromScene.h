@@ -70,8 +70,10 @@ protected:
     int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
+    TextDisplayComponent* _roundScoreDisplay;
 public:
     TextDisplayComponent* createScoreUI();
+    TextDisplayComponent* createRoundScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
     inline double getRoundScore() {return _roundScore; }
