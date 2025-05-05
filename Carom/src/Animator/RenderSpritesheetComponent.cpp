@@ -61,6 +61,4 @@ RenderSpritesheetComponent::setFrame(int frame) {
     
     _xOriginFrame = _width  * (frame % _cols);
     _yOriginFrame = _height * (frame / _cols);
-
-    _currentFrame = frame;
 }

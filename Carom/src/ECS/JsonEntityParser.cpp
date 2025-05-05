@@ -23,10 +23,7 @@
 
 #include "RenderTextureComponent.h"
 #include "RenderArrayComponent.h"
-#include "RenderSpritesheetComponent.h"
 #include "Texture.h"
-
-#include "BallRollerAnimatorComponent.h"
 
 #include "ColorBallScorerComponent.h"
 #include "ColorBallScorerComponent.h"
@@ -39,8 +36,6 @@
 #include "InventoryManager.h"
 
 #include "ShadowComponent.h"
-
-#include "Game.h"
 
 #include <iostream>
 #include <vector>
@@ -126,13 +121,7 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
         textureKey = data[childName]["components"][0]["atributes"]["effects"][0]["componentName"];
     } 
 
-    Texture* TEX = &sdlutils().images().at(textureKey);
-
-    // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
-    addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale, 
-        Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
-
-    addComponent<BallRollerAnimatorComponent>(e);
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale);
 
     // SCORE
     addComponent<ColorBallScorerComponent>(e);
