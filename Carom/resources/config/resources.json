@@ -148,15 +148,7 @@
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
     { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
     { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
-    { "id" : "line", "file" : "../../resources/images/line.png"},
-
-    { "id" : "AbacusSheet", "file" : "../../resources/images/balleffect_sheets/abaco-sheet.png"},
-    { "id" : "BowlingSheet", "file" : "../../resources/images/balleffect_sheets/bowling-sheet.png"},
-    { "id" : "CrystalSheet", "file" : "../../resources/images/balleffect_sheets/crystal-sheet.png"},
-    { "id" : "PetanqueSheet", "file" : "../../resources/images/balleffect_sheets/petanca-sheet.png"},
-    { "id" : "PokeballSheet", "file" : "../../resources/images/balleffect_sheets/poke-sheet.png"},
-    { "id" : "QuanticSheet", "file" : "../../resources/images/balleffect_sheets/quantic-sheet.png"},
-    { "id" : "X2Sheet", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"}
+    { "id" : "line", "file" : "../../resources/images/line.png"}
   ],
   
   "messages" : [
