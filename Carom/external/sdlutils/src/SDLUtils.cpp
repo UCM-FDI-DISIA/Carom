@@ -96,6 +96,9 @@ void SDLUtils::initWindow() {
 #ifdef _DEBUG
 	std::cout << "Creating SDL renderer" << std::endl;
 #endif
+	// Texture anti-aliasing
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"); // "1" = linear filtering
+	
 	// Create the renderer
 	_renderer = SDL_CreateRenderer(_window, -1,
 			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);

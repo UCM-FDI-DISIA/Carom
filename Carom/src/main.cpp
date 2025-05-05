@@ -1,4 +1,4 @@
-#define _CRTDBG_MAP_ALLOC
+//#define _CRTDBG_MAP_ALLOC // ! This thing fucking kills the project for some reason
 #include <stdlib.h>
 #include <crtdbg.h>
 

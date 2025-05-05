@@ -20,15 +20,10 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
 
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 
-    b->getComponent<Button>()->setOnClick([this, ms](){
+    b->getComponent<Button>()->setOnClick([this](){
 
         game->getScenesManager()->popScene(); // Poppea la win.
-        game->getScenesManager()->pushScene(ms);
     }); 
 
-    createText("Terminar.", // text
-        sdlutils().width()/2 , // x
-        (sdlutils().height()/2 + 150), // y
-        2 // size
-    );
+    createSVGImage("win", "rewardButtonText", "rewardButtonText");
 }

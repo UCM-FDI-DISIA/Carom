@@ -13,7 +13,6 @@ protected:
     std::string _description;
     BallHandler* _handler;
 public:
-
     BallEffect(entity_t ent) : Component(ent) {}
     ~BallEffect();
 

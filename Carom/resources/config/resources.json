@@ -38,7 +38,44 @@
     { "id" : "bola_blanca", "file" : "../../resources/images/bola_blanca.png"},
     { "id" : "bola_sombra", "file" : "../../resources/images/bola_sombra.png"},
     { "id" : "bola_cast_sombra", "file" : "../../resources/images/bola_cast_sombra.png"},
+    { "id" : "bola_montada", "file" : "../../resources/images/bola_montada.png"},
     { "id": "suelo", "file": "../../resources/images/suelo.png"},
+
+    { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
+    { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
+    { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
+    { "id" : "magic_wand_sombra", "file" : "../../resources/images/magic_wand_shadow.png"},
+    { "id" : "donut", "file" : "../../resources/images/donut.png"},
+    { "id" : "donut_sombra", "file" : "../../resources/images/donut_sombra.png"},
+
+    { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
+    { "id" : "reward_description_box", "file" : "../../resources/images/reward_description_box.png"},
+    { "id" : "hole", "file" : "../../resources/images/hole.png"},
+    { "id" : "shotsSprite", "file" : "../../resources/images/shots_left.png"},
+    { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"},
+
+    { "id" : "cowboy_hand", "file" : "../../resources/images/cowboy_hand.png"},
+    { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"},
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "sand1", "file" : "../../resources/images/sand1.png"},
+    { "id" : "sand2", "file" : "../../resources/images/sand2.png"},
+    { "id" : "sand3", "file" : "../../resources/images/sand3.png"},
+    { "id" : "sand4", "file" : "../../resources/images/sand4.png"},
+    { "id" : "sand5", "file" : "../../resources/images/sand5.png"},
+    { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
+    { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
+    { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
+
+    { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
+    
+    { "id" : "BowlingEffect", "file" : "../../resources/images/bowling.png"},
+    { "id" : "X2Effect", "file" : "../../resources/images/x2.png"},
+    { "id" : "AbacusEffect", "file" : "../../resources/images/abaco.png"},
+    { "id" : "CristalEffect", "file" : "../../resources/images/cristal.png"},
+    { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
+    { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
+    { "id" : "QuanticEffect", "file" : "../../resources/images/quantic.png"},
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
 
     { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
     { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
@@ -67,6 +104,7 @@
 
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "reward_description_box", "file" : "../../resources/images/reward_description_box.png"},
+    {"id" : "inventory_description_box", "file": "../../resources/images/inv_description.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
     { "id" : "shotsSprite", "file" : "../../resources/images/shots_left.png"},
     { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"},
@@ -74,6 +112,7 @@
     { "id" : "cowboy_hand", "file" : "../../resources/images/cowboy_hand.png"},
     { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"},
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "pyramid_table_shadow", "file" : "../../resources/images/pyramid_table_shadow.png"},
     { "id" : "sand1", "file" : "../../resources/images/sand1.png"},
     { "id" : "sand2", "file" : "../../resources/images/sand2.png"},
     { "id" : "sand3", "file" : "../../resources/images/sand3.png"},
@@ -95,6 +134,7 @@
     { "id" : "pyramid_shadow4", "file" : "../../resources/images/pyramid_shadow4.png"}, 
     { "id" : "russian_indicator", "file" : "../../resources/images/light1.png"}, 
     { "id" : "russian_hand", "file" : "../../resources/images/russian_boss.png"},
+    { "id" : "russian_boss_shadow", "file" : "../../resources/images/russian_boss_shadow.png"},
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
 
@@ -105,7 +145,9 @@
     { "id" : "PetanqueEffect", "file" : "../../resources/images/petanca.png"},
     { "id" : "PokeballEffect", "file" : "../../resources/images/poke.png"},
     { "id" : "QuanticEffect", "file" : "../../resources/images/poke.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"}
+    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
+    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"}
   ],
   
   "messages" : [
@@ -331,6 +373,258 @@
       "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_ballName_pool", 
+      "text" : "Bola de carambola", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "cristal_ballName_pool", 
+      "text" : "Bola de cristal", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "bowling_ballName_pool", 
+      "text" : "Bola de bolos", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "poke_ballName_pool", 
+      "text" : "Bola de poke", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "x2_ballName_pool", 
+      "text" : "Bola x2", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "abbacus_ballName_pool", 
+      "text" : "Cuenta de abaco", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "quantic_ballName_pool", 
+      "text" : "Bola cuantica", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "petanque_ballName_pool", 
+      "text" : "Bola de petanca", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_ballDesc_pool", 
+      "text" : "Una bola normal y corriente", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "cristal_ballDesc_pool", 
+      "text" : "La linea guia tiene mas alcance, pero hay una probabilidad de que la bola se rompa", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "bowling_ballDesc_pool", 
+      "text" : "Golpea con mas fuerza y es mas dificil de mover, pero ocupa 2 espacios", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "poke_ballDesc_pool", 
+      "text" : "Absorbe los efectos de la primera bola que golpee, pero la hace desaparecer", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "x2_ballDesc_pool", 
+      "text" : "Todos los efectos de esta bola con numeros afectan el doble", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "abbacus_ballDesc_pool", 
+      "text" : "Al ser golpeada suma puntuacion a mayores de la normal", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "quantic_ballDesc_pool", 
+      "text" : "Si no es golpeada, la puntuacion de la ronda se multiplica por 2, pero al ser golpeada multiplica tu puntuacion por 0.8", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "petanque_ballDesc_pool", 
+      "text" : "Cuanto mas cerca queda de la bola, multiplicara la puntuacion de la ronda por un numero mayor, pero si esta muy lejos ese numero puede ser menor que 1", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_stickName_pool", 
+      "text" : "Palo de carambola", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "grenade_stickName_pool", 
+      "text" : "Lanzagranadas", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "donut_stickName_pool", 
+      "text" : "Donut", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "boxing_stickName_pool", 
+      "text" : "Guante de boxeo", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "wand_stickName_pool", 
+      "text" : "Varita magica", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "normal_stickDesc_pool", 
+      "text" : "Un palo normal y corriente.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "grenade_stickDesc_pool", 
+      "text" : "Golpea la bola con mucha fuerza. Al hacerlo pone un temporizador para que la bola explote, empujando a otras y desapareciendo.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "donut_stickDesc_pool", 
+      "text" : "Convierte la mesa en un toroide. Si una bola choca con una pared, saldra por la otra en su lugar.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "boxing_stickDesc_pool", 
+      "text" : "La bola golpeada pierde menos fuerza por rebote.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "wand_stickDesc_pool", 
+      "text" : "La bola golpeada se divide en dos que salen a 45 grados con respecto a la original. Al final del golpe solo queda una de las dos.", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "ballEffectTitle_pool", 
+      "text" : "Efecto de bola:", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "ballEffectType_pool", 
+      "text" : " ", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 150}
+    },
+    { 
+      "id" : "AbacusEffect_name_pool", 
+      "text" : "Abaco", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "AbacusEffect_desc_pool", 
+      "text" : "Suma su valor al ser golpeada", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "BowlingEffect_name_pool", 
+      "text" : "Pesado", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "BowlingEffect_desc_pool", 
+      "text" : "La bola es un 50% mas pesada", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "CristalEffect_name_pool", 
+      "text" : "Bola de Cristal", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "CristalEffect_desc_pool", 
+      "text" : "Extiende la linea de guia de la bola blanca hasta 3 rebotes si se esta apuntando hacia ella", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "PetanqueEffect_name_pool", 
+      "text" : "Petanca", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "PetanqueEffect_desc_pool", 
+      "text" : "Cuanto mas cerca este de la bola blanca al final de la partida mas se multiplicara la puntuacion final", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "PokeballEffect_name_pool", 
+      "text" : "Pokeball", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "PokeballEffect_desc_pool", 
+      "text" : "Absorbe todos los efectos de la primera bola con la que colisione", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "QuanticEffect_name_pool", 
+      "text" : "Cuantica", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "QuanticEffect_desc_pool", 
+      "text" : "X2 puntos al final del tiro si no es golpeada", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "X2Effect_name_pool", 
+      "text" : "X2", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "X2Effect_desc_pool", 
+      "text" : "Todos los otros efectos de esta bola que contengan numeros afectan el doble", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     }
   ],
 
@@ -346,7 +640,8 @@
     {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
     {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
-    {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"}
+    {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"},
+    {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"}
   ]
 
 }
