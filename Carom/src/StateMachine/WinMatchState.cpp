@@ -11,8 +11,10 @@ WinMatchState::WinMatchState(CaromScene* scene) : State(scene)
 }
 
 void WinMatchState::onStateEnter(){
-    
+    #ifndef _DEBUG
     InventoryManager::Instance()->saveBalls(_scene->getEntitiesOfGroup(grp::EFFECTBALLS));
+
+    #endif
     //deberia popear escena
     //auto scene = _scene->getRewardScene();
     //_scene->getScenesManager()->pushScene(scene);
