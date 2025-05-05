@@ -50,7 +50,7 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     });
 
     dialogue->addDialogue("Veo que sí que te acuerdas...");
-    dialogue->addDialogue("Perfecto");
+    dialogue->addDialogue("Perfecto ");
     dialogue->addDialogue("Ahora, veamos si puedes hacer algún truco");
     dialogue->addDialogue("Haz una carambola",[=](){
         InventoryManager::Instance()->loadInventoryNamed("tutorialInventory2");
@@ -60,9 +60,20 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
         game->getScenesManager()->pushScene(a);
 
-        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpea una bola, luego una pared, y finalmente otra bola")));
+        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpea dos bolas consecutivamente con la bola blanca")));
     });
+    dialogue->addDialogue("Bien");
+    dialogue->addDialogue("Una última cosa");
+    dialogue->addDialogue("Te encuentras sobre una mesa de billar");
+    dialogue->addDialogue("Aquí puedes elegir tu próxima partida,");
+    dialogue->addDialogue("y siempre que termines una partida volverás aquí");
     
+    dialogue->addDialogue("Para elegir una partida, selecciona un hoyo ");
+    dialogue->addDialogue("Podrás ver la recompensa que recibirás al completarla");
+    dialogue->addDialogue("Seleccionar una partida destruye la bola asignada al hoyo");
+    dialogue->addDialogue("Supera al jefe y recibirás todas las bolas restantes en el billar");
+
+
 }
 
 void TutorialScene::render(){
