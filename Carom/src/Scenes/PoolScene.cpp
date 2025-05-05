@@ -396,6 +396,7 @@ PoolScene::createCallbacks() {
         bool isBoss = i == _bossHole;
         holeButton->setOnClick([=](){
             hideReward(i);
+            hideBallEffect(i);
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
@@ -430,10 +431,6 @@ PoolScene::createCallbacks() {
         });
 
         ballButton->setOnClick(holeButton->getOnClick());
-
-        ballButton->setOnRightClick([=](){
-            // TODO: muestra el efecto multiple (segunda pantalla de efecto.)
-        });
 
         // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
         ballButton->setOnHover([this, i]() {
