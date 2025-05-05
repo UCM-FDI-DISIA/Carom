@@ -226,6 +226,10 @@ add_executable(Carom
     src/StateMachine/TutorialOneScoringState.cpp
     src/StateMachine/TutorialOneStartMatchState.cpp
 
+    src/StateMachine/TutorialTwoHitState.cpp
+    src/StateMachine/TutorialTwoScoringState.cpp
+    src/StateMachine/TutorialTwoStartMatchState.cpp
+
     src/Scenes/HelperScene.cpp
     src/Scenes/TextHelperScene.cpp
 )

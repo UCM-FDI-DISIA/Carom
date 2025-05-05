@@ -47,6 +47,10 @@ void InventoryManager::loadInventoryWithPath(std::string path){
     }
 }
 
+void InventoryManager::loadInventoryNamed(std::string nameOfInventory){
+    loadInventoryWithPath("../../resources/prefabs/inventoryData/" + nameOfInventory + ".json");
+}
+
 void InventoryManager::exportInventoryToSave(){
     std::string line;
 

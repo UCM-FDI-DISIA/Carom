@@ -10,11 +10,12 @@
 #include "RussianPyramidScene.h"
 #include "InventoryManager.h"
 #include "TutorialOneStartMatchState.h"
+#include "TutorialTwoStartMatchState.h"
 #include "TextHelperScene.h"
 
 TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameScene(game), _bottomScene(sceneToRenderOnTop){
 
-    InventoryManager::Instance()->loadStartingInventory();
+    InventoryManager::Instance()->loadInventoryNamed("tutorialInventory1");
 
     //!tst borrar
     Entity* prueba = new Entity(*this, grp::UI);
@@ -51,6 +52,16 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("Veo que sí que te acuerdas...");
     dialogue->addDialogue("Perfecto");
     dialogue->addDialogue("Ahora, veamos si puedes hacer algún truco");
+    dialogue->addDialogue("Haz una carambola",[=](){
+        InventoryManager::Instance()->loadInventoryNamed("tutorialInventory2");
+        auto caromOne = new CaromScene(game);
+        auto a = std::shared_ptr<CaromScene>(caromOne);
+        a.get()->setNewState(new TutorialTwoStartMatchState(a.get()));
+
+        game->getScenesManager()->pushScene(a);
+
+        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpea una bola, luego una pared, y finalmente otra bola")));
+    });
     
 }
 

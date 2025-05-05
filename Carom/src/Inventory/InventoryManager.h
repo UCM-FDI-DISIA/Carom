@@ -50,6 +50,9 @@ private:
 
     //inventario guardado de una partida anterior
     void loadSavedInventory();
+
+    //inventario guardado de una partida anterior
+    void loadInventoryNamed(std::string nameOfInventory);
     
     //copia inventory.json a savedInventory.json, para asi guardar la partida
     void exportInventoryToSave();
