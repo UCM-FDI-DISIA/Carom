@@ -175,8 +175,11 @@ protected:
 #endif
 
 // -----------------INDICATOR----------------------
+public:
+    void changeIndicator(entity_t whiteBall);
+    void activateIndicator();
+    void deactivateIndicator();
 protected:
     entity_t _indicator;
     void createIndicator(entity_t whiteBall);
-    void changeIndicator(entity_t whiteBall);
 };

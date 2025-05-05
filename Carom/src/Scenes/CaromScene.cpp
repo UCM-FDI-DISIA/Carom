@@ -106,7 +106,8 @@ void CaromScene::initObjects()
         *&sdlutils().svgs().at("game").at("bola_blanca").x,
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
-    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    auto ball = createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    createIndicator(ball);
         
     // EFFECT BALLS
     createEffectBalls();
@@ -155,7 +156,6 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
     createBallShadow(e);
-    createIndicator(e);
 
     return e;
 }
@@ -739,4 +739,16 @@ void
 CaromScene::changeIndicator(entity_t whiteBall) {
     getComponent<FollowComponent>(_indicator)->setTarget(whiteBall);
 }
+
+void 
+CaromScene::activateIndicator() {
+    _indicator->activate();
+}
+
+void 
+CaromScene::deactivateIndicator() {
+    _indicator->deactivate();
+}
+
+
 

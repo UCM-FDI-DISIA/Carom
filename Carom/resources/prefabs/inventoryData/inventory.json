@@ -94,6 +94,10 @@
                "radius": 1
             },
             "componentName": "StickInputComponent"
+         },
+         {
+            "atributes": {},
+            "componentName": "MagicWandStickEffect"
          }
       ]
    }
