@@ -9,6 +9,8 @@ class ScenesManager;
 class RNG_Manager;
 class MainMenuScene;
 
+#include "ProgressionManager.h"
+
 class Game {
 public:
 
@@ -30,10 +32,12 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
+    inline ProgressionManager* getProgressionManager() {return _progressionManager;}
     
 protected:
     ScenesManager* _sceneManager;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
+    ProgressionManager* _progressionManager;
 
 private:
     Texture* _t;

@@ -48,18 +48,7 @@
       ]
    },
    "slot3": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
+      "components": []
    },
    "slot4": {
       "components": [

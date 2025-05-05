@@ -6,7 +6,6 @@
 void BallHandler::init()
 {
     _scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
-    assert(_scene != nullptr && "Se ha intentado agregar un componente de efecto en una escena que no es la de juego");
 }
 
 void BallHandler::onCollisionEnter(entity_t collision, b2Manifold& contactData)
