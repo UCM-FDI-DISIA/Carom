@@ -396,7 +396,7 @@ PoolScene::createCallbacks() {
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
     
-                std::shared_ptr<CowboyPoolScene> ms = std::make_shared<CowboyPoolScene>(game, isBoss); // ! tst  
+                std::shared_ptr<CaromScene> ms = std::make_shared<CaromScene>(game); // ! tst  
                 
                 std::shared_ptr<RewardScene> rs = std::make_shared<RewardScene>(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
                 

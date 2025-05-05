@@ -124,7 +124,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     entity_t e = new Entity(*this, grp::WHITEBALL);
 
     float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
-    addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
+    addComponent<CircleRBComponent>(e, b2Vec2_zero, b2_dynamicBody, radius); 
 
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, scale);
     addComponent<WhiteBallScorerComponent>(e);
@@ -144,7 +144,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
     createBallShadow(e);
-    createIndicator(e);
+    //createIndicator(e);
 
     return e;
 }
