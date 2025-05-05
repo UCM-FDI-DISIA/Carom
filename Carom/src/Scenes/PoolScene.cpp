@@ -400,25 +400,30 @@ PoolScene::createCallbacks() {
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
     
-                std::shared_ptr<CaromScene> ms;
                 CaromScene::Boss floorBoss = (CaromScene::Boss)game->getProgressionManager()->getNextBoss();
+                std::shared_ptr<CaromScene> ms = nullptr;
 
                 switch (floorBoss)
                 {
-                case CaromScene::Boss::COWBOY_POOL:
-                    ms = std::make_shared<CowboyPoolScene>(game, isBoss);
-                    break;
-                case CaromScene::Boss::RUSSIAN_PYRAMID:
-                    ms = std::make_shared<RussianPyramidScene>(game, isBoss);
-                    break;
-                default:
-                    ms = std::make_shared<CowboyPoolScene>(game, isBoss);
-                    std::cout << "Error: no se ha podido cargar la escena de boss, cargando boss por defecto" << std::endl;
-                    break;
+                    case CaromScene::Boss::COWBOY_POOL:
+                    {
+                        ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        break;
+                    }
+                    case CaromScene::Boss::RUSSIAN_PYRAMID:
+                    {
+                        ms = std::make_shared<RussianPyramidScene>(game, isBoss);
+                        break;
+                    }
+                    default:
+                    {
+                        ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        std::cout << "Error: no se ha podido cargar la escena de boss, cargando boss por defecto" << std::endl;
+                        break;
+                    }
                 }
                 
                 std::shared_ptr<RewardScene> rs = std::make_shared<RewardScene>(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
             });

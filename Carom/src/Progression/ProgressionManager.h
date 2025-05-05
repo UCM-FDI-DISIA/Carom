@@ -23,8 +23,13 @@ public:
 
     void setBossesList() {
         for (int boss : _bosses) {
-            if(RNG_Manager::Instance()->randomRange(0, 1) < 0.5) _bossesList.push(boss);
-            else _bossesList.emplace(_bossesList.front(), boss);
+            if(RNG_Manager::Instance()->randomRange(0, 1) < 0.5 || _bossesList.empty()) _bossesList.push(boss);
+            else {
+                int other = _bossesList.front();
+                _bossesList.pop();
+                _bossesList.push(boss);
+                _bossesList.push(other);
+            }
         }
     }
 
