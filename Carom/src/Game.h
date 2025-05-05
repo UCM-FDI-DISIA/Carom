@@ -1,6 +1,7 @@
 #pragma once
 
 class ScenesManager;
+class AudioManager;
 
 #include "SDL_video.h"
 #include "SDLUtils.h"

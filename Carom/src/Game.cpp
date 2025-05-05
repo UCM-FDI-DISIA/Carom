@@ -17,6 +17,7 @@
 #include "CaromScene.h"
 #include "PrefabTestScene.h"
 #include "CowboyPoolScene.h" // ! tst
+#include "AudioManager.h"
 
 
 Game::Game() {}
@@ -29,9 +30,13 @@ Game::~Game() {
     if (InputHandler::HasInstance())
         InputHandler::Release();
 
+    if (AudioManager::HasInstance())
+        SDLUtils::Release();
+
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
+
 }
 
 void
@@ -57,6 +62,13 @@ Game::init()
                 << std::endl;
         return;
     }
+
+    if(!AudioManager::Init()) {
+        std::cerr << "Something went wrong while initializing Manager"
+                << std::endl;
+        return;
+    }
+
     RNG_Manager::Init();
 }
 
@@ -77,6 +89,7 @@ void Game::run()
 
     auto& ihdr = ih();
     auto& sdlut = sdlutils();
+    //auto aMngr = new AudioManager();
     
     sdlut.showCursor();
 

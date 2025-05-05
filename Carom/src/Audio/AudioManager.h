@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <string>
+#include "Singleton.h"
 
 class SoundEffect;
 
@@ -12,10 +13,12 @@ enum trackName{
     NUM_TRACKS
 };
 
-class AudioManager{
+class AudioManager : public Singleton<AudioManager> {
+    friend Singleton<AudioManager> ;
 public:
     AudioManager();
-    ~AudioManager();
+    virtual ~AudioManager();
+    
     void playMusicTrack(trackName trackID);
     void pauseMusicTrack(trackName trackID);
     void resumeMusicTrack(trackName trackID);
@@ -24,6 +27,7 @@ public:
     void changeToMainTheme();
 
     void playSoundEfect(std::string soundID, int volume = 128);
+    bool inline init(){return true;};
 
 protected:
     std::array<SoundEffect*, NUM_TRACKS> musicTrack;

@@ -35,7 +35,7 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
 
 
     //Esto no tiene que llegar a develop, es para debug
-    am = new AudioManager();
+    am = AudioManager::Instance();
     pannels[3]->getComponent<Button>()->setOnClick([this](){
         am->playMusicTrack(MAIN_THEME);
         am->playMusicTrack(PAUSE_THEME);
