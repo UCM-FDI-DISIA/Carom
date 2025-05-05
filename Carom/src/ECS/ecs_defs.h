@@ -74,8 +74,7 @@
 	BALL_INFO_BG, \
 	BALL_INFO_TEXT, \
 	STICK_INFO_BG, \
-	STICK_INFO_TEXT, \
-	AIM_LINE
+	STICK_INFO_TEXT
 
 // Effect list
 // TODO completar	

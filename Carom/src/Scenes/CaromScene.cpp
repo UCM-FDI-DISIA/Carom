@@ -33,7 +33,6 @@
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
-#include "RenderArrayComponent.h"
 
 #include "InventoryManager.h"
 #include "JsonEntityParser.h"
@@ -138,9 +137,6 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
             e->getComponent<RenderTextureComponent>()->setEnabled(false);
             e->getComponent<ShadowComponent>()->setEnabled(false);
         }
-
-        for (auto& e : getEntitiesOfGroup(grp::AIM_LINE))
-            e->activate();
     });
 
     addComponent<BallHandler>(e);
@@ -155,72 +151,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 
 entity_t CaromScene::createStick()
 {
-/// LINEA DE APUNTADO
-    entity_t aimline = new Entity(*this, grp::AIM_LINE);
-    auto a = addComponent<TransformComponent>(aimline, b2Vec2());
-    auto b = addComponent<RenderArrayComponent>(aimline, &sdlutils().images().at("line"), renderLayer::STICK, 0.5, 1.0);
-
-/// PALO
-    // Scale
-    float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
-    float textureSize = sdlutils().images().at("palo1").width();
-    float scale = svgSize/textureSize;
-
-    entity_t e = new Entity(*this, grp::PALO);
-
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("game").at("palo1").x,
-        *&sdlutils().svgs().at("game").at("palo1").y
-    );
-    
-    addComponent<TransformComponent>(e, pos);
-
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("palo1"), renderLayer::STICK, scale);
-    addComponent<TweenComponent>(e);
-    
-    auto input = addComponent<StickInputComponent>(e, *&sdlutils().svgs().at("game").at("palo1").height);
-
-    input->registerAimLine(aimline);
-
-    //* Used to add an effect for debugging
-    //auto effect = addComponent<DonutStickEffect>(e);
-    //input->registerStickEffect(effect);
-
-    //!john cleon's stick shadow
-    addComponent<ShadowComponent>(e);
-    getComponent<ShadowComponent>(e)->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
-
-    return e;
-}
-
-    
-entity_t
-CaromScene::createEffectBall(effect::effectId effectId, const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution, int layer) {
-    // Scale
-    float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
-    float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
-    float scale = svgSize/textureSize;        
-    
-    entity_t e = new Entity(*this, grp::EFFECTBALLS);
-    
-    // RB
-    float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
-    addComponent<CircleRBComponent>(e, pos, type, radius);
-
-    // RENDER
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::EFFECT_BALL, scale, SDL_Color{0, 150, 100, 1});
-
-    // SCORE
-    addComponent<ColorBallScorerComponent>(e);
-
-    // TODO: add components according to its id
-
-    createBallShadow(e);
-
-    addComponent<BallHandler>(e);
-    addComponent<QuanticEffect>(e);
-
-    return e;
+    return InventoryManager::Instance()->getStick(*this);
 }
 
 

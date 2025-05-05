@@ -147,8 +147,7 @@
     { "id" : "QuanticEffect", "file" : "../../resources/images/poke.png"},
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
     { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
-    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
-    { "id" : "line", "file" : "../../resources/images/line.png"}
+    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"}
   ],
   
   "messages" : [

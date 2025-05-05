@@ -7,7 +7,6 @@
 #include "PhysicsUtils.h"
 
 class InputHandler;
-class CaromScene;
 
 class Entity;
 class RigidBodyComponent;
@@ -21,21 +20,16 @@ public:
 
     static constexpr float MAX_IMPULSE = 0.04f;
 
-    StickInputComponent(Entity* e, float stickHeight); 
+    StickInputComponent(Entity* e); 
     void init() override;
     void handleEvent() override;
 
     inline void enableBehaviour() {_behaviourEnabled = true;}
     void setEnabled(bool state) override;
     bool hasShot() { return _hasShot; }
-    void transformControl(b2Vec2 _mousePos, Vector2D dir);
-
-    /// @brief Posiciona la linea de apuntado y le pasa la longitud
-    /// @param dirNormalized 
-    void aimLineTransformControl(Vector2D dirNormalized);
+    void transformControl(b2Vec2 _mousePos, Vector2D dirNormalized);
     void registerWhiteBall(entity_t wb);
     void registerStickEffect(StickEffectComponent* effect);
-    void registerAimLine(entity_t aL);
     double rad2degrees(double radians);
 
     inline StickEffectComponent* getStickEffect(){return _myEffect;}
@@ -43,14 +37,10 @@ public:
 private:
     InputHandler* _ih;
     entity_t _whiteBall;
-    entity_t _aimLine = nullptr;
     RigidBodyComponent* _whiteBallRB;
     TransformComponent* _myTransform;
     RenderTextureComponent* _myRender;
     StickEffectComponent* _myEffect;
-
-    CaromScene* _myCaromScene;
-
     // --- Métodos del HandleEvents.
     bool isMouseOnCircleRadius( double r);
     float getMagFromMouseToCenter();

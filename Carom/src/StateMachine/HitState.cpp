@@ -35,11 +35,6 @@ HitState::onStateExit() {
         std::cout << "Saliendo de Hit\n";
         e->deactivate();
     }
-
-    for (auto& e : _scene->getEntitiesOfGroup(grp::AIM_LINE)) { 
-        e->deactivate();
-    }
-
     for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
         if(e->tryGetComponent<Button>()) {
             std::cout << "BUTTON DISABLE" << std::endl;
