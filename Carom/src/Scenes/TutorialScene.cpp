@@ -33,13 +33,13 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     addComponent<RandomVibrationComponent>(prueba, .05f, 5);
 
     auto dialogue = addComponent<DialogueTextComponent>(prueba, a);
-    dialogue->addDialogue("Hola");
-    dialogue->addDialogue("Veo que has despertado");
-    dialogue->addDialogue("¿sabes cuánto tiempo llevas inconsciente?");
-    dialogue->addDialogue("207 años");
-    dialogue->addDialogue("Te hemos estado esperando durante todo este tiempo");
-    dialogue->addDialogue("y por fin estás aquí");
-    dialogue->addDialogue("Primero lo importante: ¿sabes jugar?", [=](){
+    dialogue->addDialogue("Hola ");
+    dialogue->addDialogue("Veo que has despertado ");
+    dialogue->addDialogue("¿sabes cuánto tiempo llevas inconsciente? ");
+    dialogue->addDialogue("207 años ");
+    dialogue->addDialogue("Te hemos estado esperando durante todo este tiempo ");
+    dialogue->addDialogue("y por fin estás aquí ");
+    dialogue->addDialogue("Primero lo importante: ¿sabes jugar? ", [=](){
 
         auto caromOne = new CaromScene(game);
         auto a = std::shared_ptr<CaromScene>(caromOne);
@@ -52,8 +52,8 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
     dialogue->addDialogue("Veo que sí que te acuerdas...");
     dialogue->addDialogue("Perfecto ");
-    dialogue->addDialogue("Ahora, veamos si puedes hacer algún truco");
-    dialogue->addDialogue("Haz una carambola",[=](){
+    dialogue->addDialogue("Ahora, veamos si puedes hacer algún truco ");
+    dialogue->addDialogue("Haz una carambola ",[=](){
         InventoryManager::Instance()->loadInventoryNamed("tutorialInventory2");
         auto caromOne = new CaromScene(game);
         auto a = std::shared_ptr<CaromScene>(caromOne);
@@ -63,18 +63,18 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
         game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpea dos bolas consecutivamente con la bola blanca")));
     });
-    dialogue->addDialogue("Bien");
-    dialogue->addDialogue("Una última cosa");
-    dialogue->addDialogue("Te encuentras sobre una mesa de billar");
-    dialogue->addDialogue("Aquí puedes elegir tu próxima partida,");
-    dialogue->addDialogue("y siempre que termines una partida volverás aquí");
+    dialogue->addDialogue("Bien ");
+    dialogue->addDialogue("Una última cosa ");
+    dialogue->addDialogue("Te encuentras sobre una mesa de billar ");
+    dialogue->addDialogue("Aquí puedes elegir tu próxima partida, ");
+    dialogue->addDialogue("y siempre que termines una partida volverás aquí ");
     
     dialogue->addDialogue("Para elegir una partida, selecciona un hoyo ");
-    dialogue->addDialogue("Podrás ver la recompensa que recibirás al completarla");
-    dialogue->addDialogue("Seleccionar una partida destruye la bola asignada al hoyo");
-    dialogue->addDialogue("Supera al jefe y recibirás las bolas restantes del billar");
+    dialogue->addDialogue("Podrás ver la recompensa que recibirás al completarla ");
+    dialogue->addDialogue("Seleccionar una partida destruye la bola asignada al hoyo ");
+    dialogue->addDialogue("Supera al jefe y recibirás las bolas restantes del billar ");
 
-    dialogue->addDialogue("Bien, ya estás preparado");
+    dialogue->addDialogue("Bien, ya estás preparado ");
     dialogue->addDialogue("Pero recuerda, ");
     dialogue->addDialogue("si pierdes, ", [=](){
 
