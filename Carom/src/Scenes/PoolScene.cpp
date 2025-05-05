@@ -467,7 +467,7 @@ PoolScene::getTextureName(EffectType effect) {
         case POKEBALL: return "PokeballEffect";
         case QUANTIC: return "QuanticEffect";
         case X2: return "X2Effect";
-        default: "";
+        default: return "";
     }
 }
 

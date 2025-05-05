@@ -109,6 +109,7 @@ void CaromScene::initObjects()
     createBackground("suelo");
 
     _currentScoreDisplay = createScoreUI();
+    _roundScoreDisplay = createRoundScoreUI();
     _remainingHitsDisplay = createRemainingHitsUI();
 }
 
@@ -218,7 +219,7 @@ void CaromScene::createBallShadow(entity_t entity){
 }
 
 void CaromScene::createScoreEntity(){
-    //primer score
+    //current score
     entity_t e = new Entity(*this, grp::SCORE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
@@ -232,7 +233,7 @@ void CaromScene::createScoreEntity(){
     addComponent<TransformComponent>(e, pos);
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
-    //segundo score
+    // score to beat
 
     entity_t e1 = new Entity(*this, grp::SCORE);
 
@@ -243,6 +244,18 @@ void CaromScene::createScoreEntity(){
 
     addComponent<TransformComponent>(e1, pos1);
     addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
+
+    // round score
+
+    entity_t e2 = new Entity(*this, grp::SCORE);
+
+    b2Vec2 pos2 = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("game").at("roundScoreSpriteL").x,
+        *&sdlutils().svgs().at("game").at("roundScoreSpriteL").y
+    );
+
+    addComponent<TransformComponent>(e2, pos2);
+    addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
 }
 
@@ -583,10 +596,26 @@ CaromScene::createScoreUI() {
     return currentDisplay;
 }
 
+TextDisplayComponent*
+CaromScene::createRoundScoreUI(){
+
+    entity_t roundScoreObject = new Entity(*this, grp::SCORE);
+
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("game").at("roundScoreTextL").x,
+        *&sdlutils().svgs().at("game").at("roundScoreTextL").y
+    );
+
+    roundScoreObject->addComponent(new TransformComponent(roundScoreObject, pos));
+    TextDisplayComponent* roundDisplay = new TextDisplayComponent(roundScoreObject, renderLayer::SCORE, 1, "0", 
+        {255, 255, 255, 255}, "Basteleur-Moonlight48");
+    roundScoreObject->addComponent(roundDisplay);
+
+    return roundDisplay;
+}
 void CaromScene::addScore(int score) {
     _roundScore += score;
-    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
-    // TODO Set the round points diplay
+    _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
 }
 
 void CaromScene::addToTotalScore(int score) {
@@ -596,8 +625,7 @@ void CaromScene::addToTotalScore(int score) {
 
 void CaromScene::removeScore(int score) {
     _roundScore -= score;
-    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
-    // TODO Set the round points display
+    _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
 }
 
 void CaromScene::removeFromTotalScore(int score) {

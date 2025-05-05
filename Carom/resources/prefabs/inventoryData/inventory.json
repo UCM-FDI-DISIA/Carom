@@ -90,7 +90,7 @@
       ]
    },
    "stick": {
-      "components":  [
+      "components": [
          {
             "atributes": {
                "explosionDelay": 3000,
