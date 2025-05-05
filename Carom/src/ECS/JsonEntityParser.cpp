@@ -22,7 +22,6 @@
 #include "X2Effect.h"
 
 #include "RenderTextureComponent.h"
-#include "RenderArrayComponent.h"
 #include "Texture.h"
 
 #include "ColorBallScorerComponent.h"
@@ -131,11 +130,6 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
 }
 
 Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
-    // LINEA DE APUNTADO
-    entity_t aimline = new Entity(gameScene, grp::AIM_LINE);
-    addComponent<TransformComponent>(aimline, b2Vec2());
-    addComponent<RenderArrayComponent>(aimline, &sdlutils().images().at("line"), renderLayer::STICK, 0.5, 1.0);
-    
     // Scale
     float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
     float textureSize = sdlutils().images().at("palo1").width();
@@ -150,9 +144,7 @@ Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, st
     addComponent<StickInputComponent>(e);
     addComponent<ShadowComponent>(e);
 
-    e->getComponent<StickInputComponent>()->registerAimLine(aimline);
     e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
-
 
     AddComponentsFromJSON(e, file, childName);
 
