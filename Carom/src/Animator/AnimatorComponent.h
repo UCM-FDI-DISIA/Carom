@@ -2,6 +2,7 @@
 #include "LogicComponent.h"
 #include "Frame.h"
 #include "Animation.h"
+#include "AnimatorComponent.h"
 #include "RenderSpritesheetComponent.h"
 #include <vector>
 
