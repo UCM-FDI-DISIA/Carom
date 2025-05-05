@@ -12,6 +12,7 @@
 #include "TutorialOneStartMatchState.h"
 #include "TutorialTwoStartMatchState.h"
 #include "TextHelperScene.h"
+#include "PhysicsUtils.h"
 
 TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameScene(game), _bottomScene(sceneToRenderOnTop){
 
@@ -71,10 +72,37 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("Para elegir una partida, selecciona un hoyo ");
     dialogue->addDialogue("Podrás ver la recompensa que recibirás al completarla");
     dialogue->addDialogue("Seleccionar una partida destruye la bola asignada al hoyo");
-    dialogue->addDialogue("Supera al jefe y recibirás todas las bolas restantes en el billar");
+    dialogue->addDialogue("Supera al jefe y recibirás las bolas restantes del billar");
+
+    dialogue->addDialogue("Bien, ya estás preparado");
+    dialogue->addDialogue("Pero recuerda, ");
+    dialogue->addDialogue("si pierdes, ", [=](){
+
+        Entity* boss = new Entity(*this, grp::BOSS_SHADOW);
+    b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
+    auto tr = addComponent<TransformComponent>(boss, b2Vec2{2.f,2.f});
+    tr->setRotation(25);
+    Texture* bossImage = &sdlutils().images().at("cowboy_table_shadow");
+
+    float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
+    addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
+
+    auto tweens = addComponent<TweenComponent>(boss);
+    tweens->easePosition(pos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+        addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+    });
+
+    });
+
+    dialogue->addDialogue("eres nuestro para siempre", [=](){
+        game->getScenesManager()->popScene();
+    });
+
+    
 
 
 }
+
 
 void TutorialScene::render(){
     _bottomScene->render();
