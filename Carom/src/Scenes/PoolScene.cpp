@@ -313,7 +313,7 @@ PoolScene::createBallInfoText()
 
         title = sdlutils().texts().at("ballEffectTitle_pool");
 
-        std::string ballEffect = getEffectName(_ballsInfo[i].effects[0]);
+        std::string ballEffect = getTextureName(_ballsInfo[i].effects[0]);
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");
         ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
@@ -366,7 +366,7 @@ PoolScene::scrollBallEffect(int i) {
     if(_ballsInfo[i].scrollIndex == (_ballsInfo[i].effects.size() - 1)) _ballsInfo[i].scrollIndex = 0;
     else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
     
-    std::string ballEffect = getEffectName(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]);
+    std::string ballEffect = getTextureName(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]);
     
     auto texture = &sdlutils().images().at("reward_description_box");
     float scale = static_cast<float>(*&sdlutils().svgs().at("ballspool").at("bolamsg_0").width) / texture->width();
@@ -459,11 +459,6 @@ PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectTy
 
 std::string 
 PoolScene::getTextureName(EffectType effect) {
-    return "single_" + getEffectName(effect);
-}
-
-std::string 
-PoolScene::getEffectName(EffectType effect) {
     switch(effect){
         case ABBACUS: return "AbacusEffect";
         case BOWLING: return "BowlingEffect";
@@ -475,3 +470,4 @@ PoolScene::getEffectName(EffectType effect) {
         default: return "";
     }
 }
+
