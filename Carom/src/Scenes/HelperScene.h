@@ -4,10 +4,10 @@
 
 class HelperScene: public GameScene{
     //escena sobre la que aparecer
-    GameScene* _bottomScene = nullptr;
+    std::shared_ptr<GameScene> _bottomScene = nullptr;
 public:
 
-    HelperScene(Game* game, GameScene* sceneToRenderOnTop);
+    HelperScene(Game* game, std::shared_ptr<GameScene> sceneToRenderOnTop);
 
     void render() override;
     void update() override;

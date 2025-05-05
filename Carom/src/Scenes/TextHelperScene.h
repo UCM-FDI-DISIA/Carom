@@ -3,5 +3,5 @@
 
 class TextHelperScene: public HelperScene{
 public:
-    TextHelperScene(Game* g, GameScene* bottom, std::string textToShow);
+    TextHelperScene(Game* g, std::shared_ptr<GameScene> bottom, std::string textToShow);
 };

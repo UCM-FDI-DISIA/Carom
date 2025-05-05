@@ -1,6 +1,6 @@
 #include "HelperScene.h"
 
-HelperScene::HelperScene(Game* g, GameScene* scene): GameScene(g){
+HelperScene::HelperScene(Game* g, std::shared_ptr<GameScene> scene): GameScene(g){
     _bottomScene = scene;
 }
 

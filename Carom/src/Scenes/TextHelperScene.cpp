@@ -5,7 +5,7 @@
 #include "WobblyRenderTextureComponent.h"
 #include "RandomVibrationComponent.h"
 
-TextHelperScene::TextHelperScene(Game* g, GameScene* bottom, std::string textToShow): HelperScene(g, bottom){
+TextHelperScene::TextHelperScene(Game* g, std::shared_ptr<GameScene> bottom, std::string textToShow): HelperScene(g, bottom){
     Entity* prueba = new Entity(*this, grp::UI);
 
     addComponent<TransformComponent>(prueba, b2Vec2{0.f,0.f});
