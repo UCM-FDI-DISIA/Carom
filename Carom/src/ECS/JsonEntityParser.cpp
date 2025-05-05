@@ -22,7 +22,11 @@
 #include "X2Effect.h"
 
 #include "RenderTextureComponent.h"
+#include "RenderArrayComponent.h"
+#include "RenderSpritesheetComponent.h"
 #include "Texture.h"
+
+#include "BallRollerAnimatorComponent.h"
 
 #include "ColorBallScorerComponent.h"
 #include "ColorBallScorerComponent.h"
@@ -35,6 +39,8 @@
 #include "InventoryManager.h"
 
 #include "ShadowComponent.h"
+
+#include "Game.h"
 
 #include <iostream>
 #include <vector>
@@ -120,7 +126,13 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
         textureKey = data[childName]["components"][0]["atributes"]["effects"][0]["componentName"];
     } 
 
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale);
+    Texture* TEX = &sdlutils().images().at(textureKey);
+
+    // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
+    addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale, 
+        Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
+
+    addComponent<BallRollerAnimatorComponent>(e);
 
     // SCORE
     addComponent<ColorBallScorerComponent>(e);
@@ -130,6 +142,11 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
 }
 
 Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
+    // LINEA DE APUNTADO
+    entity_t aimline = new Entity(gameScene, grp::AIM_LINE);
+    addComponent<TransformComponent>(aimline, b2Vec2());
+    addComponent<RenderArrayComponent>(aimline, &sdlutils().images().at("line"), renderLayer::STICK, 0.5, 1.0);
+    
     // Scale
     float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
     float textureSize = sdlutils().images().at("palo1").width();
@@ -144,7 +161,9 @@ Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, st
     addComponent<StickInputComponent>(e);
     addComponent<ShadowComponent>(e);
 
+    e->getComponent<StickInputComponent>()->registerAimLine(aimline);
     e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
+
 
     AddComponentsFromJSON(e, file, childName);
 
