@@ -13,11 +13,15 @@
 #include "CowboyPoolScene.h"
 #include "RussianPyramidScene.h" // ! tst
 
+#include "InventoryManager.h"
+
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
 #include "StickInputComponent.h"
 #include "TweenComponent.h"
+#include "ProgressionManager.h"
 
+#include "BallHandler.h"
 
 // --- rewards ---
 #include "DefaultReward.h"
@@ -396,10 +400,30 @@ PoolScene::createCallbacks() {
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
     
-                std::shared_ptr<CowboyPoolScene> ms = std::make_shared<CowboyPoolScene>(game, isBoss); // ! tst  
+                CaromScene::Boss floorBoss = (CaromScene::Boss)game->getProgressionManager()->getNextBoss();
+                std::shared_ptr<CaromScene> ms = nullptr;
+
+                switch (floorBoss)
+                {
+                    case CaromScene::Boss::COWBOY_POOL:
+                    {
+                        ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        break;
+                    }
+                    case CaromScene::Boss::RUSSIAN_PYRAMID:
+                    {
+                        ms = std::make_shared<RussianPyramidScene>(game, isBoss);
+                        break;
+                    }
+                    default:
+                    {
+                        ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        std::cout << "Error: no se ha podido cargar la escena de boss, cargando boss por defecto" << std::endl;
+                        break;
+                    }
+                }
                 
                 std::shared_ptr<RewardScene> rs = std::make_shared<RewardScene>(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
             });
@@ -471,3 +495,25 @@ PoolScene::getTextureName(EffectType effect) {
     }
 }
 
+void PoolScene::saveBalls() {
+    entity_t ball = new Entity(*this, grp::POOL_BALLS);
+    addComponent<BallHandler>(ball);
+
+    for(auto ballInfo : _ballsInfo) {
+        if(ballInfo.free) continue;
+        for(auto effect : ballInfo.effects) {
+            switch(effect) {
+                case ABBACUS: addComponent<AbacusEffect>(ball); break;
+                case BOWLING: addComponent<BowlingEffect>(ball); break;
+                case CRISTAL: addComponent<CristalEffect>(ball); break;
+                case PETANQUE: addComponent<PetanqueEffect>(ball); break;
+                case POKEBALL: addComponent<PokeballEffect>(ball); break;
+                case QUANTIC: addComponent<QuanticEffect>(ball); break;
+                case X2: addComponent<X2Effect>(ball); break;
+            }
+        }
+    }
+    
+    InventoryManager::Instance()->addBall(ball);
+    delete ball;
+}
