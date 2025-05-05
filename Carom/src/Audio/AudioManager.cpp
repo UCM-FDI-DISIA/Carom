@@ -2,22 +2,35 @@
 #include "sdlutils.h"
 
 AudioManager::AudioManager(){
+    
+    SoundEffect::setNumberofChannels(12);
+
     musicTrack ={
         &sdlutils().soundEffects().at("imperial_march"),
         &sdlutils().soundEffects().at("beat")
     };
 }
 
-void AudioManager::playMusicTrack(trackName trackName){
-    musicTrack[trackName]->play(-1, trackName);
+AudioManager::~AudioManager(){
+    for(auto track : musicTrack){
+        delete track;
+    }
 }
 
-void AudioManager::resumeMusicTrack(trackName trackName){
-    musicTrack[trackName]->resumeChannel(trackName);
+void AudioManager::playMusicTrack(trackName trackID){
+    musicTrack[trackID]->play(-1, trackID);
 }
 
-void AudioManager::pauseMusicTrack(trackName trackName){
-    musicTrack[trackName]->pauseChannel(trackName);
+void AudioManager::resumeMusicTrack(trackName trackID){
+    musicTrack[trackID]->resumeChannel(trackID);
+}
+
+void AudioManager::pauseMusicTrack(trackName trackID){
+    musicTrack[trackID]->pauseChannel(trackID);
+}
+
+void AudioManager::setVolumeMusicTrack(trackName trackID, int volume = 128){
+    musicTrack[trackID]->setVolume(volume);
 }
 
 void AudioManager::playSoundEfect(std::string soundID, int volume){

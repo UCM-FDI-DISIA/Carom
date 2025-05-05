@@ -13,11 +13,13 @@ enum trackName{
 class AudioManager{
 public:
     AudioManager();
+    ~AudioManager();
     void playMusicTrack(trackName trackID);
     void pauseMusicTrack(trackName trackID);
     void resumeMusicTrack(trackName trackID);
+    void setVolumeMusicTrack(trackName trackID, int volume = 128);
 
-    void playSoundEfect(std::string soundID, int volume = 70);
+    void playSoundEfect(std::string soundID, int volume = 128);
 
 protected:
     std::array<SoundEffect*, NUM_TRACKS> musicTrack;
