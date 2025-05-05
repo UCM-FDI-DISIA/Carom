@@ -29,7 +29,10 @@ bool TutorialTwoScoringState::checkCondition(State*& state){
 }
 
 void TutorialTwoScoringState::onStateExit(){
-    if(_scene->getCurrentScore()>0 || _scene->getRoundScore()>0){
+    int lastPoints = _scene->getRoundScore();
+    _scene->addPointsFromRound();
+
+    if(lastPoints >=4){
         //pop a la escena de texto
         _scene->getScenesManager()->popScene();
         //pop a esta escena

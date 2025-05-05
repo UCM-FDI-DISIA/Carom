@@ -32,33 +32,6 @@
         "componentName": "BallHandler"
       }
     ]
-  },"slot3": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
-  },"slot4": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
-  },"slot5": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
   },
   "stick": {
     "components": []
