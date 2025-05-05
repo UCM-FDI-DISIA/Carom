@@ -1,10 +1,11 @@
 #pragma once
 #include <math.h>
 #include <queue>
-#include "CaromScene.h"
 #include "RNG_Manager.h"
 #include <vector>
 #include <list>
+
+class CaromScene; // Forward declaration
 
 class ProgressionManager {
 public:
