@@ -50,7 +50,7 @@
 CaromScene::CaromScene( Game* game, State* s) 
     : GameScene(game)
     , _updatePhysics(true)
-    , _currentScore(0)
+    , _currentScore()
     , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())

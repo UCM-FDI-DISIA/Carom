@@ -431,6 +431,10 @@ PoolScene::createCallbacks() {
                 std::shared_ptr<RewardScene> rs = std::make_shared<RewardScene>(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
+
+                holeButton->setOnClick([=]{});
+                holeButton->setOnHover([=]{});
+                hideBallEffect(i);
             });
         });
 
