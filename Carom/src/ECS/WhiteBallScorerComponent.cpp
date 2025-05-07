@@ -13,7 +13,7 @@
 
 #include "CircleRBComponent.h"
 
-WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0)
+WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0), _inventory(InventoryManager::Instance())
 { 
 }
 void WhiteBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& contactData){
@@ -34,12 +34,12 @@ void WhiteBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& cont
 
         if(!_previouslyHit){
             //scorer.add(1)
-            a_scene->addScore(baseHitScore + InventoryManager::getHitEase());
+            a_scene->addScore(baseHitScore + _inventory->getHitEase());
             _previouslyHit = true;
         }
         else{
             //scorer.add(4*2^cushions);
-            a_scene->addScore((baseCaromScore + InventoryManager::getCaromEase())*pow(2, _cushions));
+            a_scene->addScore((baseCaromScore + _inventory->getCaromEase())*pow(2, _cushions));
             _cushions = 0;
             _previouslyHit = false;
         }

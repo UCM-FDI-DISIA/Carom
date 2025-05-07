@@ -6,13 +6,15 @@
 
 class CaromScene;
 class Entity;
+class InventoryManager;
 
 class ColorHitManager {
-protected:
+    protected:
     CaromScene* _mainScene;
     std::unordered_map<Entity*, std::unordered_set<Entity*>> _positionsRegistered;
-
-    constexpr int baseComboScore = 2;
+    
+    InventoryManager* _inventory;
+    const int baseComboScore = 2;
 public:
     //Recibe un puntero a la mainScene, que es la que lo crea
     ColorHitManager(CaromScene* mainScene);
