@@ -15,7 +15,6 @@
 #include "NullState.h"
 
 #include "CaromScene.h"
-#include "PrefabTestScene.h"
 #include "CowboyPoolScene.h" // ! tst
 #include "AudioManager.h"
 
@@ -78,7 +77,6 @@ Game::init()
         return;
     }
 
-    RNG_Manager::Init();
     // initialize InventoryManager singleton
     if(!RNG_Manager::Init()) {
         std::cerr << "Something went wrong while initializing RNG_Manager"

@@ -57,6 +57,7 @@ CaromScene::CaromScene( Game* game, State* s)
     , _rngManager(RNG_Manager::Instance())
     , _remainingHits(10 + InventoryManager::Instance()->getPower())
 {
+    AudioManager::Instance()->changeToMainTheme();
 }
 
 void CaromScene::init()
