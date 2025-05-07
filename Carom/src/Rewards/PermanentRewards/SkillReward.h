@@ -11,13 +11,14 @@ using skill = std::pair<skillType, strength>;
 
 /// @brief "Soltura": Incrementa el valor de una jugada (Golpe, Combo o Carambola) a elegir entre dos
 class SkillReward : public Reward {
-protected:
+public:
     enum SkillType {
         HitEase,
         ComboEase,
         CaromEase
     };
 
+protected:
     std::pair<skill, skill> _skills; // Skills entre las que puede elegir el jugador
 
 public:
@@ -39,17 +40,13 @@ public:
             );
     }
 
-    void applyReward() override {
-        // Creación de botones
-        // g->createButton(sdlutils().svgs().at("...").at("...").x, sdlutils().svgs().at("...").at("...").y, "Completo")
-        // Selección de recompensa
-        // skill selected;
+    inline skill getSkill1() const { return _skills.first;};
+    inline skill getSkill2() const { return _skills.second;};
 
-        // TODO selección de skill y añadirlo al inventario
+    void applyReward() override {}
 
-    }
-
-    void rewardToInventory(skill s) {
+    /// @brief Guarda en el inventario la recompensa seleccionada. Llamar a esta función desde el callback del botón de la UI
+    void applyReward(skill s) {
         auto inv = InventoryManager::Instance();
         switch(s.first) {
             case SkillType::HitEase:
