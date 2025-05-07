@@ -2,6 +2,7 @@
 
 #include "CaromScene.h"
 
+#include <memory>
 
 using IntPair = std::pair<int,int>;
 using Polygon = std::vector<b2Vec2>;
@@ -14,11 +15,13 @@ class TweenComponent;
 class CowboyPoolScene : public CaromScene {
     b2Vec2 startingHandPosition = {2, 3};
 public:
-        CowboyPoolScene(State* state, Game* g, bool isBoss);
+        CowboyPoolScene(Game* g, bool isBoss, State* state = nullptr);
         virtual ~CowboyPoolScene();
 
 protected:
-    void initGimmick();
+
+    void initGimmick() override;
+    void initBoss() override;
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 

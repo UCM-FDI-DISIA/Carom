@@ -10,6 +10,7 @@ class Texture;
 
 class ITransform;
 class TextDisplayComponent : public RenderTextureComponent{
+protected:
     //Atributos del texto
     std::string _text;
     SDL_Color _color;
@@ -25,8 +26,11 @@ public:
     /// @param displayScale la escala del rect donde se crea el texto
     TextDisplayComponent(Entity* entity, layerId_t renderLayer, float displayScale, 
         std::string initialText, SDL_Color color, std::string key);
+    ~TextDisplayComponent();
 
     void changeFont(std::string key);
     void setColor(SDL_Color);
     void setDisplayedText(std::string text);
+
+    std::string getDisplayedText(){ return _text;}
 };

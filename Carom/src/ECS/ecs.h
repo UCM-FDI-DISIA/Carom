@@ -7,7 +7,6 @@
 
 // forward declaration of some classes, to be used when we
 // just need to know that they exist
-class EntityManager;
 class Entity;
 class Component;
 

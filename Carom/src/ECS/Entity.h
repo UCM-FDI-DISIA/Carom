@@ -20,12 +20,15 @@ class CaromScene;
 class PoolScene;
 class JsonEntityParser;
 class CowboyPoolScene;
+class RussianPyramidScene;
 class EndGameScene;
 class RewardScene;
 class UIScene;
 class MainMenuScene;
 class ShadowComponent;
 class PauseScene;
+class TutorialScene;
+class TextHelperScene;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -55,6 +58,8 @@ public:
 
     template<typename T>
     bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
+        auto ballHandler = getComponent<BallHandler>();
+        ballHandler->addEffect(ballEffectComp);
         return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
     }
 
@@ -149,6 +154,21 @@ public:
         return static_cast<T*>(_components[cmpId<T>]);
     }
 
+    // ! IMPORTANTE : NO ESTA PENSADO PARA USAR EN TRANSFORM O RENDER
+    // hay que mirar a ver si funcionaria
+    template<typename T>
+    void stealComponent(entity_t from){
+        assert(from->tryGetComponent<T>() && !this->tryGetComponent<T>());
+
+        T* cmp = from->getComponent<T>();
+        cmp->setEntity(this);
+        bool s = this->internalAddComponent(cmpId<T>, cmp, false);
+        assert(s);
+
+        s = from->internalRemoveComponent(cmpId<T>, false);
+        assert(s);
+    }
+
     inline ITransform* getTransform() {return _myTransform;}
     std::vector<Component*> getAllComponents(){
         return _currentComponents;
@@ -163,6 +183,18 @@ public:
     // Disables all entity's components
     //
     void deactivate();
+
+    template<typename T>
+    void activateComponentsOfType() {
+        for(Component* component : _currentComponents)
+            if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(true);
+    }
+
+    template<typename T>
+    void deactivateComponentsOfType() {
+        for(Component* component : _currentComponents)
+            if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(false);
+    }
 
     void setGameScene(GameScene* scene);
 
@@ -186,6 +218,10 @@ private:
     friend RewardScene;
     friend MainMenuScene;
     friend PauseScene;
+    friend RussianPyramidScene;
+    friend TutorialScene;
+    friend TextHelperScene;
+    
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
@@ -205,6 +241,6 @@ private:
     void eraseFromRenderEntities(entity_t e);
     void addToSceneRenderEntities(entity_t e);
 
-    bool internalAddComponent(cmpId_t id, Component* component);
-    bool internalRemoveComponent(cmpId_t id);
+    bool internalAddComponent(cmpId_t id, Component* component, bool initCmp = true);
+    bool internalRemoveComponent(cmpId_t id, bool deleteCmp = true);
 };

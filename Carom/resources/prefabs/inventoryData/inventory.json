@@ -9,7 +9,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "CristalEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -19,7 +23,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -29,7 +37,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "BowlingEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -49,7 +61,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -59,7 +75,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -69,10 +89,14 @@
       "components": [
          {
             "atributes": {
-               "explosionDelay": 3.4,
+               "explosionDelay": 3000,
                "explosionForce": 3,
-               "radius": 3
+               "radius": 1
             },
+            "componentName": "StickInputComponent"
+         },
+         {
+            "atributes": {},
             "componentName": "MagicWandStickEffect"
          }
       ]

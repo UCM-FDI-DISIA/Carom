@@ -14,5 +14,6 @@ void PokeballEffect::onHit(entity_t ent)
     }
 
     effects.clear();
+    _myEntity->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->removeComponent<PokeballEffect>();
 };

@@ -12,7 +12,7 @@ _frameIndex(0) {
 }
 
 void
-AnimatorComponent::init(){
+AnimatorComponent::init() {
     _myRenderer = _myEntity->getComponent<RenderSpritesheetComponent>();
     _frameStartTimestamp = sdlutils().currTime();
     _myRenderer->setFrame(_animation->_frameList[_frameIndex].frame);

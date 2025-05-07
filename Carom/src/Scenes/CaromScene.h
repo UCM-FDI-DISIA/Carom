@@ -5,6 +5,8 @@
 #include "Texture.h"
 #include "ecs.h"
 
+#include <memory>
+
 class RNG_Manager;
 class b2WorldId;
 class Vector2D;
@@ -13,6 +15,7 @@ class InputHandler;
 class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
+class StickInputComponent;
 
     
 class CaromScene: public GameScene {
@@ -20,18 +23,27 @@ class CaromScene: public GameScene {
 protected:
     int _remainingHits = 10;
     ScenesManager* _sceneManager;
+    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 
     void updatePhysics() override;
     void updateScene() override;
 public:
-    CaromScene(State* state, Game* g);
+//si quieres que caromScene comience con un estado distinto al de la partida normal, introduce el estado nuevo
+    CaromScene(Game* g, State* state = nullptr);
     virtual ~CaromScene();
+
+    void init() override;
+    void initObjects() override;
+    void initFunctionalities() override;
+    void initGimmick() override {};
+    void initBoss() override{};
 
     void handleEvent() override;
     //Llama al update de todas las entidades de escena y maneja las físicas
     void update() override;
 
     inline ScenesManager* getScenesManager() const {return _sceneManager;}
+    inline std::shared_ptr<GameScene> getRewardScene() const {return _reward;}
 
     // Métodos para comprobar condiciones de estado 
     inline int getRemainingHits() { return _remainingHits; }
@@ -41,7 +53,7 @@ public:
 //---------------------------STATE MACHINE-----------------------------
 protected:
     //el estado en el que se encuentra la escena actualmente
-    State* _currentState = nullptr;
+    State* _currentState;
 public:
     //Cambiar el estado actual por uno nuevo. Flujo sería:
     //- Llama a onStateExit() del estado a cambiar
@@ -58,8 +70,10 @@ protected:
     int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
+    TextDisplayComponent* _roundScoreDisplay;
 public:
     TextDisplayComponent* createScoreUI();
+    TextDisplayComponent* createRoundScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
     inline double getRoundScore() {return _roundScore; }
@@ -76,7 +90,7 @@ public:
     void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
     inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
-        b2Vec2 distanceToWhiteBall(b2Vec2 point);
+    b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
 protected:
@@ -105,6 +119,7 @@ public:
 
     /// @brief Método para que rigidbody component reciba el id del body
     b2BodyId addBodyToWorld(b2BodyDef bodyDef);
+    b2RayResult castRayToWorld(b2Vec2 origin, b2Vec2 translation);
 
 //---------------------------ENTITY CREATION---------------------------------
 public:
@@ -112,7 +127,7 @@ public:
 
     entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
 
-    void createEffectBalls();
+    virtual void createEffectBalls();
     
     void createBallShadow(entity_t);
 
@@ -120,10 +135,10 @@ public:
 
     void createFeedbackTest(b2Vec2 pos, float rot);
 
-private:
+protected:
     // Extraido de: https://discourse.libsdl.org/t/query-how-do-you-draw-a-circle-in-sdl2-sdl2/33379
     void drawCircle(SDL_Renderer* renderer, int32_t centreX, int32_t centreY, int32_t radius);
-
+    StickInputComponent* _stickInput;
 
 //---------------------------BOSS---------------------------------
 public:
@@ -158,4 +173,13 @@ protected:
         int _fastForwardIterations = 10;
         bool _canRestart = false;
 #endif
+
+// -----------------INDICATOR----------------------
+public:
+    void changeIndicator(entity_t whiteBall);
+    void activateIndicator();
+    void deactivateIndicator();
+protected:
+    entity_t _indicator;
+    void createIndicator(entity_t whiteBall);
 };

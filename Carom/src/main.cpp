@@ -1,3 +1,7 @@
+//#define _CRTDBG_MAP_ALLOC // ! This thing fucking kills the project for some reason
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <iostream>
 
 #include "RNG_Manager.h"
@@ -22,6 +26,8 @@ void start() {
 
 int main (int, char**)
 {
+    // _CrtSetBreakAlloc(73706);
+
     try {
         start();
     } catch (const std::string &e) { // catch exceptions thrown as strings
@@ -33,6 +39,7 @@ int main (int, char**)
     } catch (...) {
         std::cerr << "Caught and exception of unknown type ...";
     }
-
+ 
+    _CrtDumpMemoryLeaks();
     return 0;
 }

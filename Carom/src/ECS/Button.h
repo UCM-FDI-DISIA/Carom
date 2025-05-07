@@ -13,6 +13,8 @@ public:
 
     void setEnabled(bool state) override;
 
+    void setEntity(entity_t other) override;
+
     class ButtonData
     {
     public:
@@ -59,6 +61,7 @@ private:
     TransformComponent* _transform;
     std::function<void()> _onHover;
     std::function<void()> _onClick;
+    std::function<void()> _onRightClick;
     std::function<void()> _onExit;
     std::function<void()> _onDisable;
 
@@ -74,8 +77,13 @@ public:
 
     void setOnHover(std::function<void()> f) {_onHover = f;};
     void setOnClick(std::function<void()> f) {_onClick = f;};
+    void setOnRightClick(std::function<void()> f) {_onRightClick = f;};
     void setOnExit(std::function<void()> f) {_onExit = f;};
     void setOnDisable(std::function<void()> f) {_onDisable = f;};
+
+    inline std::function<void()> getOnClick() { return _onClick; }
+    inline std::function<void()> getOnRightClick() { return _onRightClick; }
+    inline std::function<void()> getOnHover() { return _onHover; }
 
     __CMPID_DECL__(cmp::BUTTON);
 };

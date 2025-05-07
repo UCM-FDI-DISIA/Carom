@@ -4,7 +4,6 @@
 #include "ecs.h"
 #include <string>
 
-
 class CaromScene;
 
 class BallEffect : public Component
@@ -14,7 +13,6 @@ protected:
     std::string _description;
     BallHandler* _handler;
 public:
-
     BallEffect(entity_t ent) : Component(ent) {}
     ~BallEffect();
 

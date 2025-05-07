@@ -3,6 +3,13 @@
 #include "TextDisplayComponent.h"
 #include "ScenesManager.h"
 
+void UIScene::init()
+{
+    initFunctionalities();
+    initObjects();
+
+    _initialized = true;
+}
 
 void UIScene::createTable()
 {
@@ -49,19 +56,21 @@ void UIScene::createText(std::string text, int x, int y, int size)
     winContainer->addComponent(currentDisplay);
 }
 
-entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string image, bool isButton)
+entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string image, 
+    bool isButton, grp::grpId group, layerId_t renderlayer)
 {
-    entity_t e = new Entity(*this, grp::DEFAULT);
+    entity_t e = new Entity(*this, group);
 
+    auto a = *&sdlutils().svgs().at(svg);
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at(svg).at(tag).x + 145, // mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at(svg).at(tag).x + 145, // ! mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
         *&sdlutils().svgs().at(svg).at(tag).y + 160
     );
 
     float scale = float(sdlutils().svgs().at(svg).at(tag).width) / float(sdlutils().images().at(image).width());
 
     addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(image), renderLayer::UI, scale);
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at(image), renderlayer, scale);
 
     if(isButton){
         Button::TextureButton rButton = Button::TextureButton();
@@ -69,4 +78,23 @@ entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string i
     }
 
     return e;
+}
+
+void UIScene::createButton(int x, int y, std::string text, Texture* t, std::function<void ()> cb) {
+
+        entity_t e = new Entity(*this, grp::UI);
+
+        b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
+    
+        // TODO cambiar escala real
+        float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
+    
+        addComponent<TransformComponent>(e, pos);
+        // TODO cambiar imagen real
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("reward_description_box"), renderLayer::UI, scale);
+    
+        Button::TextureButton button = Button::TextureButton();
+        Button* b = addComponent<Button>(e, button);
+
+        b->setOnClick(cb);
 }

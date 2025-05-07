@@ -9,6 +9,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Memory leak
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    add_definitions(-D_CRTDBG_MAP_ALLOC)
+endif()
+
 # Box2D
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/box2d)
 
@@ -67,6 +72,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/ECS
     ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps
     ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Cowboy
+    ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Russian
     ${CMAKE_SOURCE_DIR}/src/Physics
     ${CMAKE_SOURCE_DIR}/src/SceneSystem
     ${CMAKE_SOURCE_DIR}/src/StateMachine
@@ -82,11 +88,13 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Tweens
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
+    ${CMAKE_SOURCE_DIR}/src/Feedback
 	${CMAKE_SOURCE_DIR}/src/Rewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
 	${CMAKE_SOURCE_DIR}/src/Text
     ${CMAKE_SOURCE_DIR}/src/Audio
+    ${CMAKE_SOURCE_DIR}/src/Progression
 )
 
 # Crear ejecutable
@@ -119,6 +127,7 @@ add_executable(Carom
     src/SceneSystem/ScenesManager.cpp
     src/ECS/CameraComponent.cpp
 
+    src/ECS/RenderComponent.cpp
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
 	src/ECS/JsonEntityParser.cpp
@@ -134,7 +143,9 @@ add_executable(Carom
 
     src/ECS/RenderTextureComponent.cpp
 	src/ECS/TextDisplayComponent.cpp
+    src/ECS/DialogueTextComponent.cpp
     src/ECS/RewardInfoDisplayComponent.cpp
+    src/ECS/BallInfoDisplayComponent.cpp
 
     src/ECS/ColorBallScorerComponent.cpp
     src/ECS/WhiteBallScorerComponent.cpp
@@ -144,6 +155,7 @@ add_executable(Carom
 	
 	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
+    src/Animator/BallRollerAnimatorComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 
@@ -153,21 +165,15 @@ add_executable(Carom
     src/ECS/GimmicksCmps/ForceAreaComponent.cpp
     src/ECS/GimmicksCmps/Cowboy/FrictionComponent.cpp
     src/ECS/GimmicksCmps/Cowboy/HoleComponent.cpp
+    src/ECS/GimmicksCmps/Russian/PyramidComponent.cpp
 
     src/HitManager/ColorHitManager.cpp
 
-	src/Scenes/PrefabTestScene.cpp
 	src/Scenes/PoolScene.cpp
 	src/Scenes/PauseScene.cpp
 
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/EndScenes/RewardScene.cpp
-	
-	src/StateMachine/StartMatchState.cpp
-	src/StateMachine/HitState.cpp
-	src/StateMachine/ScoringState.cpp
-	src/StateMachine/WinMatchState.cpp
-	src/StateMachine/LoseMatchState.cpp
 
 	src/Inventory/InventoryManager.cpp
 
@@ -184,12 +190,11 @@ add_executable(Carom
 	src/Ball/FrictionMultiplierEffect.cpp
 	src/Ball/PopToOppositeSideEffect.cpp
 
-
 	src/ECS/BoxingGloveStickEffect.cpp
 	src/ECS/MagicWandStickEffect.cpp
 	src/ECS/GranadeLauncherStickEffect.cpp
 	src/ECS/DonutStickEffect.cpp
-	src/StateMachine/BossState.cpp
+
     src/Physics/PhysicsUtils.cpp
 	src/Graphics/GraphicsUtils.cpp
 
@@ -207,6 +212,8 @@ add_executable(Carom
     src/StateMachine/BossState.cpp
 
     src/Scenes/Gimmicks/CowboyPoolScene.cpp
+    src/Scenes/Gimmicks/RussianPyramidScene.cpp
+
 
     src/ECS/TweenComponent.cpp
     src/ECS/ShadowComponent.cpp
@@ -216,6 +223,23 @@ add_executable(Carom
     src/ECS/RandomVibrationComponent.cpp
 
     src/Audio/AudioManager.cpp
+    src/ECS/WobblyRenderTextureComponent.cpp
+
+    src/Scenes/TutorialScene.cpp
+
+    src/StateMachine/TutorialOneHitState.cpp
+    src/StateMachine/TutorialOneScoringState.cpp
+    src/StateMachine/TutorialOneStartMatchState.cpp
+
+    src/StateMachine/TutorialTwoHitState.cpp
+    src/StateMachine/TutorialTwoScoringState.cpp
+    src/StateMachine/TutorialTwoStartMatchState.cpp
+
+    src/Scenes/HelperScene.cpp
+    src/Scenes/TextHelperScene.cpp
+    src/Progression/ProgressionManager.cpp
+    
+    src/Feedback/RenderArrayComponent.cpp
 )
 
 # Link Box2D

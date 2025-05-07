@@ -24,7 +24,7 @@ void HoleComponent::onTriggerEnter(entity_t other)
     if(_isEmpty && other->tryGetComponent<RigidBodyComponent>()) { 
         _contextEntt = other;
         _contextRB = _contextEntt->getComponent<RigidBodyComponent>();
-        _contextRender = _contextEntt->getComponent<RenderTextureComponent>();
+        _contextRender = _contextEntt->getRenderer();
     }
 }
 
@@ -36,7 +36,7 @@ void HoleComponent::onTriggerExit(entity_t other)
 }
 
 // force = f(other_vel, distCenters)
-b2Vec2 HoleComponent::calculateForceToApply(Vector2D distanceVec)
+void HoleComponent::calculateMyForceVector(RigidBodyComponent* rb, const Vector2D& distanceVec)
 {
     float centersDistance = distanceVec.magnitude();
 
@@ -44,9 +44,8 @@ b2Vec2 HoleComponent::calculateForceToApply(Vector2D distanceVec)
     float compDist = _maxForce - (b2ClampFloat(centersDistance, 0, _myRadius) * _maxForce/_myRadius);
 
     float mag = compVel * compDist;
-    distanceVec = distanceVec.normalize();
 
-    return b2Vec2(distanceVec.getX() * mag, distanceVec.getY() * mag);
+    _myForce = {distanceVec.normalize().getX() * mag, distanceVec.normalize().getY() * mag};
 }
 
 
@@ -76,7 +75,7 @@ void HoleComponent::update()
         if (centersDistance < _myRadius)
         {
             // To apply a force
-            _myForce = calculateForceToApply(distanceVec);
+            calculateMyForceVector(_contextRB, distanceVec);
             applyForce(_contextEntt);
 
             // To capture the object

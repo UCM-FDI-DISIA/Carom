@@ -11,7 +11,8 @@ class RenderSpritesheetComponent : public RenderComponent {
 private:
     int _rows, _cols,
         _width, _height, 
-        _xOriginFrame, _yOriginFrame;
+        _xOriginFrame, _yOriginFrame,
+        _currentFrame;
 
     float _scale;
 
@@ -30,4 +31,7 @@ public:
 
     SDL_Rect getRenderRect() const override;
     void setFrame(int frame);
+
+    inline int getFrameAmount() const { return _rows * _cols; }
+    inline int getCurrentFrame() const { return _currentFrame; }
 };

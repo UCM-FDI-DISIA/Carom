@@ -2,6 +2,8 @@
 #include "UIScene.h"
 #include "MainMenuScene.h"
 
+#include <memory>
+
 class ScenesManager;
 class GameScene;
 

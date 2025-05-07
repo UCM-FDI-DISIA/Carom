@@ -19,14 +19,13 @@
 #include "RNG_Manager.h"
 #include "RandomItem.h"
 #include "FollowComponent.h"
+#include "ShadowComponent.h"
 
 #include "AudioManager.h"
 
 
-
-
-CowboyPoolScene::CowboyPoolScene(State* state, Game* g, bool isBoss)
-    : CaromScene(state, g)
+CowboyPoolScene::CowboyPoolScene(Game* g, bool isBoss, State* state)
+    : CaromScene(g, state)
     , _sandBanks(0)
     , _arenaFilenameSVG("grp_arena")
     , _sandConstrainName("arenaArea")
@@ -34,22 +33,26 @@ CowboyPoolScene::CowboyPoolScene(State* state, Game* g, bool isBoss)
     , _nAvailablePolygons(8)
     , _nVertices(8)
 {
-    if(isBoss) {
-        _boss = Boss::COWBOY_POOL;
-        createBoss();
-    }
-
-    initGimmick();
-
-    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
+    if(isBoss) _boss = COWBOY_POOL;
+    else _boss = NONE;
 }
 
 CowboyPoolScene::~CowboyPoolScene()
 {
     std::cout << "DESTRUCTOR COWBOY" << std::endl;
     // SDLUtils borra las imágenes, pero si hay reload de la escena necesita estar todo borrado
-    for (int i = 0; i < _sandBanks; ++i) {
-        sdlutils().deleteImage(std::to_string(i));
+    if(SDLUtils::HasInstance())
+        for (int i = 0; i < _sandBanks; ++i)
+            sdlutils().deleteImage(std::to_string(i));
+}
+
+void CowboyPoolScene::initBoss()
+{
+    getComponent<RenderTextureComponent>(getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0])->changeColorTint(206, 38, 0);
+
+    if(isBossMatch()) {
+        _boss = Boss::COWBOY_POOL;
+        createBoss();
     }
 }
 
@@ -72,6 +75,9 @@ void CowboyPoolScene::createBoss(){
     // addComponent<TransformComponent>(sombraJefe, b2Vec2{0,0});
     // addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW_HAND, scale);
     // addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
+
+    auto shadow = addComponent<ShadowComponent>(boss);
+    shadow->addShadow(b2Vec2{-0.05f, -0.05f}, "cowboy_hand_shadow", renderLayer::BOSS_SHADOW, scale, true, true, true);
 
     CaromScene::instantiateBossTableShadow();
 }

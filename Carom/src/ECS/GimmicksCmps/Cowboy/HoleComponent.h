@@ -12,7 +12,7 @@ class HoleComponent : public ForceAreaComponent
 protected:
     entity_t _contextEntt;
     RigidBodyComponent* _contextRB;
-    RenderTextureComponent* _contextRender;
+    RenderComponent* _contextRender;
 
     bool _isEmpty;
     float _maxVelocityToFall;
@@ -26,12 +26,12 @@ public:
 
     virtual void onTriggerEnter(entity_t other) override;
     virtual void onTriggerExit(entity_t other) override;
-    b2Vec2 calculateForceToApply(Vector2D distanceVec);
     virtual void update() override;
 
     void resetChanges();
 
 protected:
+    virtual void calculateMyForceVector(RigidBodyComponent* rb, const Vector2D& distanceVec) override;
     virtual void applyForce(entity_t e) override;
     bool tryToCapture(float centersDist);
 };

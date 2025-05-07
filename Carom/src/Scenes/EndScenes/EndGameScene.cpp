@@ -15,22 +15,18 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
     );
 
     // Para cuando este la MainMenu scene, habria que ponerla aqui.
-    GameScene *ms = new MainMenuScene(game); // ! tst 
+    std::shared_ptr<GameScene> ms = std::make_shared<MainMenuScene>(game); // ! tst 
 
     entity_t b = createSVGImage("lose", "scoreSprite", "scoreSprite", true);
 
     b->getComponent<Button>()->setOnClick([this, ms](){
 
         game->getScenesManager()->popScene(); // Poppea la loose.
-        game->getScenesManager()->popScene(); // Poppea la carom.
+        // game->getScenesManager()->popScene(); // Poppea la carom.
         game->getScenesManager()->popScene(); // Poppea la pool.
         game->getScenesManager()->popScene(); // Poppea la mainMenuScene.
         game->getScenesManager()->pushScene(ms);
     }); 
 
-    createText("Terminar.", // text
-        sdlutils().width()/2 , // x
-        (sdlutils().height()/2 + 150), // y
-        2 // size
-    );
+    createSVGImage("lose", "loseButtonText", "loseButtonText");
 }
