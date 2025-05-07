@@ -54,6 +54,7 @@ CaromScene::CaromScene( Game* game, State* s)
     , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
+    , _remainingHits(10 + InventoryManager::Instance()->getPower())
 {
 }
 
