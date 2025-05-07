@@ -7,6 +7,7 @@
 #include "CameraComponent.h"
 #include "GameScene.h"
 
+#include <cmath>
 
 RenderTextureComponent::RenderTextureComponent(Entity* ent, Texture* texture, int renderLayer, float scale) 
 : RenderComponent(ent, renderLayer),
@@ -63,31 +64,6 @@ SDL_Rect RenderTextureComponent::getRenderRect() const
     SDL_Rect dest = build_sdlrect(coordinateX, coordinateY, _texture->width()*_scale, _texture->height()*_scale);
 
     return dest;
-}
-
-void RenderTextureComponent::setRenderLayer(layerId_t layer)
-{
-    _renderLayer = layer;
-    _myEntity->getScene().sortRenderOrder();
-}
-
-void RenderTextureComponent::resetRenderLayer()
-{
-    _renderLayer = _defaultRenderLayer;
-    _myEntity->getScene().sortRenderOrder();
-}
-
-void RenderTextureComponent::changeColorTint(int r, int g, int b){
-    _color.r = r;
-    _color.g = g;
-    _color.b = b;
-}
-
-void RenderTextureComponent::resetColorTint(){
-    // _color = _defaultColor;
-    _color.r = _defaultColor.r;
-    _color.g = _defaultColor.g;
-    _color.b = _defaultColor.b;
 }
 
 void RenderTextureComponent::setTexture(Texture* tex){

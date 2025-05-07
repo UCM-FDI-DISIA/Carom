@@ -33,6 +33,7 @@
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
+#include "RenderArrayComponent.h"
 
 #include "InventoryManager.h"
 #include "JsonEntityParser.h"
@@ -109,7 +110,8 @@ void CaromScene::initObjects()
         *&sdlutils().svgs().at("game").at("bola_blanca").x,
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
-    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    auto ball = createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    createIndicator(ball);
         
     // EFFECT BALLS
     createEffectBalls();
@@ -145,9 +147,12 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     e->getComponent<Button>()->setOnClick([this](){
         for (auto& e : getEntitiesOfGroup(grp::PALO)) {
             e->activate();
+
             e->getComponent<RenderTextureComponent>()->setEnabled(false);
             e->getComponent<ShadowComponent>()->setEnabled(false);
         }
+        for (auto& e : getEntitiesOfGroup(grp::AIM_LINE))
+            e->activate();
     });
 
     addComponent<BallHandler>(e);
@@ -155,7 +160,6 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
     createBallShadow(e);
-    createIndicator(e);
 
     return e;
 }
@@ -164,7 +168,6 @@ entity_t CaromScene::createStick()
 {
     return InventoryManager::Instance()->getStick(*this);
 }
-
 
 /// @brief Creates and randomly places as many effect balls as specified
 /// @param n Number of balls to place
@@ -419,6 +422,11 @@ void CaromScene::update()
 
 b2BodyId CaromScene::addBodyToWorld(b2BodyDef bodyDef){
     return b2CreateBody(_myB2WorldId, &bodyDef);
+}
+
+b2RayResult 
+CaromScene::castRayToWorld(b2Vec2 origin, b2Vec2 translation) {
+    return b2World_CastRayClosest(_myB2WorldId, origin, translation, b2DefaultQueryFilter());
 }
 
 void CaromScene::drawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius)
@@ -735,4 +743,16 @@ void
 CaromScene::changeIndicator(entity_t whiteBall) {
     getComponent<FollowComponent>(_indicator)->setTarget(whiteBall);
 }
+
+void 
+CaromScene::activateIndicator() {
+    _indicator->activate();
+}
+
+void 
+CaromScene::deactivateIndicator() {
+    _indicator->deactivate();
+}
+
+
 
