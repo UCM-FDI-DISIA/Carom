@@ -102,7 +102,9 @@
       {"id" : "main_theme", "file" : "../../resources/sound/main_theme.wav"},
       {"id": "pause_theme", "file": "../../resources/sound/pause_theme.wav"},
       {"id": "shot", "file": "../../resources/sound/shot.mp3"},
-      {"id": "revolver_spin", "file": "../../resources/sound/spin.mp3"}
+      {"id": "revolver_spin", "file": "../../resources/sound/spin.mp3"},
+      {"id": "hit", "file": "../../resources/sound/hit.wav"},
+      {"id": "magic_touch", "file": "../../resources/sound/magic_touch.mp3"}
   ],
 
   "musics" : [

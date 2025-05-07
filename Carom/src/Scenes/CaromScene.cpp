@@ -32,6 +32,7 @@
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
+#include "AudioManager.h"
 
 #include "InventoryManager.h"
 #include "JsonEntityParser.h"
@@ -235,6 +236,9 @@ void CaromScene::createScoreEntity(){
 }
 
 void CaromScene::createFeedbackTest(b2Vec2 pos, float rot) {
+    //audio
+    AudioManager::Instance()->playSoundEfect("hit", 40);
+
     entity_t e = new Entity(*this, grp::FEEDBACK);
 
     Animation* a_anim = &sdlutils().animations().at("normal_collide_animation");
