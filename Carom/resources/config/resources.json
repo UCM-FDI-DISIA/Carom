@@ -148,7 +148,8 @@
     { "id" : "X2Effect", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
     
     { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
-    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"}
+    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
+    { "id" : "youwin", "file" : "../../resources/images/win/youwin.png"}
   ],
   
   "messages" : [
