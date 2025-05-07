@@ -433,6 +433,10 @@ PoolScene::createCallbacks() {
                 std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
+
+                holeButton->setOnClick([=]{});
+                holeButton->setOnHover([=]{});
+                hideBallEffect(i);
             });
         });
 
