@@ -34,7 +34,6 @@
 #include "CharismaReward.h"
 #include "PowerReward.h"
 #include "CunningReward.h"
-// #include ...Reward.h
 #include "DialogueTextComponent.h"
 #include "TextDisplayComponent.h"
 #include "RandomVibrationComponent.h"

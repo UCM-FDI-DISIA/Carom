@@ -11,6 +11,8 @@ class ColorHitManager {
 protected:
     CaromScene* _mainScene;
     std::unordered_map<Entity*, std::unordered_set<Entity*>> _positionsRegistered;
+
+    constexpr int baseComboScore = 2;
 public:
     //Recibe un puntero a la mainScene, que es la que lo crea
     ColorHitManager(CaromScene* mainScene);
