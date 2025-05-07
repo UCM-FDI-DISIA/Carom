@@ -44,6 +44,7 @@
 #include "Animation.h"
 #include "RenderSpritesheetComponent.h"
 #include "AnimatorComponent.h"
+#include "RoundScoreAnimComponent.h"
 
 
 
@@ -258,7 +259,8 @@ void CaromScene::createScoreEntity(){
     );
 
     addComponent<TransformComponent>(e2, pos2);
-    addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
+    addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("roundScorerPup"), renderLayer::SCORE_CONTAINER, scale);
+    _roundScorer = addComponent<RoundScoreAnimComponent>(e2, 2, 1000000);
 
 }
 
@@ -624,6 +626,7 @@ CaromScene::createRoundScoreUI(){
 void CaromScene::addScore(int score) {
     _roundScore += score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
+    _roundScorer->setRoundScore(_roundScore);
 }
 
 void CaromScene::addToTotalScore(int score) {
@@ -634,6 +637,7 @@ void CaromScene::addToTotalScore(int score) {
 void CaromScene::removeScore(int score) {
     _roundScore -= score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
+    _roundScorer->setRoundScore(_roundScore);
 }
 
 void CaromScene::removeFromTotalScore(int score) {

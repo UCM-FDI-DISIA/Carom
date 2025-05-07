@@ -153,6 +153,7 @@ add_executable(Carom
 	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
     src/Animator/BallRollerAnimatorComponent.cpp
+    src/Animator/RoundScoreAnimComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 

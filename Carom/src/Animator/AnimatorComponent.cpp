@@ -46,6 +46,11 @@ AnimatorComponent::animationEnd (Animation::AnimationType animType) {
         case Animation::TURNOFF :
             this->setEnabled(false);
             break;
+        case Animation::DESTROYANIM :
+            delete _animation;
+            _myEntity->removeComponent<RenderSpritesheetComponent>();
+            _myEntity->removeComponent<AnimatorComponent>();
+            break;
     }
 }
 

@@ -46,7 +46,8 @@
 	DONUT_STICK, \
 	PAUSE, \
 	UNPAUSE, \
-	RANDOM_VIBRATION
+	RANDOM_VIBRATION, \
+	ROUND_SCORE_ANIMATOR
 
 // Groups list - must have at least one element
 //
