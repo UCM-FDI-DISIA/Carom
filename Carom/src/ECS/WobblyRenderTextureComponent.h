@@ -1,0 +1,12 @@
+#pragma once
+#include "TextDisplayComponent.h"
+
+class WobblyRenderTextureComponent: public TextDisplayComponent{
+    const int VERTICES_BY_WIDTH = 12;
+    float _speed = 7;
+    float _height = 20;
+public:
+WobblyRenderTextureComponent(Entity* entity, layerId_t renderLayer, float displayScale, 
+    std::string initialText, SDL_Color color, std::string key);
+    void render() override;
+};

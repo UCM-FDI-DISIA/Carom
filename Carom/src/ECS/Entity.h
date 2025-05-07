@@ -27,6 +27,8 @@ class UIScene;
 class MainMenuScene;
 class ShadowComponent;
 class PauseScene;
+class TutorialScene;
+class TextHelperScene;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -217,6 +219,8 @@ private:
     friend MainMenuScene;
     friend PauseScene;
     friend RussianPyramidScene;
+    friend TutorialScene;
+    friend TextHelperScene;
     
     Entity(GameScene& scene, grpId_t gId);
 

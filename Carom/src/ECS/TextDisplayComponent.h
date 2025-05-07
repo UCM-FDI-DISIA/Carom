@@ -10,6 +10,7 @@ class Texture;
 
 class ITransform;
 class TextDisplayComponent : public RenderTextureComponent{
+protected:
     //Atributos del texto
     std::string _text;
     SDL_Color _color;
@@ -30,4 +31,6 @@ public:
     void changeFont(std::string key);
     void setColor(SDL_Color);
     void setDisplayedText(std::string text);
+
+    std::string getDisplayedText(){ return _text;}
 };

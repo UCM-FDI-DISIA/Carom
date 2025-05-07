@@ -9,10 +9,15 @@ class ScenesManager;
 class RNG_Manager;
 class MainMenuScene;
 
+#include "ProgressionManager.h"
+
 class Game {
 public:
 
     static constexpr float FIXED_TIMESTEP = 1000.0f/60.0f;
+
+    static constexpr int BALL_ROLLING_ROWS = 1;
+    static constexpr int BALL_ROLLING_COLS = 8;
 
     Game();
     virtual ~Game();
@@ -30,10 +35,12 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
+    inline ProgressionManager* getProgressionManager() {return _progressionManager;}
     
 protected:
     ScenesManager* _sceneManager;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
+    ProgressionManager* _progressionManager;
 
 private:
     Texture* _t;

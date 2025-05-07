@@ -21,6 +21,7 @@ using body_t = BallInfoDisplayComponent::Body;
 
 PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     _bottomScene = scene;
+    _ballIDs.reserve(InventoryManager::Instance()->MAX_BALLS);
     instantiateInventory();
 }
 
@@ -58,7 +59,17 @@ PauseScene::instantiateInventory(){
         std::string textureKey = "bola_blanca";
         if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
             textureKey = data[slot]["components"][0]["atributes"]["effects"][0]["componentName"];
-        } 
+        }
+
+        // We know which effect has the ball for its texture
+        if(textureKey == "BowlingEffect") _ballIDs.push_back(BOWLING);
+        else if(textureKey == "X2Effect") _ballIDs.push_back(X2);
+        else if(textureKey == "AbacusEffect") _ballIDs.push_back(ABBACUS);
+        else if(textureKey == "CristalEffect") _ballIDs.push_back(CRISTAL);
+        else if(textureKey == "PetanqueEffect") _ballIDs.push_back(PETANQUE);
+        else if(textureKey == "PokeballEffect") _ballIDs.push_back(POKEBALL);
+        else if(textureKey == "QuanticEffect") _ballIDs.push_back(QUANTIC);
+        else _ballIDs.push_back(NORMAL_BALL);
     
         auto ballPos = sdlutils().svgs().at("inventory").at(key);
         auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
@@ -104,6 +115,14 @@ PauseScene::instantiateInventory(){
 
     renderText->setScale(stickScale);
 
+    auto stickTextKey = data["stick"]["components"][0]["componentName"];
+
+    if(stickTextKey == "DonutStickEffect") _stickID = DONUT;
+    else if(stickTextKey == "MagicWandStickEffect") _stickID = WAND;
+    else if(stickTextKey == "BoxingGloveStickEffect") _stickID = BOXING;
+    else if(stickTextKey == "GrenadeLauncherStickEffect") _stickID = GRENADE;
+    else _stickID = NORMAL_STICK;
+
     auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
     auto stickPos = sdlutils().svgs().at("inventory").at("stick");
     b2Vec2 relativeDistance = {PhysicsConverter::pixel2meter(stickPos.x - drawerPos.x), PhysicsConverter::pixel2meter(stickPos.y - drawerPos.y)};
@@ -116,7 +135,27 @@ PauseScene::instantiateInventory(){
         follow->setRelativeDistance(follow->getRelativeDistance()/2);
     }
 
+    Button::TextureButton rButton = Button::TextureButton();
+    auto button = addComponent<Button>(palo, rButton);
+
+    button->setOnHover([this]() {
+        #ifdef _DEBUG
+        std::cout << "Hovering stick " << std::endl; 
+        #endif
+
+        showStick();
+    });
+
+    button->setOnExit([this]() {
+        #ifdef _DEBUG
+        std::cout << "Exiting stick" << std::endl; 
+        #endif
+    
+            hideStick();
+        });
+
     createBallInfo();
+    createStickInfo();
 }
 
 void
@@ -128,8 +167,7 @@ PauseScene::createBallInfo() {
     float scale = static_cast<float>(*&sdlutils().svgs().at("inventory").at("ball_Info_0").width) / texture->width();
 
     // Cargamos primero las bolas
-    // ! InventoryManager::Instance()->getEffectBalls().size() <- Esto en vez del 6 cuando acabe de debugear
-    for(int i = 0; i < 6; ++i) {
+    for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; ++i) {
         // FONDO
         description = new Entity(*this, grp::BALL_INFO_BG);
 
@@ -145,17 +183,111 @@ PauseScene::createBallInfo() {
         // TEXTO
         // Añadir texto de recompensa / TODO: texto de partida de boss
         // en función de _floorRewards[i]
+        Text title, desc;
+
+        switch(_ballIDs[i]){
+            case BOWLING:
+                title = sdlutils().texts().at("bowling_ballName_pool");
+                desc = sdlutils().texts().at("bowling_ballDesc_pool");
+                break;
+            case X2:
+                title = sdlutils().texts().at("x2_ballName_pool");
+                desc = sdlutils().texts().at("x2_ballDesc_pool");
+                break;
+            case ABBACUS:
+                title = sdlutils().texts().at("abbacus_ballName_pool");
+                desc = sdlutils().texts().at("abbacus_ballDesc_pool");
+                break;
+            case CRISTAL:
+                title = sdlutils().texts().at("cristal_ballName_pool");
+                desc = sdlutils().texts().at("cristal_ballDesc_pool");
+                break;
+            case PETANQUE:
+                title = sdlutils().texts().at("petanque_ballName_pool");
+                desc = sdlutils().texts().at("petanque_ballDesc_pool");
+                break;
+            case POKEBALL:
+                title = sdlutils().texts().at("poke_ballName_pool");
+                desc = sdlutils().texts().at("poke_ballDesc_pool");
+                break;
+            case QUANTIC:
+                title = sdlutils().texts().at("quantic_ballName_pool");
+                desc = sdlutils().texts().at("quantic_ballDesc_pool");
+                break;
+            default:
+                title = sdlutils().texts().at("normal_ballName_pool");
+                desc = sdlutils().texts().at("normal_ballDesc_pool");
+                break;
+        }
+
         description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         addComponent<BallInfoDisplayComponent>(description, 101, 
-                body_t{"Bola", "Bocalupo-Regular48", {255, 255, 255, 255}, scale*1.5f},
-                body_t{"Lore ipsum dolor sit amer bla bla bla descripcion super larga para ver si coge varias lineas", 
-                        "Aladin-Regular24", {255,255,255,255}, scale*1.5f}
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{desc.text, desc.font, desc.color, scale*1.5f}
                 , texture->width() * scale - 60
                 , -texture->width()/2 * scale, -texture->height()/2 * scale
             );
         description->deactivate();
     }
+}
+
+void PauseScene::createStickInfo(){
+    entity_t description;
+    b2Vec2 pos;
+
+    auto texture = &sdlutils().images().at("inventory_description_box");
+    float scale = static_cast<float>(*&sdlutils().svgs().at("inventory").at("ball_Info_0").width) / texture->width();
+
+    // FONDO
+    description = new Entity(*this, grp::STICK_INFO_BG);
+
+    auto svgElem = *&sdlutils().svgs().at("inventory").at("stick_info");
+    pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
+    pos.y -= 0.5;
+
+    addComponent<TransformComponent>(description, pos);
+    addComponent<RenderTextureComponent>(description, texture, 101, scale * 1.5f);
+
+    description->deactivate();
+
+    // TEXTO
+    // Añadir texto de recompensa / TODO: texto de partida de boss
+    // en función de _floorRewards[i]
+    Text title, desc;
+
+    switch(_stickID){
+        case GRENADE:
+            title = sdlutils().texts().at("grenade_stickName_pool");
+            desc = sdlutils().texts().at("grenade_stickDesc_pool");
+            break;
+        case DONUT:
+            title = sdlutils().texts().at("donut_stickName_pool");
+            desc = sdlutils().texts().at("donut_stickDesc_pool");
+            break;
+        case BOXING:
+            title = sdlutils().texts().at("boxing_stickName_pool");
+            desc = sdlutils().texts().at("boxing_stickDesc_pool");
+            break;
+        case WAND:
+            title = sdlutils().texts().at("wand_stickName_pool");
+            desc = sdlutils().texts().at("wand_stickDesc_pool");
+            break;
+        default:
+            title = sdlutils().texts().at("normal_stickName_pool");
+            desc = sdlutils().texts().at("normal_stickDesc_pool");
+            break;
+        }
+
+        description = new Entity(*this, grp::STICK_INFO_TEXT);
+        addComponent<TransformComponent>(description, pos);
+        addComponent<BallInfoDisplayComponent>(description, 101, 
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{desc.text, desc.font, desc.color, scale*1.5f}
+                , texture->width() * scale - 60
+                , -texture->width()/2 * scale, -texture->height()/2 * scale
+            );
+        description->deactivate();
 }
 
 void
@@ -176,6 +308,24 @@ PauseScene::hideBall(int i) {
 
     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->deactivate();
+}
+
+void
+PauseScene::showStick(){
+    auto stickInfo = getEntitiesOfGroup(grp::STICK_INFO_BG);
+    stickInfo[0]->activate();
+
+    stickInfo = getEntitiesOfGroup(grp::STICK_INFO_TEXT);
+    stickInfo[0]->activate();
+}
+
+void
+PauseScene::hideStick(){
+    auto stickInfo = getEntitiesOfGroup(grp::STICK_INFO_BG);
+    stickInfo[0]->deactivate();
+
+    stickInfo = getEntitiesOfGroup(grp::STICK_INFO_TEXT);
+    stickInfo[0]->deactivate();
 }
 
 void PauseScene::render(){

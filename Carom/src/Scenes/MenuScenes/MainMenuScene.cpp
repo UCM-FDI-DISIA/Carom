@@ -1,6 +1,7 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
 #include "ScenesManager.h"
+#include "TutorialScene.h"
 
 MainMenuScene::MainMenuScene(Game *g) 
     : UIScene(g)
@@ -26,14 +27,14 @@ void MainMenuScene::initObjects()
     entity_t a_bg = createBackground("menuBackground"); // mesa fondo.
 
     // ajustando fondo.
-    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y - PhysicsConverter::pixel2meter(147)};
+    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y};
     a_bg->getTransform()->setPosition(pos);
 
     // --- PANELES.
     std::vector<entity_t> pannels;
     //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); // [0]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU", false)); // [1]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle", false)); // [2]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); // [1]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); // [2]
     pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleSettings", "RectangleSettings", true)); // [4]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
@@ -44,6 +45,13 @@ void MainMenuScene::initObjects()
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
+    // Hacer que se pueda accionar el boton de Play
+    pannels[3]->getComponent<Button>()->setOnClick([this](){
+        // !!! SE CREA POOLSCENE
+        getGame()->getScenesManager()->pushScene(_poolScene);
+        TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
+        getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));
+    });  
 
     // TODO: Hacer que se pueda accionar el boton de Settings
     // TODO: Hacer que se pueda accionar el boton de Controls
@@ -51,10 +59,10 @@ void MainMenuScene::initObjects()
     
     // --- TEXTOS.
     std::vector<entity_t> texts;
-    texts.emplace_back(createSVGImage(SVGTag, "C", "C", false));
-    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls", false));
-    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits", false));
+    texts.emplace_back(createSVGImage(SVGTag, "C", "C"));
+    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM"));
+    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play"));
+    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings"));
+    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls"));
+    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits"));
 }

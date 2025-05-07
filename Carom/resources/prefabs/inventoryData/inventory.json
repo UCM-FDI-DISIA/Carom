@@ -12,9 +12,6 @@
                "effects": [
                   {
                      "componentName": "CristalEffect"
-                  },
-                  {
-                     "componentName": "CristalEffect"
                   }
                ]
             },
@@ -27,9 +24,6 @@
          {
             "atributes": {
                "effects": [
-                  {
-                     "componentName": "AbacusEffect"
-                  },
                   {
                      "componentName": "AbacusEffect"
                   }
@@ -46,9 +40,6 @@
                "effects": [
                   {
                      "componentName": "BowlingEffect"
-                  },
-                  {
-                     "componentName": "BowlingEffect"
                   }
                ]
             },
@@ -60,14 +51,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  },
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
@@ -78,9 +62,6 @@
          {
             "atributes": {
                "effects": [
-                  {
-                     "componentName": "PetanqueEffect"
-                  },
                   {
                      "componentName": "PetanqueEffect"
                   }
@@ -95,9 +76,6 @@
          {
             "atributes": {
                "effects": [
-                  {
-                     "componentName": "PetanqueEffect"
-                  },
                   {
                      "componentName": "PetanqueEffect"
                   }
@@ -115,7 +93,11 @@
                "explosionForce": 3,
                "radius": 1
             },
-            "componentName": "GrenadeLauncherStickEffect"
+            "componentName": "StickInputComponent"
+         },
+         {
+            "atributes": {},
+            "componentName": "MagicWandStickEffect"
          }
       ]
    }

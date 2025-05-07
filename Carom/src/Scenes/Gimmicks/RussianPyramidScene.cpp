@@ -29,8 +29,11 @@ RussianPyramidScene::RussianPyramidScene(Game* game, bool isBoss, State* state)
     , _nAvailablePyramids(5)
     , _allBalls()
 {
-    _isBoss = isBoss;
-    _boss = RUSSIAN_PYRAMID;
+    if(isBoss) 
+        _boss = RUSSIAN_PYRAMID;
+
+    else
+        _boss = NONE;
 }
 
 RussianPyramidScene::~RussianPyramidScene()
@@ -60,14 +63,6 @@ void RussianPyramidScene::initBoss()
 void RussianPyramidScene::createBoss(){
     tryInitializeBallArray();
 
-    //--Crear el indicador
-    _indicator = new Entity(*this, grp::BOSS_MODIFIERS);
-    addComponent<TransformComponent>(_indicator, b2Vec2_zero);
-    addComponent<FollowComponent>(_indicator, _currentWhiteBall, true, false, true, Vector2D(0, 0));
-
-    float wbScale = getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getScale().x / 2;
-    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, wbScale);
-
     //--Crear el jefe
     entity_t boss = new Entity(*this, grp::BOSS_HAND);
     addComponent<TransformComponent>(boss, startingHandPosition);
@@ -84,6 +79,10 @@ void RussianPyramidScene::createBoss(){
     // // addComponent<TransformComponent>(sombraJefe, b2Vec2{0,0});
     // // addComponent<RenderTextureComponent>(sombraJefe, &sdlutils().images().at("cowboy_hand_shadow"), renderLayer::BOSS_SHADOW_HAND, scale);
     // // addComponent<FollowComponent>(sombraJefe, boss, true,true,true, Vector2D{-0.05, -0.05});
+
+    auto shadow = addComponent<ShadowComponent>(boss);
+    shadow->addShadow(b2Vec2{-0.05f, -0.05f}, "russian_boss_shadow", renderLayer::BOSS_SHADOW, bossScale, true, true, true);
+
 
      CaromScene::instantiateBossTableShadow();
 }
@@ -410,8 +409,7 @@ RussianPyramidScene::changeWhiteBallAnimation() {
         tween->easePosition(handPos, .2f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
         getCamera()->shakeCamera(.2f, .3f, dir*-1);
 
-        auto follow = getComponent<FollowComponent>(_indicator);
-        follow->setTarget(_currentWhiteBall);
+        changeIndicator(_currentWhiteBall);
         _indicator->activateComponentsOfType<RenderComponent>();
 
         tween->easePosition(startingHandPosition, 1.0f, tween::EASE_IN_OUT_CUBIC, false, [=]() {_currentState->finish();});

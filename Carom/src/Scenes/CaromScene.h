@@ -70,8 +70,10 @@ protected:
     int _currentScore = 0, _roundScore = 0, _scoreToBeat = 1000; 
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
+    TextDisplayComponent* _roundScoreDisplay;
 public:
     TextDisplayComponent* createScoreUI();
+    TextDisplayComponent* createRoundScoreUI();
     TextDisplayComponent* createRemainingHitsUI();
     inline ColorHitManager* getColorHitManager() { return _hitManager; }
     inline double getRoundScore() {return _roundScore; }
@@ -88,7 +90,7 @@ public:
     void addPointsFromRound(); // Para mandar los puntos de ronda a la puntuación final
     
     inline bool roundWins() {return (_currentScore + _roundScore) >= _scoreToBeat; }
-        b2Vec2 distanceToWhiteBall(b2Vec2 point);
+    b2Vec2 distanceToWhiteBall(b2Vec2 point);
 
 //------------------------------MANAGERS-------------------------------------
 protected:
@@ -117,6 +119,7 @@ public:
 
     /// @brief Método para que rigidbody component reciba el id del body
     b2BodyId addBodyToWorld(b2BodyDef bodyDef);
+    b2RayResult castRayToWorld(b2Vec2 origin, b2Vec2 translation);
 
 //---------------------------ENTITY CREATION---------------------------------
 public:
@@ -152,7 +155,6 @@ public:
 
 protected:
     Boss _boss = Boss::NONE;
-    bool _isBoss = false;
     virtual void clearBossModifiers();
     virtual void applyBossModifiers(); // Implementar en cada subtipo de CaromScene
 
@@ -171,4 +173,13 @@ protected:
         int _fastForwardIterations = 10;
         bool _canRestart = false;
 #endif
+
+// -----------------INDICATOR----------------------
+public:
+    void changeIndicator(entity_t whiteBall);
+    void activateIndicator();
+    void deactivateIndicator();
+protected:
+    entity_t _indicator;
+    void createIndicator(entity_t whiteBall);
 };

@@ -26,5 +26,6 @@ RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
 
     createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
 
-    r->applyReward();
+    // TODO añadir este metodo en el callback de los botones de la UI
+    //r->applyReward();
 }

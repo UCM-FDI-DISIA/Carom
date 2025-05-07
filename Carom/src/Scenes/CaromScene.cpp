@@ -7,6 +7,7 @@
 #include "InputHandler.h"
 
 #include "TransformComponent.h"
+#include "FollowComponent.h"
 #include "RenderTextureComponent.h"
 #include "CircleRBComponent.h"
 #include "PolygonRBComponent.h"
@@ -32,6 +33,7 @@
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
+#include "RenderArrayComponent.h"
 
 #include "InventoryManager.h"
 #include "JsonEntityParser.h"
@@ -49,10 +51,17 @@ CaromScene::CaromScene( Game* game, State* s)
     : GameScene(game)
     , _updatePhysics(true)
     , _currentScore(0)
-    , _scoreToBeat(1000)
+    , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
 {
+    // Boss match requires a different score to beat
+    int baseScore;
+    if(isBossMatch()) baseScore = 20;
+    else baseScore = 10;
+
+    // Set the score to beat based on the current ante
+    setScoreToBeat(game->getProgressionManager()->getScoreToBeat(baseScore));
 }
 
 void CaromScene::init()
@@ -97,17 +106,19 @@ void CaromScene::initObjects()
         *&sdlutils().svgs().at("game").at("bola_blanca").x,
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
-    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    auto ball = createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    createIndicator(ball);
         
     // EFFECT BALLS
     createEffectBalls();
 
     // Create table with texture and colliders
     createTable();
-    
+    getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 191, 255);
     createBackground("suelo");
 
     _currentScoreDisplay = createScoreUI();
+    _roundScoreDisplay = createRoundScoreUI();
     _remainingHitsDisplay = createRemainingHitsUI();
 }
 
@@ -132,9 +143,12 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     e->getComponent<Button>()->setOnClick([this](){
         for (auto& e : getEntitiesOfGroup(grp::PALO)) {
             e->activate();
+
             e->getComponent<RenderTextureComponent>()->setEnabled(false);
             e->getComponent<ShadowComponent>()->setEnabled(false);
         }
+        for (auto& e : getEntitiesOfGroup(grp::AIM_LINE))
+            e->activate();
     });
 
     addComponent<BallHandler>(e);
@@ -150,7 +164,6 @@ entity_t CaromScene::createStick()
 {
     return InventoryManager::Instance()->getStick(*this);
 }
-
 
 /// @brief Creates and randomly places as many effect balls as specified
 /// @param n Number of balls to place
@@ -213,11 +226,10 @@ void CaromScene::createBallShadow(entity_t entity){
         PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
     };
     comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
-
 }
 
 void CaromScene::createScoreEntity(){
-    //primer score
+    //current score
     entity_t e = new Entity(*this, grp::SCORE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
@@ -231,7 +243,7 @@ void CaromScene::createScoreEntity(){
     addComponent<TransformComponent>(e, pos);
     addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
-    //segundo score
+    // score to beat
 
     entity_t e1 = new Entity(*this, grp::SCORE);
 
@@ -242,6 +254,18 @@ void CaromScene::createScoreEntity(){
 
     addComponent<TransformComponent>(e1, pos1);
     addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
+
+    // round score
+
+    entity_t e2 = new Entity(*this, grp::SCORE);
+
+    b2Vec2 pos2 = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("game").at("roundScoreSpriteL").x,
+        *&sdlutils().svgs().at("game").at("roundScoreSpriteL").y
+    );
+
+    addComponent<TransformComponent>(e2, pos2);
+    addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
 
 }
 
@@ -280,7 +304,10 @@ CaromScene::~CaromScene()
 {
     if(isInitialized()) 
     {
-        if(_currentState != nullptr) delete _currentState;
+        if(_currentState != nullptr) {
+            delete _currentState;
+            _currentState = nullptr;
+        }
 
         // Deletes entities before destroyWorld
         clearEntities();
@@ -289,6 +316,7 @@ CaromScene::~CaromScene()
         b2DestroyWorld(_myB2WorldId);
     
         delete _hitManager;
+        _hitManager = nullptr;
     }
 }
 
@@ -390,6 +418,11 @@ void CaromScene::update()
 
 b2BodyId CaromScene::addBodyToWorld(b2BodyDef bodyDef){
     return b2CreateBody(_myB2WorldId, &bodyDef);
+}
+
+b2RayResult 
+CaromScene::castRayToWorld(b2Vec2 origin, b2Vec2 translation) {
+    return b2World_CastRayClosest(_myB2WorldId, origin, translation, b2DefaultQueryFilter());
 }
 
 void CaromScene::drawCircle(SDL_Renderer *renderer, int32_t centreX, int32_t centreY, int32_t radius)
@@ -582,10 +615,26 @@ CaromScene::createScoreUI() {
     return currentDisplay;
 }
 
+TextDisplayComponent*
+CaromScene::createRoundScoreUI(){
+
+    entity_t roundScoreObject = new Entity(*this, grp::SCORE);
+
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("game").at("roundScoreTextL").x,
+        *&sdlutils().svgs().at("game").at("roundScoreTextL").y
+    );
+
+    roundScoreObject->addComponent(new TransformComponent(roundScoreObject, pos));
+    TextDisplayComponent* roundDisplay = new TextDisplayComponent(roundScoreObject, renderLayer::SCORE, 1, "0", 
+        {255, 255, 255, 255}, "Basteleur-Moonlight48");
+    roundScoreObject->addComponent(roundDisplay);
+
+    return roundDisplay;
+}
 void CaromScene::addScore(int score) {
     _roundScore += score;
-    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
-    // TODO Set the round points diplay
+    _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
 }
 
 void CaromScene::addToTotalScore(int score) {
@@ -595,8 +644,7 @@ void CaromScene::addToTotalScore(int score) {
 
 void CaromScene::removeScore(int score) {
     _roundScore -= score;
-    //_currentScoreDisplay->setDisplayedText(std::to_string(_currentScore));
-    // TODO Set the round points display
+    _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
 }
 
 void CaromScene::removeFromTotalScore(int score) {
@@ -651,19 +699,56 @@ CaromScene::loadFromInventory() {
 void CaromScene::instantiateBossTableShadow(){
     Entity* boss = new Entity(*this, grp::BOSS_SHADOW);
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
-    auto tr = addComponent<TransformComponent>(boss, pos);
+    auto tr = addComponent<TransformComponent>(boss, b2Vec2{2.f,2.f});
     tr->setRotation(25);
     Texture* bossImage = nullptr;
     switch(_boss){
         case Boss::COWBOY_POOL:
             bossImage = &sdlutils().images().at("cowboy_table_shadow");
             break;
+        case Boss::RUSSIAN_PYRAMID:
+            bossImage = &sdlutils().images().at("pyramid_table_shadow");
+            break;
         default:
-            bossImage = &sdlutils().images().at("cowboy_table_shadow");
+            bossImage = &sdlutils().images().at("pyramid_table_shadow");
             break;
     }
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
-    addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+
+    auto tweens = addComponent<TweenComponent>(boss);
+    tweens->easePosition(pos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+        addComponent<RandomVibrationComponent>(boss, .05f, 1.f);
+    });
+
+    
 }
+
+void 
+CaromScene::createIndicator(entity_t whiteBall) {
+    _indicator = new Entity(*this, grp::FEEDBACK);
+    addComponent<TransformComponent>(_indicator, b2Vec2_zero);
+    addComponent<FollowComponent>(_indicator, whiteBall, true, false, false, Vector2D(0, 0));
+
+    float wbScale = whiteBall->getTransform()->getScale().x / 2;
+    addComponent<RenderTextureComponent>(_indicator, &sdlutils().images().at("russian_indicator"), renderLayer::RUSSIAN_PYRAMID_INDICATOR, wbScale);
+}
+
+void 
+CaromScene::changeIndicator(entity_t whiteBall) {
+    getComponent<FollowComponent>(_indicator)->setTarget(whiteBall);
+}
+
+void 
+CaromScene::activateIndicator() {
+    _indicator->activate();
+}
+
+void 
+CaromScene::deactivateIndicator() {
+    _indicator->deactivate();
+}
+
+
+

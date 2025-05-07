@@ -6,6 +6,8 @@
 #include "RigidBodyComponent.h"
 #include "TransformComponent.h"
 #include "RenderTextureComponent.h"
+#include "RenderArrayComponent.h"
+#include "CaromScene.h"
 #include "ShadowComponent.h"
 #include "algorithm"
 #include <cmath>
@@ -18,13 +20,14 @@
 /*
 - La bola blanca tiene un radio para detectar el raton
 - Una vez tu raton cumple estar centro de la circunferencia formada por ese radio y el centro de la bola aparece el palo colocado en base al vector formado por el raton y el centro de la bola
-- En el momento que hagas click se queda fijado el vector de dirección y el palo se mueve hacia a lante o hacia atras según la proyeccion del ratón sobre el vector de disparo
 - En el momento que se suelte el clic se llama a generar la fuerza sobre la bola en base al modulo entre el palo al centro de la bola
 */
 
 // Hay que pasarle el rectangulo para la deteccion de clics.
 StickInputComponent::StickInputComponent(Entity* e) : HandleEventComponent(e), _myEffect(nullptr)
-{ }
+{ 
+    _myCaromScene = dynamic_cast<CaromScene*>(&e->getScene());
+}
 
 // Rigidbody hereda de transform. Rigidbody es un transform.
 void StickInputComponent::init(){
@@ -53,10 +56,18 @@ void StickInputComponent::handleEvent()
     
     // Controls position and rotation of the transform
     transformControl(_mousePos, dir);
+
+    // Controla posicion de la linea de apuntado y asigna longitud
+    aimLineTransformControl(dir);
     
     //si dentro del comportamiento se ha soltado el boton izquierdo del raton
     if(_ih->mouseButtonUpEvent() && _ih->getMouseButtonState(InputHandler::MOUSEBUTTON::LEFT) == 0)
     {
+        if (_aimLine != nullptr)
+        {
+            _aimLine->getComponent<RenderArrayComponent>()->setLength(0.0);
+        }
+
         if(!isMouseOnCircleRadius(_minRadiusToPull)){
 
             if(dir.magnitude() > _maxRadiusToPull) dir = dir.normalize() * _maxRadiusToPull;
@@ -147,6 +158,36 @@ void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
     _myEntity->getComponent<ShadowComponent>()->setEnabled(true);
 }
 
+void StickInputComponent::aimLineTransformControl(Vector2D dir)
+{
+    if (_aimLine != nullptr && _myCaromScene != nullptr)
+    {
+        float a_cosalpha = dir.normalize() * Vector2D(1, 0);
+        float a_sinalpha = dir.normalize() * Vector2D(0, 1);
+    
+        float a_ballRadius = 
+            PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+    
+        b2Vec2 a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
+            _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
+    
+        b2Vec2 a_physical_lineStart = b2Vec2(a_ballCenter.x + a_cosalpha * a_ballRadius, 
+            a_ballCenter.y + a_sinalpha * a_ballRadius);
+
+        b2RayResult rayResult = _myCaromScene->castRayToWorld(a_ballCenter, b2Vec2((a_ballCenter.x + a_cosalpha * 100.f), 
+            (a_ballCenter.y + a_sinalpha * 100.f)));
+
+        // Si alguien pregunta por como va esta mierda, ya ni se como va, maldigo a la geometría
+
+        _aimLine->getComponent<RenderArrayComponent>()->
+            setLength(PhysicsConverter::meter2pixel(b2Length(rayResult.point - a_physical_lineStart)));
+            
+        _aimLine->getComponent<TransformComponent>()->setPosition(a_physical_lineStart);
+        _aimLine->getComponent<TransformComponent>()->setRotation(rad2degrees(atan2(a_sinalpha, a_cosalpha)));
+        
+    }
+}
+
 double StickInputComponent::rad2degrees(double radians){
     return radians * (180.0f / M_PI);
 }
@@ -161,4 +202,9 @@ void StickInputComponent::registerWhiteBall(entity_t wb)
 
 void StickInputComponent::registerStickEffect(StickEffectComponent* effect) {
     _myEffect = effect;
+}
+
+void StickInputComponent:: registerAimLine(entity_t aL)
+{
+    _aimLine = aL;
 }

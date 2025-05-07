@@ -23,6 +23,7 @@ Game::Game() {}
 Game::~Game() 
 {
     delete _sceneManager; // HAS TO BE FIRST
+    delete _progressionManager;
     _mainMenuScene.reset();
 
     if (RNG_Manager::HasInstance())
@@ -77,6 +78,9 @@ Game::start()
 {
     unsigned seed = RNG_Manager::Instance()->randomRange(1, 1000000); 
     RNG_Manager::Instance()->inseminate(seed);
+
+    _progressionManager = new ProgressionManager();
+    _progressionManager->setBossesList();
 
     _sceneManager = new ScenesManager();    
     _mainMenuScene = std::make_shared<MainMenuScene>(this);
