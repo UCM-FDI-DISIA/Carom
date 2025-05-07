@@ -335,7 +335,6 @@ void CaromScene::handleEvent()
         _canRestart = false;
         game->requestRestart();
     }
-    #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_l)){ 
         // Al presionar la "L" te lleva a la escena de perder.
@@ -349,6 +348,7 @@ void CaromScene::handleEvent()
             // para activar invokeLose();
             _remainingHits = 0;
     }
+    #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
         // Al presionar la "W" te lleva a la escena de ganar.

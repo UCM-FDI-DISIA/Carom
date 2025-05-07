@@ -11,7 +11,7 @@ EndGameScene::EndGameScene(Game *g) : UIScene(g)
     createText("Has PERDIDO.", // text
         sdlutils().width()/2, // x
         sdlutils().height()/2, // y
-        3 // size
+        2.5 // size
     );
 
     // Para cuando este la MainMenu scene, habria que ponerla aqui.

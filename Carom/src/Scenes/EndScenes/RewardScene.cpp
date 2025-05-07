@@ -10,11 +10,45 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
 
     createTable();
 
+    // mitad de la pantalla en x.
+    int midWinX = sdlutils().width()/2;
+
     createText("¡Has GANADO!", // text
-        sdlutils().width()/2, // x
-        sdlutils().height()/2, // y
-        3 // size.
+        midWinX, // x
+        sdlutils().height()/3, // y
+        2 // size.
     );
+
+    
+    std::string r0, r1, r2;
+    r0 = "Tu recompensa es:";
+    r1 = "Recompensa";
+    r2 = "Tipo";
+
+    createText(
+        r0, 
+        midWinX, 
+        sdlutils().height()/2.25, 
+        1.5
+    );
+
+    createText(
+        r1, 
+        midWinX, 
+        sdlutils().height()/2 + 25, 
+        1.5,
+        {102, 0, 0, 255}
+    );
+
+    createText(
+        r2, 
+        midWinX, 
+        sdlutils().height()/2 + 115, 
+        1.5,
+        {194, 197, 204, 255}
+    );
+
+
 
     std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
 

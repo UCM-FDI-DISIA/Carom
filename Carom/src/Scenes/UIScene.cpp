@@ -38,7 +38,7 @@ void UIScene::createTable()
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);
 }
 
-void UIScene::createText(std::string text, int x, int y, int size)
+void UIScene::createText(std::string text, int x, int y, int size, SDL_Color color)
 {
     entity_t winContainer = new Entity(*this, grp::SCORE);
 
@@ -50,7 +50,7 @@ void UIScene::createText(std::string text, int x, int y, int size)
         renderLayer::SCORE,     // capa renderizado
         size,                   // tamano fuente
         text,                   // text
-        {255, 255, 255, 255},   // color (blanco)
+        color,   // color (blanco)
         "Basteleur-Moonlight60" // fuente
     );
     winContainer->addComponent(currentDisplay);
