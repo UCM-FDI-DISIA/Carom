@@ -24,6 +24,8 @@ protected:
     void createSVGText(std::string id){}
     entity_t createSVGImage(std::string svg, std::string tag, std::string image, bool isButton);
 
+    void createButton(int x, int y, std::string text, Texture* t, std::function<void ()> cb);
+
 public:
     UIScene(Game *g) : GameScene(g) {} // para cuando se gana (hay reward).
     virtual ~UIScene() = default;

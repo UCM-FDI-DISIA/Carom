@@ -3,6 +3,7 @@
 #include <utility>
 
 #include "Reward.h"
+#include "InventoryManager.h"
 
 using strength = int;
 using skillType = int;
@@ -30,9 +31,36 @@ public:
         //     skill(sk , ...),
         //     skill(st , ...)
         // );
+
+        // temporal
+        _skills = std::make_pair(
+                skill(HitEase, 5), 
+                skill(ComboEase, 5)
+            );
     }
 
     void applyReward() override {
+        // Creación de botones
+        // g->createButton(sdlutils().svgs().at("...").at("...").x, sdlutils().svgs().at("...").at("...").y, "Completo")
+        // Selección de recompensa
+        // skill selected;
+
         // TODO selección de skill y añadirlo al inventario
+
+    }
+
+    void rewardToInventory(skill s) {
+        auto inv = InventoryManager::Instance();
+        switch(s.first) {
+            case SkillType::HitEase:
+                inv->setHitEase(inv->getHitEase() + s.second);
+                break;
+            case SkillType::ComboEase:
+                inv->setComboEase(inv->getComboEase() + s.second);
+                break;
+            case SkillType::CaromEase:
+                inv->setCaromEase(inv->getCaromEase() + s.second);
+                break;
+        }
     }
 };

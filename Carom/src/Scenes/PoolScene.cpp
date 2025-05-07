@@ -48,11 +48,11 @@ PoolScene::~PoolScene()
     // Como son shareds los punteros ya no hace falta esta movida
 }
 
-void PoolScene::initFunctionalities()
-{
-    // _reward = std::make_shared<RewardScene>(game);
-    _scene = std::make_shared<RussianPyramidScene>(game, true);
-}
+// void PoolScene::initFunctionalities()
+// {
+//     // _reward = std::make_shared<RewardScene>(game);
+//     _scene = std::make_shared<RussianPyramidScene>(game, true);
+// }
 
 void PoolScene::initObjects()
 {
@@ -81,47 +81,25 @@ void PoolScene::generateMatchHoles()
 
         auto button = hole->getComponent<Button>();
 
-        if(i == _bossHole){ // --- POSICION BOSS.
-            //createSceneButton(pos.x, pos.y, ms, grp::POOL_HOLE, renderLayer::POOL_HOLE, "hole", 0.2f)
+
+        button->setOnClick([=](){
+            hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
             
-            button->setOnClick([=](){
-                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
-                
-                // ! LEAK
-                // NullState* state = new NullState(nullptr);
+            // ! LEAK
+            // NullState* state = new NullState(nullptr);
 
-                // // !!! CREA BOSSSCENE(CAMBIAR).
-                // UIScene* rewardScene = new RewardScene(game);
-                // // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
-                // RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst 
-                // ms->init();
+            // // !!! CREA BOSSSCENE(CAMBIAR).
+            // UIScene* rewardScene = new RewardScene(game);
+            // // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst 
+            // RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst 
+            // ms->init();
 
-                std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(_scene);
-            });
-        }
-        else{ // --- POSICION COLORES.
-            button->setOnClick([=](){
-                hole->_components[cmp::BUTTON]->setEnabled(false); // Deshabilita el agujero si se ha jugado la partida
-                hideReward(i);
-                
-                // ! LEAK
-                // NullState* state = new NullState(nullptr);
-                
-                // RewardScene* rs = new RewardScene(game);
-
-                // // !!! CREA RUSSIAN PYRAMID(CAMBIAR).
-                // UIScene* rewardScene = new RewardScene(game);
-                // // CowboyPoolScene *ms = new CowboyPoolScene(game, rewardScene, true); // ! tst  
-                // RussianPyramidScene *ms = new RussianPyramidScene(game, state, true); // ! tst  
-                // ms->init();
-
-                std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
-                game->getScenesManager()->pushScene(rs);
-                game->getScenesManager()->pushScene(_scene);
-            });
-        }
+            std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
+            game->getScenesManager()->pushScene(rs);
+            game->getScenesManager()->pushScene(std::make_shared<RussianPyramidScene>(game, i == _bossHole));
+        });
+        
+        
 
         button->setOnHover([this, i]() {
             #ifdef _DEBUG
