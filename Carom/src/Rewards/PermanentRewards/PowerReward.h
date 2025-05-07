@@ -9,11 +9,13 @@ protected:
 
 public:
     PowerReward() : Reward("power", Type::PERMANENT) {
-        // _value = rng.getRndRange(...)
+        auto rng = RNG_Manager::Instance();
+        rng->randomRange(10,51);
     }
 
     void applyReward() override {
-        // TODO aplicar poder al inventario
-        // InventoryManager::Instance()->addPower();
+        auto inv = InventoryManager::Instance();
+
+        inv->setPower(inv->getPower() + _value);
     }
 };
