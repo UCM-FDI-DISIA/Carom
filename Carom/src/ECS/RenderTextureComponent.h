@@ -15,9 +15,6 @@ protected:
     float _scale; // scale de la textura (no su physical body)
     bool _isPortion = false; // If the rect is a portion of a rect
 
-    SDL_Color _defaultColor;
-    SDL_Color _color = {255,255,255,0};
-
     SDL_Rect _absCenteredRect;
 
     // See ecs.h for layers enum

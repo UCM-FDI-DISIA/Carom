@@ -24,7 +24,7 @@ void HoleComponent::onTriggerEnter(entity_t other)
     if(_isEmpty && other->tryGetComponent<RigidBodyComponent>()) { 
         _contextEntt = other;
         _contextRB = _contextEntt->getComponent<RigidBodyComponent>();
-        _contextRender = _contextEntt->getComponent<RenderTextureComponent>();
+        _contextRender = _contextEntt->getRenderer();
     }
 }
 

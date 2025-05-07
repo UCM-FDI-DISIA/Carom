@@ -76,11 +76,11 @@ PoolScene::~PoolScene()
     // Como son shareds los punteros ya no hace falta esta movida
 }
 
-void PoolScene::initFunctionalities()
-{
-    _reward = std::make_shared<RewardScene>(game);
-    _scene = std::make_shared<RussianPyramidScene>(game, false);
-}
+// void PoolScene::initFunctionalities()
+// {
+//     // _reward = std::make_shared<RewardScene>(game);
+//     _scene = std::make_shared<RussianPyramidScene>(game, true);
+// }
 
 void PoolScene::initObjects()
 {
@@ -112,6 +112,7 @@ void PoolScene::generateMatchHoles()
     // coloca los agujeros de partida
     for(int i = 0; i < POSITIONS; i++){
         entity_t hole = generateHole(i);
+
         _holes.push_back(hole);
     }
 }
@@ -213,6 +214,7 @@ PoolScene::createRewardInfo() {
 
         rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
         rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        
 
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
@@ -428,7 +430,7 @@ PoolScene::createCallbacks() {
                     }
                 }
                 
-                std::shared_ptr<RewardScene> rs = std::make_shared<RewardScene>(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
+                std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
 
@@ -438,6 +440,14 @@ PoolScene::createCallbacks() {
             });
         });
 
+        holeButton->setOnHover([this, i]() {
+            showReward(i);
+        });
+
+        holeButton->setOnExit([this, i]() {
+            hideReward(i);
+        });
+        
         ballButton->setOnClick(holeButton->getOnClick());
 
         // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
@@ -453,13 +463,6 @@ PoolScene::createCallbacks() {
             scrollBallEffect(i);
         });
 
-        holeButton->setOnHover([this, i]() {
-            showReward(i);
-        });
-
-        holeButton->setOnExit([this, i]() {
-            hideReward(i);
-        });
     }
 }
 

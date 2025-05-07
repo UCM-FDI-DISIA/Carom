@@ -128,11 +128,20 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
 
     Texture* TEX = &sdlutils().images().at(textureKey);
 
-    // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
-    addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale, 
-        Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
+    if (textureKey != "bola_blanca") { //guapisimo string typing
+        // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
+        addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), 
+            renderLayer::EFFECT_BALL, scale, Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
 
-    addComponent<BallRollerAnimatorComponent>(e);
+        addComponent<BallRollerAnimatorComponent>(e);
+    }
+    else {
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), 
+            renderLayer::EFFECT_BALL, scale);
+
+        e->getComponent<RenderTextureComponent>()->changeColorTint(
+            std::rand() % 2 * 255, std::rand() % 2 * 255, std::rand() % 2 * 255);
+    }
 
     // SCORE
     addComponent<ColorBallScorerComponent>(e);

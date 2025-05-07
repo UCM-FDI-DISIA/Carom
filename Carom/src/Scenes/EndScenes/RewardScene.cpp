@@ -4,7 +4,7 @@
 
 // TODO: refactorizar -> recibir recompensa
 
-RewardScene::RewardScene(Game *g) : UIScene(g)
+RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
 {
     createBackground("suelo");
 
@@ -20,10 +20,10 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
     );
 
     
-    std::string r0, r1, r2;
+    std::string r0, rName, rType;
     r0 = "Tu recompensa es:";
-    r1 = "Recompensa";
-    r2 = "Tipo";
+    rName = r->getName();
+    rType = r->getType();
 
     createText(
         r0, 
@@ -33,7 +33,7 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
     );
 
     createText(
-        r1, 
+        rName, 
         midWinX, 
         sdlutils().height()/2 + 25, 
         1.5,
@@ -41,7 +41,7 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
     );
 
     createText(
-        r2, 
+        rType, 
         midWinX, 
         sdlutils().height()/2 + 115, 
         1.5,
@@ -59,5 +59,8 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         game->getScenesManager()->popScene(); // Poppea la win.
     }); 
 
-    createSVGImage("win", "rewardButtonText", "rewardButtonText");
+    createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
+
+    // TODO añadir este metodo en el callback de los botones de la UI
+    //r->applyReward();
 }
