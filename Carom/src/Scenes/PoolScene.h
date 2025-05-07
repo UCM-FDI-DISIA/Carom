@@ -84,6 +84,7 @@ protected:
     void initRandomEffects();
     void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);
     std::string getTextureName(EffectType effect);
+    std::string getEffectName(EffectType effect);
 
     // ----------
 

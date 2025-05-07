@@ -12,7 +12,7 @@ class HoleComponent : public ForceAreaComponent
 protected:
     entity_t _contextEntt;
     RigidBodyComponent* _contextRB;
-    RenderTextureComponent* _contextRender;
+    RenderComponent* _contextRender;
 
     bool _isEmpty;
     float _maxVelocityToFall;
