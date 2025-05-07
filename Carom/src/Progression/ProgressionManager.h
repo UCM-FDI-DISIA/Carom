@@ -37,12 +37,12 @@ public:
         int boss = _bossesList.front();
         _bossesList.push(boss);
         _bossesList.pop();
+        if(ante % _bosses.size() == 0) setBossesList();
         return boss;
     }
 
 private:
     int ante = 0;
-    int currentBoss = 0;
     const std::vector<int> _bosses = {0,1};
 
     std::queue<int> _bossesList = std::queue<int>();

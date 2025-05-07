@@ -36,18 +36,6 @@ public:
     Texture* getTexture() {return _texture;};
     void setTexture(Texture* tex);
 
-    void setRenderLayer(layerId_t layer);
-    // To go deeper/down n layers
-    void nDownRenderLayer(int n) { _renderLayer -= n; }
-    // To come closer/up n layers
-    void nUpRenderLayer(int n) { _renderLayer += n; }
-    void resetRenderLayer();
-
-    void changeColorTint(int r, int g, int b);
-    void resetColorTint();
-
-    inline int getRenderLayer() {return _renderLayer; };
-
     inline float getScale(){return _scale;}
     inline void setScale(float s) {_scale = s;}
 

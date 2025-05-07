@@ -88,6 +88,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Tweens
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
+    ${CMAKE_SOURCE_DIR}/src/Feedback
 	${CMAKE_SOURCE_DIR}/src/Rewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
@@ -125,6 +126,7 @@ add_executable(Carom
     src/SceneSystem/ScenesManager.cpp
     src/ECS/CameraComponent.cpp
 
+    src/ECS/RenderComponent.cpp
 	src/ECS/TransformComponent.cpp
 	src/ECS/RigidBodyComponent.cpp
 	src/ECS/JsonEntityParser.cpp
@@ -152,6 +154,7 @@ add_executable(Carom
 	
 	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
+    src/Animator/BallRollerAnimatorComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 
@@ -185,7 +188,6 @@ add_executable(Carom
 	src/Ball/ExplosiveEffect.cpp
 	src/Ball/FrictionMultiplierEffect.cpp
 	src/Ball/PopToOppositeSideEffect.cpp
-
 
 	src/ECS/BoxingGloveStickEffect.cpp
 	src/ECS/MagicWandStickEffect.cpp
@@ -234,6 +236,8 @@ add_executable(Carom
     src/Scenes/HelperScene.cpp
     src/Scenes/TextHelperScene.cpp
     src/Progression/ProgressionManager.cpp
+    
+    src/Feedback/RenderArrayComponent.cpp
 )
 
 # Link Box2D
