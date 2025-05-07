@@ -10,7 +10,7 @@ protected:
 public:
     CharismaReward() : Reward("charisma", Type::PERMANENT) {
         auto rng = RNG_Manager::Instance();
-        rng->randomRange(10,51);
+        _value = rng->randomRange(10,51);
     }
 
     void applyReward() override {
