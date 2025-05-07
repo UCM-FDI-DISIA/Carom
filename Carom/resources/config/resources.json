@@ -104,7 +104,9 @@
       {"id": "shot", "file": "../../resources/sound/shot.mp3"},
       {"id": "revolver_spin", "file": "../../resources/sound/spin.mp3"},
       {"id": "hit", "file": "../../resources/sound/hit.wav"},
-      {"id": "magic_touch", "file": "../../resources/sound/magic_touch.mp3"}
+      {"id": "magic_touch", "file": "../../resources/sound/magic_touch.mp3"},
+      {"id": "drawer_open", "file": "../../resources/sound/drawer_open.wav"},
+      {"id": "drawer_close", "file": "../../resources/sound/drawer_close.wav"}
   ],
 
   "musics" : [
