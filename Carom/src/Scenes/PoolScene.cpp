@@ -24,6 +24,7 @@
 #include "CharismaReward.h"
 #include "PowerReward.h"
 #include "CunningReward.h"
+#include "AudioManager.h"
 // #include ...Reward.h
 
 #include "Game.h"
@@ -37,6 +38,8 @@ PoolScene::PoolScene(Game* g) : UIScene(g)
 {
     createPauseEntity();
     _rngm = new RNG_Manager();
+    _am = AudioManager::Instance();
+    _am->changeToPauseTheme();
 
     // Create table with texture and colliders
     createBackground("suelo");

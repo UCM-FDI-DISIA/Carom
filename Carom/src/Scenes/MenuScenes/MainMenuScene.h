@@ -4,7 +4,7 @@
 class AudioManager;
 class ScenesManager;
 class MainMenuScene: public UIScene {
-    AudioManager* am;
+    AudioManager* _am;
 public:
     MainMenuScene(Game* g);
     virtual ~MainMenuScene() = default;

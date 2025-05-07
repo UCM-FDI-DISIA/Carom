@@ -33,20 +33,10 @@ MainMenuScene::MainMenuScene(Game *g) : UIScene(g)
         getGame()->getScenesManager()->pushScene(ms);
     });  
 
-
-    //Esto no tiene que llegar a develop, es para debug
-    am = AudioManager::Instance();
-    pannels[3]->getComponent<Button>()->setOnClick([this](){
-        am->playMusicTrack(MAIN_THEME);
-        am->playMusicTrack(PAUSE_THEME);
-        am->setVolumeMusicTrack(MAIN_THEME, 0);
-    });
-    pannels[4]->getComponent<Button>()->setOnClick([this](){
-        am->changeToMainTheme();
-    });
-    pannels[5]->getComponent<Button>()->setOnClick([this](){
-        am->changeToPauseTheme();
-    });
+    //Empieza la musica
+    _am = AudioManager::Instance();
+    _am->changeToPauseTheme();
+    _am->playMusicTrack(PAUSE_THEME);
 
     // TODO: Hacer que se pueda accionar el boton de Settings
     // TODO: Hacer que se pueda accionar el boton de Controls

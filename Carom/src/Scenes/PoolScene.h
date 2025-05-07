@@ -7,7 +7,7 @@
 #include "UIScene.h"
 #include "Reward.h"
 
-
+class AudioManager;
 class ScenesManager;
 class RNG_Manager;
 
@@ -21,6 +21,7 @@ protected:
         };
 
 
+    AudioManager* _am;
     RNG_Manager* _rngm; // random manager
     b2WorldId _myB2WorldId; //El mundo de box2D
 
