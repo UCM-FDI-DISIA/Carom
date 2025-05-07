@@ -54,17 +54,21 @@ CaromScene::CaromScene( Game* game, State* s)
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
 {
+}
+
+void CaromScene::init()
+{
     // Boss match requires a different score to beat
     int baseScore;
     if(isBossMatch()) baseScore = 20;
     else baseScore = 10;
 
+    baseScore *= InventoryManager::Instance()->getCunning();
+    _currentScore = InventoryManager::Instance()->getCharisma();
+
     // Set the score to beat based on the current ante
     setScoreToBeat(game->getProgressionManager()->getScoreToBeat(baseScore));
-}
 
-void CaromScene::init()
-{
     initFunctionalities();
     initGimmick();
     initObjects();
