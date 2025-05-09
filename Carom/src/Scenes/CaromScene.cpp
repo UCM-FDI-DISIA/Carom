@@ -18,6 +18,7 @@
 #include "TextDisplayComponent.h"
 #include "ColorBallScorerComponent.h"
 #include "RNG_Manager.h"
+#include "AudioManager.h"
 #include "RandomItem.h"
 #include "StartMatchState.h"
 #include "BallHandler.h"
@@ -33,7 +34,6 @@
 #include "EndGameScene.h"
 #include "ScenesManager.h"
 #include "WinMatchState.h"
-#include "AudioManager.h"
 #include "RenderArrayComponent.h"
 
 #include "InventoryManager.h"
@@ -57,7 +57,6 @@ CaromScene::CaromScene( Game* game, State* s)
     , _rngManager(RNG_Manager::Instance())
     , _remainingHits(10 + InventoryManager::Instance()->getPower())
 {
-    AudioManager::Instance()->changeToMainTheme();
 }
 
 void CaromScene::init()
@@ -82,6 +81,8 @@ void CaromScene::init()
     setNewState(new StartMatchState(this));
 
     _initialized = true;
+
+    AudioManager::Instance()->changeToMainTheme();
 }
 
 void CaromScene::initFunctionalities()

@@ -6,8 +6,6 @@
 #include "UIScene.h"
 #include "Reward.h"
 
-class AudioManager;
-
 #include <memory>
 
 class ScenesManager;
@@ -23,7 +21,6 @@ protected:
         };
 
 
-    AudioManager* _am;
     RNG_Manager* _rngm; // random manager
 
     // std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena

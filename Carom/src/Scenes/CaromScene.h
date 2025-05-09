@@ -16,12 +16,14 @@ class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
 class StickInputComponent;
+class AudioManager;
 
     
 class CaromScene: public GameScene {
 //--------------------BASIC SCENE FUNCTIONALITY------------------------
 protected:
     int _remainingHits = 10;
+
     ScenesManager* _sceneManager;
     std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 

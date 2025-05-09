@@ -71,8 +71,6 @@ PoolScene::PoolScene(Game* game)
     , _rngm(RNG_Manager::Instance())
 {
     createPauseEntity();
-    _am = AudioManager::Instance();
-    _am->changeToPauseTheme();
 
     // Create table with texture and colliders
     createBackground("suelo");
@@ -110,6 +108,8 @@ void PoolScene::initObjects()
     createBallInfoText();
 
     createCallbacks();
+
+    AudioManager::Instance()->changeToPauseTheme();
 }
 
 void PoolScene::generateMatchHoles()

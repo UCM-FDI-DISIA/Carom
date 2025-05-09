@@ -16,6 +16,7 @@
 #include <fstream>
 #include "BallInfoDisplayComponent.h"
 #include "Button.h"
+#include "AudioManager.h"
 
 using body_t = BallInfoDisplayComponent::Body;
 

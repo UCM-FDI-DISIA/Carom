@@ -56,9 +56,11 @@ void MainMenuScene::initObjects()
 
     //Empieza la musica
     _am = AudioManager::Instance();
-    _am->changeToPauseTheme();
+    
     _am->playMusicTrack(PAUSE_THEME);
+    _am->playMusicTrack(MAIN_THEME);
 
+    _am->changeToPauseTheme();
     // TODO: Hacer que se pueda accionar el boton de Settings
     // TODO: Hacer que se pueda accionar el boton de Controls
     // TODO: Hacer que se pueda accionar el boton de Credits
