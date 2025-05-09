@@ -15,7 +15,7 @@ WinMatchState::WinMatchState(CaromScene* scene) : State(scene)
 void WinMatchState::onStateEnter(){
     #ifndef _DEBUG
     #endif
-    AudioManager::Instance()->changeToPauseTheme();
+    //AudioManager::Instance()->changeToPauseTheme();
     InventoryManager::Instance()->saveBalls(_scene->getEntitiesOfGroup(grp::EFFECTBALLS));
     //deberia popear escena
     //auto scene = _scene->getRewardScene();

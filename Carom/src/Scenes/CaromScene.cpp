@@ -328,6 +328,7 @@ CaromScene::~CaromScene()
     
         delete _hitManager;
         _hitManager = nullptr;
+        AudioManager::Instance()->changeToPauseTheme();
     }
 }
 

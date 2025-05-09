@@ -44,6 +44,7 @@ class PauseScene: public GameScene{
 public:
 
     PauseScene(Game* game, GameScene* sceneToRenderOnTop);
+    virtual ~PauseScene();
 
     void render() override;
 
