@@ -97,6 +97,5 @@ public:
     ~PoolScene();
 
     void initObjects() override;
-    // void initFunctionalities() override; // No es válido
 };
 
