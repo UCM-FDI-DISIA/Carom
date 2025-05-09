@@ -403,10 +403,6 @@ PoolScene::createCallbacks() {
     
                 std::shared_ptr<CaromScene> ms = nullptr;
 
-                #ifdef _DEBUG
-                std::cout << "Boss es " << floorBoss << std::endl;
-                #endif
-
                 switch (floorBoss)
                 {
                     case CaromScene::Boss::COWBOY_POOL:
