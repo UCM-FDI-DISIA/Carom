@@ -116,6 +116,9 @@ void RewardInfoDisplayComponent::setRewardDesc(Body desc)
 
 void 
 RewardInfoDisplayComponent::generateTextures() {
+
+    // ¡MEMORY LEAKS! esto que coño es
+
     _title.text != " " 
         ? _texture = new Texture(sdlutils().renderer(), _title.text, sdlutils().fonts().at(_title.font), _title.color)
         : _texture = nullptr;

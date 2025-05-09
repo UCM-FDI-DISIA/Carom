@@ -55,6 +55,8 @@ Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file, std::stri
     Entity* entity = new Entity(gameScene, (grp::grpId) entityElements->Child("ID")->AsNumber());
     AddComponentsFromJSON(entity, file, childName);
     
+    delete entityElements;
+
     return entity;
 }
 
@@ -102,6 +104,8 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
             grenadeLauncherStickEffect(atributes,entity);
         }
     }
+
+    delete entityElements;
 }
 
 Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
