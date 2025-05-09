@@ -93,6 +93,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
 	${CMAKE_SOURCE_DIR}/src/Text
+    ${CMAKE_SOURCE_DIR}/src/Audio
     ${CMAKE_SOURCE_DIR}/src/Progression
 )
 
@@ -221,6 +222,7 @@ add_executable(Carom
 
     src/ECS/RandomVibrationComponent.cpp
 
+    src/Audio/AudioManager.cpp
     src/ECS/WobblyRenderTextureComponent.cpp
 
     src/Scenes/TutorialScene.cpp

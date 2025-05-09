@@ -34,6 +34,8 @@
 #include "CharismaReward.h"
 #include "PowerReward.h"
 #include "CunningReward.h"
+#include "AudioManager.h"
+// #include ...Reward.h
 #include "DialogueTextComponent.h"
 #include "TextDisplayComponent.h"
 #include "RandomVibrationComponent.h"
@@ -68,6 +70,13 @@ PoolScene::PoolScene(Game* game)
     : UIScene(game)
     , _rngm(RNG_Manager::Instance())
 {
+    createPauseEntity();
+
+    // Create table with texture and colliders
+    createBackground("suelo");
+    createTable();
+    generateMatchHoles();
+    generateFloorRewards();
 }
 
 PoolScene::~PoolScene()
@@ -93,6 +102,8 @@ void PoolScene::initObjects()
     createBallInfoText();
 
     createCallbacks();
+
+    AudioManager::Instance()->changeToPauseTheme();
 }
 
 void PoolScene::generateMatchHoles()
@@ -398,6 +409,8 @@ PoolScene::createCallbacks() {
             hideReward(i);
             hideBallEffect(i);
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
+
+
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
     

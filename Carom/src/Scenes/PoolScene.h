@@ -6,7 +6,6 @@
 #include "UIScene.h"
 #include "Reward.h"
 
-
 #include <memory>
 
 class ScenesManager;
@@ -20,6 +19,7 @@ protected:
             ROUND,
             BOSS
         };
+
 
     RNG_Manager* _rngm; // random manager
 

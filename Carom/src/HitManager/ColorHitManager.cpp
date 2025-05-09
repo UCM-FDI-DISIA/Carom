@@ -1,6 +1,7 @@
 #include "ColorHitManager.h"
 #include "CaromScene.h"
 #include "Entity.h"
+#include "AudioManager.h"
 #include "InventoryManager.h"
 
 
@@ -15,6 +16,7 @@ void ColorHitManager::clearAllHits(){
 
 bool ColorHitManager::processHitEntities(Entity* first, Entity* second){
     std::cout << "Entrado al processHitEntities" << std::endl;
+    AudioManager::Instance()->playSoundEfect("hit", 40);
     if(_positionsRegistered[first].find(second) != _positionsRegistered[first].end()) return false;
 
     //si no se ha registrado el hit en esta posicion hacer cosas que se necesiten

@@ -15,6 +15,8 @@
 #include "NullState.h"
 
 #include "CaromScene.h"
+#include "CowboyPoolScene.h" // ! tst
+#include "AudioManager.h"
 
 #include <memory>
 
@@ -36,9 +38,13 @@ Game::~Game()
     if (InputHandler::HasInstance())
         InputHandler::Release();
 
+    if (AudioManager::HasInstance())
+        SDLUtils::Release();
+
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
+
 }
 
 void
@@ -61,6 +67,12 @@ Game::init()
     // initialize InventoryManager singleton
     if(!InventoryManager::Init()) {
         std::cerr << "Something went wrong while initializing InventoryManager"
+                << std::endl;
+        return;
+    }
+
+    if(!AudioManager::Init()) {
+        std::cerr << "Something went wrong while initializing Manager"
                 << std::endl;
         return;
     }
@@ -94,6 +106,7 @@ void Game::run()
 
     auto& ihdr = ih();
     auto& sdlut = sdlutils();
+    //auto aMngr = new AudioManager();
     
     sdlut.showCursor();
 

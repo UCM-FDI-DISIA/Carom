@@ -21,6 +21,8 @@
 #include "FollowComponent.h"
 #include "ShadowComponent.h"
 
+#include "AudioManager.h"
+
 
 CowboyPoolScene::CowboyPoolScene(Game* g, bool isBoss, State* state)
     : CaromScene(g, state)
@@ -360,7 +362,11 @@ void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, Twe
 
     b2Vec2 handPos = pos + b2Vec2{dir.getX() * halfHandMag , dir.getY() * halfHandMag};
 
+    //audio
+    AudioManager::Instance()->playSoundEfect("revolver_spin");
+
     tween->easePosition(handPos, .3f, tween::EASE_IN_OUT_CUBIC, false, [=](){
+        AudioManager::Instance()->playSoundEfect("shot");
         createBulletHole(pos);
         getCamera()->shakeCamera(.2f, .3f, dir*-1);
 
