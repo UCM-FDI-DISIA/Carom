@@ -110,7 +110,20 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
 
 Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
     //si en el svg no existe slotX, devuelve nullptr
-    if(!JSON::ParseFromFile(file)->HasChild(childName.c_str())) return nullptr;
+
+    // esto hay que asociarlo a una variable porque hay que liberar la memoria, la librería esta chustera no
+    // libera la memoria, te la entrega a ti, probablemente este puesto en algún lado pero no lo hemos leido
+    JSONValue* a_val = JSON::ParseFromFile(file); 
+
+    if(!a_val->HasChild(childName.c_str())) {
+        
+        delete a_val;
+        return nullptr;
+    }
+
+    delete a_val;   // tiene que estar tanto arriba como abajo, 
+                    //si no la memoria no será borrada cuando if = true (o al revés)
+
     // Scale
     float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
     float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
