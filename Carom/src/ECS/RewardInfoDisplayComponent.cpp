@@ -12,7 +12,10 @@ RewardInfoDisplayComponent::RewardInfoDisplayComponent(
     Body title, Body rewardName, Body rewardType, Body rewardDescription, 
     Uint32 wrapLength, int offsetX, int offsetY)
 
-: RenderTextureComponent(entity, _texture, renderLayer, title.scale)
+// truconsejo, si en el inicializador de RenderTextureComponent le metes _texture (que es miembro sin inicializar)
+// le estas metiendo memoria no inicializada, que es como meterle nada pero que además te jode (porque no puedes 
+// evaluar que es nulo), si quieres inicializar con nada para eso está nullptr
+: RenderTextureComponent(entity, nullptr, renderLayer, title.scale)
 , _title(title)
 , _rewardName(rewardName)
 , _rewardType(rewardType)
@@ -24,6 +27,29 @@ RewardInfoDisplayComponent::RewardInfoDisplayComponent(
     generateTextures();
 }
 
+
+RewardInfoDisplayComponent::~RewardInfoDisplayComponent() {
+
+    deleteTextures();
+
+    _rewardNameTexture = nullptr;
+    _rewardTypeTexture = nullptr;
+    _rewardDescTexture = nullptr;
+    _texture = nullptr;
+}
+
+void
+RewardInfoDisplayComponent::deleteTextures() {
+
+    if(_rewardNameTexture != nullptr) delete _rewardNameTexture;
+    if(_rewardTypeTexture != nullptr) delete _rewardTypeTexture;
+    if(_rewardDescTexture != nullptr) delete _rewardDescTexture;
+
+    // En efecto así es, estoy borrando memoria que no es de este componente,
+    // en este caso particular no pasa nada porque RenderTextureComponent no borra
+    // su textura, de eso se suele encargar sdlutils
+    if(_texture != nullptr) delete _texture;
+}
 
 // TODO
 void 
@@ -117,7 +143,9 @@ void RewardInfoDisplayComponent::setRewardDesc(Body desc)
 void 
 RewardInfoDisplayComponent::generateTextures() {
 
-    // ¡MEMORY LEAKS! esto que coño es
+    // Puesto que se estan generando nuevas texturas aquí (crear memoria en ejecución no mola mucho)
+    // pues hay que mantener esto limpio, muy importante borrar las texturas antiguas antes de regenerarlas
+    deleteTextures();
 
     _title.text != " " 
         ? _texture = new Texture(sdlutils().renderer(), _title.text, sdlutils().fonts().at(_title.font), _title.color)
