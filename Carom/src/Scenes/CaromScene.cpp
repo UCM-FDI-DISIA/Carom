@@ -655,8 +655,11 @@ CaromScene::createRoundScoreUI(){
         {255, 255, 255, 255}, "Basteleur-Moonlight48");
     roundScoreObject->addComponent(roundDisplay);
 
+    addComponent<TweenComponent>(roundScoreObject);
+
     return roundDisplay;
 }
+
 void CaromScene::addScore(int score) {
     _roundScore += score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
@@ -666,6 +669,25 @@ void CaromScene::addScore(int score) {
     std::string key = "point_up" + std::to_string(rand);
 
     AudioManager::Instance()->playSoundEfect(key);
+
+    //tween
+    auto tween = _roundScoreDisplay->getEntity()->getComponent<TweenComponent>();
+
+    if(!tween->isTweening()){
+        auto previousPos = tween->getEntity()->getTransform()->getPosition();
+        tween->easePosition(previousPos + b2Vec2{0.f, 0.05f}, 0.2f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easePosition(previousPos, 0.2f, tween::EASE_OUT_QUINT);
+        });
+        tween->easeRotation(45, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easeRotation(-30, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                tween->easeRotation(15, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                    tween->easeRotation(0, 0.1f, tween::EASE_OUT_QUINT);
+                });
+            });
+        });
+
+    }
+    
 }
 
 void CaromScene::addToTotalScore(int score) {

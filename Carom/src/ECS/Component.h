@@ -21,5 +21,8 @@ public:
     virtual void handleEvent() = 0;
 
     virtual void setEnabled(bool state);
+
+    inline entity_t getEntity() {return _myEntity;}
+
     bool isEnabled();
 };
