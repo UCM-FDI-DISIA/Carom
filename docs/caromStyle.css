@@ -1,0 +1,98 @@
+body {
+    background-image: url(./img/fondo_tile.png);
+    background-repeat: repeat-y;
+    background-size: contain;
+    height: max-content;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--red-1);
+    box-shadow: var(--nav-drop-shadow);
+    position: sticky;
+    top:0;
+}
+
+nav .link-wrapper {
+    display: flex;
+}
+
+nav a {
+    margin: 1rem 2rem;
+}
+
+nav a .nav-text {
+    width: max-content;
+    font-family: "Basteleur-Bold", Helvetica;
+    color: #ffffff;
+    font-size: 2.5vw;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+    text-shadow: var(--text-drop-shadow);
+}
+
+.regular-text {
+    width: max-content;
+    font-family: "Bonbance-BoldCondensed", Helvetica;
+    color: #ffffff;
+    
+    line-height: normal;
+}
+
+.section {
+    display: flex;
+    gap: 10%;
+    flex-wrap: wrap;
+    margin: 60px 0;
+    width: 100%;
+    justify-content: center;
+}
+
+.section.flex-row {
+    flex-direction: row;
+}
+
+.section.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.section .section-element {
+    width: calc(45% - 5%);
+    min-width: 300px;
+}
+
+.section .text {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.section .text .title {
+    width: 100%;
+    font-size: 2.3rem;
+    letter-spacing: 1.5px;
+}
+
+.section .text .body {
+    text-wrap: wrap;
+    word-break: normal;
+    white-space: normal;
+    width: 100%;
+    font-size: 1.3rem;
+    line-height: 2rem;
+}
+
+.section .picture {
+    display: flex;
+    align-items: center;
+}
+
+.section .picture img {
+    max-width: 100%;
+    object-fit: contain;
+    border: 5px solid #ffffff;
+
+}

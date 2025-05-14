@@ -7,6 +7,7 @@ html,
 body {
   margin: 0px;
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 /* a blue color as a generic focus style */
@@ -18,10 +19,21 @@ a {
   text-decoration: none;
 }
 
+
+
 @font-face {
   font-family: "Bonbance-BoldCondensed";
   src: url("./font/Bonbance-BoldCondensed.woff2") format("woff2"),
     url("./font/Bonbance-BoldCondensed.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Basteleur-Bold";
+  src: url("./font/Basteleur-Bold.woff2") format("woff2"),
+    url("./font/Basteleur-Bold.woff") format("woff");
   font-weight: 700;
   font-style: normal;
   font-display: swap;

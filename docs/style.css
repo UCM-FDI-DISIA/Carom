@@ -65,15 +65,9 @@ body {
 .home .button-text {
   width: max-content;
   font-family: "Bonbance-BoldCondensed", Helvetica;
-  font-weight: 700;
   color: #000000;
   font-size: 3vw;
   text-align: center;
   letter-spacing: 0;
   line-height: normal;
 }
-
-/* .home button:focus {
-  outline: 2px solid var(--yellow);
-  border-radius: 75.46px;
-} */
