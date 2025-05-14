@@ -41,13 +41,13 @@ void AudioManager::playSoundEfect(std::string soundID, int volume){
 
 void AudioManager::changeToPauseTheme(){
     setVolumeMusicTrack(MAIN_THEME, 0);
-    setVolumeMusicTrack(PAUSE_THEME, 128);
+    setVolumeMusicTrack(PAUSE_THEME, 64);
     
     currentTheme = PAUSE_THEME;
 }
 
 void AudioManager::changeToMainTheme(){
-    setVolumeMusicTrack(MAIN_THEME, 128);
+    setVolumeMusicTrack(MAIN_THEME, 64);
     setVolumeMusicTrack(PAUSE_THEME, 0);
 
     currentTheme = MAIN_THEME;
