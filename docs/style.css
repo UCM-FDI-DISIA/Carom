@@ -1,0 +1,79 @@
+body {
+  background-color: var(--green-1);
+}
+
+.home {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.home .mesa {
+  position: absolute;
+  width: 95vw;
+  top: 1rem;
+  object-fit: cover;
+}
+
+.home .title {
+  position: absolute;
+  width: 40%;
+  top: 10vw;
+}
+
+.home nav {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  z-index: 1;
+  margin-top: 35%;
+}
+
+.home .button {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  width: 8vw;
+  height: 8vw;
+  transition: 0.2s;
+}
+
+.home .button:hover {
+  box-shadow: var(--ball-hover);
+}
+
+.home .button-background {
+  background-color: var(--yellow); 
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: var(--ball-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home .button.play .button-background {
+  background-color: var(--white-1);
+}
+
+.home .button-text {
+  width: max-content;
+  font-family: "Bonbance-BoldCondensed", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 3vw;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+/* .home button:focus {
+  outline: 2px solid var(--yellow);
+  border-radius: 75.46px;
+} */

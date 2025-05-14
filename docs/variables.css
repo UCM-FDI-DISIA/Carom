@@ -1,0 +1,17 @@
+:root {
+  --green-1: rgba(44, 92, 54, 1);
+  --red-1: rgba(118, 28, 17, 1);
+  --brown: rgba(77, 52, 36, 1);
+  --white-1: rgba(245, 245, 245, 1);
+  --yellow: rgba(245, 189, 47, 1);
+  --title-font-family: "Basteleur", Helvetica;
+  --title-font-weight: 700;
+  --title-font-size: 128px;
+  --title-letter-spacing: 0px;
+  --title-line-height: normal;
+  --title-font-style: normal;
+  --ball-shadow: -1.5vw 2vw 1vw 0.5vw rgba(0, 0, 0, 0.5),
+                 inset 0.7vw -0.7vw 1px rgba(0,0,0,0.5);
+  --ball-hover: 0 0 1.5vw 0.5vw rgba(247, 255, 212, 0.5);
+  --text-drop-shadow: 6px 4px 4.5px 0px rgba(0, 0, 0, 1);
+}
