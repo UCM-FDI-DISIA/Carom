@@ -34,7 +34,7 @@ jobs:
 
       - name: Copy static HTML to root
         working-directory: quartz-site
-        run: cp -r ../docs public
+        run: cp -r ../docs/. public
 
       - name: Debug Output
         run: ls -R quartz-site/public
