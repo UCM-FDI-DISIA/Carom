@@ -11,7 +11,6 @@
 void UnpauseComponent::handleEvent(){
     if(InputHandler::Instance()->isKeyDown(SDLK_p) && !tween->isTweening()){
         AudioManager::Instance()->playSoundEfect("drawer_close");
-        AudioManager::Instance()->changeToMainTheme();
         b2Vec2 initialPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer_initial_pos").x, sdlutils().height()/2);
         tween->easePosition(initialPos, .5f, tween::EASE_OUT_ELASTIC, false, [=](){
             _myEntity->getScene().getGame()->getScenesManager()->popScene();
