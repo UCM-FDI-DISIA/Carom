@@ -685,8 +685,6 @@ void CaromScene::decrementRemainingHits()
     }
 }
 
-
-
 //---------------------------BOSS---------------------------------
 
 void CaromScene::playBossTurn() {

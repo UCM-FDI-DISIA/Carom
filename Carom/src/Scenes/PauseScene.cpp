@@ -61,10 +61,10 @@ PauseScene::instantiateInventory(){
         std::string key = "ball_" + std::to_string(i+1);
         std::string slot = "slot" + std::to_string(i);
 
-        
         std::string textureKey = "bola_blanca";
         if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
             textureKey = data[slot]["components"][0]["atributes"]["effects"][0]["componentName"];
+            textureKey = "single_" + textureKey;
         }
 
         // We know which effect has the ball for its texture
