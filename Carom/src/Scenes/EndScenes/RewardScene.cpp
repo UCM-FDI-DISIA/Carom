@@ -4,7 +4,7 @@
 
 // TODO: refactorizar -> recibir recompensa
 
-RewardScene::RewardScene(Game *g) : UIScene(g)
+RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
 {
     createBackground("suelo");
 
@@ -16,7 +16,6 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         3 // size.
     );
 
-    std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
 
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 
@@ -25,5 +24,8 @@ RewardScene::RewardScene(Game *g) : UIScene(g)
         game->getScenesManager()->popScene(); // Poppea la win.
     }); 
 
-    createSVGImage("win", "rewardButtonText", "rewardButtonText");
+    createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
+
+    // TODO añadir este metodo en el callback de los botones de la UI
+    //r->applyReward();
 }

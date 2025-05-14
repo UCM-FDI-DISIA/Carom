@@ -18,6 +18,7 @@
 #include "TextDisplayComponent.h"
 #include "ColorBallScorerComponent.h"
 #include "RNG_Manager.h"
+#include "AudioManager.h"
 #include "RandomItem.h"
 #include "StartMatchState.h"
 #include "BallHandler.h"
@@ -46,29 +47,48 @@
 #include "AnimatorComponent.h"
 #include "RoundScoreAnimComponent.h"
 
-
+void shakeEntity(entity_t, bool reverse);
 
 CaromScene::CaromScene( Game* game, State* s) 
     : GameScene(game)
     , _updatePhysics(true)
-    , _currentScore(0)
-    , _scoreToBeat(1000)
+    , _currentScore()
+    , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
+    , _remainingHits(10 + InventoryManager::Instance()->getPower())
 {
 }
 
 void CaromScene::init()
 {
+    // Boss match requires a different score to beat
+    int baseScore;
+    if(isBossMatch()) baseScore = 20;
+    else baseScore = 10;
+
+    baseScore *= InventoryManager::Instance()->getCunning();
+    _currentScore = InventoryManager::Instance()->getCharisma();
+
+    // Set the score to beat based on the current ante
+    setScoreToBeat(game->getProgressionManager()->getScoreToBeat(baseScore));
+
     initFunctionalities();
     initGimmick();
     initObjects();
     initBoss();
 
+    //SFX DE JEFE
+    if(isBossMatch()){
+        AudioManager::Instance()->playMusicTrack(trackName::BOSS_WHISPER);
+    }
+
     if(_currentState == nullptr)
     setNewState(new StartMatchState(this));
 
     _initialized = true;
+
+    AudioManager::Instance()->changeToMainTheme();
 }
 
 void CaromScene::initFunctionalities()
@@ -100,14 +120,15 @@ void CaromScene::initObjects()
         *&sdlutils().svgs().at("game").at("bola_blanca").x,
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
-    createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    auto ball = createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    createIndicator(ball);
         
     // EFFECT BALLS
     createEffectBalls();
 
     // Create table with texture and colliders
     createTable();
-    
+    getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 191, 255);
     createBackground("suelo");
 
     _currentScoreDisplay = createScoreUI();
@@ -149,14 +170,17 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
     _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
 
     createBallShadow(e);
-    createIndicator(e);
 
     return e;
 }
 
 entity_t CaromScene::createStick()
 {
-    return InventoryManager::Instance()->getStick(*this);
+    auto stick = InventoryManager::Instance()->getStick(*this);
+
+    stick->deactivate();
+
+    return stick;
 }
 
 /// @brief Creates and randomly places as many effect balls as specified
@@ -265,6 +289,9 @@ void CaromScene::createScoreEntity(){
 }
 
 void CaromScene::createFeedbackTest(b2Vec2 pos, float rot) {
+    //audio
+    AudioManager::Instance()->playSoundEfect("hit", 40);
+
     entity_t e = new Entity(*this, grp::FEEDBACK);
 
     Animation* a_anim = &sdlutils().animations().at("normal_collide_animation");
@@ -299,7 +326,14 @@ CaromScene::~CaromScene()
 {
     if(isInitialized()) 
     {
-        if(_currentState != nullptr) delete _currentState;
+        if(_currentState != nullptr) {
+            delete _currentState;
+            _currentState = nullptr;
+        }
+
+        if(isBossMatch()){
+            AudioManager::Instance()->pauseMusicTrack(trackName::BOSS_WHISPER);
+        }
 
         // Deletes entities before destroyWorld
         clearEntities();
@@ -308,6 +342,8 @@ CaromScene::~CaromScene()
         b2DestroyWorld(_myB2WorldId);
     
         delete _hitManager;
+        _hitManager = nullptr;
+        AudioManager::Instance()->changeToPauseTheme();
     }
 }
 
@@ -573,6 +609,8 @@ CaromScene::createRemainingHitsUI() {
         std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Bold72");
     remainingHitsObject->addComponent(remainingHitsDisplay);
 
+    addComponent<TweenComponent>(remainingHitsObject);
+
     return remainingHitsDisplay;
 }
 
@@ -621,12 +659,47 @@ CaromScene::createRoundScoreUI(){
         {255, 255, 255, 255}, "Basteleur-Moonlight48");
     roundScoreObject->addComponent(roundDisplay);
 
+    addComponent<TweenComponent>(roundScoreObject);
+
     return roundDisplay;
 }
+
 void CaromScene::addScore(int score) {
     _roundScore += score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
     _roundScorer->setRoundScore(_roundScore);
+
+    //sfx
+    int rand = sdlutils().rand().nextInt(1, 3);
+    std::string key = "point_up" + std::to_string(rand);
+
+    AudioManager::Instance()->playSoundEfect(key);
+
+    //tween 
+    shakeEntity(_roundScoreDisplay->getEntity(), false);
+    
+}
+
+void shakeEntity(entity_t ent, bool reverse){
+    int factor = 1;
+    if(reverse) factor = -1;
+    //tween
+    auto tween = ent->getComponent<TweenComponent>();
+
+    if(!tween->isTweening()){
+        auto previousPos = tween->getEntity()->getTransform()->getPosition();
+        tween->easePosition(previousPos + b2Vec2{0.f, factor* 0.05f}, 0.2f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easePosition(previousPos, 0.2f, tween::EASE_OUT_QUINT);
+        });
+        tween->easeRotation(factor*45, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easeRotation(factor*-30, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                tween->easeRotation(factor*15, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                    tween->easeRotation(0, 0.1f, tween::EASE_OUT_QUINT);
+                });
+            });
+        });
+
+    }
 }
 
 void CaromScene::addToTotalScore(int score) {
@@ -660,9 +733,9 @@ void CaromScene::decrementRemainingHits()
         --_remainingHits;
         _remainingHitsDisplay->setDisplayedText(std::to_string(_remainingHits));
     }
+
+    shakeEntity(_remainingHitsDisplay->getEntity(), true);
 }
-
-
 
 //---------------------------BOSS---------------------------------
 
@@ -732,4 +805,16 @@ void
 CaromScene::changeIndicator(entity_t whiteBall) {
     getComponent<FollowComponent>(_indicator)->setTarget(whiteBall);
 }
+
+void 
+CaromScene::activateIndicator() {
+    _indicator->activate();
+}
+
+void 
+CaromScene::deactivateIndicator() {
+    _indicator->deactivate();
+}
+
+
 

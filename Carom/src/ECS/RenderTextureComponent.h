@@ -10,13 +10,10 @@ class Texture;
     
 class RenderTextureComponent : public RenderComponent {
 protected:
-    Texture* _texture;
+    Texture* _texture = nullptr;
     ITransform* _transform;
     float _scale; // scale de la textura (no su physical body)
     bool _isPortion = false; // If the rect is a portion of a rect
-
-    SDL_Color _defaultColor;
-    SDL_Color _color = {255,255,255,0};
 
     SDL_Rect _absCenteredRect;
 
@@ -31,7 +28,7 @@ public:
     RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Color tint);
     ~RenderTextureComponent() {};
 
-    void render() override;
+    virtual void render() override;
     void init() override;
     Texture* getTexture() {return _texture;};
     void setTexture(Texture* tex);

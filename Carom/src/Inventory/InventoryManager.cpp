@@ -47,6 +47,10 @@ void InventoryManager::loadInventoryWithPath(std::string path){
     }
 }
 
+void InventoryManager::loadInventoryNamed(std::string nameOfInventory){
+    loadInventoryWithPath("../../resources/prefabs/inventoryData/" + nameOfInventory + ".json");
+}
+
 void InventoryManager::exportInventoryToSave(){
     std::string line;
 
@@ -93,7 +97,7 @@ InventoryManager::getStick(GameScene& scene) {
     return JsonEntityParser::createStick(scene, pathToInventory, "stick");
 }
 
-void 
+bool
 InventoryManager::addBall(entity_t ball) {
 
     bool found = false;
@@ -112,6 +116,8 @@ InventoryManager::addBall(entity_t ball) {
 
     //update data
     updateData(data);
+
+    return found;
 }
 
 void

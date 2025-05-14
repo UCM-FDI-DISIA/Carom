@@ -1,13 +1,18 @@
 #pragma once
 
+
+#include "SDL_video.h"
 #include "SDLUtils.h"
 #include "Texture.h"
 
 #include <memory>
+#include "ProgressionManager.h"
 
+class AudioManager;
 class ScenesManager;
 class RNG_Manager;
 class MainMenuScene;
+
 
 class Game {
 public:
@@ -33,10 +38,12 @@ public:
     }
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
+    inline ProgressionManager* getProgressionManager() {return _progressionManager;}
     
 protected:
     ScenesManager* _sceneManager;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
+    ProgressionManager* _progressionManager;
 
 private:
     Texture* _t;

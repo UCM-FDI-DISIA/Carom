@@ -55,6 +55,8 @@ Entity* JsonEntityParser::Parse(GameScene& gameScene,std::string file, std::stri
     Entity* entity = new Entity(gameScene, (grp::grpId) entityElements->Child("ID")->AsNumber());
     AddComponentsFromJSON(entity, file, childName);
     
+    delete entityElements;
+
     return entity;
 }
 
@@ -102,11 +104,26 @@ void JsonEntityParser::AddComponentsFromJSON(Entity* entity, std::string JSONfil
             grenadeLauncherStickEffect(atributes,entity);
         }
     }
+
+    delete entityElements;
 }
 
 Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string file, std::string childName, b2Vec2 pos){
     //si en el svg no existe slotX, devuelve nullptr
-    if(!JSON::ParseFromFile(file)->HasChild(childName.c_str())) return nullptr;
+
+    // esto hay que asociarlo a una variable porque hay que liberar la memoria, la librería esta chustera no
+    // libera la memoria, te la entrega a ti, probablemente este puesto en algún lado pero no lo hemos leido
+    JSONValue* a_val = JSON::ParseFromFile(file); 
+
+    if(!a_val->HasChild(childName.c_str())) {
+        
+        delete a_val;
+        return nullptr;
+    }
+
+    delete a_val;   // tiene que estar tanto arriba como abajo, 
+                    //si no la memoria no será borrada cuando if = true (o al revés)
+
     // Scale
     float svgSize = *&sdlutils().svgs().at("positions").at("bola").width;
     float textureSize = sdlutils().images().at("bola_blanca").width(); // TODO: cambiar a textura effect ball
@@ -128,11 +145,20 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
 
     Texture* TEX = &sdlutils().images().at(textureKey);
 
-    // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
-    addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, scale, 
-        Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
+    if (textureKey != "bola_blanca") { //guapisimo string typing
+        // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
+        addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), 
+            renderLayer::EFFECT_BALL, scale, Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
 
-    addComponent<BallRollerAnimatorComponent>(e);
+        addComponent<BallRollerAnimatorComponent>(e);
+    }
+    else {
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), 
+            renderLayer::EFFECT_BALL, scale);
+
+        e->getComponent<RenderTextureComponent>()->changeColorTint(
+            std::rand() % 2 * 255, std::rand() % 2 * 255, std::rand() % 2 * 255);
+    }
 
     // SCORE
     addComponent<ColorBallScorerComponent>(e);

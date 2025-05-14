@@ -15,7 +15,6 @@ MagicWandStickEffect::applyEffect(entity_t target){
     RigidBodyComponent* a_targetRB = dynamic_cast<RigidBodyComponent*>(target->getComponent<RigidBodyComponent>());
     assert(a_targetRB != nullptr && a_scene != nullptr && a_targetTransform != nullptr);
     
-    
     //TODO Hacer que se pueda añadir la subdivision al grupo de efectos de la bola original
     auto a_ball1 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
     a_targetRB->getBodyType(), a_targetRB->getDensity(), 
@@ -39,5 +38,6 @@ MagicWandStickEffect::applyEffect(entity_t target){
     a_1RB->applyForceToCenter(b2RotateVector(rotation1, a_targetRB->getVelocity()));
     a_2RB->applyForceToCenter(b2RotateVector(rotation2, a_targetRB->getVelocity()));
 
+    dynamic_cast<CaromScene&>(_myEntity->getScene()).deactivateIndicator();
     target->deactivate();
 }

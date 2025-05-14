@@ -93,6 +93,8 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
 	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
 	${CMAKE_SOURCE_DIR}/src/Text
+    ${CMAKE_SOURCE_DIR}/src/Audio
+    ${CMAKE_SOURCE_DIR}/src/Progression
 )
 
 # Crear ejecutable
@@ -141,6 +143,7 @@ add_executable(Carom
 
     src/ECS/RenderTextureComponent.cpp
 	src/ECS/TextDisplayComponent.cpp
+    src/ECS/DialogueTextComponent.cpp
     src/ECS/RewardInfoDisplayComponent.cpp
     src/ECS/BallInfoDisplayComponent.cpp
 
@@ -220,6 +223,23 @@ add_executable(Carom
 
     src/ECS/RandomVibrationComponent.cpp
 
+    src/Audio/AudioManager.cpp
+    src/ECS/WobblyRenderTextureComponent.cpp
+
+    src/Scenes/TutorialScene.cpp
+
+    src/StateMachine/TutorialOneHitState.cpp
+    src/StateMachine/TutorialOneScoringState.cpp
+    src/StateMachine/TutorialOneStartMatchState.cpp
+
+    src/StateMachine/TutorialTwoHitState.cpp
+    src/StateMachine/TutorialTwoScoringState.cpp
+    src/StateMachine/TutorialTwoStartMatchState.cpp
+
+    src/Scenes/HelperScene.cpp
+    src/Scenes/TextHelperScene.cpp
+    src/Progression/ProgressionManager.cpp
+    
     src/Feedback/RenderArrayComponent.cpp
 )
 

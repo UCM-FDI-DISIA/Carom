@@ -5,8 +5,9 @@
 
 #include "RenderTextureComponent.h"
 
-
 class RewardInfoDisplayComponent : public RenderTextureComponent {
+private:
+    void deleteTextures();
 public:
     struct Body {
         std::string text;
@@ -21,13 +22,13 @@ protected:
     // su escala es _scale
     
     Body _rewardName;
-    Texture* _rewardNameTexture;
+    Texture* _rewardNameTexture = nullptr;
 
     Body _rewardType;
-    Texture* _rewardTypeTexture;
+    Texture* _rewardTypeTexture = nullptr;
     
     Body _rewardDescription;
-    Texture* _rewardDescTexture;
+    Texture* _rewardDescTexture = nullptr;
     Uint32 _wrapLength;
 
     int _offsetX, _offsetY;
@@ -46,6 +47,7 @@ public:
         Body title, Body rewardName, Body rewardType, Body rewardDescription, 
         Uint32 wrapLength = 0, int offsetX = 0, int offsetY = 0);
 
+    ~RewardInfoDisplayComponent();
 
     void render() override;
 

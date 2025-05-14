@@ -5,7 +5,7 @@ class BallHandler;
 class PetanqueEffect : public BallEffect
 {
 private:
-    const float MAX_DISTANCE = 50;
+    const float MAX_DISTANCE = 2;
 public:
     PetanqueEffect(entity_t ent) : BallEffect(ent) {
         _name = "Petanca";

@@ -2,19 +2,20 @@
 
 #include "Reward.h"
 
-/// @brief Picardía: Incrementa el valor base de la puntuación (Por defecto es 0)
+/// @brief Picardía: Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras
 class CunningReward : public Reward {
 protected:
-    float _value; // (0,1). No es el porcentaje de puntos que se descuenta, sino el porcentaje de puntos que quedan
+    float _value; // (0,1). El porcentaje de puntos que se descuenta
 
 public:
     CunningReward() : Reward("cunning", Type::PERMANENT) {
-        // TODO generar valor aleatorio
-        // _value = rng.getRndRange(...)
+        auto rng = RNG_Manager::Instance();
+        _value = rng->randomRange(0.01f,0.05f);
     }
 
     void applyReward() override {
-        // TODO aplicar picardía al inventario
-        // InventoryManager::Instance()->addCunning(_value);
+        auto inv = InventoryManager::Instance();
+
+        inv->setCunning(inv->getCunning() - _value);
     }
 };

@@ -6,7 +6,6 @@
 #include "UIScene.h"
 #include "Reward.h"
 
-
 #include <memory>
 
 class ScenesManager;
@@ -21,10 +20,11 @@ protected:
             BOSS
         };
 
+
     RNG_Manager* _rngm; // random manager
 
-    std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
-    std::shared_ptr<GameScene> _scene;
+    // std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
+    // std::shared_ptr<GameScene> _scene;
     
     b2WorldId _myB2WorldId; //El mundo de box2D
     static constexpr int POSITIONS = 6;
@@ -53,6 +53,7 @@ protected:
     std::vector<RewardInfoDisplayComponent*> _effectRewardBoxes;
 
     std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
+    void saveBalls();
 
     // --- AGUJEROS Y RECOMPENSAS ---
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
@@ -96,6 +97,5 @@ public:
     ~PoolScene();
 
     void initObjects() override;
-    void initFunctionalities() override;
 };
 

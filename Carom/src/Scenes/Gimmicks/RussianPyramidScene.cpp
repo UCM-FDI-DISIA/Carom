@@ -20,6 +20,7 @@
 #include "WhiteBallScorerComponent.h"
 #include "Button.h"
 #include "InventoryManager.h"
+#include "AudioManager.h"
 
 
 RussianPyramidScene::RussianPyramidScene(Game* game, bool isBoss, State* state)
@@ -408,6 +409,8 @@ RussianPyramidScene::changeWhiteBallAnimation() {
     tween->easePosition(handPos, .5f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
         tween->easePosition(handPos, .2f, tween::EASE_IN_OUT_CUBIC, false, [=]() {
         getCamera()->shakeCamera(.2f, .3f, dir*-1);
+
+        AudioManager::Instance()->playSoundEfect("magic_touch");
 
         changeIndicator(_currentWhiteBall);
         _indicator->activateComponentsOfType<RenderComponent>();

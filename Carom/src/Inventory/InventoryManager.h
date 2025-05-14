@@ -38,8 +38,8 @@ private:
     std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions);
     entity_t getStick(GameScene& scene);
     
-    // Añadir
-    void addBall(entity_t ball);
+    // Añadir. retorna true o false si se ha cosneguido meter la bola o no
+    bool addBall(entity_t ball);
     void addStick(entity_t stick);
 
     void saveBalls(std::vector<entity_t> balls);
@@ -50,6 +50,9 @@ private:
 
     //inventario guardado de una partida anterior
     void loadSavedInventory();
+
+    //inventario guardado de una partida anterior
+    void loadInventoryNamed(std::string nameOfInventory);
     
     //copia inventory.json a savedInventory.json, para asi guardar la partida
     void exportInventoryToSave();

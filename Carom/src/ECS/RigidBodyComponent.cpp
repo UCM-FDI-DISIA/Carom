@@ -96,6 +96,7 @@ RigidBodyComponent::isMoving() {
     if(currentSpeed > TERMINAL_VELOCITY) return true;
 
     b2Body_SetLinearVelocity(_myB2BodyId, b2Vec2_zero);
+    b2Body_SetAngularVelocity(_myB2BodyId, .0f);
     return false;
 }
 

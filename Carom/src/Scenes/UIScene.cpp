@@ -79,3 +79,22 @@ entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string i
 
     return e;
 }
+
+void UIScene::createButton(int x, int y, std::string text, Texture* t, std::function<void ()> cb) {
+
+        entity_t e = new Entity(*this, grp::UI);
+
+        b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
+    
+        // TODO cambiar escala real
+        float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
+    
+        addComponent<TransformComponent>(e, pos);
+        // TODO cambiar imagen real
+        addComponent<RenderTextureComponent>(e, &sdlutils().images().at("reward_description_box"), renderLayer::UI, scale);
+    
+        Button::TextureButton button = Button::TextureButton();
+        Button* b = addComponent<Button>(e, button);
+
+        b->setOnClick(cb);
+}

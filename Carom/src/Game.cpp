@@ -15,6 +15,8 @@
 #include "NullState.h"
 
 #include "CaromScene.h"
+#include "CowboyPoolScene.h" // ! tst
+#include "AudioManager.h"
 
 #include <memory>
 
@@ -23,21 +25,26 @@ Game::Game() {}
 Game::~Game() 
 {
     delete _sceneManager; // HAS TO BE FIRST
+    delete _progressionManager;
     _mainMenuScene.reset();
 
     if (RNG_Manager::HasInstance())
         RNG_Manager::Release();
 
     if (InventoryManager::HasInstance())
-    InventoryManager::Release();
+        InventoryManager::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
         InputHandler::Release();
 
+    if (AudioManager::HasInstance())
+        AudioManager::Release();
+
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
         SDLUtils::Release();
+
 }
 
 void
@@ -64,6 +71,12 @@ Game::init()
         return;
     }
 
+    if(!AudioManager::Init()) {
+        std::cerr << "Something went wrong while initializing Manager"
+                << std::endl;
+        return;
+    }
+
     // initialize InventoryManager singleton
     if(!RNG_Manager::Init()) {
         std::cerr << "Something went wrong while initializing RNG_Manager"
@@ -78,6 +91,9 @@ Game::start()
     unsigned seed = RNG_Manager::Instance()->randomRange(1, 1000000); 
     RNG_Manager::Instance()->inseminate(seed);
 
+    _progressionManager = new ProgressionManager();
+    _progressionManager->setBossesList();
+
     _sceneManager = new ScenesManager();    
     _mainMenuScene = std::make_shared<MainMenuScene>(this);
 
@@ -90,6 +106,7 @@ void Game::run()
 
     auto& ihdr = ih();
     auto& sdlut = sdlutils();
+    //auto aMngr = new AudioManager();
     
     sdlut.showCursor();
 

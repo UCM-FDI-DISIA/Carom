@@ -17,12 +17,14 @@ class ColorHitManager;
 class TextDisplayComponent;
 class StickInputComponent;
 class RoundScoreAnimComponent;
+class AudioManager;
 
     
 class CaromScene: public GameScene {
 //--------------------BASIC SCENE FUNCTIONALITY------------------------
 protected:
     int _remainingHits = 10;
+
     ScenesManager* _sceneManager;
     std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
 
@@ -177,8 +179,11 @@ protected:
 #endif
 
 // -----------------INDICATOR----------------------
+public:
+    void changeIndicator(entity_t whiteBall);
+    void activateIndicator();
+    void deactivateIndicator();
 protected:
     entity_t _indicator;
     void createIndicator(entity_t whiteBall);
-    void changeIndicator(entity_t whiteBall);
 };

@@ -13,11 +13,15 @@
 #include "CowboyPoolScene.h"
 #include "RussianPyramidScene.h" // ! tst
 
+#include "InventoryManager.h"
+
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
 #include "StickInputComponent.h"
 #include "TweenComponent.h"
+#include "ProgressionManager.h"
 
+#include "BallHandler.h"
 
 // --- rewards ---
 #include "DefaultReward.h"
@@ -30,7 +34,12 @@
 #include "CharismaReward.h"
 #include "PowerReward.h"
 #include "CunningReward.h"
+#include "AudioManager.h"
 // #include ...Reward.h
+#include "DialogueTextComponent.h"
+#include "TextDisplayComponent.h"
+#include "RandomVibrationComponent.h"
+#include "WobblyRenderTextureComponent.h"
 
 // --- ball effects ---
 #include "AbacusEffect.h"
@@ -61,18 +70,17 @@ PoolScene::PoolScene(Game* game)
     : UIScene(game)
     , _rngm(RNG_Manager::Instance())
 {
+    createPauseEntity();
+
+    // Create table with texture and colliders
+    createBackground("suelo");
+    generateMatchHoles();
 }
 
 PoolScene::~PoolScene()
 {
     std::cout << "DESTRUCTOR POOLSCENE" << std::endl;
     // Como son shareds los punteros ya no hace falta esta movida
-}
-
-void PoolScene::initFunctionalities()
-{
-    _reward = std::make_shared<RewardScene>(game);
-    _scene = std::make_shared<RussianPyramidScene>(game, false);
 }
 
 void PoolScene::initObjects()
@@ -83,6 +91,8 @@ void PoolScene::initObjects()
     createBackground("suelo");
     createTable();
 
+    getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
+
     initRandomEffects();
 
     generateMatchHoles();
@@ -91,6 +101,8 @@ void PoolScene::initObjects()
     createBallInfoText();
 
     createCallbacks();
+
+    AudioManager::Instance()->changeToPauseTheme();
 }
 
 void PoolScene::generateMatchHoles()
@@ -104,6 +116,7 @@ void PoolScene::generateMatchHoles()
     // coloca los agujeros de partida
     for(int i = 0; i < POSITIONS; i++){
         entity_t hole = generateHole(i);
+
         _holes.push_back(hole);
     }
 }
@@ -180,8 +193,6 @@ PoolScene::createRewardInfo() {
         description->deactivate();
 
         // TEXTO
-        // TODO: Añadir texto de recompensa / texto de partida de boss
-        // en función de _floorRewards[i]
         Text title, rewardName, rewardType, rewardDesc;
 
         switch(_floorRewards[i]->getType()) {
@@ -205,6 +216,7 @@ PoolScene::createRewardInfo() {
 
         rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
         rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        
 
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
@@ -383,6 +395,8 @@ PoolScene::scrollBallEffect(int i) {
 
 void
 PoolScene::createCallbacks() {
+    CaromScene::Boss floorBoss = (CaromScene::Boss)game->getProgressionManager()->getNextBoss();
+
     for(int i = 0; i < POSITIONS; ++i) {
         Button* holeButton = getComponent<Button>(_holes[i]);
         Button* ballButton = getComponent<Button>(_balls[i]);
@@ -392,24 +406,54 @@ PoolScene::createCallbacks() {
         bool isBoss = i == _bossHole;
         holeButton->setOnClick([=](){
             hideReward(i);
+            hideBallEffect(i);
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
+
+
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
     
-                std::shared_ptr<CowboyPoolScene> ms = std::make_shared<CowboyPoolScene>(game, isBoss); // ! tst  
+                std::shared_ptr<CaromScene> ms = nullptr;
+
+                switch (floorBoss)
+                {
+                    case CaromScene::Boss::COWBOY_POOL:
+                    {
+                        ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        break;
+                    }
+                    case CaromScene::Boss::RUSSIAN_PYRAMID:
+                    {
+                        ms = std::make_shared<RussianPyramidScene>(game, isBoss);
+                        break;
+                    }
+                    default:
+                    {
+                        ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        std::cout << "Error: no se ha podido cargar la escena de boss, cargando boss por defecto" << std::endl;
+                        break;
+                    }
+                }
                 
-                std::shared_ptr<RewardScene> rs = std::make_shared<RewardScene>(game); // TODO: Escena de recompensas de boss (pasar de piso, bolas de la mesa)
-                
+                std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
+
+                holeButton->setOnClick([=]{});
+                holeButton->setOnHover([=]{});
+                hideBallEffect(i);
             });
         });
 
-        ballButton->setOnClick(holeButton->getOnClick());
-
-        ballButton->setOnRightClick([=](){
-            // TODO: muestra el efecto multiple (segunda pantalla de efecto.)
+        holeButton->setOnHover([this, i]() {
+            showReward(i);
         });
+
+        holeButton->setOnExit([this, i]() {
+            hideReward(i);
+        });
+        
+        ballButton->setOnClick(holeButton->getOnClick());
 
         // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
         ballButton->setOnHover([this, i]() {
@@ -424,13 +468,6 @@ PoolScene::createCallbacks() {
             scrollBallEffect(i);
         });
 
-        holeButton->setOnHover([this, i]() {
-            showReward(i);
-        });
-
-        holeButton->setOnExit([this, i]() {
-            hideReward(i);
-        });
     }
 }
 
@@ -474,4 +511,27 @@ PoolScene::getEffectName(EffectType effect) {
         case X2: return "X2Effect";
         default: return "";
     }
+}
+
+void PoolScene::saveBalls() {
+    entity_t ball = new Entity(*this, grp::POOL_BALLS);
+    addComponent<BallHandler>(ball);
+
+    for(auto ballInfo : _ballsInfo) {
+        if(ballInfo.free) continue;
+        for(auto effect : ballInfo.effects) {
+            switch(effect) {
+                case ABBACUS: addComponent<AbacusEffect>(ball); break;
+                case BOWLING: addComponent<BowlingEffect>(ball); break;
+                case CRISTAL: addComponent<CristalEffect>(ball); break;
+                case PETANQUE: addComponent<PetanqueEffect>(ball); break;
+                case POKEBALL: addComponent<PokeballEffect>(ball); break;
+                case QUANTIC: addComponent<QuanticEffect>(ball); break;
+                case X2: addComponent<X2Effect>(ball); break;
+            }
+        }
+    }
+    
+    InventoryManager::Instance()->addBall(ball);
+    delete ball;
 }

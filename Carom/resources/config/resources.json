@@ -41,31 +41,6 @@
     { "id" : "bola_montada", "file" : "../../resources/images/bola_montada.png"},
     { "id": "suelo", "file": "../../resources/images/suelo.png"},
 
-    { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
-    { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
-    { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
-    { "id" : "magic_wand_sombra", "file" : "../../resources/images/magic_wand_shadow.png"},
-    { "id" : "donut", "file" : "../../resources/images/donut.png"},
-    { "id" : "donut_sombra", "file" : "../../resources/images/donut_sombra.png"},
-
-    { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
-    { "id" : "reward_description_box", "file" : "../../resources/images/reward_description_box.png"},
-    { "id" : "hole", "file" : "../../resources/images/hole.png"},
-    { "id" : "shotsSprite", "file" : "../../resources/images/shots_left.png"},
-    { "id" : "normal_collide_VFX", "file" : "../../resources/images/normal_collide_VFX.png"},
-
-    { "id" : "cowboy_hand", "file" : "../../resources/images/cowboy_hand.png"},
-    { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
-    { "id" : "sand1", "file" : "../../resources/images/sand1.png"},
-    { "id" : "sand2", "file" : "../../resources/images/sand2.png"},
-    { "id" : "sand3", "file" : "../../resources/images/sand3.png"},
-    { "id" : "sand4", "file" : "../../resources/images/sand4.png"},
-    { "id" : "sand5", "file" : "../../resources/images/sand5.png"},
-    { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
-    { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
-    { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
-
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
 
     { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
@@ -107,7 +82,6 @@
     { "id" : "cowboy_hand", "file" : "../../resources/images/cowboy_hand.png"},
     { "id" : "cowboy_hand_shadow", "file" : "../../resources/images/cowboy_hand_shadow.png"},
     { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
-    { "id" : "pyramid_table_shadow", "file" : "../../resources/images/pyramid_table_shadow.png"},
     { "id" : "sand1", "file" : "../../resources/images/sand1.png"},
     { "id" : "sand2", "file" : "../../resources/images/sand2.png"},
     { "id" : "sand3", "file" : "../../resources/images/sand3.png"},
@@ -116,7 +90,8 @@
     { "id" : "sand6", "file" : "../../resources/images/sand6.png"},
     { "id" : "sand7", "file" : "../../resources/images/sand7.png"},
     { "id" : "sand8", "file" : "../../resources/images/sand8.png"},
-
+    
+    { "id" : "pyramid_table_shadow", "file" : "../../resources/images/pyramid_table_shadow.png"},
     { "id" : "pyramid0", "file" : "../../resources/images/pyramid0.png"},
     { "id" : "pyramid1", "file" : "../../resources/images/pyramid1.png"},
     { "id" : "pyramid2", "file" : "../../resources/images/pyramid2.png"},
@@ -131,8 +106,16 @@
     { "id" : "russian_hand", "file" : "../../resources/images/russian_boss.png"},
     { "id" : "russian_boss_shadow", "file" : "../../resources/images/russian_boss_shadow.png"},
 
-    { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
+    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
+    { "id" : "BowlingEffect", "file" : "../../resources/images/balleffect_sheets/bowling-sheet.png"},
+    { "id" : "X2Effect", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
+    { "id" : "AbacusEffect", "file" : "../../resources/images/balleffect_sheets/abaco-sheet.png"},
+    { "id" : "CristalEffect", "file" : "../../resources/images/balleffect_sheets/crystal-sheet.png"},
+    { "id" : "PetanqueEffect", "file" : "../../resources/images/balleffect_sheets/petanca-sheet.png"},
+    { "id" : "PokeballEffect", "file" : "../../resources/images/balleffect_sheets/poke-sheet.png"},
+    { "id" : "QuanticEffect", "file" : "../../resources/images/balleffect_sheets/quantic-sheet.png"},
+
     { "id" : "line", "file" : "../../resources/images/line.png"},
     { "id" : "single_BowlingEffect", "file" : "../../resources/images/bowling.png"},
     { "id" : "single_X2Effect", "file" : "../../resources/images/x2.png"},
@@ -140,19 +123,8 @@
     { "id" : "single_CristalEffect", "file" : "../../resources/images/cristal.png"},
     { "id" : "single_PetanqueEffect", "file" : "../../resources/images/petanca.png"},
     { "id" : "single_PokeballEffect", "file" : "../../resources/images/poke.png"},
-    { "id" : "single_QuanticEffect", "file" : "../../resources/images/poke.png"},
-    { "id" : "cowboy_table_shadow", "file" : "../../resources/images/cowboy_table_shadow.png"},
+    { "id" : "single_QuanticEffect", "file" : "../../resources/images/quantic.png"}
 
-    { "id" : "AbacusEffect", "file" : "../../resources/images/balleffect_sheets/abaco-sheet.png"},
-    { "id" : "BowlingEffect", "file" : "../../resources/images/balleffect_sheets/bowling-sheet.png"},
-    { "id" : "CristalEffect", "file" : "../../resources/images/balleffect_sheets/crystal-sheet.png"},
-    { "id" : "PetanqueEffect", "file" : "../../resources/images/balleffect_sheets/petanca-sheet.png"},
-    { "id" : "PokeballEffect", "file" : "../../resources/images/balleffect_sheets/poke-sheet.png"},
-    { "id" : "QuanticEffect", "file" : "../../resources/images/balleffect_sheets/quantic-sheet.png"},
-    { "id" : "X2Effect", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
-    
-    { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
-    { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"}
   ],
   
   "messages" : [
@@ -165,7 +137,47 @@
   ],
 
   "sounds": [
-      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"}
+      {"id": "gunshot", "file": "../../resources/sound/gunshot.wav"},
+      {"id" : "beat", "file" : "../../resources/sound/beat.wav"},
+      {"id": "imperial_march", "file": "../../resources/sound/imperial_march.wav"},
+      {"id" : "main_theme", "file" : "../../resources/sound/main_theme.wav"},
+      {"id": "pause_theme", "file": "../../resources/sound/pause_theme.wav"},
+      {"id": "boss_whisper", "file": "../../resources/sound/boss_whisper.wav"},
+      {"id": "shot", "file": "../../resources/sound/shot.mp3"},
+      {"id": "revolver_spin", "file": "../../resources/sound/spin.mp3"},
+      {"id": "hit", "file": "../../resources/sound/hit.wav"},
+      {"id": "magic_touch", "file": "../../resources/sound/magic_touch.mp3"},
+      {"id": "drawer_open", "file": "../../resources/sound/drawer_open.wav"},
+      {"id": "drawer_close", "file": "../../resources/sound/drawer_close.wav"},
+      {"id": "point_up1", "file": "../../resources/sound/point_up1.wav"},
+      {"id": "point_up2", "file": "../../resources/sound/point_up2.wav"},
+      {"id": "sound_a", "file": "../../resources/sound/malco/sound_a.wav"},
+      {"id": "sound_b", "file": "../../resources/sound/malco/sound_b.wav"},
+      {"id": "sound_c", "file": "../../resources/sound/malco/sound_c.wav"},
+      {"id": "sound_d", "file": "../../resources/sound/malco/sound_d.wav"},
+      {"id": "sound_e", "file": "../../resources/sound/malco/sound_e.wav"},
+      {"id": "sound_f", "file": "../../resources/sound/malco/sound_f.wav"},
+      {"id": "sound_g", "file": "../../resources/sound/malco/sound_g.wav"},
+      {"id": "sound_h", "file": "../../resources/sound/malco/sound_h.wav"},
+      {"id": "sound_i", "file": "../../resources/sound/malco/sound_i.wav"},
+      {"id": "sound_j", "file": "../../resources/sound/malco/sound_j.wav"},
+      {"id": "sound_k", "file": "../../resources/sound/malco/sound_k.wav"},
+      {"id": "sound_l", "file": "../../resources/sound/malco/sound_l.wav"},
+      {"id": "sound_m", "file": "../../resources/sound/malco/sound_m.wav"},
+      {"id": "sound_n", "file": "../../resources/sound/malco/sound_n.wav"},
+      {"id": "sound_o", "file": "../../resources/sound/malco/sound_o.wav"},
+      {"id": "sound_p", "file": "../../resources/sound/malco/sound_p.wav"},
+      {"id": "sound_q", "file": "../../resources/sound/malco/sound_q.wav"},
+      {"id": "sound_r", "file": "../../resources/sound/malco/sound_r.wav"},
+      {"id": "sound_s", "file": "../../resources/sound/malco/sound_s.wav"},
+      {"id": "sound_t", "file": "../../resources/sound/malco/sound_t.wav"},
+      {"id": "sound_u", "file": "../../resources/sound/malco/sound_u.wav"},
+      {"id": "sound_v", "file": "../../resources/sound/malco/sound_v.wav"},
+      {"id": "sound_w", "file": "../../resources/sound/malco/sound_w.wav"},
+      {"id": "sound_x", "file": "../../resources/sound/malco/sound_x.wav"},
+      {"id": "sound_y", "file": "../../resources/sound/malco/sound_y.wav"},
+      {"id": "sound_z", "file": "../../resources/sound/malco/sound_z.wav"}
+
   ],
 
   "musics" : [

@@ -1,6 +1,8 @@
 #include "MainMenuScene.h"
 #include "PoolScene.h"
 #include "ScenesManager.h"
+#include "AudioManager.h"
+#include "TutorialScene.h"
 
 MainMenuScene::MainMenuScene(Game *g) 
     : UIScene(g)
@@ -44,7 +46,21 @@ void MainMenuScene::initObjects()
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
+    // Hacer que se pueda accionar el boton de Play
+    pannels[3]->getComponent<Button>()->setOnClick([this](){
+        // !!! SE CREA POOLSCENE
+        getGame()->getScenesManager()->pushScene(_poolScene);
+        TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
+        getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));
+    });  
 
+    //Empieza la musica
+    _am = AudioManager::Instance();
+    
+    _am->playMusicTrack(PAUSE_THEME);
+    _am->playMusicTrack(MAIN_THEME);
+
+    _am->changeToPauseTheme();
     // TODO: Hacer que se pueda accionar el boton de Settings
     // TODO: Hacer que se pueda accionar el boton de Controls
     // TODO: Hacer que se pueda accionar el boton de Credits
