@@ -6,7 +6,7 @@
 class SoundEffect;
 
 enum trackName{
-    MARCHA_IMPERIAL,
+    BOSS_WHISPER,
     BEAT,
     PAUSE_THEME,
     MAIN_THEME,

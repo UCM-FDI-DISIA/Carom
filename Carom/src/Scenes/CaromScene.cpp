@@ -77,6 +77,11 @@ void CaromScene::init()
     initObjects();
     initBoss();
 
+    //SFX DE JEFE
+    if(isBossMatch()){
+        AudioManager::Instance()->playMusicTrack(trackName::BOSS_WHISPER);
+    }
+
     if(_currentState == nullptr)
     setNewState(new StartMatchState(this));
 
@@ -322,6 +327,10 @@ CaromScene::~CaromScene()
         if(_currentState != nullptr) {
             delete _currentState;
             _currentState = nullptr;
+        }
+
+        if(isBossMatch()){
+            AudioManager::Instance()->pauseMusicTrack(trackName::BOSS_WHISPER);
         }
 
         // Deletes entities before destroyWorld

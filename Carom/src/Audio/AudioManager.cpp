@@ -6,7 +6,7 @@ AudioManager::AudioManager(){
     SoundEffect::setNumberofChannels(12);
 
     musicTrack ={
-        &sdlutils().soundEffects().at("imperial_march"),
+        &sdlutils().soundEffects().at("boss_whisper"),
         &sdlutils().soundEffects().at("beat"),
         &sdlutils().soundEffects().at("pause_theme"),
         &sdlutils().soundEffects().at("main_theme")
