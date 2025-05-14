@@ -40,6 +40,7 @@ public:
         Body title, Body ballDescription, 
         Uint32 wrapLength = 0, int offsetX = 0, int offsetY = 0);
 
+    ~BallInfoDisplayComponent();
 
     void render() override;
 

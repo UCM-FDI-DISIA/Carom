@@ -1,0 +1,51 @@
+#include "AudioManager.h"
+#include "sdlutils.h"
+
+AudioManager::AudioManager(){
+    
+    SoundEffect::setNumberofChannels(12);
+
+    musicTrack ={
+        &sdlutils().soundEffects().at("imperial_march"),
+        &sdlutils().soundEffects().at("beat"),
+        &sdlutils().soundEffects().at("pause_theme"),
+        &sdlutils().soundEffects().at("main_theme")
+    };
+}
+
+AudioManager::~AudioManager(){
+    for(auto track : musicTrack){
+        delete track;
+    }
+}
+
+void AudioManager::playMusicTrack(trackName trackID){
+    musicTrack[trackID]->play(-1, trackID);
+}
+
+void AudioManager::resumeMusicTrack(trackName trackID){
+    musicTrack[trackID]->resumeChannel(trackID);
+}
+
+void AudioManager::pauseMusicTrack(trackName trackID){
+    musicTrack[trackID]->pauseChannel(trackID);
+}
+
+void AudioManager::setVolumeMusicTrack(trackName trackID, int volume){
+    musicTrack[trackID]->setVolume(volume);
+}
+
+void AudioManager::playSoundEfect(std::string soundID, int volume){
+    sdlutils().soundEffects().at(soundID).setVolume(volume);
+    sdlutils().soundEffects().at(soundID).play();
+}
+
+void AudioManager::changeToPauseTheme(){
+    setVolumeMusicTrack(MAIN_THEME, 0);
+    setVolumeMusicTrack(PAUSE_THEME, 128);
+}
+
+void AudioManager::changeToMainTheme(){
+    setVolumeMusicTrack(MAIN_THEME, 128);
+    setVolumeMusicTrack(PAUSE_THEME, 0);
+}

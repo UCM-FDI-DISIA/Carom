@@ -18,6 +18,7 @@
 #include "TextDisplayComponent.h"
 #include "ColorBallScorerComponent.h"
 #include "RNG_Manager.h"
+#include "AudioManager.h"
 #include "RandomItem.h"
 #include "StartMatchState.h"
 #include "BallHandler.h"
@@ -80,6 +81,8 @@ void CaromScene::init()
     setNewState(new StartMatchState(this));
 
     _initialized = true;
+
+    AudioManager::Instance()->changeToMainTheme();
 }
 
 void CaromScene::initFunctionalities()
@@ -275,6 +278,9 @@ void CaromScene::createScoreEntity(){
 }
 
 void CaromScene::createFeedbackTest(b2Vec2 pos, float rot) {
+    //audio
+    AudioManager::Instance()->playSoundEfect("hit", 40);
+
     entity_t e = new Entity(*this, grp::FEEDBACK);
 
     Animation* a_anim = &sdlutils().animations().at("normal_collide_animation");
@@ -322,6 +328,7 @@ CaromScene::~CaromScene()
     
         delete _hitManager;
         _hitManager = nullptr;
+        AudioManager::Instance()->changeToPauseTheme();
     }
 }
 

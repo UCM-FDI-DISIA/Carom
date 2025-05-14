@@ -16,6 +16,7 @@
 #include <fstream>
 #include "BallInfoDisplayComponent.h"
 #include "Button.h"
+#include "AudioManager.h"
 
 using body_t = BallInfoDisplayComponent::Body;
 
@@ -25,9 +26,14 @@ PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     instantiateInventory();
 }
 
+PauseScene::~PauseScene(){
+    AudioManager::Instance()->changeToMainTheme();
+}
+
 void
 PauseScene::instantiateInventory(){
 
+    AudioManager::Instance()->changeToPauseTheme();
     //fondo del cajon
     entity_t fondo = new Entity(*this, grp::UI);
     b2Vec2 initialPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer_initial_pos").x, sdlutils().height()/2);

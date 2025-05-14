@@ -34,6 +34,8 @@
 #include "CharismaReward.h"
 #include "PowerReward.h"
 #include "CunningReward.h"
+#include "AudioManager.h"
+// #include ...Reward.h
 #include "DialogueTextComponent.h"
 #include "TextDisplayComponent.h"
 #include "RandomVibrationComponent.h"
@@ -68,6 +70,13 @@ PoolScene::PoolScene(Game* game)
     : UIScene(game)
     , _rngm(RNG_Manager::Instance())
 {
+    createPauseEntity();
+
+    // Create table with texture and colliders
+    createBackground("suelo");
+    createTable();
+    generateMatchHoles();
+    generateFloorRewards();
 }
 
 PoolScene::~PoolScene()
@@ -75,12 +84,6 @@ PoolScene::~PoolScene()
     std::cout << "DESTRUCTOR POOLSCENE" << std::endl;
     // Como son shareds los punteros ya no hace falta esta movida
 }
-
-// void PoolScene::initFunctionalities()
-// {
-//     // _reward = std::make_shared<RewardScene>(game);
-//     _scene = std::make_shared<RussianPyramidScene>(game, true);
-// }
 
 void PoolScene::initObjects()
 {
@@ -99,6 +102,8 @@ void PoolScene::initObjects()
     createBallInfoText();
 
     createCallbacks();
+
+    AudioManager::Instance()->changeToPauseTheme();
 }
 
 void PoolScene::generateMatchHoles()
@@ -189,8 +194,6 @@ PoolScene::createRewardInfo() {
         description->deactivate();
 
         // TEXTO
-        // TODO: Añadir texto de recompensa / texto de partida de boss
-        // en función de _floorRewards[i]
         Text title, rewardName, rewardType, rewardDesc;
 
         switch(_floorRewards[i]->getType()) {
@@ -393,6 +396,8 @@ PoolScene::scrollBallEffect(int i) {
 
 void
 PoolScene::createCallbacks() {
+    CaromScene::Boss floorBoss = (CaromScene::Boss)game->getProgressionManager()->getNextBoss();
+
     for(int i = 0; i < POSITIONS; ++i) {
         Button* holeButton = getComponent<Button>(_holes[i]);
         Button* ballButton = getComponent<Button>(_balls[i]);
@@ -404,10 +409,11 @@ PoolScene::createCallbacks() {
             hideReward(i);
             hideBallEffect(i);
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
+
+
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
                 _ballsInfo[i].free = false;
     
-                CaromScene::Boss floorBoss = (CaromScene::Boss)game->getProgressionManager()->getNextBoss();
                 std::shared_ptr<CaromScene> ms = nullptr;
 
                 switch (floorBoss)

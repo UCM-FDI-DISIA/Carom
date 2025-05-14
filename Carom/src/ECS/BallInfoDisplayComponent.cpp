@@ -12,7 +12,7 @@ BallInfoDisplayComponent::BallInfoDisplayComponent(
     Body title, Body ballDescription, 
     Uint32 wrapLength, int offsetX, int offsetY)
 
-: RenderTextureComponent(entity, _texture, renderLayer, title.scale)
+: RenderTextureComponent(entity, nullptr, renderLayer, title.scale)
 , _title(title)
 , _ballDescription(ballDescription)
 , _wrapLength(wrapLength)
@@ -22,6 +22,13 @@ BallInfoDisplayComponent::BallInfoDisplayComponent(
     generateTextures();
 }
 
+BallInfoDisplayComponent::~BallInfoDisplayComponent() {
+    // esto se hace porque esta clase no pilla texturas del utils, las crea ella misma
+    if (_texture != nullptr) delete _texture; 
+    if (_ballDescTexture != nullptr) delete _ballDescTexture; 
+
+    _texture = nullptr;
+}
 
 // TODO
 void 

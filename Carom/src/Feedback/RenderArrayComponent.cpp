@@ -5,6 +5,8 @@
 #include <exception>
 
 #include <cmath>
+#include <numbers>
+#include "math.h"
 
 RenderArrayComponent::RenderArrayComponent(entity_t ent,  Texture* tex, layerId_t renderLayer, 
     float scale, float gapScale)
@@ -52,8 +54,8 @@ RenderArrayComponent::getSectionRenderRect(float currentLength) const
     auto [a_coordinateX, a_coordinateY] = 
         _myEntity->getScene().getCamera()->getRenderPos({a_physicalPosition.x, a_physicalPosition.y});
 
-    a_coordinateX += cosf((_myTransform->getRotation())/180. * std::_Pi_val) * (currentLength - _scaledWidth/2);
-    a_coordinateY += -sinf((_myTransform->getRotation())/180. * std::_Pi_val) * (currentLength - _scaledWidth/2);
+    a_coordinateX += cosf((_myTransform->getRotation())/180. * M_PI) * (currentLength - _scaledWidth/2);
+    a_coordinateY += -sinf((_myTransform->getRotation())/180. * M_PI) * (currentLength - _scaledWidth/2);
 
     //Adapta el rect para que el objeto apareca en el centro de este
     a_coordinateX -= _scale * _texture->width() / 2;

@@ -9,12 +9,13 @@ protected:
 
 public:
     CharismaReward() : Reward("charisma", Type::PERMANENT) {
-        // TODO generar valor aleatorio
-        // _value = rng.getRndRange(...)
+        auto rng = RNG_Manager::Instance();
+        _value = rng->randomRange(10,51);
     }
 
     void applyReward() override {
-        // TODO aplicar carisma al inventario
-        // InventoryManager::Instance()->addCharisma(_value);
+        auto inv = InventoryManager::Instance();
+
+        inv->setCharisma(inv->getCharisma() + _value);
     }
 };

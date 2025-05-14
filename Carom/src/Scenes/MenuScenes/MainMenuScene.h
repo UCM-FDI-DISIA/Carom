@@ -1,6 +1,7 @@
 #pragma once
 #include "UIScene.h"
 
+class AudioManager;
 #include <memory>
 
 class ScenesManager;
@@ -9,6 +10,7 @@ class PoolScene;
 class MainMenuScene: public UIScene 
 {
 protected:
+    AudioManager* _am;
     std::shared_ptr<PoolScene> _poolScene;
 
 public:
