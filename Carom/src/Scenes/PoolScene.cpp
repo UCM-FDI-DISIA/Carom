@@ -75,7 +75,6 @@ PoolScene::PoolScene(Game* game)
     // Create table with texture and colliders
     createBackground("suelo");
     generateMatchHoles();
-    generateFloorRewards();
 }
 
 PoolScene::~PoolScene()

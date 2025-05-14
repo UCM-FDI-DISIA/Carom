@@ -15,7 +15,5 @@ void UnpauseComponent::handleEvent(){
         tween->easePosition(initialPos, .5f, tween::EASE_OUT_ELASTIC, false, [=](){
             _myEntity->getScene().getGame()->getScenesManager()->popScene();
         });
-
-        
     }
 }
