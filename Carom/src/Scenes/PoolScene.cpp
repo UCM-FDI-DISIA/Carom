@@ -74,7 +74,6 @@ PoolScene::PoolScene(Game* game)
 
     // Create table with texture and colliders
     createBackground("suelo");
-    createTable();
     generateMatchHoles();
     generateFloorRewards();
 }
@@ -92,6 +91,7 @@ void PoolScene::initObjects()
     // Create table with texture and colliders
     createBackground("suelo");
     createTable();
+
     getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
 
     initRandomEffects();
