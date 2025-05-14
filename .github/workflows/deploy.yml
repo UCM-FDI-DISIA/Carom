@@ -39,6 +39,9 @@ jobs:
       - name: Debug Output
         run: ls -R quartz-site/public
 
+      - name: Debug Output
+        run: ls -R quartz-site/public
+
       - name: Clean npm cache
         working-directory: quartz-site
         run: npm cache clean --force
