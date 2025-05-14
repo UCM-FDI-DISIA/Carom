@@ -145,6 +145,8 @@
       {"id": "magic_touch", "file": "../../resources/sound/magic_touch.mp3"},
       {"id": "drawer_open", "file": "../../resources/sound/drawer_open.wav"},
       {"id": "drawer_close", "file": "../../resources/sound/drawer_close.wav"},
+      {"id": "point_up1", "file": "../../resources/sound/point_up1.wav"},
+      {"id": "point_up2", "file": "../../resources/sound/point_up2.wav"},
       {"id": "sound_a", "file": "../../resources/sound/malco/sound_a.wav"},
       {"id": "sound_b", "file": "../../resources/sound/malco/sound_b.wav"},
       {"id": "sound_c", "file": "../../resources/sound/malco/sound_c.wav"},

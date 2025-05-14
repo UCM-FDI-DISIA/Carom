@@ -1,39 +1,41 @@
 {
-  "caromEase": 3,
-  "charisma": 0,
-  "comboEase": 0,
-  "cunning": 1.0,
-  "hitEase": 0,
-  "power": 0,
-  "slot0": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
-  },"slot1": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
-  },"slot2": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
-  },
-  "stick": {
-    "components": []
-  }
+   "caromEase": 3,
+   "charisma": 0,
+   "comboEase": 0,
+   "cunning": 1.0,
+   "hitEase": 0,
+   "power": 0,
+   "slot0": {
+      "components": [
+         {
+            "atributes": {
+               "effects": []
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot1": {
+      "components": [
+         {
+            "atributes": {
+               "effects": []
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot2": {
+      "components": [
+         {
+            "atributes": {
+               "effects": []
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "stick": {
+      "components": []
+   }
 }

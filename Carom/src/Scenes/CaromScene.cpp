@@ -660,6 +660,12 @@ CaromScene::createRoundScoreUI(){
 void CaromScene::addScore(int score) {
     _roundScore += score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
+
+    //sfx
+    int rand = sdlutils().rand().nextInt(1, 3);
+    std::string key = "point_up" + std::to_string(rand);
+
+    AudioManager::Instance()->playSoundEfect(key);
 }
 
 void CaromScene::addToTotalScore(int score) {
