@@ -14,7 +14,14 @@ title: Carom Wiki
 - [[Listado de componentes]]
 - [[Masterclass codigo]]
 
+## Playtest
+
+- [[Plan de pruebas]]
+
 ## Gestión general de grupo
+
+>[!warning] Advertencia
+>Hola si, esto era nuestra idea al principio del proyecto, pero como se podrá observar muchas cosas de las aquí mencionadas no se cumplen. Skill issue
 
 - [[Virtudes y defectos]]
 - [[Convención de código]]
