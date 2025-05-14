@@ -2,9 +2,11 @@
 #include "LogicComponent.h"
 #include "RenderTextureComponent.h"
 #include <vector>
+class RenderSpritesheetComponent;
 
 class RoundScoreAnimComponent : public LogicComponent {
     RenderTextureComponent* _myRender;
+    RenderSpritesheetComponent* _mySheetRender;
 
     int _score;
     int _scoreToMedium;

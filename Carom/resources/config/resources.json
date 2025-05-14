@@ -212,12 +212,12 @@
     "rows" : 1,
     "animType" : "DESTROYANIM",
     "framelist": [
-      {"frame" : 0, "time" : 1},
-      {"frame" : 1, "time" : 1},
-      {"frame" : 2, "time" : 1},
-      {"frame" : 3, "time" : 1},
-      {"frame" : 4, "time" : 1},
-      {"frame" : 5, "time" : 1}
+      {"frame" : 0, "time" : 3},
+      {"frame" : 1, "time" : 3},
+      {"frame" : 2, "time" : 3},
+      {"frame" : 3, "time" : 3},
+      {"frame" : 4, "time" : 3},
+      {"frame" : 5, "time" : 3}
     ]
   },
   { "id" : "score_from_2_to_3",
