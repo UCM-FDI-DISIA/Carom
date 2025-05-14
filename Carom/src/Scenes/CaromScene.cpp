@@ -46,7 +46,7 @@
 #include "RenderSpritesheetComponent.h"
 #include "AnimatorComponent.h"
 
-
+void shakeEntity(entity_t, bool reverse);
 
 CaromScene::CaromScene( Game* game, State* s) 
     : GameScene(game)
@@ -607,6 +607,8 @@ CaromScene::createRemainingHitsUI() {
         std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Bold72");
     remainingHitsObject->addComponent(remainingHitsDisplay);
 
+    addComponent<TweenComponent>(remainingHitsObject);
+
     return remainingHitsDisplay;
 }
 
@@ -670,24 +672,31 @@ void CaromScene::addScore(int score) {
 
     AudioManager::Instance()->playSoundEfect(key);
 
+    //tween 
+    shakeEntity(_roundScoreDisplay->getEntity(), false);
+    
+}
+
+void shakeEntity(entity_t ent, bool reverse){
+    int factor = 1;
+    if(reverse) factor = -1;
     //tween
-    auto tween = _roundScoreDisplay->getEntity()->getComponent<TweenComponent>();
+    auto tween = ent->getComponent<TweenComponent>();
 
     if(!tween->isTweening()){
         auto previousPos = tween->getEntity()->getTransform()->getPosition();
-        tween->easePosition(previousPos + b2Vec2{0.f, 0.05f}, 0.2f, tween::EASE_OUT_QUINT, false, [=](){
+        tween->easePosition(previousPos + b2Vec2{0.f, factor* 0.05f}, 0.2f, tween::EASE_OUT_QUINT, false, [=](){
             tween->easePosition(previousPos, 0.2f, tween::EASE_OUT_QUINT);
         });
-        tween->easeRotation(45, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
-            tween->easeRotation(-30, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
-                tween->easeRotation(15, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+        tween->easeRotation(factor*45, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easeRotation(factor*-30, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                tween->easeRotation(factor*15, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
                     tween->easeRotation(0, 0.1f, tween::EASE_OUT_QUINT);
                 });
             });
         });
 
     }
-    
 }
 
 void CaromScene::addToTotalScore(int score) {
@@ -720,6 +729,8 @@ void CaromScene::decrementRemainingHits()
         --_remainingHits;
         _remainingHitsDisplay->setDisplayedText(std::to_string(_remainingHits));
     }
+
+    shakeEntity(_remainingHitsDisplay->getEntity(), true);
 }
 
 //---------------------------BOSS---------------------------------
