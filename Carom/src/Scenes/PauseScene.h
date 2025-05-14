@@ -29,7 +29,8 @@ class PauseScene: public GameScene{
 
     std::vector<ballID> _ballIDs;
     stickID _stickID;
-
+    int previousTheme;
+    
     void instantiateInventory();
 
     // Ball info handling

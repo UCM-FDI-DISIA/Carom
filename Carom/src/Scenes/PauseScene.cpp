@@ -23,11 +23,13 @@ using body_t = BallInfoDisplayComponent::Body;
 PauseScene::PauseScene(Game* g, GameScene* scene): GameScene(g){
     _bottomScene = scene;
     _ballIDs.reserve(InventoryManager::Instance()->MAX_BALLS);
+    previousTheme = AudioManager::Instance()->getCurrentTheme();
     instantiateInventory();
 }
 
 PauseScene::~PauseScene(){
-    AudioManager::Instance()->changeToMainTheme();
+    AudioManager::Instance()->setVolumeMusicTrack(PAUSE_THEME, 0);
+    AudioManager::Instance()->setVolumeMusicTrack(trackName(previousTheme));
 }
 
 void

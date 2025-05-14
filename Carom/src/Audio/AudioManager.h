@@ -14,7 +14,7 @@ enum trackName{
 };
 
 class AudioManager : public Singleton<AudioManager> {
-    friend Singleton<AudioManager> ;
+    friend Singleton<AudioManager>;
 public:
     AudioManager();
     virtual ~AudioManager();
@@ -28,7 +28,9 @@ public:
 
     void playSoundEfect(std::string soundID, int volume = 128);
     bool inline init(){return true;};
+    inline trackName getCurrentTheme() { return currentTheme; };
 
 protected:
     std::array<SoundEffect*, NUM_TRACKS> musicTrack;
+    trackName currentTheme;
 };
