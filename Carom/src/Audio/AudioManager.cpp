@@ -14,9 +14,8 @@ AudioManager::AudioManager(){
 }
 
 AudioManager::~AudioManager(){
-    for(auto track : musicTrack){
-        delete track;
-    }
+    for(int i = 0; i < musicTrack.size(); ++i)
+        musicTrack[i] = nullptr;
 }
 
 void AudioManager::playMusicTrack(trackName trackID){
