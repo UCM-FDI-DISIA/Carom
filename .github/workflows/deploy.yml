@@ -1,4 +1,4 @@
-name: Deploy Quartz site to GitHub Pages
+name: Deploy Quartz site to GitHub Pages + Web molona del juego
  
 on:
   push:
@@ -31,6 +31,10 @@ jobs:
       - name: Build Quartz
         working-directory: quartz-site
         run: npx quartz build --output public/wiki
+
+      - name: Copy static HTML to root
+        working-directory: quartz-site
+        run: cp -r ../docs public
 
       - name: Debug Output
         run: ls -R quartz-site/public
