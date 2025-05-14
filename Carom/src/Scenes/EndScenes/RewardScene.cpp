@@ -19,11 +19,10 @@ RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
         2 // size.
     );
 
-    
     std::string r0, rName, rType;
     r0 = "Tu recompensa es:";
-    rName = r->getName();
-    rType = r->getType();
+    rName = r->translateName(r->getName());
+    rType = r->translateType(r->getType());
 
     createText(
         r0, 
@@ -47,8 +46,6 @@ RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
         1.5,
         {194, 197, 204, 255}
     );
-
-
 
     std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
 
