@@ -46,7 +46,7 @@
 #include "RenderSpritesheetComponent.h"
 #include "AnimatorComponent.h"
 
-
+void shakeEntity(entity_t, bool reverse);
 
 CaromScene::CaromScene( Game* game, State* s) 
     : GameScene(game)
@@ -76,6 +76,11 @@ void CaromScene::init()
     initGimmick();
     initObjects();
     initBoss();
+
+    //SFX DE JEFE
+    if(isBossMatch()){
+        AudioManager::Instance()->playMusicTrack(trackName::BOSS_WHISPER);
+    }
 
     if(_currentState == nullptr)
     setNewState(new StartMatchState(this));
@@ -170,7 +175,11 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 
 entity_t CaromScene::createStick()
 {
-    return InventoryManager::Instance()->getStick(*this);
+    auto stick = InventoryManager::Instance()->getStick(*this);
+
+    stick->deactivate();
+
+    return stick;
 }
 
 /// @brief Creates and randomly places as many effect balls as specified
@@ -318,6 +327,10 @@ CaromScene::~CaromScene()
         if(_currentState != nullptr) {
             delete _currentState;
             _currentState = nullptr;
+        }
+
+        if(isBossMatch()){
+            AudioManager::Instance()->pauseMusicTrack(trackName::BOSS_WHISPER);
         }
 
         // Deletes entities before destroyWorld
@@ -594,6 +607,8 @@ CaromScene::createRemainingHitsUI() {
         std::to_string(_remainingHits), {255, 255, 255, 255}, "Basteleur-Bold72");
     remainingHitsObject->addComponent(remainingHitsDisplay);
 
+    addComponent<TweenComponent>(remainingHitsObject);
+
     return remainingHitsDisplay;
 }
 
@@ -642,11 +657,46 @@ CaromScene::createRoundScoreUI(){
         {255, 255, 255, 255}, "Basteleur-Moonlight48");
     roundScoreObject->addComponent(roundDisplay);
 
+    addComponent<TweenComponent>(roundScoreObject);
+
     return roundDisplay;
 }
+
 void CaromScene::addScore(int score) {
     _roundScore += score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
+
+    //sfx
+    int rand = sdlutils().rand().nextInt(1, 3);
+    std::string key = "point_up" + std::to_string(rand);
+
+    AudioManager::Instance()->playSoundEfect(key);
+
+    //tween 
+    shakeEntity(_roundScoreDisplay->getEntity(), false);
+    
+}
+
+void shakeEntity(entity_t ent, bool reverse){
+    int factor = 1;
+    if(reverse) factor = -1;
+    //tween
+    auto tween = ent->getComponent<TweenComponent>();
+
+    if(!tween->isTweening()){
+        auto previousPos = tween->getEntity()->getTransform()->getPosition();
+        tween->easePosition(previousPos + b2Vec2{0.f, factor* 0.05f}, 0.2f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easePosition(previousPos, 0.2f, tween::EASE_OUT_QUINT);
+        });
+        tween->easeRotation(factor*45, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+            tween->easeRotation(factor*-30, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                tween->easeRotation(factor*15, 0.1f, tween::EASE_OUT_QUINT, false, [=](){
+                    tween->easeRotation(0, 0.1f, tween::EASE_OUT_QUINT);
+                });
+            });
+        });
+
+    }
 }
 
 void CaromScene::addToTotalScore(int score) {
@@ -679,9 +729,9 @@ void CaromScene::decrementRemainingHits()
         --_remainingHits;
         _remainingHitsDisplay->setDisplayedText(std::to_string(_remainingHits));
     }
+
+    shakeEntity(_remainingHitsDisplay->getEntity(), true);
 }
-
-
 
 //---------------------------BOSS---------------------------------
 
