@@ -32,14 +32,14 @@ Game::~Game()
         RNG_Manager::Release();
 
     if (InventoryManager::HasInstance())
-    InventoryManager::Release();
+        InventoryManager::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
         InputHandler::Release();
 
     if (AudioManager::HasInstance())
-        SDLUtils::Release();
+        AudioManager::Release();
 
     // release SLDUtil if the instance was created correctly.
     if (SDLUtils::HasInstance())
