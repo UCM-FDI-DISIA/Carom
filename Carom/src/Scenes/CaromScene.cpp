@@ -170,7 +170,11 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 
 entity_t CaromScene::createStick()
 {
-    return InventoryManager::Instance()->getStick(*this);
+    auto stick = InventoryManager::Instance()->getStick(*this);
+
+    stick->deactivate();
+
+    return stick;
 }
 
 /// @brief Creates and randomly places as many effect balls as specified
