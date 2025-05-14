@@ -97,7 +97,7 @@ InventoryManager::getStick(GameScene& scene) {
     return JsonEntityParser::createStick(scene, pathToInventory, "stick");
 }
 
-void 
+bool
 InventoryManager::addBall(entity_t ball) {
 
     bool found = false;
@@ -116,6 +116,8 @@ InventoryManager::addBall(entity_t ball) {
 
     //update data
     updateData(data);
+
+    return found;
 }
 
 void
