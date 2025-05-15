@@ -15,6 +15,26 @@
          }
       ]
    },
+   "slot1": {
+      "components": [
+         {
+            "atributes": {
+               "effects": []
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot2": {
+      "components": [
+         {
+            "atributes": {
+               "effects": []
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
    "stick": {
       "components": []
    }
