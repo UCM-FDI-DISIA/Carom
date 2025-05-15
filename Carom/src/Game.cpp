@@ -132,7 +132,7 @@ void Game::run()
         
         // refresh the input handler
         ihdr.refresh();
-        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) {
+        if (ihdr.closeWindowEvent()) {
             closeSDLWindow();
             continue;
         }
