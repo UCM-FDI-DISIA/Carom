@@ -29,27 +29,38 @@ QuitScene::render(){
 void 
 QuitScene::initObjects() 
 {
-    createSVGImage("quit", "segurosalir", "segurosalir");
+    entity_t blackScreen = createSVGImage("lose", "blackscreen", "blackscreen", false, grp::grpId::DEFAULT, renderLayer::UI_BACK);
 
-    //Buttons
-    Button* quitButton = getComponent<Button>(createSVGImage("quit", "buttonSalir", "scoreSprite", true));
-    createSVGImage("quit", "salir", "salir");
+    auto render = blackScreen->getComponent<RenderTextureComponent>();
+    render->changeOpacity(0);
+    auto opacity = render->getOpacity();
 
-    Button* mainMenuButton = getComponent<Button>(createSVGImage("quit", "buttonMenu", "scoreSprite", true));
-    createSVGImage("quit", "menu", "menu");
+    TweenComponent* t = addComponent<TweenComponent>(blackScreen);
+        t->easeValue(opacity, 150, 0.1, tween::LINEAR, false, [=](){
+        createSVGImage("quit", "segurosalir", "segurosalir");
 
-    Button* cancelButton = getComponent<Button>(createSVGImage("quit", "buttonCancelar", "scoreSprite", true));
-    createSVGImage("quit", "cancelar", "cancelar");
+        //Buttons
+        Button* quitButton = getComponent<Button>(createSVGImage("quit", "buttonSalir", "scoreSprite", true));
+        createSVGImage("quit", "salir", "salir");
 
-    quitButton->setOnClick([=]{
-        game->close();
+        Button* mainMenuButton = getComponent<Button>(createSVGImage("quit", "buttonMenu", "scoreSprite", true));
+        createSVGImage("quit", "menu", "menu");
+
+        Button* cancelButton = getComponent<Button>(createSVGImage("quit", "buttonCancelar", "scoreSprite", true));
+        createSVGImage("quit", "cancelar", "cancelar");
+
+        quitButton->setOnClick([=]{
+            game->close();
+        });
+
+        mainMenuButton->setOnClick([=]{
+            game->getScenesManager()->invokeLose();
+        });
+
+        cancelButton->setOnClick([=]{
+            game->getScenesManager()->popScene();
+        });
     });
 
-    mainMenuButton->setOnClick([=]{
-        game->getScenesManager()->invokeLose();
-    });
 
-    cancelButton->setOnClick([=]{
-        game->getScenesManager()->popScene();
-    });
 }
