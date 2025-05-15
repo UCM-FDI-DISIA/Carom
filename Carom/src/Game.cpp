@@ -17,10 +17,11 @@
 #include "CaromScene.h"
 #include "CowboyPoolScene.h" // ! tst
 #include "AudioManager.h"
+#include "QuitScene.h"
 
 #include <memory>
 
-Game::Game() {}
+Game::Game() : _exit(false), _paused(false) {}
 
 Game::~Game() 
 {
@@ -102,8 +103,6 @@ Game::start()
 
 void Game::run()
 {
-    bool exit = false;
-
     auto& ihdr = ih();
     auto& sdlut = sdlutils();
     //auto aMngr = new AudioManager();
@@ -125,7 +124,7 @@ void Game::run()
     #endif
 
     // Game loop capped by VSync (but has manual loop control for disabled functionality case)
-    while(!exit) {
+    while(!_exit) {
         // store the current time -- all game objects should use this time when
 		// they need to get the current time. They also have accesse to the time elapsed
 		// between the last two calls to regCurrTime().
@@ -134,8 +133,8 @@ void Game::run()
         
         // refresh the input handler
         ihdr.refresh();
-        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) {
-            exit = true;
+        if ((ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) && !_paused) {
+            _sceneManager->pushScene(std::make_shared<QuitScene>(this, _sceneManager->top()));
             continue;
         }
 
@@ -174,6 +173,12 @@ void Game::run()
     }
 
 }
+
+void 
+Game::close() {
+    _exit = true;
+}
+
 
 #ifdef _DEBUG
     void Game::restart()

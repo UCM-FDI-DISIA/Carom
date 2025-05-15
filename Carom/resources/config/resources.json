@@ -59,6 +59,11 @@
     { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
     { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
 
+    { "id" : "segurosalir", "file" : "../../resources/images/mainmenu/segurosalir.png"},
+    { "id" : "salir", "file" : "../../resources/images/mainmenu/salir.png"},
+    { "id" : "cancelar", "file" : "../../resources/images/mainmenu/cancelar.png"},
+    { "id" : "menu", "file" : "../../resources/images/mainmenu/menu.png"},
+
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
@@ -629,7 +634,8 @@
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
     {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
     {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"},
-    {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"}
+    {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"},
+    {"id": "quit", "file": "../../resources/svg/quit.svg"}
   ]
 
 }

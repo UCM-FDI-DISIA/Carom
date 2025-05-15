@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "RewardScene.h";
+class RewardScene;
 
 class Reward {
 public:
