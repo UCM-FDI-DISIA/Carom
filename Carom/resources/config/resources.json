@@ -207,10 +207,10 @@
     },
     { "id" : "score_from_1_to_2",
     "spriteSheetId" : "roundScoreSprite",
-    "scale" : 1,
+    "scale" : 0.5,
     "cols" : 12,
     "rows" : 1,
-    "animType" : "DESTROYANIM",
+    "animType" : "DISABLE",
     "framelist": [
       {"frame" : 0, "time" : 3},
       {"frame" : 1, "time" : 3},
@@ -222,17 +222,17 @@
   },
   { "id" : "score_from_2_to_3",
   "spriteSheetId" : "roundScoreSprite",
-  "scale" : 1,
+  "scale" : 0.5,
   "cols" : 12,
   "rows" : 1,
-  "animType" : "DESTROYANIM",
+  "animType" : "DISABLE",
   "framelist": [
-    {"frame" : 6, "time" : 1},
-    {"frame" : 7, "time" : 1},
-    {"frame" : 8, "time" : 1},
-    {"frame" : 9, "time" : 1},
-    {"frame" : 10, "time" : 1},
-    {"frame" : 11, "time" : 1}
+    {"frame" : 6, "time" : 3},
+    {"frame" : 7, "time" : 3},
+    {"frame" : 8, "time" : 3},
+    {"frame" : 9, "time" : 3},
+    {"frame" : 10, "time" : 3},
+    {"frame" : 11, "time" : 3}
   ]
 }
   ],

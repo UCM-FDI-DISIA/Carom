@@ -284,7 +284,7 @@ void CaromScene::createScoreEntity(){
 
     addComponent<TransformComponent>(e2, pos2);
     addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("roundScorerPup"), renderLayer::SCORE_CONTAINER, scale);
-    _roundScorer = addComponent<RoundScoreAnimComponent>(e2, 2, 1000000);
+    _roundScorer = addComponent<RoundScoreAnimComponent>(e2, 10, 100);
 
 }
 

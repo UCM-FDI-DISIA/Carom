@@ -17,8 +17,12 @@ RoundScoreAnimComponent::init() {
         new RenderSpritesheetComponent(_myEntity, anim->_spriteSheet, renderLayer::SCORE_CONTAINER,
         anim->_scale, anim->_spriteRows, anim->_spriteCols, anim->_frameList[0].frame));
 
+    _myEntity->addComponent<AnimatorComponent>(new AnimatorComponent(_myEntity, anim));
+
     _mySheetRender = _myEntity->getComponent<RenderSpritesheetComponent>();
-    
+    _myAnimator = _myEntity->getComponent<AnimatorComponent>();
+    _myAnimator->setEnabled(false);
+    _mySheetRender->setEnabled(false);
     
 }
 
@@ -31,22 +35,23 @@ RoundScoreAnimComponent::update(){
         _myRender->setEnabled(false);
         _mySheetRender->setEnabled(true);
         Animation* anim = &sdlutils().animations().at("score_from_1_to_2");
-        
-        _myEntity->addComponent<AnimatorComponent>(new AnimatorComponent(_myEntity, anim));
+        _myAnimator->setAnimation(anim);
+        _myAnimator->setEnabled(true);
         _isMid = true;
     }
     
     if(!_isMax && _score >= _scoreToMax){
-        if(_myEntity->getComponent<AnimatorComponent>()) return;
+        if(_myAnimator->isEnabled()) return;
 
         _myRender->setEnabled(false);
         _mySheetRender->setEnabled(true);
         Animation* anim = &sdlutils().animations().at("score_from_2_to_3");
-        _myEntity->addComponent<AnimatorComponent>(new AnimatorComponent(_myEntity, anim));
+        _myAnimator->setAnimation(anim);
+        _myAnimator->setEnabled(true);
         _isMax = true;
     }
 
-    if(!_myRender->isEnabled() && !_myEntity->getComponent<AnimatorComponent>()){
+    if(!_myRender->isEnabled() && !_myAnimator->isEnabled()){
 
         _mySheetRender->setEnabled(false);
         _myRender->setEnabled(true);
