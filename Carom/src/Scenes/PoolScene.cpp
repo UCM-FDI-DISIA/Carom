@@ -70,9 +70,6 @@ PoolScene::PoolScene(Game* game)
     : UIScene(game)
     , _rngm(RNG_Manager::Instance())
 {
-    createPauseEntity();
-
-    generateMatchHoles();
 }
 
 PoolScene::~PoolScene()
@@ -83,6 +80,7 @@ PoolScene::~PoolScene()
 
 void PoolScene::initObjects()
 {
+    createPauseEntity();
 
     // Create table with texture and colliders
     createBackground("suelo");
@@ -92,6 +90,7 @@ void PoolScene::initObjects()
 
     initRandomEffects();
 
+    generateMatchHoles();
     generateBalls();
     generateFloorRewards();
     createBallInfoText();
@@ -391,7 +390,6 @@ PoolScene::scrollBallEffect(int i) {
 
 void
 PoolScene::createCallbacks() {
-    //accede al administrador de progresion, obtiene el siguiente jefe
     CaromScene::Boss floorBoss = (CaromScene::Boss)game->getProgressionManager()->getNextBoss();
 
     for(int i = 0; i < POSITIONS; ++i) {
