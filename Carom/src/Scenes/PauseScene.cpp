@@ -76,13 +76,13 @@ PauseScene::instantiateInventory(){
         }
 
         // We know which effect has the ball for its texture
-        if(textureKey == "BowlingEffect") _ballIDs.push_back(BOWLING);
-        else if(textureKey == "X2Effect") _ballIDs.push_back(X2);
-        else if(textureKey == "AbacusEffect") _ballIDs.push_back(ABBACUS);
-        else if(textureKey == "CristalEffect") _ballIDs.push_back(CRISTAL);
-        else if(textureKey == "PetanqueEffect") _ballIDs.push_back(PETANQUE);
-        else if(textureKey == "PokeballEffect") _ballIDs.push_back(POKEBALL);
-        else if(textureKey == "QuanticEffect") _ballIDs.push_back(QUANTIC);
+        if(textureKey == "single_BowlingEffect") _ballIDs.push_back(BOWLING);
+        else if(textureKey == "single_X2Effect") _ballIDs.push_back(X2);
+        else if(textureKey == "single_AbacusEffect") _ballIDs.push_back(ABBACUS);
+        else if(textureKey == "single_CristalEffect") _ballIDs.push_back(CRISTAL);
+        else if(textureKey == "single_PetanqueEffect") _ballIDs.push_back(PETANQUE);
+        else if(textureKey == "single_PokeballEffect") _ballIDs.push_back(POKEBALL);
+        else if(textureKey == "single_QuanticEffect") _ballIDs.push_back(QUANTIC);
         else _ballIDs.push_back(NORMAL_BALL);
     
         auto ballPos = sdlutils().svgs().at("inventory").at(key);

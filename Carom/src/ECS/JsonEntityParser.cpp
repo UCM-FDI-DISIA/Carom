@@ -155,9 +155,6 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
     else {
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), 
             renderLayer::EFFECT_BALL, scale);
-
-        e->getComponent<RenderTextureComponent>()->changeColorTint(
-            std::rand() % 2 * 255, std::rand() % 2 * 255, std::rand() % 2 * 255);
     }
 
     // SCORE
