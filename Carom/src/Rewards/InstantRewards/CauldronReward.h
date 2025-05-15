@@ -15,7 +15,7 @@ public:
         // _effect.second = rng.get(...)
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene* rs) override {
         // TODO selección de efecto y aplicarlo a la bola seleccionada
     }
     

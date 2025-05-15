@@ -8,7 +8,7 @@ public:
 
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene*) override {
 
     }
 };

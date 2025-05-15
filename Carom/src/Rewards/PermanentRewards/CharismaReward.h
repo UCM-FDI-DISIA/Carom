@@ -13,7 +13,7 @@ public:
         _value = rng->randomRange(10,51);
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene* rs) override {
         auto inv = InventoryManager::Instance();
 
         inv->setCharisma(inv->getCharisma() + _value);

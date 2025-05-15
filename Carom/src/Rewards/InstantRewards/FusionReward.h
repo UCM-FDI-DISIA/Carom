@@ -9,7 +9,7 @@ public:
 
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene* rs) override {
         // TODO
     }
     

@@ -13,7 +13,7 @@ public:
         _value = rng->randomRange(0.01f,0.05f);
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene* rs) override {
         auto inv = InventoryManager::Instance();
 
         inv->setCunning(inv->getCunning() - _value);

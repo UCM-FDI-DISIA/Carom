@@ -14,7 +14,7 @@ public:
         // _ball = rng.get(...)
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene* rs) override {
         // TODO añadir bola al inventario
     }
     

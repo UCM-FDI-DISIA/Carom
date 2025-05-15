@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "RewardScene.h";
+
 class Reward {
 public:
     enum Type {
@@ -52,5 +54,5 @@ public:
         return s;
     }
     
-    virtual void applyReward() = 0;
+    virtual void applyReward(RewardScene*) = 0;
 };

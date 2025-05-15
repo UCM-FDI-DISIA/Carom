@@ -43,7 +43,7 @@ public:
     inline skill getSkill1() const { return _skills.first;};
     inline skill getSkill2() const { return _skills.second;};
 
-    void applyReward() override {}
+    void applyReward(RewardScene* rs) override {}
 
     /// @brief Guarda en el inventario la recompensa seleccionada. Llamar a esta función desde el callback del botón de la UI
     void applyReward(skill s) {

@@ -15,7 +15,7 @@ public:
         // _stick.second = rng.get(...)
     }
 
-    void applyReward() override {
+    void applyReward(RewardScene* rs) override {
         // TODO selección de palo y añadirlo al inventario
     }
     
