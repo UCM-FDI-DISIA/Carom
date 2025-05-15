@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x86</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D4FF7F43-E046-3C14-9BB7-0A0F41914323}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>Carom</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseDebugLibraries>false</UseDebugLibraries>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\LuKaTis\Desktop\Carom\Carom\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Carom.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\LuKaTis\Desktop\Carom\Carom\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Carom.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\LuKaTis\Desktop\Carom\Carom\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Carom.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\LuKaTis\Desktop\Carom\Carom\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Carom.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Carom</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_directory C:/Users/LuKaTis/Desktop/Carom/Carom/dlls C:/Users/LuKaTis/Desktop/Carom/Carom/bin/Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\build\src\Debug\box2dd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/LuKaTis/Desktop/Carom/build/Debug/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/LuKaTis/Desktop/Carom/Carom/bin/Debug/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_directory C:/Users/LuKaTis/Desktop/Carom/Carom/dlls C:/Users/LuKaTis/Desktop/Carom/Carom/bin/Release
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\build\src\Release\box2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/LuKaTis/Desktop/Carom/build/Release/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/LuKaTis/Desktop/Carom/Carom/bin/Release/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_directory C:/Users/LuKaTis/Desktop/Carom/Carom/dlls C:/Users/LuKaTis/Desktop/Carom/Carom/bin/MinSizeRel
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\build\src\MinSizeRel\box2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/LuKaTis/Desktop/Carom/build/MinSizeRel/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/LuKaTis/Desktop/Carom/Carom/bin/MinSizeRel/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;B2_ENABLE_ASSERT;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>true</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;B2_ENABLE_ASSERT;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2-2.30.12\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_image-2.8.4\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_mixer-2.8.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\SDL2_ttf-2.24.0\include;C:\Users\LuKaTis\Desktop\Carom\Carom\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\svg\include;C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\include;C:\Users\LuKaTis\Desktop\Carom\Carom\src;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy;C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem;C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager;C:\Users\LuKaTis\Desktop\Carom\Carom\src\RNG;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Tweens;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\InstantRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Rewards\PermanentRewards;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Text;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio;C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\src\..\include;C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src;C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E copy_directory C:/Users/LuKaTis/Desktop/Carom/Carom/dlls C:/Users/LuKaTis/Desktop/Carom/Carom/bin/RelWithDebInfo
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;C:\Users\LuKaTis\Desktop\Carom\Carom\external\box2d\build\src\RelWithDebInfo\box2d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2-2.30.12/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_image-2.8.4/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_mixer-2.8.0/lib/x64/$(Configuration);C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64;C:/Users/LuKaTis/Desktop/Carom/Carom/external/SDL2_ttf-2.24.0/lib/x64/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/LuKaTis/Desktop/Carom/build/RelWithDebInfo/Carom.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/LuKaTis/Desktop/Carom/Carom/bin/RelWithDebInfo/Carom.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\LuKaTis\Desktop\Carom\Carom\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/LuKaTis/Desktop/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/LuKaTis/Desktop/Carom/Carom -BC:/Users/LuKaTis/Desktop/Carom/build --check-stamp-file C:/Users/LuKaTis/Desktop/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeCXXCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeRCCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/LuKaTis/Desktop/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/LuKaTis/Desktop/Carom/Carom -BC:/Users/LuKaTis/Desktop/Carom/build --check-stamp-file C:/Users/LuKaTis/Desktop/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeCXXCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeRCCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/LuKaTis/Desktop/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/LuKaTis/Desktop/Carom/Carom -BC:/Users/LuKaTis/Desktop/Carom/build --check-stamp-file C:/Users/LuKaTis/Desktop/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeCXXCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeRCCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/LuKaTis/Desktop/Carom/Carom/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/LuKaTis/Desktop/Carom/Carom -BC:/Users/LuKaTis/Desktop/Carom/build --check-stamp-file C:/Users/LuKaTis/Desktop/Carom/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCXXInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeGenericSystem.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeLanguageInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeRCInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Compiler\MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\Windows.cmake;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\share\cmake-3.31\Modules\Platform\WindowsPaths.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeCXXCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeRCCompiler.cmake;C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\3.31.6-msvc6\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\LuKaTis\Desktop\Carom\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\main.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\src\SDLUtils.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\src\SDLUtilsError.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\src\SoundEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\sdlutils\src\Texture.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\src\Collisions.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\utils\src\Vector2D.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\src\json_demo.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\src\JSON.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\json\src\JSONValue.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\src\clipper.engine.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\src\clipper.offset.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\clipper2\src\clipper.rectclip.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Game.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem\GameScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\SceneSystem\ScenesManager.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\CameraComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\RenderComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\TransformComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\RigidBodyComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\JsonEntityParser.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\StickInputComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\Button.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\BoxRBComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\RectangleRBComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\PolygonRBComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\CircleRBComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\CapsuleRBComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\Entity.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\Component.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\RenderTextureComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\TextDisplayComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\DialogueTextComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\RewardInfoDisplayComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\BallInfoDisplayComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\ColorBallScorerComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\WhiteBallScorerComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\FollowComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\EventOnCollision.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\PhysicsComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator\RenderSpritesheetComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator\AnimatorComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator\BallRollerAnimatorComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Animator\RoundScoreAnimComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\HitManager\ColorHitManager.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\ForceFieldComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\ForceAreaComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy\FrictionComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Cowboy\HoleComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GimmicksCmps\Russian\PyramidComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\PoolScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\PauseScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes\EndGameScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\EndScenes\RewardScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Inventory\InventoryManager.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\AbacusEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\PetanqueEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\BallEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\BallHandler.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\QuanticEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\X2Effect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\PokeballEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\BowlingEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\SubdivisionEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\ExplosiveEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\FrictionMultiplierEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Ball\PopToOppositeSideEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\BoxingGloveStickEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\MagicWandStickEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\GranadeLauncherStickEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\DonutStickEffect.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Physics\PhysicsUtils.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Graphics\GraphicsUtils.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\CaromScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\UIScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\MenuScenes\MainMenuScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\StartMatchState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\HitState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\ScoringState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\WinMatchState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\LoseMatchState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\BossState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks\CowboyPoolScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\Gimmicks\RussianPyramidScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\TweenComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\ShadowComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\PauseComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\UnpauseComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\RandomVibrationComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Audio\AudioManager.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\ECS\WobblyRenderTextureComponent.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\TutorialScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\TutorialOneHitState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\TutorialOneScoringState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\TutorialOneStartMatchState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\TutorialTwoHitState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\TutorialTwoScoringState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\StateMachine\TutorialTwoStartMatchState.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\HelperScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Scenes\TextHelperScene.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Progression\ProgressionManager.cpp" />
+    <ClCompile Include="C:\Users\LuKaTis\Desktop\Carom\Carom\src\Feedback\RenderArrayComponent.cpp" />
+    <Natvis Include="C:\Users\LuKaTis\Desktop\Carom\Carom\external\nlohmann_json-3.12.0\nlohmann_json.natvis">
+    </Natvis>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\LuKaTis\Desktop\Carom\build\ZERO_CHECK.vcxproj">
+      <Project>{EB064C4B-28DD-3225-9977-045362946BAF}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\LuKaTis\Desktop\Carom\build\external\box2d\src\box2d.vcxproj">
+      <Project>{E64145B5-89E7-33C9-A6C6-891B6D974D61}</Project>
+      <Name>box2d</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
