@@ -153,8 +153,12 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
         addComponent<BallRollerAnimatorComponent>(e);
     }
     else {
+        int colors[3] = {52, 52, 52};
+        colors[std::rand() % 2] = 230;
+        colors[std::rand() % 2] = 230;
+
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), 
-            renderLayer::EFFECT_BALL, scale);
+            renderLayer::EFFECT_BALL, scale, SDL_Color(colors[0], colors[1], colors[2], 0));
     }
 
     // SCORE

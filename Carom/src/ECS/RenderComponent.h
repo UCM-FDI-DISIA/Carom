@@ -18,7 +18,7 @@ protected:
     // See ecs.h for layers enum
     layerId_t _defaultRenderLayer;
 public:
-    RenderComponent(Entity* ent, layerId_t renderLayer);
+    RenderComponent(Entity* ent, layerId_t renderLayer, SDL_Color defaultColor = {255, 255, 255, 0});
     virtual ~RenderComponent(){}
 
     void update() override {}

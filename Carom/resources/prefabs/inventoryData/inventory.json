@@ -9,11 +9,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "CristalEffect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
@@ -30,16 +26,6 @@
       ]
    },
    "slot2": {
-      "components": [
-         {
-            "atributes": {
-               "effects": []
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot3": {
       "components": [
          {
             "atributes": {
