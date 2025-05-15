@@ -5,7 +5,7 @@ body {
     height: max-content;
 }
 
-nav {
+nav.header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -32,6 +32,10 @@ nav a .nav-text {
     letter-spacing: 0;
     line-height: normal;
     text-shadow: var(--text-drop-shadow);
+}
+
+main {
+    margin-bottom: 150px;
 }
 
 .regular-text {
@@ -95,4 +99,58 @@ nav a .nav-text {
     object-fit: contain;
     border: 5px solid #ffffff;
 
+}
+
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.15);
+    padding: 40px 0;
+}
+
+footer nav.socials {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: max(5vw, 20px);
+}
+
+footer nav.socials .button {
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  width: 4vw;
+  height: 4vw;
+  transition: 0.15s;
+}
+
+footer nav.socials .button-background {
+  background-color: var(--yellow); 
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: var(--ball-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer nav.socials .button-background .button-padding {
+    padding: 20%;
+    width: 100%;
+    height: 100%;
+}
+
+footer nav.socials .button-icon {
+    fill: #000000;
+    height: 100%;
+    width: 100%;
+}
+
+footer nav.socials .button.youtube .button-icon {
+    fill:none;
 }
