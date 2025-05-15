@@ -43,19 +43,23 @@ void EndGameScene::hasWon()
 
 void EndGameScene::hasLost()
 {
-    createText("Has PERDIDO.", // text
-    sdlutils().width()/2, // x
-    sdlutils().height()/2, // y
-    2.5 // size
-    );
+    createSVGImage("lose", "losetext", "citacionlose1");
 
-    entity_t b = createSVGImage("lose", "scoreSprite", "scoreSprite", true);
+    entity_t blackScreen = createSVGImage("lose", "blackscreen", "blackscreen", false, grp::grpId::DEFAULT, renderLayer::UI_BACK);
 
-    // Vuelve a main scene
-    b->getComponent<Button>()->setOnClick([this]()
-    {
-        game->getScenesManager()->invokeLose(); // vuelve a main scene
-    }); 
+    auto render = blackScreen->getComponent<RenderTextureComponent>();
+    render->changeOpacity(0);
+    auto opacity = render->getOpacity();
 
-    createSVGImage("lose", "loseButtonText", "loseButtonText");
+    TweenComponent* t = addComponent<TweenComponent>(blackScreen);
+    t->easeValue(opacity, 255, 4, tween::LINEAR, false, [=](){
+        entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
+        createSVGImage("lose", "loseButtonText", "loseButtonText");
+        // Vuelve a main scene
+        b->getComponent<Button>()->setOnClick([this]()
+        {
+            game->getScenesManager()->invokeLose(); // vuelve a main scene
+        }); 
+    });
+
 }

@@ -123,6 +123,10 @@ public:
 		SDL_SetTextureColorMod(_texture, r, g, b);
 	}
 
+	inline void changeOpacity(uint8_t alpha){
+		SDL_SetTextureAlphaMod(_texture, alpha);
+	}
+
 private:
 
 	// Construct from text

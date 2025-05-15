@@ -33,3 +33,8 @@ void RenderComponent::resetColorTint(){
     _color.g = _defaultColor.g;
     _color.b = _defaultColor.b;
 }
+
+void RenderComponent::changeOpacity(float opacity)
+{
+    _opacity = opacity;
+}

@@ -112,4 +112,5 @@
 	STICK, \
 	BOSS_SHADOW_HAND, \
 	BOSS_HAND, \
+	UI_BACK, \
 	UI

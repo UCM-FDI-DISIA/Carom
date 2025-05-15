@@ -55,7 +55,7 @@ CaromScene::CaromScene( Game* game, State* s)
     , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
-    , _remainingHits(10 + InventoryManager::Instance()->getPower())
+    , _remainingHits(1 + InventoryManager::Instance()->getPower())// ! tst
 {
 }
 
@@ -64,7 +64,7 @@ void CaromScene::init()
     // Boss match requires a different score to beat
     int baseScore;
     if(isBossMatch()) baseScore = 20;
-    else baseScore = 10;
+    else baseScore = 1; // ! tst
 
     baseScore *= InventoryManager::Instance()->getCunning();
     _currentScore = InventoryManager::Instance()->getCharisma();

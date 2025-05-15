@@ -25,12 +25,6 @@ void WinMatchState::onStateEnter(){
 void WinMatchState::onStateExit() {
     _scene->getScenesManager()->popScene(); // popea CaromScene
     _scene->getScenesManager()->pushScene(std::make_shared<EndGameScene>(_scene->getGame(), true));
-
-    // if(_scene->isBossMatch()) {
-    //     _scene->getScenesManager()->popScene(); // ! popea PoolScene? NO, POPEA REWARD
-    //     _scene->getGame()->getProgressionManager()->anteUp(); // Esto tiene que estar en reward
-    //     _scene->getScenesManager()->pushScene(std::make_shared<PoolScene>(_scene->getGame())); // Nueva PoolScene
-    // }
 }
 
 bool WinMatchState::checkCondition(State*& state) {

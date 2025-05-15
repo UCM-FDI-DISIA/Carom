@@ -39,8 +39,10 @@ void RenderTextureComponent::init(){
 
 void RenderTextureComponent::render() {
     _texture->changeColorTint(_color.r, _color.g, _color.b);
+    _texture->changeOpacity(_opacity);
     _texture->render(getRenderRect(), _transform->getRotation());
     _texture->changeColorTint(255,255,255);
+    _texture->changeOpacity(255);
 }
 
 SDL_Rect RenderTextureComponent::getRenderRect() const
