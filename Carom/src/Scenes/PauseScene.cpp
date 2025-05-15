@@ -63,6 +63,12 @@ PauseScene::instantiateInventory(){
         std::string key = "ball_" + std::to_string(i+1);
         std::string slot = "slot" + std::to_string(i);
 
+        //si no existe la bola en el slot i, no se renderiza
+        if(data.find(slot) == data.end()) {
+            _ballIDs.push_back(NORMAL_BALL);
+            continue;
+        }
+
         std::string textureKey = "bola_blanca";
         if(data[slot]["components"][0]["atributes"]["effects"].size() >0){
             textureKey = data[slot]["components"][0]["atributes"]["effects"][0]["componentName"];

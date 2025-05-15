@@ -72,8 +72,6 @@ PoolScene::PoolScene(Game* game)
 {
     createPauseEntity();
 
-    // Create table with texture and colliders
-    createBackground("suelo");
     generateMatchHoles();
 }
 
@@ -85,7 +83,6 @@ PoolScene::~PoolScene()
 
 void PoolScene::initObjects()
 {
-    createPauseEntity();
 
     // Create table with texture and colliders
     createBackground("suelo");
@@ -95,7 +92,6 @@ void PoolScene::initObjects()
 
     initRandomEffects();
 
-    generateMatchHoles();
     generateBalls();
     generateFloorRewards();
     createBallInfoText();
