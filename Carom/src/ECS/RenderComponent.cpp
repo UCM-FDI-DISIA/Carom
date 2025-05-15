@@ -2,12 +2,13 @@
 #include "Entity.h"
 #include "GameScene.h"
 
-RenderComponent::RenderComponent(Entity* ent, layerId_t renderLayer)
+RenderComponent::RenderComponent(Entity* ent, layerId_t renderLayer, SDL_Color defaultColor)
 : Component(ent), 
 _renderLayer(renderLayer),
-_defaultRenderLayer(renderLayer) {
+_defaultRenderLayer(renderLayer),
+_defaultColor(defaultColor) {
 
-    _defaultColor = _color;
+    changeColorTint(_defaultColor.r, _defaultColor.g, _defaultColor.b);
 }
 
 void RenderComponent::setRenderLayer(layerId_t layer) {    
@@ -28,7 +29,7 @@ void RenderComponent::changeColorTint(int r, int g, int b){
 }
 
 void RenderComponent::resetColorTint(){
-    // _color = _defaultColor;
+    _color = _defaultColor;
     _color.r = _defaultColor.r;
     _color.g = _defaultColor.g;
     _color.b = _defaultColor.b;

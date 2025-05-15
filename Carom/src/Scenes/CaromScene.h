@@ -16,6 +16,7 @@ class ScenesManager;
 class ColorHitManager;
 class TextDisplayComponent;
 class StickInputComponent;
+class RoundScoreAnimComponent;
 class AudioManager;
 
     
@@ -73,6 +74,7 @@ protected:
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
     TextDisplayComponent* _roundScoreDisplay;
+    RoundScoreAnimComponent* _roundScorer;
 public:
     TextDisplayComponent* createScoreUI();
     TextDisplayComponent* createRoundScoreUI();

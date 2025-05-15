@@ -48,13 +48,13 @@
     { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
     { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
     { "id" : "RectanglePlay", "file" : "../../resources/images/mainmenu/RectanglePlay.png"},
-    { "id" : "RectangleSettings", "file" : "../../resources/images/mainmenu/RectangleSettings.png"},
+    { "id" : "RectangleTutorial", "file" : "../../resources/images/mainmenu/RectangleTutorial.png"},
     { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
     { "id" : "menuBackground", "file" : "../../resources/images/mainmenu/menuBackground.png"},
     { "id" : "C", "file" : "../../resources/images/mainmenu/C.png"},
     { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
     { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
-    { "id" : "Settings", "file" : "../../resources/images/mainmenu/Settings.png"},
+    { "id" : "Tutorial", "file" : "../../resources/images/mainmenu/Tutorial.png"},
     { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
     { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
     { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
@@ -74,6 +74,10 @@
     { "id" : "lanzagranadas_sombra", "file" : "../../resources/images/lanzagranadas_sombra.png"},
 
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
+    { "id" : "roundScoreSprite", "file" : "../../resources/images/scoring-sheet.png"},
+    { "id" : "roundScorerPup", "file" : "../../resources/images/RoundScorerPup.png"},
+    { "id" : "roundScorerColt", "file" : "../../resources/images/RoundScorerColt.png"},
+    { "id" : "roundScorerMax", "file" : "../../resources/images/RoundScorerMax.png"},
     { "id" : "reward_description_box", "file" : "../../resources/images/reward_description_box.png"},
     {"id" : "inventory_description_box", "file": "../../resources/images/inv_description.png"},
     { "id" : "hole", "file" : "../../resources/images/hole.png"},
@@ -207,7 +211,37 @@
         {"frame" : 5, "time" : 1},
         {"frame" : 6, "time" : 1}
       ]
-    }
+    },
+    { "id" : "score_from_1_to_2",
+    "spriteSheetId" : "roundScoreSprite",
+    "scale" : 0.5,
+    "cols" : 12,
+    "rows" : 1,
+    "animType" : "DISABLE",
+    "framelist": [
+      {"frame" : 0, "time" : 3},
+      {"frame" : 1, "time" : 3},
+      {"frame" : 2, "time" : 3},
+      {"frame" : 3, "time" : 3},
+      {"frame" : 4, "time" : 3},
+      {"frame" : 5, "time" : 3}
+    ]
+  },
+  { "id" : "score_from_2_to_3",
+  "spriteSheetId" : "roundScoreSprite",
+  "scale" : 0.5,
+  "cols" : 12,
+  "rows" : 1,
+  "animType" : "DISABLE",
+  "framelist": [
+    {"frame" : 6, "time" : 3},
+    {"frame" : 7, "time" : 3},
+    {"frame" : 8, "time" : 3},
+    {"frame" : 9, "time" : 3},
+    {"frame" : 10, "time" : 3},
+    {"frame" : 11, "time" : 3}
+  ]
+}
   ],
 
   "texts" : [

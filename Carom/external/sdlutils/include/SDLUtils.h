@@ -260,6 +260,16 @@ public:
 		return _deltaTime;
 	}
 
+	//mierda de colores de la mesa
+	std::vector<SDL_Color> inventorySlotColor = {
+		SDL_Color{181, 18, 37, 255},
+		SDL_Color{181, 138, 18, 255},
+		SDL_Color{18, 167, 181, 255},
+		SDL_Color{40, 181, 18, 255},
+		SDL_Color{181, 18, 83, 255},
+		SDL_Color{181, 18, 132, 255},
+	};
+
 private:
 
 	SDLUtils();
@@ -306,6 +316,8 @@ private:
 
 	Uint32 _currTime;
 	Uint32 _deltaTime;
+
+	
 
 };
 

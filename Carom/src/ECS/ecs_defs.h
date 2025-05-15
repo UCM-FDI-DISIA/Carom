@@ -47,6 +47,7 @@
 	PAUSE, \
 	UNPAUSE, \
 	RANDOM_VIBRATION, \
+	ROUND_SCORE_ANIMATOR, \
 	DIALOGUE
 
 // Groups list - must have at least one element

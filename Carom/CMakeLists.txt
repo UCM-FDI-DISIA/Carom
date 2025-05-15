@@ -156,6 +156,7 @@ add_executable(Carom
 	src/Animator/RenderSpritesheetComponent.cpp
 	src/Animator/AnimatorComponent.cpp
     src/Animator/BallRollerAnimatorComponent.cpp
+    src/Animator/RoundScoreAnimComponent.cpp
 
 	src/HitManager/ColorHitManager.cpp
 
@@ -239,7 +240,7 @@ add_executable(Carom
     src/Scenes/HelperScene.cpp
     src/Scenes/TextHelperScene.cpp
     src/Progression/ProgressionManager.cpp
-    
+   
     src/Feedback/RenderArrayComponent.cpp
 )
 

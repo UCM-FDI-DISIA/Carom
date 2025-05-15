@@ -17,7 +17,8 @@ struct Animation {
     enum AnimationType {
         LOOP,
         KILLMYSELF,
-        TURNOFF
+        TURNOFF,
+        DESTROYANIM
     };
 
     AnimationType _animType;

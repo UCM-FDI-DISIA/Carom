@@ -25,12 +25,14 @@ RigidBodyComponent::RigidBodyComponent(Entity* ent) : InfoComponent(ent), ITrans
     _myProps.sleepThreshold = 0.2f;
 }
 
+/// @brief Destructor of the Rigidbody. Also destroys box2d bodies.
 RigidBodyComponent::~RigidBodyComponent()
 {
     delete _myB2ShapeDef;
     b2DestroyBody(_myB2BodyId);
 }
 
+/// @brief The update changes the scale if a scale change is buffered.
 void RigidBodyComponent::update()
 {
     if(_scaleBuffer.first){
@@ -39,6 +41,7 @@ void RigidBodyComponent::update()
     }
 }
 
+/// @brief Generates box2d body and shapes to ensure the physics work without problems
 void
 RigidBodyComponent::generateBodyAndShape(){
     // entity_t ent, const b2Vec2& vec, b2BodyType bodyType, float density, float friction, float restitution, bool sensor){
@@ -84,7 +87,7 @@ RigidBodyComponent::getScale() const {
 double
 RigidBodyComponent::getRotation() const {
     b2Rot a_b2r = b2Body_GetRotation(_myB2BodyId);
-    return b2Atan2(a_b2r.s, a_b2r.c);// * 180. / B2_PI;
+    return b2Atan2(a_b2r.s, a_b2r.c) * 180. / B2_PI;
 }
 
 /// @brief Returns a bool indicating whether the body is moving
@@ -121,6 +124,8 @@ RigidBodyComponent::setRotation(const double& newRot) {
     b2Body_SetTransform(_myB2BodyId, b2Body_GetPosition(_myB2BodyId), {(float)std::cos(newRot), (float)std::sin(newRot)});
 }
 
+/// @brief Buffers the new scale to change it later
+/// @param newScale the new scale
 void
 RigidBodyComponent::setScale(const Scale& newScale){
     _scaleBuffer = {true, newScale};
@@ -246,12 +251,16 @@ void RigidBodyComponent::setRestitution(float restitution)
     b2Shape_SetRestitution(_myB2ShapeId, restitution);
 }
 
+/// @brief Changes the linear damping of an object
+/// @param damping the new linear damping of the shape
 void RigidBodyComponent::setLinearDamping(float damping)
 {
     _myProps.linearDamping = damping;
     b2Body_SetLinearDamping(_myB2BodyId, damping);
 }
 
+/// @brief Enables/Disables the rigidbody in box2d
+/// @param enabled if the body will be enabled or not
 void RigidBodyComponent::setBodyEnabled(bool enabled)
 {
     if(enabled)
@@ -260,6 +269,8 @@ void RigidBodyComponent::setBodyEnabled(bool enabled)
         b2Body_Disable(_myB2BodyId);
 }
 
+/// @brief overrided method to enable/disable the component
+/// @param state if the component will be enabled or not
 void
 RigidBodyComponent::setEnabled(bool state) {
     _isEnable = state;
@@ -302,6 +313,8 @@ RigidBodyComponent::onTriggerExit(entity_t ent){
     }
 }
 
+/// @brief adds a physics component to the trigger and collision events lists, as a listener
+/// @param PC The physicsComponent/listener
 void
 RigidBodyComponent::suscribePhysicsComponent(PhysicsComponent* PC){
     _triggerExit.push_back(PC);

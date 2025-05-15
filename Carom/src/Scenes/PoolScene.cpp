@@ -70,11 +70,6 @@ PoolScene::PoolScene(Game* game)
     : UIScene(game)
     , _rngm(RNG_Manager::Instance())
 {
-    createPauseEntity();
-
-    // Create table with texture and colliders
-    createBackground("suelo");
-    generateMatchHoles();
 }
 
 PoolScene::~PoolScene()

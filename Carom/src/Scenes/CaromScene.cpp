@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "InputHandler.h"
 
+
 #include "TransformComponent.h"
 #include "FollowComponent.h"
 #include "RenderTextureComponent.h"
@@ -45,6 +46,7 @@
 #include "Animation.h"
 #include "RenderSpritesheetComponent.h"
 #include "AnimatorComponent.h"
+#include "RoundScoreAnimComponent.h"
 
 void shakeEntity(entity_t, bool reverse);
 
@@ -211,6 +213,15 @@ CaromScene::createEffectBalls() {
     //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
     auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, randomPositions);
 
+    //colores
+    for(int i = 0; i < ballsVector.size(); i++){
+        auto ball = ballsVector[i];
+        if(ball!=nullptr){
+            auto color = sdlutils().inventorySlotColor[i];
+            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+        }
+    }
+
     //AÑADIR SOMBRAS
     for(auto ball : ballsVector){
         if(ball!= nullptr){
@@ -282,7 +293,8 @@ void CaromScene::createScoreEntity(){
     );
 
     addComponent<TransformComponent>(e2, pos2);
-    addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
+    addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("roundScorerPup"), renderLayer::SCORE_CONTAINER, scale);
+    _roundScorer = addComponent<RoundScoreAnimComponent>(e2, 10, 100);
 
 }
 
@@ -642,6 +654,8 @@ CaromScene::createScoreUI() {
     return currentDisplay;
 }
 
+/// @brief creates the text of the round score label
+/// @return the entity with the text
 TextDisplayComponent*
 CaromScene::createRoundScoreUI(){
 
@@ -665,6 +679,7 @@ CaromScene::createRoundScoreUI(){
 void CaromScene::addScore(int score) {
     _roundScore += score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
+    _roundScorer->setRoundScore(_roundScore);
 
     //sfx
     int rand = sdlutils().rand().nextInt(1, 3);
@@ -707,6 +722,7 @@ void CaromScene::addToTotalScore(int score) {
 void CaromScene::removeScore(int score) {
     _roundScore -= score;
     _roundScoreDisplay->setDisplayedText(std::to_string(_roundScore));
+    _roundScorer->setRoundScore(_roundScore);
 }
 
 void CaromScene::removeFromTotalScore(int score) {

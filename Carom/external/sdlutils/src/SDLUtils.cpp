@@ -315,7 +315,8 @@ void SDLUtils::loadReasources(std::string filename) {
 	std::unordered_map<std::string, Animation::AnimationType> animTypesConversor = {
 		{"LOOP", Animation::LOOP},
 		{"KILLMYSELF", Animation::KILLMYSELF},
-		{"DISABLE", Animation::TURNOFF}
+		{"DISABLE", Animation::TURNOFF},
+		{"DESTROYANIM", Animation::DESTROYANIM}
 	};
 
 	// load animations

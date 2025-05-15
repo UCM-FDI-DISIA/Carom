@@ -37,7 +37,7 @@ void MainMenuScene::initObjects()
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); // [1]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); // [2]
     pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleSettings", "RectangleSettings", true)); // [4]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTutorial", "RectangleTutorial", true)); // [4]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); // [6]
 
@@ -61,7 +61,7 @@ void MainMenuScene::initObjects()
     _am->playMusicTrack(MAIN_THEME);
 
     _am->changeToPauseTheme();
-    // TODO: Hacer que se pueda accionar el boton de Settings
+    // TODO: Hacer que se pueda accionar el boton de Tutorial
     // TODO: Hacer que se pueda accionar el boton de Controls
     // TODO: Hacer que se pueda accionar el boton de Credits
     
@@ -70,7 +70,7 @@ void MainMenuScene::initObjects()
     texts.emplace_back(createSVGImage(SVGTag, "C", "C"));
     texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM"));
     texts.emplace_back(createSVGImage(SVGTag, "Play", "Play"));
-    texts.emplace_back(createSVGImage(SVGTag, "Settings", "Settings"));
+    texts.emplace_back(createSVGImage(SVGTag, "Tutorial", "Tutorial"));
     texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls"));
     texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits"));
 }

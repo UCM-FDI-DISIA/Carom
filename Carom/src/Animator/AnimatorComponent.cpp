@@ -46,6 +46,9 @@ AnimatorComponent::animationEnd (Animation::AnimationType animType) {
         case Animation::TURNOFF :
             this->setEnabled(false);
             break;
+        case Animation::DESTROYANIM :
+            _myEntity->removeComponent<AnimatorComponent>();
+            break;
     }
 }
 

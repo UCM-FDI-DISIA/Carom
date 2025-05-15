@@ -5,7 +5,7 @@
 #include "WallComponent.h"
 #include "EventOnCollision.h"
 
-
+/// @brief Registra las posiciones de las paredes para compararlas al chocar con algo y asegurarse de que es una pared
 void
 PopToOppositeSideEffect::init(){
     _mTrans = _myEntity->getTransform();
@@ -33,6 +33,7 @@ PopToOppositeSideEffect::init(){
     BallEffect::init();
 }
 
+/// @brief Al acabar el golpe se eliminan los efectos hasta el siguiente golpe
 void 
 PopToOppositeSideEffect::onStrikeEnd(){
     _myEntity->removeComponent<EventOnCollision>();
@@ -41,6 +42,8 @@ PopToOppositeSideEffect::onStrikeEnd(){
 
 }
 
+/// @brief Al chocar comprueba si ha chocado con una pared. Si lo ha hecho mira que pared ha sido y se teletransporta a la pared opuesta
+/// @param other La pared con la que se choca
 void 
 PopToOppositeSideEffect::popOnCollision(entity_t other){
 

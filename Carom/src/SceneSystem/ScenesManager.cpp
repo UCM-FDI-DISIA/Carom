@@ -6,11 +6,10 @@
  * @date  Silksong 2025
  */
 
- #include "ScenesManager.h"
- #include "RNG_Manager.h"
+#include "ScenesManager.h"
+#include "RNG_Manager.h"
+#include "QuitScene.h"
 
-
-using namespace std;
 
 ScenesManager::ScenesManager()
 {

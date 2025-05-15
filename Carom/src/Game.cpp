@@ -19,6 +19,8 @@
 #include "AudioManager.h"
 #include "QuitScene.h"
 
+#include "QuitScene.h"
+
 #include <memory>
 
 Game::Game() : _exit(false), _paused(false) {}
@@ -178,7 +180,6 @@ void
 Game::close() {
     _exit = true;
 }
-
 
 #ifdef _DEBUG
     void Game::restart()
