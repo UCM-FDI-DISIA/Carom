@@ -103,6 +103,8 @@
     { "id" : "russian_boss_shadow", "file" : "../../resources/images/russian_boss_shadow.png"},
 
     { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
+    { "id" : "citacionlose1", "file" : "../../resources/images/lose/citacionlose1.png"},
+    { "id" : "blackscreen", "file" : "../../resources/images/lose/blackscreen.png"},
     { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
     { "id" : "BowlingEffect", "file" : "../../resources/images/balleffect_sheets/bowling-sheet.png"},
     { "id" : "X2Effect", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
