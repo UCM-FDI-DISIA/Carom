@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "InputHandler.h"
 
+
 #include "TransformComponent.h"
 #include "FollowComponent.h"
 #include "RenderTextureComponent.h"
@@ -211,6 +212,15 @@ CaromScene::createEffectBalls() {
 
     //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
     auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, randomPositions);
+
+    //colores
+    for(int i = 0; i < ballsVector.size(); i++){
+        auto ball = ballsVector[i];
+        if(ball!=nullptr){
+            auto color = sdlutils().inventorySlotColor[i];
+            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+        }
+    }
 
     //AÑADIR SOMBRAS
     for(auto ball : ballsVector){

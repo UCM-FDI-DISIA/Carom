@@ -95,7 +95,13 @@ PauseScene::instantiateInventory(){
         addComponent<TransformComponent>(ball, b2Vec2{0,0});
         addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);
 
-        addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, relativeDistance.y));
+        if(textureKey == "bola_blanca"){
+            //colores
+            auto color = sdlutils().inventorySlotColor[i];
+            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+        }
+
+        addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, -relativeDistance.y));
         createBallShadow(ball);
 
         Button::TextureButton rButton = Button::TextureButton();
