@@ -39,6 +39,7 @@ CapsuleRBComponent::CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyTy
     _myB2ShapeId = b2CreateCapsuleShape(_myB2BodyId, _myB2ShapeDef, &a_capsule);
 }
 
+/// @brief Updates capsule scale by separating the centers and enhancing the width and heigth
 void
 CapsuleRBComponent::updateScale(){
     /*_myScale = newScale;
