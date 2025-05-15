@@ -55,6 +55,8 @@ protected:
     std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
     void saveBalls();
 
+    void createCurrentFloorUI();
+
     // --- AGUJEROS Y RECOMPENSAS ---
     std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
     std::vector<std::shared_ptr<Reward>> _floorRewards; // Recompensas de cada agujero del piso

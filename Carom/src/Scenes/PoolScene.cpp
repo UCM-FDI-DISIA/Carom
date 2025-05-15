@@ -90,6 +90,7 @@ void PoolScene::initObjects()
     // Create table with texture and colliders
     createBackground("suelo");
     createTable();
+    createCurrentFloorUI();
 
     getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
 
@@ -534,4 +535,36 @@ void PoolScene::saveBalls() {
     
     InventoryManager::Instance()->addBall(ball);
     delete ball;
+}
+
+void
+PoolScene::createCurrentFloorUI() {
+
+    int currFloor = game->getProgressionManager()->getAnte();
+
+    entity_t floorFrameObject = new Entity(*this, grp::SCORE);
+
+    auto shotsLeftSprite = sdlutils().svgs().at("game").at("shotsLeftSprite");
+    auto posX = sdlutils().width()/2;
+    auto posY = shotsLeftSprite.y + 25;
+    b2Vec2 framePos = PhysicsConverter::pixel2meter( posX, posY );
+
+    float svgSize = shotsLeftSprite.width;
+    float textureSize = sdlutils().images().at("shotsSprite").width();
+    float scale = svgSize/textureSize;
+
+
+    floorFrameObject->addComponent(new TransformComponent(floorFrameObject, framePos));
+    floorFrameObject->addComponent(new RenderTextureComponent(floorFrameObject, &sdlutils().images().at("shotsSprite"), 0, scale));
+    entity_t floorObject = new Entity(*this, grp::SCORE);
+
+    auto shotsLeftText = sdlutils().svgs().at("game").at("shotsLeftText");
+    b2Vec2 textPos = PhysicsConverter::pixel2meter( posX, posY );
+
+    floorObject->addComponent(new TransformComponent(floorObject, textPos));
+    TextDisplayComponent* floorDisplay = new TextDisplayComponent(floorObject, 1, 1.0, 
+        std::to_string(currFloor), {255, 255, 255, 255}, "Basteleur-Bold72");
+    floorObject->addComponent(floorDisplay);
+
+    addComponent<TweenComponent>(floorObject);
 }
