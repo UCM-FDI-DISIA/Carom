@@ -38,21 +38,26 @@ void MainMenuScene::initObjects()
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); // [2]
     pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleTutorial", "RectangleTutorial", true)); // [4]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); // [6]
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleExit", "RectangleExit", true)); // [5]
+
 
     // Hacer que se pueda accionar el boton de Play
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
-    // Hacer que se pueda accionar el boton de Play
+    // Hacer que se pueda accionar el boton de Tutorial
     pannels[3]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
         TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
         getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));
     });  
+    // Hacer que se pueda accionar el boton de Exit
+    pannels[5]->getComponent<Button>()->setOnClick([this](){
+        getGame()->closeSDLWindow();
+    }); 
 
     //Empieza la musica
     _am = AudioManager::Instance();
@@ -61,8 +66,6 @@ void MainMenuScene::initObjects()
     _am->playMusicTrack(MAIN_THEME);
 
     _am->changeToPauseTheme();
-    // TODO: Hacer que se pueda accionar el boton de Tutorial
-    // TODO: Hacer que se pueda accionar el boton de Controls
     // TODO: Hacer que se pueda accionar el boton de Credits
     
     // --- TEXTOS.
@@ -71,6 +74,6 @@ void MainMenuScene::initObjects()
     texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM"));
     texts.emplace_back(createSVGImage(SVGTag, "Play", "Play"));
     texts.emplace_back(createSVGImage(SVGTag, "Tutorial", "Tutorial"));
-    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls"));
     texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits"));
+    texts.emplace_back(createSVGImage(SVGTag, "Exit", "Exit"));
 }

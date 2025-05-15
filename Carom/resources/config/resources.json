@@ -43,7 +43,7 @@
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
 
-    { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
+    { "id" : "RectangleExit", "file" : "../../resources/images/mainmenu/RectangleExit.png"},
     { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
     { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
     { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
@@ -55,7 +55,7 @@
     { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
     { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
     { "id" : "Tutorial", "file" : "../../resources/images/mainmenu/Tutorial.png"},
-    { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
+    { "id" : "Exit", "file" : "../../resources/images/mainmenu/Exit.png"},
     { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
     { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
 

@@ -39,14 +39,18 @@ public:
     
     inline ScenesManager* getScenesManager() {return _sceneManager;}
     inline ProgressionManager* getProgressionManager() {return _progressionManager;}
+
+    inline void closeSDLWindow() { _exit = true; }
+
     
-protected:
+    protected:
     ScenesManager* _sceneManager;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
     ProgressionManager* _progressionManager;
-
-private:
+    
+    private:
     Texture* _t;
+    bool _exit = false;
 
     #ifdef _DEBUG
         void restart();
