@@ -29,6 +29,7 @@ class ShadowComponent;
 class PauseScene;
 class TutorialScene;
 class TextHelperScene;
+class QuitScene;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -221,7 +222,8 @@ private:
     friend RussianPyramidScene;
     friend TutorialScene;
     friend TextHelperScene;
-    
+    friend QuitScene;
+
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"

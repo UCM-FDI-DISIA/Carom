@@ -227,6 +227,7 @@ add_executable(Carom
     src/ECS/WobblyRenderTextureComponent.cpp
 
     src/Scenes/TutorialScene.cpp
+    src/Scenes/EndScenes/QuitScene.cpp
 
     src/StateMachine/TutorialOneHitState.cpp
     src/StateMachine/TutorialOneScoringState.cpp
@@ -239,7 +240,7 @@ add_executable(Carom
     src/Scenes/HelperScene.cpp
     src/Scenes/TextHelperScene.cpp
     src/Progression/ProgressionManager.cpp
-    
+   
     src/Feedback/RenderArrayComponent.cpp
 )
 

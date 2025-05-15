@@ -39,6 +39,7 @@ public:
 	// Desapila el estado actual y pasa al siguiente en la pila
 	// (no hace nada si no la pila es vacía)
 	void popScene();
+	inline std::shared_ptr<GameScene> top() { return _gameScenes.top(); }
 
 	bool empty() const;
 	operator bool() const;

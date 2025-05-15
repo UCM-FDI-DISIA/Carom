@@ -28,6 +28,7 @@ public:
     void init();
     void start();
     void run();
+    void close();
 
     #ifdef _DEBUG
         inline void requestRestart() { _restartRequested = true; }
@@ -44,6 +45,7 @@ protected:
     ScenesManager* _sceneManager;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
     ProgressionManager* _progressionManager;
+    bool _exit; 
 
 private:
     Texture* _t;
