@@ -2,30 +2,59 @@
 #include "ScenesManager.h"
 
 
-EndGameScene::EndGameScene(Game *g) : UIScene(g)
+EndGameScene::EndGameScene(Game *g, bool win)
+    : UIScene(g)
+    , _win(win)
+{
+}
+
+void EndGameScene::initObjects()
 {
     createBackground("suelo");
 
     createTable();
 
-    createText("Has PERDIDO.", // text
-        sdlutils().width()/2, // x
-        sdlutils().height()/2, // y
-        2.5 // size
-    );
+    if (_win)
+        hasWon();
+    else
+        hasLost();
+}
 
-    // Para cuando este la MainMenu scene, habria que ponerla aqui.
-    std::shared_ptr<GameScene> ms = std::make_shared<MainMenuScene>(game); // ! tst 
+void EndGameScene::hasWon()
+{
+    // mitad de la pantalla en x.
+    int midWinX = sdlutils().width()/2;
+
+    createText("¡Has GANADO!", // text
+        midWinX, // x
+        sdlutils().height()/3, // y
+        2 // size.
+    );
+    
+    entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
+
+    // Vuelve a reward
+    b->getComponent<Button>()->setOnClick([this]()
+    {
+        game->getScenesManager()->popScene(); // Poppea esta escena
+        // va a reward scene
+    }); 
+}
+
+void EndGameScene::hasLost()
+{
+    createText("Has PERDIDO.", // text
+    sdlutils().width()/2, // x
+    sdlutils().height()/2, // y
+    2.5 // size
+    );
 
     entity_t b = createSVGImage("lose", "scoreSprite", "scoreSprite", true);
 
-    b->getComponent<Button>()->setOnClick([this, ms](){
-
-        game->getScenesManager()->popScene(); // Poppea la loose.
-        // game->getScenesManager()->popScene(); // Poppea la carom.
-        game->getScenesManager()->popScene(); // Poppea la pool.
-        game->getScenesManager()->popScene(); // Poppea la mainMenuScene.
-        game->getScenesManager()->pushScene(ms);
+    // Vuelve a main scene
+    b->getComponent<Button>()->setOnClick([this]()
+    {
+        game->getScenesManager()->invokeLose(); // vuelve a main scene
     }); 
 
     createSVGImage("lose", "loseButtonText", "loseButtonText");

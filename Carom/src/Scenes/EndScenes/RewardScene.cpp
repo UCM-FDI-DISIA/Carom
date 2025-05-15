@@ -4,7 +4,9 @@
 
 // TODO: refactorizar -> recibir recompensa
 
-RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
+RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) 
+    : UIScene(g)
+    , _isBoss(r->getType() == Reward::Type::BOSS)
 {
     createBackground("suelo");
 
@@ -12,12 +14,6 @@ RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
 
     // mitad de la pantalla en x.
     int midWinX = sdlutils().width()/2;
-
-    createText("¡Has GANADO!", // text
-        midWinX, // x
-        sdlutils().height()/3, // y
-        2 // size.
-    );
 
     std::string r0, rName, rType;
     r0 = "Tu recompensa es:";
@@ -47,17 +43,28 @@ RewardScene::RewardScene(Game *g, std::shared_ptr<Reward> r) : UIScene(g)
         {194, 197, 204, 255}
     );
 
-    std::shared_ptr<GameScene> ms = std::make_shared<PoolScene>(game); // se crea una nueva poolscene.
-
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
 
+    // boton de concluir reward y ir a nueva pool
     b->getComponent<Button>()->setOnClick([this](){
 
-        game->getScenesManager()->popScene(); // Poppea la win.
+        game->getScenesManager()->popScene(); // Poppea esta escena
+        // vuelve a poolscene
+        
+        if(_isBoss) {
+            game->getScenesManager()->popScene(); // popea poolscene
+            game->getProgressionManager()->anteUp();
+            game->getScenesManager()->pushScene(std::make_shared<PoolScene>(game)); // Nueva PoolScene
+        }
     }); 
 
     createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
 
     // TODO añadir este metodo en el callback de los botones de la UI
     //r->applyReward();
+}
+
+RewardScene::~RewardScene()
+{
+    std::cout << "DESTRUCTOR REWARD" << std::endl;
 }

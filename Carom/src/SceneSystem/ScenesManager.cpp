@@ -94,8 +94,19 @@ ScenesManager::refresh() {
 	}
 }
  
- void 
- ScenesManager::invokeLose(){
-	 //TODO
+void 
+ScenesManager::invokeLose()
+{
+	// Main menu es la primera escena
+	while (_gameScenes.size() != 1) {
+        _gameScenes.pop();
+    }
+
+	// Lo mismo que:
+	// popScene(); // Poppea endScene
+	// CaromScene fue popeada por lose state
+	// popScene(); // Poppea reward que esta por debajo
+	// popScene(); // Poppea pool scene
+	// vuelve a main scene
  }
  
