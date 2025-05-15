@@ -644,6 +644,8 @@ CaromScene::createScoreUI() {
     return currentDisplay;
 }
 
+/// @brief creates the text of the round score label
+/// @return the entity with the text
 TextDisplayComponent*
 CaromScene::createRoundScoreUI(){
 

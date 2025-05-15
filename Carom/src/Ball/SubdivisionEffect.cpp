@@ -5,6 +5,7 @@
 #include "BallHandler.h"
 #include "CaromScene.h"
 
+/// @brief Teleports the original ball to its position and destroys itself
 void
 SubdivisionEffect::onStrikeEnd(){
     _target->activate();
