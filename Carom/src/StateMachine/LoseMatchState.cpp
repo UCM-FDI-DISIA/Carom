@@ -16,7 +16,7 @@ void LoseMatchState::onStateEnter()
 
 void LoseMatchState::onStateExit() {
     _scene->getScenesManager()->popScene(); // popea CaromScene
-    _scene->getScenesManager()->pushScene(std::make_shared<EndGameScene>(_scene->getGame(), false));
+    _scene->getScenesManager()->pushScene(std::make_shared<EndGameScene>(_scene->getGame(), false, _scene->isBossMatch()));
 }
 
 bool LoseMatchState::checkCondition(State*& state) 

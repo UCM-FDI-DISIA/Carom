@@ -24,7 +24,7 @@ void WinMatchState::onStateEnter(){
 
 void WinMatchState::onStateExit() {
     _scene->getScenesManager()->popScene(); // popea CaromScene
-    _scene->getScenesManager()->pushScene(std::make_shared<EndGameScene>(_scene->getGame(), true));
+    _scene->getScenesManager()->pushScene(std::make_shared<EndGameScene>(_scene->getGame(), true, _scene->isBossMatch()));
 }
 
 bool WinMatchState::checkCondition(State*& state) {
