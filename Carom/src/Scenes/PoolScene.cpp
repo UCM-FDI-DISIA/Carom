@@ -141,7 +141,7 @@ PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int 
 
     std::vector<RandomItem<RewardScene::Reward>> randomRewards;
     
-    for(int i = 0; i < randomRewards.size(); ++i) {
+    for(int i = 0; i < possibleRewards.size(); ++i) {
         randomRewards.push_back(RandomItem<RewardScene::Reward>(possibleRewards[i], 1.0f));
     }
 
@@ -149,6 +149,7 @@ PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int 
 
     possibleRewards.clear();
 
+    std::cout << "random size: " << randomRewards.size() << std::endl;
     for(int i = 0; i < randomRewards.size(); ++i) {
         possibleRewards.push_back(randomRewards[i].item);
     }
@@ -168,6 +169,7 @@ PoolScene::generateFloorRewards() {
 
     chooseRewards(_floorRewards, POSITIONS);
 
+    std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
     // Swaps boss hole assigned reward for a Boss Reward
     _floorRewards[_bossHole] = RewardScene::Reward("boss", RewardScene::Reward::Type::BOSS);
 

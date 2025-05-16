@@ -3,6 +3,9 @@
 CauldronRewardScene::CauldronRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward)
 {
+    #ifdef _DEBUG
+        std::cout << "CAULDRON" << std::endl;
+    #endif
 }
 
 CauldronRewardScene::~CauldronRewardScene()

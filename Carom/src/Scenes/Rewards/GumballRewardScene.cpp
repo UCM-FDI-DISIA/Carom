@@ -3,6 +3,9 @@
 GumballRewardScene::GumballRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward)
 {
+    #ifdef _DEBUG
+        std::cout << "GUMBALL" << std::endl;
+    #endif
 }
 
 GumballRewardScene::~GumballRewardScene()

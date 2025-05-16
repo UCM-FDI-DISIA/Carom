@@ -9,18 +9,23 @@ RewardScene::~RewardScene() {
 }
 
 void 
-RewardScene::init() {
+RewardScene::init() 
+{
+    createBackground("suelo");
+    createTable();
+
     initObjects();
     initFunctionalities();
     applyReward();
 }
 
 void 
-RewardScene::initObjects() {
-    //Crear botón de continuar y el cajón 
+RewardScene::initObjects() 
+{
 }
 
 void 
-RewardScene::showContinue() {
+RewardScene::showContinue() 
+{
     //Activar el botón
 }

@@ -3,6 +3,9 @@
 FusionRewardScene::FusionRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward)
 {
+    #ifdef _DEBUG
+        std::cout << "FUSION" << std::endl;
+    #endif
 }
 
 FusionRewardScene::~FusionRewardScene()

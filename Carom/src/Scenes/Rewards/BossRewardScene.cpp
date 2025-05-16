@@ -3,6 +3,9 @@
 BossRewardScene::BossRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward)
 {
+    #ifdef _DEBUG
+        std::cout << "BOSS REWARD" << std::endl;
+    #endif
 }
 
 BossRewardScene::~BossRewardScene()
