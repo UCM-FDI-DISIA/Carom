@@ -176,6 +176,12 @@ add_executable(Carom
 
 	src/Scenes/EndScenes/EndGameScene.cpp
 	src/Scenes/Rewards/RewardScene.cpp
+    src/Scenes/Rewards/FusionRewardScene.cpp
+    src/Scenes/Rewards/CauldronRewardScene.cpp
+    src/Scenes/Rewards/BossRewardScene.cpp
+    src/Scenes/Rewards/PermanentRewardScene.cpp
+    src/Scenes/Rewards/StickRewardScene.cpp
+    src/Scenes/Rewards/GumballRewardScene.cpp
 
 	src/Inventory/InventoryManager.cpp
 

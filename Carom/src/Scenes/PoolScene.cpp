@@ -44,6 +44,13 @@
 #include "X2Effect.h"
 #include "BallEffect.h"
 
+#include "StickRewardScene.h"
+#include "FusionRewardScene.h"
+#include "PermanentRewardScene.h"
+#include "GumballRewardScene.h"
+#include "BossRewardScene.h"
+#include "CauldronRewardScene.h"
+
 // hola
 
 #include "Game.h"
@@ -162,7 +169,7 @@ PoolScene::generateFloorRewards() {
     chooseRewards(_floorRewards, POSITIONS);
 
     // Swaps boss hole assigned reward for a Boss Reward
-    _floorRewards[_bossHole] = RewardScene::Reward("boss", BOSS);
+    _floorRewards[_bossHole] = RewardScene::Reward("boss", RewardScene::Reward::Type::BOSS);
 
     createRewardInfo();
 }
@@ -191,15 +198,15 @@ PoolScene::createRewardInfo() {
         Text title, rewardName, rewardType, rewardDesc;
 
         switch(_floorRewards[i].getType()) {
-            case Reward::Type::INSTANT:
+            case RewardScene::Reward::Type::INSTANT:
                 title = sdlutils().texts().at("rewardTitle_pool");
                 rewardType = sdlutils().texts().at("instantReward_pool");
                 break;
-            case Reward::Type::PERMANENT:
+            case RewardScene::Reward::Type::PERMANENT:
                 title = sdlutils().texts().at("rewardTitle_pool");
                 rewardType = sdlutils().texts().at("permanentReward_pool");
                 break;
-            case Reward::Type::BOSS:
+            case RewardScene::Reward::Type::BOSS:
                 title = sdlutils().texts().at("bossTitle_pool");
                 rewardType = sdlutils().texts().at("bossReward_pool");
                 break;
@@ -567,8 +574,21 @@ std::shared_ptr<RewardScene>
 PoolScene::createRewardScene(RewardScene::Reward r) {
     
     std::string name = r.getName();
+    auto type = r.getType();
 
-    //if (no permanentes)
-    //if (boss)
-    //else return std::make_shared<PermanentRewardScene>(game, r);
+    if (type == RewardScene::Reward::Type::INSTANT){
+        if (name == "fusion")
+            return std::make_shared<FusionRewardScene>(game, r);
+        else if (name == "stick")
+            return std::make_shared<StickRewardScene>(game, r);
+        else if (name == "gumball")
+            return std::make_shared<GumballRewardScene>(game, r);
+        else // (name == "cauldron")
+            return std::make_shared<CauldronRewardScene>(game, r);
+    }
+    else if (type == RewardScene::Reward::Type::BOSS) {
+        return std::make_shared<BossRewardScene>(game, r);
+    }
+    else 
+        return std::make_shared<PermanentRewardScene>(game, r);
 }

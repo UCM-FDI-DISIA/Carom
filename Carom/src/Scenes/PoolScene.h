@@ -68,6 +68,7 @@ protected:
 
     void chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int amount); // Rellena el vector de posibles recompensas
     void generateFloorRewards(); // genera las recompensas del piso
+    std::shared_ptr<RewardScene> createRewardScene(RewardScene::Reward r);
     void createRewardInfo();
     void showReward(int i);
     void hideReward(int i);
