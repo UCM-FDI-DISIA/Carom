@@ -9,6 +9,7 @@
 #include "ScenesManager.h"
 #include "RNG_Manager.h"
 #include "QuitScene.h"
+#include "InventoryManager.h"
 
 
 ScenesManager::ScenesManager()
@@ -97,6 +98,8 @@ void
 ScenesManager::invokeLose()
 {
 	_gameScenes.top()->getGame()->getProgressionManager()->reset();
+	auto inv = InventoryManager::Instance();
+    inv->loadStartingInventory();
 
 	// Main menu es la primera escena
 	while (_gameScenes.size() != 1) {
