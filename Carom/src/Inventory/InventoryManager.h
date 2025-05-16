@@ -5,9 +5,11 @@
 
 #include "Singleton.h"
 #include "Inventory.h"
+
+#include <vector>
+
 class GameScene;
 using json = nlohmann::json;
-
 
 class InventoryManager : public Singleton<InventoryManager> {
 
@@ -40,6 +42,7 @@ private:
     
     // Añadir. retorna true o false si se ha cosneguido meter la bola o no
     bool addBall(entity_t ball);
+    bool addBall(std::vector<int> ids);
     void addStick(entity_t stick);
 
     void saveBalls(std::vector<entity_t> balls);

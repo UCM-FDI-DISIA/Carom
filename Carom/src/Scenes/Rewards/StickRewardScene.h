@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RewardScene.h"
+#include "InstantRewardScene.h"
 
-class StickRewardScene : public RewardScene 
+class StickRewardScene : public InstantRewardScene 
 {    
 public:
     StickRewardScene(Game* game, Reward reward);
@@ -12,4 +12,8 @@ public:
     virtual void applyReward() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override;
+private:
+    stickID _stickReward;
+
+    Texture* idToTexture(stickID);
 };
