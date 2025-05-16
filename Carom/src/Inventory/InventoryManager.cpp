@@ -224,6 +224,21 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
     updateData(data);
 }
 
+int InventoryManager::getNumberOfEffectBalls(){\
+    int res = 0;
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    for(int i =0; i < MAX_BALLS; i++){
+        std::string key = "slot" + std::to_string(i);
+
+        //si existe slot(i), sumas res 1 vez
+        if(data.find(key) != data.end()) res++;
+    }
+
+    return res;
+}
+
 void InventoryManager::updateData(json data){
     std::ofstream fileStream(pathToInventory);
     if(fileStream.is_open()) fileStream << data.dump(3);

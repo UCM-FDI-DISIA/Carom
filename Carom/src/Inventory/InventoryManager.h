@@ -43,6 +43,8 @@ private:
     void addStick(entity_t stick);
 
     void saveBalls(std::vector<entity_t> balls);
+
+    int getNumberOfEffectBalls();
     
     // Gestionar
     //inventario predefinido, con el kit basico de una nueva partida
