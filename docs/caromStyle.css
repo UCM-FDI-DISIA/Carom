@@ -38,11 +38,18 @@ main {
     margin-bottom: 150px;
 }
 
+h2.main-title {
+    font-family: "Basteleur-Bold", Helvetica;
+    color: #ffffff;
+    font-size: 2.5rem;
+    letter-spacing: 1.5px;
+    margin-left: calc(calc(100% - 2* calc(45% - 5%) - 10%)/2);
+    margin-top: 50px;
+}
+
 .regular-text {
-    width: max-content;
     font-family: "Bonbance-BoldCondensed", Helvetica;
     color: #ffffff;
-    
     line-height: normal;
 }
 
@@ -50,7 +57,7 @@ main {
     display: flex;
     gap: 10%;
     flex-wrap: wrap;
-    margin: 60px 0;
+    margin: 40px 0;
     width: 100%;
     justify-content: center;
 }
@@ -66,6 +73,7 @@ main {
 .section .section-element {
     width: calc(45% - 5%);
     min-width: 300px;
+    margin-top: 30px;
 }
 
 .section .text {
@@ -85,7 +93,7 @@ main {
     word-break: normal;
     white-space: normal;
     width: 100%;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     line-height: 2rem;
 }
 
@@ -123,8 +131,8 @@ footer nav.socials .button {
   cursor: pointer;
   padding: 0;
   margin: 0;
-  width: 4vw;
-  height: 4vw;
+  width: max(4vw, 40px);
+  height: max(4vw, 40px);
   transition: 0.15s;
 }
 
