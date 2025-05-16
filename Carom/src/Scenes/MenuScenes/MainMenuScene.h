@@ -11,7 +11,6 @@ class MainMenuScene: public UIScene
 {
 protected:
     AudioManager* _am;
-    std::shared_ptr<PoolScene> _poolScene;
 
 public:
     MainMenuScene(Game* g);
