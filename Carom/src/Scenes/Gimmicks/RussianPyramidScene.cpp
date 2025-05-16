@@ -129,9 +129,19 @@ RussianPyramidScene::createEffectBalls()
         physical_selected_pos.push_back(eb_pos);
     }
 
-    auto balls = InventoryManager::Instance()->getEffectBalls(*this, physical_selected_pos);
+    //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
+    auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, physical_selected_pos);
 
-    for(entity_t ball : balls){
+    //colores
+    for(int i = 0; i < ballsVector.size(); i++){
+        auto ball = ballsVector[i];
+        if(ball!=nullptr){
+            auto color = sdlutils().inventorySlotColor[i];
+            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+        }
+    }
+
+    for(entity_t ball : ballsVector){
         if(ball != nullptr) {
             CaromScene::createBallShadow(ball);
         }
