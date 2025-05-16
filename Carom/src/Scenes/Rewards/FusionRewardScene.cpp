@@ -21,8 +21,6 @@ void FusionRewardScene::atRender() {
 
 void FusionRewardScene::applyReward() {
     std::vector<int> selectedBalls = getSelectedItems();
-
-
 }
 
 void FusionRewardScene::initObjects() {
