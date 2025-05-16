@@ -150,14 +150,14 @@ PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int 
 void
 PoolScene::generateFloorRewards() {
 
-    _floorRewards.push_back(RewardScene::Reward("cunning", PERMANENT));
-    _floorRewards.push_back(RewardScene::Reward("skill", PERMANENT));
-    _floorRewards.push_back(RewardScene::Reward("charisma", PERMANENT));
-    _floorRewards.push_back(RewardScene::Reward("power", PERMANENT));
-    _floorRewards.push_back(RewardScene::Reward("fusion", INSTANT));
-    _floorRewards.push_back(RewardScene::Reward("stick", INSTANT));
-    _floorRewards.push_back(RewardScene::Reward("gumball", INSTANT));
-    _floorRewards.push_back(RewardScene::Reward("cauldron", INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("cunning", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("skill", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("charisma", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("power", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("fusion", RewardScene::Reward::Type::INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("stick", RewardScene::Reward::Type::INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("gumball", RewardScene::Reward::Type::INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("cauldron", RewardScene::Reward::Type::INSTANT));
 
     chooseRewards(_floorRewards, POSITIONS);
 
@@ -430,7 +430,7 @@ PoolScene::createCallbacks() {
                     }
                 }
                 
-                std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
+                auto rs = createRewardScene(_floorRewards[i]);
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
 
@@ -561,4 +561,14 @@ PoolScene::createCurrentFloorUI() {
     floorObject->addComponent(floorDisplay);
 
     addComponent<TweenComponent>(floorObject);
+}
+
+std::shared_ptr<RewardScene> 
+PoolScene::createRewardScene(RewardScene::Reward r) {
+    
+    std::string name = r.getName();
+
+    //if (no permanentes)
+    //if (boss)
+    //else return std::make_shared<PermanentRewardScene>(game, r);
 }

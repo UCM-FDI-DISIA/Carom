@@ -5,7 +5,7 @@
 class RewardScene : public UIScene {
     public:
         class Reward {
-            public:
+        public:
         enum Type {
             DEFAULT,
             INSTANT,
@@ -58,7 +58,7 @@ class RewardScene : public UIScene {
     RewardScene(Game* game, Reward reward);
     virtual ~RewardScene();
 
-    virtual void applyEffect() {}
+    virtual void applyReward() {}
     void init() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override {}

@@ -12,7 +12,7 @@ void
 RewardScene::init() {
     initObjects();
     initFunctionalities();
-    applyEffect();
+    applyReward();
 }
 
 void 
