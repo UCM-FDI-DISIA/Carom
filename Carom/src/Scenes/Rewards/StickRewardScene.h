@@ -9,6 +9,7 @@ public:
     virtual ~StickRewardScene();
 
     void atRender() override;
+    
     virtual void applyReward() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override;
@@ -16,4 +17,7 @@ private:
     stickID _stickReward;
 
     Texture* idToTexture(stickID);
+
+    bool _invSelected = false;
+    bool _newSelected = false;
 };
