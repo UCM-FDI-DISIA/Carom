@@ -1,10 +1,10 @@
 {
-   "caromEase": 3,
+   "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
    "cunning": 1.0,
-   "hitEase": 0,
-   "power": 0,
+   "hitEase": 1,
+   "power": 1,
    "slot0": {
       "components": [
          {

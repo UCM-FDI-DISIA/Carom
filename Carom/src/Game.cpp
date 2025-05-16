@@ -135,10 +135,14 @@ void Game::run()
         
         // refresh the input handler
         ihdr.refresh();
-        if ((ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) && !_paused) {
+        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) && !_paused) {
             _sceneManager->pushScene(std::make_shared<QuitScene>(this, _sceneManager->top()));
             continue;
         }
+        else if (ihdr.closeWindowEvent() && !_paused) {
+            _exit = true;
+            continue;
+        } 
 
         #if defined(_DEBUG)
         if (_restartRequested){
