@@ -31,29 +31,40 @@ protected:
     
     std::vector<entity_t> _holes, _balls;
     
-    enum EffectType {
-        ABBACUS,
-        BOWLING,
-        CRISTAL,
-        PETANQUE,
-        POKEBALL,
-        QUANTIC,
-        X2,
-        NUM_EFFECTS
-    };
+    
+    //BallInfo púbico para acceder a la información de las bolas de la PoolScene como Itadori.
+    public:
+        enum EffectType {
+            ABBACUS,
+            BOWLING,
+            CRISTAL,
+            PETANQUE,
+            POKEBALL,
+            QUANTIC,
+            X2,
+            NUM_EFFECTS
+        };
+        
+        struct BallInfo{
+            std::vector<EffectType> effects;
+            int scrollIndex = 0;
+            bool free = true;
 
-    struct BallInfo{
-        std::vector<EffectType> effects;
-        int scrollIndex = 0;
-        bool free = true;
-    };
+            bool operator==(const BallInfo& other) const {
+                return effects == other.effects;
+            }
 
-    std::vector<BallInfo> _ballsInfo;
+             bool operator!=(const BallInfo& other) const {
+                return !(effects == other.effects);
+            }
+        };
+
+        std::vector<BallInfo> _ballsInfo;
+        std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
+
+    protected:
     const float _chanceForMultipleEffect = 0.25f;
     std::vector<RewardInfoDisplayComponent*> _effectRewardBoxes;
-
-    std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
-    void saveBalls();
 
     void createCurrentFloorUI();
 

@@ -5,9 +5,7 @@
 
 #include "Singleton.h"
 #include "Inventory.h"
-
-#include <vector>
-
+#include "PoolScene.h"
 class GameScene;
 using json = nlohmann::json;
 
@@ -84,9 +82,10 @@ private:
     float getCunning();
     void setCunning(float f);
 
-private:
     // Eliminar
     void removeBall(int index);
+    std::vector<PoolScene::EffectType> getEffectsFromBall(int index);
+private:
     void removeAllBalls();
     void removeStick();
 };

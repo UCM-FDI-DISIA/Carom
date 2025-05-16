@@ -677,7 +677,9 @@
     {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
     {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"},
     {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"},
-    {"id": "quit", "file": "../../resources/svg/quit.svg"}
+    {"id": "quit", "file": "../../resources/svg/quit.svg"},
+    {"id": "reward", "file": "../../resources/svg/reward.svg"},
+    {"id": "boss_reward_balls_pos", "file": "../../resources/svg/boss_reward_balls_pos.svg"}
   ]
 
 }
