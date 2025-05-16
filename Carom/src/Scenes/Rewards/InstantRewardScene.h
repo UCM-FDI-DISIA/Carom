@@ -12,6 +12,9 @@ protected:
     /// @param item 1-6 balls in each slot, 0 is stick 
     void selectItem(int item);
 
+    /// @brief Returns a vector of size max items that contains the indexes of selected items
+    std::vector<int> getSelectedItems();
+
 private:
     int _maxItems;
     int _selectedAmmount = 0;

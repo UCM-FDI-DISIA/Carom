@@ -1,35 +1,34 @@
 #include "FusionRewardScene.h"
+#include "Button.h"
+#include "InventoryManager.h"
 
 FusionRewardScene::FusionRewardScene(Game* game, Reward reward)
-    : RewardScene(game, reward)
+    : InstantRewardScene(game, reward, 2)
 {
     #ifdef _DEBUG
         std::cout << "FUSION" << std::endl;
     #endif
 }
 
-FusionRewardScene::~FusionRewardScene()
-{
+FusionRewardScene::~FusionRewardScene() {}
 
-}
-
-void FusionRewardScene::atRender()
-{
-    openInventory();
-    // TODO: meter onclick de los botones de las bolas con la movida
-}
-
-void FusionRewardScene::applyReward()
-{
+void FusionRewardScene::atRender() {
+    std::vector<ButtonWithSlot> buttonsAndSlots = openInventory();
     
+    for(ButtonWithSlot pair : buttonsAndSlots) 
+        pair.button->setOnClick([this, pair] {this->selectItem(pair.slot);});
 }
 
-void FusionRewardScene::initObjects()
-{
+void FusionRewardScene::applyReward() {
+    std::vector<int> selectedBalls = getSelectedItems();
+
 
 }
 
-void FusionRewardScene::initFunctionalities() 
-{
+void FusionRewardScene::initObjects() {
+    RewardScene::initObjects();
+}
 
+void FusionRewardScene::initFunctionalities() {
+    RewardScene::initFunctionalities();
 }
