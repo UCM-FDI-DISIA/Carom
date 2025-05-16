@@ -1,6 +1,10 @@
 #pragma once
 
+#include "PoolScene.h"
 #include "RewardScene.h"
+#include <vector>
+
+class InventoryManager;
 
 class BossRewardScene : public RewardScene 
 {    
@@ -11,4 +15,15 @@ public:
     virtual void applyReward() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override;
+
+private:
+    void checkIfValid();
+
+    bool checkIfBallIsSelected(int ballId);
+    bool checkIfBallIsObtained(PoolScene::BallInfo ballInfo);
+
+    std::vector<PoolScene::BallInfo> _obtainedBallsInfo;
+    std::vector<PoolScene::BallInfo> _selectedBalls;
+    InventoryManager* _inventory;
+    std::vector<int> _ballsToRemove;
 };

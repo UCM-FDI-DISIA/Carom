@@ -10,7 +10,7 @@
 #include "RNG_Manager.h"
 #include "QuitScene.h"
 #include "InventoryManager.h"
-
+#include "PoolScene.h"
 
 ScenesManager::ScenesManager()
 {
@@ -115,3 +115,14 @@ ScenesManager::invokeLose()
 	// vuelve a main scene
  }
  
+PoolScene* ScenesManager::getPoolScene()
+{
+	if (!_gameScenes.empty()) {
+		auto poolScene = std::dynamic_pointer_cast<PoolScene>(_gameScenes.top());
+		if (poolScene) {
+			return poolScene.get();
+		}
+	}
+	assert(false && "Fatal Skibidi error PoolScene not found in the stack, Itadori won't smile");
+	return nullptr;
+}

@@ -31,6 +31,8 @@ public:
 	ScenesManager();
 	~ScenesManager();
 
+	PoolScene* getPoolScene();
+
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
 	void pushScene(std::shared_ptr<GameScene> scene);

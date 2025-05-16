@@ -517,29 +517,6 @@ PoolScene::getEffectName(EffectType effect) {
     }
 }
 
-void PoolScene::saveBalls() {
-    entity_t ball = new Entity(*this, grp::POOL_BALLS);
-    addComponent<BallHandler>(ball);
-
-    for(auto ballInfo : _ballsInfo) {
-        if(ballInfo.free) continue;
-        for(auto effect : ballInfo.effects) {
-            switch(effect) {
-                case ABBACUS: addComponent<AbacusEffect>(ball); break;
-                case BOWLING: addComponent<BowlingEffect>(ball); break;
-                case CRISTAL: addComponent<CristalEffect>(ball); break;
-                case PETANQUE: addComponent<PetanqueEffect>(ball); break;
-                case POKEBALL: addComponent<PokeballEffect>(ball); break;
-                case QUANTIC: addComponent<QuanticEffect>(ball); break;
-                case X2: addComponent<X2Effect>(ball); break;
-            }
-        }
-    }
-    
-    InventoryManager::Instance()->addBall(ball);
-    delete ball;
-}
-
 void
 PoolScene::createCurrentFloorUI() {
 
