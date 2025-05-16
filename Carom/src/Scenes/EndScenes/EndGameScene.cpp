@@ -54,15 +54,10 @@ void EndGameScene::standardWin()
 {
     std::cout << "WIN" << std::endl;
 
-    int midWinX = sdlutils().width()/2;
+    createSVGImage("win", "youwin", "youwin");
 
-    createText("¡Has GANADO!", // text
-        midWinX, // x
-        sdlutils().height()/3, // y
-        2 // size.
-    );
-    
     entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
+    createSVGImage("win", "rewardButtonText", "rewardButtonText");
 
     // Vuelve a reward
     b->getComponent<Button>()->setOnClick([this]()

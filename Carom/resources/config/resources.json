@@ -115,6 +115,7 @@
     { "id" : "citacionlose1", "file" : "../../resources/images/lose/citacionlose1.png"},
     { "id" : "blackscreen", "file" : "../../resources/images/lose/blackscreen.png"},
     { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
+    { "id" : "youwin", "file" : "../../resources/images/win/youwin.png"},
     { "id" : "BowlingEffect", "file" : "../../resources/images/balleffect_sheets/bowling-sheet.png"},
     { "id" : "X2Effect", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
     { "id" : "AbacusEffect", "file" : "../../resources/images/balleffect_sheets/abaco-sheet.png"},
