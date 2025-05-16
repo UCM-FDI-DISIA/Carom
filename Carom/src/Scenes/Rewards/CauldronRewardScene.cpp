@@ -1,6 +1,12 @@
 #include "CauldronRewardScene.h"
-#include "BallInfoDisplayComponent.h"
-
+#include "BowlingEffect.h"
+#include "X2Effect.h"
+#include "AbacusEffect.h"
+#include "CristalEffect.h"
+#include "PetanqueEffect.h"
+#include "PokeballEffect.h"
+#include "QuanticEffect.h"
+#include "InventoryManager.h"
 
 CauldronRewardScene::CauldronRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward), _randomEffect(NONE)
@@ -17,7 +23,40 @@ CauldronRewardScene::~CauldronRewardScene()
 
 void CauldronRewardScene::applyReward()
 {
-    
+    std::vector<b2Vec2> vector = std::vector<b2Vec2>();
+    auto balls = InventoryManager::Instance()->getEffectBalls(*this, vector);
+
+    auto target = balls[_selectedBallId - 1];
+
+    switch(_randomEffect){
+        case BOWLING:
+            target->addComponent<BowlingEffect>(new BowlingEffect(target));
+            break;
+        case X2:
+            target->addComponent<X2Effect>(new X2Effect(target));
+                break;
+        case ABBACUS:
+            target->addComponent<AbacusEffect>(new AbacusEffect(target));
+            break;
+        case CRISTAL:
+            target->addComponent<CristalEffect>(new CristalEffect(target));
+            break;
+        case PETANQUE:
+            target->addComponent<PetanqueEffect>(new PetanqueEffect(target));
+            break;
+        case POKEBALL:
+            target->addComponent<PokeballEffect>(new PokeballEffect(target));
+            break;
+        case QUANTIC:
+            target->addComponent<QuanticEffect>(new QuanticEffect(target));
+            break;
+        default:
+            std::cout << "MAL NOSEQUE" << std::endl;
+            break;
+    };
+
+    InventoryManager::Instance()->saveBalls(balls);
+    balls.clear();
 }
 
 void CauldronRewardScene::initObjects()
@@ -28,7 +67,7 @@ void CauldronRewardScene::initObjects()
 
     createSVGImage("win", "Cauldron_Info", "inventory_description_box");
 
-    _randomEffect = Effects (rand() % 8);
+    _randomEffect = Effects (rand() % 7);
 
     Text title, desc;
 

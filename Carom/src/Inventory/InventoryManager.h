@@ -7,6 +7,7 @@
 #include "Inventory.h"
 #include "PoolScene.h"
 class GameScene;
+class BallEffect;
 using json = nlohmann::json;
 
 class InventoryManager : public Singleton<InventoryManager> {
@@ -82,6 +83,7 @@ private:
     float getCunning();
     void setCunning(float f);
 
+private:
     // Eliminar
     void removeBall(int index);
     std::vector<PoolScene::EffectType> getEffectsFromBall(int index);

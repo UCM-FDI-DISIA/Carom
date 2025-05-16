@@ -1,6 +1,8 @@
 #pragma once
 
 #include "RewardScene.h"
+#include "BallInfoDisplayComponent.h"
+class Entity;
 
 using body_t = BallInfoDisplayComponent::Body;
 
