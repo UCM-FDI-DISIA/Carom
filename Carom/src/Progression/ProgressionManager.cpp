@@ -1,5 +1,16 @@
 #include "ProgressionManager.h"
 
+
+void 
+ProgressionManager::reset() {
+    ante = 0;
+
+    while(!_bossesList.empty())
+        _bossesList.pop();
+
+    setBossesList();
+}
+
 void 
 ProgressionManager::setBossesList() {
     for (int boss : _bosses) {
