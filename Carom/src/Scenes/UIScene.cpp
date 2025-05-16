@@ -38,16 +38,16 @@ void UIScene::createTable()
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);
 }
 
-void UIScene::createText(std::string text, int x, int y, int size, SDL_Color color)
+void UIScene::createText(std::string text, int x, int y, int size, SDL_Color color, layerId_t rlayer)
 {
-    entity_t winContainer = new Entity(*this, grp::SCORE);
+    entity_t winContainer = new Entity(*this, grp::grpId::SCORE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
 
     winContainer->addComponent(new TransformComponent(winContainer, pos));
     TextDisplayComponent* currentDisplay = new TextDisplayComponent(
         winContainer,           // container
-        renderLayer::SCORE,     // capa renderizado
+        rlayer,     // capa renderizado
         size,                   // tamano fuente
         text,                   // text
         color,   // color (blanco)

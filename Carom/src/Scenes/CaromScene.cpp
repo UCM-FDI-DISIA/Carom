@@ -69,6 +69,7 @@ void CaromScene::init()
     else baseScore = 1; // ! tst
 
     baseScore *= InventoryManager::Instance()->getCunning();
+    if (baseScore == 0) baseScore = 1;
     _currentScore = InventoryManager::Instance()->getCharisma();
 
     // Set the score to beat based on the current ante

@@ -45,18 +45,24 @@ class RewardScene : public UIScene {
                 default: break;}
                 return s;
             }
-        };
+    };
 
     RewardScene(Game* game, Reward reward);
     virtual ~RewardScene();
 
-    virtual void applyReward() {}
     void init() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override {}
-    void showContinue();
+
+    virtual void applyReward() {}
+
+    void showExitButton();
+    virtual void exitCallback();
+
     inline Reward getReward() { return _reward; }
 
 protected:
     Reward _reward;
+    entity_t _exitButton;
+    entity_t _exitBttText;
 };

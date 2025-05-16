@@ -9,7 +9,10 @@ public:
     PermanentRewardScene(Game* game, Reward reward);
     virtual ~PermanentRewardScene();
 
-    virtual void applyReward() override;
-    virtual void initObjects() override; 
-    virtual void initFunctionalities() override;
+    void applyReward() override;
+    void initObjects() override; 
+    void initFunctionalities() override;
+
+private:
+    std::string _name;
 };
