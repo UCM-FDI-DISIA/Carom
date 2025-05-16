@@ -23,17 +23,6 @@
 
 #include "BallHandler.h"
 
-// --- rewards ---
-#include "DefaultReward.h"
-#include "BossReward.h"
-#include "FusionReward.h"
-#include "GumballReward.h"
-#include "StickReward.h"
-#include "CauldronReward.h"
-#include "SkillReward.h"
-#include "CharismaReward.h"
-#include "PowerReward.h"
-#include "CunningReward.h"
 #include "AudioManager.h"
 // #include ...Reward.h
 #include "DialogueTextComponent.h"
@@ -140,30 +129,40 @@ PoolScene::generateHole(int i)
 }
 
 void
-PoolScene::loadRewards() {
+PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int amount) {
     // TODO: parse all rewards from JSON
 
-    // PROVISIONAL, para testear      
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<FusionReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<GumballReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<StickReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CauldronReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<SkillReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CharismaReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<PowerReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CunningReward>(), 1.0f));
+    std::vector<RandomItem<RewardScene::Reward>> randomRewards;
+    
+    for(int i = 0; i < randomRewards.size(); ++i) {
+        randomRewards.push_back(RandomItem<RewardScene::Reward>(possibleRewards[i], 1.0f));
+    }
 
+    _rngm->getRandomItems(randomRewards, amount);
+
+    possibleRewards.clear();
+
+    for(int i = 0; i < randomRewards.size(); ++i) {
+        possibleRewards.push_back(randomRewards[i].item);
+    }
 }
 
 void
 PoolScene::generateFloorRewards() {
-    // Generar array de todas las recompensas a partir del JSON
-    loadRewards();
 
-    _floorRewards = _rngm->getRandomItems(_rewards, POSITIONS, true); // Se puede repetir tipo de recompensa
-    
+    _floorRewards.push_back(RewardScene::Reward("cunning", PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("skill", PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("charisma", PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("power", PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("fusion", INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("stick", INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("gumball", INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("cauldron", INSTANT));
+
+    chooseRewards(_floorRewards, POSITIONS);
+
     // Swaps boss hole assigned reward for a Boss Reward
-    _floorRewards[_bossHole] = std::make_shared<BossReward>();
+    _floorRewards[_bossHole] = RewardScene::Reward("boss", BOSS);
 
     createRewardInfo();
 }
@@ -191,7 +190,7 @@ PoolScene::createRewardInfo() {
         // TEXTO
         Text title, rewardName, rewardType, rewardDesc;
 
-        switch(_floorRewards[i]->getType()) {
+        switch(_floorRewards[i].getType()) {
             case Reward::Type::INSTANT:
                 title = sdlutils().texts().at("rewardTitle_pool");
                 rewardType = sdlutils().texts().at("instantReward_pool");
@@ -210,8 +209,8 @@ PoolScene::createRewardInfo() {
                 break;
         }
 
-        rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
-        rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        rewardName = sdlutils().texts().at(_floorRewards[i].getName()+"_rewardName_pool");
+        rewardDesc = sdlutils().texts().at(_floorRewards[i].getName()+"_rewardDesc_pool");
         
 
         description = new Entity(*this, grp::REWARD_INFO_TEXT);

@@ -95,6 +95,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Text
     ${CMAKE_SOURCE_DIR}/src/Audio
     ${CMAKE_SOURCE_DIR}/src/Progression
+    ${CMAKE_SOURCE_DIR}/src/Scenes/Rewards
 )
 
 # Crear ejecutable
@@ -174,7 +175,7 @@ add_executable(Carom
 	src/Scenes/PauseScene.cpp
 
 	src/Scenes/EndScenes/EndGameScene.cpp
-	src/Scenes/EndScenes/RewardScene.cpp
+	src/Scenes/Rewards/RewardScene.cpp
 
 	src/Inventory/InventoryManager.cpp
 

@@ -4,7 +4,7 @@
 #include "Texture.h"
 #include "RNG_Manager.h"
 #include "UIScene.h"
-#include "Reward.h"
+#include "RewardScene.h"
 
 #include <memory>
 
@@ -58,8 +58,7 @@ protected:
     void createCurrentFloorUI();
 
     // --- AGUJEROS Y RECOMPENSAS ---
-    std::vector<RandomItem<std::shared_ptr<Reward>>> _rewards; // Todas la posibles recompensas, sacadas del json
-    std::vector<std::shared_ptr<Reward>> _floorRewards; // Recompensas de cada agujero del piso
+    std::vector<RewardScene::Reward> _floorRewards; // Recompensas de cada agujero del piso
 
     int _bossHole;
 
@@ -67,7 +66,7 @@ protected:
 
     entity_t generateHole(int i); // para generar el agujero según indice.
 
-    void loadRewards(); // Rellena el vector de posibles recompensas
+    void chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int amount); // Rellena el vector de posibles recompensas
     void generateFloorRewards(); // genera las recompensas del piso
     void createRewardInfo();
     void showReward(int i);
