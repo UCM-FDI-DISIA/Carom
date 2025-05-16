@@ -99,6 +99,13 @@ RewardScene::showExitButton()
     _exitBttText->activate();
 }
 
+void 
+RewardScene::hideExitButton() 
+{
+    _exitButton->deactivate();
+    _exitBttText->deactivate();
+}
+
 // Applies reward y sale de reward scene
 void 
 RewardScene::exitCallback()

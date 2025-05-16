@@ -80,6 +80,7 @@ protected:
     virtual void applyReward() {}
 
     void showExitButton();
+    void hideExitButton();
     virtual void exitCallback();
 
     /// @brief Renderiza el cajón abriendose con las bolas y palos de inventario

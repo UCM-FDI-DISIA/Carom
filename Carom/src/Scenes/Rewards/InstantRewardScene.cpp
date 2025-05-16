@@ -20,6 +20,11 @@ InstantRewardScene::selectItem(int item) {
                 showExitButton();
             }
         }
+        else {
+            _selectedItems[item] = false;
+            --_selectedAmmount;
+            hideExitButton();
+        }
     }
     else {
         //throw cosa
