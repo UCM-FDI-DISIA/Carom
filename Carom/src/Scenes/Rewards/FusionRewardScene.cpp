@@ -16,6 +16,7 @@ FusionRewardScene::~FusionRewardScene()
 void FusionRewardScene::atRender()
 {
     openInventory();
+    // TODO: meter onclick de los botones de las bolas con la movida
 }
 
 void FusionRewardScene::applyReward()

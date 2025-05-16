@@ -82,8 +82,13 @@ protected:
     void showExitButton();
     virtual void exitCallback();
 
+    /// @brief Renderiza el cajón abriendose con las bolas y palos de inventario
     void openInventory();
+
+    /// @brief  Crea todos los carteles con la info de las bolas y los esconde. 
+    ///         También añade eventos para mostrarlos al pasar el ratón por encima
     void createBallInfo();
+
     void createBallShadow(entity_t e);
     void showBall(int i);
     void hideBall(int i);
