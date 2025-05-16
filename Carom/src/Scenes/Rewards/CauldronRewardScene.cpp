@@ -7,6 +7,9 @@
 #include "PokeballEffect.h"
 #include "QuanticEffect.h"
 #include "InventoryManager.h"
+#include "ecs.h"
+
+using body_t = BallInfoDisplayComponent::Body;
 
 CauldronRewardScene::CauldronRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward), _randomEffect(NONE)

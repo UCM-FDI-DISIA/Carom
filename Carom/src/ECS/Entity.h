@@ -32,6 +32,7 @@ class TextHelperScene;
 class QuitScene;
 class StickRewardScene;
 class BossRewardScene;
+class CauldronRewardScene;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -224,6 +225,7 @@ private:
     friend RussianPyramidScene;
     friend TutorialScene;
     friend TextHelperScene;
+    friend CauldronRewardScene;
     friend QuitScene;
     friend StickRewardScene;
     friend BossRewardScene;
