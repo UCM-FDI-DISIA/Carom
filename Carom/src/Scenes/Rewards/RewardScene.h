@@ -2,9 +2,18 @@
 
 #include "UIScene.h"
 
+#include "Button.h"
+
 class RewardScene : public UIScene 
 {
 public:
+
+    struct ButtonWithSlot {
+        Button* button = nullptr;
+        /// @brief el slot 0 es el palo ojo cuidao
+        int slot = -1;
+    };
+
     enum ballID{
         NORMAL_BALL,
         CRISTAL,
@@ -84,7 +93,7 @@ protected:
     virtual void exitCallback();
 
     /// @brief Renderiza el cajón abriendose con las bolas y palos de inventario
-    void openInventory();
+    std::vector<ButtonWithSlot> openInventory();
 
     /// @brief  Crea todos los carteles con la info de las bolas y los esconde. 
     ///         También añade eventos para mostrarlos al pasar el ratón por encima

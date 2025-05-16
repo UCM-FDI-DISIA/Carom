@@ -121,8 +121,11 @@ RewardScene::exitCallback()
     }
 }
 
-void RewardScene::openInventory()
+std::vector<RewardScene::ButtonWithSlot> 
+RewardScene::openInventory()
 {
+    std::vector<RewardScene::ButtonWithSlot> a_returnVal;
+
     //fondo del cajon
     entity_t fondo = new Entity(*this, grp::UI);
     b2Vec2 initialPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer_initial_pos").x, sdlutils().height()/2);
@@ -209,6 +212,12 @@ void RewardScene::openInventory()
     
             hideBall(i);
         });
+
+        ButtonWithSlot b;
+        b.button = button;
+        b.slot = i;
+
+        a_returnVal.push_back(b);
     }
 
     //palo
@@ -263,6 +272,13 @@ void RewardScene::openInventory()
 
     createBallInfo();
     createStickInfo();
+
+    ButtonWithSlot b;
+    b.button = button;
+    b.slot = 0;
+    a_returnVal.push_back(b);
+
+    return a_returnVal;
 }
 
 /// @brief Crea todos los carteles con la info de las bolas y los esconde. También añade eventos para mostrarlos al pasar el ratón por encima
