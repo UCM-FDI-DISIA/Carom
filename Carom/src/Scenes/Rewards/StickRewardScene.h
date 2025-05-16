@@ -8,6 +8,7 @@ public:
     StickRewardScene(Game* game, Reward reward);
     virtual ~StickRewardScene();
 
+    void atRender() override;
     virtual void applyReward() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override;

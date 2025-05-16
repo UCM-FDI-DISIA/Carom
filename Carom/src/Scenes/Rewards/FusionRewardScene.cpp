@@ -13,6 +13,11 @@ FusionRewardScene::~FusionRewardScene()
 
 }
 
+void FusionRewardScene::atRender()
+{
+    openInventory();
+}
+
 void FusionRewardScene::applyReward()
 {
     
