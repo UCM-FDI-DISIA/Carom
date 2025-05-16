@@ -11,6 +11,7 @@
 #include "FollowComponent.h"
 #include "StickInputComponent.h"
 #include "ShadowComponent.h"
+#include "RNG_Manager.h"
 
 #include <iostream>
 #include <fstream>

@@ -10,6 +10,7 @@
 #include "MagicWandStickEffect.h"
 #include "BoxingGloveStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
+#include "RewardScene.h"
 
 InventoryManager::InventoryManager()
 {
@@ -110,6 +111,65 @@ InventoryManager::addBall(entity_t ball) {
         if(data.find(key) == data.end()){
             data[key]["components"][0]["componentName"] = "BallHandler";
             data[key]["components"][0]["atributes"]["effects"] = JsonEntityParser::getBallEffects(ball);
+            found = true;
+        }
+    }
+
+    //update data
+    updateData(data);
+
+    return found;
+}
+
+bool
+InventoryManager::addBall(std::vector<int> ids) {
+
+    std::vector<std::string> a_effects;
+
+    for (int e : ids) {
+        RewardScene::ballID a_id = static_cast<RewardScene::ballID>(e);
+
+        switch (a_id)
+        {
+        case RewardScene::ballID::ABBACUS:
+            a_effects.push_back("AbacusEffect");
+            break;
+        case RewardScene::ballID::BOWLING:
+            a_effects.push_back("BowlingEffect");
+            break;
+        case RewardScene::ballID::CRISTAL:
+            a_effects.push_back("CristalEffect");
+            break;
+        case RewardScene::ballID::NORMAL_BALL:
+            a_effects.push_back("");
+            break;
+        case RewardScene::ballID::PETANQUE:
+            a_effects.push_back("PetanqueEffect");
+            break;
+        case RewardScene::ballID::POKEBALL:
+            a_effects.push_back("PokeballEffect");
+            break;
+        case RewardScene::ballID::QUANTIC:
+            a_effects.push_back("QuanticEffect");
+            break;
+        case RewardScene::ballID::X2:
+            a_effects.push_back("X2Effect");
+            break;
+        default:
+            break;
+        }
+    }
+
+    bool found = false;
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+    //recorre el mapa en busca de un slot vacio
+    for(int i =0; i < MAX_BALLS && !found; i++){
+        //si no existe el slot i, es el que va a usar
+        std::string key = "slot" + std::to_string(i);
+        if(data.find(key) == data.end()){
+            data[key]["components"][0]["componentName"] = "BallHandler";
+            data[key]["components"][0]["atributes"]["effects"] = a_effects;
             found = true;
         }
     }
