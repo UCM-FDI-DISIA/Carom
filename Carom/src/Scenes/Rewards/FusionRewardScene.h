@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RewardScene.h"
+#include "InstantRewardScene.h"
 
-class FusionRewardScene : public RewardScene 
+class FusionRewardScene : public InstantRewardScene 
 {    
 public:
     FusionRewardScene(Game* game, Reward reward);
