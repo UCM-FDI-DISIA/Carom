@@ -97,13 +97,12 @@ void
 ScenesManager::invokeLose()
 {
 	_gameScenes.top()->getGame()->getProgressionManager()->reset();
-	
+
 	// Main menu es la primera escena
 	while (_gameScenes.size() != 1) {
         _gameScenes.pop();
     }
 
-	
 
 	// Lo mismo que:
 	// popScene(); // Poppea endScene

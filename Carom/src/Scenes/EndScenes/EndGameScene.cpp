@@ -3,6 +3,7 @@
 #include "WobblyRenderTextureComponent.h"
 #include "RandomVibrationComponent.h"
 #include "DialogueTextComponent.h"
+#include "RNG_Manager.h"
 
 
 
@@ -31,23 +32,6 @@ void EndGameScene::hasWon()
         bossWin();
     else
         standardWin();
-    // // mitad de la pantalla en x.
-    // int midWinX = sdlutils().width()/2;
-
-    // createText("¡Has GANADO!", // text
-    //     midWinX, // x
-    //     sdlutils().height()/3, // y
-    //     2 // size.
-    // );
-    
-    // entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
-
-    // // Vuelve a reward
-    // b->getComponent<Button>()->setOnClick([this]()
-    // {
-    //     game->getScenesManager()->popScene(); // Poppea esta escena
-    //     // va a reward scene
-    // }); 
 }
 
 void EndGameScene::standardWin()
@@ -90,7 +74,7 @@ void EndGameScene::bossWin()
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
     auto tr = addComponent<TransformComponent>(boss, b2Vec2{2.f,2.f});
     tr->setRotation(25);
-    Texture* bossImage = &sdlutils().images().at("cowboy_table_shadow"); // ! CAMBIAR A BOSS CURRENT
+    Texture* bossImage = &sdlutils().images().at("cowboy_table_shadow"); // ! CAMBR A BOSS CURRENT
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
@@ -120,7 +104,14 @@ void EndGameScene::hasLost()
 
 void EndGameScene::standardLose()
 {
-    createSVGImage("lose", "losetext", "citacionlose1");
+    std::vector<RandomItem<int>> numCitacion;
+    for(int i = 0; i < 8; ++i)
+        numCitacion.push_back(RandomItem(i, 1.0f));
+
+    std::vector<int> selected_cit = RNG_Manager::Instance()->getRandomItems(numCitacion, 1, false);
+
+    std::string cit = "citacionlose" + std::to_string(selected_cit[0]);
+    createSVGImage("lose", "losetext", cit);
 
     entity_t blackScreen = createSVGImage("lose", "blackscreen", "blackscreen", false, grp::grpId::DEFAULT, renderLayer::UI_BACK);
 
@@ -129,7 +120,7 @@ void EndGameScene::standardLose()
     auto opacity = render->getOpacity();
 
     TweenComponent* t = addComponent<TweenComponent>(blackScreen);
-    t->easeValue(opacity, 255, 4, tween::LINEAR, false, [=](){
+    t->easeValue(opacity, 255, 3, tween::LINEAR, false, [=](){
         entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
         createSVGImage("lose", "loseButtonText", "loseButtonText");
         // Vuelve a main scene
@@ -163,7 +154,7 @@ void EndGameScene::bossLose()
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
     auto tr = addComponent<TransformComponent>(boss, b2Vec2{2.f,2.f});
     tr->setRotation(25);
-    Texture* bossImage = &sdlutils().images().at("cowboy_table_shadow"); // ! CAMBIAR A BOSS CURRENT
+    Texture* bossImage = &sdlutils().images().at("cowboy_table_shadow"); // ! CAMBR A BOSS CURRENT
 
     float scale = sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").width/ (float)sdlutils().images().at("cowboy_table_shadow").width();
     addComponent<RenderTextureComponent>(boss, bossImage, renderLayer::BOSS_SHADOW, scale);
