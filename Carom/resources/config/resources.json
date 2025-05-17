@@ -224,7 +224,9 @@
       {"id": "explosion", "file": "../../resources/sound/explosion.mp3"},
       {"id": "magic_wand", "file": "../../resources/sound/magic-wand.wav"},
       {"id": "wall_hit", "file": "../../resources/sound/wall_hit.wav"},
-      {"id": "boxing", "file": "../../resources/sound/boxing.wav"}
+      {"id": "boxing", "file": "../../resources/sound/boxing.wav"},
+      {"id": "donut", "file": "../../resources/sound/donut.wav"},
+      {"id": "pop_opposite", "file": "../../resources/sound/pop_opposite.wav"}
 
   ],
 

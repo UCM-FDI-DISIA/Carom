@@ -37,6 +37,9 @@
    },
    "stick": {
       "components": [
+         {
+            "componentName": "DonutStickEffect"
+         }
       ]
    }
 }

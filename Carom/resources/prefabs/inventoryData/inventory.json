@@ -2,7 +2,7 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 0.9077719449996948,
+   "cunning": 1.0,
    "hitEase": 0,
    "power": 0,
    "slot0": {
@@ -38,10 +38,7 @@
    "stick": {
       "components": [
          {
-            "atributes": {
-               "factor": 0.75
-            },
-            "componentName": "BoxingGloveStickEffect"
+            "componentName": "DonutStickEffect"
          }
       ]
    }

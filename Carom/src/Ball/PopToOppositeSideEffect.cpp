@@ -4,6 +4,7 @@
 #include "RenderTextureComponent.h"
 #include "WallComponent.h"
 #include "EventOnCollision.h"
+#include "AudioManager.h"
 
 /// @brief Registra las posiciones de las paredes para compararlas al chocar con algo y asegurarse de que es una pared
 void
@@ -47,6 +48,7 @@ void
 PopToOppositeSideEffect::popOnCollision(entity_t other){
 
     if(!other->tryGetComponent<WallComponent>()) return;// Only if ball collides with table
+    AudioManager::Instance()->playSoundEfect("pop_opposite", 80);
 
     b2Vec2 a_collPos = other->getTransform()->getPosition();
     
