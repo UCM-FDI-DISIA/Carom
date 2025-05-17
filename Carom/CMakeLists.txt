@@ -289,3 +289,9 @@ if (CMAKE_HOST_WIN32)
         )
     endif()
 endif()
+
+#if (WIN32)
+#set_target_properties(Carom PROPERTIES
+#    WIN32_EXECUTABLE TRUE
+#)
+#endif()
