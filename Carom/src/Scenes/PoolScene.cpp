@@ -524,25 +524,22 @@ PoolScene::createCurrentFloorUI() {
 
     entity_t floorFrameObject = new Entity(*this, grp::SCORE);
 
-    auto shotsLeftSprite = sdlutils().svgs().at("game").at("shotsLeftSprite");
-    auto posX = sdlutils().width()/2;
-    auto posY = shotsLeftSprite.y + 25;
-    b2Vec2 framePos = PhysicsConverter::pixel2meter( posX, posY );
+    auto floorSVG = sdlutils().svgs().at("pool").at("floor");
+    float floorSVGSize = floorSVG.width;
+    float textureSize = sdlutils().images().at("floor").width();
+    float scale = floorSVGSize / textureSize;
 
-    float svgSize = shotsLeftSprite.width;
-    float textureSize = sdlutils().images().at("shotsSprite").width();
-    float scale = svgSize/textureSize;
-
+    b2Vec2 framePos = PhysicsConverter::pixel2meter( floorSVG.x, floorSVG.y );
 
     floorFrameObject->addComponent(new TransformComponent(floorFrameObject, framePos));
-    floorFrameObject->addComponent(new RenderTextureComponent(floorFrameObject, &sdlutils().images().at("shotsSprite"), 0, scale));
+    floorFrameObject->addComponent(new RenderTextureComponent(floorFrameObject, &sdlutils().images().at("floor"), renderLayer::UI, scale));
     entity_t floorObject = new Entity(*this, grp::SCORE);
 
-    auto shotsLeftText = sdlutils().svgs().at("game").at("shotsLeftText");
-    b2Vec2 textPos = PhysicsConverter::pixel2meter( posX, posY );
+    auto shotsLeftText = sdlutils().svgs().at("pool").at("floor");
+    b2Vec2 textPos = PhysicsConverter::pixel2meter( floorSVG.x, floorSVG.y );
 
     floorObject->addComponent(new TransformComponent(floorObject, textPos));
-    TextDisplayComponent* floorDisplay = new TextDisplayComponent(floorObject, 1, 1.0, 
+    TextDisplayComponent* floorDisplay = new TextDisplayComponent(floorObject, renderLayer::UI, 1.0, 
         std::to_string(currFloor), {255, 255, 255, 255}, "Basteleur-Bold72");
     floorObject->addComponent(floorDisplay);
 
