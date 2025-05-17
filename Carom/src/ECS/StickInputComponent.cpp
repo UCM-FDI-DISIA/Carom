@@ -197,7 +197,7 @@ void StickInputComponent::registerWhiteBall(entity_t wb)
     assert(wb != nullptr);
     _whiteBall = wb;
     _whiteBallRB = _whiteBall->getComponent<RigidBodyComponent>();
-    _minRadiusToPull = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+    _minRadiusToPull = PhysicsConverter::pixel2meter(_whiteBall->getRenderer()->getRenderRect().w/2);
 }
 
 void StickInputComponent::registerStickEffect(StickEffectComponent* effect) {
