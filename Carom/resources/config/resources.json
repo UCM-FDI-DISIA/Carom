@@ -223,7 +223,8 @@
       {"id": "sound_z", "file": "../../resources/sound/malco/sound_z.wav"},
       {"id": "explosion", "file": "../../resources/sound/explosion.mp3"},
       {"id": "magic_wand", "file": "../../resources/sound/magic-wand.wav"},
-      {"id": "wall_hit", "file": "../../resources/sound/wall_hit.wav"}
+      {"id": "wall_hit", "file": "../../resources/sound/wall_hit.wav"},
+      {"id": "boxing", "file": "../../resources/sound/boxing.wav"}
 
   ],
 
