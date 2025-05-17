@@ -108,22 +108,20 @@ void CauldronRewardScene::initObjects()
             desc = sdlutils().texts().at("normal_ballDesc_pool");
             break;
     };
+    
+    title.text = "Efecto a añadir";
 
-    title.text = "Efecto nuevo";
-
-    auto texture = &sdlutils().images().at("inventory_description_box");
-    float scale = static_cast<float>(*&sdlutils().svgs().at("win").at("Cauldron_Info").width) / texture->width();
-    auto svgElem = *&sdlutils().svgs().at("win").at("Cauldron_Info");
+    float scale = static_cast<float>(*&sdlutils().svgs().at("reward").at("textArea").width);
+    auto svgElem = *&sdlutils().svgs().at("reward").at("textArea");
     auto pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
-    pos.y -= 0.5;
 
     auto description = new Entity(*this, grp::BALL_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         addComponent<BallInfoDisplayComponent>(description, 101, 
                 body_t{title.text, title.font, title.color, scale*1.5f},
                 body_t{desc.text, desc.font, desc.color, scale*1.5f}
-                , texture->width() * scale - 60
-                , -texture->width()/2 * scale, -texture->height()/2 * scale
+                , scale - 60
+                , scale, scale/2
             );
 }
 

@@ -35,6 +35,8 @@ public:
 
     inline float getScale(){return _scale;}
     inline void setScale(float s) {_scale = s;}
-
+    
     SDL_Rect getRenderRect() const override;
+    float getRenderWidth();
+    void setNewWidth(float newWidth);
 };

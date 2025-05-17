@@ -16,6 +16,8 @@ MainMenuScene::~MainMenuScene()
 
 void MainMenuScene::initFunctionalities()
 {
+    auto inv = InventoryManager::Instance();
+    inv->loadStartingInventory();
 }
 
 void MainMenuScene::initObjects()

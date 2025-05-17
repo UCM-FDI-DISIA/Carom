@@ -19,46 +19,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "BowlingEffect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot2": {
-      "components": [
-         {
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot3": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "QuanticEffect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot4": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "PokeballEffect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
