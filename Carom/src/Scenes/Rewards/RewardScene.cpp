@@ -150,7 +150,7 @@ RewardScene::openInventory()
     //balls
     float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
 
-    for(int i =0; i < InventoryManager::Instance()->MAX_BALLS; i++){
+    for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; i++){
         std::string key = "ball_" + std::to_string(i+1);
         std::string slot = "slot" + std::to_string(i);
 

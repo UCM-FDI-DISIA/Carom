@@ -137,8 +137,6 @@ PoolScene::generateHole(int i)
 
 void
 PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int amount) {
-    // TODO: parse all rewards from JSON
-
     std::vector<RandomItem<RewardScene::Reward>> randomRewards;
     
     for(int i = 0; i < possibleRewards.size(); ++i) {
@@ -171,9 +169,8 @@ PoolScene::generateFloorRewards() {
 
     // Swaps boss hole assigned reward for a Boss Reward
     _floorRewards[_bossHole] = RewardScene::Reward("boss", RewardScene::Reward::Type::BOSS);
-    std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
-
     _floorRewards[0] = RewardScene::Reward("cauldron", RewardScene::Reward::Type::INSTANT);
+    std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
 
     createRewardInfo();
 }

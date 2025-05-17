@@ -22,7 +22,8 @@ public:
         X2,
         ABBACUS,
         QUANTIC,
-        PETANQUE
+        PETANQUE,
+        NUM_BALLS
     };
     enum stickID{
         NORMAL_STICK,

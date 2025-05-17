@@ -9,11 +9,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
@@ -23,7 +19,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }

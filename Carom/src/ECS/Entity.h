@@ -174,11 +174,12 @@ public:
     }
 
     void stealComponent(entity_t from, BallEffect* effect){
-        effect->setEntity(this);
-        bool s = this->internalAddComponent(effect->getEffectId(), effect, true);
+        bool s = from->internalRemoveComponent(effect->getEffectId(), false);
         assert(s);
 
-        s = from->internalRemoveComponent(effect->getEffectId());
+        effect->setEntity(this);
+        getComponent<BallHandler>()->addEffect(effect);
+        s = this->internalAddComponent(effect->getEffectId(), effect, true);
         assert(s);
     }
 
