@@ -8,6 +8,7 @@ body {
   margin: 0px;
   height: 100%;
   scroll-behavior: smooth;
+  cursor: url("./img/cursor.png") 33 0 , auto;
 }
 
 /* a blue color as a generic focus style */

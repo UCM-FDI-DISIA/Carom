@@ -39,7 +39,7 @@ body {
   background: none;
   border: none;
   border-radius: 50%;
-  cursor: pointer;
+  /* cursor: pointer; */
   padding: 0;
   width: max(50px, 8vw);
   height: max(50px, 8vw);

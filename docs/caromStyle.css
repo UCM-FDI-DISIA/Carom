@@ -138,7 +138,7 @@ footer nav.socials {
 
 footer nav.socials .button {
   border-radius: 50%;
-  cursor: pointer;
+  /* cursor: pointer; */
   padding: 0;
   margin: 0;
   width: max(4vw, 40px);
