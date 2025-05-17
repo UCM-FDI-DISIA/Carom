@@ -17,7 +17,24 @@ StickRewardScene::~StickRewardScene()
 
 void StickRewardScene::atRender()
 {
-    openInventory();
+    std::vector<ButtonWithSlot> a_buttonVector = openInventory();
+
+    for (ButtonWithSlot& e : a_buttonVector) {
+        if (e.slot == 0) { // asi es, magic number
+            if (e.button != nullptr) {
+                e.button->setOnClick([this]() {
+                    selectItem(0);
+                    if (!_invSelected){ 
+                        _invSelected = true;
+                        _newSelected = false;
+                    }
+                    else {
+                        _invSelected = false;
+                    }
+                });
+            }
+        }
+    }
 }
 
 void StickRewardScene::applyReward()
@@ -36,6 +53,36 @@ void StickRewardScene::initObjects()
     };
 
     _stickReward = RNG_Manager::Instance()->getRandomItem(a_stickList);
+
+    entity_t nuevo_palo = new Entity(*this, grp::UI);
+
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("reward").at("newStick").x,
+        *&sdlutils().svgs().at("reward").at("newStick").y
+    );
+
+    Texture* a_stickTexture = idToTexture(_stickReward);
+
+    float a_stickScale = float(sdlutils().svgs().at("reward").at("newStick").width) / float(a_stickTexture->width());
+
+    TransformComponent* a_tr = addComponent<TransformComponent>(nuevo_palo, pos);
+    a_tr->setRotation(90.0);
+    addComponent<RenderTextureComponent>(nuevo_palo, a_stickTexture, renderLayer::UI, a_stickScale);
+
+    Button::TextureButton rButton = Button::TextureButton();
+    auto button = addComponent<Button>(nuevo_palo, rButton);
+
+    button->setOnClick([this]() {
+        if (!_newSelected) {
+            if (_invSelected) selectItem(0);
+            _newSelected = true;
+            showExitButton();
+        }
+        else {
+            _newSelected = false;
+            hideExitButton();
+        }
+    });
 }
 
 void StickRewardScene::initFunctionalities() 

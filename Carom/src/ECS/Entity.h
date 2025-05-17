@@ -30,6 +30,7 @@ class PauseScene;
 class TutorialScene;
 class TextHelperScene;
 class QuitScene;
+class StickRewardScene;
 class BossRewardScene;
 
 // Magia negra para templatizar basada en clases padre
@@ -224,6 +225,7 @@ private:
     friend TutorialScene;
     friend TextHelperScene;
     friend QuitScene;
+    friend StickRewardScene;
     friend BossRewardScene;
 
     Entity(GameScene& scene, grpId_t gId);

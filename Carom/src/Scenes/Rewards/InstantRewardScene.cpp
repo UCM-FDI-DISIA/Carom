@@ -33,3 +33,13 @@ InstantRewardScene::selectItem(int item) {
         #endif
     }
 }
+
+std::vector<int>
+InstantRewardScene::getSelectedItems() {
+    std::vector<int> selectedIndexes;
+
+    for(int i = 0; i < 7; ++i) 
+        if(_selectedItems[i]) selectedIndexes.push_back(i);
+        
+    return selectedIndexes;
+}
