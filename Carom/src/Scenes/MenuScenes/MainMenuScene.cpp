@@ -67,7 +67,7 @@ void MainMenuScene::initObjects()
 
     // Hacer que se pueda accionar el boton de EXIT
     pannels[6]->getComponent<Button>()->setOnClick([this](){
-        getGame()->closeSDLWindow();
+        getGame()->close();
     }); 
 
     //Empieza la musica
