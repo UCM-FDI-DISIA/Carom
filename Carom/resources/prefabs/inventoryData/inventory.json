@@ -2,7 +2,7 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 0.9375511407852173,
+   "cunning": 1.0,
    "hitEase": 0,
    "power": 0,
    "slot0": {
@@ -10,55 +10,6 @@
          {
             "atributes": {
                "effects": []
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot1": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "BowlingEffect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot2": {
-      "components": [
-         {
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot3": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "QuanticEffect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot4": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "PokeballEffect"
-                  }
-               ]
             },
             "componentName": "BallHandler"
          }

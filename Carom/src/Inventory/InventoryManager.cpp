@@ -166,6 +166,7 @@ InventoryManager::addBall(std::vector<int> ids) {
         std::string key = "slot" + std::to_string(i);
         if(data.find(key) == data.end()){
             data[key]["components"][0]["componentName"] = "BallHandler";
+            data[key]["components"][0]["atributes"]["effects"] = json::array();
             for(int j = 0; j < a_effects.size(); j++){
                 data[key]["components"][0]["atributes"]["effects"][j]["componentName"] = a_effects[j];
             }
