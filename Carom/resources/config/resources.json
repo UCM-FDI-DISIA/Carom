@@ -43,20 +43,22 @@
 
     { "id" : "drawer", "file" : "../../resources/images/drawer.png"},
 
-    { "id" : "RectangleExit", "file" : "../../resources/images/mainmenu/RectangleExit.png"},
-    { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
     { "id" : "RectangleMENU", "file" : "../../resources/images/mainmenu/RectangleMENU.png"},
     { "id" : "RectangleMENUCorner", "file" : "../../resources/images/mainmenu/RectangleMENUCorner.png"},
+    { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
     { "id" : "RectanglePlay", "file" : "../../resources/images/mainmenu/RectanglePlay.png"},
     { "id" : "RectangleTutorial", "file" : "../../resources/images/mainmenu/RectangleTutorial.png"},
-    { "id" : "RectangleTitle", "file" : "../../resources/images/mainmenu/RectangleTitle.png"},
+    { "id" : "RectangleControls", "file" : "../../resources/images/mainmenu/RectangleControls.png"},
+    { "id" : "RectangleCredits", "file" : "../../resources/images/mainmenu/RectangleCredits.png"},
+    { "id" : "RectangleExit", "file" : "../../resources/images/mainmenu/RectangleExit.png"},
     { "id" : "menuBackground", "file" : "../../resources/images/mainmenu/menuBackground.png"},
     { "id" : "C", "file" : "../../resources/images/mainmenu/C.png"},
     { "id" : "AROM", "file" : "../../resources/images/mainmenu/AROM.png"},
     { "id" : "Play", "file" : "../../resources/images/mainmenu/Play.png"},
     { "id" : "Tutorial", "file" : "../../resources/images/mainmenu/Tutorial.png"},
-    { "id" : "Exit", "file" : "../../resources/images/mainmenu/Exit.png"},
+    { "id" : "Controls", "file" : "../../resources/images/mainmenu/Controls.png"},
     { "id" : "Credits", "file" : "../../resources/images/mainmenu/Credits.png"},
+    { "id" : "Exit", "file" : "../../resources/images/mainmenu/Exit.png"},
     { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
 
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
@@ -661,7 +663,8 @@
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
     {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
     {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"},
-    {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"}
+    {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"},
+    {"id": "quit", "file": "../resources/svg/quit.svg"}
   ]
 
 }
