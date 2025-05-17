@@ -1,4 +1,8 @@
 //#define _CRTDBG_MAP_ALLOC // ! This thing fucking kills the project for some reason
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 #include <stdlib.h>
 #include <crtdbg.h>
 
@@ -9,12 +13,6 @@
 #include "RandomItemParser.h"
 
 #include "Game.h"
-
-/*
-la ruta para acceder a la mierda esta por codigo es
-
-nlohmann::json
-*/
 
 void start() {
     Game g;
@@ -27,6 +25,10 @@ void start() {
 int main (int, char**)
 {
     // _CrtSetBreakAlloc(73706);
+
+    #ifdef _WIN32
+    SetProcessDPIAware();
+    #endif
 
     try {
         start();

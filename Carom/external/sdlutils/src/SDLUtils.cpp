@@ -89,9 +89,12 @@ void SDLUtils::initWindow() {
 
 	// Create window
 	_window = SDL_CreateWindow(_windowTitle.c_str(),
-	SDL_WINDOWPOS_UNDEFINED,
-	SDL_WINDOWPOS_UNDEFINED, _width, _height, SDL_WINDOW_SHOWN);
+		SDL_WINDOWPOS_CENTERED,
+		SDL_WINDOWPOS_CENTERED, _width, _height, 
+		SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
 	assert(_window != nullptr);
+
+	SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
 
 #ifdef _DEBUG
 	std::cout << "Creating SDL renderer" << std::endl;
