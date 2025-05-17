@@ -68,6 +68,5 @@ void FusionRewardScene::initFunctionalities() {
 bool 
 FusionRewardScene::isSelected(int index) {
     auto items = getSelectedItems();
-
     return std::find(items.begin(), items.end(), index) != items.end();
 }

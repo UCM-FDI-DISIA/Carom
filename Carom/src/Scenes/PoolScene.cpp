@@ -144,8 +144,6 @@ PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int 
     }
 
     _rngm->getRandomItems(randomRewards, amount, false);
-
-    possibleRewards.clear();
 }
 
 void
