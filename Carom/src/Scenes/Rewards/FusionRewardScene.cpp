@@ -3,6 +3,7 @@
 #include "InventoryManager.h"
 #include "PoolScene.h"
 #include "RenderTextureComponent.h"
+#include "AudioManager.h"
 
 FusionRewardScene::FusionRewardScene(Game* game, Reward reward)
     : InstantRewardScene(game, reward, 2)
@@ -27,8 +28,14 @@ void FusionRewardScene::atRender() {
         getComponent<RenderTextureComponent>((pair.button)->getEntity())->changeColorTint(64, 64, 64);
         pair.button->setOnClick([this, pair] {
             this->selectItem(pair.slot);
-            if(!isSelected(pair.slot)) getComponent<RenderTextureComponent>((pair.button)->getEntity())->changeColorTint(64, 64, 64);
-            else getComponent<RenderTextureComponent>((pair.button)->getEntity())->resetColorTint();
+            if(!isSelected(pair.slot)) {
+                getComponent<RenderTextureComponent>((pair.button)->getEntity())->changeColorTint(64, 64, 64);
+                AudioManager::Instance()->playSoundEfect("unpick");
+            }
+            else {
+                getComponent<RenderTextureComponent>((pair.button)->getEntity())->resetColorTint();
+                AudioManager::Instance()->playSoundEfect("pick");
+            }
         });
     }
 }

@@ -15,16 +15,6 @@
          }
       ]
    },
-   "slot1": {
-      "components": [
-         {
-            "atributes": {
-               "effects": []
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
    "slot2": {
       "components": [
          {
@@ -36,10 +26,6 @@
       ]
    },
    "stick": {
-      "components": [
-         {
-            "componentName": "DonutStickEffect"
-         }
-      ]
+      "components": []
    }
 }

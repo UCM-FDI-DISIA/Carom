@@ -2,6 +2,8 @@
 #include "InventoryManager.h"
 #include "TextDisplayComponent.h"
 
+#include "AudioManager.h"
+
 #include <iostream>
 
 StickRewardScene::StickRewardScene(Game* game, Reward reward)
@@ -34,10 +36,12 @@ void StickRewardScene::atRender()
                         _newSelected = false;
                         _oldStickTextureComponent->resetColorTint();
                         _newStickTextureComponent->changeColorTint(64, 64, 64);
+                        AudioManager::Instance()->playSoundEfect("pick");
                     }
                     else {
                         _invSelected = false;
                         _oldStickTextureComponent->changeColorTint(64, 64, 64);
+                        AudioManager::Instance()->playSoundEfect("unpick");
                     }
                 });
             }
@@ -88,11 +92,13 @@ void StickRewardScene::initObjects()
             showExitButton();
             _oldStickTextureComponent->changeColorTint(64, 64, 64);
             _newStickTextureComponent->resetColorTint();
+            AudioManager::Instance()->playSoundEfect("pick");
         }
         else {
             _newSelected = false;
             hideExitButton();
             _newStickTextureComponent->changeColorTint(64, 64, 64);
+            AudioManager::Instance()->playSoundEfect("unpick");
         }
     });
 

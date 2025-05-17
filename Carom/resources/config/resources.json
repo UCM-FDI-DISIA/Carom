@@ -226,8 +226,9 @@
       {"id": "wall_hit", "file": "../../resources/sound/wall_hit.wav"},
       {"id": "boxing", "file": "../../resources/sound/boxing.wav"},
       {"id": "donut", "file": "../../resources/sound/donut.wav"},
-      {"id": "pop_opposite", "file": "../../resources/sound/pop_opposite.wav"}
-
+      {"id": "pop_opposite", "file": "../../resources/sound/pop_opposite.wav"},
+      {"id": "pick", "file": "../../resources/sound/pick.wav"},
+      {"id": "unpick", "file": "../../resources/sound/unpick.wav"}
   ],
 
   "musics" : [
