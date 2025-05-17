@@ -361,8 +361,11 @@ std::vector<PoolScene::EffectType> InventoryManager::getEffectsFromBall(int inde
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
-    std::string key = "slot" + index;
-    std::vector<std::string> effects = data["components"][0]["atributes"]["effects"];
+    std::string key = "slot" + std::to_string(index);
+    auto slot = data[key];
+    auto ballHandler = slot["components"][0];
+    
+    std::vector<std::string> effects = ballHandler["atributes"]["effects"];
 
     for(std::string effect : effects) {
         if(effect == "BowlingEffect") output.push_back(PoolScene::BOWLING);

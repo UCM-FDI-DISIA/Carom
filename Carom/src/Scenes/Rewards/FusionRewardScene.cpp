@@ -1,6 +1,7 @@
 #include "FusionRewardScene.h"
 #include "Button.h"
 #include "InventoryManager.h"
+#include "PoolScene.h"
 
 FusionRewardScene::FusionRewardScene(Game* game, Reward reward)
     : InstantRewardScene(game, reward, 2)
@@ -21,6 +22,24 @@ void FusionRewardScene::atRender() {
 
 void FusionRewardScene::applyReward() {
     std::vector<int> selectedBalls = getSelectedItems();
+
+    std::vector<PoolScene::EffectType> effectsToAdd, firstBallEffects, secondBallEffects;
+    firstBallEffects = InventoryManager::Instance()->getEffectsFromBall(selectedBalls[0]);
+    secondBallEffects = InventoryManager::Instance()->getEffectsFromBall(selectedBalls[1]);
+
+    for(PoolScene::EffectType effect : firstBallEffects) {
+        if(std::find(secondBallEffects.begin(), secondBallEffects.end(), effect) == secondBallEffects.end())
+            secondBallEffects.push_back(effect);
+    }
+
+    InventoryManager::Instance()->removeBall(selectedBalls[0]);
+    InventoryManager::Instance()->removeBall(selectedBalls[1]);
+
+    std::vector<int> effectIdsToInt;
+    for(PoolScene::EffectType effect : secondBallEffects)
+        effectIdsToInt.push_back(int(effect));
+
+    InventoryManager::Instance()->addBall(effectIdsToInt);
 }
 
 void FusionRewardScene::initObjects() {
