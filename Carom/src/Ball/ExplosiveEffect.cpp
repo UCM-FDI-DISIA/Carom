@@ -11,6 +11,7 @@
 #include "PhysicsUtils.h"
 #include "TweenComponent.h"
 #include "CameraComponent.h"
+#include "AudioManager.h"
 
 ExplosiveEffect::ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force) 
     : BallEffect(ent), _explosionDelay(timeForExplosion), _radius(radius), _force(force), _exploded(false)
@@ -39,6 +40,8 @@ ExplosiveEffect::update() {
 
 void 
 ExplosiveEffect::createExplosion() {
+
+    AudioManager::Instance()->playSoundEfect("explosion");
     //Agitar cámara
     _myEntity->getScene().getCamera()->shakeCamera(0.3f, 0.2f);
     //instanciar explosion

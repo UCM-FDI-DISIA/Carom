@@ -6,10 +6,14 @@
 #include "SubdivisionEffect.h"
 #include "StickInputComponent.h"
 #include <box2d/box2d.h>
+#include "AudioManager.h"
 
 
 void
 MagicWandStickEffect::applyEffect(entity_t target){
+
+    AudioManager::Instance()->playSoundEfect("magic_wand");
+
     CaromScene* a_scene = static_cast<CaromScene*>(&target->getScene());
     ITransform* a_targetTransform = dynamic_cast<ITransform*>(target->getTransform());
     RigidBodyComponent* a_targetRB = dynamic_cast<RigidBodyComponent*>(target->getComponent<RigidBodyComponent>());
