@@ -37,7 +37,6 @@ PopToOppositeSideEffect::init(){
 void 
 PopToOppositeSideEffect::onStrikeEnd(){
     _myEntity->removeComponent<EventOnCollision>();
-    _myEntity->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->removeComponent<PopToOppositeSideEffect>();
 
 }
