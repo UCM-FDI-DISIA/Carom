@@ -83,7 +83,6 @@ private:
     float getCunning();
     void setCunning(float f);
 
-private:
     // Eliminar
     void removeBall(int index);
     std::vector<PoolScene::EffectType> getEffectsFromBall(int index);
