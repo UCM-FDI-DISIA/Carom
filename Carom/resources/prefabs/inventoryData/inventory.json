@@ -40,11 +40,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "CristalEffect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }

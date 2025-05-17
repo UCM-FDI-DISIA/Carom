@@ -38,11 +38,11 @@ void FusionRewardScene::applyReward() {
     std::vector<int> selectedBalls = getSelectedItems();
     if(selectedBalls.size() == 0) return;
 
-    std::vector<PoolScene::EffectType> effectsToAdd, firstBallEffects, secondBallEffects;
+    std::vector<RewardScene::ballID> effectsToAdd, firstBallEffects, secondBallEffects;
     firstBallEffects = InventoryManager::Instance()->getEffectsFromBall(selectedBalls[0]-1);
     secondBallEffects = InventoryManager::Instance()->getEffectsFromBall(selectedBalls[1]-1);
 
-    for(PoolScene::EffectType effect : firstBallEffects) {
+    for(RewardScene::ballID effect : firstBallEffects) {
         if(std::find(secondBallEffects.begin(), secondBallEffects.end(), effect) == secondBallEffects.end())
             secondBallEffects.push_back(effect);
     }
@@ -51,7 +51,7 @@ void FusionRewardScene::applyReward() {
     InventoryManager::Instance()->removeBall(selectedBalls[1]-1);
 
     std::vector<int> effectIdsToInt;
-    for(PoolScene::EffectType effect : secondBallEffects)
+    for(RewardScene::ballID effect : secondBallEffects)
         effectIdsToInt.push_back(int(effect));
 
     InventoryManager::Instance()->addBall(effectIdsToInt);
