@@ -140,9 +140,6 @@ InventoryManager::addBall(std::vector<int> ids) {
         case RewardScene::ballID::CRISTAL:
             a_effects.push_back("CristalEffect");
             break;
-        case RewardScene::ballID::NORMAL_BALL:
-            a_effects.push_back("");
-            break;
         case RewardScene::ballID::PETANQUE:
             a_effects.push_back("PetanqueEffect");
             break;
