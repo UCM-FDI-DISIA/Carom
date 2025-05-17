@@ -112,7 +112,7 @@ h2.main-title {
     align-items: center;
 }
 
-.section .picture img {
+.section .picture .image {
     max-width: 100%;
     object-fit: contain;
     border: 5px solid #ffffff;

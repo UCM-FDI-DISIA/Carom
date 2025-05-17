@@ -26,10 +26,13 @@ body {
 
 .home nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 60%;
+  height: fit-content;
   z-index: 1;
   margin-top: 35%;
+  flex-wrap: wrap;
+  gap: 10vw;
 }
 
 .home .button {
@@ -38,8 +41,8 @@ body {
   border-radius: 50%;
   cursor: pointer;
   padding: 0;
-  width: 8vw;
-  height: 8vw;
+  width: max(50px, 8vw);
+  height: max(50px, 8vw);
   transition: 0.2s;
 }
 
