@@ -98,11 +98,7 @@ StickRewardScene::idToTexture(stickID id) {
     switch (id)
     {
     case stickID::BOXING:
-        #ifdef _DEBUG
-            std::cout << "FALTA LA TESTURA DEL GUANTE GUILLERMO NO SUBAS MAS LAS TARIFAS\n";
-        #endif
-
-        textureId = "palo1";
+        textureId = "boxing";
         break;
     case stickID::DONUT:
         textureId = "donut";

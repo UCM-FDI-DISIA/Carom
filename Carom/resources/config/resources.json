@@ -72,6 +72,8 @@
     { "id" : "donut_sombra", "file" : "../../resources/images/donut_sombra.png"},
     { "id" : "lanzagranadas", "file" : "../../resources/images/lanzagranadas.png"},
     { "id" : "lanzagranadas_sombra", "file" : "../../resources/images/lanzagranadas_sombra.png"},
+    { "id" : "boxing", "file" : "../resources/images/boxing.png"},
+    { "id" : "boxing_sombra", "file" : "../resources/images/boxing_shadow.png"}
 
     { "id" : "floor", "file" : "../../resources/images/floor.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
