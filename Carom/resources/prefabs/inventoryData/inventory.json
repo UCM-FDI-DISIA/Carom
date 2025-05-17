@@ -1,21 +1,11 @@
 {
    "caromEase": 0,
-   "charisma": 2,
+   "charisma": 0,
    "comboEase": 0,
-   "cunning": 1.0,
+   "cunning": 0.9375511407852173,
    "hitEase": 0,
    "power": 0,
    "slot0": {
-      "components": [
-         {
-            "atributes": {
-               "effects": []
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot1": {
       "components": [
          {
             "atributes": {
