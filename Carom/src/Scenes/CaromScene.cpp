@@ -65,8 +65,8 @@ void CaromScene::init()
 {
     // Boss match requires a different score to beat
     int baseScore;
-    if(isBossMatch()) baseScore = 1;
-    else baseScore = 1; 
+    if(isBossMatch()) baseScore = 20;
+    else baseScore = 10; 
 
     baseScore *= InventoryManager::Instance()->getCunning();
     if (baseScore == 0) baseScore = 1;
