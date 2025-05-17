@@ -50,12 +50,12 @@ void StickRewardScene::atRender()
 
 void StickRewardScene::initObjects()
 {
-    std::vector<RandomItem<stickID>> a_stickList = {
-        {stickID::BOXING, 1.0},
-        {stickID::DONUT, 1.0},
-        {stickID::GRENADE, 1.0},
-        {stickID::NORMAL_STICK, 1.0},
-        {stickID::WAND, 1.0}
+    std::vector<RandomItem<StickId>> a_stickList = {
+        {BOXING, 1.0},
+        {DONUT, 1.0},
+        {GRENADE, 1.0},
+        {NORMAL_STICK, 1.0},
+        {WAND, 1.0}
     };
 
     _stickReward = RNG_Manager::Instance()->getRandomItem(a_stickList);
@@ -117,25 +117,25 @@ void StickRewardScene::applyReward()
 }
 
 Texture*
-StickRewardScene::idToTexture(stickID id) {
+StickRewardScene::idToTexture(StickId id) {
 
     std::string textureId;
 
     switch (id)
     {
-    case stickID::BOXING:
+    case BOXING:
         textureId = "boxing";
         break;
-    case stickID::DONUT:
+    case DONUT:
         textureId = "donut";
         break;
-    case stickID::GRENADE:
+    case GRENADE:
         textureId = "lanzagranadas";
         break;
-    case stickID::NORMAL_STICK:
+    case NORMAL_STICK:
         textureId = "palo1";
         break;
-    case stickID::WAND:
+    case WAND:
         textureId = "magic_wand";
         break;
     default:

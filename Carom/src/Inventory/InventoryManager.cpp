@@ -127,29 +127,29 @@ InventoryManager::addBall(std::vector<int> ids) {
     std::vector<std::string> a_effects;
 
     for (int e : ids) {
-        RewardScene::ballID a_id = static_cast<RewardScene::ballID>(e);
+        BallId a_id = static_cast<BallId>(e);
 
         switch (a_id)
         {
-        case RewardScene::ballID::ABBACUS:
+        case ABBACUS:
             a_effects.push_back("AbacusEffect");
             break;
-        case RewardScene::ballID::BOWLING:
+        case BOWLING:
             a_effects.push_back("BowlingEffect");
             break;
-        case RewardScene::ballID::CRISTAL:
+        case CRISTAL:
             a_effects.push_back("CristalEffect");
             break;
-        case RewardScene::ballID::PETANQUE:
+        case PETANQUE:
             a_effects.push_back("PetanqueEffect");
             break;
-        case RewardScene::ballID::POKEBALL:
+        case POKEBALL:
             a_effects.push_back("PokeballEffect");
             break;
-        case RewardScene::ballID::QUANTIC:
+        case QUANTIC:
             a_effects.push_back("QuanticEffect");
             break;
-        case RewardScene::ballID::X2:
+        case X2:
             a_effects.push_back("X2Effect");
             break;
         default:
@@ -223,25 +223,25 @@ InventoryManager::addStick(int rawStickId) {
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
-    RewardScene::stickID a_stickId = static_cast<RewardScene::stickID>(rawStickId);
+    StickId a_stickId = static_cast<StickId>(rawStickId);
 
     //GUARDAR NUEVO STICK
     switch (a_stickId)
     {
-    case RewardScene::stickID::BOXING:
+    case BOXING:
         data["stick"]["components"][0]["componentName"] = "BoxingGloveStickEffect";
         data["stick"]["components"][0]["atributes"]["factor"] = 0.75f;
         break;
-    case RewardScene::stickID::DONUT:
+    case DONUT:
         data["stick"]["components"][0]["componentName"] = "DonutStickEffect";
         break;
-    case RewardScene::stickID::GRENADE:
+    case GRENADE:
         data["stick"]["components"][0]["componentName"] = "GrenadeLauncherStickEffect";
         data["stick"]["components"][0]["atributes"]["explosionDelay"] = 3;
         data["stick"]["components"][0]["atributes"]["explosionForce"] = 1;
         data["stick"]["components"][0]["atributes"]["radius"] = 1;
         break;
-    case RewardScene::stickID::WAND:
+    case WAND:
         data["stick"]["components"][0]["componentName"] = "MagicWandStickEffect";
         break;
     default:
@@ -390,8 +390,8 @@ void InventoryManager::setParameterValue(std::string key, int value){
     updateData(data);
 }
 
-std::vector<RewardScene::ballID> InventoryManager::getEffectsFromBall(int index) {
-    std::vector<RewardScene::ballID> output;
+std::vector<BallId> InventoryManager::getEffectsFromBall(int index) {
+    std::vector<BallId> output;
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
@@ -402,13 +402,13 @@ std::vector<RewardScene::ballID> InventoryManager::getEffectsFromBall(int index)
     std::vector<std::string> effects = ballHandler["atributes"]["effects"];
 
     for(std::string effect : effects) {
-        if(effect == "BowlingEffect") output.push_back(RewardScene::ballID::BOWLING);
-        else if(effect == "AbbacusEffect") output.push_back(RewardScene::ballID::ABBACUS);
-        else if(effect == "X2Effect") output.push_back(RewardScene::ballID::X2);
-        else if(effect == "QuanticEffect") output.push_back(RewardScene::ballID::QUANTIC);
-        else if(effect == "PokeballEffect") output.push_back(RewardScene::ballID::POKEBALL);
-        else if(effect == "CristalEffect") output.push_back(RewardScene::ballID::CRISTAL);
-        else if(effect == "PetanqueEffect") output.push_back(RewardScene::ballID::PETANQUE);
+        if(effect == "BowlingEffect") output.push_back(BOWLING);
+        else if(effect == "AbbacusEffect") output.push_back(ABBACUS);
+        else if(effect == "X2Effect") output.push_back(X2);
+        else if(effect == "QuanticEffect") output.push_back(QUANTIC);
+        else if(effect == "PokeballEffect") output.push_back(POKEBALL);
+        else if(effect == "CristalEffect") output.push_back(CRISTAL);
+        else if(effect == "PetanqueEffect") output.push_back(PETANQUE);
     }
 
     return output;

@@ -1,34 +1,15 @@
 #pragma once
 #include "GameScene.h"
 #include "Game.h"
-
+#include "ItemIDs.h"
 #include <memory>
 
 class PauseScene: public GameScene{
     //escena sobre la que renderizar
     GameScene* _bottomScene;
 
-    enum ballID{
-        NORMAL_BALL,
-        CRISTAL,
-        BOWLING,
-        POKEBALL,
-        X2,
-        ABBACUS,
-        QUANTIC,
-        PETANQUE
-    };
-
-    enum stickID{
-        NORMAL_STICK,
-        GRENADE,
-        DONUT,
-        BOXING,
-        WAND
-    };
-
-    std::vector<ballID> _ballIDs;
-    stickID _stickID;
+    std::vector<BallId> _ballIDs;
+    StickId _stickID;
     int previousTheme;
     
     void instantiateInventory();

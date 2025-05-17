@@ -1,7 +1,7 @@
 #pragma once
 
-#include "PoolScene.h"
 #include "RewardScene.h"
+#include "PoolScene.h"
 #include <vector>
 
 class InventoryManager;

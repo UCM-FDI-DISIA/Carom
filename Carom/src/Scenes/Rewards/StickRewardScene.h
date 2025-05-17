@@ -13,9 +13,9 @@ public:
     virtual void applyReward() override;
     virtual void initObjects() override; 
 private:
-    stickID _stickReward;
+    StickId _stickReward;
 
-    Texture* idToTexture(stickID);
+    Texture* idToTexture(StickId);
 
     bool _invSelected = false;
     bool _newSelected = false;

@@ -11,7 +11,7 @@
 #include "NullState.h"
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
-#include "RussianPyramidScene.h" // ! tst
+#include "RussianPyramidScene.h" 
 
 #include "InventoryManager.h"
 
@@ -477,18 +477,17 @@ PoolScene::createCallbacks() {
 void 
 PoolScene::initRandomEffects() {
     _ballsInfo = std::vector<BallInfo>(POSITIONS);
-    std::vector<RandomItem<EffectType>> allEffects;
-    constexpr float equalChance = 1.0 / int(NUM_EFFECTS);
+    std::vector<RandomItem<BallId>> allEffects;
+    constexpr float equalChance = 1.0 / int(NUM_BALLS);
 
     for(int i = 0; i < POSITIONS; ++i) {
-    
-        for(int i = 0; i < NUM_EFFECTS; ++i) allEffects.push_back({EffectType(i), equalChance});
+        for(int i = 1; i < NUM_BALLS; ++i) allEffects.push_back({BallId(i), equalChance});
         addNewEffect(i, 1.0f, allEffects);
     }
 }
 
 void 
-PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects) {
+PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects) {
     if(_rngm->randomRange(0.0f, 1.0f) >= chance) return;
 
     if(possibleEffects.size() == 0) return;
@@ -498,12 +497,12 @@ PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectTy
 }
 
 std::string 
-PoolScene::getTextureName(EffectType effect) {
+PoolScene::getTextureName(BallId effect) {
     return "single_" + getEffectName(effect);
 }
 
 std::string 
-PoolScene::getEffectName(EffectType effect) {
+PoolScene::getEffectName(BallId effect) {
     switch(effect){
         case ABBACUS: return "AbacusEffect";
         case BOWLING: return "BowlingEffect";

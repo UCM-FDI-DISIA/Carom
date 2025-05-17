@@ -59,7 +59,7 @@ void BossRewardScene::initObjects()
 
             std::string textureKey = "bola_blanca";
 
-            PoolScene::EffectType firstBallEffect = _obtainedBallsInfo[i].effects[0];
+            BallId firstBallEffect = _obtainedBallsInfo[i].effects[0];
             switch(firstBallEffect) {
                 case ABBACUS: textureKey = "single_AbacusEffect"; break;
                 case BOWLING: textureKey = "single_BowlingEffect"; break;
@@ -143,7 +143,7 @@ void BossRewardScene::applyReward() {
 
     for(PoolScene::BallInfo ball : _selectedBalls) {
         std::vector<int> ids;
-        for(PoolScene::EffectType effect : ball.effects) ids.push_back((int)effect);
+        for(BallId effect : ball.effects) ids.push_back((int)effect);
         InventoryManager::Instance()->addBall(ids);
     }
 }

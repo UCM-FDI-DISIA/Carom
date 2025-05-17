@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UIScene.h"
-
+#include "ItemIDs.h"
 #include "Button.h"
 
 class RewardScene : public UIScene 
@@ -12,25 +12,6 @@ public:
         Button* button = nullptr;
         /// @brief el slot 0 es el palo ojo cuidao
         int slot = -1;
-    };
-
-    enum ballID{
-        NORMAL_BALL,
-        CRISTAL,
-        BOWLING,
-        POKEBALL,
-        X2,
-        ABBACUS,
-        QUANTIC,
-        PETANQUE,
-        NUM_BALLS
-    };
-    enum stickID{
-        NORMAL_STICK,
-        GRENADE,
-        DONUT,
-        BOXING,
-        WAND
     };
 
     class Reward 
@@ -121,7 +102,7 @@ protected:
     entity_t _exitBttText;
     bool _atReward; // bool para saber la primera vez que se renderiza reward
 
-    std::vector<ballID> _ballIDs;
-    stickID _stickID;
+    std::vector<BallId> _ballIDs;
+    StickId _stickID;
     int previousTheme;
 };

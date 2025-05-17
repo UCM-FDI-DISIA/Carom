@@ -5,6 +5,7 @@
 #include "RNG_Manager.h"
 #include "UIScene.h"
 #include "RewardScene.h"
+#include "ItemIDs.h"
 
 #include <memory>
 
@@ -33,20 +34,9 @@ protected:
     
     
     //BallInfo púbico para acceder a la información de las bolas de la PoolScene como Itadori.
-    public:
-        enum EffectType {
-            ABBACUS,
-            BOWLING,
-            CRISTAL,
-            PETANQUE,
-            POKEBALL,
-            QUANTIC,
-            X2,
-            NUM_EFFECTS
-        };
-        
+    public: 
         struct BallInfo{
-            std::vector<EffectType> effects;
+            std::vector<BallId> effects;
             int scrollIndex = 0;
             bool free = true;
 
@@ -95,9 +85,9 @@ protected:
     void scrollBallEffect(int i); //Cambia el efecto que se muestra
 
     void initRandomEffects();
-    void addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects);
-    std::string getTextureName(EffectType effect);
-    std::string getEffectName(EffectType effect);
+    void addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects);
+    std::string getTextureName(BallId effect);
+    std::string getEffectName(BallId effect);
 
     // ----------
 

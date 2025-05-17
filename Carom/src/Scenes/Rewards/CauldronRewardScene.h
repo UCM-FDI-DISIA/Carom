@@ -7,7 +7,7 @@
 class CauldronRewardScene : public InstantRewardScene
 {
     friend class Entity;
-    RewardScene::ballID _randomEffect;
+    BallId _randomEffect;
 
 public:
     CauldronRewardScene(Game* game, Reward reward);
@@ -15,5 +15,5 @@ public:
 
     virtual void applyReward() override;
     virtual void initObjects() override; 
-    virtual void initFunctionalities() override;
+    virtual void atRender() override;
 };

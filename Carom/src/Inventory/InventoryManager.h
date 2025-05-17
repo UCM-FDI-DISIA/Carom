@@ -5,9 +5,8 @@
 
 #include "Singleton.h"
 #include "Inventory.h"
-#include "PoolScene.h"
+#include "ItemIDs.h"
 class GameScene;
-class BallEffect;
 using json = nlohmann::json;
 
 class InventoryManager : public Singleton<InventoryManager> {
@@ -86,7 +85,7 @@ private:
 
     // Eliminar
     void removeBall(int index);
-    std::vector<RewardScene::ballID> getEffectsFromBall(int index);
+    std::vector<BallId> getEffectsFromBall(int index);
 private:
     void removeAllBalls();
     void removeStick();

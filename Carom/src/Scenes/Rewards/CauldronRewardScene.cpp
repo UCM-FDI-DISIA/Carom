@@ -29,15 +29,15 @@ CauldronRewardScene::~CauldronRewardScene()
 void CauldronRewardScene::applyReward()
 {
     int inventoryBallId = getSelectedItems()[0]-1;
-    std::vector<RewardScene::ballID> chosenBallEffects = InventoryManager::Instance()->getEffectsFromBall(inventoryBallId);
+    std::vector<BallId> chosenBallEffects = InventoryManager::Instance()->getEffectsFromBall(inventoryBallId);
 
-    for(RewardScene::ballID effect : chosenBallEffects)
+    for( BallId effect : chosenBallEffects)
         if(effect == _randomEffect) return;
     
     chosenBallEffects.push_back(_randomEffect);
 
     std::vector<int> intParsedEffects;
-    for(RewardScene::ballID effect : chosenBallEffects)
+    for(BallId effect : chosenBallEffects)
         intParsedEffects.push_back(int(effect));
 
     InventoryManager::Instance()->removeBall(inventoryBallId);
@@ -49,36 +49,36 @@ void CauldronRewardScene::initObjects()
 {
     RewardScene::initObjects();
 
-    _randomEffect =RewardScene::ballID(RNG_Manager::Instance()->randomRange(1, int(RewardScene::ballID::NUM_BALLS)));
+    _randomEffect = BallId(RNG_Manager::Instance()->randomRange(1, int(NUM_BALLS)));
 
     Text title, desc;
 
     switch(_randomEffect){
-        case RewardScene::ballID::BOWLING:
+        case BOWLING:
             title = sdlutils().texts().at("bowling_ballName_pool");
             desc = sdlutils().texts().at("bowling_ballDesc_pool");
             break;
-        case RewardScene::ballID::X2:
+        case X2:
             title = sdlutils().texts().at("x2_ballName_pool");
             desc = sdlutils().texts().at("x2_ballDesc_pool");
             break;
-        case RewardScene::ballID::ABBACUS:
+        case ABBACUS:
             title = sdlutils().texts().at("abbacus_ballName_pool");
             desc = sdlutils().texts().at("abbacus_ballDesc_pool");
             break;
-        case RewardScene::ballID::CRISTAL:
+        case CRISTAL:
             title = sdlutils().texts().at("cristal_ballName_pool");
             desc = sdlutils().texts().at("cristal_ballDesc_pool");
             break;
-        case RewardScene::ballID::PETANQUE:
+        case PETANQUE:
             title = sdlutils().texts().at("petanque_ballName_pool");
             desc = sdlutils().texts().at("petanque_ballDesc_pool");
             break;
-        case RewardScene::ballID::POKEBALL:
+        case POKEBALL:
             title = sdlutils().texts().at("poke_ballName_pool");
             desc = sdlutils().texts().at("poke_ballDesc_pool");
             break;
-        case RewardScene::ballID::QUANTIC:
+        case QUANTIC:
             title = sdlutils().texts().at("quantic_ballName_pool");
             desc = sdlutils().texts().at("quantic_ballDesc_pool");
             break;
@@ -105,7 +105,7 @@ void CauldronRewardScene::initObjects()
 }
 
 /// @brief When a ball is clicked it is the selected ball and the continue button is displayed
-void CauldronRewardScene::initFunctionalities() 
+void CauldronRewardScene::atRender() 
 {
     auto balls = openInventory();
 
