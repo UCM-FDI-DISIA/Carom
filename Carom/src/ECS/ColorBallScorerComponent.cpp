@@ -4,11 +4,13 @@
 #include "CaromScene.h"
 #include "RigidBodyComponent.h"
 #include "ColorHitManager.h"
+#include "WallComponent.h"
+#include "AudioManager.h"
 
 ColorBallScorerComponent::ColorBallScorerComponent(entity_t ent) : PhysicsComponent(ent) {}
 
 void ColorBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& contactData){
-    
+    if(other->tryGetComponent<WallComponent>()) AudioManager::Instance()->playSoundEfect("wall_hit");
     // si choca con una bola de color...
     if(other->tryGetComponent<ColorBallScorerComponent>()){
         

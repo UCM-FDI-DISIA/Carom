@@ -2,7 +2,7 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 0.9464800357818604,
+   "cunning": 1.0,
    "hitEase": 0,
    "power": 0,
    "slot0": {
@@ -37,9 +37,6 @@
    },
    "stick": {
       "components": [
-         {
-            "componentName": "MagicWandStickEffect"
-         }
       ]
    }
 }

@@ -6,6 +6,7 @@
 #include "InventoryManager.h"
 
 #include "WallComponent.h"
+#include "AudioManager.h"
 
 
 #include <algorithm>
@@ -18,6 +19,8 @@ WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsCompone
 }
 void WhiteBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& contactData){
                                                 // ¿Esto está bien?
+    if(other->tryGetComponent<WallComponent>()) AudioManager::Instance()->playSoundEfect("wall_hit");
+
     if(other->tryGetComponent<WallComponent>() && _previouslyHit) _cushions++;
     else if(other->tryGetComponent<ColorBallScorerComponent>()){
         CaromScene* a_scene = dynamic_cast<CaromScene*>(&_myEntity->getScene());
