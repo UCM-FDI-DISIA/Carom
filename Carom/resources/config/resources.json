@@ -348,7 +348,7 @@
     },
     { 
       "id" : "stick_rewardDesc_pool", 
-      "text" : "Te dan a elegir uno entre dos palos (puedes no escoger ninguno).", 
+      "text" : "Te dan a elegir un palo nuevo (puedes no escoger ninguno).", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -372,7 +372,7 @@
     },
     { 
       "id" : "skill_rewardDesc_pool", 
-      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) a elegir entre dos", 
+      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) aleatoria", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
