@@ -68,6 +68,19 @@ SDL_Rect RenderTextureComponent::getRenderRect() const
     return dest;
 }
 
+void RenderTextureComponent::setNewWidth(float newWidth)
+{
+    float a_originalWidth = static_cast<float>(_texture->width());
+    float a_newScale = newWidth / a_originalWidth;
+    setScale(a_newScale);
+}
+
+float RenderTextureComponent::getRenderWidth()
+{
+    SDL_Rect a_rect = getRenderRect();
+    return a_rect.w;
+}
+
 void RenderTextureComponent::setTexture(Texture* tex){
     _texture = tex;
 }

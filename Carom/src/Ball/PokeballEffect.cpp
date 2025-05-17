@@ -5,15 +5,16 @@
 
 void PokeballEffect::onHit(entity_t ent)
 {
+    _myEntity->removeComponent<PokeballEffect>();
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
 
     for(BallEffect* effect : effects)
     {
-        _myEntity->addComponent<BallEffect>(effect);
-        ent->removeComponent(effect);
+        _myEntity->stealComponent(ent, effect);
+        // _myEntity->addComponent<BallEffect>(effect);
+        // ent->removeComponent(effect);
     }
 
-    effects.clear();
-    _myEntity->getComponent<BallHandler>()->removeAllEffects();
-    _myEntity->removeComponent<PokeballEffect>();
+    // effects.clear();
+    // _myEntity->getComponent<BallHandler>()->removeAllEffects();
 };

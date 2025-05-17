@@ -27,6 +27,8 @@ CircleRBComponent::CircleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType
     _myProps.enableContactEvents = !sensor;
     _myProps.enableSensorEvents = sensor;
 
+    _initialRadius = radius;
+
     calculateMass();
     generateBodyAndShape();
 
@@ -76,7 +78,17 @@ CircleRBComponent::updateScale(){
 }
 
 // Calculate mass (circle area as if it was a square)
-void CircleRBComponent::calculateMass() // TODO EN OTROS RBS
+void CircleRBComponent::calculateMass()
 {
     _myProps.mass = _myProps.density * _myProps.radius*_myProps.radius;
+}
+
+void CircleRBComponent::setSize(float newSize)
+{
+    Scale newScale = { 
+        newSize / _initialRadius,
+        newSize / _initialRadius
+    };
+    
+    setScale(newScale);
 }
