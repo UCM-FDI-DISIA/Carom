@@ -31,7 +31,10 @@ public:
 
     SDL_Rect getRenderRect() const override;
     void setFrame(int frame);
+    void setNewWidth(float newWidth);
+    inline void setScale(float s) {_scale = s;}
 
     inline int getFrameAmount() const { return _rows * _cols; }
     inline int getCurrentFrame() const { return _currentFrame; }
+    float getRenderWidth();
 };

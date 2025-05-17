@@ -94,6 +94,8 @@ public:
     inline float getRestitution() const {return b2Shape_GetRestitution(_myB2ShapeId);}
     inline b2Vec2 getVelocity() {return b2Body_GetLinearVelocity(_myB2BodyId);}
     inline float getLinearDamping() {return _myProps.linearDamping; }
+    // for circles
+    inline float getRadius() {return _myProps.radius; }
     inline float getDensity() {return _myProps.density; }
     inline float getMass() {return _myProps.mass; }
     inline b2BodyType getBodyType() {return _myProps.bodyType; }
@@ -104,6 +106,8 @@ public:
     void setPosition(const b2Vec2& newPos) override;
     void setRotation(const double& newRot) override;
     void setScale(const Scale& newScale) override;
+    // pensado para bolas
+    virtual void setSize(float newSize) {}
     void setBodyType(b2BodyType newType);
     void setDensity(float density, int nShapes);
     void setDensity(float density);

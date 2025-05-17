@@ -24,5 +24,6 @@ class ITransform {
         // Setters (no estoy seguro de si los setters deberían estar en la interfaz)
         virtual void setPosition(const b2Vec2& newPos) = 0;
         virtual void setScale(const Scale& newScale) = 0;
+        virtual void setSize(){};
         virtual void setRotation(const double& newRot) = 0;
 };
