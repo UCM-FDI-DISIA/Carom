@@ -98,7 +98,7 @@ PauseScene::instantiateInventory(){
         if(textureKey == "bola_blanca"){
             //colores
             auto color = sdlutils().inventorySlotColor[i];
-            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+            ball->getRenderer()->changeDefaultColorTint(color.r, color.g, color.b);
         }
 
         addComponent<FollowComponent>(ball, fondo, true, false, false, Vector2D(relativeDistance.x, -relativeDistance.y));

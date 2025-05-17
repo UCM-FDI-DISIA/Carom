@@ -14,7 +14,7 @@ public:
     ~ProgressionManager() {}
 
     //Balatro balatrez está jugando balatro         - Diego
-    inline void reset() { ante = 0; }
+    void reset();
     inline void anteUp() { ante += 1; }
     inline int getAnte() const { return ante; }
 

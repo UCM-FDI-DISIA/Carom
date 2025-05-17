@@ -30,6 +30,8 @@ public:
     void run();
     void close();
 
+    inline void setPaused(bool state) { _paused = state; }
+
     #ifdef _DEBUG
         inline void requestRestart() { _restartRequested = true; }
     #endif
@@ -46,6 +48,7 @@ protected:
     std::shared_ptr<MainMenuScene> _mainMenuScene;
     ProgressionManager* _progressionManager;
     bool _exit; 
+    bool _paused;
 
 private:
     Texture* _t;

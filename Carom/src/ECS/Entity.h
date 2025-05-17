@@ -30,6 +30,9 @@ class PauseScene;
 class TutorialScene;
 class TextHelperScene;
 class QuitScene;
+class StickRewardScene;
+class BossRewardScene;
+class CauldronRewardScene;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -170,6 +173,16 @@ public:
         assert(s);
     }
 
+    void stealComponent(entity_t from, BallEffect* effect){
+        bool s = from->internalRemoveComponent(effect->getEffectId(), false);
+        assert(s);
+
+        effect->setEntity(this);
+        getComponent<BallHandler>()->addEffect(effect);
+        s = this->internalAddComponent(effect->getEffectId(), effect, true);
+        assert(s);
+    }
+
     inline ITransform* getTransform() {return _myTransform;}
     std::vector<Component*> getAllComponents(){
         return _currentComponents;
@@ -222,7 +235,10 @@ private:
     friend RussianPyramidScene;
     friend TutorialScene;
     friend TextHelperScene;
+    friend CauldronRewardScene;
     friend QuitScene;
+    friend StickRewardScene;
+    friend BossRewardScene;
 
     Entity(GameScene& scene, grpId_t gId);
 

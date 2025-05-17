@@ -12,6 +12,7 @@ protected:
 
     SDL_Color _defaultColor;
     SDL_Color _color = {255,255,255,0};
+    float _opacity = 255;
 
     SDL_Rect _absCenteredRect;
 
@@ -34,6 +35,13 @@ public:
     void nUpRenderLayer(int n) { _renderLayer += n; }
     void resetRenderLayer();
 
+    void changeDefaultColorTint(int r, int g, int b);
     void changeColorTint(int r, int g, int b);
     void resetColorTint();
+
+    inline SDL_Color getColorTint() {return _color;}
+
+    void changeOpacity(float opacity);
+    inline float* getOpacity() { return &_opacity;}
+
 };

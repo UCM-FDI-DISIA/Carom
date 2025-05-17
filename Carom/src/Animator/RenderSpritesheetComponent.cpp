@@ -64,3 +64,16 @@ RenderSpritesheetComponent::setFrame(int frame) {
 
     _currentFrame = frame;
 }
+
+float RenderSpritesheetComponent::getRenderWidth()
+{
+    SDL_Rect a_rect = getRenderRect();
+    return a_rect.w;
+}
+
+void RenderSpritesheetComponent::setNewWidth(float newWidth)
+{
+    float a_originalWidth = static_cast<float>(_width);
+    float a_newScale = newWidth / a_originalWidth;
+    setScale(a_newScale);
+}

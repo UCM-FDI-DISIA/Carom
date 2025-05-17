@@ -38,19 +38,19 @@ void UIScene::createTable()
     addComponent<RenderTextureComponent>(e_sombraMarco, &sdlutils().images().at("mesa1_sombra"), renderLayer::TABLE_SHADOW, scale);
 }
 
-void UIScene::createText(std::string text, int x, int y, int size)
+void UIScene::createText(std::string text, int x, int y, int size, SDL_Color color, layerId_t rlayer)
 {
-    entity_t winContainer = new Entity(*this, grp::SCORE);
+    entity_t winContainer = new Entity(*this, grp::grpId::SCORE);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
 
     winContainer->addComponent(new TransformComponent(winContainer, pos));
     TextDisplayComponent* currentDisplay = new TextDisplayComponent(
         winContainer,           // container
-        renderLayer::SCORE,     // capa renderizado
+        rlayer,     // capa renderizado
         size,                   // tamano fuente
         text,                   // text
-        {255, 255, 255, 255},   // color (blanco)
+        color,   // color (blanco)
         "Basteleur-Moonlight60" // fuente
     );
     winContainer->addComponent(currentDisplay);
@@ -63,8 +63,8 @@ entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string i
 
     auto a = *&sdlutils().svgs().at(svg);
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at(svg).at(tag).x + 145, // ! mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
-        *&sdlutils().svgs().at(svg).at(tag).y + 160
+        *&sdlutils().svgs().at(svg).at(tag).x,
+        *&sdlutils().svgs().at(svg).at(tag).y
     );
 
     float scale = float(sdlutils().svgs().at(svg).at(tag).width) / float(sdlutils().images().at(image).width());

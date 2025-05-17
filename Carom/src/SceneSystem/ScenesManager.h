@@ -31,6 +31,8 @@ public:
 	ScenesManager();
 	~ScenesManager();
 
+	PoolScene* getPoolScene();
+
 	// Apila un nuevo estado, que se convierte en el estado actual,
 	// manteniendo el anterior en la pila
 	void pushScene(std::shared_ptr<GameScene> scene);
@@ -52,7 +54,7 @@ public:
 
 	void refresh();
 
-	//Método que crea la escena de derrota, se puede llamar en cualquier momento
+	//Método que gestina la pila al PERDER
 	void invokeLose();
 };
 

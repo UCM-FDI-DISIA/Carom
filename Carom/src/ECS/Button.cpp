@@ -129,11 +129,23 @@ bool Button::RadialButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
 Button::ButtonData*
 Button::TextureButton::clone()
 {
-    return new TextureButton();
+    return new TextureButton(_rotated);
 }
 
 bool Button::TextureButton::isMouseInButton(std::pair<Sint32, Sint32> mousePos)
 {
     SDL_Rect rect = _targetRenderer->getRenderRect();
+    if (_rotated)
+    {
+        rect.x += rect.w /2;
+        rect.y += rect.h /2;
+
+        int aux = rect.w;
+        rect.w = rect.h;
+        rect.h = aux;
+
+        rect.x -= rect.w /2;
+        rect.y -= rect.h /2;
+    }
     return InputHandler::Instance()->isMouseInRect(mousePos, rect);
 }

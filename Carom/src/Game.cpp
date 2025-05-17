@@ -17,12 +17,13 @@
 #include "CaromScene.h"
 #include "CowboyPoolScene.h" // ! tst
 #include "AudioManager.h"
+#include "QuitScene.h"
 
 #include "QuitScene.h"
 
 #include <memory>
 
-Game::Game() : _exit(false) {}
+Game::Game() : _exit(false), _paused(false) {}
 
 Game::~Game() 
 {
@@ -134,10 +135,14 @@ void Game::run()
         
         // refresh the input handler
         ihdr.refresh();
-        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdr.closeWindowEvent()) {
+        if (ihdr.isKeyDown(SDL_SCANCODE_ESCAPE) && !_paused) {
             _sceneManager->pushScene(std::make_shared<QuitScene>(this, _sceneManager->top()));
             continue;
         }
+        else if (ihdr.closeWindowEvent() && !_paused) {
+            _exit = true;
+            continue;
+        } 
 
         #if defined(_DEBUG)
         if (_restartRequested){

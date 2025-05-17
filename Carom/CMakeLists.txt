@@ -89,12 +89,10 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
     ${CMAKE_SOURCE_DIR}/src/Feedback
-	${CMAKE_SOURCE_DIR}/src/Rewards
-	${CMAKE_SOURCE_DIR}/src/Rewards/InstantRewards
-	${CMAKE_SOURCE_DIR}/src/Rewards/PermanentRewards
 	${CMAKE_SOURCE_DIR}/src/Text
     ${CMAKE_SOURCE_DIR}/src/Audio
     ${CMAKE_SOURCE_DIR}/src/Progression
+    ${CMAKE_SOURCE_DIR}/src/Scenes/Rewards
 )
 
 # Crear ejecutable
@@ -174,7 +172,14 @@ add_executable(Carom
 	src/Scenes/PauseScene.cpp
 
 	src/Scenes/EndScenes/EndGameScene.cpp
-	src/Scenes/EndScenes/RewardScene.cpp
+	src/Scenes/Rewards/RewardScene.cpp
+    src/Scenes/Rewards/InstantRewardScene.cpp
+    src/Scenes/Rewards/FusionRewardScene.cpp
+    src/Scenes/Rewards/CauldronRewardScene.cpp
+    src/Scenes/Rewards/BossRewardScene.cpp
+    src/Scenes/Rewards/PermanentRewardScene.cpp
+    src/Scenes/Rewards/StickRewardScene.cpp
+    src/Scenes/Rewards/GumballRewardScene.cpp
 
 	src/Inventory/InventoryManager.cpp
 
@@ -183,6 +188,7 @@ add_executable(Carom
 	src/Ball/BallEffect.cpp
 	src/Ball/BallHandler.cpp
 	src/Ball/QuanticEffect.cpp
+    src/Ball/CristalEffect.cpp
     src/Ball/X2Effect.cpp
 	src/Ball/PokeballEffect.cpp
 	src/Ball/BowlingEffect.cpp
@@ -206,6 +212,7 @@ add_executable(Carom
     src/Scenes/MenuScenes/MainMenuScene.cpp
     src/Scenes/MenuScenes/ControlsScene.cpp
     
+    src/StateMachine/State.cpp
     src/StateMachine/StartMatchState.cpp
     src/StateMachine/HitState.cpp
     src/StateMachine/ScoringState.cpp

@@ -9,6 +9,20 @@ class GameScene;
 
 class EndGameScene: public UIScene {  
 public:
-    EndGameScene(Game* g); // para cuando se pierde.
+    EndGameScene(Game* g, bool win, bool isBoss);
     virtual ~EndGameScene() = default;
+
+protected:
+    void initObjects() override;
+
+    void hasWon();
+    void standardWin();
+    void bossWin();
+
+    void hasLost();
+    void standardLose();
+    void bossLose();
+
+    bool _win; // variable con la cual se inicializa EndScene
+    bool _isBoss; // variable con la cual se inicializa EndScene
 };

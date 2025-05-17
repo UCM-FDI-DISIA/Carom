@@ -3,6 +3,7 @@
 #include "ScenesManager.h"
 #include "AudioManager.h"
 #include "TutorialScene.h"
+#include "InventoryManager.h"
 
 MainMenuScene::MainMenuScene(Game *g) 
     : UIScene(g)
@@ -15,7 +16,8 @@ MainMenuScene::~MainMenuScene()
 
 void MainMenuScene::initFunctionalities()
 {
-    _poolScene = std::make_shared<PoolScene>(game);
+    auto inv = InventoryManager::Instance();
+    inv->loadStartingInventory();
 }
 
 void MainMenuScene::initObjects()
@@ -49,12 +51,15 @@ void MainMenuScene::initObjects()
     // Hacer que se pueda accionar el boton de PLAY
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
+        std::shared_ptr<PoolScene> _poolScene = std::make_shared<PoolScene>(game);
+        InventoryManager::Instance()->loadStartingInventory();
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
 
     // Hacer que se pueda accionar el boton de TUTORIAL
     pannels[3]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
+        std::shared_ptr<PoolScene> _poolScene = std::make_shared<PoolScene>(game);
         getGame()->getScenesManager()->pushScene(_poolScene);
         TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
         getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));

@@ -16,44 +16,37 @@ HitState::HitState(CaromScene* scene) : State(scene)
 
 void
 HitState::onStateEnter() {
-    std::cout<< "Enter HIT state" << std::endl;
+    #ifdef _DEBUG
+        std::cout<< "Enter HIT state" << std::endl;
+    #endif
+    
     auto whiteBall = _scene->getEntitiesOfGroup(grp::WHITEBALL);
     assert(whiteBall.size() > 0);
 
-    for (auto& e : whiteBall) {
-        if(e->tryGetComponent<Button>()) {
-            e->getComponent<Button>()->setEnabled(true);
-        }
-    }
+    setBallInputActive(true);
 
     whiteBall[0]->getComponent<WhiteBallScorerComponent>()->refreshOnNewTurn();
 }
 
 void
 HitState::onStateExit() {
-    for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)) {
-        std::cout << "Saliendo de Hit\n";
-        e->deactivate();
-    }
-
-    for (auto& e : _scene->getEntitiesOfGroup(grp::AIM_LINE)) { 
-        e->deactivate();
-    }
-
-    for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
-        if(e->tryGetComponent<Button>()) {
-            std::cout << "BUTTON DISABLE" << std::endl;
-            e->getComponent<Button>()->setEnabled(false);
-        }
-    }
+    setBallInputActive(false);
+    setStickActive(false);
+    setAimLineActive(false);
 }
 
 bool 
 HitState::checkCondition(State*& state) {
-    std::cout << "checkCondition hitState" <<std::endl;
+    #ifdef _DEBUG
+        std::cout << "checkCondition hitState" <<std::endl;
+    #endif
+    
     for (auto& e : _scene->getEntitiesOfGroup(grp::PALO)) { 
         if(e->tryGetComponent<StickInputComponent>() && e->getComponent<StickInputComponent>()->hasShot()) {
-            std::cout << "Cambio a Scoring\n";
+            #ifdef _DEBUG
+                std::cout << "Cambio a Scoring\n";
+            #endif
+            
             state = new ScoringState(_scene);
             return true;
         }

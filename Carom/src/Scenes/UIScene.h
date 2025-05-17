@@ -20,7 +20,7 @@ protected:
     virtual void initFunctionalities(){}
 
     void createTable(); // para que se genere la mesa.
-    void createText(std::string text, int x, int y, int size);       // para q salga el texto de ganar o perdr.
+    void createText(std::string text, int x, int y, int size, SDL_Color color = {255, 255, 255, 255}, layerId_t renderlayer = renderLayer::SCORE); // para q salga el texto de ganar o perdr.
     void createSVGText(std::string id){}
     entity_t createSVGImage(std::string svg, std::string tag, std::string image, 
         bool isButton = false, grp::grpId group = grp::DEFAULT, layerId_t renderlayer = renderLayer::UI);
@@ -29,7 +29,7 @@ protected:
 
 public:
     UIScene(Game *g) : GameScene(g) {} // para cuando se gana (hay reward).
-    virtual ~UIScene() = default;
+    virtual ~UIScene() {};
 
     virtual void init() override;
 };

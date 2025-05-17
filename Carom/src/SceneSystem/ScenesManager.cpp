@@ -9,7 +9,8 @@
 #include "ScenesManager.h"
 #include "RNG_Manager.h"
 #include "QuitScene.h"
-
+#include "InventoryManager.h"
+#include "PoolScene.h"
 
 ScenesManager::ScenesManager()
 {
@@ -93,7 +94,35 @@ ScenesManager::refresh() {
 	}
 }
  
- void 
- ScenesManager::invokeLose(){
-	 //TODO
+void 
+ScenesManager::invokeLose()
+{
+	_gameScenes.top()->getGame()->getProgressionManager()->reset();
+	auto inv = InventoryManager::Instance();
+    inv->loadStartingInventory();
+
+	// Main menu es la primera escena
+	while (_gameScenes.size() != 1) {
+        _gameScenes.pop();
+    }
+
+
+	// Lo mismo que:
+	// popScene(); // Poppea endScene
+	// CaromScene fue popeada por lose state
+	// popScene(); // Poppea reward que esta por debajo
+	// popScene(); // Poppea pool scene
+	// vuelve a main scene
  }
+ 
+PoolScene* ScenesManager::getPoolScene()
+{
+	if (!_gameScenes.empty()) {
+		auto poolScene = std::dynamic_pointer_cast<PoolScene>(_gameScenes.top());
+		if (poolScene) {
+			return poolScene.get();
+		}
+	}
+	assert(false && "Fatal Skibidi error PoolScene not found in the stack, Itadori won't smile");
+	return nullptr;
+}

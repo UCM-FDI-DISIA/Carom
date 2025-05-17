@@ -39,8 +39,10 @@ void RenderTextureComponent::init(){
 
 void RenderTextureComponent::render() {
     _texture->changeColorTint(_color.r, _color.g, _color.b);
+    _texture->changeOpacity(_opacity);
     _texture->render(getRenderRect(), _transform->getRotation());
     _texture->changeColorTint(255,255,255);
+    _texture->changeOpacity(255);
 }
 
 SDL_Rect RenderTextureComponent::getRenderRect() const
@@ -64,6 +66,19 @@ SDL_Rect RenderTextureComponent::getRenderRect() const
     SDL_Rect dest = build_sdlrect(coordinateX, coordinateY, _texture->width()*_scale, _texture->height()*_scale);
 
     return dest;
+}
+
+void RenderTextureComponent::setNewWidth(float newWidth)
+{
+    float a_originalWidth = static_cast<float>(_texture->width());
+    float a_newScale = newWidth / a_originalWidth;
+    setScale(a_newScale);
+}
+
+float RenderTextureComponent::getRenderWidth()
+{
+    SDL_Rect a_rect = getRenderRect();
+    return a_rect.w;
 }
 
 void RenderTextureComponent::setTexture(Texture* tex){

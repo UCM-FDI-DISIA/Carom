@@ -61,6 +61,11 @@
     { "id" : "Exit", "file" : "../../resources/images/mainmenu/Exit.png"},
     { "id" : "fondoMainMenu", "file" : "../../resources/images/mainmenu/fondoMainMenu.png"},
 
+    { "id" : "segurosalir", "file" : "../../resources/images/mainmenu/segurosalir.png"},
+    { "id" : "salir", "file" : "../../resources/images/mainmenu/salir.png"},
+    { "id" : "cancelar", "file" : "../../resources/images/mainmenu/cancelar.png"},
+    { "id" : "menu", "file" : "../../resources/images/mainmenu/menu.png"},
+
     { "id" : "palo1", "file" : "../../resources/images/palo1.png"},
     { "id" : "palo1_sombra", "file" : "../../resources/images/palo1_sombra.png"},
     { "id" : "magic_wand", "file" : "../../resources/images/magic_wand.png"},
@@ -69,7 +74,10 @@
     { "id" : "donut_sombra", "file" : "../../resources/images/donut_sombra.png"},
     { "id" : "lanzagranadas", "file" : "../../resources/images/lanzagranadas.png"},
     { "id" : "lanzagranadas_sombra", "file" : "../../resources/images/lanzagranadas_sombra.png"},
+    { "id" : "boxing", "file" : "../../resources/images/boxing.png"},
+    { "id" : "boxing_sombra", "file" : "../../resources/images/boxing_shadow.png"},
 
+    { "id" : "floor", "file" : "../../resources/images/floor.png"},
     { "id" : "scoreSprite", "file" : "../../resources/images/scoreSprite.png"},
     { "id" : "roundScoreSprite", "file" : "../../resources/images/scoring-sheet.png"},
     { "id" : "roundScorerPup", "file" : "../../resources/images/RoundScorerPup.png"},
@@ -109,7 +117,17 @@
     { "id" : "russian_boss_shadow", "file" : "../../resources/images/russian_boss_shadow.png"},
 
     { "id" : "loseButtonText", "file" : "../../resources/images/lose/loseButtonText.png"},
+    { "id" : "citacionlose0", "file" : "../../resources/images/lose/citacionlose0.png"},
+    { "id" : "citacionlose1", "file" : "../../resources/images/lose/citacionlose1.png"},
+    { "id" : "citacionlose2", "file" : "../../resources/images/lose/citacionlose2.png"},
+    { "id" : "citacionlose3", "file" : "../../resources/images/lose/citacionlose3.png"},
+    { "id" : "citacionlose4", "file" : "../../resources/images/lose/citacionlose4.png"},
+    { "id" : "citacionlose5", "file" : "../../resources/images/lose/citacionlose5.png"},
+    { "id" : "citacionlose6", "file" : "../../resources/images/lose/citacionlose6.png"},
+    { "id" : "citacionlose7", "file" : "../../resources/images/lose/citacionlose7.png"},
+    { "id" : "blackscreen", "file" : "../../resources/images/lose/blackscreen.png"},
     { "id" : "rewardButtonText", "file" : "../../resources/images/win/rewardButtonText.png"},
+    { "id" : "youwin", "file" : "../../resources/images/win/youwin.png"},
     { "id" : "BowlingEffect", "file" : "../../resources/images/balleffect_sheets/bowling-sheet.png"},
     { "id" : "X2Effect", "file" : "../../resources/images/balleffect_sheets/x2-sheet.png"},
     { "id" : "AbacusEffect", "file" : "../../resources/images/balleffect_sheets/abaco-sheet.png"},
@@ -332,7 +350,7 @@
     },
     { 
       "id" : "stick_rewardDesc_pool", 
-      "text" : "Te dan a elegir uno entre dos palos (puedes no escoger ninguno).", 
+      "text" : "Te dan a elegir un palo nuevo (puedes no escoger ninguno).", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -344,7 +362,7 @@
     },
     { 
       "id" : "cauldron_rewardDesc_pool", 
-      "text" : "Anades a una bola de tu kit uno de dos efectos a elegir.", 
+      "text" : "Anades a una bola de tu kit un efecto aleatorio.", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -356,7 +374,7 @@
     },
     { 
       "id" : "skill_rewardDesc_pool", 
-      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) a elegir entre dos", 
+      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) aleatoria", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -664,7 +682,9 @@
     {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
     {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"},
     {"id": "ballspool", "file": "../../resources/svg/ballspool.svg"},
-    {"id": "quit", "file": "../resources/svg/quit.svg"}
+    {"id": "quit", "file": "../../resources/svg/quit.svg"},
+    {"id": "reward", "file": "../../resources/svg/reward.svg"},
+    {"id": "boss_reward_balls_pos", "file": "../../resources/svg/boss_reward_balls_pos.svg"}
   ]
 
 }

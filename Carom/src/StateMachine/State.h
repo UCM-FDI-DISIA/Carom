@@ -1,6 +1,5 @@
 #pragma once
 
-
 class CaromScene;
 
 //Interfaz de State, que es usada por una maquina de estados para cambiar de estado
@@ -19,6 +18,11 @@ public:
     virtual void onStateExit()=0;
 
     virtual void finish() {};
+
+    void setBallInputActive(bool active);
+    void setAimLineActive(bool active);
+    void setStickActive(bool active);
+
 protected:
     CaromScene* _scene;
 };

@@ -49,8 +49,10 @@ public:
 
     class TextureButton: public ButtonData
     {
+    private:
+        bool _rotated;
     public:
-        TextureButton() {};
+        TextureButton(bool rotated = false): _rotated(rotated) {};
         ButtonData* clone();
         bool isMouseInButton(std::pair<Sint32, Sint32> mousePos) override;
     };

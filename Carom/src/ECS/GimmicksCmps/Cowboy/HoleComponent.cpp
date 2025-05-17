@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Vector2D.h"
 #include "PhysicsUtils.h"
+#include "CristalEffect.h"
 
 
 
@@ -65,36 +66,15 @@ void HoleComponent::update()
     // If an object is inside sensor
     if (_isEmpty && _contextEntt) 
     {
-        b2Vec2 contextPos = _contextRB->getPosition();
-        float contextRadius = PhysicsConverter::pixel2meter(_contextRender->getRenderRect().w/2);
-
-        Vector2D distanceVec = Vector2D(_myCenter.x - contextPos.x, _myCenter.y - contextPos.y);
-        float centersDistance = distanceVec.magnitude();
-
-        // If object is in range of effect
-        if (centersDistance < _myRadius)
+        if (_contextEntt->tryGetComponent<CristalEffect>())
         {
-            // To apply a force
-            calculateMyForceVector(_contextRB, distanceVec);
-            applyForce(_contextEntt);
-
-            // To capture the object
-            if(tryToCapture(centersDistance))
-            {
-                b2Body_SetLinearVelocity(_contextRB->getB2Body(), b2Vec2_zero);
-                b2Body_SetAngularVelocity(_contextRB->getB2Body(), 0.0f);
-                _myForce = -_myForce;
-                applyForce(_contextEntt);
-                
-                _contextRB->setBodyEnabled(false);
-                _contextRB->setPosition(_myCenter);
-
-                _contextRender->setRenderLayer(renderLayer::POOL_HOLE);
-                _contextRender->changeColorTint(100, 100, 100);
-                _isEmpty = false;
-                // ! SONIDO bola cayendo en agujero
-            }
+            if (!_contextEntt->getComponent<CristalEffect>()->isBig())
+                ballCanFit();
         }
+        else {
+            ballCanFit();
+        }
+
     }
 
 }
@@ -110,5 +90,38 @@ void HoleComponent::resetChanges()
         // reset render changes
         _contextRender->resetRenderLayer();
         _contextRender->resetColorTint();
+    }
+}
+
+void HoleComponent::ballCanFit()
+{
+    b2Vec2 contextPos = _contextRB->getPosition();
+    float contextRadius = PhysicsConverter::pixel2meter(_contextRender->getRenderRect().w/2);
+
+    Vector2D distanceVec = Vector2D(_myCenter.x - contextPos.x, _myCenter.y - contextPos.y);
+    float centersDistance = distanceVec.magnitude();
+
+    // If object is in range of effect
+    if (centersDistance < _myRadius)
+    {
+        // To apply a force
+        calculateMyForceVector(_contextRB, distanceVec);
+        applyForce(_contextEntt);
+
+        // To capture the object
+        if(tryToCapture(centersDistance))
+        {
+            b2Body_SetLinearVelocity(_contextRB->getB2Body(), b2Vec2_zero);
+            b2Body_SetAngularVelocity(_contextRB->getB2Body(), 0.0f);
+            _myForce = -_myForce;
+            applyForce(_contextEntt);
+            
+            _contextRB->setBodyEnabled(false);
+            _contextRB->setPosition(_myCenter);
+
+            _contextRender->setRenderLayer(renderLayer::POOL_HOLE);
+            _contextRender->changeColorTint(100, 100, 100);
+            _isEmpty = false;
+        }
     }
 }

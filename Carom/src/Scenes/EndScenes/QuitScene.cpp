@@ -12,10 +12,13 @@
 
 QuitScene::QuitScene(Game* game, std::shared_ptr<GameScene> sceneToRenderBelow) : UIScene(game), _bottomScene(sceneToRenderBelow) 
 {
-    initObjects();
+    game->setPaused(true);
 }
 
-QuitScene::~QuitScene(){}
+QuitScene::~QuitScene()
+{
+    game->setPaused(false);
+}
 
 void 
 QuitScene::render(){
@@ -24,48 +27,40 @@ QuitScene::render(){
 } 
 
 void 
-QuitScene::initObjects() {
-    //Text
-    createTextObject("¿Seguro que quieres salir?", "quit", "quitText");
+QuitScene::initObjects() 
+{
+    entity_t blackScreen = createSVGImage("lose", "blackscreen", "blackscreen", false, grp::grpId::DEFAULT, renderLayer::UI_BACK);
 
-    //Buttons
-    Button* quitButton = getComponent<Button>(createSVGImage("quit", "button1", "scoreSprite", true));
-    createTextObject("Salir", "quit", "text1");
+    auto render = blackScreen->getComponent<RenderTextureComponent>();
+    render->changeOpacity(0);
+    auto opacity = render->getOpacity();
 
-    Button* mainMenuButton = getComponent<Button>(createSVGImage("quit", "button2", "scoreSprite", true));
-    createTextObject("Menu", "quit", "text1");
+    TweenComponent* t = addComponent<TweenComponent>(blackScreen);
+        t->easeValue(opacity, 150, 0.1, tween::LINEAR, false, [=](){
+        createSVGImage("quit", "segurosalir", "segurosalir");
 
-    Button* cancelButton = getComponent<Button>(createSVGImage("quit", "button3", "scoreSprite", true));
-    createTextObject("Cancelar", "quit", "text1");
+        //Buttons
+        Button* quitButton = getComponent<Button>(createSVGImage("quit", "buttonSalir", "scoreSprite", true));
+        createSVGImage("quit", "salir", "salir");
 
-    quitButton->setOnClick([=]{
-        game->close();
+        Button* mainMenuButton = getComponent<Button>(createSVGImage("quit", "buttonMenu", "scoreSprite", true));
+        createSVGImage("quit", "menu", "menu");
+
+        Button* cancelButton = getComponent<Button>(createSVGImage("quit", "buttonCancelar", "scoreSprite", true));
+        createSVGImage("quit", "cancelar", "cancelar");
+
+        quitButton->setOnClick([=]{
+            game->close();
+        });
+
+        mainMenuButton->setOnClick([=]{
+            game->getScenesManager()->invokeLose();
+        });
+
+        cancelButton->setOnClick([=]{
+            game->getScenesManager()->popScene();
+        });
     });
 
-    mainMenuButton->setOnClick([=]{
-        game->getScenesManager()->invokeLose();
-    });
 
-    cancelButton->setOnClick([=]{
-        game->getScenesManager()->popScene();
-    });
-}
-
-void 
-QuitScene::createTextObject(std::string text, std::string svg, std::string key) {
-   entity_t textEntity = new Entity(*this, grp::UI); 
-   auto map = sdlutils().svgs().at(svg);
-   b2Vec2 pos = {PhysicsConverter::pixel2meter(map.at(key).x), PhysicsConverter::pixel2meter(map.at(key).y )};
-   addComponent<TransformComponent>(textEntity, pos);
-
-   addComponent<TextDisplayComponent>(
-    textEntity, 
-    layerId_t(renderLayer::UI),
-    float(sdlutils().svgs().at(svg).at(key).width),
-    std::string(text),
-    SDL_Color(255, 255, 255, 255),
-    std::string("Basteleur-Moonlight60")
-   );
-
-   _entities.push_back(textEntity);
 }

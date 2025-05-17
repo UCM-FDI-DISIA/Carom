@@ -11,7 +11,7 @@
 #include "NullState.h"
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
-#include "RussianPyramidScene.h" // ! tst
+#include "RussianPyramidScene.h" 
 
 #include "InventoryManager.h"
 
@@ -23,17 +23,6 @@
 
 #include "BallHandler.h"
 
-// --- rewards ---
-#include "DefaultReward.h"
-#include "BossReward.h"
-#include "FusionReward.h"
-#include "GumballReward.h"
-#include "StickReward.h"
-#include "CauldronReward.h"
-#include "SkillReward.h"
-#include "CharismaReward.h"
-#include "PowerReward.h"
-#include "CunningReward.h"
 #include "AudioManager.h"
 // #include ...Reward.h
 #include "DialogueTextComponent.h"
@@ -54,6 +43,13 @@
 #include "SubdivisionEffect.h"
 #include "X2Effect.h"
 #include "BallEffect.h"
+
+#include "StickRewardScene.h"
+#include "FusionRewardScene.h"
+#include "PermanentRewardScene.h"
+#include "GumballRewardScene.h"
+#include "BossRewardScene.h"
+#include "CauldronRewardScene.h"
 
 // hola
 
@@ -85,6 +81,7 @@ void PoolScene::initObjects()
     // Create table with texture and colliders
     createBackground("suelo");
     createTable();
+    createCurrentFloorUI();
 
     getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
 
@@ -139,30 +136,33 @@ PoolScene::generateHole(int i)
 }
 
 void
-PoolScene::loadRewards() {
-    // TODO: parse all rewards from JSON
+PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int amount) {
+    std::vector<RandomItem<RewardScene::Reward>> randomRewards;
+    
+    for(int i = 0; i < possibleRewards.size(); ++i) {
+        randomRewards.push_back(RandomItem<RewardScene::Reward>(possibleRewards[i], 1.0f));
+    }
 
-    // PROVISIONAL, para testear      
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<FusionReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<GumballReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<StickReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CauldronReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<SkillReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CharismaReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<PowerReward>(), 1.0f));
-    _rewards.push_back(RandomItem<std::shared_ptr<Reward>>(std::make_shared<CunningReward>(), 1.0f));
-
+    _rngm->getRandomItems(randomRewards, amount, false);
 }
 
 void
 PoolScene::generateFloorRewards() {
-    // Generar array de todas las recompensas a partir del JSON
-    loadRewards();
 
-    _floorRewards = _rngm->getRandomItems(_rewards, POSITIONS, true); // Se puede repetir tipo de recompensa
-    
+    _floorRewards.push_back(RewardScene::Reward("cunning", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("skill", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("charisma", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("power", RewardScene::Reward::Type::PERMANENT));
+    _floorRewards.push_back(RewardScene::Reward("fusion", RewardScene::Reward::Type::INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("stick", RewardScene::Reward::Type::INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("gumball", RewardScene::Reward::Type::INSTANT));
+    _floorRewards.push_back(RewardScene::Reward("cauldron", RewardScene::Reward::Type::INSTANT));
+
+    chooseRewards(_floorRewards, POSITIONS);
+
     // Swaps boss hole assigned reward for a Boss Reward
-    _floorRewards[_bossHole] = std::make_shared<BossReward>();
+    _floorRewards[_bossHole] = RewardScene::Reward("boss", RewardScene::Reward::Type::BOSS);
+    std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
 
     createRewardInfo();
 }
@@ -190,16 +190,16 @@ PoolScene::createRewardInfo() {
         // TEXTO
         Text title, rewardName, rewardType, rewardDesc;
 
-        switch(_floorRewards[i]->getType()) {
-            case Reward::Type::INSTANT:
+        switch(_floorRewards[i].getType()) {
+            case RewardScene::Reward::Type::INSTANT:
                 title = sdlutils().texts().at("rewardTitle_pool");
                 rewardType = sdlutils().texts().at("instantReward_pool");
                 break;
-            case Reward::Type::PERMANENT:
+            case RewardScene::Reward::Type::PERMANENT:
                 title = sdlutils().texts().at("rewardTitle_pool");
                 rewardType = sdlutils().texts().at("permanentReward_pool");
                 break;
-            case Reward::Type::BOSS:
+            case RewardScene::Reward::Type::BOSS:
                 title = sdlutils().texts().at("bossTitle_pool");
                 rewardType = sdlutils().texts().at("bossReward_pool");
                 break;
@@ -209,8 +209,8 @@ PoolScene::createRewardInfo() {
                 break;
         }
 
-        rewardName = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardName_pool");
-        rewardDesc = sdlutils().texts().at(_floorRewards[i]->getName()+"_rewardDesc_pool");
+        rewardName = sdlutils().texts().at(_floorRewards[i].getName()+"_rewardName_pool");
+        rewardDesc = sdlutils().texts().at(_floorRewards[i].getName()+"_rewardDesc_pool");
         
 
         description = new Entity(*this, grp::REWARD_INFO_TEXT);
@@ -430,7 +430,7 @@ PoolScene::createCallbacks() {
                     }
                 }
                 
-                std::shared_ptr<RewardScene> rs =  std::make_shared<RewardScene>(game, _floorRewards[i]);
+                auto rs = createRewardScene(_floorRewards[i]);
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
 
@@ -469,18 +469,17 @@ PoolScene::createCallbacks() {
 void 
 PoolScene::initRandomEffects() {
     _ballsInfo = std::vector<BallInfo>(POSITIONS);
-    std::vector<RandomItem<EffectType>> allEffects;
-    constexpr float equalChance = 1.0 / int(NUM_EFFECTS);
+    std::vector<RandomItem<BallId>> allEffects;
+    constexpr float equalChance = 1.0 / int(NUM_BALLS);
 
     for(int i = 0; i < POSITIONS; ++i) {
-    
-        for(int i = 0; i < NUM_EFFECTS; ++i) allEffects.push_back({EffectType(i), equalChance});
+        for(int i = 1; i < NUM_BALLS; ++i) allEffects.push_back({BallId(i), equalChance});
         addNewEffect(i, 1.0f, allEffects);
     }
 }
 
 void 
-PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectType>>& possibleEffects) {
+PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects) {
     if(_rngm->randomRange(0.0f, 1.0f) >= chance) return;
 
     if(possibleEffects.size() == 0) return;
@@ -490,12 +489,12 @@ PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<EffectTy
 }
 
 std::string 
-PoolScene::getTextureName(EffectType effect) {
+PoolScene::getTextureName(BallId effect) {
     return "single_" + getEffectName(effect);
 }
 
 std::string 
-PoolScene::getEffectName(EffectType effect) {
+PoolScene::getEffectName(BallId effect) {
     switch(effect){
         case ABBACUS: return "AbacusEffect";
         case BOWLING: return "BowlingEffect";
@@ -508,25 +507,54 @@ PoolScene::getEffectName(EffectType effect) {
     }
 }
 
-void PoolScene::saveBalls() {
-    entity_t ball = new Entity(*this, grp::POOL_BALLS);
-    addComponent<BallHandler>(ball);
+void
+PoolScene::createCurrentFloorUI() {
 
-    for(auto ballInfo : _ballsInfo) {
-        if(ballInfo.free) continue;
-        for(auto effect : ballInfo.effects) {
-            switch(effect) {
-                case ABBACUS: addComponent<AbacusEffect>(ball); break;
-                case BOWLING: addComponent<BowlingEffect>(ball); break;
-                case CRISTAL: addComponent<CristalEffect>(ball); break;
-                case PETANQUE: addComponent<PetanqueEffect>(ball); break;
-                case POKEBALL: addComponent<PokeballEffect>(ball); break;
-                case QUANTIC: addComponent<QuanticEffect>(ball); break;
-                case X2: addComponent<X2Effect>(ball); break;
-            }
-        }
-    }
+    int currFloor = game->getProgressionManager()->getAnte();
+
+    entity_t floorFrameObject = new Entity(*this, grp::SCORE);
+
+    auto floorSVG = sdlutils().svgs().at("pool").at("floor");
+    float floorSVGSize = floorSVG.width;
+    float textureSize = sdlutils().images().at("floor").width();
+    float scale = floorSVGSize / textureSize;
+
+    b2Vec2 framePos = PhysicsConverter::pixel2meter( floorSVG.x, floorSVG.y );
+
+    floorFrameObject->addComponent(new TransformComponent(floorFrameObject, framePos));
+    floorFrameObject->addComponent(new RenderTextureComponent(floorFrameObject, &sdlutils().images().at("floor"), renderLayer::UI, scale));
+    entity_t floorObject = new Entity(*this, grp::SCORE);
+
+    auto shotsLeftText = sdlutils().svgs().at("pool").at("floor");
+    b2Vec2 textPos = PhysicsConverter::pixel2meter( floorSVG.x, floorSVG.y );
+
+    floorObject->addComponent(new TransformComponent(floorObject, textPos));
+    TextDisplayComponent* floorDisplay = new TextDisplayComponent(floorObject, renderLayer::UI, 1.0, 
+        std::to_string(currFloor), {255, 255, 255, 255}, "Basteleur-Bold72");
+    floorObject->addComponent(floorDisplay);
+
+    addComponent<TweenComponent>(floorObject);
+}
+
+std::shared_ptr<RewardScene> 
+PoolScene::createRewardScene(RewardScene::Reward r) {
     
-    InventoryManager::Instance()->addBall(ball);
-    delete ball;
+    std::string name = r.getName();
+    auto type = r.getType();
+
+    if (type == RewardScene::Reward::Type::INSTANT){
+        if (name == "fusion")
+            return std::make_shared<FusionRewardScene>(game, r);
+        else if (name == "stick")
+            return std::make_shared<StickRewardScene>(game, r);
+        else if (name == "gumball")
+            return std::make_shared<GumballRewardScene>(game, r);
+        else // (name == "cauldron")
+            return std::make_shared<CauldronRewardScene>(game, r);
+    }
+    else if (type == RewardScene::Reward::Type::BOSS) {
+        return std::make_shared<BossRewardScene>(game, r);
+    }
+    else 
+        return std::make_shared<PermanentRewardScene>(game, r);
 }

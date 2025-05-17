@@ -10,6 +10,7 @@
 #include "MagicWandStickEffect.h"
 #include "BoxingGloveStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
+#include "RewardScene.h"
 
 InventoryManager::InventoryManager()
 {
@@ -120,6 +121,65 @@ InventoryManager::addBall(entity_t ball) {
     return found;
 }
 
+bool
+InventoryManager::addBall(std::vector<int> ids) {
+
+    std::vector<std::string> a_effects;
+
+    for (int e : ids) {
+        BallId a_id = static_cast<BallId>(e);
+
+        switch (a_id)
+        {
+        case ABBACUS:
+            a_effects.push_back("AbacusEffect");
+            break;
+        case BOWLING:
+            a_effects.push_back("BowlingEffect");
+            break;
+        case CRISTAL:
+            a_effects.push_back("CristalEffect");
+            break;
+        case PETANQUE:
+            a_effects.push_back("PetanqueEffect");
+            break;
+        case POKEBALL:
+            a_effects.push_back("PokeballEffect");
+            break;
+        case QUANTIC:
+            a_effects.push_back("QuanticEffect");
+            break;
+        case X2:
+            a_effects.push_back("X2Effect");
+            break;
+        default:
+            break;
+        }
+    }
+
+    bool found = false;
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+    //recorre el mapa en busca de un slot vacio
+    for(int i =0; i < MAX_BALLS && !found; i++){
+        //si no existe el slot i, es el que va a usar
+        std::string key = "slot" + std::to_string(i);
+        if(data.find(key) == data.end()){
+            data[key]["components"][0]["componentName"] = "BallHandler";
+            data[key]["components"][0]["atributes"]["effects"] = json::array();
+            for(int j = 0; j < a_effects.size(); j++){
+                data[key]["components"][0]["atributes"]["effects"][j]["componentName"] = a_effects[j];
+            }
+            found = true;
+        }
+    }
+
+    //update data
+    updateData(data);
+
+    return found;
+}
+
 void
 InventoryManager::addStick(entity_t stick) {
     //! TO DO
@@ -150,6 +210,42 @@ InventoryManager::addStick(entity_t stick) {
         data["stick"]["components"][0]["atributes"]["explosionDelay"] = granade->_explosionDelay;
         data["stick"]["components"][0]["atributes"]["explosionForce"] = granade->_explosionForce;
         data["stick"]["components"][0]["atributes"]["radius"] = granade->_radius;
+    }
+
+    updateData(data);
+}
+
+void
+InventoryManager::addStick(int rawStickId) {
+
+    removeStick();
+
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    StickId a_stickId = static_cast<StickId>(rawStickId);
+
+    //GUARDAR NUEVO STICK
+    switch (a_stickId)
+    {
+    case BOXING:
+        data["stick"]["components"][0]["componentName"] = "BoxingGloveStickEffect";
+        data["stick"]["components"][0]["atributes"]["factor"] = 0.75f;
+        break;
+    case DONUT:
+        data["stick"]["components"][0]["componentName"] = "DonutStickEffect";
+        break;
+    case GRENADE:
+        data["stick"]["components"][0]["componentName"] = "GrenadeLauncherStickEffect";
+        data["stick"]["components"][0]["atributes"]["explosionDelay"] = 3;
+        data["stick"]["components"][0]["atributes"]["explosionForce"] = 1;
+        data["stick"]["components"][0]["atributes"]["radius"] = 1;
+        break;
+    case WAND:
+        data["stick"]["components"][0]["componentName"] = "MagicWandStickEffect";
+        break;
+    default:
+        break;
     }
 
     updateData(data);
@@ -224,6 +320,21 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
     updateData(data);
 }
 
+int InventoryManager::getNumberOfEffectBalls(){\
+    int res = 0;
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    for(int i =0; i < MAX_BALLS; i++){
+        std::string key = "slot" + std::to_string(i);
+
+        //si existe slot(i), sumas res 1 vez
+        if(data.find(key) != data.end()) res++;
+    }
+
+    return res;
+}
+
 void InventoryManager::updateData(json data){
     std::ofstream fileStream(pathToInventory);
     if(fileStream.is_open()) fileStream << data.dump(3);
@@ -277,4 +388,28 @@ void InventoryManager::setParameterValue(std::string key, int value){
     data[key] = value;
 
     updateData(data);
+}
+
+std::vector<BallId> InventoryManager::getEffectsFromBall(int index) {
+    std::vector<BallId> output;
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    std::string key = "slot" + std::to_string(index);
+    auto slot = data[key];
+    auto ballHandler = slot["components"][0];
+    
+    std::vector<std::string> effects = ballHandler["atributes"]["effects"];
+
+    for(std::string effect : effects) {
+        if(effect == "BowlingEffect") output.push_back(BOWLING);
+        else if(effect == "AbbacusEffect") output.push_back(ABBACUS);
+        else if(effect == "X2Effect") output.push_back(X2);
+        else if(effect == "QuanticEffect") output.push_back(QUANTIC);
+        else if(effect == "PokeballEffect") output.push_back(POKEBALL);
+        else if(effect == "CristalEffect") output.push_back(CRISTAL);
+        else if(effect == "PetanqueEffect") output.push_back(PETANQUE);
+    }
+
+    return output;
 }

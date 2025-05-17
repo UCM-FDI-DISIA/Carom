@@ -57,7 +57,7 @@ CaromScene::CaromScene( Game* game, State* s)
     , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
-    , _remainingHits(10 + InventoryManager::Instance()->getPower())
+    , _remainingHits(3 + InventoryManager::Instance()->getPower())// ! tst
 {
 }
 
@@ -66,9 +66,10 @@ void CaromScene::init()
     // Boss match requires a different score to beat
     int baseScore;
     if(isBossMatch()) baseScore = 20;
-    else baseScore = 10;
+    else baseScore = 10; 
 
     baseScore *= InventoryManager::Instance()->getCunning();
+    if (baseScore == 0) baseScore = 1;
     _currentScore = InventoryManager::Instance()->getCharisma();
 
     // Set the score to beat based on the current ante
@@ -85,7 +86,7 @@ void CaromScene::init()
     }
 
     if(_currentState == nullptr)
-    setNewState(new StartMatchState(this));
+        setNewState(new StartMatchState(this));
 
     _initialized = true;
 
@@ -218,7 +219,7 @@ CaromScene::createEffectBalls() {
         auto ball = ballsVector[i];
         if(ball!=nullptr){
             auto color = sdlutils().inventorySlotColor[i];
-            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+            ball->getRenderer()->changeDefaultColorTint(color.r, color.g, color.b);
         }
     }
 
@@ -375,7 +376,6 @@ void CaromScene::handleEvent()
         _canRestart = false;
         game->requestRestart();
     }
-    #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_l)){ 
         // Al presionar la "L" te lleva a la escena de perder.
@@ -389,6 +389,7 @@ void CaromScene::handleEvent()
             // para activar invokeLose();
             _remainingHits = 0;
     }
+    #endif
 
     if(ih().keyDownEvent() && ih().isKeyDown(SDLK_w)){
         // Al presionar la "W" te lleva a la escena de ganar.
