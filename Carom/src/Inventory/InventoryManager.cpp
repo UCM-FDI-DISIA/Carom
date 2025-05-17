@@ -237,9 +237,9 @@ InventoryManager::addStick(int rawStickId) {
         break;
     case GRENADE:
         data["stick"]["components"][0]["componentName"] = "GrenadeLauncherStickEffect";
-        data["stick"]["components"][0]["atributes"]["explosionDelay"] = 3;
+        data["stick"]["components"][0]["atributes"]["explosionDelay"] = 3000;
         data["stick"]["components"][0]["atributes"]["explosionForce"] = 1;
-        data["stick"]["components"][0]["atributes"]["radius"] = 1;
+        data["stick"]["components"][0]["atributes"]["radius"] = 0.75f;
         break;
     case WAND:
         data["stick"]["components"][0]["componentName"] = "MagicWandStickEffect";

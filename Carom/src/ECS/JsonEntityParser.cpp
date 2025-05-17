@@ -303,6 +303,7 @@ std::vector<std::string> JsonEntityParser::getBallEffects(entity_t ball){
 void JsonEntityParser::stickInputComponent(Entity* e){
     addComponent<StickInputComponent>(e);
 }
+
 void JsonEntityParser::donutStickEffect(const JSONObject& atributes,Entity* e){
     addComponent<DonutStickEffect>(e);
     auto renderTexture = e->getComponent<RenderTextureComponent>();
@@ -312,6 +313,7 @@ void JsonEntityParser::donutStickEffect(const JSONObject& atributes,Entity* e){
     shadowComponent->getShadows().clear();
     shadowComponent->addShadow(b2Vec2{-0.05, -0.05}, "donut_sombra", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
 }
+
 void JsonEntityParser::magicWandStickEffect(const JSONObject& atributes,Entity* e){
     addComponent<MagicWandStickEffect>(e);
     auto renderTexture = e->getComponent<RenderTextureComponent>();
@@ -321,9 +323,20 @@ void JsonEntityParser::magicWandStickEffect(const JSONObject& atributes,Entity* 
     shadowComponent->getShadows().clear();
     shadowComponent->addShadow(b2Vec2{-0.05, -0.05}, "magic_wand_shadow", renderLayer::STICK_SHADOW, renderTexture->getScale(), true, true, true);
 }
-void JsonEntityParser::boxingGloveStickEffect(const JSONObject& atributes, Entity* e){
+
+void JsonEntityParser::boxingGloveStickEffect(const JSONObject& atributes, Entity* e) {
+
     addComponent<BoxingGloveStickEffect>(e, atributes.at("factor")->AsNumber());
+
+    auto renderTexture = e->getComponent<RenderTextureComponent>();
+    renderTexture->setTexture(&sdlutils().images().at("boxing"));
+
+    auto shadowComponent = e->getComponent<ShadowComponent>();
+    shadowComponent->getShadows().clear();
+    shadowComponent->addShadow(b2Vec2{-0.05, -0.05}, "boxing_sombra", renderLayer::STICK_SHADOW, 
+        renderTexture->getScale(), true, true, true);
 }
+
 void JsonEntityParser::grenadeLauncherStickEffect(const JSONObject& atributes, Entity* e){
     addComponent<GranadeLauncherStickEffect>(e, atributes.at("explosionForce")->AsNumber(), atributes.at("explosionDelay")->AsNumber(), atributes.at("radius")->AsNumber());
 
