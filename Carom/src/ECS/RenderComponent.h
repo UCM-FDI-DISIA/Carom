@@ -35,8 +35,11 @@ public:
     void nUpRenderLayer(int n) { _renderLayer += n; }
     void resetRenderLayer();
 
+    void changeDefaultColorTint(int r, int g, int b);
     void changeColorTint(int r, int g, int b);
     void resetColorTint();
+
+    inline SDL_Color getColorTint() {return _color;}
 
     void changeOpacity(float opacity);
     inline float* getOpacity() { return &_opacity;}
