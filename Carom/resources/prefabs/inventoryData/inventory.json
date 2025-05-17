@@ -12,9 +12,6 @@
                "effects": [
                   {
                      "componentName": "X2Effect"
-                  },
-                  {
-                     "componentName": "CristalEffect"
                   }
                ]
             },
@@ -26,11 +23,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
@@ -40,11 +33,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "CristalEffect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }

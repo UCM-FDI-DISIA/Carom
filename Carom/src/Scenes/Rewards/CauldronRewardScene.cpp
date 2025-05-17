@@ -12,7 +12,7 @@
 using body_t = BallInfoDisplayComponent::Body;
 
 CauldronRewardScene::CauldronRewardScene(Game* game, Reward reward)
-    : RewardScene(game, reward), _randomEffect(NONE)
+    : InstantRewardScene(game, reward, 1)
 {
     #ifdef _DEBUG
         std::cout << "CAULDRON" << std::endl;
@@ -26,51 +26,29 @@ CauldronRewardScene::~CauldronRewardScene()
 
 void CauldronRewardScene::applyReward()
 {
-    std::vector<b2Vec2> vector = std::vector<b2Vec2>();
-    auto balls = InventoryManager::Instance()->getEffectBalls(*this, vector);
+    int inventoryBallId = getSelectedItems()[0]-1;
+    std::vector<PoolScene::EffectType> chosenBallEffects = InventoryManager::Instance()->getEffectsFromBall(inventoryBallId);
 
-    auto target = balls[_selectedBallId - 1];
+    for(PoolScene::EffectType effect : chosenBallEffects)
+        if(effect == _randomEffect) return;
+    
+    chosenBallEffects.push_back(_randomEffect);
 
-    switch(_randomEffect){
-        case BOWLING:
-            target->addComponent<BowlingEffect>(new BowlingEffect(target));
-            break;
-        case X2:
-            target->addComponent<X2Effect>(new X2Effect(target));
-                break;
-        case ABBACUS:
-            target->addComponent<AbacusEffect>(new AbacusEffect(target));
-            break;
-        case CRISTAL:
-            target->addComponent<CristalEffect>(new CristalEffect(target));
-            break;
-        case PETANQUE:
-            target->addComponent<PetanqueEffect>(new PetanqueEffect(target));
-            break;
-        case POKEBALL:
-            target->addComponent<PokeballEffect>(new PokeballEffect(target));
-            break;
-        case QUANTIC:
-            target->addComponent<QuanticEffect>(new QuanticEffect(target));
-            break;
-        default:
-            std::cout << "MAL NOSEQUE" << std::endl;
-            break;
-    };
+    std::vector<int> intParsedEffects;
+    for(PoolScene::EffectType effect : chosenBallEffects)
+        intParsedEffects.push_back(int(effect));
 
-    InventoryManager::Instance()->saveBalls(balls);
-    balls.clear();
+    InventoryManager::Instance()->removeBall(inventoryBallId);
+    InventoryManager::Instance()->addBall(intParsedEffects);
 }
 
 void CauldronRewardScene::initObjects()
 {
     RewardScene::initObjects();
 
-    // Text with info to load
-
     createSVGImage("win", "Cauldron_Info", "inventory_description_box");
 
-    _randomEffect = Effects (rand() % 7);
+    _randomEffect = PoolScene::EffectType(RNG_Manager::Instance()->randomRange(0, int(PoolScene::NUM_EFFECTS)));
 
     Text title, desc;
 
@@ -133,7 +111,7 @@ void CauldronRewardScene::initFunctionalities()
         if(ball.slot == 0) continue;
 
         ball.button->setOnClick([ball, this](){
-            _selectedBallId = ball.slot;
+            selectItem(ball.slot);
             showExitButton();
         });
     }

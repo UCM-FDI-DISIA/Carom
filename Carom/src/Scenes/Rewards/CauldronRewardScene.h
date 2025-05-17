@@ -1,25 +1,13 @@
 #pragma once
 
-#include "RewardScene.h"
+#include "InstantRewardScene.h"
 #include "BallInfoDisplayComponent.h"
+#include "PoolScene.h"
 
-class CauldronRewardScene : public RewardScene 
+class CauldronRewardScene : public InstantRewardScene
 {
     friend class Entity;
-
-    enum Effects{
-        ABBACUS,
-        BOWLING,
-        CRISTAL,
-        PETANQUE,
-        POKEBALL,
-        QUANTIC,
-        X2,
-        NONE
-    };
-
-    Effects _randomEffect;
-    int _selectedBallId;
+    PoolScene::EffectType _randomEffect;
 
 public:
     CauldronRewardScene(Game* game, Reward reward);
