@@ -34,4 +34,6 @@ protected:
     virtual void calculateMyForceVector(RigidBodyComponent* rb, const Vector2D& distanceVec) override;
     virtual void applyForce(entity_t e) override;
     bool tryToCapture(float centersDist);
+
+    void ballCanFit();
 };

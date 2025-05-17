@@ -13,21 +13,24 @@ public:
     
     void onHit(entity_t ent) override;
     void update() override;
-
-    // si no hay bodies cerca puede aumentar
-    bool canGrow();
-    // cambia tamano render y physical body
-    void grow();
-
+    inline bool isBig() { return _isBig; }
 
     __CMPID_DECL__(cmp::CRISTAL_EFFECT);
     cmpId_t getEffectId() override {return cmp::CRISTAL_EFFECT;};
 
 private:
+    // si no hay bodies cerca puede aumentar
+    bool canGrow();
+    // cambia tamano render y physical body
+    void grow();
+
+    bool noNearbyBodies();
+
     RigidBodyComponent* _myRB;
     RenderSpritesheetComponent* _myRender;
     CaromScene* _myCaromScene;
 
+    bool _isBig;
     bool _growRequest; // true when hit
     
     // separados por errores de precision al escalar
