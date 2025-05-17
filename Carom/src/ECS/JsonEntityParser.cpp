@@ -190,8 +190,6 @@ Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, st
 
     AddComponentsFromJSON(e, file, childName);
 
-    addComponent<DonutStickEffect>(e); // ! TESTING
-
     return e;
 }
 
