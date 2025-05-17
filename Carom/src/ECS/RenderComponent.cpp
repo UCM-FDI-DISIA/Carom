@@ -22,6 +22,14 @@ void RenderComponent::resetRenderLayer()
     _myEntity->getScene().sortRenderOrder();
 }
 
+void RenderComponent::changeDefaultColorTint(int r, int g, int b){
+    _color.r = r;
+    _color.g = g;
+    _color.b = b;
+
+    _defaultColor = _color;
+}
+
 void RenderComponent::changeColorTint(int r, int g, int b){
     _color.r = r;
     _color.g = g;

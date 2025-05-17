@@ -137,7 +137,7 @@ RussianPyramidScene::createEffectBalls()
         auto ball = ballsVector[i];
         if(ball!=nullptr){
             auto color = sdlutils().inventorySlotColor[i];
-            ball->getRenderer()->changeColorTint(color.r, color.g, color.b);
+            ball->getRenderer()->changeDefaultColorTint(color.r, color.g, color.b);
         }
     }
 
