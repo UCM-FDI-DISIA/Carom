@@ -52,7 +52,7 @@ RewardScene::init()
 
     initObjects();
     initFunctionalities();
-    showExitButton(); 
+    //showExitButton(); 
 }
 
 void 
