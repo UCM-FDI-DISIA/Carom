@@ -216,7 +216,7 @@ RewardScene::openInventory()
 
         ButtonWithSlot b;
         b.button = button;
-        b.slot = i;
+        b.slot = i+1;
 
         a_returnVal.push_back(b);
     }
