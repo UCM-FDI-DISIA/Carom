@@ -3,6 +3,7 @@
 #include "ScenesManager.h"
 #include "AudioManager.h"
 #include "TutorialScene.h"
+#include "InventoryManager.h"
 
 MainMenuScene::MainMenuScene(Game *g) 
     : UIScene(g)
@@ -44,6 +45,7 @@ void MainMenuScene::initObjects()
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         std::shared_ptr<PoolScene> _poolScene = std::make_shared<PoolScene>(game);
+        InventoryManager::Instance()->loadStartingInventory();
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
     // Hacer que se pueda accionar el boton de Play
