@@ -38,6 +38,7 @@ public:
     void easePosition(b2Vec2 finalPos, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){}, Callback onUpdate= [](){});
     void easeRotation(float finalRot, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){}); 
     void easeRotation(float finalRot, b2Vec2 pivotPoint, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){}); 
+    void easeScale(float finalScale, float duration, tween::tweenType type,bool loop = false, Callback callback = [](){});
 
     void eraseAllTweens();
     inline bool isTweening() {return _tweens.size() >0;}

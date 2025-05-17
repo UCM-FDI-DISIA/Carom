@@ -34,6 +34,7 @@ class QuitScene;
 class StickRewardScene;
 class BossRewardScene;
 class CauldronRewardScene;
+class ExplosiveEffect;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -241,6 +242,7 @@ private:
     friend QuitScene;
     friend StickRewardScene;
     friend BossRewardScene;
+    friend ExplosiveEffect;
 
     Entity(GameScene& scene, grpId_t gId);
 

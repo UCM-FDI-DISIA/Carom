@@ -7,8 +7,11 @@
 
 class SDL_Rect;
 class Texture;
+
+class TweenComponent;
     
 class RenderTextureComponent : public RenderComponent {
+    friend TweenComponent;
 protected:
     Texture* _texture = nullptr;
     ITransform* _transform;

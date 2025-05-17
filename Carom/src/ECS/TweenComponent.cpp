@@ -1,6 +1,7 @@
 #include "TweenComponent.h"
 #include "Tween.h"
 #include "TransformComponent.h"
+#include "RenderTextureComponent.h"
 
 
 TweenComponent::TweenComponent(entity_t ent): LogicComponent(ent){
@@ -84,6 +85,10 @@ void TweenComponent::easeRotation(float finalRot, b2Vec2 pivotPoint, float durat
         b2Vec2 rotatedVector = {v.x*cos(diffRad) - v.y*sin(diffRad), v.x*sin(diffRad) + v.y*cos(diffRad)};
         _myTr->setPosition(pivotPoint + rotatedVector);
     });
+}
+
+void TweenComponent::easeScale(float finalScale, float duration, tween::tweenType type,bool loop , Callback callback ){
+    easeValue(&_myEntity->getComponent<RenderTextureComponent>()->_scale, finalScale, duration, type, loop, callback);
 }
 
 void TweenComponent::eraseAllTweens(){

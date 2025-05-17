@@ -165,7 +165,9 @@
     { "id" : "single_CristalEffect", "file" : "../../resources/images/cristal.png"},
     { "id" : "single_PetanqueEffect", "file" : "../../resources/images/petanca.png"},
     { "id" : "single_PokeballEffect", "file" : "../../resources/images/poke.png"},
-    { "id" : "single_QuanticEffect", "file" : "../../resources/images/quantic.png"}
+    { "id" : "single_QuanticEffect", "file" : "../../resources/images/quantic.png"},
+    { "id" : "explosion", "file" : "../../resources/images/explosion.png"},
+    { "id" : "boss_ball", "file" : "../../resources/images/boss_ball.png"}
 
   ],
   
