@@ -80,6 +80,7 @@
     { "id" : "regresarText", "file" : "../../resources/images/controlsmenu/regresarText.png"},
     { "id" : "rewardButtonTextCM", "file" : "../../resources/images/controlsmenu/rewardButtonText.png"},
     { "id" : "fondoControls", "file" : "../../resources/images/controlsmenu/fondoControls.png"},
+    { "id" : "SeletionArrow", "file" : "../../resources/images/controlsmenu/SeletionArrow.png"},
     { "id" : "cursor", "file" : "../../resources/images/cursor.png"},
 
     { "id" : "segurosalir", "file" : "../../resources/images/mainmenu/segurosalir.png"},

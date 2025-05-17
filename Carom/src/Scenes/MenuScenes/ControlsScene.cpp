@@ -42,10 +42,20 @@ void ControlsScene::initObjects()
     titlePannels.emplace_back(createSVGImage(SVGTag, "RectangleInteraccionNombre", "RectangleInteraccionNombre"));  
     titlePannels.emplace_back(createSVGImage(SVGTag, "RectangleInventario", "RectangleInventario"));
     titlePannels.emplace_back(createSVGImage(SVGTag, "RectangleMenuPausa", "RectangleMenuPausa"));
+
+    // --- IMAGENES Y DEMAS
+    std::vector<entity_t> imgs;
+    imgs.emplace_back(createSVGImage(SVGTag, "scoreSprite", "scoreSprite"));
+    imgs.emplace_back(createSVGImage(SVGTag, "imagenMenuPausa", "imagenMenuPausa"));
+    imgs.emplace_back(createSVGImage(SVGTag, "drawer", "drawer"));
+    imgs.emplace_back(createSVGImage(SVGTag, "palo_sombra", "SeletionArrow"));
+    imgs.emplace_back(createSVGImage(SVGTag, "bola_blanca ", "bola_montada"));
+    imgs.emplace_back(createSVGImage(SVGTag, "regresar", "scoreSprite", true));    
+    imgs.emplace_back(createSVGImage(SVGTag, "cursor 1", "cursor"));    
     
     // --- TEXTOS DE TITULOS
     std::vector<entity_t> titleTexts;
-    //titleTexts.emplace_back(createSVGImage(SVGTag, "Interaccion", "Interaccion"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "Interaccion", "Interaccion"));  
     titleTexts.emplace_back(createSVGImage(SVGTag, "Inventario", "Inventario"));  
     titleTexts.emplace_back(createSVGImage(SVGTag, "MenuPausa", "MenuPausa"));  
     titleTexts.emplace_back(createSVGImage(SVGTag, "C", "C"));  
@@ -62,25 +72,14 @@ void ControlsScene::initObjects()
     nTexts.emplace_back(createSVGImage(SVGTag, "InventarioText", "InventarioText"));
     nTexts.emplace_back(createSVGImage(SVGTag, "MenuPausaText", "MenuPausaText"));  
     
-    // --- IMAGENES Y DEMAS
-    std::vector<entity_t> imgs;
-    imgs.emplace_back(createSVGImage(SVGTag, "scoreSprite", "scoreSprite"));
-    imgs.emplace_back(createSVGImage(SVGTag, "imagenMenuPausa", "imagenMenuPausa"));
-    imgs.emplace_back(createSVGImage(SVGTag, "drawer", "drawer"));
-    imgs.emplace_back(createSVGImage(SVGTag, "palo", "palo1"));
-    /*
-    imgs.emplace_back(createSVGImage(SVGTag, "palo1_sombra", "palo_sombra"));
-    imgs.emplace_back(createSVGImage(SVGTag, "bola_blanca", "bola_montada"));
-    imgs.emplace_back(createSVGImage(SVGTag, "regresar", "regresar"));    
-    imgs.emplace_back(createSVGImage(SVGTag, "cursor 1", "cursor"));    
     
     
     // Hacer que se pueda accionar el boton de REGRESARR
-    imgs[6]->getComponent<Button>()->setOnClick([this](){
+    imgs[5]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->popScene();
     });  
-    */
+    
     
     /* TODO la musica no se hacerla.
     //Empieza la musica
