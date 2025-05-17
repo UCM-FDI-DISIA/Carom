@@ -13,5 +13,6 @@
                  inset 0.5em -0.5em 4px rgba(0,0,0,0.6);
   --ball-hover: 0 0 1.5vw 0.5vw rgba(247, 255, 212, 0.5);
   --text-drop-shadow: 0.5vw 0.3vw 0.5vw rgba(0,0,0,1);
+  --text-highlight: 0 0 15px rgba(255, 255, 255, 0.8);
   --nav-drop-shadow: 0 0.3vw 0.5vw rgba(0,0,0,1);
 }

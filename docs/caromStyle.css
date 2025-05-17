@@ -34,6 +34,10 @@ nav a .nav-text {
     text-shadow: var(--text-drop-shadow);
 }
 
+nav a .nav-text:hover {
+    text-shadow: var(--text-drop-shadow), var(--text-highlight);
+}
+
 a.link {
     color: var(--yellow);
 }
