@@ -33,26 +33,42 @@ void MainMenuScene::initObjects()
 
     // --- PANELES.
     std::vector<entity_t> pannels;
-    //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); // [0]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); // [1]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); // [2]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); // [3]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTutorial", "RectangleTutorial", true)); // [4]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); // [5]
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); // [6]
+    //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTutorial", "RectangleTutorial", true)); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); 
+    pannels.emplace_back(createSVGImage(SVGTag, "RectangleExit", "RectangleExit", true)); 
 
-    // Hacer que se pueda accionar el boton de Play
+    // render texture menu pannel.
+    RenderTextureComponent* rtmp = pannels[0]->getComponent<RenderTextureComponent>(); 
+    rtmp->setScale(1.3 * rtmp->getScale());
+    
+    // Hacer que se pueda accionar el boton de PLAY
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
-    // Hacer que se pueda accionar el boton de Play
+
+    // Hacer que se pueda accionar el boton de TUTORIAL
     pannels[3]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->pushScene(_poolScene);
         TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
         getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));
     });  
+
+    // Hacer que se pueda accionar el boton de CONTROLS
+    pannels[4]->getComponent<Button>()->setOnClick([this](){
+        
+    }); 
+
+    // Hacer que se pueda accionar el boton de EXIT
+    pannels[6]->getComponent<Button>()->setOnClick([this](){
+        getGame()->closeSDLWindow();
+    }); 
 
     //Empieza la musica
     _am = AudioManager::Instance();
@@ -61,7 +77,6 @@ void MainMenuScene::initObjects()
     _am->playMusicTrack(MAIN_THEME);
 
     _am->changeToPauseTheme();
-    // TODO: Hacer que se pueda accionar el boton de Tutorial
     // TODO: Hacer que se pueda accionar el boton de Controls
     // TODO: Hacer que se pueda accionar el boton de Credits
     
@@ -73,4 +88,5 @@ void MainMenuScene::initObjects()
     texts.emplace_back(createSVGImage(SVGTag, "Tutorial", "Tutorial"));
     texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls"));
     texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits"));
+    texts.emplace_back(createSVGImage(SVGTag, "Exit", "Exit"));
 }
