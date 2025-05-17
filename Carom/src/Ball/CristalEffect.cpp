@@ -39,13 +39,17 @@ void CristalEffect::onHit(entity_t ent)
 
 void CristalEffect::grow()
 {
-    // auto comp = _myEntity->getComponent<ShadowComponent>();
-    // _myEntity->removeComponent<ShadowComponent>();
     _rb_currSize = b2ClampFloat(_rb_currSize + _rb_growAmount, 0, _rb_maxSize);
     _render_currSize = b2ClampFloat(_render_currSize + _render_growAmount, 0, _render_maxSize);
-
+    
     _myRB->setSize(_rb_currSize);
     _myRender->setNewWidth(_render_currSize);
+    
+    auto shadows = _myEntity->getComponent<ShadowComponent>()->getShadows();
+
+    for (auto& s : shadows) {
+        s->getComponent<RenderTextureComponent>()->setNewWidth(_render_currSize);
+    }
 }
 
 bool CristalEffect::canGrow()
