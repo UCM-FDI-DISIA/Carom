@@ -63,8 +63,8 @@ entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string i
 
     auto a = *&sdlutils().svgs().at(svg);
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at(svg).at(tag).x + 145, // ! mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
-        *&sdlutils().svgs().at(svg).at(tag).y + 160
+        *&sdlutils().svgs().at(svg).at(tag).x, // ! mirar lo de +145 y +160 pq tiene q hacerse si en svg esta colocao??
+        *&sdlutils().svgs().at(svg).at(tag).y
     );
 
     float scale = float(sdlutils().svgs().at(svg).at(tag).width) / float(sdlutils().images().at(image).width());

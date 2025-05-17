@@ -306,7 +306,7 @@ PoolScene::createBallInfoText()
 
         pos = PhysicsConverter::pixel2meter(
             *&sdlutils().svgs().at("ballspool").at("bolamsg_" + std::to_string(i)).x, 
-            *&sdlutils().svgs().at("ballspool").at("bolamsg_" + std::to_string(i)).y +155
+            *&sdlutils().svgs().at("ballspool").at("bolamsg_" + std::to_string(i)).y
         );
 
         addComponent<TransformComponent>(description, pos);
