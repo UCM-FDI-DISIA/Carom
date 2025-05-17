@@ -37,14 +37,6 @@
    },
    "stick": {
       "components": [
-         {
-            "atributes":{
-               "explosionDelay": 3000,
-               "explosionForce":1,
-               "radius":0.75
-            },
-            "componentName": "GrenadeLauncherStickEffect"
-         }
       ]
    }
 }
