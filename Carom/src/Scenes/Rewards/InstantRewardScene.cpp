@@ -15,7 +15,7 @@ InstantRewardScene::selectItem(int item) {
 
     if (item < 7 && item > -1) {
         if (!_selectedItems[item]) {
-            if (_maxItems < _selectedAmmount) {
+            if (_selectedAmmount < _maxItems) {
                 _selectedItems[item] = true;
                 if (++_selectedAmmount == _maxItems) {
                     showExitButton();
