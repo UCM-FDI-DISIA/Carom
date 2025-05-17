@@ -228,7 +228,8 @@
       {"id": "donut", "file": "../../resources/sound/donut.wav"},
       {"id": "pop_opposite", "file": "../../resources/sound/pop_opposite.wav"},
       {"id": "pick", "file": "../../resources/sound/pick.wav"},
-      {"id": "unpick", "file": "../../resources/sound/unpick.wav"}
+      {"id": "unpick", "file": "../../resources/sound/unpick.wav"},
+      {"id": "stick_hit", "file": "../../resources/sound/stick_hit.mp3"}
   ],
 
   "musics" : [

@@ -13,6 +13,7 @@
 #include <cmath>
 #include "GameScene.h"
 #include "ecs_defs.h"
+#include "AudioManager.h"
 
 
 // El componente tiene que tener un init que inicialize el transform y el transform tiene que tener un getRenderRect para pasarselo a este componente para que pueda funcionar.
@@ -88,6 +89,7 @@ void StickInputComponent::handleEvent()
 
                 //aplicar el efecto del palo si lo tiene
                 if(_myEffect != nullptr) _myEffect->applyEffect(_whiteBall);
+                else AudioManager::Instance()->playSoundEfect("stick_hit");
 
                 _hasShot = true; // ! hasShot
 
