@@ -76,10 +76,7 @@ void CristalEffect::update()
     if (_growRequest && canGrow()) {
         grow();
         _growRequest = false;
-        // noNearbyBodies();
     }
-
-    // noNearbyBodies();
 }
 
 bool CristalEffect::noNearbyBodies()
@@ -96,9 +93,6 @@ bool CristalEffect::noNearbyBodies()
         dir.setX(dir.getX() * cos(i) - dir.getY() * sin(i));
         dir.setY(dir.getX() * cos(i) + dir.getY() * sin(i));
         dir.normalize();
-
-        float a_cosalpha = dir.normalize() * Vector2D(1, 0);
-        float a_sinalpha = dir.normalize() * Vector2D(0, 1);
 
         float a_ballRadius = _rb_currSize;
 

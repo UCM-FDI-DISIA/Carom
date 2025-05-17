@@ -121,7 +121,7 @@ void EndGameScene::standardLose()
 
     TweenComponent* t = addComponent<TweenComponent>(blackScreen);
     t->easeValue(opacity, 255, 3, tween::LINEAR, false, [=](){
-        entity_t b = createSVGImage("win", "scoreSprite", "scoreSprite", true);
+        entity_t b = createSVGImage("lose", "scoreSprite", "scoreSprite", true);
         createSVGImage("lose", "loseButtonText", "loseButtonText");
         // Vuelve a main scene
         b->getComponent<Button>()->setOnClick([this]()
