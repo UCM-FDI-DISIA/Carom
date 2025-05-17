@@ -42,8 +42,9 @@ void BossRewardScene::initObjects()
 {
     auto ballsPos = sdlutils().svgs().at("boss_reward_balls_pos");
 
-     std::cout << "SKIBIDI" << std::endl;
-
+    #ifdef _DEBUG
+        std::cout << "SKIBIDI" << std::endl;
+    #endif
      int p = 0;
 
     for(auto svgInfo : ballsPos) {
