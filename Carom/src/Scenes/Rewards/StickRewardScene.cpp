@@ -1,4 +1,5 @@
 #include "StickRewardScene.h"
+#include "InventoryManager.h"
 
 #include <iostream>
 
@@ -17,6 +18,8 @@ StickRewardScene::~StickRewardScene()
 
 void StickRewardScene::atRender()
 {
+    hideExitButton();
+
     std::vector<ButtonWithSlot> a_buttonVector = openInventory();
 
     for (ButtonWithSlot& e : a_buttonVector) {
@@ -35,11 +38,6 @@ void StickRewardScene::atRender()
             }
         }
     }
-}
-
-void StickRewardScene::applyReward()
-{
-
 }
 
 void StickRewardScene::initObjects()
@@ -63,13 +61,16 @@ void StickRewardScene::initObjects()
 
     Texture* a_stickTexture = idToTexture(_stickReward);
 
-    float a_stickScale = float(sdlutils().svgs().at("reward").at("newStick").width) / float(a_stickTexture->width());
+    auto a = sdlutils().svgs().at("reward").at("newStick").width;
+
+    float a_stickScale = float(a_stickTexture->width()) / float(sdlutils().svgs().at("reward").at("newStick").width);
+    a_stickScale*= 0.5; // se generaba muy grande
 
     TransformComponent* a_tr = addComponent<TransformComponent>(nuevo_palo, pos);
     a_tr->setRotation(90.0);
     addComponent<RenderTextureComponent>(nuevo_palo, a_stickTexture, renderLayer::UI, a_stickScale);
 
-    Button::TextureButton rButton = Button::TextureButton();
+    Button::TextureButton rButton = Button::TextureButton(true);
     auto button = addComponent<Button>(nuevo_palo, rButton);
 
     button->setOnClick([this]() {
@@ -83,6 +84,11 @@ void StickRewardScene::initObjects()
             hideExitButton();
         }
     });
+}
+
+void StickRewardScene::applyReward()
+{
+    if (_newSelected) InventoryManager::Instance()->addStick(_stickReward);
 }
 
 void StickRewardScene::initFunctionalities() 
