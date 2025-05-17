@@ -614,7 +614,7 @@
     },
     { 
       "id" : "CristalEffect_desc_pool", 
-      "text" : "Extiende la linea de guia de la bola blanca hasta 3 rebotes si se esta apuntando hacia ella", 
+      "text" : "Aumenta de tamano hasta un limite al chocarse con otra bola", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
