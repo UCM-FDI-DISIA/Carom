@@ -95,6 +95,8 @@ protected:
     void createCallbacks();
     // ----------
 
+    void setBossBallTexture();
+
 public:
     PoolScene(Game* g);
     ~PoolScene();

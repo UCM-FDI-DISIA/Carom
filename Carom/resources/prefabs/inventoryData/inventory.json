@@ -2,7 +2,7 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 0.9499824643135071,
+   "cunning": 0.9413517713546753,
    "hitEase": 0,
    "power": 0,
    "slot0": {
@@ -29,7 +29,55 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  },
+                  {
+                     "componentName": "BowlingEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot3": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
+            }
+         }
+      ]
+   },
+   "slot4": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot5": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }

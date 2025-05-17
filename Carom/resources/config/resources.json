@@ -501,6 +501,18 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
+      "id" : "boss_name_pool", 
+      "text" : "Recompensa del piso", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "boss_desc_pool", 
+      "text" : "Recibe todas las bolas restantes en la mesa de billar", 
+      "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
       "id" : "cristal_ballDesc_pool", 
       "text" : "La linea guia tiene mas alcance, pero hay una probabilidad de que la bola se rompa", 
       "font" : "Aladin-Regular24", 

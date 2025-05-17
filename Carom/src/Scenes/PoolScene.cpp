@@ -93,6 +93,7 @@ void PoolScene::initObjects()
     createBallInfoText();
 
     createCallbacks();
+    setBossBallTexture();
 
     AudioManager::Instance()->changeToPauseTheme();
 }
@@ -133,6 +134,12 @@ PoolScene::generateHole(int i)
     addComponent<Button>(e, rButton);
 
     return e;
+}
+
+void PoolScene::setBossBallTexture(){
+    auto bossBall = getEntitiesOfGroup(grp::POOL_BALLS)[_bossHole];
+
+    bossBall->getComponent<RenderTextureComponent>()->setTexture(&sdlutils().images().at("boss_ball"));
 }
 
 void
@@ -320,7 +327,10 @@ PoolScene::createBallInfoText()
 
         title = sdlutils().texts().at("ballEffectTitle_pool");
 
-        std::string ballEffect = getEffectName(_ballsInfo[i].effects[0]);
+        bool isBoss = i == _bossHole;
+        std::string ballEffect;
+        if(!isBoss) ballEffect = getEffectName(_ballsInfo[i].effects[0]);
+        else ballEffect = "boss";
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");
         ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
