@@ -15,6 +15,11 @@ void BallHandler::onCollisionEnter(entity_t collision, b2Manifold& contactData)
         for(BallEffect* effect : _effects)
         {
             effect->onHit(collision);
+            if(_breakHit)
+            {
+                _breakHit = false;
+                break;
+            }
         }
     }
 }

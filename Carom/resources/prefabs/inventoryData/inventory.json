@@ -3,20 +3,13 @@
    "charisma": 0,
    "comboEase": 0,
    "cunning": 1.0,
-   "hitEase": 0,
-   "power": 0,
+   "hitEase": 2,
+   "power": 2,
    "slot0": {
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  },
-                  {
-                     "componentName": "CristalEffect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
@@ -26,11 +19,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }
@@ -42,7 +31,49 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "CristalEffect"
+                     "componentName": "X2Effect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot3": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot4": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot5": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "QuanticEffect"
                   }
                ]
             },
