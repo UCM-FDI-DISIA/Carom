@@ -2,6 +2,7 @@
 #include "State.h"
 #include "CaromScene.h"
 #include "Button.h"
+#include "FollowComponent.h"
 
 
 void State::setBallInputActive(bool active)
@@ -15,11 +16,21 @@ void State::setBallInputActive(bool active)
                 e->getComponent<Button>()->setEnabled(true);
             }
         }
+        for (auto& e : _scene->getEntitiesOfGroup(grp::FEEDBACK)) {
+            if(e->tryGetComponent<FollowComponent>()) {
+                e->activate();
+            }
+        }
     }
     else {
         for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
             if(e->tryGetComponent<Button>()) {
                 e->getComponent<Button>()->setEnabled(false);
+            }
+        }
+        for (auto& e : _scene->getEntitiesOfGroup(grp::FEEDBACK)) {
+            if(e->tryGetComponent<FollowComponent>()) {
+                e->deactivate();
             }
         }
     }
