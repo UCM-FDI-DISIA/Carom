@@ -4,6 +4,7 @@
 #include "SDLUtils.h"
 
 #include "InputHandler.h"
+#include "AudioManager.h"
 
 void DialogueTextComponent::init(){
 }
@@ -58,7 +59,8 @@ void DialogueTextComponent::DialogueContainer::update(TextDisplayComponent* _tex
             
             std::string lol = "sound_";
             lol.push_back(charToPlay);
-            sdlutils().soundEffects().at(lol).play();
+            AudioManager::Instance()->playSoundEfect(lol);
+            // sdlutils().soundEffects().at(lol).play();
         }
 
         _textDisplay->setDisplayedText(displayedText);

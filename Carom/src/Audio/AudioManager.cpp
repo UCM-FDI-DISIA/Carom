@@ -11,6 +11,8 @@ AudioManager::AudioManager(){
         &sdlutils().soundEffects().at("pause_theme"),
         &sdlutils().soundEffects().at("main_theme")
     };
+
+    setVolumeMusicTrack(trackName::BOSS_WHISPER, 12);
 }
 
 AudioManager::~AudioManager(){
@@ -41,13 +43,13 @@ void AudioManager::playSoundEfect(std::string soundID, int volume){
 
 void AudioManager::changeToPauseTheme(){
     setVolumeMusicTrack(MAIN_THEME, 0);
-    setVolumeMusicTrack(PAUSE_THEME, 64);
+    setVolumeMusicTrack(PAUSE_THEME);
     
     currentTheme = PAUSE_THEME;
 }
 
 void AudioManager::changeToMainTheme(){
-    setVolumeMusicTrack(MAIN_THEME, 64);
+    setVolumeMusicTrack(MAIN_THEME);
     setVolumeMusicTrack(PAUSE_THEME, 0);
 
     currentTheme = MAIN_THEME;

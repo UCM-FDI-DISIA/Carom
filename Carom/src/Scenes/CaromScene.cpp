@@ -301,7 +301,7 @@ void CaromScene::createScoreEntity(){
 
 void CaromScene::createFeedbackTest(b2Vec2 pos, float rot) {
     //audio
-    AudioManager::Instance()->playSoundEfect("hit", 40);
+    AudioManager::Instance()->playSoundEfect("hit");
 
     entity_t e = new Entity(*this, grp::FEEDBACK);
 

@@ -366,7 +366,7 @@ void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, Twe
     AudioManager::Instance()->playSoundEfect("revolver_spin");
 
     tween->easePosition(handPos, .3f, tween::EASE_IN_OUT_CUBIC, false, [=](){
-        AudioManager::Instance()->playSoundEfect("shot");
+        AudioManager::Instance()->playSoundEfect("shot", 10);
         createBulletHole(pos);
         getCamera()->shakeCamera(.2f, .3f, dir*-1);
 

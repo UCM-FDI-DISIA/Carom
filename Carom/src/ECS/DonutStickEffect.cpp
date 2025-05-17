@@ -10,7 +10,7 @@
 void
 DonutStickEffect::applyEffect(entity_t target){
 
-    AudioManager::Instance()->playSoundEfect("donut", 90);
+    AudioManager::Instance()->playSoundEfect("donut");
     auto popComp = new PopToOppositeSideEffect(target);
     target->addComponent<PopToOppositeSideEffect>(popComp);
 

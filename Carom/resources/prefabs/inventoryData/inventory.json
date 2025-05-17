@@ -1,9 +1,9 @@
 {
    "caromEase": 0,
-   "charisma": 0,
+   "charisma": 2,
    "comboEase": 0,
-   "cunning": 0.9413517713546753,
-   "hitEase": 0,
+   "cunning": 1.0,
+   "hitEase": 1,
    "power": 0,
    "slot0": {
       "components": [
@@ -31,10 +31,10 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "X2Effect"
+                     "componentName": "QuanticEffect"
                   },
                   {
-                     "componentName": "BowlingEffect"
+                     "componentName": "CristalEffect"
                   }
                ]
             },
@@ -48,7 +48,7 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "PetanqueEffect"
+                     "componentName": "CristalEffect"
                   }
                ]
             }
@@ -61,7 +61,7 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "AbacusEffect"
+                     "componentName": "QuanticEffect"
                   }
                ]
             },
@@ -75,7 +75,7 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "AbacusEffect"
+                     "componentName": "QuanticEffect"
                   }
                ]
             },

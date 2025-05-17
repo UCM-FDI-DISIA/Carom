@@ -22,11 +22,11 @@ public:
     void playMusicTrack(trackName trackID);
     void pauseMusicTrack(trackName trackID);
     void resumeMusicTrack(trackName trackID);
-    void setVolumeMusicTrack(trackName trackID, int volume = 64);
+    void setVolumeMusicTrack(trackName trackID, int volume = 15);
     void changeToPauseTheme();
     void changeToMainTheme();
 
-    void playSoundEfect(std::string soundID, int volume = 64);
+    void playSoundEfect(std::string soundID, int volume = 15);
     bool inline init(){return true;};
     inline trackName getCurrentTheme() { return currentTheme; };
 

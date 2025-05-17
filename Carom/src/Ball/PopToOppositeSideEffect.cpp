@@ -48,7 +48,7 @@ void
 PopToOppositeSideEffect::popOnCollision(entity_t other){
 
     if(!other->tryGetComponent<WallComponent>()) return;// Only if ball collides with table
-    AudioManager::Instance()->playSoundEfect("pop_opposite", 80);
+    AudioManager::Instance()->playSoundEfect("pop_opposite");
 
     b2Vec2 a_collPos = other->getTransform()->getPosition();
     
