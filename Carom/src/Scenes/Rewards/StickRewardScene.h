@@ -9,10 +9,9 @@ public:
     virtual ~StickRewardScene();
 
     void atRender() override;
-    
+
     virtual void applyReward() override;
     virtual void initObjects() override; 
-    virtual void initFunctionalities() override;
 private:
     stickID _stickReward;
 
@@ -20,4 +19,7 @@ private:
 
     bool _invSelected = false;
     bool _newSelected = false;
+
+    RenderTextureComponent* _newStickTextureComponent = nullptr;
+    RenderTextureComponent* _oldStickTextureComponent = nullptr;
 };

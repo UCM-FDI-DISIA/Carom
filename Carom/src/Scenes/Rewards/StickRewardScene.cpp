@@ -1,5 +1,6 @@
 #include "StickRewardScene.h"
 #include "InventoryManager.h"
+#include "TextDisplayComponent.h"
 
 #include <iostream>
 
@@ -25,19 +26,26 @@ void StickRewardScene::atRender()
     for (ButtonWithSlot& e : a_buttonVector) {
         if (e.slot == 0) { // asi es, magic number
             if (e.button != nullptr) {
+                _oldStickTextureComponent = e.button->getEntity()->getComponent<RenderTextureComponent>();
                 e.button->setOnClick([this]() {
                     selectItem(0);
                     if (!_invSelected){ 
                         _invSelected = true;
                         _newSelected = false;
+                        _oldStickTextureComponent->resetColorTint();
+                        _newStickTextureComponent->changeColorTint(64, 64, 64);
                     }
                     else {
                         _invSelected = false;
+                        _oldStickTextureComponent->changeColorTint(64, 64, 64);
                     }
                 });
             }
         }
     }
+
+    _oldStickTextureComponent->changeColorTint(64, 64, 64);
+    _newStickTextureComponent->changeColorTint(64, 64, 64);
 }
 
 void StickRewardScene::initObjects()
@@ -54,7 +62,7 @@ void StickRewardScene::initObjects()
 
     entity_t nuevo_palo = new Entity(*this, grp::UI);
 
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
+    b2Vec2 a_pos = PhysicsConverter::pixel2meter(
         *&sdlutils().svgs().at("reward").at("newStick").x,
         *&sdlutils().svgs().at("reward").at("newStick").y
     );
@@ -66,9 +74,9 @@ void StickRewardScene::initObjects()
     float a_stickScale = float(a_stickTexture->width()) / float(sdlutils().svgs().at("reward").at("newStick").width);
     a_stickScale*= 0.5; // se generaba muy grande
 
-    TransformComponent* a_tr = addComponent<TransformComponent>(nuevo_palo, pos);
+    TransformComponent* a_tr = addComponent<TransformComponent>(nuevo_palo, a_pos);
     a_tr->setRotation(90.0);
-    addComponent<RenderTextureComponent>(nuevo_palo, a_stickTexture, renderLayer::UI, a_stickScale);
+    _newStickTextureComponent = addComponent<RenderTextureComponent>(nuevo_palo, a_stickTexture, renderLayer::UI, a_stickScale);
 
     Button::TextureButton rButton = Button::TextureButton(true);
     auto button = addComponent<Button>(nuevo_palo, rButton);
@@ -78,22 +86,34 @@ void StickRewardScene::initObjects()
             if (_invSelected) selectItem(0);
             _newSelected = true;
             showExitButton();
+            _oldStickTextureComponent->changeColorTint(64, 64, 64);
+            _newStickTextureComponent->resetColorTint();
         }
         else {
             _newSelected = false;
             hideExitButton();
+            _newStickTextureComponent->changeColorTint(64, 64, 64);
         }
     });
+
+    // Texto de ayuda
+    entity_t help_text = new Entity(*this, grp::UI);
+
+    a_pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("reward").at("textArea").x,
+        *&sdlutils().svgs().at("reward").at("textArea").y
+    );
+
+    a_tr = addComponent<TransformComponent>(help_text, a_pos);
+
+    TextDisplayComponent* a_textDisplay = new TextDisplayComponent(help_text, renderLayer::UI, 1.0, 
+        "Elige entre este palo o el del inventario", {255, 255, 255, 255}, "Aladin-Regular48");
+    help_text->addComponent(a_textDisplay);    
 }
 
 void StickRewardScene::applyReward()
 {
     if (_newSelected) InventoryManager::Instance()->addStick(_stickReward);
-}
-
-void StickRewardScene::initFunctionalities() 
-{
-    // aqui nada
 }
 
 Texture*
