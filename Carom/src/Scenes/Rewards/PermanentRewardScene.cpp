@@ -42,12 +42,10 @@ void PermanentRewardScene::applyReward()
 
 void PermanentRewardScene::initObjects()
 {
-    RewardScene::initObjects();
-    _exitButton->activate();
-    _exitBttText->activate();
+    
 }
 
 void PermanentRewardScene::initFunctionalities() 
 {
-
+    showExitButton();
 }

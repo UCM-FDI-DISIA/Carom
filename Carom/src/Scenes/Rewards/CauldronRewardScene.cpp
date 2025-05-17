@@ -136,8 +136,7 @@ void CauldronRewardScene::initFunctionalities()
 
         ball.button->setOnClick([ball, this](){
             _selectedBallId = ball.slot;
-            _exitButton->activate();
-            _exitBttText->activate();
+            showExitButton();
         });
     }
 }

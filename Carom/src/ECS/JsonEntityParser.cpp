@@ -190,6 +190,8 @@ Entity* JsonEntityParser::createStick(GameScene& gameScene, std::string file, st
 
     AddComponentsFromJSON(e, file, childName);
 
+    addComponent<MagicWandStickEffect>(e);
+
     return e;
 }
 
