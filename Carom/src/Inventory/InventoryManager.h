@@ -86,7 +86,7 @@ private:
 
     // Eliminar
     void removeBall(int index);
-    std::vector<PoolScene::EffectType> getEffectsFromBall(int index);
+    std::vector<RewardScene::ballID> getEffectsFromBall(int index);
 private:
     void removeAllBalls();
     void removeStick();

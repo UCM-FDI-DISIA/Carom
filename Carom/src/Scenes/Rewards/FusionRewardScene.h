@@ -13,4 +13,6 @@ public:
     virtual void applyReward() override;
     virtual void initObjects() override; 
     virtual void initFunctionalities() override;
+
+    bool isSelected(int index);
 };

@@ -14,7 +14,9 @@ private:
     static constexpr int EFFECTS_LIMIT = 3;
 
     float _mult = 1;
+    bool _breakHit = false; //Se usa para romper con el bucle de efectos
 public:
+    void breakHit() {_breakHit = true;} //Se usa para romper con el bucle de efectos
     BallHandler(entity_t ent) : PhysicsComponent(ent) {}
     ~BallHandler() {}
 

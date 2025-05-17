@@ -173,6 +173,16 @@ public:
         assert(s);
     }
 
+    void stealComponent(entity_t from, BallEffect* effect){
+        bool s = from->internalRemoveComponent(effect->getEffectId(), false);
+        assert(s);
+
+        effect->setEntity(this);
+        getComponent<BallHandler>()->addEffect(effect);
+        s = this->internalAddComponent(effect->getEffectId(), effect, true);
+        assert(s);
+    }
+
     inline ITransform* getTransform() {return _myTransform;}
     std::vector<Component*> getAllComponents(){
         return _currentComponents;

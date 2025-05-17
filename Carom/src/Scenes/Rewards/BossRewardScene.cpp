@@ -138,7 +138,7 @@ void BossRewardScene::checkIfValid()
 
 void BossRewardScene::applyReward() {
     for(int index : _ballsToRemove) {
-        _inventory->removeBall(index);
+        _inventory->removeBall(index-1);
     }
 
     for(PoolScene::BallInfo ball : _selectedBalls) {
