@@ -360,7 +360,7 @@
     },
     { 
       "id" : "cauldron_rewardDesc_pool", 
-      "text" : "Anades a una bola de tu kit uno de dos efectos a elegir.", 
+      "text" : "Anades a una bola de tu kit un efecto aleatorio.", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },

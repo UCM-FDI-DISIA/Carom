@@ -169,9 +169,11 @@ PoolScene::generateFloorRewards() {
 
     chooseRewards(_floorRewards, POSITIONS);
 
-    std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
     // Swaps boss hole assigned reward for a Boss Reward
     _floorRewards[_bossHole] = RewardScene::Reward("boss", RewardScene::Reward::Type::BOSS);
+    std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
+
+    _floorRewards[0] = RewardScene::Reward("cauldron", RewardScene::Reward::Type::INSTANT);
 
     createRewardInfo();
 }
