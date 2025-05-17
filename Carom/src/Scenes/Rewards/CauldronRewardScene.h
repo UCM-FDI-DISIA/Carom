@@ -7,18 +7,7 @@ class CauldronRewardScene : public RewardScene
 {
     friend class Entity;
 
-    enum Effects{
-        ABBACUS,
-        BOWLING,
-        CRISTAL,
-        PETANQUE,
-        POKEBALL,
-        QUANTIC,
-        X2,
-        NONE
-    };
-
-    Effects _randomEffect;
+    RewardScene::ballID _randomEffect;
     int _selectedBallId;
 
 public:

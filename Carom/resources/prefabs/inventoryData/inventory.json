@@ -3,13 +3,20 @@
    "charisma": 0,
    "comboEase": 0,
    "cunning": 1.0,
-   "hitEase": 2,
-   "power": 2,
+   "hitEase": 0,
+   "power": 0,
    "slot0": {
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  },
+                  {
+                     "componentName": "CristalEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -19,7 +26,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -29,53 +40,7 @@
       "components": [
          {
             "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot3": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot4": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "X2Effect"
-                  }
-               ]
-            },
-            "componentName": "BallHandler"
-         }
-      ]
-   },
-   "slot5": {
-      "components": [
-         {
-            "atributes": {
-               "effects": [
-                  {
-                     "componentName": "QuanticEffect"
-                  }
-               ]
+               "effects": []
             },
             "componentName": "BallHandler"
          }

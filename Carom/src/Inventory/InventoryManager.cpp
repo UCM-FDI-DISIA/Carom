@@ -390,8 +390,8 @@ void InventoryManager::setParameterValue(std::string key, int value){
     updateData(data);
 }
 
-std::vector<PoolScene::EffectType> InventoryManager::getEffectsFromBall(int index) {
-    std::vector<PoolScene::EffectType> output;
+std::vector<RewardScene::ballID> InventoryManager::getEffectsFromBall(int index) {
+    std::vector<RewardScene::ballID> output;
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
@@ -402,13 +402,13 @@ std::vector<PoolScene::EffectType> InventoryManager::getEffectsFromBall(int inde
     std::vector<std::string> effects = ballHandler["atributes"]["effects"];
 
     for(std::string effect : effects) {
-        if(effect == "BowlingEffect") output.push_back(PoolScene::BOWLING);
-        else if(effect == "AbbacusEffect") output.push_back(PoolScene::ABBACUS);
-        else if(effect == "X2Effect") output.push_back(PoolScene::X2);
-        else if(effect == "QuanticEffect") output.push_back(PoolScene::QUANTIC);
-        else if(effect == "PokeballEffect") output.push_back(PoolScene::POKEBALL);
-        else if(effect == "CristalEffect") output.push_back(PoolScene::CRISTAL);
-        else if(effect == "PetanqueEffect") output.push_back(PoolScene::PETANQUE);
+        if(effect == "BowlingEffect") output.push_back(RewardScene::ballID::BOWLING);
+        else if(effect == "AbbacusEffect") output.push_back(RewardScene::ballID::ABBACUS);
+        else if(effect == "X2Effect") output.push_back(RewardScene::ballID::X2);
+        else if(effect == "QuanticEffect") output.push_back(RewardScene::ballID::QUANTIC);
+        else if(effect == "PokeballEffect") output.push_back(RewardScene::ballID::POKEBALL);
+        else if(effect == "CristalEffect") output.push_back(RewardScene::ballID::CRISTAL);
+        else if(effect == "PetanqueEffect") output.push_back(RewardScene::ballID::PETANQUE);
     }
 
     return output;
