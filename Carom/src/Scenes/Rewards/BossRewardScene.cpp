@@ -21,11 +21,7 @@ BossRewardScene::BossRewardScene(Game* game, Reward reward)
     _inventory = InventoryManager::Instance();
     auto ballsInfo = game->getScenesManager()->getPoolScene()->getBallsInfo();
 
-     for(auto ballInfo : ballsInfo) {
-        if(!ballInfo.free) {
-            _obtainedBallsInfo.push_back(ballInfo);
-        }
-    }
+    _obtainedBallsInfo = ballsInfo;
 }
 
 BossRewardScene::~BossRewardScene()
@@ -34,8 +30,8 @@ BossRewardScene::~BossRewardScene()
 }
 
 bool BossRewardScene::checkIfBallIsObtained(PoolScene::BallInfo ballInfo) {
-    for(PoolScene::BallInfo ball : _obtainedBallsInfo) {
-        if(ballInfo.effects == ball.effects) {
+    for(PoolScene::BallInfo ball : _selectedBalls) {
+        if(ballInfo == ball) {
             return true;
         }
     }
@@ -45,44 +41,55 @@ bool BossRewardScene::checkIfBallIsObtained(PoolScene::BallInfo ballInfo) {
 void BossRewardScene::initObjects()
 {
     auto ballsPos = sdlutils().svgs().at("boss_reward_balls_pos");
-    int i = 0;
+
+     std::cout << "SKIBIDI" << std::endl;
+
+     int p = 0;
 
     for(auto svgInfo : ballsPos) {
-        Entity* ball = new Entity(*this, grp::UI);
-        auto pos = svgInfo.second;
-        addComponent<TransformComponent>(ball, b2Vec2(pos.x, pos.y));
+        for(int i = 0; i < _obtainedBallsInfo.size(); i++) {
+            if(!_obtainedBallsInfo[i].free) continue;
+            Entity* ball = new Entity(*this, grp::UI);
+            float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
+            b2Vec2 pos = {PhysicsConverter::pixel2meter(svgInfo.second.x, svgInfo.second.y)};
+            pos.x += p * ballScale * 1.1f;
 
-        std::string textureKey = "bola_blanca";
+            addComponent<TransformComponent>(ball, pos);
 
-        PoolScene::EffectType firstBallEffect = _obtainedBallsInfo[i].effects[0];
-        switch(firstBallEffect) {
-            case ABBACUS: textureKey = "single_AbbacusEffect"; break;
-            case BOWLING: textureKey = "single_BowlingEffect"; break;
-            case CRISTAL: textureKey = "single_CristalEffect"; break;
-            case PETANQUE: textureKey = "single_PetanqueEffect"; break;
-            case POKEBALL: textureKey = "single_PokeballEffect"; break;
-            case QUANTIC: textureKey = "single_QuanticEffect"; break;
-            case X2: textureKey = "single_X2Effect"; break;
-        }
+            std::string textureKey = "bola_blanca";
 
-        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, pos.height);
-
-        createBallShadow(ball);
-
-        Button::TextureButton rButton = Button::TextureButton();
-        auto button = addComponent<Button>(ball, rButton);
-
-        button->setOnClick([this, ball, i]() {
-            if(checkIfBallIsObtained(_obtainedBallsInfo[i])) {
-                ball->getComponent<RenderTextureComponent>()->changeColorTint(0, 0, 0);
-                _selectedBalls.erase(std::remove(_selectedBalls.begin(), _selectedBalls.end(), _obtainedBallsInfo[i]));
-            }else{
-                ball->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
-                _selectedBalls.push_back(_obtainedBallsInfo[i]);
+            PoolScene::EffectType firstBallEffect = _obtainedBallsInfo[i].effects[0];
+            switch(firstBallEffect) {
+                case ABBACUS: textureKey = "single_AbacusEffect"; break;
+                case BOWLING: textureKey = "single_BowlingEffect"; break;
+                case CRISTAL: textureKey = "single_CristalEffect"; break;
+                case PETANQUE: textureKey = "single_PetanqueEffect"; break;
+                case POKEBALL: textureKey = "single_PokeballEffect"; break;
+                case QUANTIC: textureKey = "single_QuanticEffect"; break;
+                case X2: textureKey = "single_X2Effect"; break;
             }
-        });
 
-        i++;
+            addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);
+
+            createBallShadow(ball);
+
+            Button::TextureButton rButton = Button::TextureButton();
+            auto button = addComponent<Button>(ball, rButton);
+
+            button->setOnClick([this, ball, i]() {
+                if(checkIfBallIsObtained(_obtainedBallsInfo[i])) {
+                    ball->getComponent<RenderTextureComponent>()->resetColorTint();
+                    _selectedBalls.erase(std::remove(_selectedBalls.begin(), _selectedBalls.end(), _obtainedBallsInfo[i]));
+                }else{
+                    ball->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
+                    _selectedBalls.push_back(_obtainedBallsInfo[i]);
+                }
+
+                checkIfValid();
+            });
+
+            p++;
+        }
     }
 
     auto ballButtons = openInventory();
@@ -91,7 +98,7 @@ void BossRewardScene::initObjects()
         ballButton.button->setOnClick([this, ballButton]() {
             if(checkIfBallIsSelected(ballButton.slot)) {
                 _ballsToRemove.erase(std::remove(_ballsToRemove.begin(), _ballsToRemove.end(), ballButton.slot));
-                ballButton.button->getEntity()->getComponent<RenderTextureComponent>()->changeColorTint(255, 255, 255);
+                ballButton.button->getEntity()->getComponent<RenderTextureComponent>()->resetColorTint();
             }
             else {
                 _ballsToRemove.push_back(ballButton.slot);
@@ -133,24 +140,9 @@ void BossRewardScene::applyReward() {
         _inventory->removeBall(index);
     }
 
-    entity_t ball = new Entity(*this, grp::POOL_BALLS);
-    addComponent<BallHandler>(ball);
-
-    for(auto ballInfo : _selectedBalls) {
-        if(ballInfo.free) continue;
-        for(auto effect : ballInfo.effects) {
-            switch(effect) {
-                case ABBACUS: addComponent<AbacusEffect>(ball); break;
-                case BOWLING: addComponent<BowlingEffect>(ball); break;
-                case CRISTAL: addComponent<CristalEffect>(ball); break;
-                case PETANQUE: addComponent<PetanqueEffect>(ball); break;
-                case POKEBALL: addComponent<PokeballEffect>(ball); break;
-                case QUANTIC: addComponent<QuanticEffect>(ball); break;
-                case X2: addComponent<X2Effect>(ball); break;
-            }
-        }
+    for(PoolScene::BallInfo ball : _selectedBalls) {
+        std::vector<int> ids;
+        for(PoolScene::EffectType effect : ball.effects) ids.push_back((int)effect);
+        InventoryManager::Instance()->addBall(ids);
     }
-    
-    InventoryManager::Instance()->addBall(ball);
-    delete ball;
 }
