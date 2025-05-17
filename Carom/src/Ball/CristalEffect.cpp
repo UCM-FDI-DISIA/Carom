@@ -12,7 +12,7 @@ CristalEffect::CristalEffect(entity_t ent)
     , _myRender(ent->getComponent<RenderSpritesheetComponent>())
     , _myRB(ent->getComponent<RigidBodyComponent>())
     , _maxCollisions(4.0f)
-    , _maxProportion(4.0f)
+    , _maxProportion(2.5f)
     , _isBig(false)
 {
     _myCaromScene = dynamic_cast<CaromScene*>(&ent->getScene());
