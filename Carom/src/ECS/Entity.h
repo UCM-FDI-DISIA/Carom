@@ -25,6 +25,7 @@ class EndGameScene;
 class RewardScene;
 class UIScene;
 class MainMenuScene;
+class ControlsScene;
 class ShadowComponent;
 class PauseScene;
 class TutorialScene;
@@ -231,6 +232,7 @@ private:
     friend UIScene;
     friend RewardScene;
     friend MainMenuScene;
+    friend ControlsScene;
     friend PauseScene;
     friend RussianPyramidScene;
     friend TutorialScene;

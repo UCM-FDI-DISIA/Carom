@@ -5,13 +5,13 @@ class AudioManager;
 #include <memory>
 
 class ScenesManager;
-//class MainMenuScene;
+class MainMenuScene;
 
 class ControlsScene: public UIScene 
 {
 protected:
-    AudioManager* _am;
-    //std::shared_ptr<MainMenuScene> _mainMenuScene;
+    //AudioManager* _am;
+    std::shared_ptr<MainMenuScene> _mainMenuScene;
 
 public:
     ControlsScene(Game* g);

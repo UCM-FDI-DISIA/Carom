@@ -6,6 +6,7 @@ class AudioManager;
 
 class ScenesManager;
 class PoolScene;
+class ControlsScene;
 
 class MainMenuScene: public UIScene 
 {

@@ -1,7 +1,7 @@
 #include "ControlsScene.h"
 #include "ScenesManager.h"
 #include "AudioManager.h"
-#include "TutorialScene.h"
+#include "MainMenuScene.h"
 
 ControlsScene::ControlsScene(Game *g) 
     : UIScene(g)
@@ -14,62 +14,75 @@ ControlsScene::~ControlsScene()
 
 void ControlsScene::initFunctionalities()
 {
-    //_mainMenuScene = std::make_shared<MainMenuScene>(game);
+    _mainMenuScene = std::make_shared<MainMenuScene>(game);
 }
 
 void ControlsScene::initObjects()
 {
-    /*
+    
     // tag del svg al que nos referimos segun el JSON.
-    std::string SVGTag = "mainMenu";
+    std::string SVGTag = "controlsMenu";
 
     // --- BACKGROUND.
-    entity_t x_bg = createBackground("fondoMainMenu"); // fondo.
-    entity_t a_bg = createBackground("menuBackground"); // mesa fondo.
+    entity_t x_bg = createBackground("fondoControls"); // fondo.
 
     // ajustando fondo.
-    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y};
-    a_bg->getTransform()->setPosition(pos);
+    b2Vec2 pos = {x_bg->getTransform()->getPosition().x, x_bg->getTransform()->getPosition().y};
+    x_bg->getTransform()->setPosition(pos);
 
-    // --- PANELES.
-    std::vector<entity_t> pannels;
-    //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleTutorial", "RectangleTutorial", true)); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleControls", "RectangleControls", true)); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); 
-    pannels.emplace_back(createSVGImage(SVGTag, "RectangleExit", "RectangleExit", true)); 
+    // --- PANELES DEL FONDO
+    std::vector<entity_t> bgPannels;
+    bgPannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle"));  
+    bgPannels.emplace_back(createSVGImage(SVGTag, "RectangleInteraccionGrande", "RectangleInteraccionGrande"));
+    bgPannels.emplace_back(createSVGImage(SVGTag, "RectangleInventarioGrande", "RectangleInventarioGrande"));  
+    bgPannels.emplace_back(createSVGImage(SVGTag, "RectangleMenuPausaGrande", "RectangleMenuPausaGrande"));  
 
-    // render texture menu pannel.
-    RenderTextureComponent* rtmp = pannels[0]->getComponent<RenderTextureComponent>(); 
-    rtmp->setScale(1.3 * rtmp->getScale());
+    // --- PANELES DE TITULOS
+    std::vector<entity_t> titlePannels;
+    titlePannels.emplace_back(createSVGImage(SVGTag, "RectangleInteraccionNombre", "RectangleInteraccionNombre"));  
+    titlePannels.emplace_back(createSVGImage(SVGTag, "RectangleInventario", "RectangleInventario"));
+    titlePannels.emplace_back(createSVGImage(SVGTag, "RectangleMenuPausa", "RectangleMenuPausa"));
     
-    // Hacer que se pueda accionar el boton de PLAY
-    pannels[2]->getComponent<Button>()->setOnClick([this](){
+    // --- TEXTOS DE TITULOS
+    std::vector<entity_t> titleTexts;
+    //titleTexts.emplace_back(createSVGImage(SVGTag, "Interaccion", "Interaccion"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "Inventario", "Inventario"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "MenuPausa", "MenuPausa"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "C", "C"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "rewardButtonText", "rewardButtonText"));  
+    titleTexts.emplace_back(createSVGImage(SVGTag, "regresarText", "regresarText"));  
+    
+    // --- TEXTOS NORMALES
+    std::vector<entity_t> nTexts;
+    nTexts.emplace_back(createSVGImage(SVGTag, "InteraccionTextPalo", "InteraccionTextPalo"));
+    nTexts.emplace_back(createSVGImage(SVGTag, "InventarioTextPalo1", "InventarioTextPalo1"));
+    nTexts.emplace_back(createSVGImage(SVGTag, "InventarioTextClic", "InventarioTextClic"));
+    nTexts.emplace_back(createSVGImage(SVGTag, "ControlesDe", "ControlesDe"));
+    nTexts.emplace_back(createSVGImage(SVGTag, "InventarioText", "InventarioText"));
+    nTexts.emplace_back(createSVGImage(SVGTag, "MenuPausaText", "MenuPausaText"));  
+    
+    // --- IMAGENES Y DEMAS
+    std::vector<entity_t> imgs;
+    imgs.emplace_back(createSVGImage(SVGTag, "scoreSprite", "scoreSprite"));
+    imgs.emplace_back(createSVGImage(SVGTag, "imagenMenuPausa", "imagenMenuPausa"));
+    imgs.emplace_back(createSVGImage(SVGTag, "drawer", "drawer"));
+    imgs.emplace_back(createSVGImage(SVGTag, "palo", "palo1"));
+    /*
+    imgs.emplace_back(createSVGImage(SVGTag, "palo1_sombra", "palo_sombra"));
+    imgs.emplace_back(createSVGImage(SVGTag, "bola_blanca", "bola_montada"));
+    imgs.emplace_back(createSVGImage(SVGTag, "regresar", "regresar"));    
+    imgs.emplace_back(createSVGImage(SVGTag, "cursor 1", "cursor"));    
+    
+    
+    // Hacer que se pueda accionar el boton de REGRESARR
+    imgs[6]->getComponent<Button>()->setOnClick([this](){
         // !!! SE CREA POOLSCENE
-        getGame()->getScenesManager()->pushScene(_poolScene);
+        getGame()->getScenesManager()->popScene();
     });  
-
-    // Hacer que se pueda accionar el boton de TUTORIAL
-    pannels[3]->getComponent<Button>()->setOnClick([this](){
-        // !!! SE CREA POOLSCENE
-        getGame()->getScenesManager()->pushScene(_poolScene);
-        TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
-        getGame()->getScenesManager()->pushScene(std::shared_ptr<TutorialScene>(tutorial));
-    });  
-
-    // Hacer que se pueda accionar el boton de CONTROLS
-    pannels[4]->getComponent<Button>()->setOnClick([this](){
-        
-    }); 
-
-    // Hacer que se pueda accionar el boton de EXIT
-    pannels[6]->getComponent<Button>()->setOnClick([this](){
-        getGame()->close();
-    }); 
-
+    */
+    
+    /* TODO la musica no se hacerla.
     //Empieza la musica
     _am = AudioManager::Instance();
     
@@ -79,14 +92,6 @@ void ControlsScene::initObjects()
     _am->changeToPauseTheme();
     // TODO: Hacer que se pueda accionar el boton de Controls
     // TODO: Hacer que se pueda accionar el boton de Credits
+    */
     
-    // --- TEXTOS.
-    std::vector<entity_t> texts;
-    texts.emplace_back(createSVGImage(SVGTag, "C", "C"));
-    texts.emplace_back(createSVGImage(SVGTag, "AROM", "AROM"));
-    texts.emplace_back(createSVGImage(SVGTag, "Play", "Play"));
-    texts.emplace_back(createSVGImage(SVGTag, "Tutorial", "Tutorial"));
-    texts.emplace_back(createSVGImage(SVGTag, "Controls", "Controls"));
-    texts.emplace_back(createSVGImage(SVGTag, "Credits", "Credits"));
-    texts.emplace_back(createSVGImage(SVGTag, "Exit", "Exit"));*/
 }

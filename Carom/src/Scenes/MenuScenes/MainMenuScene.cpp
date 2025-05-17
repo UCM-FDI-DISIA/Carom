@@ -4,6 +4,7 @@
 #include "AudioManager.h"
 #include "TutorialScene.h"
 #include "InventoryManager.h"
+#include "ControlsScene.h"
 
 MainMenuScene::MainMenuScene(Game *g) 
     : UIScene(g)
@@ -67,7 +68,8 @@ void MainMenuScene::initObjects()
 
     // Hacer que se pueda accionar el boton de CONTROLS
     pannels[4]->getComponent<Button>()->setOnClick([this](){
-        
+        std::shared_ptr<ControlsScene> _ctrlScene = std::make_shared<ControlsScene>(game);
+        getGame()->getScenesManager()->pushScene(_ctrlScene);
     }); 
 
     // Hacer que se pueda accionar el boton de EXIT
