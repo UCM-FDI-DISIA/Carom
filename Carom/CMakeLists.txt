@@ -210,6 +210,7 @@ add_executable(Carom
 	src/Scenes/UIScene.cpp
     src/Scenes/MenuScenes/MainMenuScene.cpp
     
+    src/StateMachine/State.cpp
     src/StateMachine/StartMatchState.cpp
     src/StateMachine/HitState.cpp
     src/StateMachine/ScoringState.cpp

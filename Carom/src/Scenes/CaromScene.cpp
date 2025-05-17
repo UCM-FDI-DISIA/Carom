@@ -86,7 +86,7 @@ void CaromScene::init()
     }
 
     if(_currentState == nullptr)
-    setNewState(new StartMatchState(this));
+        setNewState(new StartMatchState(this));
 
     _initialized = true;
 

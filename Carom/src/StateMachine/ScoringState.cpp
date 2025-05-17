@@ -15,10 +15,11 @@ ScoringState::ScoringState(CaromScene* scene) : State(scene)
 
 void
 ScoringState::onStateEnter() {
-    std::cout << "Entrando en Scoring\n";
+    
     _scene->decrementRemainingHits();
-
+    
     #ifdef _DEBUG
+        std::cout << "Entrando en Scoring\n";
         _scene->setCanFastForward(true);
     #endif
 }
@@ -46,7 +47,6 @@ ScoringState::onStateExit() {
 
 bool
 ScoringState::checkCondition(State*& state) {
-    // std::cout << "checkCondition ScoringState" << std::endl;
     //Comprueba que ninguna bola se mueva
     auto whiteBall = _scene->getEntitiesOfGroup(grp::WHITEBALL);
     for(auto& e : whiteBall) {
