@@ -399,16 +399,19 @@ std::vector<BallId> InventoryManager::getEffectsFromBall(int index) {
     auto slot = data[key];
     auto ballHandler = slot["components"][0];
     
-    std::vector<std::string> effects = ballHandler["atributes"]["effects"];
+    auto effects = ballHandler["atributes"]["effects"];
 
-    for(std::string effect : effects) {
-        if(effect == "BowlingEffect") output.push_back(BOWLING);
-        else if(effect == "AbbacusEffect") output.push_back(ABBACUS);
-        else if(effect == "X2Effect") output.push_back(X2);
-        else if(effect == "QuanticEffect") output.push_back(QUANTIC);
-        else if(effect == "PokeballEffect") output.push_back(POKEBALL);
-        else if(effect == "CristalEffect") output.push_back(CRISTAL);
-        else if(effect == "PetanqueEffect") output.push_back(PETANQUE);
+    for(auto& e : effects) {
+
+        std::string parsedEffect = e["componentName"];
+
+        if(parsedEffect == "BowlingEffect") output.push_back(BOWLING);
+        else if(parsedEffect == "AbbacusEffect") output.push_back(ABBACUS);
+        else if(parsedEffect == "X2Effect") output.push_back(X2);
+        else if(parsedEffect == "QuanticEffect") output.push_back(QUANTIC);
+        else if(parsedEffect == "PokeballEffect") output.push_back(POKEBALL);
+        else if(parsedEffect == "CristalEffect") output.push_back(CRISTAL);
+        else if(parsedEffect == "PetanqueEffect") output.push_back(PETANQUE);
     }
 
     return output;
