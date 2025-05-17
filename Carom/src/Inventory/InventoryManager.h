@@ -43,6 +43,7 @@ private:
     bool addBall(entity_t ball);
     bool addBall(std::vector<int> ids);
     void addStick(entity_t stick);
+    void addStick(int id);
 
     void saveBalls(std::vector<entity_t> balls);
 

@@ -214,6 +214,42 @@ InventoryManager::addStick(entity_t stick) {
     updateData(data);
 }
 
+void
+InventoryManager::addStick(int rawStickId) {
+
+    removeStick();
+
+    std::ifstream f(pathToInventory);
+    json data = json::parse(f);
+
+    RewardScene::stickID a_stickId = static_cast<RewardScene::stickID>(rawStickId);
+
+    //GUARDAR NUEVO STICK
+    switch (a_stickId)
+    {
+    case RewardScene::stickID::BOXING:
+        data["stick"]["components"][0]["componentName"] = "BoxingGloveStickEffect";
+        data["stick"]["components"][0]["atributes"]["factor"] = 0.75f;
+        break;
+    case RewardScene::stickID::DONUT:
+        data["stick"]["components"][0]["componentName"] = "DonutStickEffect";
+        break;
+    case RewardScene::stickID::GRENADE:
+        data["stick"]["components"][0]["componentName"] = "GrenadeLauncherStickEffect";
+        data["stick"]["components"][0]["atributes"]["explosionDelay"] = 3;
+        data["stick"]["components"][0]["atributes"]["explosionForce"] = 1;
+        data["stick"]["components"][0]["atributes"]["radius"] = 1;
+        break;
+    case RewardScene::stickID::WAND:
+        data["stick"]["components"][0]["componentName"] = "MagicWandStickEffect";
+        break;
+    default:
+        break;
+    }
+
+    updateData(data);
+}
+
 void 
 InventoryManager::swapBall(entity_t newBall, int indexOfOldBall) {
     
