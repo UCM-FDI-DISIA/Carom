@@ -28,6 +28,7 @@ public:
 
     void init() override;
     void render() override;
+    inline void setTexture(Texture* t) { _texture = t; }
 
     SDL_Rect getRenderRect() const override;
     void setFrame(int frame);

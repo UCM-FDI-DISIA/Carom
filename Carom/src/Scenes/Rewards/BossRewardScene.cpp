@@ -29,9 +29,9 @@ BossRewardScene::~BossRewardScene()
 
 }
 
-bool BossRewardScene::checkIfBallIsObtained(PoolScene::BallInfo ballInfo) {
-    for(PoolScene::BallInfo ball : _selectedBalls) {
-        if(ballInfo == ball) {
+bool BossRewardScene::checkIfBallIsObtained(int ballId) {
+    for(int ball : _selectedBalls) {
+        if(ballId == ball) {
             return true;
         }
     }
@@ -78,12 +78,12 @@ void BossRewardScene::initObjects()
             auto button = addComponent<Button>(ball, rButton);
 
             button->setOnClick([this, ball, i]() {
-                if(checkIfBallIsObtained(_obtainedBallsInfo[i])) {
+                if(checkIfBallIsObtained(i)) {
                     ball->getComponent<RenderTextureComponent>()->resetColorTint();
-                    _selectedBalls.erase(std::remove(_selectedBalls.begin(), _selectedBalls.end(), _obtainedBallsInfo[i]));
+                    _selectedBalls.erase(std::remove(_selectedBalls.begin(), _selectedBalls.end(), i));
                 }else{
                     ball->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
-                    _selectedBalls.push_back(_obtainedBallsInfo[i]);
+                    _selectedBalls.push_back(i);
                 }
 
                 checkIfValid();
@@ -141,9 +141,12 @@ void BossRewardScene::applyReward() {
         _inventory->removeBall(index-1);
     }
 
-    for(PoolScene::BallInfo ball : _selectedBalls) {
+    for(int index : _selectedBalls) {
+        PoolScene::BallInfo ball = _obtainedBallsInfo[index];
         std::vector<int> ids;
-        for(BallId effect : ball.effects) ids.push_back((int)effect);
+        for(BallId effect : ball.effects) {
+            if(!hasElement(ids, (int)effect))ids.push_back((int)effect);
+        }
         InventoryManager::Instance()->addBall(ids);
     }
 }

@@ -20,10 +20,14 @@ private:
     void checkIfValid();
 
     bool checkIfBallIsSelected(int ballId);
-    bool checkIfBallIsObtained(PoolScene::BallInfo ballInfo);
+    bool checkIfBallIsObtained(int ballId);
+
+    inline bool hasElement(std::vector<int>& vec, int elem) {
+        return std::find(vec.begin(), vec.end(), elem) != vec.end();
+    }
 
     std::vector<PoolScene::BallInfo> _obtainedBallsInfo;
-    std::vector<PoolScene::BallInfo> _selectedBalls;
+    std::vector<int> _selectedBalls;
     InventoryManager* _inventory;
     std::vector<int> _ballsToRemove;
 };

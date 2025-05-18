@@ -27,4 +27,20 @@ public:
     void handleEvent() override {}
     virtual void update() override {}
     virtual cmpId_t getEffectId() = 0;
+
+    static std::string effectTextureName(BallEffect* effect)
+    {
+        switch(effect->getEffectId())
+        {
+            case cmp::BOWLING_EFFECT: return "BowlingEffect";
+            case cmp::PETANQUE_EFFECT: return "PetanqueEffect";
+            case cmp::POKEBALL_EFFECT: return "PokeballEffect";
+            case cmp::CRISTAL_EFFECT: return "CristalEffect";
+            case cmp::ABACUS_EFFECT: return "AbacusEffect";
+            case cmp::QUANTIC_EFFECT: return "QuanticEffect";
+            case cmp::X2_EFFECT: return "X2Effect";
+        }
+
+        return "";
+    }
 };

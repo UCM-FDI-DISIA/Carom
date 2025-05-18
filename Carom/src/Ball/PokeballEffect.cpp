@@ -1,7 +1,9 @@
 #include "PokeballEffect.h"
 #include "BallHandler.h"
 #include "Entity.h"
+#include "RenderSpritesheetComponent.h"
 #include <vector>
+#include "SDLUtils.h"
 
 void PokeballEffect::onHit(entity_t ent)
 {
@@ -15,5 +17,9 @@ void PokeballEffect::onHit(entity_t ent)
     
     ent->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->getComponent<BallHandler>()->breakHit();
+
+    BallEffect* firstEffect = _myEntity->getComponent<BallHandler>()->getEffects()[0];
+    _myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(&sdlutils().images().at(BallEffect::effectTextureName(firstEffect)));
+
     _myEntity->removeComponent<PokeballEffect>();
 };
