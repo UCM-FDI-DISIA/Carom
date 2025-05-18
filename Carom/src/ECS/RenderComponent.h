@@ -6,6 +6,7 @@
 class Entity;
 struct SDL_Rect;
 
+/// @brief Componente que overridea todos los métodos base excepto el render y maneja cosas como opacidad, color y capa de renderizado
 class RenderComponent : public Component {
 protected:
     layerId_t _renderLayer;

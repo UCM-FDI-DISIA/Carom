@@ -4,6 +4,7 @@
 #include "ItemIDs.h"
 #include "Button.h"
 
+/// @brief La clase abstracta de una escena de recompensa
 class RewardScene : public UIScene 
 {
 public:
@@ -14,6 +15,7 @@ public:
         int slot = -1;
     };
 
+    /// @brief Una recompensa de cara a la UI
     class Reward 
     {
     public:
@@ -65,11 +67,14 @@ protected:
     virtual void initObjects() override; 
     virtual void initFunctionalities() override {}
 
+    /// @brief Método que se llama el primer frame del render, por si se ha de alterar la apariencia del inventario
     virtual void atRender();
     void render() override;
 
+    /// @brief El método que le da la recompensa al jugador
     virtual void applyReward() {}
 
+    //Métodos del botón de salir:
     void showExitButton();
     void hideExitButton();
     virtual void exitCallback();

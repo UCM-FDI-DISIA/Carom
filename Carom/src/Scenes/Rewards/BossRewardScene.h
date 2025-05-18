@@ -6,6 +6,7 @@
 
 class InventoryManager;
 
+/// @brief Recompensa que le otorga al jugador todas las bolas del jefe
 class BossRewardScene : public RewardScene 
 {    
 public:

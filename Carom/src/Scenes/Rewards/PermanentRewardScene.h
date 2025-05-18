@@ -3,6 +3,7 @@
 
 #include "RewardScene.h"
 
+/// @brief Escena que gestiona por si sola todas las recompensas permanentes
 class PermanentRewardScene : public RewardScene 
 {    
 public:

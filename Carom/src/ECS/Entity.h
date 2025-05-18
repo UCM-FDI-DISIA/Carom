@@ -44,6 +44,7 @@ concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
 template <typename T> 
 concept DerivedFromBallEffect = std::is_base_of<BallEffect, T>::value;
 
+/// @brief La clase entidad del esquema entity-system
 class Entity {
     friend ShadowComponent;
 public:
@@ -57,11 +58,16 @@ public:
         _alive = alive;
     }
 
+    /// @brief Método genérico para añadir componentes
+    /// @tparam T Clase del componente 
+    /// @param component componente a añadir 
+    /// @return true si se añade el componente, false si no 
     template<typename T>
     bool addComponent(T* component) {
         return internalAddComponent(cmpId<T>, component);
     }
 
+    /// @brief Addcomponent sobrecargado para efectos de bola, existe porque todos los efectos deben ir a la lista de BallHandler
     template<typename T>
     bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
         auto ballHandler = getComponent<BallHandler>();
@@ -69,6 +75,10 @@ public:
         return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
     }
 
+    /// @brief Addcomponent sobrecargado para componentes de render, así se asegura el orden de las capas al renderizar
+    /// @tparam T 
+    /// @param renderComp 
+    /// @return 
     template<typename T>
     bool addComponent(T* renderComp) requires DerivedFromRender<T>{
 
@@ -82,6 +92,7 @@ public:
         return true;
     }
 
+    /// @brief Addcomponent sobrecargado para transforms, puesto que hay transform físico y lógico
     template<typename T>
     bool addComponent(T* transformComp) requires DerivedFromTransform<T> {
 
@@ -94,10 +105,15 @@ public:
         return true;
     }
 
+    /// @brief Método genérico para eliminar un componente de tipo T
+    /// @return true si se ha eliminado, false si no
     template<typename T>
     bool removeComponent(){
         return internalRemoveComponent(cmpId<T>);
     }
+
+    //----------------------------------------------------------
+    //Los siguientes métodos son sobrecargas iguales que las anteriores
 
     template<typename T>
     bool removeComponent() requires DerivedFromRender<T> {
@@ -138,12 +154,19 @@ public:
         return internalRemoveComponent(ballEffect->getEffectId());
     }
 
+    //----------------------------------------------------------------
+
+    /// @brief Úsalo como un hasComponent()
+    /// @return true si tiene el componente, false si no 
     template<typename T>
     bool tryGetComponent(){
         if(_components[cmpId<T>] == nullptr) return false;
         return true;
     }
 
+    /// @brief Un getComponent que además devuelve booleano para asegurar que el componente devuelto es válido 
+    /// @param returnedComponent La referencia al componente donde va a parar el componente devuelto
+    /// @return true si tiene el componente, false si no 
     template<typename T>
     bool tryGetComponent(T*& returnedComponent) {
         T* comp = dynamic_cast<T*>(_components[cmpId<T>]);
@@ -155,13 +178,15 @@ public:
         return true;
     }
 
+    /// @brief Getter genérico de componentes
+    /// @return El componente si lo tiene, nullptr si no
     template<typename T>
     T* getComponent(){
         return static_cast<T*>(_components[cmpId<T>]);
     }
 
-    // ! IMPORTANTE : NO ESTA PENSADO PARA USAR EN TRANSFORM O RENDER
-    // hay que mirar a ver si funcionaria
+    /// @brief Roba un componente de otra entidad, no funciona en efectos, render o transform
+    /// @param from entidad a la que le robas el componente
     template<typename T>
     void stealComponent(entity_t from){
         assert(from->tryGetComponent<T>() && !this->tryGetComponent<T>());
@@ -175,6 +200,9 @@ public:
         assert(s);
     }
 
+    /// @brief Sobrecarga de stealComponent para efectos de bola
+    /// @param from Entidad a la que le robas el componente
+    /// @param effect el efecto a robar
     void stealComponent(entity_t from, BallEffect* effect){
         bool s = from->internalRemoveComponent(effect->getEffectId(), false);
         assert(s);
@@ -192,20 +220,20 @@ public:
 
     inline RenderComponent* getRenderer() {return _myRenderer;}
 
-    // Enables all entity's components
-    //
+    /// @brief Enables all entity's components
     void activate();
 
-    // Disables all entity's components
-    //
+    /// @brief Disables all entity's components
     void deactivate();
 
+    /// @brief Activa todos los componentes de un tipo T
     template<typename T>
     void activateComponentsOfType() {
         for(Component* component : _currentComponents)
             if(dynamic_cast<T*>(component) != nullptr) component->setEnabled(true);
     }
 
+    /// @brief desactiva todos los componentes de un tipo T
     template<typename T>
     void deactivateComponentsOfType() {
         for(Component* component : _currentComponents)
@@ -214,10 +242,14 @@ public:
 
     void setGameScene(GameScene* scene);
 
+    /// @brief Una cosa necesaria para usar la lista de Mr. Rubén C++ 
     void setListAnchor(GameList<Entity>::anchor&& anchor);
 
+    /// @brief Llama al update de todos sus componentes
     void update();
+    /// @brief Llama al render de todos sus componentes
     void render(); //En posición relativa a la cámara
+    /// @brief Llama al handleEvent de todos sus componentes
     void handleEvents();
 
     inline GameScene& getScene() { return _myScene; }
@@ -244,6 +276,9 @@ private:
     friend BossRewardScene;
     friend ExplosiveEffect;
 
+    /// @brief La constructora es privada por temas que no recuerdo, ahora es bastante pointless, pero tiene muchos amigos
+    /// @param scene La escena en la que se crea la entidad 
+    /// @param gId El grupo al que pertenece la entidad 
     Entity(GameScene& scene, grpId_t gId);
 
     bool _alive; //El booleano alive (o active) se podría eliminar teniendo una lista separada de "entidades que no se actualizan"
@@ -257,12 +292,12 @@ private:
 
     RenderComponent* _myRenderer;
 
-    // NO BORRAR
-    // Esto está aquí para evitar dependencia circular con GameScene
+    //Métodos para manejar el render de entidades por capas
     const std::vector<entity_t>& getSceneRenderEntities();
     void eraseFromRenderEntities(entity_t e);
     void addToSceneRenderEntities(entity_t e);
 
+    // Métodos auxiliares para evitar duplicidad de código en sobrecargas
     bool internalAddComponent(cmpId_t id, Component* component, bool initCmp = true);
     bool internalRemoveComponent(cmpId_t id, bool deleteCmp = true);
 };

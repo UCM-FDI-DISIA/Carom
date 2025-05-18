@@ -2,6 +2,7 @@
 #include "Component.h"
 class Entity;
 
+/// @brief Clase de la que heredan los componentes sin funcionalidad, como el transform lógico
 class InfoComponent : public Component{
 public:
     InfoComponent(Entity* ent) : Component(ent) {}

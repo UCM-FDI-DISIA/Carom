@@ -4,6 +4,7 @@
 
 class Entity;
 
+/// @brief Componente que overridea vacíos todos los métodos base excepto el update
 class LogicComponent : public Component
 {
 public:

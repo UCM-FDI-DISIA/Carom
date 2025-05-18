@@ -7,9 +7,14 @@ using Polygon = std::vector<b2Vec2>;
 
 class TweenComponent;
 
+/// @brief Escena de carambola del piso RussianPyramid
 class RussianPyramidScene : public CaromScene 
 {
 public:
+    /// @brief La constructora de russian pyramid
+    /// @param g El puntero al juego
+    /// @param isBoss Booleano que indica si es la escena de boss
+    /// @param state El estado en el que empieza la escena
     RussianPyramidScene(Game* g, bool isBoss, State* state = nullptr);
     virtual ~RussianPyramidScene();
 
@@ -19,10 +24,13 @@ protected:
     void applyBossModifiers() override;
     void clearBossModifiers() override;
 
+    /// @brief Método para obtener todas las bolas que se pueden convertir en bola blanca
     bool tryInitializeBallArray();
 
+    /// @brief Método auxiliar para instanciar todo lo que necesita el boss
     void createBoss();
 
+    /// @brief Método auxiliar para que las bolas no estén en la misma posición que una pirámide al comenzar una ronda
     virtual void createEffectBalls() override;
 
     // Gimmicks
@@ -38,8 +46,6 @@ protected:
     void generatePyramids(int n);
 
     // Boss modifiers
-
-
 private:
     std::string _pyramidFilenameSVG;
     std::string _areaConstrainName;
