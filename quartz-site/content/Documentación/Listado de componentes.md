@@ -65,3 +65,18 @@ Componente que ***copia*** ciertas propiedades de otra entidad, como la posició
 
 Componente que actúa como un contenedor de referencias a entidades. Se usa como un wrapper, ya que en el método de addShadow se crea una entidad, se le añade TransformComponent, RenderTextureComponent, y FollowComponent, y se añade al vector de ShadowComponent. Se trata de una abstracción.
 
+---
+# Textos
+
+### TextComponent
+...
+### DialogueComponent
+
+Componente que usa el TextComponent para añadir caracteres al texto cada ciertos milisegundos, además de hacer un sonido. 
+Recibe eventos de input con los que se puede pasar a la siguiente frase, ya que tiene un método de ir añadiendo frases
+
+### WobblyTextComponent
+
+Hereda de TextComponent, y lo único que hace es sobreescribir el método render para poder renderizar el texto con vértices de SDL. Con esto, se puede simular un shader de movimiento ya que en cada iteración los vértices se van moviendo dando ese efecto de ola.
+
+
