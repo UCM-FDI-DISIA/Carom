@@ -20,6 +20,7 @@ class Tween;
 
 class TransformComponent;
 
+//Componente que habilita poder hacer interpolaciones lineales en atributos de la Entidad. Contiene métodos para poder interpolar su posición, su escala, y su rotación. También contiene uno para cambiar floats por referencia. Se usa principalmente para añadir animaciones a las entidades.
 class TweenComponent :public LogicComponent{
     using Callback = std::function<void()>;
 

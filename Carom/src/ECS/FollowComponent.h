@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "ecs.h"
 
+//Componente que copia ciertas propiedades de otra entidad, como la posición, rotación y escala.
 class FollowComponent : public LogicComponent{
     Entity* _targetToCopy;
     bool _copyPosition = true;
@@ -11,6 +12,8 @@ class FollowComponent : public LogicComponent{
 public:
 __CMPID_DECL__(cmp::FOLLOW);
 
+    //@param target Entidad a copiar propiedades
+    //@param relativeDistance Si copia la posicion, distancia relativa a copiar (target.pos - relativeDistance = this.pos)
     FollowComponent(Entity* e, Entity* target, bool copyPosition, bool copyRotation, bool copyScale, 
         Vector2D relativeDistance);
     void update() override;
