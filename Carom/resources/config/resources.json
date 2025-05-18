@@ -157,6 +157,7 @@
     { "id" : "PetanqueEffect", "file" : "../../resources/images/balleffect_sheets/petanca-sheet.png"},
     { "id" : "PokeballEffect", "file" : "../../resources/images/balleffect_sheets/poke-sheet.png"},
     { "id" : "QuanticEffect", "file" : "../../resources/images/balleffect_sheets/quantic-sheet.png"},
+    { "id" : "Ignacio", "file" : "../../resources/images/balleffect_sheets/ignacio-sheet.png"},
 
     { "id" : "line", "file" : "../../resources/images/line.png"},
     { "id" : "single_BowlingEffect", "file" : "../../resources/images/bowling.png"},
