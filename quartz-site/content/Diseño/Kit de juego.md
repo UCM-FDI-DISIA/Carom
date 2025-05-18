@@ -1,5 +1,5 @@
 **Descripción**
-Tienes un *inventario basado en celdas*. En él hay un espacio para un palo, otro para una bola blanca y N (por determinar, pero parece que serán 5) espacios para bolas de color. Estos objetos se explican con más detalle en [[Objetos del Inventario]].
+Tienes un *inventario basado en celdas*. En él hay un espacio para un palo, otro para una bola blanca y N (por determinar, pero parece que serán 6) espacios para bolas de color. Estos objetos se explican con más detalle en [[Objetos del Inventario]].
 
 ![[Bolas.png]]
 

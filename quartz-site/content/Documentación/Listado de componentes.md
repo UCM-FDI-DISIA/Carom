@@ -52,3 +52,16 @@ Se encuentra en la escena. Recibe los choques de las bolas de color y filtra los
 
 Componente que tiene la entidad de **Cámara**. Todas las entidades se renderizan en base a la cámara, es decir, dependiendo de la posición de la cámara las entidades se van a renderizan en una posición u otra de la pantalla.
 
+### TweenComponent
+
+Componente que habilita poder hacer interpolaciones lineales en atributos de la Entidad. Contiene métodos para poder interpolar su posición, su escala, y su rotación. También contiene uno para cambiar floats por referencia. 
+Se usa principalmente para añadir animaciones a las entidades.
+
+### FollowComponent
+
+Componente que ***copia*** ciertas propiedades de otra entidad, como la posición, rotación y escala. 
+
+### ShadowComponent
+
+Componente que actúa como un contenedor de referencias a entidades. Se usa como un wrapper, ya que en el método de addShadow se crea una entidad, se le añade TransformComponent, RenderTextureComponent, y FollowComponent, y se añade al vector de ShadowComponent. Se trata de una abstracción.
+
