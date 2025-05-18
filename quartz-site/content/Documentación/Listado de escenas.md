@@ -28,7 +28,7 @@ Se encarga de indicar que se ha perdido el juego, lo que hace que acabe la run.
 
 #### ...
 
-...
+CaromScene cuenta dentro de sí misma con una máquina de estados, necesaria para principalmente controlar el flujo de la partida en curso. Por ejemplo: saber si el jugador puede tirar, si ha tirado y se tienen que contar los puntos, si se han parado  las bolas y el jugador puede volver a tirar... Véase [[Listado de componentes]].
 
 
 
