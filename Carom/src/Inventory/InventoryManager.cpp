@@ -313,6 +313,7 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
         for(int j =0; j < info.size(); j++){
 
             data["slot" + std::to_string(i)]["components"][0]["atributes"]["effects"][j]["componentName"] = info[j];
+            data["slot" + std::to_string(i)]["components"][0]["componentName"] = "BallHandler";
         }
     }
 
