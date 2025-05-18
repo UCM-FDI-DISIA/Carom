@@ -514,7 +514,7 @@
     },
     {
       "id" : "cristal_ballDesc_pool", 
-      "text" : "La bola gana mas area de choque por aumentar de tamano, pero hay una probabilidad de que se rompa y la pierdas", 
+      "text" : "La bola gana mas area de choque por aumentar de tamano", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
