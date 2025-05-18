@@ -22,5 +22,6 @@ void PokeballEffect::onHit(entity_t ent)
 
     
     _myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(texture);
+    ent->getComponent<RenderSpritesheetComponent>()->setTexture(&sdlutils().images().at("Ignacio"));
     _myEntity->removeComponent<PokeballEffect>();
 };

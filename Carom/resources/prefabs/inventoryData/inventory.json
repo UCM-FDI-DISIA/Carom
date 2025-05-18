@@ -3,13 +3,17 @@
    "charisma": 0,
    "comboEase": 0,
    "cunning": 1.0,
-   "hitEase": 0,
-   "power": 0,
+   "hitEase": 1,
+   "power": 1,
    "slot0": {
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -19,7 +23,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "CristalEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -29,7 +37,39 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot3": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot4": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "CristalEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
