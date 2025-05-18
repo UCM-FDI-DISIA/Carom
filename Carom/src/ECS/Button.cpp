@@ -19,14 +19,7 @@ void Button::setEntity(entity_t other)
 {
     _myEntity = other;
 
-    RenderComponent* a_targetRenderer;
-
-    if (_myEntity->tryGetComponent<RenderTextureComponent>()) {
-        a_targetRenderer = _myEntity->getComponent<RenderTextureComponent>();
-    }
-    else if (_myEntity->tryGetComponent<RenderSpritesheetComponent>()) {
-        a_targetRenderer = _myEntity->getComponent<RenderSpritesheetComponent>();
-    }
+    RenderComponent* a_targetRenderer = _myEntity->getRenderer();
 
     _buttonArea->setRenderer(a_targetRenderer);
     _transform = _myEntity->getComponent<TransformComponent>();

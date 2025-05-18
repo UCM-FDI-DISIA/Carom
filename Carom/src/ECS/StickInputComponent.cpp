@@ -80,7 +80,7 @@ void StickInputComponent::handleEvent()
             //aplicar tween con callback al final
             TweenComponent* _tween = _myEntity->getComponent<TweenComponent>();
             Vector2D distance = dirNormalized * PhysicsConverter::pixel2meter(_myRender->getRenderRect().w)/2;
-            float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+            float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getRenderer()->getRenderRect().w/2);
             _tween->easePosition({_center.x - distance.getX() - dirNormalized.getX() - a_ballRadius,
                                     _center.y - distance.getY() - dirNormalized.getY() - a_ballRadius},
                                     .08f, tween::EASE_IN_EXPO, false, [=](){
@@ -134,7 +134,7 @@ void StickInputComponent::transformControl(b2Vec2 _mousePos, Vector2D dir)
 
     Vector2D a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
                                 _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
-    float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+    float a_ballRadius = PhysicsConverter::pixel2meter(_whiteBall->getRenderer()->getRenderRect().w/2);
     float a_stickHeight = _myRender->getRenderRect().h;
 
     float distX = PhysicsConverter::pixel2meter(a_stickHeight/2) * cosalpha;
@@ -168,7 +168,7 @@ void StickInputComponent::aimLineTransformControl(Vector2D dir)
         float a_sinalpha = dir.normalize() * Vector2D(0, 1);
     
         float a_ballRadius = 
-            PhysicsConverter::pixel2meter(_whiteBall->getComponent<RenderTextureComponent>()->getRenderRect().w/2);
+            PhysicsConverter::pixel2meter(_whiteBall->getRenderer()->getRenderRect().w/2);
     
         b2Vec2 a_ballCenter = { _whiteBall->getComponent<RigidBodyComponent>()->getPosition().x,
             _whiteBall->getComponent<RigidBodyComponent>()->getPosition().y};
