@@ -9,6 +9,8 @@ void PokeballEffect::onHit(entity_t ent)
 {
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
     if(effects.size() == 0) return;
+
+    Texture* texture = ent->getComponent<RenderSpritesheetComponent>()->getTexture();
     
     for(BallEffect* effect : effects)
     {
@@ -18,8 +20,7 @@ void PokeballEffect::onHit(entity_t ent)
     ent->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->getComponent<BallHandler>()->breakHit();
 
-    BallEffect* firstEffect = _myEntity->getComponent<BallHandler>()->getEffects()[0];
-    _myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(&sdlutils().images().at(BallEffect::effectTextureName(firstEffect)));
-
+    
+    _myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(texture);
     _myEntity->removeComponent<PokeballEffect>();
 };
