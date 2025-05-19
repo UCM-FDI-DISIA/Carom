@@ -418,6 +418,7 @@ PoolScene::createCallbacks() {
         holeButton->setOnClick([=](){
             hideReward(i);
             hideBallEffect(i);
+            holeButton->setOnClick([=]{});
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
 
 
@@ -452,7 +453,6 @@ PoolScene::createCallbacks() {
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
 
-                holeButton->setOnClick([=]{});
                 holeButton->setOnHover([=]{});
                 hideBallEffect(i);
             });

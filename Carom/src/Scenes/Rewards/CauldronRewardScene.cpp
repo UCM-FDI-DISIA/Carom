@@ -88,9 +88,9 @@ void CauldronRewardScene::initObjects()
             break;
     };
 
-    title.text = "Se añadira el siguiente efecto: ";
+    title.text = "Se añadira el siguiente efecto: \n";
 
-    auto svgElem = *&sdlutils().svgs().at("reward").at("textArea_center");
+    auto svgElem = *&sdlutils().svgs().at("reward").at("textArea_centrado");
     auto pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
 
     //Entity* entity, layerId_t renderLayer, float displayScale, 

@@ -2,9 +2,9 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 1.0,
-   "hitEase": 1,
-   "power": 0,
+   "cunning": 0.906989574432373,
+   "hitEase": 2,
+   "power": 4,
    "slot0": {
       "components": [
          {
@@ -19,7 +19,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "QuanticEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -35,7 +39,59 @@
          }
       ]
    },
+   "slot3": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot4": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  },
+                  {
+                     "componentName": "CristalEffect"
+                  },
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot5": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
    "stick": {
-      "components": []
+      "components": [
+         {
+            "componentName": "DonutStickEffect"
+         }
+      ]
    }
 }
