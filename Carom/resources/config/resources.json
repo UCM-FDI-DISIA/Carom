@@ -168,7 +168,10 @@
     { "id" : "single_PokeballEffect", "file" : "../../resources/images/poke.png"},
     { "id" : "single_QuanticEffect", "file" : "../../resources/images/quantic.png"},
     { "id" : "explosion", "file" : "../../resources/images/explosion.png"},
-    { "id" : "boss_ball", "file" : "../../resources/images/boss_ball.png"}
+    { "id" : "boss_ball", "file" : "../../resources/images/boss_ball.png"},
+    { "id" : "current_score", "file" : "../../resources/images/current_score.png"},
+    { "id" : "to_beat_score", "file" : "../../resources/images/to_beat_score.png"},
+    { "id" : "plus", "file" : "../../resources/images/plus.png"}
 
   ],
   

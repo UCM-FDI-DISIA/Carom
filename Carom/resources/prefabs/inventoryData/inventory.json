@@ -2,14 +2,18 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 1.0,
+   "cunning": 0.8730132579803467,
    "hitEase": 0,
    "power": 0,
    "slot0": {
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -19,7 +23,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -29,14 +37,68 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "BowlingEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot3": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  },
+                  {
+                     "componentName": "PetanqueEffect"
+                  },
+                  {
+                     "componentName": "BowlingEffect"
+                  },
+                  {
+                     "componentName": "QuanticEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot4": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
+            },
+            "componentName": "BallHandler"
+         }
+      ]
+   },
+   "slot5": {
+      "components": [
+         {
+            "atributes": {
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
       ]
    },
    "stick": {
-      "components": [
-      ]
+      "components": []
    }
 }
