@@ -77,6 +77,7 @@ void BossRewardScene::initObjects()
             Button::TextureButton rButton = Button::TextureButton();
             auto button = addComponent<Button>(ball, rButton);
 
+            //Se añaden las funciones para las bolas a añadir
             button->setOnClick([this, ball, i]() {
                 if(checkIfBallIsObtained(i)) {
                     ball->getComponent<RenderTextureComponent>()->resetColorTint();
@@ -92,11 +93,13 @@ void BossRewardScene::initObjects()
             p++;
         }
 
+        //Mostramos el botón de salir por defecto
         showExitButton();
     }
 
     auto ballButtons = openInventory();
 
+    //Se añaden a los botones las funciones para las bolas a eliminar
     for(auto& ballButton : ballButtons) {
         ballButton.button->setOnClick([this, ballButton]() {
             if(checkIfBallIsSelected(ballButton.slot)) {
@@ -127,6 +130,8 @@ void BossRewardScene::initFunctionalities()
 
 }
 
+//Checkea si la selección de bolas es válida, en caso de serlo muestra el botón de salir
+// y en caso contrario lo oculta
 void BossRewardScene::checkIfValid()
 {
     if(_inventory->getNumberOfEffectBalls() + _selectedBalls.size() - _ballsToRemove.size() > InventoryManager::MAX_BALLS) {
@@ -138,6 +143,7 @@ void BossRewardScene::checkIfValid()
     }
 }
 
+//Aplica la recompensa, elimina las bolas seleccionadas del inventario y añade las bolas seleccionadas de la recompensa
 void BossRewardScene::applyReward() {
     for(int index : _ballsToRemove) {
         _inventory->removeBall(index-1);

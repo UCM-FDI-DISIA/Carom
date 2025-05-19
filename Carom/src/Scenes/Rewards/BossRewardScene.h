@@ -18,17 +18,29 @@ public:
     virtual void initFunctionalities() override;
 
 private:
+    //Devuelve verdadero si la selección de bolas es válida, es decir, si al eliminar las
+    //bolas del inventario y al seleccionar las bolas de la recompensa no se supera el límite
+    //de bolas del inventario
     void checkIfValid();
 
+    //Checkea si la bola seleccionada para eliminar ya estaba seleccionada
     bool checkIfBallIsSelected(int ballId);
+
+    //Checkea si la bola seleccionada para añadir ya estaba seleccionada
     bool checkIfBallIsObtained(int ballId);
 
+    //Método auxiliar para comprobar si un elemento está en un vector
     inline bool hasElement(std::vector<int>& vec, int elem) {
         return std::find(vec.begin(), vec.end(), elem) != vec.end();
     }
 
+    //Vector que guarda la información de las bolas obtenidas de la escena de pool
     std::vector<PoolScene::BallInfo> _obtainedBallsInfo;
+
+    //Vector que guarda los indices de las bolas seleccionadas para añadir al inventario
     std::vector<int> _selectedBalls;
     InventoryManager* _inventory;
+
+    //Vector que guarda los indices en el inventario de las bolas que se van a eliminar
     std::vector<int> _ballsToRemove;
 };
