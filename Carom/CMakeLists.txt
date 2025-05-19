@@ -179,7 +179,6 @@ add_executable(Carom
     src/Scenes/Rewards/BossRewardScene.cpp
     src/Scenes/Rewards/PermanentRewardScene.cpp
     src/Scenes/Rewards/StickRewardScene.cpp
-    src/Scenes/Rewards/GumballRewardScene.cpp
 
 	src/Inventory/InventoryManager.cpp
 
