@@ -139,11 +139,7 @@ RewardScene::openInventory()
 
     //animacion
     b2Vec2 finalPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer").x, sdlutils().height()/2);
-    tween->easePosition(finalPos, 5.0f, tween::EASE_OUT_ELASTIC, false, [=](){
-        //UNPAUSE ENTITY
-        Entity* unpause = new Entity(*this, grp::PAUSE_UNPAUSE);
-        addComponent<UnpauseComponent>(unpause, tween);
-    });
+    tween->easePosition(finalPos, 5.0f, tween::EASE_OUT_ELASTIC, false, [=](){});
     
     std::ifstream f(InventoryManager::Instance()->pathToInventory);
     json data = json::parse(f);
