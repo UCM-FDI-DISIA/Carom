@@ -1,16 +1,11 @@
->[!Nota para los profes]
->El archivo [[Cosas OPCIONALES]] **no es ni importante ni definitivo**, podéis (y quizá debéis) no leerlo.
-
 ## *Descripción general*
-Carom es un Rogue-Like siniestro, de puntuación incremental, basado en el billar francés.
+Carom es un Rogue-Like de puntuación incremental, basado en el billar francés.
 
 En una partida se muestra un billar en perspectiva top-down y se tendrán que realizar golpes controlando la dirección y fuerza de un palo para superar una puntuación. 
 
-Los distintos tipos de golpe, las habilidades de las bolas y el cambio de normas de los pisos mantienen cada run fresca y distinta de las demás.
-
 ## *Estética*
-- En tono siniestro, Carom se pasa en una torre misteriosa:  [[Contexto y Lore]]
-- La sensación de intranquilidad es pasada por la estética:  [[Apartado estético]]
+- Para crear una atmósfera siniestra, Carom se ambienta en una torre misteriosa:  [[Contexto y Lore]]
+- El estilo gráfico es pre-renderizado y con materiales de plastilina:  [[Apartado estético]]
 
 ## *Mecánicas y dinámicas básicas*
 
@@ -36,5 +31,3 @@ Los distintos tipos de golpe, las habilidades de las bolas y el cambio de normas
 ## *Victoria y derrota*
 - Para seguir jugando, se debe superar una puntuación que va incrementando:  [[Sistema de puntuación]]
 - Cada ronda ganada victoria el jugador recibe una recompensa que le dará más posibilidades de obtener una puntuación mayor:  [[Recompensas]]
-
-

@@ -1,26 +1,22 @@
-Se creará una UI con una forma *mínima* y *diegética*. Esto quiere decir que habrá pocos elementos en pantalla aparte de la zona de juego y, además, que los elementos estarán integrados como si fueran parte del mundo del juego.
+Se ha creado una UI con una intención *mínima* y *diegética*. Esto quiere decir que se evitan los elementos inútiles en la pantalla de juego, reservándose para partes del juego sin acción. Además, los elementos de la interfaz están integrados como parte del mundo del juego, convirtiéndose en cajones de la mesa, cajas para guardar bolas o sellos de tiza.
 
 ## Durante el juego
-Se va a buscar una disposición parecida a la siguiente imagen:
+La siguiente imagen muestra la disposición de la interfaz en una partida de carambola: 
 
 ![[interfaz.png]]
 
-Los elementos de arriba de la pantalla son **los puntos del jugador y los puntos a conseguir en la ronda**. Se encuentran separados por un "/". Los puntos del jugador se van a ir actualizando conforme se puntúe en la partida, y se podrán añadir elementos externos como multiplicación de puntuaje para mostrar efectos de las bolas.
+Los elementos de arriba de la pantalla son, de izquierda a derecha: la puntuación acumulada, la conseguida este golpe, los puntos a conseguir en la ronda y el número de tiradas.
 
-**Arriba a la derecha** se encontrarán las jugadas que te quedan en la partida para alcanzar la puntuación deseada.
+La siguiente imagen muestra el menú de pausa o inventario, camuflado como un cajón de la mesa:
 
-En la parte de la izquierda se muestran "botones" de distintas opciones del juego. Si se pulsa algún botón de estos, se muestra un desplegable con el contenido de cada menú correspondiente.
+**INSERTAR IMAGEN**
+
+Por último, el lobby de selección de niveles, que se convierte en una [[Mesa de Pool]], con sellos mostrando las stats permanentes del jugador.
+
+**INSERTAR IMAGEN**
 
 Artísticamente, se va a representar como unos cajones que hay al lado del jugador, siendo cada botón un nivel del cajón que guarda distintas cosas.
 
-A continuación se muestran ejemplos de cada menú desplegable:
-### Menú de inventario
-![[interfaz-inventario.png]]
-El jugador almacena un maletín de juego, donde están representadas las bolas con las que cuenta y el palo con el que juega.
+A continuación se muestran otros menús misceláneos que se pueden encontrar en el juego.
 
-### Menú de configuración
-![[interfaz-opciones.png]]
-Se podrá ir a la configuración del juego o salir al menú principal, además de todo tipo de funcionalidades extra que se necesiten añadir.
-
-## Efectos visuales durante la ronda
-
+**INSERTAR IMAGEN**

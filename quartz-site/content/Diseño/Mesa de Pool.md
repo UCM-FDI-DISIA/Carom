@@ -2,7 +2,7 @@ Cada piso tiene un lobby en forma de mesa de billar "pool" desde el que eliges l
 - Cada uno de los huecos de esta mesa representa una posible partida a jugar.
 - Frente a cada hueco hay una bola de color, con las propiedades habituales de una de estas (ver [[Objetos del Inventario]]).
 
-Para jugar una ronda, el jugador hará click en una bola o agujero, entonces la bola entrará en el hueco y comenzará una partida. En cada piso existe, al menos, un agujero de "boss" y un agujero de "ronda estándar". Al completar la ronda de boss, avanzas al siguiente piso.
+Para jugar una ronda, el jugador hará click en un agujero, entonces la bola entrará en el hueco y comenzará una partida. En cada piso existen 5 huecos de "ronda normal" y uno de "ronda de jefe".
 
 La única ronda que estás obligado a jugar es la del boss de la planta. Para todas las otras, puedes simplemente no jugarlas, ya que esto supondrá un cierto beneficio. En particular:
 - Cada ronda que juegues (y ganes) te otorgará una de las [[Recompensas]] posibles. Esta recompensa se podrá consultar antes de jugar si se pasa el cursor sobre el agujero
