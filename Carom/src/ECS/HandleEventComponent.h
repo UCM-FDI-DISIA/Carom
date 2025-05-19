@@ -2,6 +2,7 @@
 #include "Component.h"
 class Entity;
 
+/// @brief Componente que overridea a vacío todo excepto manejar eventos
 class HandleEventComponent : public Component
 {
 public:

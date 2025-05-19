@@ -1,1 +1,0 @@
-// escena para cada bola que se gana

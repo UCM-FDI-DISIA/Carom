@@ -63,15 +63,16 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
         game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpea dos bolas consecutivamente con la bola blanca")));
     });
-    dialogue->addDialogue("Bien ");
+    dialogue->addDialogue("Impresionante ");
     dialogue->addDialogue("Una última cosa ");
     dialogue->addDialogue("Te encuentras sobre una mesa de billar ");
     dialogue->addDialogue("Aquí puedes elegir tu próxima partida, ");
     dialogue->addDialogue("y siempre que termines una partida volverás aquí ");
     
-    dialogue->addDialogue("Para elegir una partida, selecciona un hoyo ");
-    dialogue->addDialogue("Podrás ver la recompensa que recibirás al completarla ");
-    dialogue->addDialogue("Seleccionar una partida destruye la bola asignada al hoyo ");
+    dialogue->addDialogue("Para elegir una partida, haz click sobre un hoyo ");
+    dialogue->addDialogue("Usa el cursor para ver tu premio si ganas la partida ");
+    dialogue->addDialogue("Recuerda, la informacion es poder");
+    dialogue->addDialogue("Jugar una partida destruye la bola que cae al hoyo ");
     dialogue->addDialogue("Supera al jefe y recibirás las bolas restantes del billar ");
 
     dialogue->addDialogue("Bien, ya estás preparado ");
@@ -97,10 +98,6 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("eres nuestro para siempre", [=](){
         game->getScenesManager()->popScene();
     });
-
-    
-
-
 }
 
 

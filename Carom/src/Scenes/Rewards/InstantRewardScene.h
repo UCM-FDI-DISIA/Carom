@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 
+/// @brief Clase de la que heredan todas las recompensas que alteran el inventario, con funcionalidad para manejar elecciones
 class InstantRewardScene : public RewardScene 
 {
 public:

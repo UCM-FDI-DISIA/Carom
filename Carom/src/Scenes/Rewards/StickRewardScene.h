@@ -2,6 +2,7 @@
 
 #include "InstantRewardScene.h"
 
+/// @brief Recompensa que le da un palo al jugador
 class StickRewardScene : public InstantRewardScene 
 {    
 public:

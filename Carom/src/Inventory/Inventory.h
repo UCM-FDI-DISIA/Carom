@@ -11,6 +11,7 @@ class StickEffectComponent;
 class Texture;
 class InventoryManager;
 
+/// @brief Una clase obsoleta que contenía el inventario antes de que se pasase al json
 class Inventory {
     const static int MAX_BALLS = 6;
     public:

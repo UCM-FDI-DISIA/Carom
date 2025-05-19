@@ -10,6 +10,7 @@ class Texture;
 
 class TweenComponent;
     
+/// @brief Componente de render de todos los objetos con textura
 class RenderTextureComponent : public RenderComponent {
     friend TweenComponent;
 protected:
@@ -25,9 +26,26 @@ protected:
 public:
     __CMPID_DECL__(cmp::RENDER_TEXTURE);
 
-
+    /// @brief Constructora del componente de renderizado con texturas
+    /// @param texture la textura  
+    /// @param renderLayer la capa que representa la profundidad de renderizado
+    /// @param scale La escala de la textura
     RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale);
+
+
+    /// @brief Constructora del componente de renderizado con texturas
+    /// @param texture la textura  
+    /// @param renderLayer la capa que representa la profundidad de renderizado
+    /// @param scale La escala de la textura
+    /// @param absCenteredRect 
     RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Rect absCenteredRect);
+
+
+    /// @brief Constructora del componente de renderizado con texturas
+    /// @param texture la textura  
+    /// @param renderLayer la capa que representa la profundidad de renderizado
+    /// @param scale La escala de la textura
+    /// @param tint EL color del que se tiñe la textura 
     RenderTextureComponent(Entity*, Texture*, int renderLayer, float scale, SDL_Color tint);
     ~RenderTextureComponent() {};
 

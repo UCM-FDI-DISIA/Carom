@@ -138,7 +138,7 @@ PoolScene::generateHole(int i)
 
 void PoolScene::setBossBallTexture(){
     auto bossBall = getEntitiesOfGroup(grp::POOL_BALLS)[_bossHole];
-
+    
     bossBall->getComponent<RenderTextureComponent>()->setTexture(&sdlutils().images().at("boss_ball"));
 }
 
@@ -458,9 +458,6 @@ PoolScene::createCallbacks() {
             hideReward(i);
         });
         
-        ballButton->setOnClick(holeButton->getOnClick());
-
-        // TODO: dejar apaniado esto cuano termine Diego el BallCompsInfo
         ballButton->setOnHover([this, i]() {
              showBallEffect(i);
         });
@@ -470,6 +467,7 @@ PoolScene::createCallbacks() {
         });
 
         ballButton->setOnRightClick([this, i]() {
+            if(i == _bossHole) return;
             scrollBallEffect(i);
         });
 

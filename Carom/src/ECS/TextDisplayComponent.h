@@ -9,6 +9,8 @@ class Font;
 class Texture;
 
 class ITransform;
+
+/// @brief El componente de renderizado de los textos convertidos a texturas
 class TextDisplayComponent : public RenderTextureComponent{
 protected:
     //Atributos del texto
@@ -16,6 +18,7 @@ protected:
     SDL_Color _color;
     std::string _key;
 
+    /// @brief Método auxiliar para generar una textura a partir de la string
     void reGenerateTexture();
 public:
     /// @brief Constructor del componente para mostrar texto

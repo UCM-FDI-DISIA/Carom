@@ -27,6 +27,7 @@ class TweenComponent;
  * lista de manejadores de eventos, pero no los elimina.
  */
 class GameScene
+
 {
 private:
     std::vector<entity_t> _entsRenderable;

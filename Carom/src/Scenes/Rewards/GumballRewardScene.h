@@ -3,6 +3,7 @@
 
 #include "RewardScene.h"
 
+/// @brief Descartada
 class GumballRewardScene : public RewardScene 
 {    
 public:

@@ -2,6 +2,7 @@
 
 #include "InstantRewardScene.h"
 
+/// @brief Recompensa de fusionar dos bolas 
 class FusionRewardScene : public InstantRewardScene 
 {    
 public:
