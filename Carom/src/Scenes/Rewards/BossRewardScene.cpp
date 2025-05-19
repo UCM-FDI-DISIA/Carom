@@ -44,9 +44,15 @@ bool BossRewardScene::checkIfBallIsObtained(int ballId) {
 
 void BossRewardScene::initObjects()
 {
-    createObtainedBalls();
+    // Mover el botón de continuar más a la derecha
+    moveExitButtonToRight();
 
-    createBallInfoText();
+    //Mostramos el botón de salir por defecto
+    showExitButton();
+    
+    createObtainedBalls(); // Bolas restantes de la PoolScene
+
+    createBallInfoText(); //
     
 
     auto ballButtons = openInventory();
@@ -68,11 +74,6 @@ void BossRewardScene::initObjects()
 
     }
 
-    // Mover el botón de continuar más a la derecha
-    moveExitButtonToRight();
-
-    //Mostramos el botón de salir por defecto
-    showExitButton();
 }
 
 bool BossRewardScene::checkIfBallIsSelected(int ballId) {
@@ -197,7 +198,7 @@ BossRewardScene::createBallInfoText()
 
     for(int i = 0; i < _obtainedBallsInfo.size(); ++i) {
         // --- FONDO
-        description = new Entity(*this, grp::BALL_INFO_BG);
+        description = new Entity(*this, grp::REWARD_INFO_BG);
 
 
         addComponent<TransformComponent>(description, pos);
@@ -218,7 +219,7 @@ BossRewardScene::createBallInfoText()
         ballType = sdlutils().texts().at("ballEffectType_pool");
 
         // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
-        description = new Entity(*this, grp::BALL_INFO_TEXT);
+        description = new Entity(*this, grp::REWARD_INFO_TEXT);
         addComponent<TransformComponent>(description, pos);
         RewardInfoDisplayComponent* a_desc = addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
                 body_t{title.text, title.font, title.color, scale*1.5f},
@@ -239,10 +240,10 @@ BossRewardScene::showBallEffect(int i)
 {
     assert(i < _obtainedBallsInfo.size());
 
-    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
     descriptions[i]->activate();
 
-    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+    descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->activate();
 }
 
@@ -251,10 +252,10 @@ BossRewardScene::hideBallEffect(int i)
 {
     assert(i < _obtainedBallsInfo.size());
 
-    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::REWARD_INFO_BG);
     descriptions[i]->deactivate();
 
-    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+    descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->deactivate();
 }
 
