@@ -40,7 +40,9 @@ void InventoryManager::loadInventoryWithPath(std::string path){
         while(std::getline(ini_file,line)){
             out_file << line << "\n";
         }
+        #ifdef _DEBUG
         std::cout << "Loaded " << path << " Correctly" << std::endl;
+        #endif
  
     } else {
         //Something went wrong
@@ -63,11 +65,15 @@ void InventoryManager::exportInventoryToSave(){
         while(std::getline(ini_file,line)){
             out_file << line << "\n";
         }
+        #ifdef _DEBUG
         std::cout << "Loaded " << pathToInventory << " Correctly" << std::endl;
+        #endif
  
     } else {
         //Something went wrong
+        #ifdef _DEBUG
         printf("Cannot read File");
+        #endif
     }
 }
 

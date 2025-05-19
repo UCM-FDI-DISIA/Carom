@@ -36,7 +36,9 @@ void EndGameScene::hasWon()
 
 void EndGameScene::standardWin()
 {
+    #ifdef _DEBUG
     std::cout << "WIN" << std::endl;
+    #endif
 
     createSVGImage("win", "youwin", "youwin");
 

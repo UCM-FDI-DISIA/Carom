@@ -252,8 +252,10 @@ void JsonEntityParser::rigidBodyComponent(const JSONObject& atributes, Entity* e
 }
 
 void JsonEntityParser::renderTextureComponent(const JSONObject& atributes, Entity* entity){
-    std::string key = atributes.at("textureID")->AsString();       
+    std::string key = atributes.at("textureID")->AsString();  
+    #ifdef _DEBUG     
     std::cout<<key;
+    #endif
     float scale = atributes.at("scale")->AsNumber();
 
     int layer = atributes.at("layer")->AsNumber();

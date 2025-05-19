@@ -39,7 +39,9 @@ CowboyPoolScene::CowboyPoolScene(Game* g, bool isBoss, State* state)
 
 CowboyPoolScene::~CowboyPoolScene()
 {
+    #ifdef _DEBUG
     std::cout << "DESTRUCTOR COWBOY" << std::endl;
+    #endif
     // SDLUtils borra las imágenes, pero si hay reload de la escena necesita estar todo borrado
     if(SDLUtils::HasInstance())
         for (int i = 0; i < _sandBanks; ++i)
@@ -57,7 +59,9 @@ void CowboyPoolScene::initBoss()
 }
 
 void CowboyPoolScene::createBoss(){
+    #ifdef _DEBUG
     std::cout << "creando jefe y sombra" << std::endl;
+    #endif
     
     //crear jefe
     Entity* boss = new Entity(*this, grp::BOSS_HAND);
@@ -84,7 +88,9 @@ void CowboyPoolScene::createBoss(){
 
 void CowboyPoolScene::initGimmick(){
     //comportamiento (anyadir entidades de arena en la mesa)
+    #ifdef _DEBUG
     std::cout<< "CowboyPool Gimmick Instantiated" << std::endl;
+    #endif
 
     int nBanks = 3; // Number of sandbanks to be generated
     generateSandBanks(nBanks, _sandFriction);
@@ -125,11 +131,9 @@ void CowboyPoolScene::pickAndPositionSandPolygons(
     {
         bool found = false;
         int attempts = 50;
-        // std::cout<< "attempts: " << attempts <<std::endl;
 
         // Try a polygon
         int polyId = _rngManager->getRandomItem(polygons, true);
-        // std::cout << "polyid: " << polyId <<std::endl; 
         std::vector<b2Vec2> candidatePoly = sandBanksPolygons[polyId - 1];
 
         // Get center
@@ -145,15 +149,11 @@ void CowboyPoolScene::pickAndPositionSandPolygons(
                 (_rngManager->randomRange(areaConstrain.y, areaConstrain.y + areaConstrain.h))
             };
 
-            // Update vertices positions by offset (distance between gen and original centers)
             // PIXELS
             b2Vec2 offset = genRandomCenter - polyCenter;
-            // std::cout << "offsetX: " << offset.x << " offsetY: " << offset.y << std::endl;
 
             for (auto& vert : candidatePoly){
-                // std::cout << "Before offset vertX : " << vert.x << " Before offset vertY : " << vert.y << std::endl;
                 vert += offset;
-                // std::cout << "After vertX : " << vert.x << " After vertY : " << vert.y << std::endl;
             }
             
             // First polygon
@@ -338,7 +338,9 @@ CowboyPoolScene::generateBulletHolesPositions(int n) {
 
 void
 CowboyPoolScene::applyBossModifiers() {
+    #ifdef _DEBUG
     std::cout << "aplicando modificador de boss desde CowboyPoolScene" << std::endl;
+    #endif
 
     int n = sdlutils().rand().nextInt(1,4);
     std::vector<b2Vec2> bulletPositions = generateBulletHolesPositions(n);
@@ -399,7 +401,9 @@ void CowboyPoolScene::moveAndShoot(int index, std::vector<b2Vec2> bulletPos, Twe
 
 void CowboyPoolScene::clearBossModifiers()
 {
+    #ifdef _DEBUG
     std::cout<< "ClearBossModifiers" << std::endl;
+    #endif
     // Reset hole changes on balls and deactivate it
     for(auto& e: getEntitiesOfGroup(grp::BOSS_MODIFIERS)){
         if (e->tryGetComponent<HoleComponent>())

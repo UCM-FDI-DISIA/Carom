@@ -43,7 +43,9 @@ RussianPyramidScene::~RussianPyramidScene()
 
 void RussianPyramidScene::initGimmick(){
     //comportamiento (anyadir entidades de arena en la mesa)
+    #ifdef _DEBUG
     std::cout<< "RussianPyramidScene Gimmick Instantiated" << std::endl;
+    #endif
 
     int nPyramids = 1;
     generatePyramids(nPyramids);
@@ -338,8 +340,9 @@ void RussianPyramidScene::generatePyramids(int n)
         for (int i = 0; i < choosenPolygons.size(); ++i) {
             createPyramid(choosenPolygons[i], auxPoints[i], polyIds[i]);
         }
-
+        #ifdef _DEBUG
         std::cout << "PYRAMIDS CREATED" << std::endl;
+        #endif
 }
 
 void

@@ -5,8 +5,16 @@
 
 EventOnCollision::EventOnCollision(entity_t ent) : PhysicsComponent(ent)
 {
-    _onCollisionEnter = [this](entity_t entity, b2Manifold& contactData) { std::cout << "Entered with " << entity << std::endl; };
-    _onCollisionExit = [this](entity_t entity) { std::cout << "Exited with " << entity << std::endl; };
+    _onCollisionEnter = [this](entity_t entity, b2Manifold& contactData) { 
+        #ifdef _DEBUG
+        std::cout << "Entered with " << entity << std::endl; 
+        #endif
+    };
+    _onCollisionExit = [this](entity_t entity) { 
+        #ifdef _DEBUG
+        std::cout << "Exited with " << entity << std::endl;
+        #endif 
+    };
 }
 
 EventOnCollision::EventOnCollision(entity_t ent, std::function<void(entity_t, b2Manifold&)> enter, std::function<void(entity_t)> exit) : PhysicsComponent(ent)

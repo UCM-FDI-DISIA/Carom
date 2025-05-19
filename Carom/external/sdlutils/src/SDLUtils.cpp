@@ -465,8 +465,9 @@ SDLUtils::sdl_resource_table<SDLUtils::svgElem> SDLUtils::loadSVG(const char* fi
 
 	// Free the SVG image
 	nsvgDelete(image);
-
+    #ifdef _DEBUG
 	std::cout << "SVG loaded and parsed successfully!" << std::endl;
+	#endif
 	return svgMap;
 }
 

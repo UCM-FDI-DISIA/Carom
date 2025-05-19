@@ -293,7 +293,6 @@ GraphisUtils::generateNonOverlappingPolygons(
         b2Hull hull = b2ComputeHull(vertices.data(), vertices.size());
         if (!b2ValidateHull(&hull)) {
             attempts++;
-            // std::cout << "Invalid hull" << std::endl;
             continue; // Skip this polygon if the hull is invalid
         }
         
@@ -319,7 +318,6 @@ GraphisUtils::generateNonOverlappingPolygons(
         } else {
             attempts++;
         }
-        // std::cout << "Attempts: " << attempts << std::endl;
     }
     
     return polygons;
@@ -570,15 +568,6 @@ std::vector<std::vector<b2Vec2>> GraphisUtils::extractPolygons(int n, int vert)
         polygons.push_back(vertices);
         idx += 1;
     }
-
-    // for (auto& p : polygons){
-    //     for (auto& v : vertices){
-    //         std::cout << "vertice: " << v.x << " " << v.y << std::endl;
-    //     }
-    // }
-
-    // std::cout << "polygons: " << polygons.size() << std::endl;
-
     return polygons;
 }
 
@@ -588,12 +577,8 @@ std::vector<b2Vec2> GraphisUtils::extractPointsFromSVG(int n, int startIdx, cons
     std::vector<b2Vec2> points;
     points.reserve(n);
 
-    // std::cout << "name: " << name << std::endl;
-
     for (int i = startIdx; i < n + startIdx; ++i)
     {
-        // std::cout << "point: " << name + std::to_string(i) << std::endl;
-
         b2Vec2 point = {static_cast<float>(svg->at(name + std::to_string(i)).x)
                      ,  static_cast<float>(svg->at(name + std::to_string(i)).y)
                     };
@@ -606,5 +591,7 @@ std::vector<b2Vec2> GraphisUtils::extractPointsFromSVG(int n, int startIdx, cons
 
 void GraphisUtils::coutRect(const SDL_Rect &rect)
 {
+    #ifdef _DEBUG
     std::cout << "Rect x: " << rect.x << ", y: " << rect.y << ", w: " << rect.w << ", h: " << rect.h << std::endl;
+    #endif
 }

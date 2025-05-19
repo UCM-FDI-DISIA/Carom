@@ -434,18 +434,14 @@ void CaromScene::updatePhysics()
 
 void CaromScene::updateScene()
 {
-    // std::cout<< "Start Change state" << std::endl;
     State* a_stateToChange = nullptr;
     if(_currentState->checkCondition(a_stateToChange)){
         setNewState(a_stateToChange);
     }
-    // std::cout<< "End Change state" << std::endl;
     
     _hitManager->clearAllHits();
 
-    // std::cout<< "START GameScene Update" << std::endl;
     GameScene::update();
-    // std::cout<< "END GameScene Update" << std::endl;
 }
 
 void CaromScene::update()
@@ -457,11 +453,8 @@ void CaromScene::update()
         iterations = _fastForwardIterations;
     #endif
     for (int i = 0; i < iterations; ++i){
-        // std::cout<< "UpdatePhysics 1" << std::endl;
         updatePhysics();
-        // std::cout<< "UpdatePhysics 2" << std::endl;
         updatePhysics();
-        // std::cout<< "UpdateScene inicio" << std::endl;
         updateScene(); 
     }
 }
@@ -589,7 +582,9 @@ CaromScene::manageExitTriggers(b2SensorEvents sensorEvents) {
         
         // Validity check
         if (!b2Shape_IsValid(a_exit->sensorShapeId) || !b2Shape_IsValid(a_exit->visitorShapeId)){
+            #ifdef _DEBUG
             std::cout << "Invalid shape in manageExitTriggers" << std::endl;
+            #endif
             continue;
         }
         
@@ -598,7 +593,6 @@ CaromScene::manageExitTriggers(b2SensorEvents sensorEvents) {
         
         // Null check: entities might have been destroyed
         if (sensor && visitor) {
-            // std::cout << "Trigger exit" <<  std::endl;
             sensor->getComponent<RigidBodyComponent>()->onTriggerExit(visitor);
                 visitor->getComponent<RigidBodyComponent>()->onTriggerExit(sensor);
         }
@@ -765,7 +759,9 @@ void CaromScene::decrementRemainingHits()
 //---------------------------BOSS---------------------------------
 
 void CaromScene::playBossTurn() {
+    #ifdef _DEBUG
     std::cout<< "Play Boss Turn" << std::endl;
+    #endif
     clearBossModifiers();
     applyBossModifiers();
 }
@@ -778,7 +774,9 @@ void CaromScene::clearBossModifiers() {
 /// @brief Virtual method, subtypes of CaromScene must implement this method.
 /// After this is done, _currentState->finish() must be called
 void CaromScene::applyBossModifiers() {
+    #ifdef _DEBUG
     std::cout << "aplicando modificador de boss desde CaromScene" << std::endl;
+    #endif
     _currentState->finish();
 }
 

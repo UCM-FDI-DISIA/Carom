@@ -159,7 +159,9 @@ void GameScene::refresh() {
                             if (isAlive(e)) {
                                 return false;
                             } else {
+                                #ifdef _DEBUG
                                 std::cout << "borrando entidad " << std::endl;
+                                #endif
                                 delete e;
                                 return true;
                             }

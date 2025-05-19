@@ -70,7 +70,9 @@ PoolScene::PoolScene(Game* game)
 
 PoolScene::~PoolScene()
 {
+    #ifdef _DEBUG
     std::cout << "DESTRUCTOR POOLSCENE" << std::endl;
+    #endif
     // Como son shareds los punteros ya no hace falta esta movida
 }
 
@@ -173,7 +175,9 @@ PoolScene::generateFloorRewards() {
 
     // Swaps boss hole assigned reward for a Boss Reward
     _floorRewards[_bossHole] = RewardScene::Reward("boss", RewardScene::Reward::Type::BOSS);
+    #ifdef _DEBUG
     std::cout << "floorrewards size: " << _floorRewards.size() << std::endl;
+    #endif
 
     createRewardInfo();
 }
@@ -439,7 +443,9 @@ PoolScene::createCallbacks() {
                     default:
                     {
                         ms = std::make_shared<CowboyPoolScene>(game, isBoss);
+                        #ifdef _DEBUG
                         std::cout << "Error: no se ha podido cargar la escena de boss, cargando boss por defecto" << std::endl;
+                        #endif
                         break;
                     }
                 }

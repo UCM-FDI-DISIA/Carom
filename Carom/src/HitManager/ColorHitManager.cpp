@@ -15,7 +15,9 @@ void ColorHitManager::clearAllHits(){
 }
 
 bool ColorHitManager::processHitEntities(Entity* first, Entity* second){
+    #ifdef _DEBUG
     std::cout << "Entrado al processHitEntities" << std::endl;
+    #endif
     AudioManager::Instance()->playSoundEfect("hit");
     if(_positionsRegistered[first].find(second) != _positionsRegistered[first].end()) return false;
 

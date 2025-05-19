@@ -169,15 +169,21 @@ public:
 		try {
 			_imagesAccessWrapper.at(key);
 		} catch (const std::exception& e) {
+			#ifdef _DEBUG
 			std::cerr << "Warning: " << e.what() << std::endl;
+			#endif
 			return false;
 		}
 		try {
 			_images.erase(key);
+			#ifdef _DEBUG
 			std::cout << "Successfully deleted image with key: " << key << std::endl;
+			#endif
 			return true;
 		} catch (const std::exception& e) {
+			#ifdef _DEBUG
 			std::cerr << "Error: Exception while deleting image with key: " << key << ": " << e.what() << std::endl;
+			#endif
 			return false;
 		}
 	}
