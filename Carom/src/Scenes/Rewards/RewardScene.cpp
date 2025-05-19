@@ -85,11 +85,11 @@ RewardScene::initObjects()
 
     // Boton de continuar 
     //
-    _exitButton = createSVGImage("win", "scoreSprite", "scoreSprite", true);
+    _exitButton = createSVGImage("reward", "scoreSprite_center", "scoreSprite", true);
     _exitButton->getComponent<Button>()->setOnClick([this]() { exitCallback(); });
     _exitButton->deactivate();
     // Texto del boton
-    _exitBttText = createSVGImage("win", "rewardButtonText", "rewardButtonText", false);
+    _exitBttText = createSVGImage("reward", "rewardButtonText_center", "rewardButtonText", false);
     _exitBttText->deactivate();
 }
 

@@ -1,9 +1,9 @@
 {
    "caromEase": 0,
-   "charisma": 2,
+   "charisma": 0,
    "comboEase": 0,
-   "cunning": 0.9197462797164917,
-   "hitEase": 0,
+   "cunning": 1.0,
+   "hitEase": 1,
    "power": 0,
    "slot0": {
       "components": [

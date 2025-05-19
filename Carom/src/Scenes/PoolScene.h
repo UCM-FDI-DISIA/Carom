@@ -34,24 +34,36 @@ protected:
     std::vector<entity_t> _holes, _balls;
     
     
-    public: 
+public: 
     /// @brief Struct con la informacion de las bolas de cara a su uso como recompensa y su render 
-        struct BallInfo{
-            std::vector<BallId> effects;
-            int scrollIndex = 0;
-            bool free = true;
+    struct BallInfo{
+        std::vector<BallId> effects;
+        int scrollIndex = 0;
+        bool free = true;
 
-            bool operator==(const BallInfo& other) const {
-                return effects == other.effects;
-            }
+        bool operator==(const BallInfo& other) const {
+            return effects == other.effects;
+        }
 
-             bool operator!=(const BallInfo& other) const {
-                return !(effects == other.effects);
-            }
-        };
+            bool operator!=(const BallInfo& other) const {
+            return !(effects == other.effects);
+        }
+    };
 
-        std::vector<BallInfo> _ballsInfo;
-        std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
+    std::vector<BallInfo> _ballsInfo;
+    inline std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
+
+    /// @brief Devuelve solo las bolas disponibles
+    std::vector<BallInfo> getFreeBallsInfo() const {
+        std::vector<BallInfo> v;
+        for(auto b: _ballsInfo)
+            if(b.free) v.push_back(b);
+        return v;
+    }
+
+    static std::string getTextureName(BallId effect);
+    static std::string getEffectName(BallId effect);
+
 
     protected:
     const float _chanceForMultipleEffect = 0.25f;
@@ -101,8 +113,7 @@ protected:
     /// @param chance probabilidad de añadirle un efecto
     /// @param possibleEffects Efectos que pueden ser añadidos a la bola
     void addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects);
-    std::string getTextureName(BallId effect);
-    std::string getEffectName(BallId effect);
+
 
     // ----------
 

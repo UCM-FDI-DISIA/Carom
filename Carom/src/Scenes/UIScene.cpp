@@ -61,7 +61,6 @@ entity_t UIScene::createSVGImage(std::string svg, std::string tag, std::string i
 {
     entity_t e = new Entity(*this, group);
 
-    auto a = *&sdlutils().svgs().at(svg);
     b2Vec2 pos = PhysicsConverter::pixel2meter(
         *&sdlutils().svgs().at(svg).at(tag).x,
         *&sdlutils().svgs().at(svg).at(tag).y

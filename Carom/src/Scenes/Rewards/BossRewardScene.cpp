@@ -11,6 +11,11 @@
 #include "X2Effect.h"
 #include "BallHandler.h"
 
+#include "RewardInfoDisplayComponent.h"
+
+
+using body_t = RewardInfoDisplayComponent::Body;
+
 BossRewardScene::BossRewardScene(Game* game, Reward reward)
     : RewardScene(game, reward)
 {
@@ -19,9 +24,8 @@ BossRewardScene::BossRewardScene(Game* game, Reward reward)
     #endif
 
     _inventory = InventoryManager::Instance();
-    auto ballsInfo = game->getScenesManager()->getPoolScene()->getBallsInfo();
 
-    _obtainedBallsInfo = ballsInfo;
+    _obtainedBallsInfo = game->getScenesManager()->getPoolScene()->getFreeBallsInfo();
 }
 
 BossRewardScene::~BossRewardScene()
@@ -40,62 +44,10 @@ bool BossRewardScene::checkIfBallIsObtained(int ballId) {
 
 void BossRewardScene::initObjects()
 {
-    auto ballsPos = sdlutils().svgs().at("boss_reward_balls_pos");
+    createObtainedBalls();
 
-    #ifdef _DEBUG
-        std::cout << "SKIBIDI" << std::endl;
-    #endif
-     int p = 0;
-
-    for(auto svgInfo : ballsPos) {
-        for(int i = 0; i < _obtainedBallsInfo.size(); i++) {
-            if(!_obtainedBallsInfo[i].free) continue;
-            Entity* ball = new Entity(*this, grp::UI);
-            float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
-            b2Vec2 pos = {PhysicsConverter::pixel2meter(svgInfo.second.x, svgInfo.second.y)};
-            pos.x += p * ballScale * 1.1f;
-
-            addComponent<TransformComponent>(ball, pos);
-
-            std::string textureKey = "bola_blanca";
-
-            BallId firstBallEffect = _obtainedBallsInfo[i].effects[0];
-            switch(firstBallEffect) {
-                case ABBACUS: textureKey = "single_AbacusEffect"; break;
-                case BOWLING: textureKey = "single_BowlingEffect"; break;
-                case CRISTAL: textureKey = "single_CristalEffect"; break;
-                case PETANQUE: textureKey = "single_PetanqueEffect"; break;
-                case POKEBALL: textureKey = "single_PokeballEffect"; break;
-                case QUANTIC: textureKey = "single_QuanticEffect"; break;
-                case X2: textureKey = "single_X2Effect"; break;
-            }
-
-            addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);
-
-            createBallShadow(ball);
-
-            Button::TextureButton rButton = Button::TextureButton();
-            auto button = addComponent<Button>(ball, rButton);
-
-            //Se añaden las funciones para las bolas a añadir
-            button->setOnClick([this, ball, i]() {
-                if(checkIfBallIsObtained(i)) {
-                    ball->getComponent<RenderTextureComponent>()->resetColorTint();
-                    _selectedBalls.erase(std::remove(_selectedBalls.begin(), _selectedBalls.end(), i));
-                }else{
-                    ball->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
-                    _selectedBalls.push_back(i);
-                }
-
-                checkIfValid();
-            });
-
-            p++;
-        }
-
-        //Mostramos el botón de salir por defecto
-        showExitButton();
-    }
+    createBallInfoText();
+    
 
     auto ballButtons = openInventory();
 
@@ -113,7 +65,27 @@ void BossRewardScene::initObjects()
 
             checkIfValid();
         });
+
     }
+
+    // Boton de continuar más a la derecha
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+    *&sdlutils().svgs().at("reward").at("scoreSprite_right").x,
+    *&sdlutils().svgs().at("reward").at("scoreSprite_right").y
+    );
+    auto tr = _exitButton->getTransform();
+    tr->setPosition(pos);
+
+    // Texto del boton también se mueve a la derecha
+    pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("reward").at("rewardButtonText_right").x,
+        *&sdlutils().svgs().at("reward").at("rewardButtonText_right").y
+    );
+    tr = _exitBttText->getTransform();
+    tr->setPosition(pos);
+
+    //Mostramos el botón de salir por defecto
+    showExitButton();
 }
 
 bool BossRewardScene::checkIfBallIsSelected(int ballId) {
@@ -157,4 +129,165 @@ void BossRewardScene::applyReward() {
         }
         InventoryManager::Instance()->addBall(ids);
     }
+}
+
+void
+BossRewardScene::createObtainedBalls() {
+    auto ballsPos = sdlutils().svgs().at("reward");
+
+    //  int p = 0;
+    std::string s = "boss_reward_";
+
+    for(int i = 0; i < _obtainedBallsInfo.size(); i++) {
+        // if(!_obtainedBallsInfo[i].free) continue;
+        Entity* ball = new Entity(*this, grp::UI);
+        float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
+
+        b2Vec2 pos = {PhysicsConverter::pixel2meter(ballsPos.at(s+std::to_string(i)).x,ballsPos.at(s+std::to_string(i)).y)};
+        // pos.x += p * ballScale * 1.1f;
+
+        addComponent<TransformComponent>(ball, pos);
+
+        std::string textureKey = "bola_blanca";
+
+        BallId firstBallEffect = _obtainedBallsInfo[i].effects[0];
+        switch(firstBallEffect) {
+            case ABBACUS: textureKey = "single_AbacusEffect"; break;
+            case BOWLING: textureKey = "single_BowlingEffect"; break;
+            case CRISTAL: textureKey = "single_CristalEffect"; break;
+            case PETANQUE: textureKey = "single_PetanqueEffect"; break;
+            case POKEBALL: textureKey = "single_PokeballEffect"; break;
+            case QUANTIC: textureKey = "single_QuanticEffect"; break;
+            case X2: textureKey = "single_X2Effect"; break;
+        }
+
+        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);
+
+        createBallShadow(ball);
+
+        Button::TextureButton rButton = Button::TextureButton();
+        auto button = addComponent<Button>(ball, rButton);
+
+        button->setOnClick([this, ball, i]() {
+            if(checkIfBallIsObtained(i)) {
+                ball->getComponent<RenderTextureComponent>()->resetColorTint();
+                _selectedBalls.erase(std::remove(_selectedBalls.begin(), _selectedBalls.end(), i));
+            }else{
+                ball->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
+                _selectedBalls.push_back(i);
+            }
+
+            checkIfValid();
+        });
+
+        button->setOnHover([this, i]() {
+            showBallEffect(i);
+        });
+
+        button->setOnExit([this, i]() {
+            hideBallEffect(i);
+        });
+
+        button->setOnRightClick([this, i]() {
+            scrollBallEffect(i);
+        });
+    }
+}
+
+void 
+BossRewardScene::createBallInfoText()
+{
+    entity_t description;
+    b2Vec2 pos;
+
+    Texture* texture = &sdlutils().images().at("reward_description_box");
+    float scale = static_cast<float>(*&sdlutils().svgs().at("reward").at("boss_reward_info").width) / texture->width();
+    
+    pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("reward").at("boss_reward_info").x, 
+        *&sdlutils().svgs().at("reward").at("boss_reward_info").y
+        );
+
+    for(int i = 0; i < _obtainedBallsInfo.size(); ++i) {
+        // --- FONDO
+        description = new Entity(*this, grp::BALL_INFO_BG);
+
+
+        addComponent<TransformComponent>(description, pos);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+
+        description->deactivate();
+
+        
+        // --- TEXTO
+        Text title, ballName, ballDesc, ballType;
+
+        title = sdlutils().texts().at("ballEffectTitle_pool");
+
+        std::string ballEffect = PoolScene::getEffectName(_obtainedBallsInfo[i].effects[0]);
+
+        ballName = sdlutils().texts().at(ballEffect + "_name_pool");
+        ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
+        ballType = sdlutils().texts().at("ballEffectType_pool");
+
+        // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
+        description = new Entity(*this, grp::BALL_INFO_TEXT);
+        addComponent<TransformComponent>(description, pos);
+        RewardInfoDisplayComponent* a_desc = addComponent<RewardInfoDisplayComponent>(description, renderLayer::UI, 
+                body_t{title.text, title.font, title.color, scale*1.5f},
+                body_t{ballType.text, ballType.font, ballType.color, scale*2.f},
+                body_t{ballName.text, ballName.font, ballName.color, scale*1.5f},
+                body_t{ballDesc.text, ballDesc.font, ballDesc.color, scale*2.f}
+                , texture->width() * scale - 25
+                , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
+            );
+        description->deactivate();
+
+        _effectRewardBoxes.push_back(a_desc);
+    }
+}
+
+void 
+BossRewardScene::showBallEffect(int i)
+{
+    assert(i < _obtainedBallsInfo.size());
+
+    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+    descriptions[i]->activate();
+
+    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+    descriptions[i]->activate();
+}
+
+void 
+BossRewardScene::hideBallEffect(int i)
+{
+    assert(i < _obtainedBallsInfo.size());
+
+    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+    descriptions[i]->deactivate();
+
+    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+    descriptions[i]->deactivate();
+}
+
+void 
+BossRewardScene::scrollBallEffect(int i) {
+    
+    if(_obtainedBallsInfo[i].scrollIndex == (_obtainedBallsInfo[i].effects.size() - 1)) _obtainedBallsInfo[i].scrollIndex = 0;
+    else _obtainedBallsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
+    
+    std::string ballEffect = PoolScene::getEffectName(_obtainedBallsInfo[i].effects[_obtainedBallsInfo[i].scrollIndex]);
+    
+    auto texture = &sdlutils().images().at("reward_description_box");
+    float scale = static_cast<float>(*&sdlutils().svgs().at("reward").at("boss_reward_info").width) / texture->width();
+
+    Text ballName = sdlutils().texts().at(ballEffect + "_name_pool");
+    Text ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
+
+    body_t nameBody = {ballName.text, ballName.font, ballName.color, scale * 1.5f};
+    _effectRewardBoxes[i]->setRewardType(nameBody);
+
+    body_t descBody = {ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f};
+    _effectRewardBoxes[i]->setRewardDesc(descBody);
 }

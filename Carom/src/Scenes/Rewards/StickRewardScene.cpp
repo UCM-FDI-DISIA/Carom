@@ -106,8 +106,8 @@ void StickRewardScene::initObjects()
     entity_t help_text = new Entity(*this, grp::UI);
 
     a_pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("reward").at("textArea").x,
-        *&sdlutils().svgs().at("reward").at("textArea").y
+        *&sdlutils().svgs().at("reward").at("textArea_right").x,
+        *&sdlutils().svgs().at("reward").at("textArea_right").y
     );
 
     a_tr = addComponent<TransformComponent>(help_text, a_pos);
