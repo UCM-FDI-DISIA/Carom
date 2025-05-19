@@ -6,7 +6,7 @@
 
 using isInsideField = bool;
 
-    // Component that captures a single body
+    // Componente de agujero que captura una única bola
 class HoleComponent : public ForceAreaComponent
 {
 protected:

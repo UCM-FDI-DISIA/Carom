@@ -3,11 +3,11 @@
 #include "ForceFieldComponent.h"
 
 
-// Component to be added to an entity with RB set to sensor
-// Objects inside recieve a counter force during motion
-// It doesn't use linearDamping for 2 reasons:
-// - Avoiding conflict with stick ability
-// - Reuse logic to force field like components
+// Componente que se añade a una entidad con cuerpo rígido configurado como sensor
+// Los objetos dentro reciben una fuerza contraria durante el movimiento
+// No se usa el parámetro linearDamping por dos razones:
+// - Evitar conflictos con la habilidad de stick
+// - Reutilizar la lógica para componentes tipo campo de fuerza
 class FrictionComponent : public ForceFieldComponent
 { 
     float _mu; // friction coeficient (no distinction dynamic/static)

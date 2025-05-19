@@ -2,6 +2,7 @@
 
 #include "RigidBodyComponent.h"
 
+// Componente de rigidbody para objetos circulares (bolas)
 class CircleRBComponent : public RigidBodyComponent 
 {
 public:

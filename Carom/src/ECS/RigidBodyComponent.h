@@ -13,6 +13,8 @@ class Entity;
 
 static const b2Rot defaultRotation = {1.0f, 0.0f};
 
+
+// Base de los componentes de rigidbody. Utiliza el motor de físicas de box2d.
 class RigidBodyComponent : public InfoComponent, public ITransform
 {
     friend class PhysicsComponent;

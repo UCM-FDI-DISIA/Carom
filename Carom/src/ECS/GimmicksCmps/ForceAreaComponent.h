@@ -7,9 +7,10 @@
 #include "ForceFieldComponent.h"
 
 
-// Component that defines the force of the field: magitude and if its attractive or repulsive.
-// By default the force has the direction from the center of the other body to the center of this body
-// This class can be inherit to override and costumize force definition and conditions to apply force
+// Componente que define la fuerza del campo: magnitud y si es atractiva o repulsiva.
+// Por defecto, la fuerza tiene la dirección desde el centro del otro cuerpo hacia el centro de este cuerpo.
+// Esta clase puede ser heredada para sobreescribir y personalizar la definición de la fuerza 
+// y las condiciones en las que se aplica la fuerza.
 class ForceAreaComponent : public ForceFieldComponent
 {
 protected:

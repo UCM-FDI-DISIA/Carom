@@ -3,6 +3,7 @@
 #include <vector>
 
 
+// Componente de rigidbody para objetos que sean polígonos
 class PolygonRBComponent : public RigidBodyComponent
 {
 public:

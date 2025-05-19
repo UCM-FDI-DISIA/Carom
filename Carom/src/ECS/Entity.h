@@ -44,7 +44,7 @@ concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
 template <typename T> 
 concept DerivedFromBallEffect = std::is_base_of<BallEffect, T>::value;
 
-/// @brief La clase entidad del esquema entity-system
+/// @brief La clase entidad del esquema entity-component
 class Entity {
     friend ShadowComponent;
 public:

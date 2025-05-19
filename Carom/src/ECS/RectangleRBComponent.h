@@ -2,6 +2,8 @@
 
 #include "RigidBodyComponent.h"
 
+
+// Componente de rigidbody para objetos que sean rectangulos
 class RectangleRBComponent : public RigidBodyComponent {
 public:
         RectangleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType typefloat, float width, 

@@ -12,10 +12,10 @@ using isInsideField = bool;
 
 class Vector2D;
 class Entity;
-// Abstract component class for entities that induce force on other entities within its bounderies
-// Registers entities with RB on trigger enter.
-// Flags as isInside = true when enter and false on exit trigger
-// A force defined in derived classes are applied to all entities registered
+// Clase de componente abstracta para entidades que inducen fuerza sobre otras entidades dentro de sus límites.
+// Registra entidades con cuerpo rígido (RB) al entrar en la zona de activación (trigger).
+// Marca isInside = true al entrar y false al salir del trigger.
+// Una fuerza definida en las clases derivadas se aplica a todas las entidades registradas.
 class ForceFieldComponent : public PhysicsComponent
 { 
 protected:

@@ -5,6 +5,7 @@
 
 class CaromScene;
 
+// Estado de boss en el que este ejecuta su acción
 class BossState: public State {
 protected:
     bool _finished = false;

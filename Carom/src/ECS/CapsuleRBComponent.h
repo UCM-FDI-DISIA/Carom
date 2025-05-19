@@ -1,6 +1,7 @@
 #pragma once
 #include "RigidBodyComponent.h"
 
+// Componente de rigidbody para objetos en forma de cápsula
 class CapsuleRBComponent : public RigidBodyComponent {
 public:
     CapsuleRBComponent(entity_t ent, const b2Vec2 &pos, b2BodyType bodyType, float width, 

@@ -8,11 +8,13 @@
 
 using IntPair = std::pair<int,int>;
 
-
+// Clase con métodos auxiliares para verificar si geometría se solapa, coventir coordenadas de SDL_Rects
 class GraphisUtils
 {
 public:
+    // Verifica si dos polígonos se solapan
     static bool doPolygonsOverlap(const std::vector<b2Vec2>& verts1, const std::vector<b2Vec2>& verts2, float radius = 0.01f);
+    // Verifica si puntos están dentro de determinada región
     static bool arePointsInsideArea(const std::vector<b2Vec2>& points, const std::vector<b2Vec2>& area);
 
     // Compute alpha so that pixels outside of shape are set to alpha = 0
@@ -44,23 +46,28 @@ public:
     int areaPosX, int areaPosY, 
     int areaWidth, int areaHeight);
 
+    // Genera bounding box de un rectangulo
     static std::pair<SDL_Rect, b2Vec2> generatePolygonBoundingBox(const std::vector<b2Vec2>& polygon, 
         int areaPosX, int areaPosY, 
         int areaWidth, int areaHeight);
 
-
+    // Calcula el centro de un polígono
     static b2Vec2 calculatePolygonCenter(const std::vector<b2Vec2>& polygon);
 
+    // Devuelve rect que es una porción de otro rect
     static SDL_Rect generatePartialRect(SDL_Rect originalRect, SDL_Rect areaConstrain);
 
+    // Convierte rect con origen en centro en rect top left
     static SDL_Rect getTopLeftRect(IntPair center, IntPair size);
 
+    // Convierte rect top left en origen en centro
     static SDL_Rect getCenterRect(IntPair pos, IntPair size);
     static SDL_Rect getCenterRect(const SDL_Rect& topleftRect);
 
     // Convert a SDL_Rect into a polygon
     static std::vector<b2Vec2> sdlrectToPolygon(const SDL_Rect& rect);
 
+    // Extrae polígonos de svg
     static std::vector<std::vector<b2Vec2>> extractPolygons(int n, int vert);
 
     // Method to extract points (x, y) from elements of an SVG group
@@ -69,5 +76,6 @@ public:
     // group name at SVG map
     static std::vector<b2Vec2> extractPointsFromSVG(int n, int startIdx, const std::string& name, const std::string& group);
 
+    // Debug rect
     static void coutRect(const SDL_Rect& rect);
 };

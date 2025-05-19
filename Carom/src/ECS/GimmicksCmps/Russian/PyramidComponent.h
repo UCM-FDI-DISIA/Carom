@@ -7,11 +7,11 @@
 
 using isInsideField = bool;
 
-
+// Componente de pirámide. Simula una inclinación al aplicar fuerza en una dirección a la bola
 class PyramidComponent : public ForceFieldComponent
 {
 protected:
-    double _slope; // 45 degrees
+    double _slope;
     b2Vec2 _direction; // force direction
 
 public:

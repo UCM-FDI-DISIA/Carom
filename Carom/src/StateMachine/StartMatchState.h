@@ -5,9 +5,10 @@
 // Forward declarations
 class CaromScene;
 
+// Estado de inicio de partida en el que se pasa al estado de boss si es boss
 class StartMatchState: public State {
 protected:
-    bool _finished = true; // TODO: por defecto a false, se pone a true cuando termina la animación ->finish()
+    bool _finished = true;
 public:
     StartMatchState(CaromScene* scene);
     virtual bool checkCondition(State*& state) override;
