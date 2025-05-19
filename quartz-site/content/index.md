@@ -4,12 +4,14 @@ title: Carom Wiki
 # Índice
 
 ## Game Design Document 
+
 * [[GDD - CAROM (guía de lectura)]]
 
 ## Documentación
 
 - [[Sobre EC]]
 - [[Índice box2D]]
+- [[Simulación de físicas en Carom]]
 - [[Sistema de representación]]
 - [[Listado de componentes]]
 - [[Masterclass codigo]]
@@ -17,6 +19,7 @@ title: Carom Wiki
 ## Playtest
 
 - [[Plan de pruebas]]
+- [[Análisis]]
 
 ## Gestión general de grupo
 
