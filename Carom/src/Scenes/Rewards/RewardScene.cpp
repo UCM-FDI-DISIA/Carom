@@ -295,6 +295,22 @@ RewardScene::openInventory()
     return a_returnVal;
 }
 
+StickId
+RewardScene::getStickId(){
+    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    json data = json::parse(f);
+
+    auto stickTextKey = data["stick"]["components"][0]["componentName"];
+
+    if(stickTextKey == "DonutStickEffect") _stickID = DONUT;
+    else if(stickTextKey == "MagicWandStickEffect") _stickID = WAND;
+    else if(stickTextKey == "BoxingGloveStickEffect") _stickID = BOXING;
+    else if(stickTextKey == "GrenadeLauncherStickEffect") _stickID = GRENADE;
+    else _stickID = NORMAL_STICK;
+
+    return _stickID;
+}
+
 /// @brief Crea todos los carteles con la info de las bolas y los esconde. También añade eventos para mostrarlos al pasar el ratón por encima
 void
 RewardScene::createBallInfo() {

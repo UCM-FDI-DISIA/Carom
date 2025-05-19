@@ -98,6 +98,7 @@ protected:
     void changeStick(int i);
 
     inline Reward getReward() { return _reward; }
+    StickId getStickId();
 
 
 

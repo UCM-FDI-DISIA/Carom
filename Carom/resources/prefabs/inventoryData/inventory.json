@@ -2,14 +2,21 @@
    "caromEase": 0,
    "charisma": 0,
    "comboEase": 0,
-   "cunning": 0.906989574432373,
-   "hitEase": 2,
-   "power": 4,
+   "cunning": 1.0,
+   "hitEase": 0,
+   "power": 0,
    "slot0": {
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "PetanqueEffect"
+                  },
+                  {
+                     "componentName": "AbacusEffect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -21,7 +28,7 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "QuanticEffect"
+                     "componentName": "BowlingEffect"
                   }
                ]
             },
@@ -33,7 +40,11 @@
       "components": [
          {
             "atributes": {
-               "effects": []
+               "effects": [
+                  {
+                     "componentName": "X2Effect"
+                  }
+               ]
             },
             "componentName": "BallHandler"
          }
@@ -45,7 +56,7 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "AbacusEffect"
+                     "componentName": "X2Effect"
                   }
                ]
             },
@@ -59,13 +70,7 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "X2Effect"
-                  },
-                  {
-                     "componentName": "CristalEffect"
-                  },
-                  {
-                     "componentName": "PetanqueEffect"
+                     "componentName": "BowlingEffect"
                   }
                ]
             },
@@ -79,7 +84,13 @@
             "atributes": {
                "effects": [
                   {
-                     "componentName": "X2Effect"
+                     "componentName": "CristalEffect"
+                  },
+                  {
+                     "componentName": "BowlingEffect"
+                  },
+                  {
+                     "componentName": "BowlingEffect"
                   }
                ]
             },
@@ -90,7 +101,7 @@
    "stick": {
       "components": [
          {
-            "componentName": "DonutStickEffect"
+            "componentName": "MagicWandStickEffect"
          }
       ]
    }

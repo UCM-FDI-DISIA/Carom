@@ -26,7 +26,7 @@ void StickRewardScene::atRender()
     std::vector<ButtonWithSlot> a_buttonVector = openInventory();
 
     for (ButtonWithSlot& e : a_buttonVector) {
-        if (e.slot == 0) { // asi es, magic number
+        if (e.slot == 0) { // asi es, magic number // bravo
             if (e.button != nullptr) {
                 _oldStickTextureComponent = e.button->getEntity()->getComponent<RenderTextureComponent>();
                 e.button->setOnClick([this]() {
@@ -56,13 +56,13 @@ void StickRewardScene::initObjects()
 {
     moveExitButtonToRight();
 
-    std::vector<RandomItem<StickId>> a_stickList = {
-        {BOXING, 1.0},
-        {DONUT, 1.0},
-        {GRENADE, 1.0},
-        {NORMAL_STICK, 1.0},
-        {WAND, 1.0}
-    };
+    std::vector<RandomItem<StickId>> a_stickList = std::vector<RandomItem<StickId>>();
+
+    getStickId();
+
+    for(int i = 0; i < StickId::NUM_STICKS; ++i){
+        if(StickId (i) != _stickID) a_stickList.push_back({StickId (i), 1.0});
+    }
 
     _stickReward = RNG_Manager::Instance()->getRandomItem(a_stickList);
 
