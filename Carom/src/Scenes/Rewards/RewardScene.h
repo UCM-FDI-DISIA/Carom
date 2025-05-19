@@ -75,6 +75,7 @@ protected:
     virtual void applyReward() {}
 
     //Métodos del botón de salir:
+    void moveExitButtonToRight();
     void showExitButton();
     void hideExitButton();
     virtual void exitCallback();

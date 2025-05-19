@@ -54,6 +54,8 @@ void StickRewardScene::atRender()
 
 void StickRewardScene::initObjects()
 {
+    moveExitButtonToRight();
+
     std::vector<RandomItem<StickId>> a_stickList = {
         {BOXING, 1.0},
         {DONUT, 1.0},
@@ -66,16 +68,17 @@ void StickRewardScene::initObjects()
 
     entity_t nuevo_palo = new Entity(*this, grp::UI);
 
+    auto a_stick = sdlutils().svgs().at("reward").at("newStick");
+
     b2Vec2 a_pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("reward").at("newStick").x,
-        *&sdlutils().svgs().at("reward").at("newStick").y
+        a_stick.x,
+        a_stick.y
     );
 
     Texture* a_stickTexture = idToTexture(_stickReward);
 
-    auto a = sdlutils().svgs().at("reward").at("newStick").width;
 
-    float a_stickScale = float(a_stickTexture->width()) / float(sdlutils().svgs().at("reward").at("newStick").width);
+    float a_stickScale = float(a_stickTexture->width()) / float(a_stick.width);
     a_stickScale*= 0.5; // se generaba muy grande
 
     TransformComponent* a_tr = addComponent<TransformComponent>(nuevo_palo, a_pos);

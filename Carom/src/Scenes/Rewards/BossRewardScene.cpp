@@ -68,21 +68,8 @@ void BossRewardScene::initObjects()
 
     }
 
-    // Boton de continuar más a la derecha
-    b2Vec2 pos = PhysicsConverter::pixel2meter(
-    *&sdlutils().svgs().at("reward").at("scoreSprite_right").x,
-    *&sdlutils().svgs().at("reward").at("scoreSprite_right").y
-    );
-    auto tr = _exitButton->getTransform();
-    tr->setPosition(pos);
-
-    // Texto del boton también se mueve a la derecha
-    pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("reward").at("rewardButtonText_right").x,
-        *&sdlutils().svgs().at("reward").at("rewardButtonText_right").y
-    );
-    tr = _exitBttText->getTransform();
-    tr->setPosition(pos);
+    // Mover el botón de continuar más a la derecha
+    moveExitButtonToRight();
 
     //Mostramos el botón de salir por defecto
     showExitButton();
