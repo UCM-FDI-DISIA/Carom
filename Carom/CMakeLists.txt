@@ -69,17 +69,25 @@ include_directories(
 
     ${CMAKE_SOURCE_DIR}/src
 
-    ${CMAKE_SOURCE_DIR}/src/ECS
-    ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps
-    ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Cowboy
-    ${CMAKE_SOURCE_DIR}/src/ECS/GimmicksCmps/Russian
+    ${CMAKE_SOURCE_DIR}/src/EC
+    ${CMAKE_SOURCE_DIR}/src/EC/Components
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/GimmicksCmps
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/GimmicksCmps/Cowboy
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/GimmicksCmps/Russian
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/HandleEvent
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/Info
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/Info/Transforms
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/Info/Transforms/Rigidbodies
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/Logic
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/Physics
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/Render
+    ${CMAKE_SOURCE_DIR}/src/EC/Components/StickEffects
     ${CMAKE_SOURCE_DIR}/src/Physics
     ${CMAKE_SOURCE_DIR}/src/SceneSystem
     ${CMAKE_SOURCE_DIR}/src/StateMachine
     ${CMAKE_SOURCE_DIR}/src/Scenes
     ${CMAKE_SOURCE_DIR}/src/Scenes/Gimmicks
 	${CMAKE_SOURCE_DIR}/src/Scenes/EndScenes
-	${CMAKE_SOURCE_DIR}/src/Physics
 	${CMAKE_SOURCE_DIR}/src/HitManager
 	${CMAKE_SOURCE_DIR}/src/RNG
 	${CMAKE_SOURCE_DIR}/src/Inventory
@@ -88,7 +96,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/src/Tweens
     ${CMAKE_SOURCE_DIR}/src/Scenes/MenuScenes
 	${CMAKE_SOURCE_DIR}/src/Graphics
-    ${CMAKE_SOURCE_DIR}/src/Feedback
+    ${CMAKE_SOURCE_DIR}/src/JSON
 	${CMAKE_SOURCE_DIR}/src/Text
     ${CMAKE_SOURCE_DIR}/src/Audio
     ${CMAKE_SOURCE_DIR}/src/Progression
@@ -123,50 +131,64 @@ add_executable(Carom
 
     src/SceneSystem/GameScene.cpp
     src/SceneSystem/ScenesManager.cpp
-    src/ECS/CameraComponent.cpp
 
-    src/ECS/RenderComponent.cpp
-	src/ECS/TransformComponent.cpp
-	src/ECS/RigidBodyComponent.cpp
-	src/ECS/JsonEntityParser.cpp
-	src/ECS/StickInputComponent.cpp
-	src/ECS/Button.cpp
-	src/ECS/BoxRBComponent.cpp
-	src/ECS/RectangleRBComponent.cpp
-	src/ECS/PolygonRBComponent.cpp
-	src/ECS/CircleRBComponent.cpp
-	src/ECS/CapsuleRBComponent.cpp
-    src/ECS/Entity.cpp
-    src/ECS/Component.cpp
+    src/EC/Component.cpp
+    src/EC/Entity.cpp
 
-    src/ECS/RenderTextureComponent.cpp
-	src/ECS/TextDisplayComponent.cpp
-    src/ECS/DialogueTextComponent.cpp
-    src/ECS/RewardInfoDisplayComponent.cpp
-    src/ECS/BallInfoDisplayComponent.cpp
+    src/EC/Components/DialogueTextComponent.cpp
+    src/EC/Components/PhysicsComponent.cpp
+    src/EC/Components/RenderComponent.cpp
 
-    src/ECS/ColorBallScorerComponent.cpp
-    src/ECS/WhiteBallScorerComponent.cpp
-	src/ECS/FollowComponent.cpp
-    src/ECS/EventOnCollision.cpp
-    src/ECS/PhysicsComponent.cpp
-	
-	src/Animator/RenderSpritesheetComponent.cpp
-	src/Animator/AnimatorComponent.cpp
-    src/Animator/BallRollerAnimatorComponent.cpp
-    src/Animator/RoundScoreAnimComponent.cpp
+    src/EC/Components/GimmicksCmps/ForceFieldComponent.cpp
+    src/EC/Components/GimmicksCmps/ForceAreaComponent.cpp
+    src/EC/Components/GimmicksCmps/Cowboy/FrictionComponent.cpp
+    src/EC/Components/GimmicksCmps/Cowboy/HoleComponent.cpp
+    src/EC/Components/GimmicksCmps/Russian/PyramidComponent.cpp
+
+    src/EC/Components/HandleEvent/Button.cpp
+    src/EC/Components/HandleEvent/PauseComponent.cpp
+    src/EC/Components/HandleEvent/StickInputComponent.cpp
+    src/EC/Components/HandleEvent/UnpauseComponent.cpp
+
+    src/EC/Components/Info/CameraComponent.cpp
+    src/EC/Components/Info/ShadowComponent.cpp
+
+    src/EC/Components/Info/Transforms/RigidBodyComponent.cpp
+    src/EC/Components/Info/Transforms/TransformComponent.cpp
+
+    src/EC/Components/Info/Transforms/Rigidbodies/BoxRBComponent.cpp
+    src/EC/Components/Info/Transforms/Rigidbodies/CapsuleRBComponent.cpp
+    src/EC/Components/Info/Transforms/Rigidbodies/CircleRBComponent.cpp
+    src/EC/Components/Info/Transforms/Rigidbodies/PolygonRBComponent.cpp
+    src/EC/Components/Info/Transforms/Rigidbodies/RectangleRBComponent.cpp
+
+    src/EC/Components/Logic/AnimatorComponent.cpp
+    src/EC/Components/Logic/BallRollerAnimatorComponent.cpp
+    src/EC/Components/Logic/FollowComponent.cpp
+    src/EC/Components/Logic/RandomVibrationComponent.cpp
+    src/EC/Components/Logic/RoundScoreAnimComponent.cpp
+    src/EC/Components/Logic/TweenComponent.cpp
+
+    src/EC/Components/Physics/ColorBallScorerComponent.cpp
+    src/EC/Components/Physics/EventOnCollision.cpp
+    src/EC/Components/Physics/WhiteBallScorerComponent.cpp
+
+    src/EC/Components/Render/BallInfoDisplayComponent.cpp
+    src/EC/Components/Render/RenderArrayComponent.cpp
+    src/EC/Components/Render/RenderSpritesheetComponent.cpp
+    src/EC/Components/Render/RenderTextureComponent.cpp
+    src/EC/Components/Render/RewardInfoDisplayComponent.cpp
+    src/EC/Components/Render/TextDisplayComponent.cpp
+
+    src/EC/Components/StickEffects/BoxingGloveStickEffect.cpp
+    src/EC/Components/StickEffects/DonutStickEffect.cpp
+    src/EC/Components/StickEffects/GranadeLauncherStickEffect.cpp
+    src/EC/Components/StickEffects/MagicWandStickEffect.cpp
+    src/EC/Components/StickEffects/WobblyRenderTextureComponent.cpp
+
+    src/JSON/JsonEntityParser.cpp
 
 	src/HitManager/ColorHitManager.cpp
-
-    src/ECS/FollowComponent.cpp
-
-    src/ECS/GimmicksCmps/ForceFieldComponent.cpp
-    src/ECS/GimmicksCmps/ForceAreaComponent.cpp
-    src/ECS/GimmicksCmps/Cowboy/FrictionComponent.cpp
-    src/ECS/GimmicksCmps/Cowboy/HoleComponent.cpp
-    src/ECS/GimmicksCmps/Russian/PyramidComponent.cpp
-
-    src/HitManager/ColorHitManager.cpp
 
 	src/Scenes/PoolScene.cpp
 	src/Scenes/PauseScene.cpp
@@ -196,11 +218,6 @@ add_executable(Carom
 	src/Ball/FrictionMultiplierEffect.cpp
 	src/Ball/PopToOppositeSideEffect.cpp
 
-	src/ECS/BoxingGloveStickEffect.cpp
-	src/ECS/MagicWandStickEffect.cpp
-	src/ECS/GranadeLauncherStickEffect.cpp
-	src/ECS/DonutStickEffect.cpp
-
     src/Physics/PhysicsUtils.cpp
 	src/Graphics/GraphicsUtils.cpp
 
@@ -222,16 +239,7 @@ add_executable(Carom
     src/Scenes/Gimmicks/CowboyPoolScene.cpp
     src/Scenes/Gimmicks/RussianPyramidScene.cpp
 
-
-    src/ECS/TweenComponent.cpp
-    src/ECS/ShadowComponent.cpp
-    src/ECS/PauseComponent.cpp
-    src/ECS/UnpauseComponent.cpp
-
-    src/ECS/RandomVibrationComponent.cpp
-
     src/Audio/AudioManager.cpp
-    src/ECS/WobblyRenderTextureComponent.cpp
 
     src/Scenes/TutorialScene.cpp
     src/Scenes/EndScenes/QuitScene.cpp
@@ -247,8 +255,6 @@ add_executable(Carom
     src/Scenes/HelperScene.cpp
     src/Scenes/TextHelperScene.cpp
     src/Progression/ProgressionManager.cpp
-   
-    src/Feedback/RenderArrayComponent.cpp
 )
 
 # Link Box2D

@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+/// Se ha centralizado todos los IDs aquí para no crear lo mismo todo el rato
+
 enum BallId {
     NORMAL_BALL,
     ABBACUS,
