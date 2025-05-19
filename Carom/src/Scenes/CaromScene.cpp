@@ -270,7 +270,7 @@ void CaromScene::createScoreEntity(){
 
 
     addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
+    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("current_score"), renderLayer::SCORE_CONTAINER, scale);
 
     // score to beat
 
@@ -282,7 +282,7 @@ void CaromScene::createScoreEntity(){
     );
 
     addComponent<TransformComponent>(e1, pos1);
-    addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("scoreSprite"), renderLayer::SCORE_CONTAINER, scale);
+    addComponent<RenderTextureComponent>(e1, &sdlutils().images().at("to_beat_score"), renderLayer::SCORE_CONTAINER, scale);
 
     // round score
 
@@ -297,6 +297,18 @@ void CaromScene::createScoreEntity(){
     addComponent<RenderTextureComponent>(e2, &sdlutils().images().at("roundScorerPup"), renderLayer::SCORE_CONTAINER, scale);
     _roundScorer = addComponent<RoundScoreAnimComponent>(e2, 10, 100);
 
+    //plus sprite
+    entity_t plus = new Entity(*this, grp::SCORE);
+
+    b2Vec2 pos3 = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("game").at("plus 1").x,
+        *&sdlutils().svgs().at("game").at("plus 1").y
+    );
+
+    addComponent<TransformComponent>(plus, pos3);
+    float plusScale = float(sdlutils().svgs().at("game").at("plus 1").width) / float(sdlutils().images().at("plus").width());
+
+    addComponent<RenderTextureComponent>(plus, &sdlutils().images().at("plus"), renderLayer::SCORE_CONTAINER, plusScale);
 }
 
 void CaromScene::createFeedbackTest(b2Vec2 pos, float rot) {
