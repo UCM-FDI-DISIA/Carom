@@ -87,3 +87,4 @@ __pycache__/
 *.rptproj.bak
 
 .obsidian/
+Carom/resources/prefabs/inventoryData/inventory.json
