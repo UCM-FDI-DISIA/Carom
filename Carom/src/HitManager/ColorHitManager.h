@@ -8,6 +8,7 @@ class CaromScene;
 class Entity;
 class InventoryManager;
 
+//Encargado de gestionar golpes de bolas de color
 class ColorHitManager {
     protected:
     CaromScene* _mainScene;
