@@ -347,7 +347,7 @@
     },
     { 
       "id" : "boss_rewardDesc_pool", 
-      "text" : "Gana esta partida para avanzar de piso y obtener las bolas restantes en la mesa", 
+      "text" : "Gana esta partida para avanzar de piso y obtener las bolas que no hayan sido destruidas por la mesa", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -359,7 +359,7 @@
     },
     { 
       "id" : "fusion_rewardDesc_pool", 
-      "text" : "Escoges dos bolas, que se fusionaran en una sola con los _efectos_ de ambas.", 
+      "text" : "Escoges dos bolas, que se fusionaran en una sola con los efectos de ambas.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -383,7 +383,7 @@
     },
     { 
       "id" : "stick_rewardDesc_pool", 
-      "text" : "Te dan a elegir un palo nuevo (puedes no escoger ninguno).", 
+      "text" : "Te dan a elegir entre un palo nuevo y el actual.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -395,7 +395,7 @@
     },
     { 
       "id" : "cauldron_rewardDesc_pool", 
-      "text" : "Anades a una bola de tu kit un efecto aleatorio.", 
+      "text" : "Anades a una bola de tu kit un efecto aleatorio.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -407,7 +407,7 @@
     },
     { 
       "id" : "skill_rewardDesc_pool", 
-      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) aleatoria", 
+      "text" : "Incrementa el valor de una jugada (Golpe, Combo o Carambola) aleatoria.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -419,7 +419,7 @@
     },
     { 
       "id" : "charisma_rewardDesc_pool", 
-      "text" : "Incrementa el valor base de la puntuacion.", 
+      "text" : "Incrementa el valor base de la puntuacion.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -431,7 +431,7 @@
     },
     { 
       "id" : "power_rewardDesc_pool", 
-      "text" : "Anade una tirada maxima", 
+      "text" : "Anade una tirada maxima.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -443,7 +443,7 @@
     },
     { 
       "id" : "cunning_rewardDesc_pool", 
-      "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras", 
+      "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -515,19 +515,19 @@
     },
     {
       "id" : "cristal_ballDesc_pool", 
-      "text" : "La bola gana mas area de choque por aumentar de tamano", 
+      "text" : "Cada vez que es golpeada crece un poco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
       "id" : "bowling_ballDesc_pool", 
-      "text" : "Golpea con mas fuerza y es mas dificil de mover, pero ocupa 2 espacios", 
+      "text" : "Golpea con mas fuerza y es mas dificil de mover", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
       "id" : "poke_ballDesc_pool", 
-      "text" : "Absorbe los efectos de la primera bola que golpee, pero la hace desaparecer", 
+      "text" : "Absorbe todos los efectos de la primera bola con la que colisione", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -539,19 +539,19 @@
     },
     {
       "id" : "abbacus_ballDesc_pool", 
-      "text" : "Al ser golpeada suma puntuacion a mayores de la normal", 
+      "text" : "Al ser golpeada suma algo mas de puntuacion", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
       "id" : "quantic_ballDesc_pool", 
-      "text" : "Si no es golpeada, la puntuacion de la ronda se multiplica por 2, pero al ser golpeada multiplica tu puntuacion por 0.8", 
+      "text" : "Multiplica la puntuacion de la ronda x2 si no es golpeada o x0.8 si la golpeas", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
       "id" : "petanque_ballDesc_pool", 
-      "text" : "Cuanto mas cerca queda de la bola, multiplicara la puntuacion de la ronda por un numero mayor, pero si esta muy lejos ese numero puede ser menor que 1", 
+      "text" : "Multiplica la puntuacion de la ronda en funcion de lo cerca que acabe de la bola blanca (puede reducir la puntuacion)", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -599,7 +599,7 @@
     },
     {
       "id" : "donut_stickDesc_pool", 
-      "text" : "Convierte la mesa en un toroide. Si una bola choca con una pared, saldra por la otra en su lugar.", 
+      "text" : "Si una bola que golpea choca con una pared, saldra por la opuesta.", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -611,7 +611,7 @@
     },
     {
       "id" : "wand_stickDesc_pool", 
-      "text" : "La bola golpeada se divide en dos que salen a 45 grados con respecto a la original. Al final del golpe solo queda una de las dos.", 
+      "text" : "La bola golpeada se divide en dos que salen desviadas. Al final del golpe solo queda una de las dos.", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -647,7 +647,7 @@
     },
     { 
       "id" : "BowlingEffect_desc_pool", 
-      "text" : "La bola es un 50% mas pesada", 
+      "text" : "Golpea con mas fuerza y es mas dificil de mover", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -659,7 +659,7 @@
     },
     { 
       "id" : "CristalEffect_desc_pool", 
-      "text" : "Aumenta de tamano hasta un limite al chocarse con otra bola", 
+      "text" : "Cada vez que es golpeada crece un poco", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -671,7 +671,7 @@
     },
     { 
       "id" : "PetanqueEffect_desc_pool", 
-      "text" : "Cuanto mas cerca este de la bola blanca al final de la partida mas se multiplicara la puntuacion final", 
+      "text" : "Multiplica la puntuacion de la ronda en funcion de lo cerca que acabe de la bola blanca (puede reducir la puntuacion)", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
@@ -695,7 +695,7 @@
     },
     { 
       "id" : "QuanticEffect_desc_pool", 
-      "text" : "X2 puntos al final del tiro si no es golpeada", 
+      "text" : "Multiplica la puntuacion de la ronda x2 si no es golpeada o x0.8 si la golpeas", 
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
