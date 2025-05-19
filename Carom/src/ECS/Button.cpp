@@ -57,7 +57,7 @@ void Button::init()
 }
 
 void Button::handleEvent() {
-    InputHandler* input = InputHandler::Instance();
+    InputHandler* input = &ih();
 
     if(_buttonArea->isMouseInButton(input->getMousePos())){
         if(!_isInside){

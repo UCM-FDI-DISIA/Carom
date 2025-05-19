@@ -388,7 +388,7 @@ private:
 			break;
 		}
 	}
-}
+};
 
 
 // This macro defines a compact way for using the singleton InputHandler, instead of
