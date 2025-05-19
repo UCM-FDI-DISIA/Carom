@@ -2,7 +2,9 @@
 
 #include "State.h"
 
-// Estado de puntuación en el que el jugador termina de tirar (después de hit state) y la puntución por la colisiones ocurre
+/// @brief Estado de puntuación. Aquí se calculan los puntos obtenidos por colisiones de bolas
+/// ScoringState -> WinMatchState / LoseMathcState si se gana o se pierde la partida. Si no:
+/// ScoringState -> HitState o BossState, en función de si es una partida de Boss
 class ScoringState: public State {
 public:
     ScoringState(CaromScene* scene);

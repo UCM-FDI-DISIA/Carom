@@ -12,6 +12,7 @@ using PolyID = int;
 
 class TweenComponent;
 
+/// @brief Escena de partida del piso Cowboy Pool
 class CowboyPoolScene : public CaromScene {
     b2Vec2 startingHandPosition = {2, 3};
 public:
@@ -20,15 +21,16 @@ public:
 
 protected:
 
-    void initGimmick() override;
-    void initBoss() override;
-    void applyBossModifiers() override;
-    void clearBossModifiers() override;
+    void initGimmick() override; // Inicialización de la gimmick
+    void initBoss() override; // Inicialización del boss
+    void applyBossModifiers() override; // Aplica los modificadores al comienzo del turno del boss
+    void clearBossModifiers() override; // Quita los modificadores del turno anterior
 
+    // Creación y animación del brazo y sombra de boss
     void moveAndShoot(int index, std::vector<b2Vec2> bulletPos, TweenComponent* tween);
     void createBoss();
 
-    // Gimmicks
+    // Creación de Gimmicks (Bancos de arena)
     void createSandBank(Polygon& vertices, float friction, float scale, SDL_Rect sandRect);
     void pickAndPositionSandPolygons(
         int numPolys
@@ -39,7 +41,7 @@ protected:
     float processSandTexture(b2Vec2 offset, SDL_Rect areaConstrain, int imgId, SDL_Rect& sandRectCenter);
     void generateSandBanks(int n, float friction);
 
-    // Boss modifiers
+    // Creación de modificadores de boss (Agujeros de bala)
     void createBulletHole(const b2Vec2& pos);  
     bool canPlaceHole(entity_t e, b2Vec2 hole_pos, float hole_radius);
     std::vector<b2Vec2> generateBulletHolesPositions(int numPos);  

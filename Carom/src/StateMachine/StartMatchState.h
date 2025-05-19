@@ -5,7 +5,8 @@
 // Forward declarations
 class CaromScene;
 
-// Estado de inicio de partida en el que se pasa al estado de boss si es boss
+/// @brief Estado de inicio de partida.
+/// StartMatchState -> BossState o HitState en función de si es o no partida de Boss
 class StartMatchState: public State {
 protected:
     bool _finished = true;

@@ -5,7 +5,9 @@
 
 class CaromScene;
 
-// Estado de boss en el que este ejecuta su acción
+/// @brief Estado de acción del boss. Aquí elimina y aplica sus modificadores de partida
+/// Solo se pasa a este estado cuando es una partida de boss.
+/// BossState -> HitState
 class BossState: public State {
 protected:
     bool _finished = false;

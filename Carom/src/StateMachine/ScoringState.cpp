@@ -26,15 +26,17 @@ ScoringState::onStateEnter() {
 
 void
 ScoringState::onStateExit() {
+    BallHandler* b;
+
     for (auto& e : _scene->getEntitiesOfGroup(grp::WHITEBALL)) {
-        if(e->tryGetComponent<BallHandler>()) {
-            e->getComponent<BallHandler>()->onStrikeEnd();
+        if(e->tryGetComponent<BallHandler>(b)) {
+            b->onStrikeEnd();
         }
     }
     
     for (auto& e : _scene->getEntitiesOfGroup(grp::EFFECTBALLS)) {
-        if(e->tryGetComponent<BallHandler>()) {
-            e->getComponent<BallHandler>()->onStrikeEnd();
+        if(e->tryGetComponent<BallHandler>(b)) {
+            b->onStrikeEnd();
         }
     }
 

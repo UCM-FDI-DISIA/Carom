@@ -2,8 +2,7 @@
 
 #include "State.h"
 
-
-// Estado de derrota. Al perder, el jugador vuelve a la escena de menu
+/// @brief Estado de derrota. Al perder, salta la escena de derrota.
 class LoseMatchState : public State {
 public:
     LoseMatchState(CaromScene* scene);

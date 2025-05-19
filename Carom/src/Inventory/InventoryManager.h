@@ -4,8 +4,11 @@
 #include <nlohmann/json.hpp>
 
 #include "Singleton.h"
-#include "Inventory.h"
 #include "ItemIDs.h"
+#include "ecs.h"
+#include <box2d/box2d.h>
+
+
 class GameScene;
 using json = nlohmann::json;
 

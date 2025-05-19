@@ -22,9 +22,6 @@ protected:
         BOSS
     };
     RNG_Manager* _rngm; // random manager
-
-    // std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
-    // std::shared_ptr<GameScene> _scene;
     
     b2WorldId _myB2WorldId; //El mundo de box2D
     static constexpr int POSITIONS = 6;

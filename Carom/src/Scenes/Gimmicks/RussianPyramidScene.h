@@ -7,7 +7,7 @@ using Polygon = std::vector<b2Vec2>;
 
 class TweenComponent;
 
-/// @brief Escena de carambola del piso RussianPyramid
+/// @brief Escena de partida del piso RussianPyramid
 class RussianPyramidScene : public CaromScene 
 {
 public:

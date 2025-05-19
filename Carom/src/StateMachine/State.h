@@ -2,7 +2,7 @@
 
 class CaromScene;
 
-//Interfaz de State, que es usada por una maquina de estados para cambiar de estado
+//Interfaz de State, que es usada por una máquina de estados para cambiar de estado
 class State{
 public:
     inline State(CaromScene* scene) : _scene(scene) {}

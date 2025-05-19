@@ -4,7 +4,7 @@
 
 class CaromScene;
 
-//Este estado se llama cuando se ha ganado una partida de carambola
+/// @brief Estado de victoria. Se llama cuando se gana la partida de carambola
 class WinMatchState : public State {
 public:
     WinMatchState(CaromScene* scene);
