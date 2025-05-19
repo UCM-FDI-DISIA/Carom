@@ -91,9 +91,11 @@ Game::init()
 void
 Game::start() 
 {
+    //Se insemina el rng
     unsigned seed = RNG_Manager::Instance()->randomRange(1, 1000000); 
     RNG_Manager::Instance()->inseminate(seed);
 
+    //Se crea el progression manager y se setea la lista de jefes
     _progressionManager = new ProgressionManager();
     _progressionManager->setBossesList();
 
