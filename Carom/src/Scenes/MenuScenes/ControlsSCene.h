@@ -10,7 +10,6 @@ class MainMenuScene;
 class ControlsScene: public UIScene 
 {
 protected:
-    //AudioManager* _am;
     std::shared_ptr<MainMenuScene> _mainMenuScene;
 
 public:

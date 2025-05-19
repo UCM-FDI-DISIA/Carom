@@ -47,10 +47,10 @@ void UIScene::createText(std::string text, int x, int y, int size, SDL_Color col
     winContainer->addComponent(new TransformComponent(winContainer, pos));
     TextDisplayComponent* currentDisplay = new TextDisplayComponent(
         winContainer,           // container
-        rlayer,     // capa renderizado
+        rlayer,                 // capa renderizado
         size,                   // tamano fuente
         text,                   // text
-        color,   // color (blanco)
+        color,                  // color (blanco)
         "Basteleur-Moonlight60" // fuente
     );
     winContainer->addComponent(currentDisplay);
@@ -85,11 +85,9 @@ void UIScene::createButton(int x, int y, std::string text, Texture* t, std::func
 
         b2Vec2 pos = PhysicsConverter::pixel2meter(x, y);
     
-        // TODO cambiar escala real
         float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
     
         addComponent<TransformComponent>(e, pos);
-        // TODO cambiar imagen real
         addComponent<RenderTextureComponent>(e, &sdlutils().images().at("reward_description_box"), renderLayer::UI, scale);
     
         Button::TextureButton button = Button::TextureButton();

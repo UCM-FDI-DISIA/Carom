@@ -57,11 +57,6 @@ public:
 		case SDL_WINDOWEVENT:
 			handleWindowEvent(event);
 			break;
-
-			
-			//Añadir nuevos eventos conforme se vayan creando.
-			
-			
 		default:
 			break;
 		}
@@ -85,9 +80,6 @@ public:
 	// keyboard
 	inline bool keyDownEvent() {
 		return _isKeyDownEvent;
-		/*
-			AÑADIR CASOS PARA LLAMAR A METODOS
-			*/
 	}
 
 	inline bool keyUpEvent() {
@@ -147,7 +139,6 @@ public:
 
 	inline int getMouseButtonState(uint8_t b) {
 		assert(b < _LAST_MOUSEBUTTON_VALUE);
-		// std::cout << "State: " << _mbState[b] << "\n";
 		return _mbState[b];
 	}
 
@@ -180,14 +171,6 @@ public:
 		return _isBallSelectedUI;
 	}
 
-	/*// arrastar bola del inventario.
-	inline bool isBallMovingUI(){
-		_isBallMovingUI = _isBallSelectedUI      // ademas de estar seleccionada.
-						  && mouseMotionEvent(); // se mueve el raton.
-
-		return _isBallMovingUI;					
-	}*/
-
 	// se destruye la bola.
 	inline bool isBallDestroyedUI(SDL_Rect ball){
 		_isBallDestroyedUI = getMouseButtonState(RIGHT)  // se apreta el botón derecho.
@@ -215,22 +198,6 @@ public:
 
 		return _isBallPickedIngame;
 	}
-
-	/*// para arrastrar la bola.	
-	inline bool isBallDraggingIngame(){
-		_isBallDraggingIngame = _isBallPickedIngame		  // si has seleccionado una bola.
-						   	    && mouseMotionEvent();    // y además el ratón se está moviendo.
-
-		return _isBallDraggingIngame;
-	}*/
-
-	/*// para soltar la bola.	
-	inline bool isBallThrowingIngame(){
-		_isBallThrowingIngame = _isBallDraggingIngame	  // si se está arrastrando.
-						   		&& mouseButtonUpEvent();  // y además se suelta la tecla del raton.
-
-		return _isBallThrowingIngame;
-	}*/
 
 	// cuando se acciona el inventario.
 	inline bool isInventoryOpened(SDL_Rect inventoryButton){
@@ -291,26 +258,6 @@ public:
 	{
 		return _isWindowFocused;
 	}
-
-	/*inline bool isInventoryActivated(){ return _inventoryEvent; }
-	inline bool isPauseMenuActivated(){ return _pauseMenuEvent; }
-	inline bool isBallDestroyed(){ return _isBallDestroyed; }*/
-
-	/*inline bool isKeySubmitting(){
-		return _submitKeyEvent;
-	}
-
-	inline bool isKeyCancelling(){
-		return _cancelKeyEvent;
-	}
-
-	inline bool isKeyPausing(){
-		return _pausedKeyEvent;
-	}
-
-	inline Vector2D getNavigationDirection(){
-		return _navigateVectorEvent;
-	}*/
 
 private:
 	// ---- VARS DE INPUTHANDLER ----.
@@ -442,7 +389,7 @@ private:
 		}
 	}
 }
-;
+
 
 // This macro defines a compact way for using the singleton InputHandler, instead of
 // writing InputHandler::instance()->method() we write ih().method()

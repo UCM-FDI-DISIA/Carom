@@ -18,11 +18,9 @@ class PoolScene: public UIScene {
 protected:
     static constexpr int HOLES = 6;
     enum BallTypes{
-            ROUND,
-            BOSS
-        };
-
-
+        ROUND,
+        BOSS
+    };
     RNG_Manager* _rngm; // random manager
 
     // std::shared_ptr<GameScene> _reward; //La recompensa al completar la escena
@@ -44,7 +42,6 @@ public:
         bool operator==(const BallInfo& other) const {
             return effects == other.effects;
         }
-
             bool operator!=(const BallInfo& other) const {
             return !(effects == other.effects);
         }
@@ -113,8 +110,6 @@ public:
     /// @param chance probabilidad de añadirle un efecto
     /// @param possibleEffects Efectos que pueden ser añadidos a la bola
     void addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects);
-
-
     // ----------
 
     // --- CALLBACKS ---

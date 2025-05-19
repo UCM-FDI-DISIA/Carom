@@ -19,15 +19,17 @@ void ControlsScene::initFunctionalities()
 
 void ControlsScene::initObjects()
 {
-    
     // tag del svg al que nos referimos segun el JSON.
     std::string SVGTag = "controlsMenu";
 
     // --- BACKGROUND.
-    entity_t x_bg = createBackground("fondoControls"); // fondo.
+    entity_t x_bg = createBackground("fondoControls"); 
 
     // ajustando fondo.
-    b2Vec2 pos = {x_bg->getTransform()->getPosition().x, x_bg->getTransform()->getPosition().y};
+    b2Vec2 pos = {
+        x_bg->getTransform()->getPosition().x, 
+        x_bg->getTransform()->getPosition().y
+    };
     x_bg->getTransform()->setPosition(pos);
 
     // --- PANELES DEL FONDO
@@ -72,25 +74,8 @@ void ControlsScene::initObjects()
     nTexts.emplace_back(createSVGImage(SVGTag, "InventarioText", "InventarioText"));
     nTexts.emplace_back(createSVGImage(SVGTag, "MenuPausaText", "MenuPausaText"));  
     
-    
-    
     // Hacer que se pueda accionar el boton de REGRESARR
     imgs[5]->getComponent<Button>()->setOnClick([this](){
-        // !!! SE CREA POOLSCENE
         getGame()->getScenesManager()->popScene();
     });  
-    
-    
-    /* TODO la musica no se hacerla.
-    //Empieza la musica
-    _am = AudioManager::Instance();
-    
-    _am->playMusicTrack(PAUSE_THEME);
-    _am->playMusicTrack(MAIN_THEME);
-
-    _am->changeToPauseTheme();
-    // TODO: Hacer que se pueda accionar el boton de Controls
-    // TODO: Hacer que se pueda accionar el boton de Credits
-    */
-    
 }

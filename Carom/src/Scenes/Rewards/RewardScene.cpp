@@ -59,7 +59,6 @@ void
 RewardScene::initObjects() 
 {
     // Background
-    //
     createBackground("suelo");
     createTable();
 
@@ -80,14 +79,13 @@ RewardScene::initObjects()
     createText(r0, txtPosX, 80, 1.5, {255, 255, 255, 255}, renderLayer::UI);
     createText(rName, txtPosX, 150, 1.5, {102, 0, 0, 255}, renderLayer::UI);
     createText(rType, txtPosX, 220, 1.5, {194, 197, 204, 255}, renderLayer::UI);
-
     createText(rType, txtPosX, 220, 1.5, {194, 197, 204, 255}, renderLayer::UI);
 
     // Boton de continuar 
-    //
     _exitButton = createSVGImage("reward", "scoreSprite_center", "scoreSprite", true);
     _exitButton->getComponent<Button>()->setOnClick([this]() { exitCallback(); });
     _exitButton->deactivate();
+
     // Texto del boton
     _exitBttText = createSVGImage("reward", "rewardButtonText_center", "rewardButtonText", false);
     _exitBttText->deactivate();
@@ -504,16 +502,5 @@ void RewardScene::createBallShadow(entity_t entity){
         PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)*scaleFactor
     };
     comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
-
-}
-
-
-// selecciona una bola del cajon
-void RewardScene::selectBall(int i) {
-
-}
-
-// cambia el stick actual por reward
-void RewardScene::changeStick(int i) {
 
 }

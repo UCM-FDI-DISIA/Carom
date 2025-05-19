@@ -5,8 +5,6 @@
 #include "DialogueTextComponent.h"
 #include "RNG_Manager.h"
 
-
-
 EndGameScene::EndGameScene(Game *g, bool win, bool isBoss)
     : UIScene(g)
     , _win(win)
@@ -59,11 +57,11 @@ void EndGameScene::bossWin()
 
     addComponent<TransformComponent>(prueba, b2Vec2{0.f,0.f});
     auto a = addComponent<WobblyRenderTextureComponent>(prueba,           // container
-        renderLayer::UI,     // capa renderizado
-        1.f,                   // tamano fuente
-        " ",                   // text
-        SDL_Color{255, 255, 255, 255},   // color (blanco)
-        "Basteleur-Moonlight60" // fuente
+        renderLayer::UI,                                                  // capa renderizado
+        1.f,                                                              // tamano fuente
+        " ",                                                              // text
+        SDL_Color{255, 255, 255, 255},                                    // color (blanco)
+        "Basteleur-Moonlight60"                                           // fuente
     );
 
     addComponent<RandomVibrationComponent>(prueba, .05f, 5);

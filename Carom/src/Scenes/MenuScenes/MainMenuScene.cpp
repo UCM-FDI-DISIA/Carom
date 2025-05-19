@@ -31,12 +31,14 @@ void MainMenuScene::initObjects()
     entity_t a_bg = createBackground("menuBackground"); // mesa fondo.
 
     // ajustando fondo.
-    b2Vec2 pos = {a_bg->getTransform()->getPosition().x, a_bg->getTransform()->getPosition().y};
+    b2Vec2 pos = {
+        a_bg->getTransform()->getPosition().x, 
+        a_bg->getTransform()->getPosition().y
+    };
     a_bg->getTransform()->setPosition(pos);
 
     // --- PANELES.
     std::vector<entity_t> pannels;
-    //pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENUCorner", "RectangleMENUCorner", false)); 
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleMENU", "RectangleMENU")); 
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleTitle", "RectangleTitle")); 
     pannels.emplace_back(createSVGImage(SVGTag, "RectanglePlay", "RectanglePlay", true)); 
@@ -45,13 +47,13 @@ void MainMenuScene::initObjects()
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleCredits", "RectangleCredits", true)); 
     pannels.emplace_back(createSVGImage(SVGTag, "RectangleExit", "RectangleExit", true)); 
 
-    // render texture menu pannel.
+    // rtmp = render texture menu pannel.
     RenderTextureComponent* rtmp = pannels[0]->getComponent<RenderTextureComponent>(); 
     rtmp->setScale(1.3 * rtmp->getScale());
     
     // Hacer que se pueda accionar el boton de PLAY
     pannels[2]->getComponent<Button>()->setOnClick([this](){
-        // !!! SE CREA POOLSCENE
+        // Se crea POOLSCENE
         std::shared_ptr<PoolScene> _poolScene = std::make_shared<PoolScene>(game);
         InventoryManager::Instance()->loadStartingInventory();
         getGame()->getScenesManager()->pushScene(_poolScene);
@@ -59,7 +61,7 @@ void MainMenuScene::initObjects()
 
     // Hacer que se pueda accionar el boton de TUTORIAL
     pannels[3]->getComponent<Button>()->setOnClick([this](){
-        // !!! SE CREA POOLSCENE
+        // Se crea POOLSCENE
         std::shared_ptr<PoolScene> _poolScene = std::make_shared<PoolScene>(game);
         getGame()->getScenesManager()->pushScene(_poolScene);
         TutorialScene* tutorial = new TutorialScene(game, _poolScene.get());
@@ -68,6 +70,7 @@ void MainMenuScene::initObjects()
 
     // Hacer que se pueda accionar el boton de CONTROLS
     pannels[4]->getComponent<Button>()->setOnClick([this](){
+        // Se crea CONTROLSSCENE
         std::shared_ptr<ControlsScene> _ctrlScene = std::make_shared<ControlsScene>(game);
         getGame()->getScenesManager()->pushScene(_ctrlScene);
     }); 
@@ -84,8 +87,6 @@ void MainMenuScene::initObjects()
     _am->playMusicTrack(MAIN_THEME);
 
     _am->changeToPauseTheme();
-    // TODO: Hacer que se pueda accionar el boton de Controls
-    // TODO: Hacer que se pueda accionar el boton de Credits
     
     // --- TEXTOS.
     std::vector<entity_t> texts;
