@@ -232,6 +232,7 @@ add_executable(Carom
     src/StateMachine/StartMatchState.cpp
     src/StateMachine/HitState.cpp
     src/StateMachine/ScoringState.cpp
+    src/StateMachine/AddScoreState.cpp
     src/StateMachine/WinMatchState.cpp
     src/StateMachine/LoseMatchState.cpp
     src/StateMachine/BossState.cpp
