@@ -28,6 +28,8 @@ public:
     virtual void update() override {}
     virtual cmpId_t getEffectId() = 0;
 
+    //Método que devuelve a partir del id de componente el nombre del efecto
+    //Se puede usar para obtener la textura
     static std::string effectTextureName(BallEffect* effect)
     {
         switch(effect->getEffectId())

@@ -5,6 +5,7 @@
 #include <vector>
 #include "SDLUtils.h"
 
+//Se ejecuta cuando es golpeada, roba todos los efectos de la bola con la que colisiona
 void PokeballEffect::onHit(entity_t ent)
 {
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
@@ -20,7 +21,7 @@ void PokeballEffect::onHit(entity_t ent)
     ent->getComponent<BallHandler>()->removeAllEffects();
     _myEntity->getComponent<BallHandler>()->breakHit();
 
-    
+    //Actualiza la textura de la bola y se elimina la pokeball
     _myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(texture);
     ent->getComponent<RenderSpritesheetComponent>()->setTexture(&sdlutils().images().at("Ignacio"));
     _myEntity->removeComponent<PokeballEffect>();

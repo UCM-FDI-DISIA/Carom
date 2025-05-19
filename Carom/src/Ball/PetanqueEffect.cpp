@@ -9,6 +9,9 @@ void PetanqueEffect::init()
     BallEffect::init();
 }
 
+//Se ejecuta al final del tiro, se calcula la distancia entre la bola blanca y la bola con el efecto
+// y se multiplica la puntuación por 2 * (1 - (distancia / MAX_DISTANCE)) para que cuanto más cerca esté de la bola blanca
+// más se multiplique la puntuación
 void PetanqueEffect::onStrikeEnd()
 {
     entity_t _whiteBall = _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0];
