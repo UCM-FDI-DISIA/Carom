@@ -38,7 +38,6 @@ public:
         std::string translateName(std::string s){
             if(s == "default"){ s = "Por defecto"; }
             else if(s == "fusion") { s = "Fusion"; }
-            else if(s == "gumball") { s = "Maquina de chicles"; }
             else if(s == "stick") { s = "Desvan"; }
             else if(s == "cauldron") { s = "Caldero"; }
             else if(s == "skill") { s = "Soltura"; }
