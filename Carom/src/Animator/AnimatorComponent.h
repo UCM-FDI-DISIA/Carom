@@ -38,6 +38,9 @@ public:
     ~AnimatorComponent() {}
 
     void init() override;
+
+    /// @brief Comprueba si ha pasado tiempo suficiente en el frame del indice actual, si ha pasado lo cambia
+    ///        y actualiza el timestamp
     void update() override;
 
     /// @brief Cambia la animación por newAnim

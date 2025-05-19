@@ -5,14 +5,9 @@
 #include "Entity.h"
 #include "SDLUtils.h"
 
-/// @brief Constructor de RoundScoreAnimComponent
-/// @param ent El round score
-/// @param scoreToMedium la puntuacion necesaria para que pase de pequeño a mediano
-/// @param scoreToMax la puntuacion necesaria para que pase de mediano a grande
 RoundScoreAnimComponent::RoundScoreAnimComponent(entity_t ent,  int scoreToMedium, int scoreToMax ):
 LogicComponent(ent), _score(0), _scoreToMedium(scoreToMedium), _scoreToMax(scoreToMax), _isMid(false), _isMax(false){}
 
-/// @brief Añade a la entidad los componentes necesarios y los guarda
 void
 RoundScoreAnimComponent::init() {
     _myRender = _myEntity->getComponent<RenderTextureComponent>();
@@ -32,7 +27,6 @@ RoundScoreAnimComponent::init() {
 }
 
 // Este es con diferencia el método más feo que he hecho en el proyecto porque me da una pereza hacerlo bien
-/// @brief comprueba si tiene que cambiar y lo hace si es asi. Si la puntuacion es 0 se reinicia.
 void
 RoundScoreAnimComponent::update(){
 

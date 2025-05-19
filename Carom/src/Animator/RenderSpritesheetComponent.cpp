@@ -15,7 +15,8 @@ _cols(cols)
 
     assert(tex != nullptr);
 
-    _width = tex->width() / cols;
+    // Si son 0, da error de division por 0
+    _width = tex->width() / cols; 
     _height = tex->height() / rows;
 
     setFrame(frame);
@@ -63,12 +64,6 @@ RenderSpritesheetComponent::setFrame(int frame) {
     _yOriginFrame = _height * (frame / _cols);
 
     _currentFrame = frame;
-}
-
-float RenderSpritesheetComponent::getRenderWidth()
-{
-    SDL_Rect a_rect = getRenderRect();
-    return a_rect.w;
 }
 
 void RenderSpritesheetComponent::setNewWidth(float newWidth)
