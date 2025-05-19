@@ -47,7 +47,6 @@
 #include "StickRewardScene.h"
 #include "FusionRewardScene.h"
 #include "PermanentRewardScene.h"
-#include "GumballRewardScene.h"
 #include "BossRewardScene.h"
 #include "CauldronRewardScene.h"
 
@@ -156,7 +155,7 @@ PoolScene::chooseRewards(std::vector<RewardScene::Reward>& possibleRewards, int 
         randomRewards.push_back(RandomItem<RewardScene::Reward>(possibleRewards[i], 1.0f));
     }
 
-    _rngm->getRandomItems(randomRewards, amount, false);
+    possibleRewards = _rngm->getRandomItems(randomRewards, amount, false);
 }
 
 void
@@ -168,7 +167,6 @@ PoolScene::generateFloorRewards() {
     _floorRewards.push_back(RewardScene::Reward("power", RewardScene::Reward::Type::PERMANENT));
     _floorRewards.push_back(RewardScene::Reward("fusion", RewardScene::Reward::Type::INSTANT));
     _floorRewards.push_back(RewardScene::Reward("stick", RewardScene::Reward::Type::INSTANT));
-    _floorRewards.push_back(RewardScene::Reward("gumball", RewardScene::Reward::Type::INSTANT));
     _floorRewards.push_back(RewardScene::Reward("cauldron", RewardScene::Reward::Type::INSTANT));
 
     chooseRewards(_floorRewards, POSITIONS);
@@ -565,8 +563,6 @@ PoolScene::createRewardScene(RewardScene::Reward r) {
             return std::make_shared<FusionRewardScene>(game, r);
         else if (name == "stick")
             return std::make_shared<StickRewardScene>(game, r);
-        else if (name == "gumball")
-            return std::make_shared<GumballRewardScene>(game, r);
         else // (name == "cauldron")
             return std::make_shared<CauldronRewardScene>(game, r);
     }
