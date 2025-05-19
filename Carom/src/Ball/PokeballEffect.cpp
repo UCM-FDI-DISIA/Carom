@@ -11,6 +11,9 @@ void PokeballEffect::onHit(entity_t ent)
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
     if(effects.size() == 0) return;
 
+    RenderSpritesheetComponent* renderCmp = _myEntity->getComponent<RenderSpritesheetComponent>();
+    if(renderCmp == nullptr) return;
+    
     Texture* texture = ent->getComponent<RenderSpritesheetComponent>()->getTexture();
     
     for(BallEffect* effect : effects)
