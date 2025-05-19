@@ -128,11 +128,15 @@ PoolScene::generateHole(int i)
     float scale = float(sdlutils().svgs().at("pool").at("hole 0").width) / float(sdlutils().images().at("hole").width());
 
     addComponent<TransformComponent>(e, pos);
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
+    auto renderComp = addComponent<RenderTextureComponent>(e, &sdlutils().images().at("hole"), renderLayer::POOL_HOLE, scale);
 
     Button::TextureButton rButton = Button::TextureButton();
     addComponent<Button>(e, rButton);
 
+    // color tint rojo en el agujero si es boss
+    if (i == _bossHole)
+        renderComp->changeColorTint(255, 0, 0);
+        
     return e;
 }
 
