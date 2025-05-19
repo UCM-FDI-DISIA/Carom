@@ -91,6 +91,8 @@ void BossRewardScene::initObjects()
 
             p++;
         }
+
+        showExitButton();
     }
 
     auto ballButtons = openInventory();
