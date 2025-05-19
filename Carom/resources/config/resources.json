@@ -367,18 +367,6 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
-      "id" : "gumball_rewardName_pool", 
-      "text" : "Maquina de chicles", 
-      "font" : "Aladin-Regular48", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
-      "id" : "gumball_rewardDesc_pool", 
-      "text" : "Recibe una bola aleatoria.", 
-      "font" : "Aladin-Regular24", 
-      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
-    },
-    { 
       "id" : "stick_rewardName_pool", 
       "text" : "Desvan", 
       "font" : "Aladin-Regular48", 

@@ -57,3 +57,10 @@ AnimatorComponent::restartAnimation() {
     _frameIndex = 0;
     _myRenderer->setFrame(_animation->_frameList[_frameIndex].frame);
 }
+
+void
+AnimatorComponent::setAnimation(Animation* newAnim) {
+    _animation = newAnim; 
+    _frameIndex = 0;
+    _myRenderer->setFrame(_animation->_frameList[_frameIndex].frame);
+}
