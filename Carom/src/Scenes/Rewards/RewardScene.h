@@ -84,16 +84,16 @@ protected:
 
     /// @brief  Crea todos los carteles con la info de las bolas y los esconde. 
     ///         También añade eventos para mostrarlos al pasar el ratón por encima
-    void createBallInfo();
+    // void createBallInfo();
 
-    void createBallShadow(entity_t e);
-    void showBall(int i);
-    void hideBall(int i);
-    void scrollBall(int i);
-    // Stick info handling
-    void createStickInfo();
-    void showStick();
-    void hideStick();
+    // void createBallShadow(entity_t e);
+    // void showBall(int i);
+    // void hideBall(int i);
+    // void scrollBall(int i);
+    // // Stick info handling
+    // void createStickInfo();
+    // void showStick();
+    // void hideStick();
 
     void selectBall(int i);
     void changeStick(int i);
@@ -110,6 +110,6 @@ protected:
     bool _atReward; // bool para saber la primera vez que se renderiza reward
 
     std::vector<BallId> _ballIDs;
-    StickId _stickID;
+    // StickId _stickID;
     int previousTheme;
 };

@@ -168,23 +168,23 @@ UIScene::instantiateInventory(){
         }
 
         // Guardar la información de las bolas del inventario en el vector _ballsInfo
-        std::string componentKey = "bola_blanca";
+        std::string textureKey = "bola_blanca";
         for(int j = 0; j < data[slot]["components"][0]["atributes"]["effects"].size(); ++j) {
-            componentKey = data[slot]["components"][0]["atributes"]["effects"][j]["componentName"];
+            textureKey = data[slot]["components"][0]["atributes"]["effects"][j]["componentName"];
 
-            if(componentKey == "BowlingEffect") _ballsInfo[i].effects.push_back(BOWLING);
-            else if(componentKey == "X2Effect") _ballsInfo[i].effects.push_back(X2);
-            else if(componentKey == "AbacusEffect") _ballsInfo[i].effects.push_back(ABBACUS);
-            else if(componentKey == "CristalEffect") _ballsInfo[i].effects.push_back(CRISTAL);
-            else if(componentKey == "PetanqueEffect") _ballsInfo[i].effects.push_back(PETANQUE);
-            else if(componentKey == "PokeballEffect") _ballsInfo[i].effects.push_back(POKEBALL);
-            else if(componentKey == "QuanticEffect") _ballsInfo[i].effects.push_back(QUANTIC);
+            if(textureKey == "BowlingEffect") _ballsInfo[i].effects.push_back(BOWLING);
+            else if(textureKey == "X2Effect") _ballsInfo[i].effects.push_back(X2);
+            else if(textureKey == "AbacusEffect") _ballsInfo[i].effects.push_back(ABBACUS);
+            else if(textureKey == "CristalEffect") _ballsInfo[i].effects.push_back(CRISTAL);
+            else if(textureKey == "PetanqueEffect") _ballsInfo[i].effects.push_back(PETANQUE);
+            else if(textureKey == "PokeballEffect") _ballsInfo[i].effects.push_back(POKEBALL);
+            else if(textureKey == "QuanticEffect") _ballsInfo[i].effects.push_back(QUANTIC);
             else _ballsInfo[i].effects.push_back(NORMAL_BALL); // Esto no ocurre nunca
         }
 
         // Guardamos el nombre del primer efecto de bola para renderizar esa textura
-        if(componentKey != "bola_blanca")
-            componentKey = "single_" + std::string(data[slot]["components"][0]["atributes"]["effects"][0]["componentName"]) ;
+        if(textureKey != "bola_blanca")
+            textureKey = "single_" + std::string(data[slot]["components"][0]["atributes"]["effects"][0]["componentName"]) ;
 
 
         auto ballPos = sdlutils().svgs().at("inventory").at(key);
@@ -195,9 +195,9 @@ UIScene::instantiateInventory(){
         Entity* ball = new Entity(*this, grp::UI);
 
         addComponent<TransformComponent>(ball, b2Vec2{0,0});
-        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(componentKey), renderLayer::EFFECT_BALL, ballScale);
+        addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);
 
-        if(componentKey == "bola_blanca"){
+        if(textureKey == "bola_blanca"){
             //colores
             auto color = sdlutils().inventorySlotColor[i];
             ball->getRenderer()->changeDefaultColorTint(color.r, color.g, color.b);
