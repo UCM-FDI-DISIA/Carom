@@ -245,6 +245,12 @@ BossRewardScene::showBallEffect(int i)
 
     descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->activate();
+
+    // mostrar texto de ayuda si tiene varios efectos
+    if(_obtainedBallsInfo[i].effects.size() > 1) {
+        descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
+        for(auto e : descriptions) e->activate();
+    }
 }
 
 void 
@@ -257,6 +263,12 @@ BossRewardScene::hideBallEffect(int i)
 
     descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->deactivate();
+
+    // mostrar texto de ayuda si tiene varios efectos
+    if(_obtainedBallsInfo[i].effects.size() > 1) {
+        descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
+        for(auto e : descriptions) e->deactivate();
+    }
 }
 
 void 
