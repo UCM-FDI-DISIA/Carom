@@ -123,6 +123,32 @@ h2.main-title {
 
 }
 
+div.spacer {
+    height: 5rem;
+}
+
+
+.showcase-video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.showcase-video h2 {
+    text-align: center;
+}
+
+.showcase-video iframe {
+    width: 60%;
+    min-width: 300px;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    margin: 2rem 0;
+    border: 5px solid #ffffff;
+}
+
+
+
 
 footer {
     display: flex;
