@@ -682,7 +682,6 @@ PoolScene::createCallbacks() {
                 game->getScenesManager()->pushScene(ms);
 
                 holeButton->setOnHover([]{});
-                // hideBall(i);
             });
         });
 
