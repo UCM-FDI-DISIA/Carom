@@ -224,6 +224,10 @@ UIScene::instantiateInventory(){
     
                 hideBall(i);
             });
+
+        button->setOnRightClick([this, i]() {
+            scrollBallEffect(i);
+        });
     }
 
     //palo
@@ -418,6 +422,33 @@ UIScene::hideBall(int i) {
 
     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->deactivate();
+}
+
+
+void 
+UIScene::scrollBallEffect(int i) {
+
+    if(_ballsInfo[i].effects.size() > 1) 
+    {
+        if(_ballsInfo[i].scrollIndex == (_ballsInfo[i].effects.size() - 1)) _ballsInfo[i].scrollIndex = 0;
+        else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
+        
+        std::string ballEffect = getEffectName(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]);
+        
+        auto texture = &sdlutils().images().at("reward_description_box");
+        float scale = static_cast<float>(*&sdlutils().svgs().at("reward").at("boss_reward_info").width) / texture->width();
+
+        Text ballName = sdlutils().texts().at(ballEffect + "_name_pool");
+        Text ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
+
+        body_t nameBody = {ballName.text, ballName.font, ballName.color, scale * 1.5f};
+        _ballEffectBoxes[i]->setBallName(nameBody);
+
+        body_t descBody = {ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f};
+        _ballEffectBoxes[i]->setBallDesc(descBody);
+
+    }
+
 }
 
 

@@ -9,11 +9,11 @@
 
 BallInfoDisplayComponent::BallInfoDisplayComponent(
     Entity* entity, layerId_t renderLayer, 
-    Body title, Body ballDescription, 
+    Body name, Body ballDescription, 
     Uint32 wrapLength, int offsetX, int offsetY)
 
-: RenderTextureComponent(entity, nullptr, renderLayer, title.scale)
-, _title(title)
+: RenderTextureComponent(entity, nullptr, renderLayer, name.scale)
+, _name(name)
 , _ballDescription(ballDescription)
 , _wrapLength(wrapLength)
 , _offsetX(offsetX) 
@@ -37,10 +37,10 @@ BallInfoDisplayComponent::render() {
     double rotation = _transform->getRotation();
 
     _texture->changeColorTint(_color.r, _color.g, _color.b);
-    _texture->render(getRenderRect(_texture, _title.scale), rotation);
+    _texture->render(getRenderRect(_texture, _name.scale), rotation);
     _texture->changeColorTint(255,255,255);
     
-    int offset = getRenderRect(_texture, _title.scale).h + getRenderRect(_texture, _title.scale).h * 2.5f/5.f;
+    int offset = getRenderRect(_texture, _name.scale).h + getRenderRect(_texture, _name.scale).h * 2.5f/5.f;
 
     _ballDescTexture->changeColorTint(_color.r, _color.g, _color.b);
     _ballDescTexture->render(getRenderRect(_ballDescTexture, _ballDescription.scale, offset), rotation);
@@ -71,7 +71,19 @@ BallInfoDisplayComponent::getRenderRect(Texture* t, float scale, int offset) con
 
 void 
 BallInfoDisplayComponent::generateTextures() {
-    _texture = new Texture(sdlutils().renderer(), _title.text, sdlutils().fonts().at(_title.font), _title.color);
+    _texture = new Texture(sdlutils().renderer(), _name.text, sdlutils().fonts().at(_name.font), _name.color);
     _ballDescTexture = new Texture(sdlutils().renderer(), _ballDescription.text, 
                     sdlutils().fonts().at(_ballDescription.font), _ballDescription.color, _wrapLength);
+}
+
+void BallInfoDisplayComponent::setBallName(Body name)
+{
+    _name = name;
+    generateTextures();
+}
+
+void BallInfoDisplayComponent::setBallDesc(Body desc)
+{
+   _ballDescription = desc;
+    generateTextures();
 }

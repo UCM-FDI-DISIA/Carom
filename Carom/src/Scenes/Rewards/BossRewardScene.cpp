@@ -177,7 +177,7 @@ BossRewardScene::createObtainedBalls() {
         });
 
         button->setOnRightClick([this, i]() {
-            scrollBallEffect(i);
+            scrollObtainedBallEffect(i);
         });
     }
 }
@@ -260,7 +260,7 @@ BossRewardScene::hideBallEffect(int i)
 }
 
 void 
-BossRewardScene::scrollBallEffect(int i) {
+BossRewardScene::scrollObtainedBallEffect(int i) {
     
     if(_obtainedBallsInfo[i].scrollIndex == (_obtainedBallsInfo[i].effects.size() - 1)) _obtainedBallsInfo[i].scrollIndex = 0;
     else _obtainedBallsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible

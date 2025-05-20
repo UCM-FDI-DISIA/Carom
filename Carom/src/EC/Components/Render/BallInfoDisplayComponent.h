@@ -16,7 +16,7 @@ public:
     };
 
 protected:
-    Body _title; 
+    Body _name; 
     // su textura es _texture
     // su escala es _scale
     
@@ -32,12 +32,12 @@ public:
     /// @brief Constructor del componente para mostrar las recompensas en la mesa de Pool
     /// @param entity La entidad a la que pertenece
     /// @param scale la escala del rect donde se crea el texto 
-    /// @param title Texto, fuente y color para el renderizado del nombre de la bola
+    /// @param name Texto, fuente y color para el renderizado del nombre de la bola
     /// @param ballDescription Info de la recompensa (textos, fuentes y colores)
     /// @param wrapLength Longitud de línea
     /// @param offsetX, offsetY Offset de los textos con respecto al transform de su entidad (para que la textura no se ponga en el centro)
     BallInfoDisplayComponent(Entity* entity, layerId_t renderLayer, 
-        Body title, Body ballDescription, 
+        Body name, Body ballDescription, 
         Uint32 wrapLength = 0, int offsetX = 0, int offsetY = 0);
 
     ~BallInfoDisplayComponent();
@@ -45,6 +45,9 @@ public:
     void render() override;
 
     SDL_Rect getRenderRect(Texture* t, float scale, int offset = 0) const;
+
+    void setBallName(Body name);
+    void setBallDesc(Body desc);
 };
 
 
