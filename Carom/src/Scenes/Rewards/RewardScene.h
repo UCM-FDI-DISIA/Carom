@@ -19,6 +19,15 @@ public:
     class Reward 
     {
     public:
+
+    // Para no usar strings
+    inline static constexpr std::string_view CUNNING = "cunning";
+    inline static constexpr std::string_view CHARISMA = "charisma";
+    inline static constexpr std::string_view SKILL = "skill";
+    inline static constexpr std::string_view SKILL_GOLPE = "skill-golpe";
+    inline static constexpr std::string_view SKILL_CARAMBOLA = "skill-carambola";
+    inline static constexpr std::string_view SKILL_COMBO = "skill-combo";
+
     enum Type {
         INSTANT,
         PERMANENT,
