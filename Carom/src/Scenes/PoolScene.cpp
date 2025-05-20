@@ -86,15 +86,15 @@ void PoolScene::initObjects()
 
     getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(0, 255, 0);
 
-    initRandomEffects();
-
     generateMatchHoles();
+    
+    initRandomEffects();
     generateBalls();
     generateFloorRewards();
     createBallInfoText();
 
     createCallbacks();
-    setBossBallTexture();
+    //setBossBallTexture();
 
     AudioManager::Instance()->changeToPauseTheme();
 }
@@ -285,13 +285,18 @@ PoolScene::randomBallEffect()
 void 
 PoolScene::generateBalls()
 {
-    // coloca los agujeros de partida
+    std::string texture;
+
+    // coloca las bolas
     for(int i = 0; i < POSITIONS; i++) {
+        if(i == _bossHole) texture = "boss_ball";
+        else texture = getTextureName(_ballsInfo[i].effects[0]);
+
         // genera la bola
         entity_t ball = createSVGImage(
             "ballspool",                 // svg
             "bola_" + std::to_string(i), // tag
-            getTextureName(_ballsInfo[i].effects[0]),              // image
+            texture,              // image
             true,                        // button
             grp::POOL_BALLS,             // group
             renderLayer::WHITE_BALL      // renderlayer
@@ -361,29 +366,6 @@ PoolScene::createBallInfoText()
     createHints();
 }
 
-// void 
-// PoolScene::showBallEffect(int i)
-// {
-//     assert(i < POSITIONS);
-
-//     std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
-//     descriptions[i]->activate();
-
-//     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
-//     descriptions[i]->activate();
-// }
-
-// void 
-// PoolScene::hideBallEffect(int i)
-// {
-//     assert(i < POSITIONS);
-
-//     std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
-//     descriptions[i]->deactivate();
-
-//     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
-//     descriptions[i]->deactivate();
-// }
 
 void 
 PoolScene::scrollBallEffect(int i) {
@@ -472,11 +454,9 @@ PoolScene::createCallbacks() {
         
         ballButton->setOnHover([this, i]() {
             showBall(i);
-            //  showBallEffect(i);
         });
 
         ballButton->setOnExit([this, i]() {
-            //  hideBallEffect(i);
              hideBall(i);
         });
 
@@ -495,6 +475,7 @@ PoolScene::initRandomEffects() {
     constexpr float equalChance = 1.0 / int(NUM_BALLS);
 
     for(int i = 0; i < POSITIONS; ++i) {
+        if(i == _bossHole) continue;
         for(int i = 1; i < NUM_BALLS; ++i) allEffects.push_back({BallId(i), equalChance});
         addNewEffect(i, 1.0f, allEffects);
     }

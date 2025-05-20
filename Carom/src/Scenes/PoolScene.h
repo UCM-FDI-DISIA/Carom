@@ -77,8 +77,6 @@ public:
     std::string randomBallEffect(); // da un efecto de bola aleatorio.
     void generateBalls(); // genera las bolas.
     void createBallInfoText(); // crea la info de cada bola.
-    // void showBallEffect(int i); // muestra bola.
-    // void hideBallEffect(int i); // esconde bola.
     void scrollBallEffect(int i) override; //Cambia el efecto que se muestra
 
     /// @brief Genera efectos aleatorios para las 6 bolas
