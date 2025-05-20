@@ -38,7 +38,7 @@ En la mesa de pool los datos demuestran que los jugadores no se paran a leer lo 
 
 En general, los jugadores parecen entender el funcionamiento de una ronda de juego, siendo lo más problemático el sistema de puntuación, que se ha manifestado que es confuso. En cuanto a la tasa de victorias, es superior al 50% lo que significa que la mayoría de jugadores pueden ganar una partida sin problemas. Hay constancia de gente sin experiencia que se lo ha pasado sin problemas.
 
-![[C1-C2-C3-C4-C5-C6.png]]
+![[C1-C2-C3-C4-C5-C6 1.png]]
 
 ---
 ## Primera recompensa:
