@@ -81,10 +81,10 @@ ScenesManager::update()
  void
  ScenesManager::handleEvent()
  {
-	 if (!_gameScenes.empty()) {
-		std::shared_ptr<GameScene> current = _gameScenes.top();
-		current->handleEvent();
-	 }
+	if (!_gameScenes.empty()) {
+	std::shared_ptr<GameScene> current = _gameScenes.top();
+	current->handleEvent();
+	}
  }
 
 void

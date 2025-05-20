@@ -23,7 +23,7 @@ PauseScene::PauseScene(Game* g, GameScene* scene): UIScene(g) {
 
 PauseScene::~PauseScene(){
     AudioManager::Instance()->setVolumeMusicTrack(PAUSE_THEME, 0);
-    AudioManager::Instance()->setVolumeMusicTrack(trackName(previousTheme));
+    AudioManager::Instance()->setVolumeMusicTrack(trackName(previousTheme), 64);
 }
 
 void
