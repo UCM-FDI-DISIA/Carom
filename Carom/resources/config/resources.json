@@ -171,8 +171,12 @@
     { "id" : "boss_ball", "file" : "../../resources/images/boss_ball.png"},
     { "id" : "current_score", "file" : "../../resources/images/current_score.png"},
     { "id" : "to_beat_score", "file" : "../../resources/images/to_beat_score.png"},
-    { "id" : "plus", "file" : "../../resources/images/plus.png"}
+    { "id" : "plus", "file" : "../../resources/images/plus.png"},
 
+    { "id" : "carisma_stamp", "file" : "../../resources/images/permanent_rewards_stamps/carisma.png"},
+    { "id" : "picardia_stamp", "file" : "../../resources/images/permanent_rewards_stamps/picardia.png"},
+    { "id" : "poder_stamp", "file" : "../../resources/images/permanent_rewards_stamps/poder.png"},
+    { "id" : "soltura_stamp", "file" : "../../resources/images/permanent_rewards_stamps/soltura.png"}
   ],
   
   "messages" : [
