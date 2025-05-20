@@ -70,8 +70,13 @@ public:
     void createRewardInfo();
     void showReward(int i);
     void hideReward(int i);
+
+    // genera los sellos de las recompensas permanentes y su información
+    void generatePermanentRewardStamps();
+
     // ----------
-    
+
+
     // --- EFECTOS DE BOLAS ---
 
     std::string randomBallEffect(); // da un efecto de bola aleatorio.

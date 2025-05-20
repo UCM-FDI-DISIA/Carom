@@ -26,6 +26,7 @@
     { "id" : "Bonbance-BoldCondensed48", "file" : "../../resources/fonts/Bonbance-BoldCondensed.ttf", "size": 48},
     { "id" : "Aladin-Regular16", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 16},
     { "id" : "Aladin-Regular24", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 24},
+    { "id" : "Aladin-Regular30", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 30},
     { "id" : "Aladin-Regular48", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 48}
   ],
   

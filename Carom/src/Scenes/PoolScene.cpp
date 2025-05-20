@@ -91,6 +91,7 @@ void PoolScene::initObjects()
     initRandomEffects();
     generateBalls();
     generateFloorRewards();
+    generatePermanentRewardStamps();
     createBallInfoText();
 
     createCallbacks();
@@ -196,7 +197,7 @@ PoolScene::createRewardInfo() {
         pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
 
         addComponent<TransformComponent>(description, pos);
-        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI_MID, scale);
 
         description->deactivate();
 
@@ -261,6 +262,247 @@ PoolScene::hideReward(int i) {
     descriptions = getEntitiesOfGroup(grp::REWARD_INFO_TEXT);
     descriptions[i]->deactivate();
 }
+
+void
+PoolScene::generatePermanentRewardStamps() {
+    
+    ///Iconos
+
+    b2Vec2 pos;
+    Texture* texture;
+    Texture* backgrounTexture = &sdlutils().images().at("reward_description_box");
+    SDLUtils::svgElem* svgElement;
+    float scale;
+
+    std::vector<std::string> stampsNames = {"carisma", "picardia", "poder", "soltura"};
+
+    std::vector<std::pair<std::string, entity_t>> stamps = {
+        {"carisma", new Entity(*this, grp::PERMANENT_REWARD_ICONS)},
+        {"picardia", new Entity(*this, grp::PERMANENT_REWARD_ICONS)},
+        {"poder", new Entity(*this, grp::PERMANENT_REWARD_ICONS)},
+        {"soltura", new Entity(*this, grp::PERMANENT_REWARD_ICONS)}
+    };
+
+    entity_t    background, 
+                title, 
+                subtitle, secondSubtitle, thirdSubtitle,
+                value, secondValue, thirdValue;
+
+    std::string titleText;
+
+    int i = 0;
+    for (std::pair<std::string, entity_t>& s : stamps) {
+
+        // ICONOS
+        texture = &sdlutils().images().at(s.first + "_stamp");
+        svgElement = &sdlutils().svgs().at("pool").at(s.first + + "_icon");
+        pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+        scale = static_cast<float>(svgElement->width) / texture->width();
+
+        addComponent<TransformComponent>(s.second, pos);
+        addComponent<RenderTextureComponent>(s.second, texture, renderLayer::PERMANENT_ICONS, scale);
+
+        Button::TextureButton rButton = Button::TextureButton();
+        Button* buttonComp = addComponent<Button>(s.second, rButton);
+
+        // FONDO
+        background = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+        svgElement = &sdlutils().svgs().at("pool").at(s.first + "_area");
+        pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+        scale = static_cast<float>(svgElement->width) / backgrounTexture->width();
+
+        addComponent<TransformComponent>(background, pos);
+        addComponent<RenderTextureComponent>(background, backgrounTexture, renderLayer::UI_MID, scale);
+
+        background->deactivate();
+
+        // TEXTO
+        titleText = s.first;
+        titleText[0] = std::toupper(titleText[0]);        
+
+        title = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+        svgElement = &sdlutils().svgs().at("pool").at(s.first + "_title");
+        pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+        addComponent<TransformComponent>(title, pos);
+        addComponent<TextDisplayComponent>(title, renderLayer::UI, 1.0, titleText, 
+            SDL_Color(255, 255, 255, 255), "Bocalupo-Regular48");
+
+        title->deactivate();
+
+        if (s.first != "soltura") {
+
+            // SUBTITULO
+            subtitle = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_subtitle");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(subtitle, pos);
+            addComponent<TextDisplayComponent>(subtitle, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular30");
+
+            // Valor
+
+            value = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_value");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(value, pos);
+            addComponent<TextDisplayComponent>(value, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular48");
+        }
+        else {
+            // SUBTITULO
+            subtitle = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_golpe_subtitle");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(subtitle, pos);
+            addComponent<TextDisplayComponent>(subtitle, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular30");
+
+            // VALOR
+            value = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_golpe_value");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(value, pos);
+            addComponent<TextDisplayComponent>(value, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular48");
+
+            // SUBTITULO 2
+            secondSubtitle = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_combo_subtitle");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(secondSubtitle, pos);
+            addComponent<TextDisplayComponent>(secondSubtitle, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular30");
+
+            // VALOR 2
+            secondValue = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_combo_value");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(secondValue, pos);
+            addComponent<TextDisplayComponent>(secondValue, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular48");
+
+            // SUBTITULO 3
+            thirdSubtitle = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_carom_subtitle");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(thirdSubtitle, pos);
+            addComponent<TextDisplayComponent>(thirdSubtitle, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular30");
+
+            // VALOR 3
+            thirdValue = new Entity(*this, grp::PERMANENT_REWARD_INFO);
+            svgElement = &sdlutils().svgs().at("pool").at(s.first + "_carom_value");
+            pos = PhysicsConverter::pixel2meter(svgElement->x, svgElement->y);
+
+            addComponent<TransformComponent>(thirdValue, pos);
+            addComponent<TextDisplayComponent>(thirdValue, renderLayer::UI, 1.0, "-", 
+                SDL_Color(255, 255, 255, 255), "Aladin-Regular48");
+
+            secondSubtitle->deactivate();
+            thirdSubtitle->deactivate();
+            secondValue->deactivate();
+            thirdValue->deactivate();
+        }
+
+        subtitle->deactivate();
+        value->deactivate();
+
+        std::function<void()> activateElems = [background, title, subtitle, value]() {
+            background->activate();
+            title->activate();
+            subtitle->activate();
+            value->activate();
+        };
+        std::function<void()> deactivateElems = [background, title, subtitle, value]() {
+            background->deactivate();
+            title->deactivate();
+            subtitle->deactivate();
+            value->deactivate();
+        };
+
+        if (s.first == "carisma") {
+            subtitle->getComponent<TextDisplayComponent>()->setDisplayedText("Tu puntuación comienza en:");
+
+            buttonComp->setOnHover([activateElems, value](){
+                value->getComponent<TextDisplayComponent>()->setDisplayedText(
+                    std::to_string(InventoryManager::Instance()->getCharisma())
+                );
+                activateElems();
+            });
+            buttonComp->setOnExit([deactivateElems](){
+                deactivateElems();
+            });
+        }
+        else if (s.first == "picardia") {
+            subtitle->getComponent<TextDisplayComponent>()->setDisplayedText("Reducción de puntos a obtener:");
+            
+            buttonComp->setOnHover([activateElems, value](){
+                value->getComponent<TextDisplayComponent>()->setDisplayedText(
+                    std::to_string(static_cast<int>(InventoryManager::Instance()->getCunning() * 100)) + "%"
+                );
+                activateElems();
+            });
+            buttonComp->setOnExit([deactivateElems](){
+                deactivateElems();
+            });
+        }
+        else if(s.first == "poder") {
+            subtitle->getComponent<TextDisplayComponent>()->setDisplayedText("Tiradas adicionales:");
+
+            buttonComp->setOnHover([activateElems, value](){
+                value->getComponent<TextDisplayComponent>()->setDisplayedText(
+                    std::to_string(InventoryManager::Instance()->getPower())
+                );
+                activateElems();
+            });
+            buttonComp->setOnExit([deactivateElems](){
+                deactivateElems();
+            });
+        }
+        else if (s.first == "soltura") {
+            subtitle->getComponent<TextDisplayComponent>()->setDisplayedText("Puntos extra de golpe:");
+            secondSubtitle->getComponent<TextDisplayComponent>()->setDisplayedText("Puntos extra de combo:");
+            thirdSubtitle->getComponent<TextDisplayComponent>()->setDisplayedText("Puntos extra de carambola:");
+
+            buttonComp->setOnHover([activateElems, value, secondSubtitle, thirdSubtitle, secondValue, thirdValue](){
+
+                value->getComponent<TextDisplayComponent>()->setDisplayedText(
+                    std::to_string(InventoryManager::Instance()->getHitEase())
+                );
+
+                secondValue->getComponent<TextDisplayComponent>()->setDisplayedText(
+                    std::to_string(InventoryManager::Instance()->getComboEase())
+                );
+
+                thirdValue->getComponent<TextDisplayComponent>()->setDisplayedText(
+                    std::to_string(InventoryManager::Instance()->getCaromEase())
+                );
+
+                activateElems();
+                secondSubtitle->activate();
+                thirdSubtitle->activate();
+                secondValue->activate();
+                thirdValue->activate();
+            });
+            buttonComp->setOnExit([deactivateElems, secondSubtitle, thirdSubtitle, secondValue, thirdValue](){
+                deactivateElems();
+                secondSubtitle->deactivate();
+                thirdSubtitle->deactivate();
+                secondValue->deactivate();
+                thirdValue->deactivate();
+            });
+        }
+    }
+}
+
 
 std::string 
 PoolScene::randomBallEffect()
@@ -328,7 +570,7 @@ PoolScene::createBallInfoText()
         );
 
         addComponent<TransformComponent>(description, pos);
-        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI_MID, scale);
 
         description->deactivate();
 
@@ -507,14 +749,15 @@ PoolScene::createCurrentFloorUI() {
     b2Vec2 framePos = PhysicsConverter::pixel2meter( floorSVG.x, floorSVG.y );
 
     floorFrameObject->addComponent(new TransformComponent(floorFrameObject, framePos));
-    floorFrameObject->addComponent(new RenderTextureComponent(floorFrameObject, &sdlutils().images().at("floor"), renderLayer::UI, scale));
+    floorFrameObject->addComponent(new RenderTextureComponent(floorFrameObject, &sdlutils().images().at("floor"), 
+        renderLayer::UI_BACK, scale));
     entity_t floorObject = new Entity(*this, grp::SCORE);
 
     auto shotsLeftText = sdlutils().svgs().at("pool").at("floor");
     b2Vec2 textPos = PhysicsConverter::pixel2meter( floorSVG.x, floorSVG.y );
 
     floorObject->addComponent(new TransformComponent(floorObject, textPos));
-    TextDisplayComponent* floorDisplay = new TextDisplayComponent(floorObject, renderLayer::UI, 1.0, 
+    TextDisplayComponent* floorDisplay = new TextDisplayComponent(floorObject, renderLayer::UI_BACK, 1.0, 
         std::to_string(currFloor), {255, 255, 255, 255}, "Basteleur-Bold72");
     floorObject->addComponent(floorDisplay);
 
