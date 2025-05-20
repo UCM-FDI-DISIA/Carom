@@ -17,6 +17,7 @@ void EndGameScene::initObjects()
     createBackground("suelo");
 
     createTable();
+    getEntitiesOfGroup(grp::TABLE_BACKGROUND)[0]->getComponent<RenderTextureComponent>()->changeColorTint(50, 50, 50);
 
     if (_win)
         hasWon();
@@ -148,7 +149,7 @@ void EndGameScene::bossLose()
 
     auto dialogue = addComponent<DialogueTextComponent>(prueba, a);
 
-    dialogue->addDialogue("MUAHAHAHAHAHAUAHAUHAAAAAAAA", [=](){
+    dialogue->addDialogue("Te lo advertimos. Has perdido", [=](){
 
     Entity* boss = new Entity(*this, grp::BOSS_SHADOW);
     b2Vec2 pos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").x, sdlutils().svgs().at("boss_table_shadow").at("shadow_pos").y);
@@ -166,8 +167,8 @@ void EndGameScene::bossLose()
 
     });
 
-    dialogue->addDialogue("Eres nuestro");
-    dialogue->addDialogue("PARA SIEMPRE", [=](){
+    dialogue->addDialogue("Y ahora eres nuestro ");
+    dialogue->addDialogue("Para siempre ", [=](){
         standardLose();
     });
 
