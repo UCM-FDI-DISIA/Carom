@@ -643,9 +643,10 @@ PoolScene::createCallbacks() {
         bool isBoss = i == _bossHole;
         holeButton->setOnClick([=](){
             hideReward(i);
-            // hideBallEffect(i);
-            showBall(i);
-            holeButton->setOnClick([=]{});
+            hideBall(i);
+            holeButton->setOnClick([]{});
+            ballButton->setOnHover([]{});
+
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
 
 
@@ -680,9 +681,8 @@ PoolScene::createCallbacks() {
                 game->getScenesManager()->pushScene(rs);
                 game->getScenesManager()->pushScene(ms);
 
-                holeButton->setOnHover([=]{});
-                // hideBallEffect(i);
-                hideBall(i);
+                holeButton->setOnHover([]{});
+                // hideBall(i);
             });
         });
 
