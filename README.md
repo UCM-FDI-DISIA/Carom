@@ -8,9 +8,9 @@
 
 #### Notas:
 
-La documentación está tanto en la wiki como en el código. El código ha sido comentado mientras que en la wiki ha explicaciones mas generales.
+La documentación está tanto en la wiki como en el código. El código ha sido comentado mientras que en la wiki hay explicaciones más generales.
 
-También hay una seccion de testing en la wiki con las conclusiones del plan de pruebas.
+También hay una sección de testing en la wiki con las conclusiones del plan de pruebas.
 
 ---
 
