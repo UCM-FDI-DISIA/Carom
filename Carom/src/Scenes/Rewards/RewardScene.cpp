@@ -17,6 +17,7 @@
 #include "BallInfoDisplayComponent.h"
 #include "Button.h"
 
+
 using body_t = BallInfoDisplayComponent::Body;
 
 RewardScene::RewardScene(Game* game, Reward reward) 
@@ -81,7 +82,8 @@ RewardScene::initObjects()
     createText(rType, txtPosX, 220, 1.5, {194, 197, 204, 255}, renderLayer::UI);
 
     // Boton de continuar 
-    _exitButton = createSVGImage("reward", "scoreSprite_center", "scoreSprite", true);
+    _exitButton = createSVGImage("reward", "scoreSprite_center", "scoreSprite", 
+        true, grp::DEFAULT, renderLayer::UI_MID);
     _exitButton->getComponent<Button>()->setOnClick([this]() { exitCallback(); });
     _exitButton->deactivate();
 
