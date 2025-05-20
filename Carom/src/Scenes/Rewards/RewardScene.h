@@ -19,6 +19,15 @@ public:
     class Reward 
     {
     public:
+
+    // Para no usar strings
+    inline static constexpr std::string_view CUNNING = "cunning";
+    inline static constexpr std::string_view CHARISMA = "charisma";
+    inline static constexpr std::string_view SKILL = "skill";
+    inline static constexpr std::string_view SKILL_GOLPE = "skill-golpe";
+    inline static constexpr std::string_view SKILL_CARAMBOLA = "skill-carambola";
+    inline static constexpr std::string_view SKILL_COMBO = "skill-combo";
+
     enum Type {
         INSTANT,
         PERMANENT,
@@ -84,20 +93,22 @@ protected:
 
     /// @brief  Crea todos los carteles con la info de las bolas y los esconde. 
     ///         También añade eventos para mostrarlos al pasar el ratón por encima
-    void createBallInfo();
+    // void createBallInfo();
 
-    void createBallShadow(entity_t e);
-    void showBall(int i);
-    void hideBall(int i);
-    // Stick info handling
-    void createStickInfo();
-    void showStick();
-    void hideStick();
+    // void createBallShadow(entity_t e);
+    // void showBall(int i);
+    // void hideBall(int i);
+    // void scrollBall(int i);
+    // // Stick info handling
+    // void createStickInfo();
+    // void showStick();
+    // void hideStick();
 
     void selectBall(int i);
     void changeStick(int i);
 
     inline Reward getReward() { return _reward; }
+    StickId getStickId();
 
 
 
@@ -108,6 +119,6 @@ protected:
     bool _atReward; // bool para saber la primera vez que se renderiza reward
 
     std::vector<BallId> _ballIDs;
-    StickId _stickID;
+    // StickId _stickID;
     int previousTheme;
 };

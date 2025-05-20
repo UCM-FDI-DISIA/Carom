@@ -41,13 +41,15 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
     dialogue->addDialogue("y por fin estás aquí ");
     dialogue->addDialogue("Primero lo importante: ¿sabes jugar? ", [=](){
 
-        auto caromOne = new CaromScene(game);
+        CaromScene* caromOne = new CaromScene(game);
+        
         auto a = std::shared_ptr<CaromScene>(caromOne);
         a.get()->setNewState(new TutorialOneStartMatchState(a.get()));
 
         game->getScenesManager()->pushScene(a);
 
         game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpeas arrastrando el ratón")));
+        caromOne->setScoreToBeat(1);
     });
 
     dialogue->addDialogue("Veo que sí que te acuerdas...");
@@ -63,6 +65,23 @@ TutorialScene::TutorialScene(Game* game, GameScene* sceneToRenderOnTop) : GameSc
 
         game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Golpea dos bolas consecutivamente con la bola blanca")));
     });
+    dialogue->addDialogue("Si quieres sobrevivir, deberás ganar partidas ");
+    dialogue->addDialogue("Para hacerlo, escucha atentamente: ");
+    dialogue->addDialogue("Reúne los puntos necesarios antes de agotarse los golpes");
+    dialogue->addDialogue("Para ganarlos, choca la bola blanca con las demás", [=](){
+
+        CaromScene* caromOne = new CaromScene(game);
+        
+        auto a = std::shared_ptr<CaromScene>(caromOne);
+        a.get()->setNewState(new TutorialOneStartMatchState(a.get()));
+
+        game->getScenesManager()->pushScene(a);
+
+        game->getScenesManager()->pushScene(std::shared_ptr<TextHelperScene>(new TextHelperScene(game, a, "Pruébalo")));
+        caromOne->setScoreToBeat(30);
+    });
+
+
     dialogue->addDialogue("Impresionante ");
     dialogue->addDialogue("Una última cosa ");
     dialogue->addDialogue("Te encuentras sobre una mesa de billar ");

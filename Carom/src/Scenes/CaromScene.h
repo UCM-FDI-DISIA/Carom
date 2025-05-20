@@ -74,6 +74,7 @@ protected:
     ColorHitManager* _hitManager; //El gestor de golpes entre bolas de color
     TextDisplayComponent* _remainingHitsDisplay;
     TextDisplayComponent* _roundScoreDisplay;
+    TextDisplayComponent* _scoreToBeatDisplay;
     RoundScoreAnimComponent* _roundScorer;
 public:
     TextDisplayComponent* createScoreUI();

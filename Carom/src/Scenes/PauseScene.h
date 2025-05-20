@@ -1,28 +1,17 @@
 #pragma once
-#include "GameScene.h"
+#include "UIScene.h"
 #include "Game.h"
 #include "ItemIDs.h"
 #include <memory>
 
-class PauseScene: public GameScene{
+class PauseScene: public UIScene {
     //escena sobre la que renderizar
     GameScene* _bottomScene;
 
-    std::vector<BallId> _ballIDs;
-    StickId _stickID;
     int previousTheme;
-    
-    void instantiateInventory();
 
-    // Ball info handling
-    void createBallInfo();
-    void showBall(int i);
-    void hideBall(int i);
+    void initObjects() override;
 
-    // Stick info handling
-    void createStickInfo();
-    void showStick();
-    void hideStick();
 public:
 
     PauseScene(Game* game, GameScene* sceneToRenderOnTop);
@@ -30,5 +19,5 @@ public:
 
     void render() override;
 
-    void createBallShadow(entity_t e);
+    
 };

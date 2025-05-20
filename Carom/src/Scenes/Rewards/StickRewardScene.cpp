@@ -26,7 +26,7 @@ void StickRewardScene::atRender()
     std::vector<ButtonWithSlot> a_buttonVector = openInventory();
 
     for (ButtonWithSlot& e : a_buttonVector) {
-        if (e.slot == 0) { // asi es, magic number
+        if (e.slot == 0) { // asi es, magic number // bravo
             if (e.button != nullptr) {
                 _oldStickTextureComponent = e.button->getEntity()->getComponent<RenderTextureComponent>();
                 e.button->setOnClick([this]() {
@@ -43,6 +43,8 @@ void StickRewardScene::atRender()
                         _oldStickTextureComponent->changeColorTint(64, 64, 64);
                         AudioManager::Instance()->playSoundEfect("unpick");
                     }
+
+                    toggleExitButton();
                 });
             }
         }
@@ -56,13 +58,13 @@ void StickRewardScene::initObjects()
 {
     moveExitButtonToRight();
 
-    std::vector<RandomItem<StickId>> a_stickList = {
-        {BOXING, 1.0},
-        {DONUT, 1.0},
-        {GRENADE, 1.0},
-        {NORMAL_STICK, 1.0},
-        {WAND, 1.0}
-    };
+    std::vector<RandomItem<StickId>> a_stickList = std::vector<RandomItem<StickId>>();
+
+    getStickId();
+
+    for(int i = 0; i < StickId::NUM_STICKS; ++i){
+        if(StickId (i) != _stickID) a_stickList.push_back({StickId (i), 1.0});
+    }
 
     _stickReward = RNG_Manager::Instance()->getRandomItem(a_stickList);
 
@@ -90,7 +92,11 @@ void StickRewardScene::initObjects()
 
     button->setOnClick([this]() {
         if (!_newSelected) {
-            if (_invSelected) selectItem(0);
+             // Si el palo del inventario está seleccionado, lo deseleccionamos
+            if (_invSelected) {
+                selectItem(0);
+                _invSelected = false;
+            } 
             _newSelected = true;
             showExitButton();
             _oldStickTextureComponent->changeColorTint(64, 64, 64);
@@ -100,6 +106,7 @@ void StickRewardScene::initObjects()
         else {
             _newSelected = false;
             hideExitButton();
+            toggleExitButton();
             _newStickTextureComponent->changeColorTint(64, 64, 64);
             AudioManager::Instance()->playSoundEfect("unpick");
         }

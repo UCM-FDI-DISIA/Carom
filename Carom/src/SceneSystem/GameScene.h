@@ -102,6 +102,7 @@ public:
 
     GameScene(Game* game);
 
+    //Es llamado por el ScenesManager al apilar la escena, NUNCA antes
     inline virtual void init(){}
     inline bool isInitialized() { return _initialized; }
 

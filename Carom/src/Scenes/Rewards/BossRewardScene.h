@@ -44,11 +44,11 @@ private:
     //Vector que guarda los indices en el inventario de las bolas que se van a eliminar
     std::vector<int> _ballsToRemove;
 
-    // Mostrar las bolas obtenidas y sus efectos
+    // Mostrar las bolas obtenidas y sus efectos (Ojo! No son las bolas del inventario, sino las de recompensa de piso)
     void createObtainedBalls();
     std::vector<RewardInfoDisplayComponent*> _effectRewardBoxes;
     void createBallInfoText(); // crea la info de cada bola.
     void showBallEffect(int i); // muestra bola.
     void hideBallEffect(int i); // esconde bola.
-    void scrollBallEffect(int i); //Cambia el efecto que se muestra
+    void scrollObtainedBallEffect(int i); //Cambia el efecto que se muestra
 };

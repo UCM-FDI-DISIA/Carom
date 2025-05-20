@@ -29,7 +29,8 @@ bool TutorialOneScoringState::checkCondition(State*& state){
 }
 
 void TutorialOneScoringState::onStateExit(){
-    if(_scene->getCurrentScore()>0 || _scene->getRoundScore()>0){
+    _scene->addPointsFromRound();
+    if(_scene->getCurrentScore() + _scene->getRoundScore()>=_scene->getScoreToBeat()){
         //pop a la escena de texto
         _scene->getScenesManager()->popScene();
         //pop a esta escena

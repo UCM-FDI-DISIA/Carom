@@ -26,6 +26,7 @@ void FusionRewardScene::atRender() {
     for(ButtonWithSlot pair : buttonsAndSlots) {
         if(pair.slot == 0) continue;
         getComponent<RenderTextureComponent>((pair.button)->getEntity())->changeColorTint(64, 64, 64);
+
         pair.button->setOnClick([this, pair] {
             this->selectItem(pair.slot);
             if(!isSelected(pair.slot)) {
@@ -36,6 +37,7 @@ void FusionRewardScene::atRender() {
                 getComponent<RenderTextureComponent>((pair.button)->getEntity())->resetColorTint();
                 AudioManager::Instance()->playSoundEfect("pick");
             }
+            toggleExitButton();
         });
     }
 }
@@ -70,10 +72,4 @@ void FusionRewardScene::initObjects() {
 
 void FusionRewardScene::initFunctionalities() {
     RewardScene::initFunctionalities();
-}
-
-bool 
-FusionRewardScene::isSelected(int index) {
-    auto items = getSelectedItems();
-    return std::find(items.begin(), items.end(), index) != items.end();
 }

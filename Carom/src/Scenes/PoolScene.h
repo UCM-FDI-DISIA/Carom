@@ -30,21 +30,6 @@ protected:
     
     
 public: 
-    /// @brief Struct con la informacion de las bolas de cara a su uso como recompensa y su render 
-    struct BallInfo{
-        std::vector<BallId> effects;
-        int scrollIndex = 0;
-        bool free = true;
-
-        bool operator==(const BallInfo& other) const {
-            return effects == other.effects;
-        }
-            bool operator!=(const BallInfo& other) const {
-            return !(effects == other.effects);
-        }
-    };
-
-    std::vector<BallInfo> _ballsInfo;
     inline std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
 
     /// @brief Devuelve solo las bolas disponibles
@@ -54,9 +39,6 @@ public:
             if(b.free) v.push_back(b);
         return v;
     }
-
-    static std::string getTextureName(BallId effect);
-    static std::string getEffectName(BallId effect);
 
 
     protected:
@@ -88,16 +70,19 @@ public:
     void createRewardInfo();
     void showReward(int i);
     void hideReward(int i);
+
+    // genera los sellos de las recompensas permanentes y su información
+    void generatePermanentRewardStamps();
+
     // ----------
-    
+
+
     // --- EFECTOS DE BOLAS ---
 
     std::string randomBallEffect(); // da un efecto de bola aleatorio.
     void generateBalls(); // genera las bolas.
     void createBallInfoText(); // crea la info de cada bola.
-    void showBallEffect(int i); // muestra bola.
-    void hideBallEffect(int i); // esconde bola.
-    void scrollBallEffect(int i); //Cambia el efecto que se muestra
+    void scrollBallEffect(int i) override; //Cambia el efecto que se muestra
 
     /// @brief Genera efectos aleatorios para las 6 bolas
     void initRandomEffects();

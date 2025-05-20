@@ -26,6 +26,7 @@
     { "id" : "Bonbance-BoldCondensed48", "file" : "../../resources/fonts/Bonbance-BoldCondensed.ttf", "size": 48},
     { "id" : "Aladin-Regular16", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 16},
     { "id" : "Aladin-Regular24", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 24},
+    { "id" : "Aladin-Regular30", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 30},
     { "id" : "Aladin-Regular48", "file" : "../../resources/fonts/Aladin-Regular.ttf", "size": 48}
   ],
   
@@ -171,8 +172,12 @@
     { "id" : "boss_ball", "file" : "../../resources/images/boss_ball.png"},
     { "id" : "current_score", "file" : "../../resources/images/current_score.png"},
     { "id" : "to_beat_score", "file" : "../../resources/images/to_beat_score.png"},
-    { "id" : "plus", "file" : "../../resources/images/plus.png"}
+    { "id" : "plus", "file" : "../../resources/images/plus.png"},
 
+    { "id" : "carisma_stamp", "file" : "../../resources/images/permanent_rewards_stamps/carisma.png"},
+    { "id" : "picardia_stamp", "file" : "../../resources/images/permanent_rewards_stamps/picardia.png"},
+    { "id" : "poder_stamp", "file" : "../../resources/images/permanent_rewards_stamps/poder.png"},
+    { "id" : "soltura_stamp", "file" : "../../resources/images/permanent_rewards_stamps/soltura.png"}
   ],
   
   "messages" : [
@@ -439,6 +444,12 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
+      "id" : "empty_ballName_pool", 
+      "text" : " ", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
       "id" : "normal_ballName_pool", 
       "text" : "Bola de carambola", 
       "font" : "Bocalupo-Regular48", 
@@ -484,6 +495,12 @@
       "id" : "petanque_ballName_pool", 
       "text" : "Bola de petanca", 
       "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "empty_ballDesc_pool", 
+      "text" : " ", 
+      "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
@@ -713,7 +730,7 @@
     {"id": "win", "file": "../../resources/svg/win.svg"},
     {"id": "lose", "file": "../../resources/svg/lose.svg"},
     {"id": "pool", "file": "../../resources/svg/pool.svg"},
-    {"id": "inventory", "file": "../../resources/svg/inventario.svg"},
+    {"id": "inventory", "file": "../../resources/svg/inventory.svg"},
     {"id": "boss_table_shadow", "file": "../../resources/svg/boss_table_shadow.svg"},
     {"id": "mainMenu", "file": "../../resources/svg/mainMenu.svg"},
     {"id": "grp_pyramids", "file": "../../resources/svg/grp_pyramids.svg"},

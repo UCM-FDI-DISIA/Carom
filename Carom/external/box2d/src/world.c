@@ -2299,9 +2299,6 @@ b2RayResult b2World_CastRayClosest( b2WorldId worldId, b2Vec2 origin, b2Vec2 tra
 		return result;
 	}
 
-	B2_ASSERT( b2IsValidVec2( origin ) );
-	B2_ASSERT( b2IsValidVec2( translation ) );
-
 	b2RayCastInput input = { origin, translation, 1.0f };
 	WorldRayCastContext worldContext = { world, b2RayCastClosestFcn, filter, 1.0f, &result };
 
