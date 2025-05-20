@@ -35,7 +35,7 @@ protected:
     struct BallInfo{
         std::vector<BallId> effects;
         int scrollIndex = 0;
-        bool free = true;
+        bool free = true; // En el caso del inventario, free significa que el slot está en uso
 
         bool operator==(const BallInfo& other) const {
             return effects == other.effects;

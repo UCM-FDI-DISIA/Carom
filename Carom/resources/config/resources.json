@@ -439,6 +439,12 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {
+      "id" : "empty_ballName_pool", 
+      "text" : " ", 
+      "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
       "id" : "normal_ballName_pool", 
       "text" : "Bola de carambola", 
       "font" : "Bocalupo-Regular48", 
@@ -484,6 +490,12 @@
       "id" : "petanque_ballName_pool", 
       "text" : "Bola de petanca", 
       "font" : "Bocalupo-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    {
+      "id" : "empty_ballDesc_pool", 
+      "text" : " ", 
+      "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {

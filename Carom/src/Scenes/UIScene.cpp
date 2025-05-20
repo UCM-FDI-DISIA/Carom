@@ -163,7 +163,7 @@ UIScene::instantiateInventory(){
 
         //si no existe la bola en el slot i, no se renderiza
         if(data.find(slot) == data.end()) {
-            _ballsInfo[i].effects.push_back(NORMAL_BALL);
+            _ballsInfo[i].free = false;
             continue;
         }
 
@@ -300,7 +300,6 @@ UIScene::createBallInfo() {
 
         auto svgElem = *&sdlutils().svgs().at("inventory").at("ball_Info_" + std::to_string(i));
         pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
-        pos.y -= 0.5;
 
         addComponent<TransformComponent>(description, pos);
         addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale * 1.5f);
@@ -312,57 +311,57 @@ UIScene::createBallInfo() {
         Text ballName, ballDesc;
 
         std::string ballEffect;
-        bool isEmptySlot = false;
 
-        if(_ballsInfo[i].effects.size() > 0) 
-        {
-            switch(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]) {
-                case ABBACUS: 
-                    ballEffect= "abbacus";
-                    break;
-                case BOWLING: 
-                    ballEffect = "bowling";
-                    break;
-                case CRISTAL: 
-                    ballEffect = "cristal";
-                    break;
-                case PETANQUE: 
-                    ballEffect = "petanque";
-                    break;
-                case POKEBALL: 
-                    ballEffect = "poke";
-                    break;
-                case QUANTIC: 
-                    ballEffect = "quantic";
-                    break;
-                case X2: 
-                    ballEffect = "x2";
-                    break;
-                default: 
-                    isEmptySlot = true;
+        if(!_ballsInfo[i].free) {
+            ballEffect = "empty";
+        }
+        else {
+            if(_ballsInfo[i].effects.size() > 0) 
+            {
+                switch(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]) {
+                    case ABBACUS: 
+                        ballEffect= "abbacus";
+                        break;
+                    case BOWLING: 
+                        ballEffect = "bowling";
+                        break;
+                    case CRISTAL: 
+                        ballEffect = "cristal";
+                        break;
+                    case PETANQUE: 
+                        ballEffect = "petanque";
+                        break;
+                    case POKEBALL: 
+                        ballEffect = "poke";
+                        break;
+                    case QUANTIC: 
+                        ballEffect = "quantic";
+                        break;
+                    case X2: 
+                        ballEffect = "x2";
+                        break;
+                }
             }
-        }
-        else ballEffect = "normal";
-  
-        // Se comprueba que haya bola en ese slot
-        if(!isEmptySlot) 
-        {
-            ballName = sdlutils().texts().at(ballEffect + "_ballName_pool");
-            ballDesc = sdlutils().texts().at(ballEffect + "_ballDesc_pool");
+            else ballEffect = "normal";
 
-            // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
-            description = new Entity(*this, grp::BALL_INFO_TEXT);
-            addComponent<TransformComponent>(description, pos);
-            BallInfoDisplayComponent* a_desc = addComponent<BallInfoDisplayComponent>(description, renderLayer::UI, 
-                    body_t{ballName.text, ballName.font, ballName.color, scale*1.5f},
-                    body_t{ballDesc.text, ballDesc.font, ballDesc.color, scale*2.f}
-                    , texture->width() * scale - 25
-                    , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
-                );
-            description->deactivate();
-
-            _ballEffectBoxes.push_back(a_desc);
         }
+        
+        ballName = sdlutils().texts().at(ballEffect + "_ballName_pool");
+        ballDesc = sdlutils().texts().at(ballEffect + "_ballDesc_pool");
+
+        // usa rewardInfoDisplayComponent porque en esencia es para lo mismo.
+        description = new Entity(*this, grp::BALL_INFO_TEXT);
+        addComponent<TransformComponent>(description, pos);
+        BallInfoDisplayComponent* a_desc = addComponent<BallInfoDisplayComponent>(description, renderLayer::UI, 
+                body_t{ballName.text, ballName.font, ballName.color, scale*1.5f},
+                body_t{ballDesc.text, ballDesc.font, ballDesc.color, scale*2.f}
+                , texture->width() * scale - 25
+                , -texture->width()/2 * scale + 15, -texture->height()/2 * scale + 35
+            );
+        description->deactivate();
+
+        _ballEffectBoxes.push_back(a_desc);
+
     
     }
 }
@@ -404,24 +403,27 @@ void UIScene::createBallShadow(entity_t entity){
 /// @param i el id de la bola cuya info que queremos enseñar
 void
 UIScene::showBall(int i) {
+    if(_ballsInfo[i].free) {
+        auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+        descriptions[i]->activate();
 
-    auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
-    descriptions[i]->activate();
+        descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+        descriptions[i]->activate();
+    }
 
-    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
-    descriptions[i]->activate();
 }
 
 /// @brief esconde la info de determinada bola
 /// @param i el id de la bola cuya info que queremos esconder
 void
 UIScene::hideBall(int i) {
-
-    auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
-    descriptions[i]->deactivate();
-
-    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
-    descriptions[i]->deactivate();
+    if(_ballsInfo[i].free) {
+        auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+        descriptions[i]->deactivate();
+    
+        descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+        descriptions[i]->deactivate();
+    }
 }
 
 
@@ -433,13 +435,40 @@ UIScene::scrollBallEffect(int i) {
         if(_ballsInfo[i].scrollIndex == (_ballsInfo[i].effects.size() - 1)) _ballsInfo[i].scrollIndex = 0;
         else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
         
-        std::string ballEffect = getEffectName(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]);
+        std::string ballEffect;
         
+        switch(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]) {
+            case ABBACUS: 
+                ballEffect= "abbacus";
+                break;
+            case BOWLING: 
+                ballEffect = "bowling";
+                break;
+            case CRISTAL: 
+                ballEffect = "cristal";
+                break;
+            case PETANQUE: 
+                ballEffect = "petanque";
+                break;
+            case POKEBALL: 
+                ballEffect = "poke";
+                break;
+            case QUANTIC: 
+                ballEffect = "quantic";
+                break;
+            case X2: 
+                ballEffect = "x2";
+                break;
+            }
+
+
         auto texture = &sdlutils().images().at("reward_description_box");
         float scale = static_cast<float>(*&sdlutils().svgs().at("reward").at("boss_reward_info").width) / texture->width();
 
-        Text ballName = sdlutils().texts().at(ballEffect + "_name_pool");
-        Text ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
+        Text ballName = sdlutils().texts().at(ballEffect + "_ballName_pool");
+        Text ballDesc = sdlutils().texts().at(ballEffect + "_ballDesc_pool");
+
+        
 
         body_t nameBody = {ballName.text, ballName.font, ballName.color, scale * 1.5f};
         _ballEffectBoxes[i]->setBallName(nameBody);
@@ -467,7 +496,6 @@ UIScene::createStickInfo(){
 
     auto svgElem = *&sdlutils().svgs().at("inventory").at("stick_info");
     pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
-    pos.y -= 0.5;
 
     addComponent<TransformComponent>(description, pos);
     addComponent<RenderTextureComponent>(description, texture, 101, scale * 1.5f);
