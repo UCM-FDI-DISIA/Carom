@@ -58,6 +58,7 @@ CaromScene::CaromScene( Game* game, State* s)
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
     , _remainingHits(5 + InventoryManager::Instance()->getPower())
+    , _scoreToBeatDisplay(nullptr)
 {
 }
 
@@ -655,8 +656,10 @@ CaromScene::createScoreUI() {
     );
 
     scoreToBeatObject->addComponent(new TransformComponent(scoreToBeatObject, pos2));         
-    scoreToBeatObject->addComponent(new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, std::to_string(_scoreToBeat), 
-        {255, 255, 255, 255}, "Basteleur-Moonlight48"));
+    _scoreToBeatDisplay = new TextDisplayComponent(scoreToBeatObject, renderLayer::SCORE, 1, std::to_string(_scoreToBeat), 
+        {255, 255, 255, 255}, "Basteleur-Moonlight48");
+    
+    scoreToBeatObject->addComponent<TextDisplayComponent>(_scoreToBeatDisplay);
 
     return currentDisplay;
 }
@@ -744,6 +747,7 @@ void CaromScene::addPointsFromRound(){
 
 void CaromScene::setScoreToBeat(int score){
     _scoreToBeat = score; 
+    if(_scoreToBeatDisplay != nullptr) _scoreToBeatDisplay->setDisplayedText(std::to_string(score));
 }
 
 void CaromScene::decrementRemainingHits()

@@ -34,7 +34,7 @@ public:
 	PoolScene* getPoolScene();
 
 	// Apila un nuevo estado, que se convierte en el estado actual,
-	// manteniendo el anterior en la pila
+	// manteniendo el anterior en la pila. Llama al init() de la escena apilada
 	void pushScene(std::shared_ptr<GameScene> scene);
 	// Reemplaza el estado actual por el nuevo estado
 	void replaceScene(std::shared_ptr<GameScene> scene);
