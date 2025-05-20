@@ -302,7 +302,7 @@ UIScene::createBallInfo() {
         pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
 
         addComponent<TransformComponent>(description, pos);
-        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale * 1.5f);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI_MID, scale * 1.5f);
 
         description->deactivate();
 
