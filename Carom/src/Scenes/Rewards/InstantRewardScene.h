@@ -15,9 +15,16 @@ protected:
 
     /// @brief Returns a vector of size max items that contains the indexes of selected items
     std::vector<int> getSelectedItems();
+    inline int getSelectedAmount() const { return _selectedAmount;}
+    inline int getMaxItems() const { return _maxItems;}
+    
+    bool isSelected(int index);
+
+    // Método virtual que implementa la lógica de mostrar u ocultar el botón de salir
+    virtual void toggleExitButton(); 
 
 private:
     int _maxItems;
-    int _selectedAmmount = 0;
+    int _selectedAmount = 0;
     bool _selectedItems[7];
 };

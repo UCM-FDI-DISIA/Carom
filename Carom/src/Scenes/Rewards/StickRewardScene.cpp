@@ -43,6 +43,8 @@ void StickRewardScene::atRender()
                         _oldStickTextureComponent->changeColorTint(64, 64, 64);
                         AudioManager::Instance()->playSoundEfect("unpick");
                     }
+
+                    toggleExitButton();
                 });
             }
         }
@@ -90,7 +92,11 @@ void StickRewardScene::initObjects()
 
     button->setOnClick([this]() {
         if (!_newSelected) {
-            if (_invSelected) selectItem(0);
+             // Si el palo del inventario está seleccionado, lo deseleccionamos
+            if (_invSelected) {
+                selectItem(0);
+                _invSelected = false;
+            } 
             _newSelected = true;
             showExitButton();
             _oldStickTextureComponent->changeColorTint(64, 64, 64);
@@ -100,6 +106,7 @@ void StickRewardScene::initObjects()
         else {
             _newSelected = false;
             hideExitButton();
+            toggleExitButton();
             _newStickTextureComponent->changeColorTint(64, 64, 64);
             AudioManager::Instance()->playSoundEfect("unpick");
         }

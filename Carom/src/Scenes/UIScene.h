@@ -55,6 +55,7 @@ protected:
 
     // Ball info handling
     void createBallInfo();
+    void createHints();
     void createBallShadow(entity_t e);
     void showBall(int i);
     void hideBall(int i);

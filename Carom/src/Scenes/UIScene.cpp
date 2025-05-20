@@ -139,7 +139,7 @@ UIScene::instantiateInventory(){
     b2Vec2 initialPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer_initial_pos").x, sdlutils().height()/2);
     auto tr = addComponent<TransformComponent>(fondo, initialPos);
 
-    float drawerScale =sdlutils().svgs().at("inventory").at("drawer").height/(float) sdlutils().images().at("drawer").getRect().h;
+    float drawerScale =sdlutils().svgs().at("inventory").at("drawer").height/(float) sdlutils().images().at("drawer").height();
 
     addComponent<RenderTextureComponent>(fondo, &sdlutils().images().at("drawer"), renderLayer::BACKGROUND, drawerScale);
     auto tween = addComponent<TweenComponent>(fondo);
@@ -155,7 +155,7 @@ UIScene::instantiateInventory(){
     std::ifstream f(InventoryManager::Instance()->pathToInventory);
     json data = json::parse(f);
     //balls
-    float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
+    float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").width();
 
     for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; i++){
         std::string key = "ball_" + std::to_string(i+1);
@@ -366,6 +366,25 @@ UIScene::createBallInfo() {
     }
 }
 
+/// @brief Crea un texto con información extra
+void
+UIScene::createHints() 
+{
+    // Texto de ayuda para scroll de efectos
+    entity_t help_text = new Entity(*this, grp::UI);
+
+    b2Vec2 pos = PhysicsConverter::pixel2meter(
+        *&sdlutils().svgs().at("inventory").at("").x,
+        *&sdlutils().svgs().at("inventory").at("").y
+    );
+
+    auto tr = addComponent<TransformComponent>(help_text, pos);
+
+    TextDisplayComponent* a_textDisplay = new TextDisplayComponent(help_text, renderLayer::UI, 1.0, 
+        "Elige entre este palo o el del inventario", {255, 255, 255, 255}, "Aladin-Regular48");
+    help_text->addComponent(a_textDisplay);  
+}
+
 
 void UIScene::createBallShadow(entity_t entity){
     addComponent<ShadowComponent>(entity);
@@ -498,7 +517,7 @@ UIScene::createStickInfo(){
     pos = PhysicsConverter::pixel2meter(svgElem.x, svgElem.y);
 
     addComponent<TransformComponent>(description, pos);
-    addComponent<RenderTextureComponent>(description, texture, 101, scale * 1.5f);
+    addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale * 1.5f);
 
     description->deactivate();
 

@@ -6,8 +6,9 @@
 #include "PetanqueEffect.h"
 #include "PokeballEffect.h"
 #include "QuanticEffect.h"
-#include "InventoryManager.h"
 #include "TextDisplayComponent.h"
+#include "InventoryManager.h"
+#include "AudioManager.h"
 #include "ecs.h"
 
 using body_t = BallInfoDisplayComponent::Body;
@@ -112,9 +113,20 @@ void CauldronRewardScene::atRender()
     for(auto ball : balls){
         if(ball.slot == 0) continue;
 
+        getComponent<RenderTextureComponent>((ball.button)->getEntity())->changeColorTint(64, 64, 64);
+
         ball.button->setOnClick([ball, this](){
             selectItem(ball.slot);
-            showExitButton();
+            
+            if(!isSelected(ball.slot)) {
+                getComponent<RenderTextureComponent>((ball.button)->getEntity())->changeColorTint(64, 64, 64);
+                AudioManager::Instance()->playSoundEfect("unpick");
+            }
+            else {
+                getComponent<RenderTextureComponent>((ball.button)->getEntity())->resetColorTint();
+                AudioManager::Instance()->playSoundEfect("pick");
+            }
+            toggleExitButton();
         });
     }
 }
