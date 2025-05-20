@@ -407,6 +407,31 @@
       "font" : "Aladin-Regular24", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
+
+
+    { 
+      "id" : "skill_golpe_rewardDesc_reward", 
+      "text" : "Incrementa el valor en +1 de un golpe (Choques entre bola blanca y bola de color)", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "skill_carambola_rewardDesc_reward", 
+      "text" : "Incrementa el valor en +1 de una carambola (Golpea dos bolas consecutivamente con la bola blanca)", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "skill_combo_rewardDesc_reward", 
+      "text" : "Incrementa el valor en +1 de un combo (Choques entre bolas de color)", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    
+
+
+
+
     { 
       "id" : "charisma_rewardName_pool", 
       "text" : "Carisma", 
@@ -417,6 +442,12 @@
       "id" : "charisma_rewardDesc_pool", 
       "text" : "Incrementa el valor base de la puntuacion.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+      { 
+      "id" : "charisma_rewardDesc_reward", 
+      "text" : "Incrementa el valor base de la puntuacion en +1.", 
+      "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
@@ -432,6 +463,12 @@
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     { 
+      "id" : "power_rewardDesc_reward", 
+      "text" : "Anade +1 a la tirada maxima.", 
+      "font" : "Aladin-Regular48", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
       "id" : "cunning_rewardName_pool", 
       "text" : "Picardia", 
       "font" : "Aladin-Regular48", 
@@ -441,6 +478,12 @@
       "id" : "cunning_rewardDesc_pool", 
       "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras.\nDESTRUYE la bola que cae a este hueco", 
       "font" : "Aladin-Regular24", 
+      "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
+    },
+    { 
+      "id" : "cunning_rewardDesc_reward", 
+      "text" : "Reduce en un porcentaje los puntos a alcanzar en todas las rondas futuras.", 
+      "font" : "Aladin-Regular48", 
       "color": { "r" : 255, "g" : 255, "b" : 255, "a" : 255}
     },
     {

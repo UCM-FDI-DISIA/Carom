@@ -51,7 +51,6 @@ RewardInfoDisplayComponent::deleteTextures() {
     if(_texture != nullptr) delete _texture;
 }
 
-// TODO
 void 
 RewardInfoDisplayComponent::render() {
     

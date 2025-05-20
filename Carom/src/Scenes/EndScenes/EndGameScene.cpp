@@ -54,10 +54,10 @@ void EndGameScene::standardWin()
 
 void EndGameScene::bossWin()
 {
-    Entity* prueba = new Entity(*this, grp::UI);
+    Entity* bossSpeech = new Entity(*this, grp::UI);
 
-    addComponent<TransformComponent>(prueba, b2Vec2{0.f,0.f});
-    auto a = addComponent<WobblyRenderTextureComponent>(prueba,           // container
+    addComponent<TransformComponent>(bossSpeech, b2Vec2{0.f,0.f});
+    auto a = addComponent<WobblyRenderTextureComponent>(bossSpeech,           // container
         renderLayer::UI,                                                  // capa renderizado
         1.f,                                                              // tamano fuente
         " ",                                                              // text
@@ -65,9 +65,9 @@ void EndGameScene::bossWin()
         "Basteleur-Moonlight60"                                           // fuente
     );
 
-    addComponent<RandomVibrationComponent>(prueba, .05f, 5);
+    addComponent<RandomVibrationComponent>(bossSpeech, .05f, 5);
 
-    auto dialogue = addComponent<DialogueTextComponent>(prueba, a);
+    auto dialogue = addComponent<DialogueTextComponent>(bossSpeech, a);
 
     dialogue->addDialogue("Enhorabuena...", [=](){
 
@@ -134,10 +134,10 @@ void EndGameScene::standardLose()
 
 void EndGameScene::bossLose()
 {
-    Entity* prueba = new Entity(*this, grp::UI);
+    Entity* bossSpeech = new Entity(*this, grp::UI);
 
-    addComponent<TransformComponent>(prueba, b2Vec2{0.f,0.f});
-    auto a = addComponent<WobblyRenderTextureComponent>(prueba,           // container
+    addComponent<TransformComponent>(bossSpeech, b2Vec2{0.f,0.f});
+    auto a = addComponent<WobblyRenderTextureComponent>(bossSpeech,           // container
         renderLayer::UI,     // capa renderizado
         1.f,                   // tamano fuente
         " ",                   // text
@@ -145,9 +145,9 @@ void EndGameScene::bossLose()
         "Basteleur-Moonlight60" // fuente
     );
 
-    addComponent<RandomVibrationComponent>(prueba, .05f, 5);
+    addComponent<RandomVibrationComponent>(bossSpeech, .05f, 5);
 
-    auto dialogue = addComponent<DialogueTextComponent>(prueba, a);
+    auto dialogue = addComponent<DialogueTextComponent>(bossSpeech, a);
 
     dialogue->addDialogue("Te lo advertimos. Has perdido", [=](){
 

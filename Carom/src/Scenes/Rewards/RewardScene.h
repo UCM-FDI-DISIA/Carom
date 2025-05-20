@@ -24,9 +24,9 @@ public:
     inline static constexpr std::string_view CUNNING = "cunning";
     inline static constexpr std::string_view CHARISMA = "charisma";
     inline static constexpr std::string_view SKILL = "skill";
-    inline static constexpr std::string_view SKILL_GOLPE = "skill-golpe";
-    inline static constexpr std::string_view SKILL_CARAMBOLA = "skill-carambola";
-    inline static constexpr std::string_view SKILL_COMBO = "skill-combo";
+    inline static constexpr std::string_view SKILL_GOLPE = "skill_golpe";
+    inline static constexpr std::string_view SKILL_CARAMBOLA = "skill_carambola";
+    inline static constexpr std::string_view SKILL_COMBO = "skill_combo";
 
     enum Type {
         INSTANT,

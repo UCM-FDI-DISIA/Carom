@@ -8,12 +8,13 @@
 
 
 TextDisplayComponent::TextDisplayComponent(Entity* entity, layerId_t renderLayer, float displayScale, 
-    std::string initialText, SDL_Color color, std::string key)
+    std::string initialText, SDL_Color color, std::string key, Uint32 wrapLength)
 
 : RenderTextureComponent(entity, nullptr, renderLayer, displayScale), 
 _text(initialText), 
 _color(color), 
-_key(key) 
+_key(key),
+_wrapLength(wrapLength)
 {
     reGenerateTexture();
 }
@@ -44,5 +45,9 @@ TextDisplayComponent::setDisplayedText(std::string text) {
 void 
 TextDisplayComponent::reGenerateTexture() {
     if(_texture != nullptr) delete _texture;
-    _texture = new Texture(sdlutils().renderer(), _text, sdlutils().fonts().at(_key), _color);
+
+    if (_wrapLength == 0)
+        _texture = new Texture(sdlutils().renderer(), _text, sdlutils().fonts().at(_key), _color);
+    else 
+        _texture = new Texture(sdlutils().renderer(), _text, sdlutils().fonts().at(_key), _color, _wrapLength);
 }

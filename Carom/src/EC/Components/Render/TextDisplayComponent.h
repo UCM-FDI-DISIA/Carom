@@ -17,6 +17,7 @@ protected:
     std::string _text;
     SDL_Color _color;
     std::string _key;
+    Uint32 _wrapLength;
 
     /// @brief Método auxiliar para generar una textura a partir de la string
     void reGenerateTexture();
@@ -28,7 +29,8 @@ public:
     /// @param key La key con la que buscar la fuente en el resources.json
     /// @param displayScale la escala del rect donde se crea el texto
     TextDisplayComponent(Entity* entity, layerId_t renderLayer, float displayScale, 
-        std::string initialText, SDL_Color color, std::string key);
+        std::string initialText, SDL_Color color, std::string key, Uint32 wrapLength = 0);
+        
     ~TextDisplayComponent();
 
     void changeFont(std::string key);
