@@ -8,12 +8,13 @@
 //Se ejecuta cuando es golpeada, roba todos los efectos de la bola con la que colisiona
 void PokeballEffect::onHit(entity_t ent)
 {
+    if(ent->getID() == grp::WHITEBALL) return;
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
     if(effects.size() == 0) return;
 
     RenderSpritesheetComponent* renderCmp = _myEntity->getComponent<RenderSpritesheetComponent>();
     if(renderCmp == nullptr) return;
-    
+
     Texture* texture = ent->getComponent<RenderSpritesheetComponent>()->getTexture();
     
     for(BallEffect* effect : effects)
