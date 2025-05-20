@@ -30,19 +30,6 @@ protected:
     
     
 public: 
-    /// @brief Struct con la informacion de las bolas de cara a su uso como recompensa y su render 
-    struct BallInfo{
-        std::vector<BallId> effects;
-        int scrollIndex = 0;
-        bool free = true;
-
-        bool operator==(const BallInfo& other) const {
-            return effects == other.effects;
-        }
-            bool operator!=(const BallInfo& other) const {
-            return !(effects == other.effects);
-        }
-    };
 
     std::vector<BallInfo> _ballsInfo;
     inline std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
@@ -54,9 +41,6 @@ public:
             if(b.free) v.push_back(b);
         return v;
     }
-
-    static std::string getTextureName(BallId effect);
-    static std::string getEffectName(BallId effect);
 
 
     protected:

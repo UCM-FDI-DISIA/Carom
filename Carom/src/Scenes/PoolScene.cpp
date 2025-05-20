@@ -504,24 +504,6 @@ PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>
     addNewEffect(index, _chanceForMultipleEffect, possibleEffects);
 }
 
-std::string 
-PoolScene::getTextureName(BallId effect) {
-    return "single_" + getEffectName(effect);
-}
-
-std::string 
-PoolScene::getEffectName(BallId effect) {
-    switch(effect){
-        case ABBACUS: return "AbacusEffect";
-        case BOWLING: return "BowlingEffect";
-        case CRISTAL: return "CristalEffect";
-        case PETANQUE: return "PetanqueEffect";
-        case POKEBALL: return "PokeballEffect";
-        case QUANTIC: return "QuanticEffect";
-        case X2: return "X2Effect";
-        default: return "";
-    }
-}
 
 void
 PoolScene::createCurrentFloorUI() {

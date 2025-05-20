@@ -7,7 +7,6 @@
 #include "PhysicsUtils.h"
 #include "RenderTextureComponent.h"
 #include "TransformComponent.h"
-#include "UnpauseComponent.h"
 #include "FollowComponent.h"
 #include "StickInputComponent.h"
 #include "ShadowComponent.h"
@@ -156,7 +155,7 @@ RewardScene::openInventory()
 
     //animacion
     b2Vec2 finalPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer").x, sdlutils().height()/2);
-    tween->easePosition(finalPos, 5.0f, tween::EASE_OUT_ELASTIC, false, [=](){});
+    tween->easePosition(finalPos, 5.0f, tween::EASE_OUT_ELASTIC, false, [](){});
     
     std::ifstream f(InventoryManager::Instance()->pathToInventory);
     json data = json::parse(f);
@@ -467,6 +466,29 @@ RewardScene::hideBall(int i) {
 
     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
     descriptions[i]->deactivate();
+}
+
+/// @brief scrollea por los distintos efecto de las bolas
+/// @param i id de la bola sobre la que se está mostrando info
+void 
+RewardScene::scrollBall(int i)
+{
+    // if(_obtainedBallsInfo[i].scrollIndex == (_obtainedBallsInfo[i].effects.size() - 1)) _obtainedBallsInfo[i].scrollIndex = 0;
+    // else _obtainedBallsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
+    
+    // std::string ballEffect = PoolScene::getEffectName(_obtainedBallsInfo[i].effects[_obtainedBallsInfo[i].scrollIndex]);
+    
+    // auto texture = &sdlutils().images().at("reward_description_box");
+    // float scale = static_cast<float>(*&sdlutils().svgs().at("reward").at("boss_reward_info").width) / texture->width();
+
+    // Text ballName = sdlutils().texts().at(ballEffect + "_name_pool");
+    // Text ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
+
+    // body_t nameBody = {ballName.text, ballName.font, ballName.color, scale * 1.5f};
+    // _effectRewardBoxes[i]->setRewardType(nameBody);
+
+    // body_t descBody = {ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f};
+    // _effectRewardBoxes[i]->setRewardDesc(descBody);
 }
 
 /// @brief muestra la info del palo

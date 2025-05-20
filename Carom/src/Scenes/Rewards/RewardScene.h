@@ -89,6 +89,7 @@ protected:
     void createBallShadow(entity_t e);
     void showBall(int i);
     void hideBall(int i);
+    void scrollBall(int i);
     // Stick info handling
     void createStickInfo();
     void showStick();
