@@ -202,7 +202,7 @@ BossRewardScene::createBallInfoText()
 
 
         addComponent<TransformComponent>(description, pos);
-        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI, scale);
+        addComponent<RenderTextureComponent>(description, texture, renderLayer::UI_BG, scale);
 
         description->deactivate();
 
