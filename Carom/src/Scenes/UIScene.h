@@ -55,11 +55,11 @@ protected:
 
     // Ball info handling
     void createBallInfo();
-    void createHints();
     void createBallShadow(entity_t e);
-    void showBall(int i);
-    void hideBall(int i);
-    void scrollBallEffect(int i); //Cambia el efecto que se muestra
+    virtual void createHints();
+    virtual void showBall(int i);
+    virtual void hideBall(int i);
+    virtual void scrollBallEffect(int i); //Cambia el efecto que se muestra
 
     std::vector<BallInfoDisplayComponent*> _ballEffectBoxes;
 

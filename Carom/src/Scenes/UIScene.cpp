@@ -364,6 +364,9 @@ UIScene::createBallInfo() {
 
     
     }
+
+    // El texto de ayuda se guarda al final del grupo BALL_INFO_TEXT
+    createHints();
 }
 
 /// @brief Crea un texto con información extra
@@ -371,18 +374,20 @@ void
 UIScene::createHints() 
 {
     // Texto de ayuda para scroll de efectos
-    entity_t help_text = new Entity(*this, grp::UI);
+    entity_t help_text = new Entity(*this, grp::BALL_HELP_TEXT);
 
     b2Vec2 pos = PhysicsConverter::pixel2meter(
-        *&sdlutils().svgs().at("inventory").at("").x,
-        *&sdlutils().svgs().at("inventory").at("").y
+        *&sdlutils().svgs().at("inventory").at("hintText").x,
+        *&sdlutils().svgs().at("inventory").at("hintText").y
     );
 
     auto tr = addComponent<TransformComponent>(help_text, pos);
 
     TextDisplayComponent* a_textDisplay = new TextDisplayComponent(help_text, renderLayer::UI, 1.0, 
-        "Elige entre este palo o el del inventario", {255, 255, 255, 255}, "Aladin-Regular48");
-    help_text->addComponent(a_textDisplay);  
+        "Consejo: haz click derecho para mostrar más efectos", {255, 255, 255, 255}, "Aladin-Regular24");
+    help_text->addComponent(a_textDisplay); 
+    
+    help_text->deactivate();
 }
 
 
@@ -428,6 +433,13 @@ UIScene::showBall(int i) {
 
         descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
         descriptions[i]->activate();
+
+        // mostrar texto de ayuda si tiene varios efectos
+        if(_ballsInfo[i].effects.size() > 1) {
+            descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
+            for(auto e : descriptions) e->activate();
+        }
+
     }
 
 }
@@ -439,9 +451,15 @@ UIScene::hideBall(int i) {
     if(_ballsInfo[i].free) {
         auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
         descriptions[i]->deactivate();
-    
+        
         descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
         descriptions[i]->deactivate();
+
+        // mostrar texto de ayuda si tiene varios efectos
+        if(_ballsInfo[i].effects.size() > 1) {
+            descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
+            for(auto e : descriptions) e->deactivate();
+        }
     }
 }
 

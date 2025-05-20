@@ -357,31 +357,33 @@ PoolScene::createBallInfoText()
 
         _effectRewardBoxes.push_back(a_desc);
     }
+
+    createHints();
 }
 
-void 
-PoolScene::showBallEffect(int i)
-{
-    assert(i < POSITIONS);
+// void 
+// PoolScene::showBallEffect(int i)
+// {
+//     assert(i < POSITIONS);
 
-    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
-    descriptions[i]->activate();
+//     std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+//     descriptions[i]->activate();
 
-    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
-    descriptions[i]->activate();
-}
+//     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+//     descriptions[i]->activate();
+// }
 
-void 
-PoolScene::hideBallEffect(int i)
-{
-    assert(i < POSITIONS);
+// void 
+// PoolScene::hideBallEffect(int i)
+// {
+//     assert(i < POSITIONS);
 
-    std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
-    descriptions[i]->deactivate();
+//     std::vector<entity_t> descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
+//     descriptions[i]->deactivate();
 
-    descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
-    descriptions[i]->deactivate();
-}
+//     descriptions = getEntitiesOfGroup(grp::BALL_INFO_TEXT);
+//     descriptions[i]->deactivate();
+// }
 
 void 
 PoolScene::scrollBallEffect(int i) {
@@ -417,7 +419,8 @@ PoolScene::createCallbacks() {
         bool isBoss = i == _bossHole;
         holeButton->setOnClick([=](){
             hideReward(i);
-            hideBallEffect(i);
+            // hideBallEffect(i);
+            showBall(i);
             holeButton->setOnClick([=]{});
             tween->easePosition(_holes[i]->getTransform()->getPosition(), 0.5f, tween::EASE_IN_OUT_CUBIC, false, [=]{
 
@@ -454,7 +457,8 @@ PoolScene::createCallbacks() {
                 game->getScenesManager()->pushScene(ms);
 
                 holeButton->setOnHover([=]{});
-                hideBallEffect(i);
+                // hideBallEffect(i);
+                hideBall(i);
             });
         });
 
@@ -467,11 +471,13 @@ PoolScene::createCallbacks() {
         });
         
         ballButton->setOnHover([this, i]() {
-             showBallEffect(i);
+            showBall(i);
+            //  showBallEffect(i);
         });
 
         ballButton->setOnExit([this, i]() {
-             hideBallEffect(i);
+            //  hideBallEffect(i);
+             hideBall(i);
         });
 
         ballButton->setOnRightClick([this, i]() {
