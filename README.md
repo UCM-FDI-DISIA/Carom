@@ -19,3 +19,7 @@ También hay una seccion de testing en la wiki con las conclusiones del plan de 
 - Profesores de la asignatura
   - Alejandro Romero
   - Carlos "John Cleon" León
+
+- Músico: Rubén Herrera (@airubex)
+
+- El equipo de desarrollo de Carom
