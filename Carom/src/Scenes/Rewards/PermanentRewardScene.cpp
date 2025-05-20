@@ -25,7 +25,7 @@ void PermanentRewardScene::applyReward()
     auto inv = InventoryManager::Instance();
 
     if(_name == Reward::CUNNING) {
-        float value = _rng->randomRange(0.05f,0.10f);
+        float value = _rng->randomRange(0.01f,0.03f);
         inv->setCunning(inv->getCunning() - value);
     }
     else if(_name == Reward::SKILL_GOLPE) {

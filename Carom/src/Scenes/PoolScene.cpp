@@ -446,7 +446,7 @@ PoolScene::generatePermanentRewardStamps() {
             
             buttonComp->setOnHover([activateElems, value](){
                 value->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(static_cast<int>(InventoryManager::Instance()->getCunning() * 100)) + "%"
+                    std::to_string(static_cast<int>((1.0 - InventoryManager::Instance()->getCunning()) * 100)) + "%"
                 );
                 activateElems();
             });
