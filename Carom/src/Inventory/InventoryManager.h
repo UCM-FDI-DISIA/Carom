@@ -7,6 +7,8 @@
 #include "ItemIDs.h"
 #include "ecs.h"
 #include <box2d/box2d.h>
+#include <string.h>
+#include <SDL_filesystem.h>
 
 
 class GameScene;
@@ -37,7 +39,7 @@ private:
     
     public:
     static const int MAX_BALLS = 6;
-    const std::string pathToInventory = "../../resources/prefabs/inventoryData/inventory.json";
+    const std::string pathToInventory = std::string(SDL_GetPrefPath("BOM", "Carom")) + "inventory.json";
     // Recibe una COPIA de las bolas del inventario, es decir, las genera a partir del json
     //
     //@param positions
