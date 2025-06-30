@@ -3,7 +3,7 @@
 #include "ScenesManager.h"
 #include "AudioManager.h"
 #include "TutorialScene.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "ControlsScene.h"
 
 MainMenuScene::MainMenuScene(Game *g) 
@@ -17,7 +17,7 @@ MainMenuScene::~MainMenuScene()
 
 void MainMenuScene::initFunctionalities()
 {
-    auto inv = InventoryManager::Instance();
+    auto inv = Inventory::Instance();
     inv->loadStartingInventory();
 }
 
@@ -55,7 +55,7 @@ void MainMenuScene::initObjects()
     pannels[2]->getComponent<Button>()->setOnClick([this](){
         // Se crea POOLSCENE
         std::shared_ptr<PoolScene> _poolScene = std::make_shared<PoolScene>(game);
-        InventoryManager::Instance()->loadStartingInventory();
+        Inventory::Instance()->loadStartingInventory();
         getGame()->getScenesManager()->pushScene(_poolScene);
     });  
 

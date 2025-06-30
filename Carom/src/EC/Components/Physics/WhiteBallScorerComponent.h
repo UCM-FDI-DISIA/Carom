@@ -2,10 +2,10 @@
 #include "PhysicsComponent.h"
 #include "ecs.h"
 
-class InventoryManager;
+class Inventory;
 //cambiar todo esto con herencia del componente de Mika
 class WhiteBallScorerComponent : public PhysicsComponent{
-    InventoryManager* _inventory;
+    Inventory* _inventory;
 
     int _cushions = 0; // rebotes en paredes.
     bool _previouslyHit = false; // para ver si la whiteball ha tocado previamente una colorball.

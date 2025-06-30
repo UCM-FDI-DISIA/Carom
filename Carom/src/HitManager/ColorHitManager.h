@@ -6,7 +6,7 @@
 
 class CaromScene;
 class Entity;
-class InventoryManager;
+class Inventory;
 
 //Encargado de gestionar golpes de bolas de color
 class ColorHitManager {
@@ -14,7 +14,7 @@ class ColorHitManager {
     CaromScene* _mainScene;
     std::unordered_map<Entity*, std::unordered_set<Entity*>> _positionsRegistered;
     
-    InventoryManager* _inventory;
+    Inventory* _inventory;
     const int baseComboScore = 2;
 public:
     //Recibe un puntero a la mainScene, que es la que lo crea

@@ -2,12 +2,12 @@
 #include "CaromScene.h"
 #include "Entity.h"
 #include "AudioManager.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 
 ColorHitManager::ColorHitManager(CaromScene* mainScene){
     _mainScene = mainScene;
-    _inventory = InventoryManager::Instance();
+    _inventory = Inventory::Instance();
 };
 
 void ColorHitManager::clearAllHits(){

@@ -1,4 +1,4 @@
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "Texture.h"
 #include <fstream>
 #include <iostream>
@@ -12,24 +12,24 @@
 #include "GranadeLauncherStickEffect.h"
 #include "RewardScene.h"
 
-InventoryManager::InventoryManager()
+Inventory::Inventory()
 {
 
 }
 
-InventoryManager::~InventoryManager() {
+Inventory::~Inventory() {
 
 }
 
-void InventoryManager::loadStartingInventory(){
+void Inventory::loadStartingInventory(){
     loadInventoryWithPath("../../resources/prefabs/inventoryData/startingInventory.json");
 }
 
-void InventoryManager::loadSavedInventory(){
+void Inventory::loadSavedInventory(){
     loadInventoryWithPath("../../resources/prefabs/inventoryData/savedInventory.json");
 }
 
-void InventoryManager::loadInventoryWithPath(std::string path){
+void Inventory::loadInventoryWithPath(std::string path){
     std::string line;
 
     std::ifstream ini_file {path};
@@ -50,11 +50,11 @@ void InventoryManager::loadInventoryWithPath(std::string path){
     }
 }
 
-void InventoryManager::loadInventoryNamed(std::string nameOfInventory){
+void Inventory::loadInventoryNamed(std::string nameOfInventory){
     loadInventoryWithPath("../../resources/prefabs/inventoryData/" + nameOfInventory + ".json");
 }
 
-void InventoryManager::exportInventoryToSave(){
+void Inventory::exportInventoryToSave(){
     std::string line;
 
     std::ifstream ini_file {pathToInventory};
@@ -78,7 +78,7 @@ void InventoryManager::exportInventoryToSave(){
 }
 
 std::vector<entity_t> 
-InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{}) {
+Inventory::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{}) {
     std::vector<entity_t> balls;
     balls.reserve(MAX_BALLS);
 
@@ -99,13 +99,13 @@ InventoryManager::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions
 }
 
 entity_t 
-InventoryManager::getStick(GameScene& scene) {
+Inventory::getStick(GameScene& scene) {
     //retorna el objeto de stick en el json
     return JsonEntityParser::createStick(scene, pathToInventory, "stick");
 }
 
 bool
-InventoryManager::addBall(entity_t ball) {
+Inventory::addBall(entity_t ball) {
 
     bool found = false;
     std::ifstream f(pathToInventory);
@@ -128,7 +128,7 @@ InventoryManager::addBall(entity_t ball) {
 }
 
 bool
-InventoryManager::addBall(std::vector<int> ids) {
+Inventory::addBall(std::vector<int> ids) {
 
     std::vector<std::string> a_effects;
 
@@ -187,7 +187,7 @@ InventoryManager::addBall(std::vector<int> ids) {
 }
 
 void
-InventoryManager::addStick(entity_t stick) {
+Inventory::addStick(entity_t stick) {
     //! TO DO
     removeStick();
 
@@ -222,7 +222,7 @@ InventoryManager::addStick(entity_t stick) {
 }
 
 void
-InventoryManager::addStick(int rawStickId) {
+Inventory::addStick(int rawStickId) {
 
     removeStick();
 
@@ -258,7 +258,7 @@ InventoryManager::addStick(int rawStickId) {
 }
 
 void 
-InventoryManager::swapBall(entity_t newBall, int indexOfOldBall) {
+Inventory::swapBall(entity_t newBall, int indexOfOldBall) {
     
     assert(indexOfOldBall >= 0 && indexOfOldBall < MAX_BALLS);
     std::ifstream f(pathToInventory);
@@ -271,7 +271,7 @@ InventoryManager::swapBall(entity_t newBall, int indexOfOldBall) {
 }
 
 void
-InventoryManager::removeBall(int index) {
+Inventory::removeBall(int index) {
     
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
@@ -282,7 +282,7 @@ InventoryManager::removeBall(int index) {
     updateData(data);
 }
 
-void InventoryManager::removeAllBalls() {
+void Inventory::removeAllBalls() {
     
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
@@ -295,7 +295,7 @@ void InventoryManager::removeAllBalls() {
     updateData(data);
 }
 
-void InventoryManager::removeStick() {
+void Inventory::removeStick() {
     //! TO DO
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
@@ -308,7 +308,7 @@ void InventoryManager::removeStick() {
 }
 
 //guarda las bolas de la partida en el inventario.json por si hubiera ocurrido algun cambio durante la partida
-void InventoryManager::saveBalls(std::vector<entity_t> balls){
+void Inventory::saveBalls(std::vector<entity_t> balls){
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
@@ -327,7 +327,7 @@ void InventoryManager::saveBalls(std::vector<entity_t> balls){
     updateData(data);
 }
 
-int InventoryManager::getNumberOfEffectBalls(){\
+int Inventory::getNumberOfEffectBalls(){\
     int res = 0;
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
@@ -342,7 +342,7 @@ int InventoryManager::getNumberOfEffectBalls(){\
     return res;
 }
 
-void InventoryManager::updateData(json data){
+void Inventory::updateData(json data){
     std::ofstream fileStream(pathToInventory);
     if(fileStream.is_open()) fileStream << data.dump(3);
     fileStream.close();
@@ -350,29 +350,29 @@ void InventoryManager::updateData(json data){
 
 //------------------------------------- P E R M A ----------------------------------------
 
-int InventoryManager::getHitEase(){ return getParameterValue("hitEase");}
-void InventoryManager::setHitEase(int i){setParameterValue("hitEase", i);}
+int Inventory::getHitEase(){ return getParameterValue("hitEase");}
+void Inventory::setHitEase(int i){setParameterValue("hitEase", i);}
 
-int InventoryManager::getComboEase(){return getParameterValue("comboEase");}
-void InventoryManager::setComboEase(int i){setParameterValue("comboEase", i);}
+int Inventory::getComboEase(){return getParameterValue("comboEase");}
+void Inventory::setComboEase(int i){setParameterValue("comboEase", i);}
 
-int InventoryManager::getCaromEase(){return getParameterValue("caromEase");}
-void InventoryManager::setCaromEase(int i){setParameterValue("caromEase", i);}
+int Inventory::getCaromEase(){return getParameterValue("caromEase");}
+void Inventory::setCaromEase(int i){setParameterValue("caromEase", i);}
 
-int InventoryManager::getCharisma(){return getParameterValue("charisma");}
-void InventoryManager::setCharisma(int i){setParameterValue("charisma", i);}
+int Inventory::getCharisma(){return getParameterValue("charisma");}
+void Inventory::setCharisma(int i){setParameterValue("charisma", i);}
 
-int InventoryManager::getPower(){return getParameterValue("power");}
-void InventoryManager::setPower(int i){setParameterValue("power", i);}
+int Inventory::getPower(){return getParameterValue("power");}
+void Inventory::setPower(int i){setParameterValue("power", i);}
 
-float InventoryManager::getCunning(){
+float Inventory::getCunning(){
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
     return data["cunning"];
 }
 
-void InventoryManager::setCunning(float f){
+void Inventory::setCunning(float f){
     std::ifstream fs(pathToInventory);
     json data = json::parse(fs);
 
@@ -381,14 +381,14 @@ void InventoryManager::setCunning(float f){
     updateData(data);
 }
 
-int InventoryManager::getParameterValue(std::string key){
+int Inventory::getParameterValue(std::string key){
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
     return data[key];
 }
 
-void InventoryManager::setParameterValue(std::string key, int value){
+void Inventory::setParameterValue(std::string key, int value){
     std::ifstream f(pathToInventory);
     json data = json::parse(f);
 
@@ -397,7 +397,7 @@ void InventoryManager::setParameterValue(std::string key, int value){
     updateData(data);
 }
 
-std::vector<BallId> InventoryManager::getEffectsFromBall(int index) {
+std::vector<BallId> Inventory::getEffectsFromBall(int index) {
     std::vector<BallId> output;
     std::ifstream f(pathToInventory);
     json data = json::parse(f);

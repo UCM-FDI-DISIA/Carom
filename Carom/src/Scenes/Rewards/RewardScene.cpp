@@ -1,7 +1,7 @@
 #include "RewardScene.h"
 #include "ScenesManager.h"
 #include "PoolScene.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include "SDLUtils.h"
 #include "PhysicsUtils.h"
@@ -143,7 +143,7 @@ RewardScene::exitCallback()
 std::vector<RewardScene::ButtonWithSlot> 
 RewardScene::openInventory()
 {
-    _ballsInfo = std::vector<BallInfo>(InventoryManager::Instance()->MAX_BALLS);
+    _ballsInfo = std::vector<BallInfo>(Inventory::Instance()->MAX_BALLS);
     std::vector<RewardScene::ButtonWithSlot> a_returnVal;
 
     //fondo del cajon
@@ -160,12 +160,12 @@ RewardScene::openInventory()
     b2Vec2 finalPos = PhysicsConverter::pixel2meter(sdlutils().svgs().at("inventory").at("drawer").x, sdlutils().height()/2);
     tween->easePosition(finalPos, 5.0f, tween::EASE_OUT_ELASTIC, false, [](){});
     
-    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    std::ifstream f(Inventory::Instance()->pathToInventory);
     json data = json::parse(f);
     //balls
     float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").getRect().w;
 
-    for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; i++){
+    for(int i = 0; i < Inventory::Instance()->MAX_BALLS; i++){
         std::string key = "ball_" + std::to_string(i+1);
         std::string slot = "slot" + std::to_string(i);
 
@@ -241,7 +241,7 @@ RewardScene::openInventory()
     }
 
     //palo
-    entity_t palo = InventoryManager::Instance()->getStick(*this);
+    entity_t palo = Inventory::Instance()->getStick(*this);
     removeComponent<StickInputComponent>(palo);
     
     auto renderText = getComponent<RenderTextureComponent>(palo);
@@ -303,7 +303,7 @@ RewardScene::openInventory()
 
 StickId
 RewardScene::getStickId(){
-    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    std::ifstream f(Inventory::Instance()->pathToInventory);
     json data = json::parse(f);
 
     auto stickTextKey = data["stick"]["components"][0]["componentName"];

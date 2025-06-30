@@ -1,7 +1,7 @@
 #include "PermanentRewardScene.h"
 #include "ScenesManager.h"
 #include "PoolScene.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "RNG_Manager.h"
 
 
@@ -22,7 +22,7 @@ PermanentRewardScene::~PermanentRewardScene()
 
 void PermanentRewardScene::applyReward()
 {
-    auto inv = InventoryManager::Instance();
+    auto inv = Inventory::Instance();
 
     if(_name == Reward::CUNNING) {
         float value = _rng->randomRange(0.01f,0.03f);
@@ -42,7 +42,7 @@ void PermanentRewardScene::applyReward()
         inv->setCharisma(inv->getCharisma() + value);
     }
     else { // power
-        auto inv = InventoryManager::Instance();
+        auto inv = Inventory::Instance();
         inv->setPower(inv->getPower() + 1);
     }
 }
