@@ -86,7 +86,21 @@
 // TODO completar	
 #define _EFFECT_LIST_ \
 	NULO, \
-	CRISTAL
+	ABBACUS, \
+    BOWLING, \
+    CRISTAL, \
+    QUANTIC, \
+    PETANQUE, \
+    POKEBALL, \
+    X2
+
+	#define _STICK_LIST_ \
+	NORMAL_STICK, \
+    BOXING, \
+    DONUT, \
+    GRENADE, \
+    WAND
+
 
 // Shape list
 #define _SHAPE_LIST_ \

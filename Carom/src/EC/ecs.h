@@ -17,6 +17,7 @@ using grpId_t = uint8_t;
 using effectId_t = uint8_t;
 using shapeId_t = uint8_t;
 using layerId_t = uint8_t;
+using stickId_t = uint8_t;
 
 
 namespace cmp {
@@ -51,6 +52,14 @@ namespace effect {
 		// do not remove this
 		_LAST_EFFECT_ID
 	};
+}
+
+namespace stick{
+	enum stickId : stickId_t{
+		_STICK_LIST_, 
+
+		_LAST_EFFECT_ID
+	}
 }
 
 namespace shape {
