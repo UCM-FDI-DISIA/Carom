@@ -14,7 +14,6 @@ local svgs = {
     {id = "ballspool", file = "../../resources/svg/ballspool.svg"},
     {id = "quit", file = "../../resources/svg/quit.svg"},
     {id = "reward", file = "../../resources/svg/reward.svg"},
-    {id = "boss_reward_balls_pos", file = "../../resources/svg/boss_reward_balls_pos.svg"},
     {id = "controlsMenu", file = "../../resources/svg/controlsMenu.svg"}
 }
 

@@ -1,4 +1,6 @@
-local jsonParser = require("lualibs.json.json")
+package.path = package.path .. ";../../?.lua"
+
+local jsonParser = require("external.lualibs.json.json")
 
 local resources = {
     fonts = require("resources.config.fonts"),
@@ -11,4 +13,7 @@ local resources = {
     svgs = require("resources.config.svgs"),
 }
 
-return jsonParser.stringify(resources, true)
+local jsonString = jsonParser.stringify(resources, false)
+print(jsonString)
+
+return jsonString

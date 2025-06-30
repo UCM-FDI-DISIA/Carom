@@ -54,10 +54,11 @@ bool SDLUtils::init(std::string windowTitle, int width, int height) {
 
 
 
-bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename) {
+bool SDLUtils::init(std::string windowTitle, int width, int height, std::string filename, const char* jsonString) {
 	init(windowTitle, width, height);
 	
-	loadReasources(filename);
+	if (filename != "") loadReasourcesFromFile(filename);
+	else loadResourcesFromString(jsonString);
 
 	// we always return true, because this class either exit or throws an
 	// exception on error. If you want to avoid using exceptions you should
@@ -155,7 +156,7 @@ void SDLUtils::initSDLExtensions() {
 
 }
 
-void SDLUtils::loadReasources(std::string filename) {
+void SDLUtils::loadReasourcesFromFile(std::string filename) {
 	// TODO check the correctness of values and issue a corresponding
 	// exception. Now we just do some simple checks, and assume input
 	// is correct.
@@ -163,12 +164,24 @@ void SDLUtils::loadReasources(std::string filename) {
 	// Load JSON configuration file. We use a unique pointer since we
 	// can exit the method in different ways, this way we guarantee that
 	// it is always deleted
-	std::unique_ptr<JSONValue> jValueRoot(JSON::ParseFromFile(filename));
+	JSONValue* jValueRoot(JSON::ParseFromFile(filename));
+	loadResources(jValueRoot);
+	delete jValueRoot;
+}
 
-	// check it was loaded correctly
+void 
+SDLUtils::loadResourcesFromString(const char* jsonString) {
+	JSONValue* jValueRoot(JSON::Parse(jsonString));
+	loadResources(jValueRoot);
+	delete jValueRoot;
+}
+
+void 
+SDLUtils::loadResources(JSONValue* jValueRoot) {
+// check it was loaded correctly
 	// the root must be a JSON object
 	if (jValueRoot == nullptr || !jValueRoot->IsObject()) {
-		throw "Something went wrong while load/parsing '" + filename + "'";
+		throw "Something went wrong while load/parsing the 'resources' file";
 	}
 
 	// we know the root is JSONObject
@@ -195,12 +208,11 @@ void SDLUtils::loadReasources(std::string filename) {
 #endif
 					_fonts.emplace(key, Font(file, size));
 				} else {
-					throw "'fonts' array in '" + filename
-							+ "' includes and invalid value";
+					throw "'fonts' array in resources file includes and invalid value";
 				}
 			}
 		} else {
-			throw "'fonts' is not an array in '" + filename + "'";
+			throw "'fonts' is not an array in resources file";
 		}
 	}
 
@@ -219,12 +231,11 @@ void SDLUtils::loadReasources(std::string filename) {
 #endif
 					_images.emplace(key, Texture(renderer(), file));
 				} else {
-					throw "'images' array in '" + filename
-							+ "' includes and invalid value";
+					throw "'images' array in resources file includes and invalid value";
 				}
 			}
 		} else {
-			throw "'images' is not an array in '" + filename + "'";
+			throw "'images' is not an array in resources file";
 		}
 	}
 
@@ -256,12 +267,11 @@ void SDLUtils::loadReasources(std::string filename) {
 										build_sdlcolor(
 												vObj["bg"]->AsString())));
 				} else {
-					throw "'messages' array in '" + filename
-							+ "' includes and invalid value";
+					throw "'messages' array in resources file includes and invalid value";
 				}
 			}
 		} else {
-			throw "'messages' is not an array in '" + filename + "'";
+			throw "'messages' is not an array in resources file";
 		}
 	}
 
@@ -281,8 +291,7 @@ void SDLUtils::loadReasources(std::string filename) {
 #endif
 					_sounds.emplace(key, SoundEffect(file));
 				} else {
-					throw "'sounds' array in '" + filename
-							+ "' includes and invalid value";
+					throw "'sounds' array in resources file includes and invalid value";
 				}
 			}
 		} else {
@@ -305,8 +314,7 @@ void SDLUtils::loadReasources(std::string filename) {
 #endif
 					_musics.emplace(key, Music(file));
 				} else {
-					throw "'musics' array in '" + filename
-							+ "' includes and invalid value";
+					throw "'musics' array in resources file includes and invalid value";
 				}
 			}
 		} else {
@@ -361,8 +369,7 @@ void SDLUtils::loadReasources(std::string filename) {
 					#endif
 					_animations.emplace(key, anim);
 				} else {
-					throw "'animations' array in '" + filename
-						+ "' includes and invalid value";
+					throw "'animations' array in resources file includes and invalid value";
 				}
 			}
 		} else {
@@ -398,8 +405,7 @@ std::cout << "Loading text with id: " << key << std::endl;
 
 					_texts.emplace(key, text);
 				} else {
-					throw "'texts' array in '" + filename
-						+ "' includes and invalid value";
+					throw "'texts' array in resources file includes and invalid value";
 				}
 			}
 		} else {
@@ -422,15 +428,13 @@ std::cout << "Loading text with id: " << key << std::endl;
 #endif
 					_svgs.emplace(key, loadSVG(file));
 				} else {
-					throw "'svg' array in '" + filename
-							+ "' includes and invalid value";
+					throw "'svg' array in resources file includes and invalid value";
 				}
 			}
 		} else {
 			throw "'svg' is not an array";
 		}
 	}
-
 }
 
 SDLUtils::sdl_resource_table<SDLUtils::svgElem> SDLUtils::loadSVG(const std::string& filename) {

@@ -21,6 +21,12 @@
 
 #include "QuitScene.h"
 
+// Includes de lua como código de C (ni puta idea lo pone en la documentacion de lua)
+extern "C" {
+  #include "lua.h"
+  #include "lauxlib.h"
+  #include "lualib.h"
+}
 #include <memory>
 
 Game::Game() : _exit(false), _paused(false) {}
@@ -53,8 +59,30 @@ Game::~Game()
 void
 Game::init() 
 {
+    // initialize the resources via lua embedding
+    lua_State* luaState = luaL_newstate(); //-- Create the lua state
+    luaL_openlibs(luaState);
+
+    if (luaL_dofile(luaState, "../../resources/config/resources.lua") != LUA_OK) { //-- Check that resources.lua exists
+        std::cerr << "Lua Error: " << lua_tostring(luaState, -1) << std::endl;
+        lua_pop(luaState, 1);
+
+        std::cerr << "resources.lua file is missing" << std::endl;
+        return;
+    } if (!lua_isstring(luaState, -1)) { //-- Check that resources.lua returned a string
+        std::cerr << "Expected Lua script to return a string\n";
+        lua_pop(luaState, 1);
+
+        std::cerr << "Something went wrong when creating the resources string";
+        return;
+    }
+
+    //-- Get the string from resources
+    size_t length = 0;
+    const char* resourcesString = lua_tolstring(luaState, -1, &length);
+
     // initialize SDL singleton
-	if (!SDLUtils::Init("Carom", 1920, 1080, "../../resources/config/resources.json")) {
+	if (!SDLUtils::Init("Carom", 1920, 1080, "", resourcesString)) {
 		std::cerr << "Something went wrong while initializing SDLUtils"
 				<< std::endl;
 		return;
@@ -80,7 +108,7 @@ Game::init()
         return;
     }
 
-    // initialize InventoryManager singleton
+    // initialize RNGManager singleton
     if(!RNG_Manager::Init()) {
         std::cerr << "Something went wrong while initializing RNG_Manager"
                 << std::endl;
