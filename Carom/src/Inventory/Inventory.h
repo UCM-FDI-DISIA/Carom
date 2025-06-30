@@ -7,17 +7,19 @@
 #include "ItemIDs.h"
 #include "ecs.h"
 #include <box2d/box2d.h>
+#include <string.h>
+#include <SDL_filesystem.h>
 
 
 class GameScene;
 using json = nlohmann::json;
 
-class InventoryManager : public Singleton<InventoryManager> {
+class Inventory : public Singleton<Inventory> {
 
-	friend Singleton<InventoryManager> ;
+	friend Singleton<Inventory> ;
 private:
-	InventoryManager();
-	virtual ~InventoryManager();
+	Inventory();
+	virtual ~Inventory();
 
     inline bool init() {
         return true;
@@ -37,12 +39,12 @@ private:
     
     public:
     static const int MAX_BALLS = 6;
-    const std::string pathToInventory = "../../resources/prefabs/inventoryData/inventory.json";
+    const std::string pathToInventory = std::string(SDL_GetPrefPath("BOM", "Carom")) + "inventory.json";
     // Recibe una COPIA de las bolas del inventario, es decir, las genera a partir del json
     //
     //@param positions
     //Debe ser un vector de tamaño MAX_BALLS, ya que sino todas las bolas tendran posicion 0,0
-    std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions);
+    std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions); 
 
     // Recibe una COPIA del stick del inventario, es decir, lo genera a partir del json
     entity_t getStick(GameScene& scene);

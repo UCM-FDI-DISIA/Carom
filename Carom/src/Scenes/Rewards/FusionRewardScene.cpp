@@ -1,6 +1,6 @@
 #include "FusionRewardScene.h"
 #include "Button.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "PoolScene.h"
 #include "RenderTextureComponent.h"
 #include "AudioManager.h"
@@ -48,22 +48,22 @@ void FusionRewardScene::applyReward() {
     if(selectedBalls.size() == 0) return;
 
     std::vector<BallId> effectsToAdd, firstBallEffects, secondBallEffects;
-    firstBallEffects = InventoryManager::Instance()->getEffectsFromBall(selectedBalls[0]-1);
-    secondBallEffects = InventoryManager::Instance()->getEffectsFromBall(selectedBalls[1]-1);
+    firstBallEffects = Inventory::Instance()->getEffectsFromBall(selectedBalls[0]-1);
+    secondBallEffects = Inventory::Instance()->getEffectsFromBall(selectedBalls[1]-1);
 
     for(BallId effect : firstBallEffects) {
         if(std::find(secondBallEffects.begin(), secondBallEffects.end(), effect) == secondBallEffects.end())
             secondBallEffects.push_back(effect);
     }
 
-    InventoryManager::Instance()->removeBall(selectedBalls[0]-1);
-    InventoryManager::Instance()->removeBall(selectedBalls[1]-1);
+    Inventory::Instance()->removeBall(selectedBalls[0]-1);
+    Inventory::Instance()->removeBall(selectedBalls[1]-1);
 
     std::vector<int> effectIdsToInt;
     for( BallId effect : secondBallEffects)
         effectIdsToInt.push_back(int(effect));
 
-    InventoryManager::Instance()->addBall(effectIdsToInt);
+    Inventory::Instance()->addBall(effectIdsToInt);
 }
 
 void FusionRewardScene::initObjects() {

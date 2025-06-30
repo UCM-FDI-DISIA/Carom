@@ -202,7 +202,7 @@ add_executable(Carom
     src/Scenes/Rewards/PermanentRewardScene.cpp
     src/Scenes/Rewards/StickRewardScene.cpp
 
-	src/Inventory/InventoryManager.cpp
+	src/Inventory/Inventory.cpp
 
  	src/Ball/AbacusEffect.cpp
 	src/Ball/PetanqueEffect.cpp

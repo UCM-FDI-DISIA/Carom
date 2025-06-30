@@ -2,12 +2,12 @@
 
 #include "StickEffectComponent.h"
 
-class InventoryManager;
+class Inventory;
 
 /// @brief El palo lanzagranadas, que aplica explosiveEffect sobre una bola
 class GranadeLauncherStickEffect : public StickEffectComponent {
     float _explosionForce, _explosionDelay, _radius;
-    friend InventoryManager;
+    friend Inventory;
 public:
     __CMPID_DECL__(cmp::GRANADE_LAUCHER_STICK);
 

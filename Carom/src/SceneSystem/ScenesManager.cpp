@@ -9,7 +9,7 @@
 #include "ScenesManager.h"
 #include "RNG_Manager.h"
 #include "QuitScene.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "PoolScene.h"
 
 ScenesManager::ScenesManager()
@@ -98,7 +98,7 @@ void
 ScenesManager::invokeLose()
 {
 	_gameScenes.top()->getGame()->getProgressionManager()->reset();
-	auto inv = InventoryManager::Instance();
+	auto inv = Inventory::Instance();
     inv->loadStartingInventory();
 
 	// Main menu es la primera escena

@@ -37,7 +37,7 @@
 #include "WinMatchState.h"
 #include "RenderArrayComponent.h"
 
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "JsonEntityParser.h"
 
 #include "ShadowComponent.h"
@@ -57,7 +57,7 @@ CaromScene::CaromScene( Game* game, State* s)
     , _scoreToBeat()
     , _currentState(s)
     , _rngManager(RNG_Manager::Instance())
-    , _remainingHits(5 + InventoryManager::Instance()->getPower())
+    , _remainingHits(5 + Inventory::Instance()->getPower())
     , _scoreToBeatDisplay(nullptr)
 {
 }
@@ -69,9 +69,9 @@ void CaromScene::init()
     if(isBossMatch()) baseScore = 6;
     else baseScore = 4; 
 
-    baseScore *= InventoryManager::Instance()->getCunning();
+    baseScore *= Inventory::Instance()->getCunning();
     if (baseScore == 0) baseScore = 1;
-    _currentScore = InventoryManager::Instance()->getCharisma();
+    _currentScore = Inventory::Instance()->getCharisma();
 
     // Set the score to beat based on the current ante
     setScoreToBeat(game->getProgressionManager()->getScoreToBeat(baseScore));
@@ -179,7 +179,7 @@ CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, f
 
 entity_t CaromScene::createStick()
 {
-    auto stick = InventoryManager::Instance()->getStick(*this);
+    auto stick = Inventory::Instance()->getStick(*this);
 
     stick->deactivate();
 
@@ -199,10 +199,10 @@ CaromScene::createEffectBalls() {
     for(int i = 1; i <= npos; ++i)
         positions.push_back(RandomItem(i, 1.0f));
 
-    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, InventoryManager::MAX_BALLS, false);
+    std::vector<int> eb_selected_pos = _rngManager->getRandomItems(positions, Inventory::MAX_BALLS, false);
     std::vector<b2Vec2> randomPositions;
 
-    for(int i = 0; i < InventoryManager::MAX_BALLS; ++i) {
+    for(int i = 0; i < Inventory::MAX_BALLS; ++i) {
         std::string s = "bola";
         if(eb_selected_pos[i] > 1)
             s += ("_" + std::to_string(eb_selected_pos[i]));
@@ -213,7 +213,7 @@ CaromScene::createEffectBalls() {
     }
 
     //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
-    auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, randomPositions);
+    auto ballsVector = Inventory::Instance()->getEffectBalls(*this, randomPositions);
 
     //colores
     for(int i = 0; i < ballsVector.size(); i++){

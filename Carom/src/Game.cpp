@@ -5,7 +5,7 @@
 
 #include "Game.h"
 #include "InputHandler.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include "ScenesManager.h"
 #include "GameScene.h"
@@ -34,8 +34,8 @@ Game::~Game()
     if (RNG_Manager::HasInstance())
         RNG_Manager::Release();
 
-    if (InventoryManager::HasInstance())
-        InventoryManager::Release();
+    if (Inventory::HasInstance())
+        Inventory::Release();
 
     // release InputHandler if the instance was created correctly.
     if (InputHandler::HasInstance())
@@ -68,7 +68,7 @@ Game::init()
     }
 
     // initialize InventoryManager singleton
-    if(!InventoryManager::Init()) {
+    if(!Inventory::Init()) {
         std::cerr << "Something went wrong while initializing InventoryManager"
                 << std::endl;
         return;

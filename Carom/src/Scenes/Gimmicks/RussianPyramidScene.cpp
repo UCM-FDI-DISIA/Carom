@@ -19,7 +19,7 @@
 #include "ColorBallScorerComponent.h"
 #include "WhiteBallScorerComponent.h"
 #include "Button.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "AudioManager.h"
 
 
@@ -122,7 +122,7 @@ RussianPyramidScene::createEffectBalls()
     for(int i = 0; i < validPositions.size(); ++i)
         validPositionsRandom.push_back(RandomItem(validPositions[i], 1.0f));
 
-    std::vector<std::string> eb_selected_pos = _rngManager->getRandomItems(validPositionsRandom, InventoryManager::Instance()->MAX_BALLS, false);
+    std::vector<std::string> eb_selected_pos = _rngManager->getRandomItems(validPositionsRandom, Inventory::Instance()->MAX_BALLS, false);
     std::vector<b2Vec2> physical_selected_pos;
     for(int i = 0; i < eb_selected_pos.size(); ++i) 
     {        
@@ -132,7 +132,7 @@ RussianPyramidScene::createEffectBalls()
     }
 
     //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
-    auto ballsVector = InventoryManager::Instance()->getEffectBalls(*this, physical_selected_pos);
+    auto ballsVector = Inventory::Instance()->getEffectBalls(*this, physical_selected_pos);
 
     //colores
     for(int i = 0; i < ballsVector.size(); i++){

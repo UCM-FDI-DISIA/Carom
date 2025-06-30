@@ -11,7 +11,7 @@
 
 
 #include "ScenesManager.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 using body_t = BallInfoDisplayComponent::Body;
 
@@ -135,7 +135,7 @@ UIScene::getEffectName(BallId effect) {
 
 void
 UIScene::instantiateInventory(){
-    _ballsInfo = std::vector<BallInfo>(InventoryManager::Instance()->MAX_BALLS);
+    _ballsInfo = std::vector<BallInfo>(Inventory::Instance()->MAX_BALLS);
 
     //fondo del cajon
     entity_t fondo = new Entity(*this, grp::UI);
@@ -155,12 +155,12 @@ UIScene::instantiateInventory(){
         addComponent<UnpauseComponent>(unpause, tween);
     });
     
-    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    std::ifstream f(Inventory::Instance()->pathToInventory);
     json data = json::parse(f);
     //balls
     float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").width();
 
-    for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; i++){
+    for(int i = 0; i < Inventory::Instance()->MAX_BALLS; i++){
         std::string key = "ball_" + std::to_string(i+1);
         std::string slot = "slot" + std::to_string(i);
 
@@ -234,7 +234,7 @@ UIScene::instantiateInventory(){
     }
 
     //palo
-    entity_t palo = InventoryManager::Instance()->getStick(*this);
+    entity_t palo = Inventory::Instance()->getStick(*this);
     removeComponent<StickInputComponent>(palo);
     
     auto renderText = getComponent<RenderTextureComponent>(palo);
@@ -297,7 +297,7 @@ UIScene::createBallInfo() {
     float scale = static_cast<float>(*&sdlutils().svgs().at("inventory").at("ball_Info_0").width) / texture->width();
 
     // Cargamos primero las bolas
-    for(int i = 0; i < InventoryManager::Instance()->MAX_BALLS; ++i) {
+    for(int i = 0; i < Inventory::Instance()->MAX_BALLS; ++i) {
         // FONDO
         description = new Entity(*this, grp::BALL_INFO_BG);
 

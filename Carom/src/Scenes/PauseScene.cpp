@@ -6,7 +6,7 @@
 
 #include "TweenComponent.h"
 #include "PhysicsUtils.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include <iostream>
 

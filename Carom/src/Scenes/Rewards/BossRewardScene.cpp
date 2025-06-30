@@ -1,6 +1,6 @@
 #include "BossRewardScene.h"
 #include "ScenesManager.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include "AbacusEffect.h"
 #include "BowlingEffect.h"
@@ -23,7 +23,7 @@ BossRewardScene::BossRewardScene(Game* game, Reward reward)
         std::cout << "BOSS REWARD" << std::endl;
     #endif
 
-    _inventory = InventoryManager::Instance();
+    _inventory = Inventory::Instance();
 
     _obtainedBallsInfo = game->getScenesManager()->getPoolScene()->getFreeBallsInfo();
 }
@@ -94,7 +94,7 @@ void BossRewardScene::initFunctionalities()
 // y en caso contrario lo oculta
 void BossRewardScene::checkIfValid()
 {
-    if(_inventory->getNumberOfEffectBalls() + _selectedBalls.size() - _ballsToRemove.size() > InventoryManager::MAX_BALLS) {
+    if(_inventory->getNumberOfEffectBalls() + _selectedBalls.size() - _ballsToRemove.size() > Inventory::MAX_BALLS) {
         hideExitButton();
         return;
     }
@@ -115,7 +115,7 @@ void BossRewardScene::applyReward() {
         for(BallId effect : ball.effects) {
             if(!hasElement(ids, (int)effect))ids.push_back((int)effect);
         }
-        InventoryManager::Instance()->addBall(ids);
+        Inventory::Instance()->addBall(ids);
     }
 }
 

@@ -7,7 +7,7 @@
 #include "PokeballEffect.h"
 #include "QuanticEffect.h"
 #include "TextDisplayComponent.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "AudioManager.h"
 #include "ecs.h"
 
@@ -30,7 +30,7 @@ CauldronRewardScene::~CauldronRewardScene()
 void CauldronRewardScene::applyReward()
 {
     int inventoryBallId = getSelectedItems()[0]-1;
-    std::vector<BallId> chosenBallEffects = InventoryManager::Instance()->getEffectsFromBall(inventoryBallId);
+    std::vector<BallId> chosenBallEffects = Inventory::Instance()->getEffectsFromBall(inventoryBallId);
 
     for( BallId effect : chosenBallEffects)
         if(effect == _randomEffect) return;
@@ -41,8 +41,8 @@ void CauldronRewardScene::applyReward()
     for(BallId effect : chosenBallEffects)
         intParsedEffects.push_back(int(effect));
 
-    InventoryManager::Instance()->removeBall(inventoryBallId);
-    InventoryManager::Instance()->addBall(intParsedEffects);
+    Inventory::Instance()->removeBall(inventoryBallId);
+    Inventory::Instance()->addBall(intParsedEffects);
 }
 
 /// @brief Selects a random effect to apply and displays its description.

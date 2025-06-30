@@ -36,7 +36,7 @@
 #include "BoxingGloveStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
 #include "StickInputComponent.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include "ShadowComponent.h"
 
@@ -136,7 +136,7 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
     addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius);
 
     // RENDER
-    std::ifstream f(InventoryManager::Instance()->pathToInventory);
+    std::ifstream f(Inventory::Instance()->pathToInventory);
     json data = json::parse(f);
     std::string textureKey = "bola_blanca";
     if(data[childName]["components"][0]["atributes"]["effects"].size() >0){

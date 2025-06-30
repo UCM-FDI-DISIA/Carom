@@ -3,7 +3,7 @@
 #include "Entity.h"
 #include "ColorBallScorerComponent.h"
 #include "CaromScene.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include "WallComponent.h"
 #include "AudioManager.h"
@@ -14,7 +14,7 @@
 
 #include "CircleRBComponent.h"
 
-WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0), _inventory(InventoryManager::Instance())
+WhiteBallScorerComponent::WhiteBallScorerComponent(entity_t ent): PhysicsComponent(ent), _previouslyHit(0), _cushions(0), _inventory(Inventory::Instance())
 { 
 }
 void WhiteBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& contactData){

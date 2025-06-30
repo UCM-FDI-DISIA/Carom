@@ -13,7 +13,7 @@
 #include "CowboyPoolScene.h"
 #include "RussianPyramidScene.h" 
 
-#include "InventoryManager.h"
+#include "Inventory.h"
 
 #include "RewardScene.h"
 #include "CowboyPoolScene.h"
@@ -433,7 +433,7 @@ PoolScene::generatePermanentRewardStamps() {
 
             buttonComp->setOnHover([activateElems, value](){
                 value->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(InventoryManager::Instance()->getCharisma())
+                    std::to_string(Inventory::Instance()->getCharisma())
                 );
                 activateElems();
             });
@@ -446,7 +446,7 @@ PoolScene::generatePermanentRewardStamps() {
             
             buttonComp->setOnHover([activateElems, value](){
                 value->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(static_cast<int>((1.0 - InventoryManager::Instance()->getCunning()) * 100)) + "%"
+                    std::to_string(static_cast<int>((1.0 - Inventory::Instance()->getCunning()) * 100)) + "%"
                 );
                 activateElems();
             });
@@ -459,7 +459,7 @@ PoolScene::generatePermanentRewardStamps() {
 
             buttonComp->setOnHover([activateElems, value](){
                 value->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(InventoryManager::Instance()->getPower())
+                    std::to_string(Inventory::Instance()->getPower())
                 );
                 activateElems();
             });
@@ -475,15 +475,15 @@ PoolScene::generatePermanentRewardStamps() {
             buttonComp->setOnHover([activateElems, value, secondSubtitle, thirdSubtitle, secondValue, thirdValue](){
 
                 value->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(InventoryManager::Instance()->getHitEase())
+                    std::to_string(Inventory::Instance()->getHitEase())
                 );
 
                 secondValue->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(InventoryManager::Instance()->getComboEase())
+                    std::to_string(Inventory::Instance()->getComboEase())
                 );
 
                 thirdValue->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(InventoryManager::Instance()->getCaromEase())
+                    std::to_string(Inventory::Instance()->getCaromEase())
                 );
 
                 activateElems();

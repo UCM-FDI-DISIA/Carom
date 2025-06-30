@@ -4,7 +4,7 @@
 #include "PoolScene.h"
 #include <vector>
 
-class InventoryManager;
+class Inventory;
 
 /// @brief Recompensa que le otorga al jugador todas las bolas del jefe
 class BossRewardScene : public RewardScene 
@@ -39,7 +39,7 @@ private:
 
     //Vector que guarda los indices de las bolas seleccionadas para añadir al inventario
     std::vector<int> _selectedBalls;
-    InventoryManager* _inventory;
+    Inventory* _inventory;
 
     //Vector que guarda los indices en el inventario de las bolas que se van a eliminar
     std::vector<int> _ballsToRemove;

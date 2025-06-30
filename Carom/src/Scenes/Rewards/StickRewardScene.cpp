@@ -1,5 +1,5 @@
 #include "StickRewardScene.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "TextDisplayComponent.h"
 
 #include "AudioManager.h"
@@ -129,7 +129,7 @@ void StickRewardScene::initObjects()
 
 void StickRewardScene::applyReward()
 {
-    if (_newSelected) InventoryManager::Instance()->addStick(_stickReward);
+    if (_newSelected) Inventory::Instance()->addStick(_stickReward);
 }
 
 Texture*

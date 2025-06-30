@@ -3,7 +3,7 @@
 #include "ScenesManager.h"
 #include "NullState.h"
 #include "JsonEntityParser.h"
-#include "InventoryManager.h"
+#include "Inventory.h"
 #include "PoolScene.h"
 #include "AudioManager.h"
 #include "EndGameScene.h"
@@ -16,7 +16,7 @@ void WinMatchState::onStateEnter(){
     #ifndef _DEBUG
     #endif
     //AudioManager::Instance()->changeToPauseTheme();
-    InventoryManager::Instance()->saveBalls(_scene->getEntitiesOfGroup(grp::EFFECTBALLS));
+    Inventory::Instance()->saveBalls(_scene->getEntitiesOfGroup(grp::EFFECTBALLS));
     //deberia popear escena
     //auto scene = _scene->getRewardScene();
     //_scene->getScenesManager()->pushScene(scene);
