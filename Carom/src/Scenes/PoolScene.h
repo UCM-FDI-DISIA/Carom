@@ -26,6 +26,8 @@ protected:
     static constexpr int POSITIONS = 6;
     
     std::vector<entity_t> _holes, _balls;
+
+    std::vector<SlotInfo> _poolBallsInfo;
     
     
 public: 

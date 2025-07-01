@@ -46,17 +46,30 @@ void Inventory::loadInventoryWithPath(std::string path){
     for(int i =0; i < MAX_BALLS; i++){
         std::string slotName = "slot_" + std::to_string(i);
         _slots[i].used = data[slotName]["used"];
-        _slots[i].ballEffects = data[slotName]["ballEffects"];
+        _slots[i].ballEffects.clear();
+        for(auto it = data[slotName]["ballEffects"].begin() ; it != data[slotName]["ballEffects"].end(); ++it)
+        _slots[i].ballEffects.push_back(it.value());
     }
 }
 
 void Inventory::exportInventoryToSave(){
-    std::ifstream f(pathToSavedInventory);
-    
-    nlohmann::json data = nhlomann::json();
-    data.erase();
+    nlohmann::json data;
 
-    std::ofstream fileStream(pathToInventory);
+    data["ease"] = _ease;
+    data["charisma"] = _charisma;
+    data["combo"] = _combo;
+    data["hitEase"] = _hitEase;
+    data["power"] = _power;
+    data["cunning"] = _cunning;
+
+   for(int i =0; i < MAX_BALLS; i++){
+        std::string slotName = "slot_" + std::to_string(i);
+        data[slotName]["used"] = _slots[i].used;
+        for(auto num : _slots[i].ballEffects)
+        data[slotName]["ballEffects"].push_back(num);
+    }
+
+    std::ofstream fileStream(pathToSavedInventory);
     if(fileStream.is_open()) fileStream << data.dump(3);
     fileStream.close();
 }

@@ -110,9 +110,9 @@ void BossRewardScene::applyReward() {
     }
 
     for(int index : _selectedBalls) {
-        PoolScene::BallInfo ball = _obtainedBallsInfo[index];
+        SlotInfo ball = _obtainedBallsInfo[index];
         std::vector<effectId_t> ids;
-        for(effectId_t effect : ball.effects) {
+        for(effectId_t effect : ball.ballEffects) {
             if(!hasElement(ids, effect))ids.push_back(effect);
         }
         Inventory::Instance()->addBall(ids);
@@ -138,7 +138,7 @@ BossRewardScene::createObtainedBalls() {
 
         std::string textureKey = "bola_blanca";
 
-        effectId_t firstBallEffect = _obtainedBallsInfo[i].effects[0];
+        effectId_t firstBallEffect = _obtainedBallsInfo[i].ballEffects[0];
         switch(firstBallEffect) {
             case effect::ABBACUS: textureKey = "single_AbacusEffect"; break;
             case effect::BOWLING: textureKey = "single_BowlingEffect"; break;
@@ -212,7 +212,7 @@ BossRewardScene::createBallInfoText()
 
         title = sdlutils().texts().at("ballEffectTitle_pool");
 
-        std::string ballEffect = PoolScene::getEffectName(_obtainedBallsInfo[i].effects[0]);
+        std::string ballEffect = PoolScene::getEffectName(_obtainedBallsInfo[i].ballEffects[0]);
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");
         ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");
@@ -247,7 +247,7 @@ BossRewardScene::showBallEffect(int i)
     descriptions[i]->activate();
 
     // mostrar texto de ayuda si tiene varios efectos
-    if(_obtainedBallsInfo[i].effects.size() > 1) {
+    if(_obtainedBallsInfo[i].ballEffects.size() > 1) {
         descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
         for(auto e : descriptions) e->activate();
     }
@@ -265,7 +265,7 @@ BossRewardScene::hideBallEffect(int i)
     descriptions[i]->deactivate();
 
     // mostrar texto de ayuda si tiene varios efectos
-    if(_obtainedBallsInfo[i].effects.size() > 1) {
+    if(_obtainedBallsInfo[i].ballEffects.size() > 1) {
         descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
         for(auto e : descriptions) e->deactivate();
     }
@@ -273,7 +273,7 @@ BossRewardScene::hideBallEffect(int i)
 
 void 
 BossRewardScene::scrollObtainedBallEffect(int i) {
-    
+    /*
     if(_obtainedBallsInfo[i].scrollIndex == (_obtainedBallsInfo[i].effects.size() - 1)) _obtainedBallsInfo[i].scrollIndex = 0;
     else _obtainedBallsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
     
@@ -290,4 +290,5 @@ BossRewardScene::scrollObtainedBallEffect(int i) {
 
     body_t descBody = {ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f};
     _effectRewardBoxes[i]->setRewardDesc(descBody);
+    */
 }

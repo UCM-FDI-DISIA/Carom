@@ -532,7 +532,7 @@ PoolScene::generateBalls()
     // coloca las bolas
     for(int i = 0; i < POSITIONS; i++) {
         if(i == _bossHole) texture = "boss_ball";
-        else texture = getTextureName(_ballsInfo[i].ballEffects[0]);
+        else texture = getTextureName(_poolBallsInfo[i].ballEffects[0]);
 
         // genera la bola
         entity_t ball = createSVGImage(
@@ -582,7 +582,7 @@ PoolScene::createBallInfoText()
 
         bool isBoss = i == _bossHole;
         std::string ballEffect;
-        if(!isBoss) ballEffect = getEffectName(_ballsInfo[i].ballEffects[0]);
+        if(!isBoss) ballEffect = getEffectName(_poolBallsInfo[i].ballEffects[0]);
         else ballEffect = "boss";
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");
@@ -652,7 +652,7 @@ PoolScene::createCallbacks() {
 
 
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
-                _ballsInfo[i].used = true;
+                _poolBallsInfo[i].used = true;
     
                 std::shared_ptr<CaromScene> ms = nullptr;
 
@@ -713,7 +713,7 @@ PoolScene::createCallbacks() {
 void 
 PoolScene::initRandomEffects() {
     //se esta usando _ballsInfo de manera incorrecta aqui, que cojones? no se supone que _ballsInfo se ha usado siempre para las bolas del inventario?
-    _ballsInfo = std::vector<SlotInfo>(POSITIONS);
+    _poolBallsInfo = std::vector<SlotInfo>(POSITIONS);
     std::vector<RandomItem<effectId_t>> allEffects;
     constexpr float equalChance = 1.0 / int(effect::_LAST_EFFECT_ID);
 
@@ -729,7 +729,7 @@ PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<effectId
     if(_rngm->randomRange(0.0f, 1.0f) >= chance) return;
 
     if(possibleEffects.size() == 0) return;
-    _ballsInfo[index].ballEffects.push_back(_rngm->getRandomItem(possibleEffects, true));
+    _poolBallsInfo[index].ballEffects.push_back(_rngm->getRandomItem(possibleEffects, true));
 
     addNewEffect(index, _chanceForMultipleEffect, possibleEffects);
 }

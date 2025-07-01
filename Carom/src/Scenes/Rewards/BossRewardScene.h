@@ -36,7 +36,7 @@ private:
     }
 
     //Vector que guarda la información de las bolas obtenidas de la escena de pool
-    std::vector<PoolScene::BallInfo> _obtainedBallsInfo;
+    std::vector<SlotInfo> _obtainedBallsInfo;
 
     //Vector que guarda los indices de las bolas seleccionadas para añadir al inventario
     std::vector<int> _selectedBalls;
