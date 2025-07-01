@@ -32,7 +32,7 @@ private:
     CaromScene* _scene;
     std::array<BallEffect*, effect::_LAST_EFFECT_ID> _effects;
     //ids de los efectos de ballEffect, que se actualiza constantemente. Ahorra calculos en muchos lados al no tener que calcular de clase a id
-    std::vector<effectId_t> _effectIds;
+    std::vector<BallEffect*> _currentEffects;
     static constexpr int EFFECTS_LIMIT = 3;
 
     float _mult = 1;
@@ -47,8 +47,25 @@ public:
     void onBeingTargeted(); //Se ejecuta cuando esta siendo apuntado por una trayectoria de palo
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 
-    bool addEffect(effectId_t effect);
-    bool removeEffect(effectId_t effect);
+    /// @brief Método genérico para añadir efectos
+    /// @tparam T Clase del efecto
+    /// @param effect efecto a añadir 
+    /// @return true si se añade el efecto, false si no 
+    template<typename T>
+    bool addComponent(T* effect) {
+        return internalAddEffect(effId<T>, effect);
+    }
+    /// @brief Método genérico para eliminar un efecto de tipo T
+    /// @return true si se ha eliminado, false si no
+    template<typename T>
+    bool removeEffect(){
+        return internalRemoveEffect(effId<T>);
+    }
+private:
+    bool internalRemoveEffect(effectId_t id, bool deleteCmp = true);
+    bool internalAddEffect(effectId_t id, BallEffect* effect, bool initCmp = true);
+public:
+
     void removeAllEffects();
     __CMPID_DECL__(cmp::BALL_HANDLER);
 
@@ -59,5 +76,5 @@ public:
 
     inline float getMult() {return _mult;}
 
-    inline std::vector<effectId_t> getEffectsID() { return _effectIds;}
+    std::vector<effectId_t> getEffectsID();
 };

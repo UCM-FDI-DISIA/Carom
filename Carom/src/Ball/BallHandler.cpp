@@ -72,45 +72,48 @@ void BallHandler::setMult(float newMult)
     }
 }
 
-bool BallHandler::addEffect(effectId_t effect)
-{
-    if(_effects.size() < EFFECTS_LIMIT)
-    {
-        switch(effect){
-            case effect::ABBACUS: _myEntity->addComponent<AbacusEffect>(new AbacusEffect(this)); break;
-            case effect::BOWLING: _myEntity->addComponent<BowlingEffect>(new BowlingEffect(this)); break;
-            case effect::CRISTAL: _myEntity->addComponent<CristalEffect>(new CristalEffect(this)); break;
-            case effect::QUANTIC: _myEntity->addComponent<QuanticEffect>(new QuanticEffect(this)); break;
-            case effect::PETANQUE: _myEntity->addComponent<PetanqueEffect>(new PetanqueEffect(this)); break;
-            case effect::X2: _myEntity->addComponent<X2Effect>(new X2Effect(this)); break;
-        }
-        _effectIds.push_back(effect);
-        return true;
-    } else return false;
-}
+bool
+BallHandler::internalAddEffect(effectId_t id, BallEffect* component, bool initCmp) {
+    if(_effects[id] != nullptr) return false;
 
-bool BallHandler::removeEffect(effectId_t effectType) {
-    BallEffect* effect;
+    _effects[id] = component;
+    _currentEffects.push_back(component);
 
-    switch(effectType){
-            case effect::ABBACUS: effect = _myEntity->getComponent<AbacusEffect>(); break;
-            case effect::BOWLING: effect = _myEntity->getComponent<BowlingEffect>(); break;
-            case effect::CRISTAL: effect = _myEntity->getComponent<CristalEffect>(); break;
-            case effect::QUANTIC: effect = _myEntity->getComponent<QuanticEffect>(); break;
-            case effect::PETANQUE: effect = _myEntity->getComponent<PetanqueEffect>(); break;
-            case effect::X2: effect = _myEntity->getComponent<X2Effect>(); break;
-        }
-    if(effect = nullptr) return true;
-
-    auto it = find(_effects.begin(), _effects.end(), effect);
-    _effects.erase(it);
-
-    auto it2 = find(_effectIds.begin(), _effectIds.end(), effectType);
-    _effectIds.erase(it2);
+    if (initCmp) 
+        _effects[id]->init();
 
     return true;
 }
 
+bool
+BallHandler::internalRemoveEffect(effectId_t id, bool deleteCmp) {
+    if(_effects[id] == nullptr) return false;
+
+    auto it = find(_currentEffects.begin(), _currentEffects.end(), _effects[id]);
+    _currentEffects.erase(it);
+
+    if (deleteCmp)
+        delete _effects[id];
+
+    _effects[id] = nullptr;
+
+    return true;
+}
+
+std::vector<effectId_t> BallHandler::getEffectsID(){
+    std::vector<effectId_t> res;
+    for(auto effect : _currentEffects){
+        res.push_back(effect->getEffectId());
+    }
+
+    return res;
+}
+
+
 void BallHandler::removeAllEffects(){
-    _effects.clear();
+    for(auto effect : _effects){
+        if(effect != nullptr) delete effect;
+    }
+
+    _currentEffects.clear();
 }
