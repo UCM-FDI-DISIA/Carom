@@ -7,6 +7,7 @@
 #include <box2d/box2d.h>
 #include <string.h>
 #include <SDL_filesystem.h>
+#include <array>
 
 
 class GameScene;
@@ -14,7 +15,7 @@ class GameScene;
 struct SlotInfo{
     bool used = false;
     std::vector<effectId_t> ballEffects;
-}
+};
 
 class Inventory : public Singleton<Inventory> {
 
@@ -35,20 +36,22 @@ private:
     SlotInfo _slots[MAX_BALLS];
     stickId_t _stick;
 
+    const std::string pathToSavedInventory = std::string(SDL_GetPrefPath("BOM", "Carom")) + "savedInventory.json";
+
 public:
     void setEase(int e);
     void setCharisma(int c);
     void setCombo(int c);
     void setHitEase(int h);
-    void setPow(int p);
+    void setPower(int p);
     void setCunning(float c);
-    void setStick(stick::stickId id);
+    void setStick(stickId_t id);
 
     int getEase();
     int getCharisma();
     int getCombo();
     int getHitEase();
-    int getPow();
+    int getPower();
     float getCunning();
     stickId_t getStickType();
 
@@ -60,4 +63,10 @@ public:
     bool addBall(std::vector<effectId_t> ids);
 
     std::vector<effectId_t>getEffectsFromBall(int index);
+    std::array<SlotInfo, MAX_BALLS> getSlotsInfo();
+
+    void loadInventoryWithPath(std::string path);
+    void loadStartingInventory();
+    void loadSavedInventory();
+    void exportInventoryToSave();
 };

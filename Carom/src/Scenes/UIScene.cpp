@@ -11,7 +11,6 @@
 
 
 #include "ScenesManager.h"
-#include "Inventory.h"
 
 using body_t = BallInfoDisplayComponent::Body;
 
@@ -114,28 +113,29 @@ void UIScene::createButton(int x, int y, std::string text, Texture* t, std::func
 
 
 std::string 
-UIScene::getTextureName(BallId effect) {
+UIScene::getTextureName(effectId_t effect) {
     return "single_" + getEffectName(effect);
 }
 
 std::string 
-UIScene::getEffectName(BallId effect) {
+UIScene::getEffectName(effectId_t effect) {
     switch(effect){
-        case ABBACUS: return "AbacusEffect";
-        case BOWLING: return "BowlingEffect";
-        case CRISTAL: return "CristalEffect";
-        case PETANQUE: return "PetanqueEffect";
-        case POKEBALL: return "PokeballEffect";
-        case QUANTIC: return "QuanticEffect";
-        case X2: return "X2Effect";
+        case effect::ABBACUS: return "AbacusEffect";
+        case effect::BOWLING: return "BowlingEffect";
+        case effect::CRISTAL: return "CristalEffect";
+        case effect::PETANQUE: return "PetanqueEffect";
+        case effect::POKEBALL: return "PokeballEffect";
+        case effect::QUANTIC: return "QuanticEffect";
+        case effect::X2: return "X2Effect";
         default: return "";
     }
 }
 
 
-void
+std::vector<UIScene::ButtonWithSlot>
 UIScene::instantiateInventory(){
-    _ballsInfo = std::vector<BallInfo>(Inventory::Instance()->MAX_BALLS);
+
+    std::vector<UIScene::ButtonWithSlot> a_returnVal;
 
     //fondo del cajon
     entity_t fondo = new Entity(*this, grp::UI);
@@ -154,9 +154,7 @@ UIScene::instantiateInventory(){
         Entity* unpause = new Entity(*this, grp::PAUSE_UNPAUSE);
         addComponent<UnpauseComponent>(unpause, tween);
     });
-    
-    std::ifstream f(Inventory::Instance()->pathToInventory);
-    json data = json::parse(f);
+
     //balls
     float ballScale = sdlutils().svgs().at("inventory").at("ball_1").width/ (float) sdlutils().images().at("bola_blanca").width();
 
@@ -165,30 +163,16 @@ UIScene::instantiateInventory(){
         std::string slot = "slot" + std::to_string(i);
 
         //si no existe la bola en el slot i, no se renderiza
-        if(data.find(slot) == data.end()) {
-            _ballsInfo[i].free = false;
+        if(!_ballsInfo[i].used)
             continue;
-        }
+        
 
         // Guardar la información de las bolas del inventario en el vector _ballsInfo
         std::string textureKey = "bola_blanca";
-        for(int j = 0; j < data[slot]["components"][0]["atributes"]["effects"].size(); ++j) {
-            textureKey = data[slot]["components"][0]["atributes"]["effects"][j]["componentName"];
-
-            if(textureKey == "BowlingEffect") _ballsInfo[i].effects.push_back(BOWLING);
-            else if(textureKey == "X2Effect") _ballsInfo[i].effects.push_back(X2);
-            else if(textureKey == "AbacusEffect") _ballsInfo[i].effects.push_back(ABBACUS);
-            else if(textureKey == "CristalEffect") _ballsInfo[i].effects.push_back(CRISTAL);
-            else if(textureKey == "PetanqueEffect") _ballsInfo[i].effects.push_back(PETANQUE);
-            else if(textureKey == "PokeballEffect") _ballsInfo[i].effects.push_back(POKEBALL);
-            else if(textureKey == "QuanticEffect") _ballsInfo[i].effects.push_back(QUANTIC);
-            else _ballsInfo[i].effects.push_back(NORMAL_BALL); // Esto no ocurre nunca
-        }
 
         // Guardamos el nombre del primer efecto de bola para renderizar esa textura
-        if(textureKey != "bola_blanca")
-            textureKey = "single_" + std::string(data[slot]["components"][0]["atributes"]["effects"][0]["componentName"]) ;
-
+        if(_ballsInfo[i].ballEffects.size() >0)
+            textureKey = "single_" + getEffectName(_ballsInfo[i].ballEffects[0]) ;
 
         auto ballPos = sdlutils().svgs().at("inventory").at(key);
         auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
@@ -231,6 +215,12 @@ UIScene::instantiateInventory(){
         button->setOnRightClick([this, i]() {
             scrollBallEffect(i);
         });
+
+        ButtonWithSlot b;
+        b.button = button;
+        b.slot = i+1;
+
+        a_returnVal.push_back(b);
     }
 
     //palo
@@ -246,11 +236,7 @@ UIScene::instantiateInventory(){
 
     auto stickTextKey = data["stick"]["components"][0]["componentName"];
 
-    if(stickTextKey == "DonutStickEffect") _stickID = DONUT;
-    else if(stickTextKey == "MagicWandStickEffect") _stickID = WAND;
-    else if(stickTextKey == "BoxingGloveStickEffect") _stickID = BOXING;
-    else if(stickTextKey == "GrenadeLauncherStickEffect") _stickID = GRENADE;
-    else _stickID = NORMAL_STICK;
+    _stickID = Inventory::Instance()->getStickType();
 
     auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
     auto stickPos = sdlutils().svgs().at("inventory").at("stick");
@@ -285,6 +271,13 @@ UIScene::instantiateInventory(){
 
     createBallInfo();
     createStickInfo();
+
+    ButtonWithSlot b;
+    b.button = button;
+    b.slot = 0;
+    a_returnVal.push_back(b);
+
+    return a_returnVal;
 }
 
 /// @brief Crea todos los carteles con la info de las bolas y los esconde. También añade eventos para mostrarlos al pasar el ratón por encima
@@ -315,32 +308,35 @@ UIScene::createBallInfo() {
 
         std::string ballEffect;
 
-        if(!_ballsInfo[i].free) {
+        _ballsInfo = Inventory::Instance()->getSlotsInfo();
+
+        if(!_ballsInfo[i].used) {
             ballEffect = "empty";
         }
         else {
-            if(_ballsInfo[i].effects.size() > 0) 
+            if(_ballsInfo[i].ballEffects.size() > 0) 
             {
-                switch(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]) {
-                    case ABBACUS: 
+                //switch(_ballsInfo[i].effects[_ballsInfo[i].scrollIndex]) {
+                switch(_ballsInfo[i].ballEffects[0]) {
+                    case effect::ABBACUS: 
                         ballEffect= "abbacus";
                         break;
-                    case BOWLING: 
+                    case effect::BOWLING: 
                         ballEffect = "bowling";
                         break;
-                    case CRISTAL: 
+                    case effect::CRISTAL: 
                         ballEffect = "cristal";
                         break;
-                    case PETANQUE: 
+                    case effect::PETANQUE: 
                         ballEffect = "petanque";
                         break;
-                    case POKEBALL: 
+                    case effect::POKEBALL: 
                         ballEffect = "poke";
                         break;
-                    case QUANTIC: 
+                    case effect::QUANTIC: 
                         ballEffect = "quantic";
                         break;
-                    case X2: 
+                    case effect::X2: 
                         ballEffect = "x2";
                         break;
                 }
@@ -430,7 +426,7 @@ void UIScene::createBallShadow(entity_t entity){
 /// @param i el id de la bola cuya info que queremos enseñar
 void
 UIScene::showBall(int i) {
-    if(_ballsInfo[i].free) {
+    if(_ballsInfo[i].used) {
         auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
         descriptions[i]->activate();
 
@@ -438,7 +434,7 @@ UIScene::showBall(int i) {
         descriptions[i]->activate();
 
         // mostrar texto de ayuda si tiene varios efectos
-        if(_ballsInfo[i].effects.size() > 1) {
+        if(_ballsInfo[i].ballEffects.size() > 1) {
             descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
             for(auto e : descriptions) e->activate();
         }
@@ -451,7 +447,7 @@ UIScene::showBall(int i) {
 /// @param i el id de la bola cuya info que queremos esconder
 void
 UIScene::hideBall(int i) {
-    if(_ballsInfo[i].free) {
+    if(_ballsInfo[i].used) {
         auto descriptions = getEntitiesOfGroup(grp::BALL_INFO_BG);
         descriptions[i]->deactivate();
         
@@ -459,7 +455,7 @@ UIScene::hideBall(int i) {
         descriptions[i]->deactivate();
 
         // mostrar texto de ayuda si tiene varios efectos
-        if(_ballsInfo[i].effects.size() > 1) {
+        if(_ballsInfo[i].ballEffects.size() > 1) {
             descriptions = getEntitiesOfGroup(grp::BALL_HELP_TEXT);
             for(auto e : descriptions) e->deactivate();
         }
@@ -469,6 +465,8 @@ UIScene::hideBall(int i) {
 
 void 
 UIScene::scrollBallEffect(int i) {
+/* 
+    Lo siento, hasta que no se limpie todo no hay scrolling effect
 
     if(_ballsInfo[i].effects.size() > 1) 
     {
@@ -517,7 +515,7 @@ UIScene::scrollBallEffect(int i) {
         _ballEffectBoxes[i]->setBallDesc(descBody);
 
     }
-
+*/
 }
 
 
@@ -548,19 +546,19 @@ UIScene::createStickInfo(){
     Text title, desc;
 
     switch(_stickID){
-        case GRENADE:
+        case stick::GRENADE:
             title = sdlutils().texts().at("grenade_stickName_pool");
             desc = sdlutils().texts().at("grenade_stickDesc_pool");
             break;
-        case DONUT:
+        case stick::DONUT:
             title = sdlutils().texts().at("donut_stickName_pool");
             desc = sdlutils().texts().at("donut_stickDesc_pool");
             break;
-        case BOXING:
+        case stick::BOXING:
             title = sdlutils().texts().at("boxing_stickName_pool");
             desc = sdlutils().texts().at("boxing_stickDesc_pool");
             break;
-        case WAND:
+        case stick::WAND:
             title = sdlutils().texts().at("wand_stickName_pool");
             desc = sdlutils().texts().at("wand_stickDesc_pool");
             break;

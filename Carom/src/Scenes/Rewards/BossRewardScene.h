@@ -3,6 +3,7 @@
 #include "RewardScene.h"
 #include "PoolScene.h"
 #include <vector>
+#include "ecs.h"
 
 class Inventory;
 
@@ -30,7 +31,7 @@ private:
     bool checkIfBallIsObtained(int ballId);
 
     //Método auxiliar para comprobar si un elemento está en un vector
-    inline bool hasElement(std::vector<int>& vec, int elem) {
+    inline bool hasElement(std::vector<effectId_t>& vec, effectId_t elem) {
         return std::find(vec.begin(), vec.end(), elem) != vec.end();
     }
 

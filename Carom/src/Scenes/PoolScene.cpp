@@ -479,11 +479,11 @@ PoolScene::generatePermanentRewardStamps() {
                 );
 
                 secondValue->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(Inventory::Instance()->getComboEase())
+                    std::to_string(Inventory::Instance()->getCombo())
                 );
 
                 thirdValue->getComponent<TextDisplayComponent>()->setDisplayedText(
-                    std::to_string(Inventory::Instance()->getCaromEase())
+                    std::to_string(Inventory::Instance()->getEase())
                 );
 
                 activateElems();
@@ -532,7 +532,7 @@ PoolScene::generateBalls()
     // coloca las bolas
     for(int i = 0; i < POSITIONS; i++) {
         if(i == _bossHole) texture = "boss_ball";
-        else texture = getTextureName(_ballsInfo[i].effects[0]);
+        else texture = getTextureName(_ballsInfo[i].ballEffects[0]);
 
         // genera la bola
         entity_t ball = createSVGImage(
@@ -582,7 +582,7 @@ PoolScene::createBallInfoText()
 
         bool isBoss = i == _bossHole;
         std::string ballEffect;
-        if(!isBoss) ballEffect = getEffectName(_ballsInfo[i].effects[0]);
+        if(!isBoss) ballEffect = getEffectName(_ballsInfo[i].ballEffects[0]);
         else ballEffect = "boss";
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");
@@ -611,7 +611,7 @@ PoolScene::createBallInfoText()
 
 void 
 PoolScene::scrollBallEffect(int i) {
-    
+    /*
     if(_ballsInfo[i].scrollIndex == (_ballsInfo[i].effects.size() - 1)) _ballsInfo[i].scrollIndex = 0;
     else _ballsInfo[i].scrollIndex += 1; //No pongo ++ porque se me hacía ilegible
     
@@ -628,6 +628,7 @@ PoolScene::scrollBallEffect(int i) {
 
     body_t descBody = {ballDesc.text, ballDesc.font, ballDesc.color, scale * 2.0f};
     _effectRewardBoxes[i]->setRewardDesc(descBody);
+    */
 }
 
 void
@@ -651,7 +652,7 @@ PoolScene::createCallbacks() {
 
 
                 _balls[i]->setAlive(false); // Quita la bola si se ha jugado la partida.
-                _ballsInfo[i].free = false;
+                _ballsInfo[i].used = true;
     
                 std::shared_ptr<CaromScene> ms = nullptr;
 
@@ -711,23 +712,24 @@ PoolScene::createCallbacks() {
 
 void 
 PoolScene::initRandomEffects() {
-    _ballsInfo = std::vector<BallInfo>(POSITIONS);
-    std::vector<RandomItem<BallId>> allEffects;
-    constexpr float equalChance = 1.0 / int(NUM_BALLS);
+    //se esta usando _ballsInfo de manera incorrecta aqui, que cojones? no se supone que _ballsInfo se ha usado siempre para las bolas del inventario?
+    _ballsInfo = std::vector<SlotInfo>(POSITIONS);
+    std::vector<RandomItem<effectId_t>> allEffects;
+    constexpr float equalChance = 1.0 / int(effect::_LAST_EFFECT_ID);
 
     for(int i = 0; i < POSITIONS; ++i) {
         if(i == _bossHole) continue;
-        for(int i = 1; i < NUM_BALLS; ++i) allEffects.push_back({BallId(i), equalChance});
+        for(int i = 1; i < effect::_LAST_EFFECT_ID; ++i) allEffects.push_back({effectId_t(i), equalChance});
         addNewEffect(i, 1.0f, allEffects);
     }
 }
 
 void 
-PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects) {
+PoolScene::addNewEffect(int index, float chance, std::vector<RandomItem<effectId_t>>& possibleEffects) {
     if(_rngm->randomRange(0.0f, 1.0f) >= chance) return;
 
     if(possibleEffects.size() == 0) return;
-    _ballsInfo[index].effects.push_back(_rngm->getRandomItem(possibleEffects, true));
+    _ballsInfo[index].ballEffects.push_back(_rngm->getRandomItem(possibleEffects, true));
 
     addNewEffect(index, _chanceForMultipleEffect, possibleEffects);
 }

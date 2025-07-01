@@ -55,7 +55,7 @@ void BossRewardScene::initObjects()
     createBallInfoText(); //
     
 
-    auto ballButtons = openInventory();
+    auto ballButtons = instantiateInventory();
 
     //Se añaden a los botones las funciones para las bolas a eliminar
     for(auto& ballButton : ballButtons) {
@@ -111,9 +111,9 @@ void BossRewardScene::applyReward() {
 
     for(int index : _selectedBalls) {
         PoolScene::BallInfo ball = _obtainedBallsInfo[index];
-        std::vector<int> ids;
-        for(BallId effect : ball.effects) {
-            if(!hasElement(ids, (int)effect))ids.push_back((int)effect);
+        std::vector<effectId_t> ids;
+        for(effectId_t effect : ball.effects) {
+            if(!hasElement(ids, effect))ids.push_back(effect);
         }
         Inventory::Instance()->addBall(ids);
     }
@@ -138,15 +138,15 @@ BossRewardScene::createObtainedBalls() {
 
         std::string textureKey = "bola_blanca";
 
-        BallId firstBallEffect = _obtainedBallsInfo[i].effects[0];
+        effectId_t firstBallEffect = _obtainedBallsInfo[i].effects[0];
         switch(firstBallEffect) {
-            case ABBACUS: textureKey = "single_AbacusEffect"; break;
-            case BOWLING: textureKey = "single_BowlingEffect"; break;
-            case CRISTAL: textureKey = "single_CristalEffect"; break;
-            case PETANQUE: textureKey = "single_PetanqueEffect"; break;
-            case POKEBALL: textureKey = "single_PokeballEffect"; break;
-            case QUANTIC: textureKey = "single_QuanticEffect"; break;
-            case X2: textureKey = "single_X2Effect"; break;
+            case effect::ABBACUS: textureKey = "single_AbacusEffect"; break;
+            case effect::BOWLING: textureKey = "single_BowlingEffect"; break;
+            case effect::CRISTAL: textureKey = "single_CristalEffect"; break;
+            case effect::PETANQUE: textureKey = "single_PetanqueEffect"; break;
+            case effect::POKEBALL: textureKey = "single_PokeballEffect"; break;
+            case effect::QUANTIC: textureKey = "single_QuanticEffect"; break;
+            case effect::X2: textureKey = "single_X2Effect"; break;
         }
 
         addComponent<RenderTextureComponent>(ball, &sdlutils().images().at(textureKey), renderLayer::EFFECT_BALL, ballScale);

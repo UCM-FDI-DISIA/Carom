@@ -5,6 +5,7 @@
 #include "GameScene.h"
 #include "JsonEntityParser.h"
 #include "StickInputComponent.h"
+#include <nlohmann/json.hpp>
 
 #include "DonutStickEffect.h"
 #include "MagicWandStickEffect.h"
@@ -26,55 +27,38 @@ void Inventory::loadStartingInventory(){
 }
 
 void Inventory::loadSavedInventory(){
-    loadInventoryWithPath("../../resources/prefabs/inventoryData/savedInventory.json");
+    loadInventoryWithPath(pathToSavedInventory);
 }
 
 void Inventory::loadInventoryWithPath(std::string path){
-    std::string line;
+    std::ifstream f(path);
+    
+    nlohmann::json data = nlohmann::json::parse(f);
 
-    std::ifstream ini_file {path};
-    std::ofstream out_file {pathToInventory};
- 
-    if(ini_file && out_file){
- 
-        while(std::getline(ini_file,line)){
-            out_file << line << "\n";
-        }
-        #ifdef _DEBUG
-        std::cout << "Loaded " << path << " Correctly" << std::endl;
-        #endif
- 
-    } else {
-        //Something went wrong
-        printf("Cannot read File");
+    _ease = data["ease"];
+    _charisma = data["charisma"];
+    _combo = data["combo"];
+    _hitEase = data["hitEase"];
+    _power = data["power"];
+    _cunning = data["cunning"];
+    
+
+    for(int i =0; i < MAX_BALLS; i++){
+        std::string slotName = "slot_" + std::to_string(i);
+        _slots[i].used = data[slotName]["used"];
+        _slots[i].ballEffects = data[slotName]["ballEffects"];
     }
-}
-
-void Inventory::loadInventoryNamed(std::string nameOfInventory){
-    loadInventoryWithPath("../../resources/prefabs/inventoryData/" + nameOfInventory + ".json");
 }
 
 void Inventory::exportInventoryToSave(){
-    std::string line;
+    std::ifstream f(pathToSavedInventory);
+    
+    nlohmann::json data = nhlomann::json();
+    data.erase();
 
-    std::ifstream ini_file {pathToInventory};
-    std::ofstream out_file {"../../resources/prefabs/inventoryData/savedInventory.json"};
- 
-    if(ini_file && out_file){
- 
-        while(std::getline(ini_file,line)){
-            out_file << line << "\n";
-        }
-        #ifdef _DEBUG
-        std::cout << "Loaded " << pathToInventory << " Correctly" << std::endl;
-        #endif
- 
-    } else {
-        //Something went wrong
-        #ifdef _DEBUG
-        printf("Cannot read File");
-        #endif
-    }
+    std::ofstream fileStream(pathToInventory);
+    if(fileStream.is_open()) fileStream << data.dump(3);
+    fileStream.close();
 }
 
 /* SHOULD NOT BE HERE
@@ -130,6 +114,7 @@ void
 Inventory::removeBall(int index) {
     assert(index < MAX_BALLS);
     _slots[index].used = false;
+    _slots[index].ballEffects.clear();
 }
 
 void Inventory::removeAllBalls() {
@@ -172,9 +157,18 @@ void Inventory::setCunning(float f){_cunning = f;}
 
 stickId_t Inventory::getStickType() {return _stick;}
 
-void Inventory::setStick(stick::stickId s) {_stick = s;}
+void Inventory::setStick(stickId_t s) {_stick = s;}
 
 std::vector<effectId_t> Inventory::getEffectsFromBall(int index) {
     assert(index < MAX_BALLS);
     return _slots[index].ballEffects;
+}
+
+std::array<SlotInfo, MAX_BALLS> Inventory::getSlotsInfo() {
+    std::array<SlotInfo, MAX_BALLS> res;
+    for(int i =0; i < MAX_BALLS; i++) {
+        res[i].ballEffects = _slots[i].ballEffects;
+        res[i].used = _slots[i].used;
+    }
+    return res;
 }

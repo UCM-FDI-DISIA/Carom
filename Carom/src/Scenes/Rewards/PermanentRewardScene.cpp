@@ -32,10 +32,10 @@ void PermanentRewardScene::applyReward()
         inv->setHitEase(inv->getHitEase() + 1);
     }
     else if(_name == Reward::SKILL_COMBO) {
-        inv->setComboEase(inv->getComboEase() + 1);
+        inv->setCombo(inv->getCombo() + 1);
     }
     else if(_name == Reward::SKILL_CARAMBOLA) {
-        inv->setCaromEase(inv->getCaromEase() + 1);
+        inv->setEase(inv->getEase() + 1);
     }
     else if(_name == Reward::CHARISMA) {
         float value = 1;

@@ -18,13 +18,13 @@ public:
     virtual void initObjects() override; 
 private:
     /// @brief ID del palo recompensa
-    StickId _stickReward;
+    stickId_t _stickReward;
 
     /// @brief Auxiliar, matchea el id para devolver la textura correspondiente necesaria para
     ///        generar el botón de la recompensa
     /// @param id
     /// @return 
-    Texture* idToTexture(StickId id);
+    Texture* idToTexture(stickId_t id);
 
     /// @brief indican si esta seleccionado el palo del inventario o el nuevo
     bool _invSelected = false, _newSelected = false;

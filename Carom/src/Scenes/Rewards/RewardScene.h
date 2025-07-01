@@ -1,19 +1,12 @@
 #pragma once
 
 #include "UIScene.h"
-#include "ItemIDs.h"
 #include "Button.h"
 
 /// @brief La clase abstracta de una escena de recompensa
 class RewardScene : public UIScene 
 {
 public:
-
-    struct ButtonWithSlot {
-        Button* button = nullptr;
-        /// @brief el slot 0 es el palo ojo cuidao
-        int slot = -1;
-    };
 
     /// @brief Una recompensa de cara a la UI
     class Reward 
@@ -88,9 +81,6 @@ protected:
     void hideExitButton();
     virtual void exitCallback();
 
-    /// @brief Renderiza el cajón abriendose con las bolas y palos de inventario
-    std::vector<ButtonWithSlot> openInventory();
-
     /// @brief  Crea todos los carteles con la info de las bolas y los esconde. 
     ///         También añade eventos para mostrarlos al pasar el ratón por encima
     // void createBallInfo();
@@ -108,7 +98,6 @@ protected:
     void changeStick(int i);
 
     inline Reward getReward() { return _reward; }
-    StickId getStickId();
 
 
 
@@ -118,7 +107,7 @@ protected:
     entity_t _exitBttText;
     bool _atReward; // bool para saber la primera vez que se renderiza reward
 
-    std::vector<BallId> _ballIDs;
+    std::vector<effectId_t> _ballIDs;
     // StickId _stickID;
     int previousTheme;
 };

@@ -8,7 +8,7 @@
 class CauldronRewardScene : public InstantRewardScene
 {
     friend class Entity;
-    BallId _randomEffect;
+    effectId_t _randomEffect;
 
 public:
     CauldronRewardScene(Game* game, Reward reward);

@@ -23,7 +23,7 @@ bool ColorHitManager::processHitEntities(Entity* first, Entity* second){
 
     //si no se ha registrado el hit en esta posicion hacer cosas que se necesiten
     //Añadir puntos
-    _mainScene->addScore(baseComboScore + _inventory->getComboEase());
+    _mainScene->addScore(baseComboScore + _inventory->getCombo());
     //reproducir un sonido
     //...
 

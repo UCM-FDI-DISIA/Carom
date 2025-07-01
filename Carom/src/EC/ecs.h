@@ -58,8 +58,8 @@ namespace stick{
 	enum stickId : stickId_t{
 		_STICK_LIST_, 
 
-		_LAST_EFFECT_ID
-	}
+		_LAST_STICK_ID
+	};
 }
 
 namespace shape {

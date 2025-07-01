@@ -136,7 +136,7 @@ Entity* JsonEntityParser::createEffectBall(GameScene& gameScene, std::string fil
     addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius);
 
     // RENDER
-    std::ifstream f(Inventory::Instance()->pathToInventory);
+    std::ifstream f(Inventory::Instance()->pathToSavedInventory);
     json data = json::parse(f);
     std::string textureKey = "bola_blanca";
     if(data[childName]["components"][0]["atributes"]["effects"].size() >0){

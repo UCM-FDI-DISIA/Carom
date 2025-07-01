@@ -16,7 +16,7 @@ FusionRewardScene::FusionRewardScene(Game* game, Reward reward)
 FusionRewardScene::~FusionRewardScene() {}
 
 void FusionRewardScene::atRender() {
-    std::vector<ButtonWithSlot> buttonsAndSlots = openInventory();
+    std::vector<ButtonWithSlot> buttonsAndSlots = instantiateInventory();
     
     if(buttonsAndSlots.size() == 1) { 
         showExitButton();
@@ -47,11 +47,11 @@ void FusionRewardScene::applyReward() {
     std::vector<int> selectedBalls = getSelectedItems();
     if(selectedBalls.size() == 0) return;
 
-    std::vector<BallId> effectsToAdd, firstBallEffects, secondBallEffects;
+    std::vector<effectId_t> effectsToAdd, firstBallEffects, secondBallEffects;
     firstBallEffects = Inventory::Instance()->getEffectsFromBall(selectedBalls[0]-1);
     secondBallEffects = Inventory::Instance()->getEffectsFromBall(selectedBalls[1]-1);
 
-    for(BallId effect : firstBallEffects) {
+    for(effectId_t effect : firstBallEffects) {
         if(std::find(secondBallEffects.begin(), secondBallEffects.end(), effect) == secondBallEffects.end())
             secondBallEffects.push_back(effect);
     }
@@ -59,9 +59,9 @@ void FusionRewardScene::applyReward() {
     Inventory::Instance()->removeBall(selectedBalls[0]-1);
     Inventory::Instance()->removeBall(selectedBalls[1]-1);
 
-    std::vector<int> effectIdsToInt;
-    for( BallId effect : secondBallEffects)
-        effectIdsToInt.push_back(int(effect));
+    std::vector<effectId_t> effectIdsToInt;
+    for( effectId_t effect : secondBallEffects)
+        effectIdsToInt.push_back(effect);
 
     Inventory::Instance()->addBall(effectIdsToInt);
 }

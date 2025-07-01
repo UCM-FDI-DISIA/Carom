@@ -8,8 +8,9 @@
 #include "Entity.h"
 #include "Button.h"
 #include "PhysicsUtils.h"
+#include "ecs.h"
+#include "Inventory.h"
 
-#include "ItemIDs.h"
 
 #include <memory>
 
@@ -18,6 +19,12 @@ class TextDisplayComponent;
 class BallInfoDisplayComponent;
 
 class UIScene: public GameScene {
+public:
+    struct ButtonWithSlot {
+        Button* button = nullptr;
+        /// @brief el slot 0 es el palo ojo cuidao
+        int slot = -1;
+    };
 protected:
 
     virtual void initObjects(){}
@@ -30,28 +37,13 @@ protected:
 
     void createButton(int x, int y, std::string text, Texture* t, std::function<void ()> cb);
 
+    std::array<SlotInfo, Inventory::MAX_BALLS> _ballsInfo;
+    stickId_t _stickID;
 
-    /// @brief Struct con la informacion de las bolas de cara a su uso como recompensa y su render 
-    struct BallInfo{
-        std::vector<BallId> effects;
-        int scrollIndex = 0;
-        bool free = true; // En el caso del inventario, free significa que el slot está en uso
-
-        bool operator==(const BallInfo& other) const {
-            return effects == other.effects;
-        }
-            bool operator!=(const BallInfo& other) const {
-            return !(effects == other.effects);
-        }
-    };
-
-    std::vector<BallInfo> _ballsInfo;
-    StickId _stickID;
-
-    static std::string getTextureName(BallId effect);
-    static std::string getEffectName(BallId effect);
+    static std::string getTextureName(effectId_t effect);
+    static std::string getEffectName(effectId_t effect);
     
-    virtual void instantiateInventory();
+    virtual std::vector<UIScene::ButtonWithSlot> instantiateInventory();
 
     // Ball info handling
     void createBallInfo();

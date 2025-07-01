@@ -40,7 +40,7 @@ void WhiteBallScorerComponent::onCollisionEnter(entity_t other, b2Manifold& cont
         }
         else{
             //scorer.add(4*2^cushions);
-            a_scene->addScore((baseCaromScore + _inventory->getCaromEase())*pow(2, _cushions));
+            a_scene->addScore((baseCaromScore + _inventory->getEase())*pow(2, _cushions));
             _cushions = 0;
             _previouslyHit = false;
         }

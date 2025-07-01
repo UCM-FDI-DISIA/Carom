@@ -23,7 +23,7 @@ void StickRewardScene::atRender()
 {
     hideExitButton();
 
-    std::vector<ButtonWithSlot> a_buttonVector = openInventory();
+    std::vector<ButtonWithSlot> a_buttonVector = instantiateInventory();
 
     for (ButtonWithSlot& e : a_buttonVector) {
         if (e.slot == 0) { // asi es, magic number // bravo
@@ -58,12 +58,12 @@ void StickRewardScene::initObjects()
 {
     moveExitButtonToRight();
 
-    std::vector<RandomItem<StickId>> a_stickList = std::vector<RandomItem<StickId>>();
+    std::vector<RandomItem<stickId_t>> a_stickList = std::vector<RandomItem<stickId_t>>();
 
-    getStickId();
+    _stickID = Inventory::Instance()->getStickType();
 
-    for(int i = 0; i < StickId::NUM_STICKS; ++i){
-        if(StickId (i) != _stickID) a_stickList.push_back({StickId (i), 1.0});
+    for(stickId_t i = 0; i < stick::_LAST_STICK_ID; ++i){
+        if(i != _stickID) a_stickList.push_back({i, 1.0});
     }
 
     _stickReward = RNG_Manager::Instance()->getRandomItem(a_stickList);
@@ -129,29 +129,29 @@ void StickRewardScene::initObjects()
 
 void StickRewardScene::applyReward()
 {
-    if (_newSelected) Inventory::Instance()->addStick(_stickReward);
+    if (_newSelected) Inventory::Instance()->setStick(_stickReward);
 }
 
 Texture*
-StickRewardScene::idToTexture(StickId id) {
+StickRewardScene::idToTexture(stickId_t id) {
 
     std::string textureId;
 
     switch (id)
     {
-    case BOXING:
+    case stick::BOXING:
         textureId = "boxing";
         break;
-    case DONUT:
+    case stick::DONUT:
         textureId = "donut";
         break;
-    case GRENADE:
+    case stick::GRENADE:
         textureId = "lanzagranadas";
         break;
-    case NORMAL_STICK:
+    case stick::NORMAL_STICK:
         textureId = "palo1";
         break;
-    case WAND:
+    case stick::WAND:
         textureId = "magic_wand";
         break;
     default:

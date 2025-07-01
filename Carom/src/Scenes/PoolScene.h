@@ -5,7 +5,6 @@
 #include "RNG_Manager.h"
 #include "UIScene.h"
 #include "RewardScene.h"
-#include "ItemIDs.h"
 
 #include <memory>
 
@@ -30,13 +29,11 @@ protected:
     
     
 public: 
-    inline std::vector<BallInfo> getBallsInfo() const {return _ballsInfo; }
-
     /// @brief Devuelve solo las bolas disponibles
-    std::vector<BallInfo> getFreeBallsInfo() const {
-        std::vector<BallInfo> v;
+    std::vector<SlotInfo> getFreeBallsInfo() const {
+        std::vector<SlotInfo> v;
         for(auto b: _ballsInfo)
-            if(b.free) v.push_back(b);
+            if(b.used) v.push_back(b);
         return v;
     }
 
@@ -91,7 +88,7 @@ public:
     /// @param index Nº de la bola 
     /// @param chance probabilidad de añadirle un efecto
     /// @param possibleEffects Efectos que pueden ser añadidos a la bola
-    void addNewEffect(int index, float chance, std::vector<RandomItem<BallId>>& possibleEffects);
+    void addNewEffect(int index, float chance, std::vector<RandomItem<effectId_t>>& possibleEffects);
     // ----------
 
     // --- CALLBACKS ---
