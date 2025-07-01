@@ -16,6 +16,7 @@
 #include "Animation.h"
 #include "Text.h"
 #include "ecs.h"
+#include "JSON.h"
 
 
 
@@ -280,13 +281,17 @@ private:
 
 	SDLUtils();
 	bool init(std::string windowTitle, int width, int height);
-	bool init(std::string windowTitle, int width, int height, std::string filename);
+	bool init(std::string windowTitle, int width, int height, std::string filename, const char* jsonString);
 
 	void initWindow();
 	void closeWindow();
 	void initSDLExtensions(); // initialize resources (fonts, textures, audio, etc.)
 	void closeSDLExtensions(); // free resources the
-	void loadReasources(std::string filename); // load resources from the json file
+
+	void loadReasourcesFromFile(std::string filename); // load resources from the json file
+	void loadResourcesFromString(const char* jsonString);
+	void loadResources(JSONValue* jValueRoot);
+	
 	sdl_resource_table<svgElem> loadSVG(const char* filename); // load resources from the svg file
 	sdl_resource_table<svgElem> loadSVG(const std::string& filename); // load resources from the svg file
 

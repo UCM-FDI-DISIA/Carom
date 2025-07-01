@@ -24,6 +24,10 @@ set_target_properties(box2d PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CO
 set(JSON_BuildTests OFF CACHE INTERNAL "")
 add_subdirectory(${CMAKE_SOURCE_DIR}/external/nlohmann_json-3.12.0)
 
+# lua
+file(GLOB LUA_SRC ${CMAKE_SOURCE_DIR}/external/lua/src/*.c)
+add_library(lua STATIC ${LUA_SRC})
+
 # Compila con la biblioteca SDL
 if (CMAKE_HOST_WIN32)
     include_directories(
@@ -66,6 +70,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/external/json/include
     ${CMAKE_SOURCE_DIR}/external/svg/include
     ${CMAKE_SOURCE_DIR}/external/clipper2/include
+    ${CMAKE_SOURCE_DIR}/external/lua/src
 
     ${CMAKE_SOURCE_DIR}/src
 
@@ -263,6 +268,12 @@ target_link_libraries(Carom PRIVATE box2d)
 
 # Link nlohmann_json
 target_link_libraries(Carom PRIVATE nlohmann_json::nlohmann_json)
+
+# Link lua
+target_link_libraries(Carom PRIVATE lua)
+if(UNIX)
+    target_link_libraries(Carom PRIVATE m dl)
+endif()
 
 # Ensure consistent runtime for Carom
 if (CMAKE_HOST_WIN32)
