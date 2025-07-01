@@ -18,7 +18,6 @@ class GameScene;
 class Component;
 class CaromScene;
 class PoolScene;
-class JsonEntityParser;
 class CowboyPoolScene;
 class RussianPyramidScene;
 class EndGameScene;
@@ -35,6 +34,7 @@ class StickRewardScene;
 class BossRewardScene;
 class CauldronRewardScene;
 class ExplosiveEffect;
+class EntityGenerator;
 
 // Magia negra para templatizar basada en clases padre
 template <typename T>
@@ -260,7 +260,7 @@ private:
     friend CaromScene;
     friend CowboyPoolScene;
     friend PoolScene;
-    friend JsonEntityParser;
+    friend EntityGenerator;
     friend EndGameScene;
     friend UIScene;
     friend RewardScene;

@@ -3,7 +3,6 @@
 #include <fstream>
 #include <iostream>
 #include "GameScene.h"
-#include "JsonEntityParser.h"
 #include "StickInputComponent.h"
 #include <nlohmann/json.hpp>
 
@@ -12,6 +11,8 @@
 #include "BoxingGloveStickEffect.h"
 #include "GranadeLauncherStickEffect.h"
 #include "RewardScene.h"
+
+#include "EntityGenerator.h"
 
 Inventory::Inventory()
 {
@@ -28,6 +29,10 @@ void Inventory::loadStartingInventory(){
 
 void Inventory::loadSavedInventory(){
     loadInventoryWithPath(pathToSavedInventory);
+}
+
+void Inventory::loadInventoryNamed(std::string file){
+    loadInventoryWithPath("../../resources/prefabs/inventoryData/" + file);
 }
 
 void Inventory::loadInventoryWithPath(std::string path){
@@ -74,27 +79,10 @@ void Inventory::exportInventoryToSave(){
     fileStream.close();
 }
 
-/* SHOULD NOT BE HERE
 
 std::vector<entity_t> 
-Inventory::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{}) {
-    std::vector<entity_t> balls;
-    balls.reserve(MAX_BALLS);
-
-    if(positions.size() != MAX_BALLS){
-        for(int i =0; i < MAX_BALLS; i++){
-            std::string childName = "slot" + std::to_string(i);
-            balls.emplace_back(JsonEntityParser::createEffectBall(scene, pathToInventory, childName));
-        }
-    }
-    else{
-        for(int i =0; i < MAX_BALLS; i++){
-            std::string childName = "slot" + std::to_string(i);
-            balls.emplace_back(JsonEntityParser::createEffectBall(scene, pathToInventory, childName, positions[i]));
-        }
-    }
-
-    return balls;
+Inventory::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions) {
+    return EntityGenerator::generateInventoryBalls(scene, positions);
 }
 
 
@@ -102,10 +90,10 @@ Inventory::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std:
 entity_t 
 Inventory::getStick(GameScene& scene) {
     //retorna el objeto de stick en el json
-    return JsonEntityParser::createStick(scene, pathToInventory, "stick");
+    return EntityGenerator::generateInventoryStick(scene);
 }
 
-*/
+
 
 bool
 Inventory::addBall(std::vector<effectId_t> ids) {
@@ -152,11 +140,11 @@ int Inventory::getNumberOfEffectBalls(){
 int Inventory::getHitEase(){ return _hitEase;}
 void Inventory::setHitEase(int i){_hitEase = i;}
 
-int Inventory::getCombo(){return _combo}
+int Inventory::getCombo(){return _combo;}
 void Inventory::setCombo(int i){_combo = i;}
 
 int Inventory::getEase(){return _ease;}
-void Inventory::setCaromEase(int i){_ease = i;}
+void Inventory::setEase(int i){_ease = i;}
 
 int Inventory::getCharisma(){return _charisma;}
 void Inventory::setCharisma(int i){_charisma = i;}
@@ -177,7 +165,7 @@ std::vector<effectId_t> Inventory::getEffectsFromBall(int index) {
     return _slots[index].ballEffects;
 }
 
-std::array<SlotInfo, MAX_BALLS> Inventory::getSlotsInfo() {
+std::array<SlotInfo, Inventory::MAX_BALLS> Inventory::getSlotsInfo(){
     std::array<SlotInfo, MAX_BALLS> res;
     for(int i =0; i < MAX_BALLS; i++) {
         res[i].ballEffects = _slots[i].ballEffects;

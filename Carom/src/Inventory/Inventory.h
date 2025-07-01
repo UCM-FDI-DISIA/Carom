@@ -67,6 +67,11 @@ public:
 
     void loadInventoryWithPath(std::string path);
     void loadStartingInventory();
+    void loadInventoryNamed(std::string file);
     void loadSavedInventory();
     void exportInventoryToSave();
+
+    std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{});
+
+    entity_t getStick(GameScene& scene);
 };
