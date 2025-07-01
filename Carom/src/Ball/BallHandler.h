@@ -52,7 +52,7 @@ public:
     /// @param effect efecto a añadir 
     /// @return true si se añade el efecto, false si no 
     template<typename T>
-    bool addComponent(T* effect) {
+    bool addEffect(T* effect) {
         return internalAddEffect(effId<T>, effect);
     }
     /// @brief Método genérico para eliminar un efecto de tipo T
@@ -60,6 +60,14 @@ public:
     template<typename T>
     bool removeEffect(){
         return internalRemoveEffect(effId<T>);
+    }
+    /// @brief Getter genérico de efectos
+    /// @return El efecto si lo tiene, nullptr si no
+    template<typename T>
+    T* getEffect(){
+        //como hay lista de componentes y efectos y sus ids pueden coincidir, se puede checkear primero si el efecto no se pasa del array
+        assert(effId<T> < effect::_LAST_EFFECT_ID);
+        return static_cast<T*>(_effects[effId<T>]);
     }
 private:
     bool internalRemoveEffect(effectId_t id, bool deleteCmp = true);
@@ -77,4 +85,5 @@ public:
     inline float getMult() {return _mult;}
 
     std::vector<effectId_t> getEffectsID();
+    std::vector<BallEffect*> getCurrentEffects() { return _currentEffects;}
 };

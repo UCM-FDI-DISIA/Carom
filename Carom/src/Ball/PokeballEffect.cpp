@@ -9,7 +9,7 @@
 void PokeballEffect::onHit(entity_t ent)
 {
     if(ent->getID() == grp::WHITEBALL) return;
-    std::vector effects = ent->getComponent<BallHandler>()->getEffects();
+    std::vector<BallEffect*> effects = ent->getComponent<BallHandler>()->getCurrentEffects();
     if(effects.size() == 0) return;
 
     RenderSpritesheetComponent* renderCmp = _handler->_myEntity->getComponent<RenderSpritesheetComponent>();
@@ -19,7 +19,9 @@ void PokeballEffect::onHit(entity_t ent)
     
     for(BallEffect* effect : effects)
     {
-        _handler->_myEntity->stealComponent(ent, effect);
+        //steal component pero para effects, aprovechando que todos los effect son amiwis de ballhandler
+        ent->getComponent<BallHandler>()->internalRemoveEffect(effect->getEffectId(), false);
+        _handler->internalAddEffect(effect->getEffectId(), effect);
     }
     
     ent->getComponent<BallHandler>()->removeAllEffects();

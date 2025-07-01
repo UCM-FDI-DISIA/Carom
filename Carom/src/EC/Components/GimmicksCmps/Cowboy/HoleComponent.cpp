@@ -66,9 +66,9 @@ void HoleComponent::update()
     // If an object is inside sensor
     if (_isEmpty && _contextEntt) 
     {
-        if (_contextEntt->tryGetComponent<CristalEffect>())
+        if (_contextEntt->tryGetComponent<BallHandler>() && _contextEntt->getComponent<BallHandler>()->getEffect<CristalEffect>() != nullptr)
         {
-            if (!_contextEntt->getComponent<CristalEffect>()->isBig())
+            if (!_contextEntt->getComponent<BallHandler>()->getEffect<CristalEffect>()->isBig())
                 ballCanFit();
         }
         else {

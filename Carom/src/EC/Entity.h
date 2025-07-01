@@ -41,9 +41,6 @@ template <typename T>
 concept DerivedFromRender = std::is_base_of<RenderComponent, T>::value;
 template <typename T>
 concept DerivedFromTransform = std::is_base_of<ITransform, T>::value;
-template <typename T> 
-concept DerivedFromBallEffect = std::is_base_of<BallEffect, T>::value;
-
 /// @brief La clase entidad del esquema entity-component
 class Entity {
     friend ShadowComponent;
@@ -65,14 +62,6 @@ public:
     template<typename T>
     bool addComponent(T* component) {
         return internalAddComponent(cmpId<T>, component);
-    }
-
-    /// @brief Addcomponent sobrecargado para efectos de bola, existe porque todos los efectos deben ir a la lista de BallHandler
-    template<typename T>
-    bool addComponent(T* ballEffectComp) requires DerivedFromBallEffect<T> {
-        auto ballHandler = getComponent<BallHandler>();
-        ballHandler->addEffect(ballEffectComp);
-        return internalAddComponent(ballEffectComp->getEffectId(), ballEffectComp);
     }
 
     /// @brief Addcomponent sobrecargado para componentes de render, así se asegura el orden de las capas al renderizar
@@ -139,21 +128,6 @@ public:
 
         return true;
     }
-
-    template<typename T>
-    bool removeComponent() requires DerivedFromBallEffect<T> {
-        auto ballHandler = getComponent<BallHandler>();
-        auto effect = getComponent<T>();
-        ballHandler->removeEffect(effect);
-        return internalRemoveComponent(effect->getEffectId());
-    }
-
-    bool removeComponent(BallEffect* ballEffect) {
-        auto ballHandler = getComponent<BallHandler>();
-        ballHandler->removeEffect(ballEffect);
-        return internalRemoveComponent(ballEffect->getEffectId());
-    }
-
     //----------------------------------------------------------------
 
     /// @brief Úsalo como un hasComponent()
@@ -197,19 +171,6 @@ public:
         assert(s);
 
         s = from->internalRemoveComponent(cmpId<T>, false);
-        assert(s);
-    }
-
-    /// @brief Sobrecarga de stealComponent para efectos de bola
-    /// @param from Entidad a la que le robas el componente
-    /// @param effect el efecto a robar
-    void stealComponent(entity_t from, BallEffect* effect){
-        bool s = from->internalRemoveComponent(effect->getEffectId(), false);
-        assert(s);
-
-        effect->setEntity(this);
-        getComponent<BallHandler>()->addEffect(effect);
-        s = this->internalAddComponent(effect->getEffectId(), effect, true);
         assert(s);
     }
 

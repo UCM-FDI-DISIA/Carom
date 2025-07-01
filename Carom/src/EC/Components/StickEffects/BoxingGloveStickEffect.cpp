@@ -13,6 +13,7 @@ BoxingGloveStickEffect::~BoxingGloveStickEffect() {}
 void
 BoxingGloveStickEffect::applyEffect(entity_t target) {
     AudioManager::Instance()->playSoundEfect("boxing");
-    target->addComponent<FrictionMultiplierEffect>(new FrictionMultiplierEffect(target, _factor));
+    auto ballHandler = target->getComponent<BallHandler>();
+    ballHandler->addEffect<FrictionMultiplierEffect>(new FrictionMultiplierEffect(ballHandler, _factor));
 }
 
