@@ -74,4 +74,6 @@ public:
     std::vector<entity_t> getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions = std::vector<b2Vec2>{});
 
     entity_t getStick(GameScene& scene);
+
+    void saveBalls(std::vector<entity_t> balls);
 };

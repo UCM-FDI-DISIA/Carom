@@ -11,6 +11,8 @@ class BallHandler : public PhysicsComponent
 private:
     CaromScene* _scene;
     std::vector<BallEffect*> _effects;
+    //ids de los efectos de ballEffect, que se actualiza constantemente. Ahorra calculos en muchos lados al no tener que calcular de clase a id
+    std::vector<effectId_t> _effectIds;
     static constexpr int EFFECTS_LIMIT = 3;
 
     float _mult = 1;
@@ -25,8 +27,8 @@ public:
     void onBeingTargeted(); //Se ejecuta cuando esta siendo apuntado por una trayectoria de palo
     void onStrikeEnd(); //Se ejecuta al final de un tiro
 
-    bool addEffect(BallEffect* effect);
-    bool removeEffect(BallEffect* effect);
+    bool addEffect(effectId_t effect);
+    bool removeEffect(effectId_t effect);
     void removeAllEffects();
     __CMPID_DECL__(cmp::BALL_HANDLER);
 
@@ -37,4 +39,6 @@ public:
 
     std::vector<BallEffect*>& getEffects() {return _effects;}
     inline float getMult() {return _mult;}
+
+    inline std::vector<effectId_t> getEffectsID() { return _effectIds;}
 };

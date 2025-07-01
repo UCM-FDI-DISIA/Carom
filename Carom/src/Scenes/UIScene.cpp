@@ -234,9 +234,9 @@ UIScene::instantiateInventory(){
 
     renderText->setScale(stickScale);
 
-    auto stickTextKey = data["stick"]["components"][0]["componentName"];
-
     _stickID = Inventory::Instance()->getStickType();
+
+    auto stickTextKey = "stick_" + _stickID;
 
     auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
     auto stickPos = sdlutils().svgs().at("inventory").at("stick");

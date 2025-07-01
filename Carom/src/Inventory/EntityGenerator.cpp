@@ -5,6 +5,12 @@
 #include "Entity.h"
 #include "PhysicsUtils.h"
 #include "CircleRBComponent.h"
+#include "RenderSpritesheetComponent.h"
+#include "BallRollerAnimatorComponent.h"
+#include "ColorBallScorerComponent.h"
+#include "Game.h"
+#include "BallHandler.h"
+
 
 entity_t EntityGenerator::generateBall(GameScene& s, std::vector<effectId_t> effects, b2Vec2 pos){
     entity_t e = new Entity(s, grp::EFFECTBALLS);
@@ -20,29 +26,37 @@ entity_t EntityGenerator::generateBall(GameScene& s, std::vector<effectId_t> eff
     e->addComponent<CircleRBComponent>(new CircleRBComponent(e, pos, b2_dynamicBody, radius));
 
     // RENDER
-    std::ifstream f(Inventory::Instance()->pathToSavedInventory);
-    json data = json::parse(f);
     std::string textureKey = "bola_blanca";
-    if(data[childName]["components"][0]["atributes"]["effects"].size() >0){
-        textureKey = data[childName]["components"][0]["atributes"]["effects"][0]["componentName"];
+    if(effects.size() >0){
+        textureKey = "effect_" + effects[0];
     } 
 
     Texture* TEX = &sdlutils().images().at(textureKey);
 
     if (textureKey != "bola_blanca") { //guapisimo string typing
         // Añade la textura como spritesheet 1fila 8cols, empieza en frame 0
-        addComponent<RenderSpritesheetComponent>(e, &sdlutils().images().at(textureKey), 
-            renderLayer::EFFECT_BALL, scale, Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1);
+        e->addComponent<RenderSpritesheetComponent>(new RenderSpritesheetComponent(e, &sdlutils().images().at(textureKey), 
+            renderLayer::EFFECT_BALL, scale, Game::BALL_ROLLING_ROWS, Game::BALL_ROLLING_COLS, 1));
 
-        addComponent<BallRollerAnimatorComponent>(e);
+        e->addComponent<BallRollerAnimatorComponent>(new BallRollerAnimatorComponent(e));
     }
     else {
-        addComponent<RenderTextureComponent>(e, &sdlutils().images().at(textureKey), 
-            renderLayer::EFFECT_BALL, scale);
+        e->addComponent<RenderTextureComponent>(new RenderTextureComponent(e, &sdlutils().images().at(textureKey), 
+            renderLayer::EFFECT_BALL, scale));
     }
 
     // SCORE
-    addComponent<ColorBallScorerComponent>(e);
+    e->addComponent<ColorBallScorerComponent>(new ColorBallScorerComponent(e));
+
+    //BALL HANDLER
+    auto ballHandler = new BallHandler(e);
+    e->addComponent<BallHandler>(ballHandler);
+
+    for(auto effect : effects){
+        ballHandler->addEffect(effect);
+    }
+
+    return e;
 }
 
 std::vector<entity_t> EntityGenerator::generateInventoryBalls(GameScene& s, std::vector<b2Vec2> pos){

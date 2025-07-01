@@ -1,16 +1,10 @@
 #include "Inventory.h"
-#include "Texture.h"
 #include <fstream>
 #include <iostream>
 #include "GameScene.h"
-#include "StickInputComponent.h"
 #include <nlohmann/json.hpp>
+#include "BallHandler.h"
 
-#include "DonutStickEffect.h"
-#include "MagicWandStickEffect.h"
-#include "BoxingGloveStickEffect.h"
-#include "GranadeLauncherStickEffect.h"
-#include "RewardScene.h"
 
 #include "EntityGenerator.h"
 
@@ -172,4 +166,18 @@ std::array<SlotInfo, Inventory::MAX_BALLS> Inventory::getSlotsInfo(){
         res[i].used = _slots[i].used;
     }
     return res;
+}
+
+void Inventory::saveBalls(std::vector<entity_t> balls){
+    for(auto slot : _slots){
+        slot.ballEffects.clear();
+        slot.used = false;
+    }
+
+    int i =0;
+    for(auto ball : balls){
+        _slots[i].used = true;
+        _slots[i].ballEffects = ball->getComponent<BallHandler>()->getEffectsID();
+        i++;
+    }
 }
