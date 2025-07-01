@@ -16,14 +16,14 @@ class PopToOppositeSideEffect : public BallEffect{
     b2Vec2 _botPos;
 
 public:
-__CMPID_DECL__(cmp::POP_TO_OPPOSITE_EFFECT);
 
-    inline PopToOppositeSideEffect(entity_t ent) : BallEffect(ent) {}
+    inline PopToOppositeSideEffect(BallHandler* hndlr) : BallEffect(hndlr) {}
     inline ~PopToOppositeSideEffect() {}
 
     void init() override;
 
-    inline cmpId_t getEffectId() override {return cmp::POP_TO_OPPOSITE_EFFECT;}
+    __EFFID_DECL__(effect::POP_TO_OPPOSITE_EFFECT);
+    inline effectId_t getEffectId() override {return effect::POP_TO_OPPOSITE_EFFECT;}
     void onStrikeEnd() override;
     void popOnCollision(entity_t other);
 };

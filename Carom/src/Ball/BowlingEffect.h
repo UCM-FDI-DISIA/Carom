@@ -8,16 +8,16 @@ private:
     static constexpr float FRICTION = 0.4f;
     float _mult;
 public:
-    BowlingEffect(entity_t ent) : BallEffect(ent) {
+    BowlingEffect(BallHandler* hndlr) : BallEffect(hndlr) {
         _name = "Pesado";
         _description = "La bola es un 50% más pesada";
+        updateEffect();
     }
     ~BowlingEffect() {}
 
-    void init() override;
     void updateEffect();
     void onMultChanged() override;
-    __CMPID_DECL__(cmp::BOWLING_EFFECT);
 
-    cmpId_t getEffectId() override {return cmp::BOWLING_EFFECT; };
+    __EFFID_DECL__(effect::BOWLING);
+    effectId_t getEffectId() override {return effect::BOWLING; };
 };

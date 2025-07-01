@@ -3,7 +3,7 @@
 #include "Entity.h"
 
 
-FrictionMultiplierEffect::FrictionMultiplierEffect(entity_t entity, float friction) : BallEffect(entity), _frictionFactor(friction)
+FrictionMultiplierEffect::FrictionMultiplierEffect(BallHandler* hndlr, float friction) : BallEffect(hndlr), _frictionFactor(friction)
 {
 
 }
@@ -11,7 +11,7 @@ FrictionMultiplierEffect::FrictionMultiplierEffect(entity_t entity, float fricti
 FrictionMultiplierEffect::~FrictionMultiplierEffect(){}
 
 void FrictionMultiplierEffect::init() {
-    _rigidBody = _myEntity->getComponent<RigidBodyComponent>();
+    _rigidBody = _handler->_myEntity->getComponent<RigidBodyComponent>();
     assert(_rigidBody != nullptr);
 
     _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() * _frictionFactor);
@@ -19,5 +19,5 @@ void FrictionMultiplierEffect::init() {
 
 void FrictionMultiplierEffect::onStrikeEnd() {
     _rigidBody->setLinearDamping(_rigidBody->getLinearDamping() / _frictionFactor);
-    _myEntity->removeComponent<FrictionMultiplierEffect>();
+    _handler->_myEntity->removeComponent<FrictionMultiplierEffect>();
 }

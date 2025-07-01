@@ -13,8 +13,8 @@
 #include "CameraComponent.h"
 #include "AudioManager.h"
 
-ExplosiveEffect::ExplosiveEffect(entity_t ent, float timeForExplosion, float radius, float force) 
-    : BallEffect(ent), _explosionDelay(timeForExplosion), _radius(radius), _force(force), _exploded(false)
+ExplosiveEffect::ExplosiveEffect(BallHandler* hndlr, float timeForExplosion, float radius, float force) 
+    : BallEffect(hndlr), _explosionDelay(timeForExplosion), _radius(radius), _force(force), _exploded(false)
 {
 
 }
@@ -24,7 +24,7 @@ ExplosiveEffect::~ExplosiveEffect() {}
 void 
 ExplosiveEffect::init(){
     _explosionStart = sdlutils().currRealTime();
-    _myRigidbody = _myEntity->getComponent<RigidBodyComponent>();
+    _myRigidbody = _handler->_myEntity->getComponent<RigidBodyComponent>();
 }
 
 void 
@@ -34,7 +34,7 @@ ExplosiveEffect::update() {
         _exploded = true;
     }
     else if(_exploded && sdlutils().currRealTime() - _explosionStart >= _explosionDelay + 1000.0f) {
-        _myEntity->removeComponent<ExplosiveEffect>();
+        _handler->_myEntity->removeComponent<ExplosiveEffect>();
     }
 }
 
@@ -43,16 +43,16 @@ ExplosiveEffect::createExplosion() {
 
     AudioManager::Instance()->playSoundEfect("explosion");
     //Agitar cámara
-    _myEntity->getScene().getCamera()->shakeCamera(0.3f, 0.2f);
+    _handler->_myEntity->getScene().getCamera()->shakeCamera(0.3f, 0.2f);
     //instanciar explosion
 
-    Entity* explosionSFX = new Entity(_myEntity->getScene(), grp::FEEDBACK);
+    Entity* explosionSFX = new Entity(_handler->_myEntity->getScene(), grp::FEEDBACK);
 
     auto texture = &sdlutils().images().at("explosion");
     float scale = _radius*2 / PhysicsConverter::pixel2meter(texture->width());
 
 
-    TransformComponent* transform = new TransformComponent(explosionSFX, _myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getPosition());
+    TransformComponent* transform = new TransformComponent(explosionSFX, _handler->_myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]->getTransform()->getPosition());
     explosionSFX->addComponent<TransformComponent>(transform);
     RenderTextureComponent* renderT = new RenderTextureComponent(explosionSFX, texture, renderLayer::FEEDBACK_EFFECT, 0.0001f);
 
@@ -65,11 +65,11 @@ ExplosiveEffect::createExplosion() {
     });
 
 
-    auto balls = _myEntity->getScene().getEntitiesOfGroup(grp::EFFECTBALLS);
-    balls.push_back(_myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]);
+    auto balls = _handler->_myEntity->getScene().getEntitiesOfGroup(grp::EFFECTBALLS);
+    balls.push_back(_handler->_myEntity->getScene().getEntitiesOfGroup(grp::WHITEBALL)[0]);
     
     for(auto ball : balls) {
-        if(ball == _myEntity) continue; //Troubleshooting para russianPyramid
+        if(ball == _handler->_myEntity) continue; //Troubleshooting para russianPyramid
 
         auto targetRB = ball->getComponent<RigidBodyComponent>();
         b2Vec2 distance = targetRB->getPosition() - _myRigidbody->getPosition();

@@ -4,13 +4,13 @@
 class X2Effect : public BallEffect
 {
 public:
-    X2Effect(entity_t ent) : BallEffect(ent) {
+    X2Effect(BallHandler* hndlr) : BallEffect(hndlr) {
         _name = "X2";
         _description = "Todos los otros efectos de esta bola que contengan números afectan el doble";
     }
     ~X2Effect() {}
     void init() override;
 
-    __CMPID_DECL__(cmp::X2_EFFECT);
-    cmpId_t getEffectId() override {return cmp::X2_EFFECT;};
+    __EFFID_DECL__(effect::X2);
+    effectId_t getEffectId() override {return effect::X2;};
 };

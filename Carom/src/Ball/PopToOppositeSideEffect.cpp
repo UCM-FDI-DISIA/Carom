@@ -9,7 +9,7 @@
 /// @brief Registra las posiciones de las paredes para compararlas al chocar con algo y asegurarse de que es una pared
 void
 PopToOppositeSideEffect::init(){
-    _mTrans = _myEntity->getTransform();
+    _mTrans = _handler->_myEntity->getTransform();
 
     _leftPos = PhysicsConverter::pixel2meter(
         *&sdlutils().svgs().at("game").at("left_cushion_coll").x,
@@ -37,8 +37,8 @@ PopToOppositeSideEffect::init(){
 /// @brief Al acabar el golpe se eliminan los efectos hasta el siguiente golpe
 void 
 PopToOppositeSideEffect::onStrikeEnd(){
-    _myEntity->removeComponent<EventOnCollision>();
-    _myEntity->removeComponent<PopToOppositeSideEffect>();
+    _handler->_myEntity->removeComponent<EventOnCollision>();
+    _handler->_myEntity->removeComponent<PopToOppositeSideEffect>();
 
 }
 

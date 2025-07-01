@@ -88,6 +88,9 @@ constexpr grpId_t maxGroupId = grp::grpId::_LAST_GRP_ID;
 template<typename T>
 constexpr cmpId_t cmpId = T::id;
 
+template<typename T>
+constexpr effectId_t effId = T::id;
+
 // a macro for component identifier declaration, e.g., __CMPID_DECL__(_TRANSFORM)
 // expands to:
 //
@@ -98,3 +101,5 @@ constexpr cmpId_t cmpId = T::id;
 //   enum { id = cmp::TRANSFORM }
 //
 #define __CMPID_DECL__(cId) constexpr static cmpId_t id = cId;
+
+#define __EFFID_DECL__(eId) constexpr static effectId_t id = eId;

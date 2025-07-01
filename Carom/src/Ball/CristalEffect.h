@@ -8,15 +8,15 @@ class RenderSpritesheetComponent;
 class CristalEffect : public BallEffect
 {
 public:
-    CristalEffect(entity_t ent);
+    CristalEffect(BallHandler* hndlr);
     ~CristalEffect() {}
     
     void onHit(entity_t ent) override;
     void update() override;
     inline bool isBig() { return _isBig; }
 
-    __CMPID_DECL__(cmp::CRISTAL_EFFECT);
-    cmpId_t getEffectId() override {return cmp::CRISTAL_EFFECT;};
+    __EFFID_DECL__(effect::CRISTAL);
+    effectId_t getEffectId() override {return effect::CRISTAL;};
 
 private:
     // si no hay bodies cerca puede aumentar

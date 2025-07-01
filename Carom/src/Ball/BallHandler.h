@@ -2,15 +2,35 @@
 #include "PhysicsComponent.h"
 #include "ecs.h"
 #include <vector>
+#include <array>
 
 class CaromScene;
 class BallEffect;
+class PetanqueEffect;
+class CristalEffect;
+class X2Effect;
+class BowlingEffect;
+class AbacusEffect;
+class PokeballEffect;
+class ExplosiveEffect;
+class FrictionMultiplierEffect;
+class PopToOppositeSideEffect;
 
 class BallHandler : public PhysicsComponent
 {
+    friend BallEffect;
+    friend PetanqueEffect;
+    friend CristalEffect;
+    friend X2Effect;
+    friend BowlingEffect;
+    friend AbacusEffect;
+    friend PokeballEffect;
+    friend ExplosiveEffect;
+    friend FrictionMultiplierEffect;
+    friend PopToOppositeSideEffect;
 private:
     CaromScene* _scene;
-    std::vector<BallEffect*> _effects;
+    std::array<BallEffect*, effect::_LAST_EFFECT_ID> _effects;
     //ids de los efectos de ballEffect, que se actualiza constantemente. Ahorra calculos en muchos lados al no tener que calcular de clase a id
     std::vector<effectId_t> _effectIds;
     static constexpr int EFFECTS_LIMIT = 3;
@@ -37,7 +57,6 @@ public:
     void multRoundScore(float mult); // Se usa para multiplicar la puntuacion de ronda, esta pensado para ser usado por los efectos de bola
     void setMult(float newMult); //Define la intensidad de los efectos de bola
 
-    std::vector<BallEffect*>& getEffects() {return _effects;}
     inline float getMult() {return _mult;}
 
     inline std::vector<effectId_t> getEffectsID() { return _effectIds;}

@@ -1,13 +1,12 @@
 #pragma once
 #include "BallEffect.h"
-#include "BallHandler.h"
 
 class QuanticEffect : public BallEffect
 {
 private:
     bool _wasHit = false;
 public:
-    QuanticEffect(entity_t ent) : BallEffect(ent){
+    QuanticEffect(BallHandler* hndlr) : BallEffect(hndlr){
         _name = "Cuántica";
         _description = "X2 puntos al final del tiro si no es golpeada";
     }
@@ -16,7 +15,7 @@ public:
     void init() override;
     void onHit(entity_t ent) override;
     void onStrikeEnd() override;
-    __CMPID_DECL__(cmp::QUANTIC_EFFECT)
-    
-    cmpId_t getEffectId() override {return cmp::QUANTIC_EFFECT;};
+   
+    __EFFID_DECL__(effect::QUANTIC);
+    effectId_t getEffectId() override {return effect::QUANTIC;};
 };

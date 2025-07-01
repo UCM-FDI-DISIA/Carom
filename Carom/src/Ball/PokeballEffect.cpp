@@ -12,21 +12,21 @@ void PokeballEffect::onHit(entity_t ent)
     std::vector effects = ent->getComponent<BallHandler>()->getEffects();
     if(effects.size() == 0) return;
 
-    RenderSpritesheetComponent* renderCmp = _myEntity->getComponent<RenderSpritesheetComponent>();
+    RenderSpritesheetComponent* renderCmp = _handler->_myEntity->getComponent<RenderSpritesheetComponent>();
     if(renderCmp == nullptr) return;
 
     Texture* texture = ent->getComponent<RenderSpritesheetComponent>()->getTexture();
     
     for(BallEffect* effect : effects)
     {
-        _myEntity->stealComponent(ent, effect);
+        _handler->_myEntity->stealComponent(ent, effect);
     }
     
     ent->getComponent<BallHandler>()->removeAllEffects();
-    _myEntity->getComponent<BallHandler>()->breakHit();
+    _handler->_myEntity->getComponent<BallHandler>()->breakHit();
 
     //Actualiza la textura de la bola y se elimina la pokeball
-    _myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(texture);
-    ent->getComponent<RenderSpritesheetComponent>()->setTexture(&sdlutils().images().at("Ignacio"));
-    _myEntity->removeComponent<PokeballEffect>();
+    _handler->_myEntity->getComponent<RenderSpritesheetComponent>()->setTexture(texture);
+    //ent->getComponent<RenderSpritesheetComponent>()->setTexture(&sdlutils().images().at("Ignacio")); a tomar por culo ignacio
+    _handler->_myEntity->removeComponent<PokeballEffect>();
 };

@@ -77,12 +77,12 @@ bool BallHandler::addEffect(effectId_t effect)
     if(_effects.size() < EFFECTS_LIMIT)
     {
         switch(effect){
-            case effect::ABBACUS: _myEntity->addComponent<AbacusEffect>(new AbacusEffect(_myEntity)); break;
-            case effect::BOWLING: _myEntity->addComponent<BowlingEffect>(new BowlingEffect(_myEntity)); break;
-            case effect::CRISTAL: _myEntity->addComponent<CristalEffect>(new CristalEffect(_myEntity)); break;
-            case effect::QUANTIC: _myEntity->addComponent<QuanticEffect>(new QuanticEffect(_myEntity)); break;
-            case effect::PETANQUE: _myEntity->addComponent<PetanqueEffect>(new PetanqueEffect(_myEntity)); break;
-            case effect::X2: _myEntity->addComponent<X2Effect>(new X2Effect(_myEntity)); break;
+            case effect::ABBACUS: _myEntity->addComponent<AbacusEffect>(new AbacusEffect(this)); break;
+            case effect::BOWLING: _myEntity->addComponent<BowlingEffect>(new BowlingEffect(this)); break;
+            case effect::CRISTAL: _myEntity->addComponent<CristalEffect>(new CristalEffect(this)); break;
+            case effect::QUANTIC: _myEntity->addComponent<QuanticEffect>(new QuanticEffect(this)); break;
+            case effect::PETANQUE: _myEntity->addComponent<PetanqueEffect>(new PetanqueEffect(this)); break;
+            case effect::X2: _myEntity->addComponent<X2Effect>(new X2Effect(this)); break;
         }
         _effectIds.push_back(effect);
         return true;

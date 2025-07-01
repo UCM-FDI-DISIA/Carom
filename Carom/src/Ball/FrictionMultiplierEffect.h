@@ -10,13 +10,13 @@ class FrictionMultiplierEffect : public BallEffect {
     float _frictionFactor;
     RigidBodyComponent* _rigidBody;        
 public:
-    __CMPID_DECL__(cmp::FRICTION_MULTIPLIER);
-    cmpId_t getEffectId() override {return cmp::FRICTION_MULTIPLIER; }
+    __EFFID_DECL__(effect::FRICTION_MULTIPLIER_EFFECT);
+    effectId_t getEffectId() override {return effect::FRICTION_MULTIPLIER_EFFECT; }
 
     /// @brief La constructora del efecto de bola con fricción reducida
     /// @param entity La entidad a la que pertenece
     /// @param friction El factor por el que multiplica el linear damping del rigidBody
-    FrictionMultiplierEffect(entity_t entity, float friction);
+    FrictionMultiplierEffect(BallHandler* hndlr, float friction);
     ~FrictionMultiplierEffect();
 
     void init() override;

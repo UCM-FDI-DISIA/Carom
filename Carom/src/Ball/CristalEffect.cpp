@@ -6,16 +6,16 @@
 #include "ShadowComponent.h"
 
 
-CristalEffect::CristalEffect(entity_t ent) 
-    : BallEffect(ent)
+CristalEffect::CristalEffect(BallHandler* hndlr) 
+    : BallEffect(hndlr)
     , _growRequest(false)
-    , _myRender(ent->getComponent<RenderSpritesheetComponent>())
-    , _myRB(ent->getComponent<RigidBodyComponent>())
+    , _myRender(hndlr->_myEntity->getComponent<RenderSpritesheetComponent>())
+    , _myRB(hndlr->_myEntity->getComponent<RigidBodyComponent>())
     , _maxCollisions(4.0f)
     , _maxProportion(2.5f)
     , _isBig(false)
 {
-    _myCaromScene = dynamic_cast<CaromScene*>(&ent->getScene());
+    _myCaromScene = dynamic_cast<CaromScene*>(&hndlr->_myEntity->getScene());
 
 
     _name = "Bola de Cristal";
@@ -46,7 +46,7 @@ void CristalEffect::grow()
     _myRB->setSize(_rb_currSize);
     _myRender->setNewWidth(_render_currSize);
     
-    auto shadows = _myEntity->getComponent<ShadowComponent>()->getShadows();
+    auto shadows = _handler->_myEntity->getComponent<ShadowComponent>()->getShadows();
 
     for (auto& s : shadows) {
         s->getComponent<RenderTextureComponent>()->setNewWidth(_render_currSize);
