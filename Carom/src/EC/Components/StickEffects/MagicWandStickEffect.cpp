@@ -30,8 +30,8 @@ MagicWandStickEffect::applyEffect(entity_t target){
 
     _myEntity->getComponent<StickInputComponent>()->registerWhiteBall(target); //* Reset the right wb
     
-    a_ball1->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball1, target));
-    a_ball2->addComponent<SubdivisionEffect>(new SubdivisionEffect(a_ball2, target));
+    a_ball1->getComponent<BallHandler>()->addEffect<SubdivisionEffect>(new SubdivisionEffect(a_ball1->getComponent<BallHandler>(), target));
+    a_ball2->getComponent<BallHandler>()->addEffect<SubdivisionEffect>(new SubdivisionEffect(a_ball2->getComponent<BallHandler>(), target));
     
     RigidBodyComponent* a_1RB = dynamic_cast<RigidBodyComponent*>(a_ball1->getComponent<RigidBodyComponent>());
     RigidBodyComponent* a_2RB = dynamic_cast<RigidBodyComponent*>(a_ball2->getComponent<RigidBodyComponent>());

@@ -9,7 +9,7 @@
 void
 SubdivisionEffect::onStrikeEnd(){
     _target->activate();
-    _target->getTransform()->setPosition(_myEntity->getTransform()->getPosition());
-    _myEntity->deactivate();
-    dynamic_cast<CaromScene&>(_myEntity->getScene()).activateIndicator();
+    _target->getTransform()->setPosition(_handler->_myEntity->getTransform()->getPosition());
+    _handler->_myEntity->deactivate();
+    dynamic_cast<CaromScene&>(_handler->_myEntity->getScene()).activateIndicator();
 }

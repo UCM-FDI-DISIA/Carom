@@ -11,5 +11,6 @@ GranadeLauncherStickEffect::~GranadeLauncherStickEffect() {}
 
 void 
 GranadeLauncherStickEffect::applyEffect(entity_t ball){
-    ball->addComponent<ExplosiveEffect>(new ExplosiveEffect(ball, _explosionDelay, _radius, _explosionForce));
+    auto ballHandler = ball->getComponent<BallHandler>();
+    ballHandler->addEffect<ExplosiveEffect>(new ExplosiveEffect(ballHandler, _explosionDelay, _radius, _explosionForce));
 } 

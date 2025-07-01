@@ -15,6 +15,7 @@ class PokeballEffect;
 class ExplosiveEffect;
 class FrictionMultiplierEffect;
 class PopToOppositeSideEffect;
+class SubdivisionEffect;
 
 class BallHandler : public PhysicsComponent
 {
@@ -28,6 +29,7 @@ class BallHandler : public PhysicsComponent
     friend ExplosiveEffect;
     friend FrictionMultiplierEffect;
     friend PopToOppositeSideEffect;
+    friend SubdivisionEffect;
 private:
     CaromScene* _scene;
     std::array<BallEffect*, effect::_LAST_EFFECT_ID> _effects;
