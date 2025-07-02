@@ -7,6 +7,7 @@
 #include "CristalEffect.h"
 #include "X2Effect.h"
 #include "QuanticEffect.h"
+#include "PokeballEffect.h"
 
 namespace IdUtils{
 static std::string getEffectStringFromId(effectId_t id){
@@ -41,6 +42,7 @@ static BallEffect* getEffectFromId(effectId_t id, BallHandler* h){
             case effect::QUANTIC: return new QuanticEffect(h); break;
             case effect::PETANQUE: return new PetanqueEffect(h); break;
             case effect::X2: return new X2Effect(h); break;
+            case effect::POKEBALL: return new PokeballEffect(h); break;
         }
         return nullptr;
 }

@@ -11,6 +11,11 @@
 #include "Game.h"
 #include "BallHandler.h"
 
+#include "TransformComponent.h"
+#include "RenderArrayComponent.h"
+#include "StickInputComponent.h"
+#include "ShadowComponent.h"
+
 #include "IdUtils.h"
 
 
@@ -72,6 +77,27 @@ std::vector<entity_t> EntityGenerator::generateInventoryBalls(GameScene& s, std:
     return res;
 }
 
-entity_t EntityGenerator::generateInventoryStick(GameScene& s){
+entity_t EntityGenerator::generateInventoryStick(GameScene& s, b2Vec2 pos){
+// LINEA DE APUNTADO
+    entity_t aimline = new Entity(s, grp::AIM_LINE);
+    aimline->addComponent<TransformComponent>(b2Vec2());
+    aimline->addComponent<RenderArrayComponent>(&sdlutils().images().at("line"), renderLayer::STICK, 0.5, 1.0);
+    
+    // Scale
+    float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
+    float textureSize = sdlutils().images().at("palo1").width();
+    float scale = svgSize/textureSize;
 
+    entity_t e = new Entity(s, grp::PALO);
+    
+    e->addComponent<TransformComponent>(pos);
+
+    e->addComponent<RenderTextureComponent>(&sdlutils().images().at("palo1"), renderLayer::STICK, scale);
+    e->addComponent<TweenComponent>();
+    e->addComponent<StickInputComponent>();
+    e->addComponent<ShadowComponent>();
+
+    
+    e->getComponent<StickInputComponent>()->registerAimLine(aimline);
+    e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
 }

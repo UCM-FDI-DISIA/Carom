@@ -82,9 +82,9 @@ Inventory::getEffectBalls(GameScene& scene, std::vector<b2Vec2> positions) {
 
 
 entity_t 
-Inventory::getStick(GameScene& scene) {
+Inventory::getStick(GameScene& scene, b2Vec2 pos) {
     //retorna el objeto de stick en el json
-    return EntityGenerator::generateInventoryStick(scene);
+    return EntityGenerator::generateInventoryStick(scene, pos);
 }
 
 
