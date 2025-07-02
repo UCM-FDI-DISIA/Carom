@@ -142,7 +142,7 @@ BossRewardScene::createObtainedBalls() {
         switch(firstBallEffect) {
             case effect::ABBACUS: textureKey = "single_AbacusEffect"; break;
             case effect::BOWLING: textureKey = "single_BowlingEffect"; break;
-            case effect::CRISTAL: textureKey = "single_CristalEffect"; break;
+            case effect::CRYSTAL: textureKey = "single_CristalEffect"; break;
             case effect::PETANQUE: textureKey = "single_PetanqueEffect"; break;
             case effect::POKEBALL: textureKey = "single_PokeballEffect"; break;
             case effect::QUANTIC: textureKey = "single_QuanticEffect"; break;

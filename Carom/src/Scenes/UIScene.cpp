@@ -122,7 +122,7 @@ UIScene::getEffectName(effectId_t effect) {
     switch(effect){
         case effect::ABBACUS: return "AbacusEffect";
         case effect::BOWLING: return "BowlingEffect";
-        case effect::CRISTAL: return "CristalEffect";
+        case effect::CRYSTAL: return "CristalEffect";
         case effect::PETANQUE: return "PetanqueEffect";
         case effect::POKEBALL: return "PokeballEffect";
         case effect::QUANTIC: return "QuanticEffect";
@@ -324,7 +324,7 @@ UIScene::createBallInfo() {
                     case effect::BOWLING: 
                         ballEffect = "bowling";
                         break;
-                    case effect::CRISTAL: 
+                    case effect::CRYSTAL: 
                         ballEffect = "cristal";
                         break;
                     case effect::PETANQUE: 

@@ -15,8 +15,8 @@ public:
     void update() override;
     inline bool isBig() { return _isBig; }
 
-    __EFFID_DECL__(effect::CRISTAL);
-    effectId_t getEffectId() override {return effect::CRISTAL;};
+    __EFFID_DECL__(effect::CRYSTAL);
+    effectId_t getEffectId() override {return effect::CRYSTAL;};
 
 private:
     // si no hay bodies cerca puede aumentar

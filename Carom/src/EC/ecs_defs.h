@@ -76,7 +76,7 @@
 	NULO, \
 	ABBACUS, \
     BOWLING, \
-    CRISTAL, \
+    CRYSTAL, \
     QUANTIC, \
     PETANQUE, \
     POKEBALL, \

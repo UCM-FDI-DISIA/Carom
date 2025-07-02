@@ -16,9 +16,13 @@ class ExplosiveEffect;
 class FrictionMultiplierEffect;
 class PopToOppositeSideEffect;
 class SubdivisionEffect;
+class EntityGenerator;
 
 class BallHandler : public PhysicsComponent
 {
+    friend EntityGenerator;
+
+    //friend effects
     friend BallEffect;
     friend PetanqueEffect;
     friend CristalEffect;

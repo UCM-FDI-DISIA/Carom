@@ -33,7 +33,7 @@ public:
             case effect::BOWLING: return "BowlingEffect";
             case effect::PETANQUE: return "PetanqueEffect";
             case effect::POKEBALL: return "PokeballEffect";
-            case effect::CRISTAL: return "CristalEffect";
+            case effect::CRYSTAL: return "CristalEffect";
             case effect::ABBACUS: return "AbacusEffect";
             case effect::QUANTIC: return "QuanticEffect";
             case effect::X2: return "X2Effect";

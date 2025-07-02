@@ -11,6 +11,8 @@
 #include "Game.h"
 #include "BallHandler.h"
 
+#include "IdUtils.h"
+
 
 entity_t EntityGenerator::generateBall(GameScene& s, std::vector<effectId_t> effects, b2Vec2 pos){
     entity_t e = new Entity(s, grp::EFFECTBALLS);
@@ -52,8 +54,9 @@ entity_t EntityGenerator::generateBall(GameScene& s, std::vector<effectId_t> eff
     auto ballHandler = new BallHandler(e);
     e->addComponent<BallHandler>(ballHandler);
 
-    for(auto effect : effects){
-        ballHandler->addEffect(effect);
+    for(auto effectId : effects){
+        auto effect = IdUtils::getEffectFromId(effectId, ballHandler);
+        ballHandler->internalAddEffect(effectId, effect, true);
     }
 
     return e;

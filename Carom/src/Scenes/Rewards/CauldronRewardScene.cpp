@@ -67,7 +67,7 @@ void CauldronRewardScene::initObjects()
             title = sdlutils().texts().at("abbacus_ballName_pool");
             desc = sdlutils().texts().at("abbacus_ballDesc_pool");
             break;
-        case effect::CRISTAL:
+        case effect::CRYSTAL:
             title = sdlutils().texts().at("cristal_ballName_pool");
             desc = sdlutils().texts().at("cristal_ballDesc_pool");
             break;
