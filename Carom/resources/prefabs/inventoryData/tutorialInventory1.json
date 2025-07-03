@@ -1,21 +1,33 @@
 {
-  "caromEase": 3,
-  "charisma": 0,
-  "comboEase": 0,
-  "cunning": 1.0,
-  "hitEase": 0,
-  "power": 0,
-  "slot0": {
-    "components": [
-      {
-        "atributes": {
-          "effects": []
-        },
-        "componentName": "BallHandler"
-      }
-    ]
-  },
-  "stick": {
-    "components": []
-  }
+   "ease": 3,
+   "charisma": 0,
+   "combo": 0,
+   "cunning": 1.0,
+   "hitEase": 0,
+   "power": 0,
+   "slot_0":{
+      "used" : true,
+      "ballEffects" : []
+   },
+   "slot_1":{
+      "used" : false,
+      "ballEffects" : []
+   },
+   "slot_2":{
+      "used" : false,
+      "ballEffects" : []
+   },
+   "slot_3":{
+      "used" : false,
+      "ballEffects" : []
+   },
+   "slot_4":{
+      "used" : false,
+      "ballEffects" : []
+   },
+   "slot_5":{
+      "used" : false,
+      "ballEffects" : []
+   },
+   "stick" :0
 }

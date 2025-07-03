@@ -49,6 +49,9 @@ void Inventory::loadInventoryWithPath(std::string path){
         for(auto it = data[slotName]["ballEffects"].begin() ; it != data[slotName]["ballEffects"].end(); ++it)
         _slots[i].ballEffects.push_back(it.value());
     }
+
+    _stick = data["stick"];
+    f.close();
 }
 
 void Inventory::exportInventoryToSave(){
