@@ -129,10 +129,6 @@ entity_t EntityGenerator::generateInventoryStick(GameScene& s, b2Vec2 pos){
     e->addComponent<TransformComponent>(pos);
 
 
-
-
-
-
     e->addComponent<RenderTextureComponent>(&sdlutils().images().at(textureKey), renderLayer::STICK, scale);
     e->addComponent<TweenComponent>();
     auto stickInputComp = e->addComponent<StickInputComponent>();
@@ -149,7 +145,7 @@ entity_t EntityGenerator::generateInventoryStick(GameScene& s, b2Vec2 pos){
 
 entity_t EntityGenerator::generateWhiteBall(GameScene& s, b2Vec2 pos){
     auto e = generateBall(s, std::vector<effectId_t>(0), pos, grp::WHITEBALL);
-    e->getComponent<RenderComponent>()->setRenderLayer(renderLayer::WHITE_BALL);
+    e->getRenderer()->setRenderLayer(renderLayer::WHITE_BALL);
 
     e->addComponent<WhiteBallScorerComponent>();
 

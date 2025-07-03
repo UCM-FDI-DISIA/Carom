@@ -3,6 +3,7 @@
 #include "TextDisplayComponent.h"
 
 #include "AudioManager.h"
+#include "IdUtils.h"
 
 #include <iostream>
 
@@ -135,29 +136,7 @@ void StickRewardScene::applyReward()
 Texture*
 StickRewardScene::idToTexture(stickId_t id) {
 
-    std::string textureId;
-
-    switch (id)
-    {
-    case stick::BOXING:
-        textureId = "boxing";
-        break;
-    case stick::DONUT:
-        textureId = "donut";
-        break;
-    case stick::GRENADE:
-        textureId = "lanzagranadas";
-        break;
-    case stick::NORMAL_STICK:
-        textureId = "palo1";
-        break;
-    case stick::WAND:
-        textureId = "magic_wand";
-        break;
-    default:
-        textureId = "palo1";
-        break;
-    }
+    std::string textureId = "texture_ " + IdUtils::getStickStringFromId(id);
 
     return &sdlutils().images().at(textureId);
 }
