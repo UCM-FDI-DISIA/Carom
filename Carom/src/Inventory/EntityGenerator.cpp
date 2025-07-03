@@ -78,26 +78,37 @@ std::vector<entity_t> EntityGenerator::generateInventoryBalls(GameScene& s, std:
 }
 
 entity_t EntityGenerator::generateInventoryStick(GameScene& s, b2Vec2 pos){
+    auto stickID = Inventory::Instance()->getStickType();
 // LINEA DE APUNTADO
     entity_t aimline = new Entity(s, grp::AIM_LINE);
     aimline->addComponent<TransformComponent>(b2Vec2());
     aimline->addComponent<RenderArrayComponent>(&sdlutils().images().at("line"), renderLayer::STICK, 0.5, 1.0);
     
+    std::string textureKey = "texture_" + IdUtils::getStickStringFromId(stickID);
     // Scale
     float svgSize = *&sdlutils().svgs().at("game").at("palo1").width;
-    float textureSize = sdlutils().images().at("palo1").width();
+    float textureSize = sdlutils().images().at(textureKey).width();
     float scale = svgSize/textureSize;
 
     entity_t e = new Entity(s, grp::PALO);
     
     e->addComponent<TransformComponent>(pos);
 
-    e->addComponent<RenderTextureComponent>(&sdlutils().images().at("palo1"), renderLayer::STICK, scale);
-    e->addComponent<TweenComponent>();
-    e->addComponent<StickInputComponent>();
-    e->addComponent<ShadowComponent>();
 
+
+
+
+
+    e->addComponent<RenderTextureComponent>(&sdlutils().images().at(textureKey), renderLayer::STICK, scale);
+    e->addComponent<TweenComponent>();
+    auto stickInputComp = e->addComponent<StickInputComponent>();
+    auto shadowComp = e->addComponent<ShadowComponent>();
     
-    e->getComponent<StickInputComponent>()->registerAimLine(aimline);
-    e->getComponent<ShadowComponent>()->addShadow(b2Vec2{-0.05, -0.05}, "palo1_sombra", renderLayer::STICK_SHADOW, scale, true, true, true);
+    stickInputComp->registerAimLine(aimline);
+    std::string shadowTextureKey = "shadow_" + IdUtils::getStickStringFromId(stickID);
+    shadowComp->addShadow(b2Vec2{-0.05, -0.05}, shadowTextureKey , renderLayer::STICK_SHADOW, scale, true, true, true);
+
+    IdUtils::applyStickEffectFromId(stickID, e);
+
+    return e;
 }

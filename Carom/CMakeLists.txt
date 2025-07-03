@@ -191,7 +191,7 @@ add_executable(Carom
     src/EC/Components/StickEffects/MagicWandStickEffect.cpp
     src/EC/Components/StickEffects/WobblyRenderTextureComponent.cpp
 
-    src/JSON/JsonEntityParser.cpp
+    src/Inventory/EntityGenerator.cpp
 
 	src/HitManager/ColorHitManager.cpp
 

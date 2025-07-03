@@ -7,11 +7,11 @@ class Inventory;
 class BoxingGloveStickEffect : public StickEffectComponent {
 private:
 friend Inventory;
-    float _factor;
+    const float FRICTION_FACTOR = 0.75f;
 public:
     __CMPID_DECL__(cmp::BOXING_GLOVE_STICK);
 
-    BoxingGloveStickEffect(entity_t entity, float frictionFactor);
+    BoxingGloveStickEffect(entity_t entity);
     ~BoxingGloveStickEffect();
     void applyEffect(entity_t target) override;
 };

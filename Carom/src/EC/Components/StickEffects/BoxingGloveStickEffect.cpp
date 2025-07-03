@@ -4,7 +4,7 @@
 #include "AudioManager.h"
 
 
-BoxingGloveStickEffect::BoxingGloveStickEffect(entity_t entity, float factor)  : StickEffectComponent(entity), _factor(factor)
+BoxingGloveStickEffect::BoxingGloveStickEffect(entity_t entity)  : StickEffectComponent(entity)
 {
 }
 
@@ -14,6 +14,6 @@ void
 BoxingGloveStickEffect::applyEffect(entity_t target) {
     AudioManager::Instance()->playSoundEfect("boxing");
     auto ballHandler = target->getComponent<BallHandler>();
-    ballHandler->addEffect<FrictionMultiplierEffect>(new FrictionMultiplierEffect(ballHandler, _factor));
+    ballHandler->addEffect<FrictionMultiplierEffect>(new FrictionMultiplierEffect(ballHandler, FRICTION_FACTOR));
 }
 

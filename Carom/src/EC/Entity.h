@@ -64,7 +64,7 @@ public:
         return internalAddComponent(cmpId<T>, component);
     }
 
-    /*
+    
     // Adds a component to an entity. It receives the type T (to be created),
     // and the list of arguments (if any) to be passed to the constructor.
     // NOTE: If the entity already has this component no component is added!
@@ -84,7 +84,7 @@ public:
         }
 		return c;
     }
-        */
+        
 
     /// @brief Addcomponent sobrecargado para componentes de render, así se asegura el orden de las capas al renderizar
     /// @tparam T 
