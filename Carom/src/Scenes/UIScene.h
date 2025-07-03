@@ -41,7 +41,6 @@ protected:
     stickId_t _stickID;
 
     static std::string getTextureName(effectId_t effect);
-    static std::string getEffectName(effectId_t effect);
     
     virtual std::vector<UIScene::ButtonWithSlot> instantiateInventory();
 

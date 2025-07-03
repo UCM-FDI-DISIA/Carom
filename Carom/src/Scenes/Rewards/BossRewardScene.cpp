@@ -11,6 +11,8 @@
 #include "X2Effect.h"
 #include "BallHandler.h"
 
+#include "IdUtils.h"
+
 #include "RewardInfoDisplayComponent.h"
 
 
@@ -212,7 +214,7 @@ BossRewardScene::createBallInfoText()
 
         title = sdlutils().texts().at("ballEffectTitle_pool");
 
-        std::string ballEffect = PoolScene::getEffectName(_obtainedBallsInfo[i].ballEffects[0]);
+        std::string ballEffect = IdUtils::getEffectStringFromId(_obtainedBallsInfo[i].ballEffects[0]);
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");
         ballDesc = sdlutils().texts().at(ballEffect + "_desc_pool");

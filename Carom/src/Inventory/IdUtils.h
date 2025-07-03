@@ -17,7 +17,7 @@
 namespace IdUtils{
 static std::string getEffectStringFromId(effectId_t id){
     switch(id) {
-            case effect::ABBACUS: return "AbacusEffect"; break;
+            case effect::ABBACUS: return "AbaccusEffect"; break;
             case effect::BOWLING: return "BowlingEffect"; break;
             case effect::CRYSTAL: return "CrystalEffect"; break;
             case effect::PETANQUE: return "PetanqueEffect"; break;

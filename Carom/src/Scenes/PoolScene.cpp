@@ -12,6 +12,7 @@
 #include "CaromScene.h"
 #include "CowboyPoolScene.h"
 #include "RussianPyramidScene.h" 
+#include "IdUtils.h"
 
 #include "Inventory.h"
 
@@ -582,7 +583,7 @@ PoolScene::createBallInfoText()
 
         bool isBoss = i == _bossHole;
         std::string ballEffect;
-        if(!isBoss) ballEffect = getEffectName(_poolBallsInfo[i].ballEffects[0]);
+        if(!isBoss) ballEffect = IdUtils::getEffectStringFromId(_poolBallsInfo[i].ballEffects[0]);
         else ballEffect = "boss";
 
         ballName = sdlutils().texts().at(ballEffect + "_name_pool");

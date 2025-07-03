@@ -9,6 +9,8 @@
 #include "StickInputComponent.h"
 #include "ShadowComponent.h"
 
+#include "IdUtils.h"
+
 
 #include "ScenesManager.h"
 
@@ -114,22 +116,9 @@ void UIScene::createButton(int x, int y, std::string text, Texture* t, std::func
 
 std::string 
 UIScene::getTextureName(effectId_t effect) {
-    return "single_" + getEffectName(effect);
+    return "single_" + IdUtils::getEffectStringFromId(effect);
 }
 
-std::string 
-UIScene::getEffectName(effectId_t effect) {
-    switch(effect){
-        case effect::ABBACUS: return "AbacusEffect";
-        case effect::BOWLING: return "BowlingEffect";
-        case effect::CRYSTAL: return "CristalEffect";
-        case effect::PETANQUE: return "PetanqueEffect";
-        case effect::POKEBALL: return "PokeballEffect";
-        case effect::QUANTIC: return "QuanticEffect";
-        case effect::X2: return "X2Effect";
-        default: return "";
-    }
-}
 
 
 std::vector<UIScene::ButtonWithSlot>
@@ -172,7 +161,7 @@ UIScene::instantiateInventory(){
 
         // Guardamos el nombre del primer efecto de bola para renderizar esa textura
         if(_ballsInfo[i].ballEffects.size() >0)
-            textureKey = "single_" + getEffectName(_ballsInfo[i].ballEffects[0]) ;
+            textureKey = "single_" + IdUtils::getEffectStringFromId(_ballsInfo[i].ballEffects[0]) ;
 
         auto ballPos = sdlutils().svgs().at("inventory").at(key);
         auto drawerPos = sdlutils().svgs().at("inventory").at("drawer");
