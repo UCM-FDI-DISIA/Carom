@@ -75,5 +75,7 @@ public:
 
     entity_t getStick(GameScene& scene, b2Vec2 pos = {0,0});
 
+    entity_t getWhiteBall(GameScene& scene, b2Vec2 pos);
+
     void saveBalls(std::vector<entity_t> balls);
 };

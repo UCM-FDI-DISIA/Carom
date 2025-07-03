@@ -7,6 +7,7 @@
 #include "StickInputComponent.h"
 #include <box2d/box2d.h>
 #include "AudioManager.h"
+#include "Inventory.h"
 
 
 void
@@ -20,13 +21,9 @@ MagicWandStickEffect::applyEffect(entity_t target){
     assert(a_targetRB != nullptr && a_scene != nullptr && a_targetTransform != nullptr);
     
     //TODO Hacer que se pueda añadir la subdivision al grupo de efectos de la bola original
-    auto a_ball1 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
-    a_targetRB->getBodyType(), a_targetRB->getDensity(), 
-    a_targetRB->getFriction(), a_targetRB->getRestitution());
+    auto a_ball1 = Inventory::Instance()->getWhiteBall(*a_scene, a_targetTransform->getPosition());
     
-    auto a_ball2 = a_scene->createWhiteBall(a_targetTransform->getPosition(), 
-    a_targetRB->getBodyType(), a_targetRB->getDensity(), 
-    a_targetRB->getFriction(), a_targetRB->getRestitution());
+    auto a_ball2 = Inventory::Instance()->getWhiteBall(*a_scene, a_targetTransform->getPosition());
 
     _myEntity->getComponent<StickInputComponent>()->registerWhiteBall(target); //* Reset the right wb
     

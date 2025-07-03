@@ -133,21 +133,6 @@ RussianPyramidScene::createEffectBalls()
 
     //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
     auto ballsVector = Inventory::Instance()->getEffectBalls(*this, physical_selected_pos);
-
-    //colores
-    for(int i = 0; i < ballsVector.size(); i++){
-        auto ball = ballsVector[i];
-        if(ball!=nullptr){
-            auto color = sdlutils().inventorySlotColor[i];
-            ball->getRenderer()->changeDefaultColorTint(color.r, color.g, color.b);
-        }
-    }
-
-    for(entity_t ball : ballsVector){
-        if(ball != nullptr) {
-            CaromScene::createBallShadow(ball);
-        }
-    }
 }
 
 void RussianPyramidScene::createPyramid(std::vector<b2Vec2> &points, std::vector<b2Vec2> &auxPoints, int polyId)

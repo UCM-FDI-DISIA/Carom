@@ -115,7 +115,8 @@ void CaromScene::initObjects()
 
     createScoreEntity();
     
-    createStick();
+    auto stick = Inventory::Instance()->getStick(*this);
+    stick->deactivate();
     
     // WHITE BALL
     // Converts (x, y) from screen(svg) to meters and to meter coordinates
@@ -123,7 +124,7 @@ void CaromScene::initObjects()
         *&sdlutils().svgs().at("game").at("bola_blanca").x,
         *&sdlutils().svgs().at("game").at("bola_blanca").y
     );
-    auto ball = createWhiteBall(wb_pos, b2_dynamicBody, 1, 0.2, 1);
+    auto ball = Inventory::Instance()->getWhiteBall(*this, wb_pos);
     createIndicator(ball);
         
     // EFFECT BALLS
@@ -137,53 +138,6 @@ void CaromScene::initObjects()
     _currentScoreDisplay = createScoreUI();
     _roundScoreDisplay = createRoundScoreUI();
     _remainingHitsDisplay = createRemainingHitsUI();
-}
-
-entity_t
-CaromScene::createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution) 
-{
-    // SCALE
-    float svgSize = *&sdlutils().svgs().at("game").at("bola_blanca").width;
-    float textureSize = sdlutils().images().at("bola_blanca").width();
-    float scale = svgSize/textureSize;
-
-    entity_t e = new Entity(*this, grp::WHITEBALL);
-
-    float radius = PhysicsConverter::pixel2meter(static_cast<float>(*&sdlutils().svgs().at("game").at("bola_blanca").width)/2);
-    addComponent<CircleRBComponent>(e, pos, b2_dynamicBody, radius); 
-
-    addComponent<RenderTextureComponent>(e, &sdlutils().images().at("bola_blanca"), renderLayer::WHITE_BALL, scale);
-    addComponent<WhiteBallScorerComponent>(e);
-
-    Button::RadialButton rButton = Button::RadialButton(2.0);
-    addComponent<Button>(e, rButton);
-    e->getComponent<Button>()->setOnClick([this](){
-        for (auto& e : getEntitiesOfGroup(grp::PALO)) {
-            e->activate();
-
-            e->getComponent<RenderTextureComponent>()->setEnabled(false);
-            e->getComponent<ShadowComponent>()->setEnabled(false);
-        }
-        for (auto& e : getEntitiesOfGroup(grp::AIM_LINE))
-            e->activate();
-    });
-
-    addComponent<BallHandler>(e);
-    
-    _entsByGroup[grp::PALO][0]->getComponent<StickInputComponent>()->registerWhiteBall(e);
-
-    createBallShadow(e);
-
-    return e;
-}
-
-entity_t CaromScene::createStick()
-{
-    auto stick = Inventory::Instance()->getStick(*this);
-
-    stick->deactivate();
-
-    return stick;
 }
 
 /// @brief Creates and randomly places as many effect balls as specified
@@ -212,50 +166,8 @@ CaromScene::createEffectBalls() {
         randomPositions.push_back(eb_pos);
     }
 
-    //CREA LAS BOLAS DEL JSON DE INVENTARIO Y LAS PONE EN LAS POSICIONES
+    //CREA LAS BOLAS DEL INVENTARIO Y LAS PONE EN LAS POSICIONES
     auto ballsVector = Inventory::Instance()->getEffectBalls(*this, randomPositions);
-
-    //colores
-    for(int i = 0; i < ballsVector.size(); i++){
-        auto ball = ballsVector[i];
-        if(ball!=nullptr){
-            auto color = sdlutils().inventorySlotColor[i];
-            ball->getRenderer()->changeDefaultColorTint(color.r, color.g, color.b);
-        }
-    }
-
-    //AÑADIR SOMBRAS
-    for(auto ball : ballsVector){
-        if(ball!= nullptr){
-            createBallShadow(ball);
-        }
-    }
-}
-
-
-void CaromScene::createBallShadow(entity_t entity){
-    addComponent<ShadowComponent>(entity);
-    ShadowComponent* comp = getComponent<ShadowComponent>(entity);
-
-    //sombra de reflejo de la bola
-    float a_imgScale = sdlutils().images().at("bola_cast_sombra").width();
-
-    float a_svg_scale = sdlutils().svgs().at("game").at("bola_cast_sombra 1").width;
-    float cast_scale = a_svg_scale/a_imgScale;
-
-    comp->addShadow({0,0}, "bola_cast_sombra", renderLayer::BALL_SHADOW_ON_BALL, cast_scale, true, false, true);
-
-    //sombra de la bola
-    a_imgScale = sdlutils().images().at("bola_sombra").width();
-    a_svg_scale = sdlutils().svgs().at("game").at("bola_sombra 1").width;
-    cast_scale = a_svg_scale/a_imgScale;
-
-    Vector2D a_relPos{
-        PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").x - sdlutils().svgs().at("game").at("bola_sombra 1").x - 10),
-        
-        PhysicsConverter::pixel2meter(sdlutils().svgs().at("game").at("bola_blanca").y - sdlutils().svgs().at("game").at("bola_sombra 1").y)
-    };
-    comp->addShadow({a_relPos.getX(), a_relPos.getY()}, "bola_sombra", renderLayer::BALL_SHADOW_ON_TABLE, cast_scale, true, false, true);
 }
 
 void CaromScene::createScoreEntity(){

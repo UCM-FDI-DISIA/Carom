@@ -128,13 +128,7 @@ public:
 
 //---------------------------ENTITY CREATION---------------------------------
 public:
-    entity_t createStick();
-
-    entity_t createWhiteBall(const b2Vec2& pos, b2BodyType type, float density, float friction, float restitution); 
-
     virtual void createEffectBalls();
-    
-    void createBallShadow(entity_t);
 
     void createScoreEntity();
 

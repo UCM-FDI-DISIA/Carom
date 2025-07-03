@@ -87,6 +87,10 @@ Inventory::getStick(GameScene& scene, b2Vec2 pos) {
     return EntityGenerator::generateInventoryStick(scene, pos);
 }
 
+entity_t Inventory::getWhiteBall(GameScene& scene, b2Vec2 pos){
+    return EntityGenerator::generateWhiteBall(scene, pos);
+}
+
 
 
 bool
