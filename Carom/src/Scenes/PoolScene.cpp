@@ -716,11 +716,11 @@ PoolScene::initRandomEffects() {
     //se esta usando _ballsInfo de manera incorrecta aqui, que cojones? no se supone que _ballsInfo se ha usado siempre para las bolas del inventario?
     _poolBallsInfo = std::vector<SlotInfo>(POSITIONS);
     std::vector<RandomItem<effectId_t>> allEffects;
-    constexpr float equalChance = 1.0 / int(effect::X2 +1);
+    constexpr float equalChance = 1.0 / int(generableEffect::maxGenerableEffect);
 
     for(int i = 0; i < POSITIONS; ++i) {
         if(i == _bossHole) continue;
-        for(int i = 1; i < effect::X2 +1; ++i) allEffects.push_back({effectId_t(i), equalChance});
+        for(int i = 1; i < generableEffect::maxGenerableEffect; ++i) allEffects.push_back({effectId_t(i), equalChance});
         addNewEffect(i, 1.0f, allEffects);
     }
 }

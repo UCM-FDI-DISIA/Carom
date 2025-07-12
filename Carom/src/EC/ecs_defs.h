@@ -72,7 +72,8 @@
 
 // Effect list
 // TODO completar	
-#define _EFFECT_LIST_ \
+
+#define _GENERABLE_EFFECT_ \
 	NULO, \
 	ABBACUS, \
     BOWLING, \
@@ -80,13 +81,19 @@
     QUANTIC, \
     PETANQUE, \
     POKEBALL, \
-    X2, \
+    X2
+
+#define _NON_GENERABLE_EFFECT_ \
 	SUBDIVISION_EFFECT, \
 	EXPLOSIVE_EFFECT, \
 	POP_TO_OPPOSITE_EFFECT, \
 	FRICTION_MULTIPLIER_EFFECT
 
-	#define _STICK_LIST_ \
+#define _EFFECT_LIST_ \
+	_GENERABLE_EFFECT_ ,\
+	_NON_GENERABLE_EFFECT_
+
+#define _STICK_LIST_ \
 	NORMAL_STICK, \
     BOXING, \
     DONUT, \

@@ -50,9 +50,21 @@ namespace effect {
 		_EFFECT_LIST_, /* taken from ecs_defs.h */
 	
 		// do not remove this
+		//Tamanyo de la lista completa de efectos (GENERABLE, NON-GENERABLE EFFECTS)
 		_LAST_EFFECT_ID
 	};
 }
+
+//es una clase para esconder un enum que no se deberia usar
+class generableEffect{
+	enum generableEffectId : effectId_t{
+		_GENERABLE_EFFECT_,
+
+		_LAST_GENERABLE_EFFECT_ID
+	};
+	public:
+	static const effectId_t maxGenerableEffect = _LAST_GENERABLE_EFFECT_ID;
+};
 
 namespace stick{
 	enum stickId : stickId_t{
